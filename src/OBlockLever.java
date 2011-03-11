@@ -129,7 +129,7 @@ public class OBlockLever extends OBlock {
         int j = i & 0x7;
         int k = 8 - (i & 0x8);
 
-        // hMod: Allow the lever to change the current
+        // CanaryMod: Allow the lever to change the current
         /*
          * first 3 bits are for postion 4th bit is for power.(on / off)
          */

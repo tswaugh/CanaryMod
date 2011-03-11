@@ -47,7 +47,7 @@ public class OItemBucket extends OItem {
             if (!paramOWorld.a(paramOEntityPlayer, i, j, k)) {
                 return paramOItemStack;
             }
-            // hMod: Click == placed when handling an empty bukkit!
+            // CanaryMod: Click == placed when handling an empty bukkit!
             Block blockClicked = new Block(paramOWorld.a(i, j, k), i, j, k);
             blockClicked.setFaceClicked(Block.Face.fromId(localOMovingObjectPosition.e));
             Block blockPlaced = new Block(0, i, j, k);
@@ -99,7 +99,7 @@ public class OItemBucket extends OItem {
                             paramOWorld.a("largesmoke", i + Math.random(), j + Math.random(), k + Math.random(), 0.0D, 0.0D, 0.0D);
                         }
                     } else {
-                        // hMod: Bucket empty.
+                        // CanaryMod: Bucket empty.
                         blockPlaced = new Block(a, i, j, k);
                         if (paramOEntityPlayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) paramOEntityPlayer).getPlayer(), blockPlaced, blockClicked, new Item(paramOItemStack)))
                             return paramOItemStack;

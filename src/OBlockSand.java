@@ -10,14 +10,14 @@ public class OBlockSand extends OBlock {
 
     @Override
     public void e(OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3) {
-        // hMod: Physics
+        // CanaryMod: Physics
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(bk, paramInt1, paramInt2, paramInt3), true))
             paramOWorld.c(paramInt1, paramInt2, paramInt3, bk, b());
     }
 
     @Override
     public void a(OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3, int paramInt4) {
-        // hMod: Physics
+        // CanaryMod: Physics
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(bk, paramInt1, paramInt2, paramInt3), true))
             paramOWorld.c(paramInt1, paramInt2, paramInt3, bk, b());
     }

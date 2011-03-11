@@ -14,7 +14,7 @@ public class OEntityTracker {
     private MinecraftServer                      c;
     private int                                  d;
 
-    // hMod: New fields to store the runnables in.
+    // CanaryMod: New fields to store the runnables in.
     private static final DelayQueue<DelayedTask> delayQueue = new DelayQueue<DelayedTask>();
 
     public OEntityTracker(MinecraftServer paramMinecraftServer) {
@@ -114,23 +114,23 @@ public class OEntityTracker {
         } catch (ConcurrentModificationException e) {
             // people seem to get this exception often, lets just catch so it
             // doesn't crash the server.
-            MinecraftServer.a.warning("hMod WARNING: ConcurrentModificationException in OEntityTracker:");
+            MinecraftServer.a.warning("CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:");
             e.printStackTrace();
         }
-        // hMod: Execute runnables contained in eventQueue.
+        // CanaryMod: Execute runnables contained in eventQueue.
         for (DelayedTask task = delayQueue.poll(); task != null; task = delayQueue.poll())
             // should we catch exceptions here?
             task.run();
     }
 
-    // hMod: Allow adding of tasks to the queue
+    // CanaryMod: Allow adding of tasks to the queue
 
     public static void add(Runnable task, long delayMillis) {
         // j.u.concurent.* classes are thread safe
         delayQueue.add(new DelayedTask(task, delayMillis));
     }
 
-    // hMod: deprecated. Use server.addToServerQueue().
+    // CanaryMod: deprecated. Use server.addToServerQueue().
     @Deprecated
     public synchronized static void add(Runnable r) {
         add(r, 0L);

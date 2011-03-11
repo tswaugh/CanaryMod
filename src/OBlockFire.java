@@ -85,7 +85,7 @@ public class OBlockFire extends OBlock {
 
                         int i2 = h(paramOWorld, k, n, m);
                         if ((i2 > 0) && (paramRandom.nextInt(i1) <= i2)) {
-                            // hMod: dynamic spreading of fire.{
+                            // CanaryMod: dynamic spreading of fire.{
                             // avg call amount per placed block of fire ~ 4
                             Block block = new Block(paramOWorld.a(k, n, m), k, n, m);
                             block.setStatus(3);
@@ -111,13 +111,13 @@ public class OBlockFire extends OBlock {
         if (paramRandom.nextInt(paramInt4) < i) {
             int j = paramOWorld.a(paramInt1, paramInt2, paramInt3) == OBlock.am.bk ? 1 : 0;
             if (paramRandom.nextInt(2) == 0) {
-                // hMod: VERY SLOW dynamic spreading of fire.
+                // CanaryMod: VERY SLOW dynamic spreading of fire.
                 Block block = new Block(paramOWorld.a(paramInt1, paramInt2, paramInt3), paramInt1, paramInt2, paramInt3);
                 block.setStatus(3);
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null))
                     paramOWorld.e(paramInt1, paramInt2, paramInt3, bk);
             } else {
-                // hMod: fire destroying a block.
+                // CanaryMod: fire destroying a block.
                 Block block = new Block(paramOWorld.a(paramInt1, paramInt2, paramInt3), paramInt1, paramInt2, paramInt3);
                 block.setStatus(4);
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null))
@@ -130,7 +130,7 @@ public class OBlockFire extends OBlock {
     }
 
     private boolean g(OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3) {
-        // hMod: cast down to fix decompiler error.(6 times)
+        // CanaryMod: cast down to fix decompiler error.(6 times)
         if (b((OIBlockAccess) paramOWorld, paramInt1 + 1, paramInt2, paramInt3)) {
             return true;
         }

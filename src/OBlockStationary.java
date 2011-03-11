@@ -32,7 +32,7 @@ public class OBlockStationary extends OBlockFluids {
     public void a(OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3, Random paramRandom) {
         if (bv == OMaterial.g) {
             int i = paramRandom.nextInt(3);
-            // hMod: prevent lava from putting something on fire.
+            // CanaryMod: prevent lava from putting something on fire.
             Block block = new Block(paramOWorld.a(paramInt1, paramInt2, paramInt3), paramInt1, paramInt2, paramInt3);
             block.setStatus(1);
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null))

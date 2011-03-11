@@ -147,7 +147,7 @@ public class OBlockButton extends OBlock {
             return true;
         }
 
-        // hMod: Allow button to provide power
+        // CanaryMod: Allow button to provide power
         int change = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(bk, paramInt1, paramInt2, paramInt3), 0, 1);
         if (change == 0)
             return true;
@@ -239,7 +239,7 @@ public class OBlockButton extends OBlock {
             return;
         }
 
-        // hMod: Allow button to provide power
+        // CanaryMod: Allow button to provide power
         int change = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(bk, paramInt1, paramInt2, paramInt3), 1, 0);
         if (change > 0)
             return;

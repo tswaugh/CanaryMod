@@ -13,10 +13,10 @@ public class OEntityBoat extends OEntity {
     private double h;
     private double i;
 
-    // hMod Start
+    // CanaryMod Start
     Boat           boat = new Boat(this);
 
-    // hMod end
+    // CanaryMod end
 
     public OEntityBoat(OWorld paramOWorld) {
         super(paramOWorld);
@@ -53,7 +53,7 @@ public class OEntityBoat extends OEntity {
         aH = paramDouble2;
         aI = paramDouble3;
 
-        // hMod: Creation of the boat
+        // CanaryMod: Creation of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_CREATE, boat);
     }
 
@@ -64,7 +64,7 @@ public class OEntityBoat extends OEntity {
 
     @Override
     public boolean a(OEntity paramOEntity, int paramInt) {
-        // hMod: Attack of the boat
+        // CanaryMod: Attack of the boat
         if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, boat, paramOEntity == null ? null : paramOEntity.entity, paramInt))
             return true;
 
@@ -94,7 +94,7 @@ public class OEntityBoat extends OEntity {
 
     @Override
     public void f_() {
-        // hMod: Update of the boat
+        // CanaryMod: Update of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, boat);
 
         double prevX = this.aJ;
@@ -251,7 +251,7 @@ public class OEntityBoat extends OEntity {
         aP = (float) (aP + d14);
         c(aP, aQ);
         
-        // hMod: Change of the cart
+        // CanaryMod: Change of the cart
         if(this.aJ != prevX || aK != prevY || aL != prevZ)
             manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, boat, (int)aJ, (int)aK, (int)aL);
         
@@ -290,7 +290,7 @@ public class OEntityBoat extends OEntity {
 
     @Override
     public boolean a(OEntityPlayer paramOEntityPlayer) {
-        // hMod: Entering the boat
+        // CanaryMod: Entering the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, boat, paramOEntityPlayer.entity);
 
         if ((aD != null) && ((aD instanceof OEntityPlayer)) && (aD != paramOEntityPlayer)) {

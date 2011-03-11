@@ -27,7 +27,7 @@ public class OBlockSapling extends OBlockFlower {
         paramOWorld.b(paramInt1, paramInt2, paramInt3, 0);
         OWorldGenerator localObject = new OWorldGenTrees();
 
-        // hMod: generate more diverse trees
+        // CanaryMod: generate more diverse trees
         int rnd = paramRandom.nextInt(11);
         if (rnd == 0)
             localObject = new OWorldGenBigTree();

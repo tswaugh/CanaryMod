@@ -123,7 +123,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
             if (bool) {
                 paramOWorld.b(paramInt1, paramInt2, paramInt3, OBlock.aP.bk, paramOWorld.b(paramInt1, paramInt2, paramInt3));
 
-                // hMod: Allow redstone torches to provide power
+                // CanaryMod: Allow redstone torches to provide power
                 int current = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Object[] { new Block(bk, paramInt1, paramInt2, paramInt3), 1, 0 });
                 if (current == 0)
                     if (a(paramOWorld, paramInt1, paramInt2, paramInt3, true)) {
@@ -138,7 +138,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
                     }
             }
         } else if ((!bool) && (!a(paramOWorld, paramInt1, paramInt2, paramInt3, false))) {
-            // hMod: Allow redstone torches to provide power
+            // CanaryMod: Allow redstone torches to provide power
             int current = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Object[] { new Block(bk, paramInt1, paramInt2, paramInt3), 0, 1 });
             if (current > 0)
                 paramOWorld.b(paramInt1, paramInt2, paramInt3, OBlock.aQ.bk, paramOWorld.b(paramInt1, paramInt2, paramInt3));
@@ -154,7 +154,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
     @Override
     public boolean c(OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3, int paramInt4) {
         if (paramInt4 == 0) {
-            // hMod: forced downcast!
+            // CanaryMod: forced downcast!
             return b((OIBlockAccess) paramOWorld, paramInt1, paramInt2, paramInt3, paramInt4);
         }
         return false;

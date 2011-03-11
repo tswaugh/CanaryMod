@@ -14,7 +14,7 @@ public class OItemMinecart extends OItem {
 
         if (i == OBlock.aG.bk) {
             if (!paramOWorld.t) {
-                // hMod: placing of a mine cart
+                // CanaryMod: placing of a mine cart
                 Block block = new Block(i, paramInt1, paramInt2, paramInt3);
                 Player player = ((OEntityPlayerMP) paramOEntityPlayer).getPlayer();
                 if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, block, block, new Item(paramOItemStack)))

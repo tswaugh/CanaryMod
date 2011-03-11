@@ -140,11 +140,11 @@ public class OChunkProviderServer implements OIChunkProvider {
         }
     }
 
-    // hMod: load status
+    // CanaryMod: load status
     boolean loaded = false;
 
     public boolean a(boolean paramBoolean, OIProgressUpdate paramOIProgressUpdate) {
-        // hMod: load once!
+        // CanaryMod: load once!
         if (!loaded) {
             etc.getLoader().loadPlugins();
             loaded = true;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="hMod JarFile Compiler" default="jar" basedir=".">
+<project name="CanaryMod JarFile Compiler" default="jar" basedir=".">
 	<description>
-		This script will build the hMod jarfile.
+		This script will build the CanaryMod jarfile.
 	</description>
 
 	<property name="src" location="src" />

@@ -186,7 +186,7 @@ public class OEntityItem extends OEntity {
 
         int i = a.a;
         if ((c == 0) && (paramOEntityPlayer.i.a(a))) {
-            // hMod: allow item pickups
+            // CanaryMod: allow item pickups
             Item item = new Item(a.c, i);
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP) paramOEntityPlayer).getPlayer(), item)) {
                 aF.a(this, "random.pop", 0.2F, ((bq.nextFloat() - bq.nextFloat()) * 0.7F + 1.0F) * 2.0F);

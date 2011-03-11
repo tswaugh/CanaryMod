@@ -1,7 +1,7 @@
 public class OTileEntityMobSpawner extends OTileEntity {
 
     public int    a = -1;
-    // hMod: make public to allow reading
+    // CanaryMod: make public to allow reading
     public String h;
     public double b;
     public double c = 0.0D;

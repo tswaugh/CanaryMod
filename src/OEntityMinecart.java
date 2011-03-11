@@ -21,10 +21,10 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     private double                 p;
     private String                 name = "Minecart";
 
-    // hMod start
+    // CanaryMod start
     Minecart                       cart = new Minecart(this);
 
-    // hMod end
+    // CanaryMod end
 
     @Override
     public OItemStack[] getContents() {
@@ -93,7 +93,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         aI = paramDouble3;
         d = paramInt;
 
-        // hMod: Creation of the cart
+        // CanaryMod: Creation of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_CREATE, cart);
     }
 
@@ -102,7 +102,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     }
 
     public boolean a(OEntity paramOEntity, int paramInt) {
-        // hMod: Attack of the cart
+        // CanaryMod: Attack of the cart
         if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, cart, paramOEntity == null ? null : paramOEntity.entity, paramInt))
             return true;
 
@@ -130,7 +130,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     }
 
     public void C() {
-        // hMod: Destruction of the cart
+        // CanaryMod: Destruction of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_DESTROYED, cart);
 
         for (int i1 = 0; i1 < m_(); i1++) {
@@ -160,7 +160,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     }
 
     public void f_() {
-        // hMod: Update of the cart
+        // CanaryMod: Update of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, cart);
 
         if (b > 0) {
@@ -447,7 +447,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         int i1 = OMathHelper.b(paramDouble1);
         int i2 = OMathHelper.b(paramDouble2);
         int i3 = OMathHelper.b(paramDouble3);
-        // hMod: Change of the cart
+        // CanaryMod: Change of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, i1, i2, i3);
 
         if (aF.a(i1, i2 - 1, i3) == OBlock.aG.bk) {
@@ -460,7 +460,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             if ((i4 >= 2) && (i4 <= 5))
                 paramDouble2 = i2 + 1;
             if (i4 > 9) {
-                MinecraftServer.a.warning("hMod Warning: Scambled minecart track data at (" + i + "," + j + "," + k + ") data " + m);
+                MinecraftServer.a.warning("CanaryMod Warning: Scambled minecart track data at (" + i + "," + j + "," + k + ") data " + m);
                 i4 = 9;
             }
 
@@ -556,7 +556,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         if (paramOEntity == aD) {
             return;
         }
-        // hMod: Collision of a cart
+        // CanaryMod: Collision of a cart
         if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_COLLISION, cart, paramOEntity.entity))
             return;
 
@@ -663,7 +663,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     }
 
     public boolean a(OEntityPlayer paramOEntityPlayer) {
-        // hMod: Entering the cart
+        // CanaryMod: Entering the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, cart, paramOEntityPlayer.entity);
 
         if (d == 0) {
@@ -675,7 +675,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             }
         } else if (d == 1) {
             if (!aF.t) {
-                // hMod cast this down to fix decompiler error.
+                // CanaryMod cast this down to fix decompiler error.
                 paramOEntityPlayer.a((OIInventory) this);
             }
         } else if (d == 2) {

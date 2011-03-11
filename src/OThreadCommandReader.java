@@ -6,12 +6,12 @@ import net.minecraft.server.MinecraftServer;
 
 public class OThreadCommandReader extends Thread {
 
-    // hMod: Store server
+    // CanaryMod: Store server
 
     private MinecraftServer server;
 
     public OThreadCommandReader(MinecraftServer paramMinecraftServer) {
-        // hMod: Actually store it
+        // CanaryMod: Actually store it
         server = paramMinecraftServer;
     }
 
@@ -20,7 +20,7 @@ public class OThreadCommandReader extends Thread {
         BufferedReader localBufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String str = null;
         try {
-            // hMod: Parse all console commands
+            // CanaryMod: Parse all console commands
             while ((!server.g) && ((str = localBufferedReader.readLine()) != null))
                 if (!etc.getInstance().parseConsoleCommand(str, server))
                     server.a(str, server);

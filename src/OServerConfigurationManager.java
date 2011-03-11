@@ -13,12 +13,12 @@ import net.minecraft.server.MinecraftServer;
 public class OServerConfigurationManager {
 
     public static Logger         a = Logger.getLogger("Minecraft");
-    // hMod set list to contain <OEntityPlayerMP> objects.
+    // CanaryMod set list to contain <OEntityPlayerMP> objects.
     public List<OEntityPlayerMP> b = new ArrayList();
     private MinecraftServer      c;
     private OPlayerManager       d;
     private int                  e;
-    // hMod set these to Set<String> to remove errors and warnings.
+    // CanaryMod set these to Set<String> to remove errors and warnings.
     private Set<String>          f = new HashSet();
     private Set<String>          g = new HashSet();
     private Set<String>          h = new HashSet();
@@ -37,7 +37,7 @@ public class OServerConfigurationManager {
         if (!etc.getInstance().getTainted())
             a.info("Hey0 Server Mod Build " + etc.getInstance().getVersion());
         else
-            a.info("hMod Build Information: " + etc.getInstance().getVersionStr());
+            a.info("CanaryMod Build Information: " + etc.getInstance().getVersionStr());
         c = paramMinecraftServer;
         j = paramMinecraftServer.a("banned-players.txt");
         k = paramMinecraftServer.a("banned-ips.txt");
@@ -75,7 +75,7 @@ public class OServerConfigurationManager {
         }
         c.e.a(paramOEntityPlayerMP);
         d.a(paramOEntityPlayerMP);
-        // hMod: Handle login (send MOTD and call hook)
+        // CanaryMod: Handle login (send MOTD and call hook)
         String[] motd = etc.getInstance().getMotd();
         if (!(motd.length == 1 && motd[0].equals("")))
             for (String str : etc.getInstance().getMotd())
@@ -102,7 +102,7 @@ public class OServerConfigurationManager {
             paramONetLoginHandler.a("You are banned from this server!");
             return null;
         }
-        // hMod: whole section below is modified to handle whitelists etc
+        // CanaryMod: whole section below is modified to handle whitelists etc
         OEntityPlayerMP temp = new OEntityPlayerMP(c, c.e, paramString1, new OItemInWorldManager(c.e));
         Player player = temp.getPlayer();
 
@@ -140,7 +140,7 @@ public class OServerConfigurationManager {
             }
         }
 
-        // hMod: user passed basic login check, inform plugins.
+        // CanaryMod: user passed basic login check, inform plugins.
         Object obj = etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, paramString1);
         if (obj instanceof String) {
             String result = (String) obj;
@@ -437,7 +437,7 @@ public class OServerConfigurationManager {
     }
 
     public void a(int paramInt1, int paramInt2, int paramInt3, OTileEntity paramOTileEntity) {
-        // hMod: fix sign updating in beta 1.1_02
+        // CanaryMod: fix sign updating in beta 1.1_02
         // Check if bg (TileEntity) is a Sign
         if (paramOTileEntity instanceof OTileEntitySign)
             d.sendPacketToChunk(((OTileEntitySign) paramOTileEntity).e(), paramInt1, paramInt2, paramInt3);

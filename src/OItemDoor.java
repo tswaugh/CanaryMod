@@ -25,7 +25,7 @@ public class OItemDoor extends OItem {
             return false;
         }
 
-        // hMod: Doors onItemUse
+        // CanaryMod: Doors onItemUse
         Block blockClicked = new Block(paramOWorld.a(paramInt1, paramInt2, paramInt3), paramInt1, paramInt2, paramInt3);
         blockClicked.setFaceClicked(Block.Face.fromId(paramInt4));
         Block blockPlaced = new Block(paramOWorld.a(paramInt1, paramInt2 + 1, paramInt3), paramInt1, paramInt2 + 1, paramInt3);

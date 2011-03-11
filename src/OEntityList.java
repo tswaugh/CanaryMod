@@ -56,7 +56,7 @@ public class OEntityList {
         return (String) b.get(paramOEntity.getClass());
     }
 
-    // hMod: Let us do a name->class lookup for mob spawning
+    // CanaryMod: Let us do a name->class lookup for mob spawning
     public static Class<?> getEntity(String name) {
         return a.get(name);
     }

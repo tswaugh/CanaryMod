@@ -106,7 +106,7 @@ public class OBlockLeaves extends OBlockLeavesBase {
     }
 
     private void g(OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3) {
-        // hMod: stop leaves from decaying
+        // CanaryMod: stop leaves from decaying
         Block block = new Block(etc.getServer().getBlockIdAt(paramInt1, paramInt2, paramInt3), paramInt1, paramInt2, paramInt3);
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.LEAF_DECAY, block)) {
             b_(paramOWorld, paramInt1, paramInt2, paramInt3, paramOWorld.b(paramInt1, paramInt2, paramInt3));

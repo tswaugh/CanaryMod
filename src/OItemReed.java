@@ -8,7 +8,7 @@ public class OItemReed extends OItem {
     }
 
     public boolean a(OItemStack paramOItemStack, OEntityPlayer paramOEntityPlayer, OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3, int paramInt4) {
-        // hMod: Store blockClicked
+        // CanaryMod: Store blockClicked
         int clicked = paramOWorld.a(paramInt1, paramInt2, paramInt3);
         Block blockClicked = new Block(clicked, paramInt1, paramInt2, paramInt3);
 
@@ -40,7 +40,7 @@ public class OItemReed extends OItem {
         }
 
         if (paramOWorld.a(a, paramInt1, paramInt2, paramInt3, false)) {
-            // hMod: Reed placement
+            // CanaryMod: Reed placement
             Block blockPlaced = new Block(paramOWorld.a(paramInt1, paramInt2, paramInt3), paramInt1, paramInt2, paramInt3);
             blockClicked.setFaceClicked(Block.Face.fromId(paramInt4));
             Player player = ((OEntityPlayerMP) paramOEntityPlayer).getPlayer();

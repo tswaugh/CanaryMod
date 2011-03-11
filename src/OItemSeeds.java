@@ -16,7 +16,7 @@ public class OItemSeeds extends OItem {
         int i = paramOWorld.a(paramInt1, paramInt2, paramInt3);
 
         if ((i == OBlock.aA.bk) && (paramOWorld.e(paramInt1, paramInt2 + 1, paramInt3))) {
-            // hMod: Seeds
+            // CanaryMod: Seeds
             Block blockClicked = new Block(i, paramInt1, paramInt2, paramInt3);
             blockClicked.setFaceClicked(Block.Face.fromId(paramInt4));
             Block blockPlaced = new Block(paramOWorld.a(paramInt1, paramInt2 + 1, paramInt3), paramInt1, paramInt2 + 1, paramInt3);

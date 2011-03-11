@@ -18,7 +18,7 @@ public class ONetworkListenThread {
     private ArrayList<ONetServerHandler> h = new ArrayList<ONetServerHandler>();
     public MinecraftServer               c;
 
-    // hMod: These static methods are here because dx.java is calling them
+    // CanaryMod: These static methods are here because dx.java is calling them
     // statically... >.>
     static ServerSocket a(ONetworkListenThread self) {
         return self.d;

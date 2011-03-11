@@ -19,7 +19,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     private OItemStack[]       bG = { null, null, null, null, null };
     private int                bH = 0;
     public boolean             h;
-    // hMod: Player storage
+    // CanaryMod: Player storage
     private Player             player;
 
     public OEntityPlayerMP(MinecraftServer paramMinecraftServer, OWorld paramOWorld, String paramString, OItemInWorldManager paramOItemInWorldManager) {
@@ -44,10 +44,10 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         c = paramOItemInWorldManager;
         bb = 0.0F;
 
-        // hMod: So we don't conflict with runecraft
+        // CanaryMod: So we don't conflict with runecraft
         c = new Digging(paramOWorld, this);
 
-        // hMod: Store player
+        // CanaryMod: Store player
         player = etc.getDataSource().getPlayer(paramString);
         player.setUser(this);
     }
@@ -70,7 +70,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void l() {
-        // hMod: Make sure this gets cast correctly, or mutant puppies will
+        // CanaryMod: Make sure this gets cast correctly, or mutant puppies will
         // spawn and eat your items.
         k.a((OICrafting) this);
     }
@@ -110,7 +110,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(OEntity paramOEntity) {
-        // hMod: drops inventory on death.
+        // CanaryMod: drops inventory on death.
         if (etc.getInstance().isHealthEnabled())
             i.g();
     }
@@ -162,7 +162,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             }
         }
 
-        // hMod: Update the health
+        // CanaryMod: Update the health
         if (X != bF) {
             // updates your health when it is changed.
             if (!etc.getInstance().isHealthEnabled()) {
@@ -178,7 +178,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     private void a(OTileEntity paramOTileEntity) {
         if (paramOTileEntity != null) {
-            // hMod: Let plugins know we're showing a sign
+            // CanaryMod: Let plugins know we're showing a sign
             if (paramOTileEntity instanceof OTileEntitySign) {
                 Sign sign = new Sign((OTileEntitySign) paramOTileEntity);
                 manager.callHook(PluginLoader.Hook.SIGN_SHOW, getPlayer(), sign);
@@ -258,13 +258,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         a.b(new OPacket100(bH, 1, "Crafting", 9));
         k = new OCraftingInventoryWorkbenchCB(i, aF, paramInt1, paramInt2, paramInt3);
         k.f = bH;
-        // hMod: Make sure this gets cast correctly, or mutant puppies will
+        // CanaryMod: Make sure this gets cast correctly, or mutant puppies will
         // spawn and eat your items.
         k.a((OICrafting) this);
     }
 
     public void a(OIInventory paramOIInventory) {
-        // hMod: Check if we can open this
+        // CanaryMod: Check if we can open this
         Inventory inv = null;
         String name = paramOIInventory.c();
         if (paramOIInventory instanceof OTileEntityChest) {
@@ -283,13 +283,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         a.b(new OPacket100(bH, 0, name, paramOIInventory.m_()));
         k = new OCraftingInventoryChestCB(i, paramOIInventory);
         k.f = bH;
-        // hMod: Make sure this gets cast correctly, or mutant puppies will
+        // CanaryMod: Make sure this gets cast correctly, or mutant puppies will
         // spawn and eat your items.
         k.a((OICrafting) this);
     }
 
     public void a(OTileEntityFurnace paramOTileEntityFurnace) {
-        // hMod: Check if we can open this
+        // CanaryMod: Check if we can open this
         Inventory inv = new Furnace(paramOTileEntityFurnace);
         String name = paramOTileEntityFurnace.c();
         if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv))
@@ -302,7 +302,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         a.b(new OPacket100(bH, 2, name, paramOTileEntityFurnace.m_()));
         k = new OCraftingInventoryFurnaceCB(i, paramOTileEntityFurnace);
         k.f = bH;
-        // hMod: Make sure this gets cast correctly, or mutant puppies will
+        // CanaryMod: Make sure this gets cast correctly, or mutant puppies will
         // spawn and eat your items.
         k.a((OICrafting) this);
     }
@@ -320,7 +320,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         a.b(new OPacket100(bH, 3, name, paramOTileEntityDispenser.m_()));
         k = new OCraftingInventoryDispenserCB(i, paramOTileEntityDispenser);
         k.f = bH;
-        // hMod: Make sure this gets cast correctly, or mutant puppies will
+        // CanaryMod: Make sure this gets cast correctly, or mutant puppies will
         // spawn and eat your items.
         k.a((OICrafting) this);
     }

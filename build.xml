@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="hMod Full Package Compiler" default="dist" basedir=".">
+<project name="CanaryMod Full Package Compiler" default="dist" basedir=".">
 	<description>
-		This script will build the hMod jarfile and zip appropriate files.
+		This script will build the CanaryMod jarfile and zip appropriate files.
 	</description>
 
 	<property name="src" location="src" />
@@ -67,7 +67,7 @@
 				<include name="*.txt" />
 			</fileset>
 		</copy>
-		<zip destfile="${dist}/hMod.zip" basedir="${dist}" />
+		<zip destfile="${dist}/CanaryMod.zip" basedir="${dist}" />
 	</target>
 
 	<target name="clean" description="Remove the output directories">

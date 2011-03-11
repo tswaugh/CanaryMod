@@ -13,7 +13,7 @@ public class OItemHoe extends OItem {
         OMaterial localOMaterial = paramOWorld.c(paramInt1, paramInt2 + 1, paramInt3);
 
         if (((!localOMaterial.a()) && (i == OBlock.u.bk)) || (i == OBlock.v.bk)) {
-            // hMod: Hoes
+            // CanaryMod: Hoes
             Block blockClicked = new Block(i, paramInt1, paramInt2, paramInt3);
             blockClicked.setFaceClicked(Block.Face.fromId(paramInt4));
             Block blockPlaced = new Block(paramOWorld.a(paramInt1, paramInt2 + 1, paramInt3), paramInt1, paramInt2 + 1, paramInt3);

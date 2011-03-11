@@ -68,14 +68,14 @@ public class ServerConsoleCommands {
         return commands.get(command);
     }
 
-    public static final BaseCommand reload        = new BaseCommand("- Reloads hMod") {
+    public static final BaseCommand reload        = new BaseCommand("- Reloads CanaryMod") {
                                                       @Override
                                                       void execute(MessageReceiver caller, String[] parameters) {
                                                           etc.getInstance().load();
                                                           etc.getInstance().loadData();
                                                           for (Player p : etc.getServer().getPlayerList())
                                                               p.getUser().reloadPlayer();
-                                                          log.info("hMod reloaded by " + caller.getName());
+                                                          log.info("CanaryMod reloaded by " + caller.getName());
                                                           caller.notify("Successfully reloaded config");
                                                       }
                                                   };
@@ -271,7 +271,7 @@ public class ServerConsoleCommands {
                                                           if (!etc.getInstance().getTainted())
                                                               caller.notify(Colors.Gold + "Hey0 Server Mod Build " + etc.getInstance().getVersion());
                                                           else
-                                                              caller.notify(Colors.Gold + "Unofficial hMod Build " + etc.getInstance().getVersionStr());
+                                                              caller.notify(Colors.Gold + "Unofficial CanaryMod Build " + etc.getInstance().getVersionStr());
                                                       }
                                                   };
 }

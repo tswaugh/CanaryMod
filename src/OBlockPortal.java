@@ -39,7 +39,7 @@ public class OBlockPortal extends OBlockBreakable {
             j = 1;
         }
 
-        // Hmod: comment out debug message.
+        // CanaryMod: comment out debug message.
         // System.out.println(i + ", " + j);
         if (i == j) {
             return false;

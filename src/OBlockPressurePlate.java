@@ -88,7 +88,7 @@ public class OBlockPressurePlate extends OBlock {
             j = 1;
         }
 
-        // hMod: Allow pressure plate interaction to power redstone
+        // CanaryMod: Allow pressure plate interaction to power redstone
         if (j != i) {
             j = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(bk, paramInt1, paramInt2, paramInt3), i, j);
             if (j > 0)

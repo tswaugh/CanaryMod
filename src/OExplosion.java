@@ -26,16 +26,16 @@ public class OExplosion {
     }
 
     public void a() {
-        // hMod: allow explosion
+        // CanaryMod: allow explosion
         Block block = new Block(i.a((int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d)), (int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d));
 
-        // hMod: preserve source through blockstatus.
+        // CanaryMod: preserve source through blockstatus.
         if (e == null)
             block.setStatus(1); // TNT
         else if (e instanceof OEntityCreeper)
             block.setStatus(2); // Creeper
 
-        // hMod: call explode hook.
+        // CanaryMod: call explode hook.
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block))
             return;
 
@@ -113,7 +113,7 @@ public class OExplosion {
 
                 double d10 = i.a(localOVec3D, localOEntity.aT);
                 double d11 = (1.0D - d8) * d10;
-                // hMod Damage hook: Explosions
+                // CanaryMod Damage hook: Explosions
                 int damage = (int) ((d11 * d11 + d11) / 2.0D * 8.0D * f + 1.0D);
                 PluginLoader.DamageType dmgType = (e instanceof OEntityCreeper) ? PluginLoader.DamageType.CREEPER_EXPLOSION : PluginLoader.DamageType.EXPLOSION;
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, null, localOEntity.entity, damage))

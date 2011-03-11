@@ -84,7 +84,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 l = true;
             }
         }
-        // hMod: Notice player movement
+        // CanaryMod: Notice player movement
         if (etc.floor(i) != etc.floor(getPlayer().getX()) || etc.floor(j) != etc.floor(getPlayer().getY()) || etc.floor(k) != etc.floor(getPlayer().getZ())) {
             Location from = new Location();
             from.x = etc.floor(i);
@@ -121,7 +121,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     d6 = paramOPacket10Flying.c;
                 }
 
-                // hMod: Make tmp copy of e.k as it sets k to null but has to
+                // CanaryMod: Make tmp copy of e.k as it sets k to null but has to
                 // run first :/
                 OEntity tmp = e.aE;
 
@@ -133,7 +133,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 e.aM = d5;
                 e.aO = d6;
 
-                // hMod: set player as no longer in vehicle (that of tmp).
+                // CanaryMod: set player as no longer in vehicle (that of tmp).
                 d.e.b(tmp, true);
 
                 if (e.aE != null) {
@@ -223,7 +223,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(double paramDouble1, double paramDouble2, double paramDouble3, float paramFloat1, float paramFloat2) {
-        // hMod: Teleportation hook
+        // CanaryMod: Teleportation hook
         Location from = new Location();
         from.x = paramDouble1;
         from.y = paramDouble2;
@@ -242,7 +242,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         e.a.b(new OPacket13PlayerLookMove(paramDouble1, paramDouble2 + 1.620000004768372D, paramDouble2, paramDouble3, paramFloat1, paramFloat2, false));
     }
 
-    // hMod: Store x/y/z
+    // CanaryMod: Store x/y/z
     int x, y, z, type;
 
     public void a(OPacket14BlockDig paramOPacket14BlockDig) {
@@ -250,7 +250,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             e.y();
             return;
         }
-        // hMod: We allow admins and ops to dig!
+        // CanaryMod: We allow admins and ops to dig!
         boolean bool = d.e.v = d.f.h(getPlayer().getName()) || getPlayer().isAdmin();
         int n = 0;
         if (paramOPacket14BlockDig.e == 0) {
@@ -279,17 +279,17 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         if (i4 > i5) {
             i5 = i4;
         }
-        // hMod: the player
+        // CanaryMod: the player
         Player player = getPlayer();
 
         if (paramOPacket14BlockDig.e == 0) {
-            // hMod: Start digging
+            // CanaryMod: Start digging
             // No buildrights
             if (!getPlayer().canBuild())
                 return;
-            // hMod: Custom spawn prot size
+            // CanaryMod: Custom spawn prot size
             if ((i5 > etc.getInstance().getSpawnProtectionSize()) || (bool)) {
-                // hMod: Dig hooks
+                // CanaryMod: Dig hooks
                 Block block = etc.getServer().getBlockAt(i1, i2, i3);
                 block.setStatus(0); // Started digging
                 x = block.getX();
@@ -300,14 +300,14 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     e.c.a(i1, i2, i3);
             }
         } else if (paramOPacket14BlockDig.e == 2) {
-            // hMod: Stop digging
+            // CanaryMod: Stop digging
             Block block = etc.getServer().getBlockAt(i1, i2, i3);
             block.setStatus(2); // Stopped digging
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
 
             e.c.b(i1, i2, i3);
         } else if (paramOPacket14BlockDig.e == 3) {
-            // hMod: Break block
+            // CanaryMod: Break block
             Block block = new Block(type, x, y, z);
             block.setStatus(3);
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
@@ -323,17 +323,17 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         d.e.v = false;
     }
 
-    // hMod: Store the blocks between blockPlaced packets
+    // CanaryMod: Store the blocks between blockPlaced packets
     Block lastRightClicked;
 
     public void a(OPacket15Place paramOPacket15Place) {
         OItemStack localOItemStack = e.i.b();
 
-        // hMod: We allow admins and ops to build!
+        // CanaryMod: We allow admins and ops to build!
         boolean bool = d.e.v = (d.f.h(getPlayer().getName()) || getPlayer().isAdmin());
 
-        // hMod: Store block data to call hooks
-        // hMod START
+        // CanaryMod: Store block data to call hooks
+        // CanaryMod START
         Block blockClicked = null;
         Block blockPlaced = null;
 
@@ -374,10 +374,10 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     break;
             }
         }
-        // hMod: END
+        // CanaryMod: END
 
         if (paramOPacket15Place.d == 255) {
-            // hMod: call our version with extra blockClicked/blockPlaced
+            // CanaryMod: call our version with extra blockClicked/blockPlaced
             if (blockPlaced != null)
                 // Set the type of block to what it currently is
                 blockPlaced.setType(etc.getServer().getBlockIdAt(blockPlaced.getX(), blockPlaced.getY(), blockPlaced.getZ()));
@@ -391,31 +391,31 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             int i2 = paramOPacket15Place.c;
             int i3 = paramOPacket15Place.d;
             OChunkCoordinates localOChunkCoordinates = d.e.l();
-            // hMod : Fix stupid buggy spawn protection.
+            // CanaryMod : Fix stupid buggy spawn protection.
             int i4 = (int) OMathHelper.e((i3 == 4 ? n - 1 : (i3 == 5 ? (n + 1) : n)) - localOChunkCoordinates.a);
-            // hMod : Fix stupid buggy spawn protection.
+            // CanaryMod : Fix stupid buggy spawn protection.
             int i5 = (int) OMathHelper.e((i3 == 2 ? i2 - 1 : (i3 == 3 ? (i2 + 1) : i2)) - localOChunkCoordinates.c);
             if (i4 > i5)
                 i5 = i4;
-            // hMod: call BLOCK_RIGHTCLICKED
+            // CanaryMod: call BLOCK_RIGHTCLICKED
             Item item = (localOItemStack != null) ? new Item(localOItemStack) : new Item(Item.Type.Air);
             Player player = getPlayer();
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_RIGHTCLICKED, player, blockClicked, item);
 
-            // hMod: call original BLOCK_CREATED
+            // CanaryMod: call original BLOCK_CREATED
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_CREATED, player, blockPlaced, blockClicked, item.getItemId());
-            // hMod: If we were building inside spawn, bail! (unless ops/admin)
+            // CanaryMod: If we were building inside spawn, bail! (unless ops/admin)
 
             if (((i5 > etc.getInstance().getSpawnProtectionSize() && !etc.getInstance().isOnItemBlacklist(item.getItemId())) || bool) && player.canBuild()) {
                 e.c.a(e, d.e, localOItemStack, n, i1, i2, i3);
             } else {
-                // hMod: No point sending the client to update the blocks, you
+                // CanaryMod: No point sending the client to update the blocks, you
                 // weren't allowed to place!
                 d.e.v = false;
                 return;
             }
 
-            // hMod: these are the 'block changed' packets for the client.
+            // CanaryMod: these are the 'block changed' packets for the client.
 
             e.a.b(new OPacket53BlockChange(n, i1, i2, d.e));
 
@@ -458,7 +458,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(String paramString, Object[] paramArrayOfObject) {
-        // hMod: disconnect!
+        // CanaryMod: disconnect!
         OEntity.manager.callHook(PluginLoader.Hook.DISCONNECT, getPlayer());
         a.info(e.r + " lost connection: " + paramString);
         d.f.a(new OPacket3Chat("§e" + e.r + " left the game."));
@@ -482,13 +482,13 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
     public void a(OPacket3Chat paramOPacket3Chat) {
         String str = paramOPacket3Chat.a;
-        // hMod: redirect chathandling to player class
+        // CanaryMod: redirect chathandling to player class
         getPlayer().chat(str);
     }
 
     public void a(OPacket18ArmAnimation paramOPacket18ArmAnimation) {
         if (paramOPacket18ArmAnimation.b == 1) {
-            // hMod: Swing the arm!
+            // CanaryMod: Swing the arm!
             OEntity.manager.callHook(PluginLoader.Hook.ARM_SWING, getPlayer());
             e.r();
         }
@@ -583,7 +583,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             int i2;
             for (int n = 0; n < 4; n++) {
                 i1 = 1;
-                // hMod: Remove the char limit, for plugins.
+                // CanaryMod: Remove the char limit, for plugins.
                 // if (paramOPacket130.d[n].length() > 15) {
                 // i1 = 0;
                 // } else {
@@ -602,12 +602,12 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 i1 = paramOPacket130.b;
                 i2 = paramOPacket130.c;
                 OTileEntitySign localOTileEntitySign = (OTileEntitySign) localOTileEntity;
-                // hMod: Copy the old line text
+                // CanaryMod: Copy the old line text
                 String[] old = Arrays.copyOf(localOTileEntitySign.a, localOTileEntitySign.a.length);
                 for (int i3 = 0; i3 < 4; i3++) {
                     localOTileEntitySign.a[i3] = paramOPacket130.d[i3];
                 }
-                // hMod: Check if we can change it
+                // CanaryMod: Check if we can change it
                 Sign sign = new Sign(localOTileEntitySign);
                 if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.SIGN_CHANGE, getPlayer(), sign))
                     localOTileEntitySign.a = Arrays.copyOf(old, old.length);

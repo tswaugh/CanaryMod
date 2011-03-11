@@ -15,7 +15,7 @@ public class OItemSign extends OItem {
             return false;
         }
 
-        // hMod: Store block data clicked
+        // CanaryMod: Store block data clicked
         Block blockClicked = new Block(paramOWorld.a(paramInt1, paramInt2, paramInt3), paramInt1, paramInt2, paramInt3);
         blockClicked.setFaceClicked(Block.Face.fromId(paramInt4));
 
@@ -40,7 +40,7 @@ public class OItemSign extends OItem {
             return false;
         }
 
-        // hMod: Now we can call itemUse :)
+        // CanaryMod: Now we can call itemUse :)
         Block blockPlaced = new Block((paramInt4 == 1 ? OBlock.aD.bk : OBlock.aI.bk), paramInt1, paramInt2, paramInt3);
         if (paramOEntityPlayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) paramOEntityPlayer).getPlayer(), blockPlaced, blockClicked, new Item(paramOItemStack)))
             return false;

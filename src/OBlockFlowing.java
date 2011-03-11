@@ -19,7 +19,7 @@ public class OBlockFlowing extends OBlockFluids {
 
     @Override
     public void a(OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3, Random paramRandom) {
-        // hMod: Store originating block
+        // CanaryMod: Store originating block
         Block blockFrom = new Block(bk, paramInt1, paramInt2, paramInt3);
 
         int i = g(paramOWorld, paramInt1, paramInt2, paramInt3);
@@ -79,7 +79,7 @@ public class OBlockFlowing extends OBlockFluids {
             i(paramOWorld, paramInt1, paramInt2, paramInt3);
         }
         if (l(paramOWorld, paramInt1, paramInt2 - 1, paramInt3)) {
-            // hMod: downwards flow.
+            // CanaryMod: downwards flow.
             Block blockTo = new Block(0, paramInt1, paramInt2 - 1, paramInt3);
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))
                 if (i >= 8) {
@@ -96,7 +96,7 @@ public class OBlockFlowing extends OBlockFluids {
             if (n >= 8) {
                 return;
             }
-            // hMod: sidewards flow.
+            // CanaryMod: sidewards flow.
             if (arrayOfBoolean[0]) {
                 Block blockTo = new Block(0, paramInt1 - 1, paramInt2, paramInt3);
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))
@@ -253,7 +253,7 @@ public class OBlockFlowing extends OBlockFluids {
     }
 
     private boolean l(OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3) {
-        // hMod: See if this liquid can destroy this block.
+        // CanaryMod: See if this liquid can destroy this block.
         Block block = new Block(paramOWorld.a(paramInt1, paramInt2, paramInt3), paramInt1, paramInt2, paramInt3);
         PluginLoader.HookResult ret = (PluginLoader.HookResult) etc.getLoader().callHook(PluginLoader.Hook.LIQUID_DESTROY, bk, block);
         if (ret == PluginLoader.HookResult.PREVENT_ACTION)

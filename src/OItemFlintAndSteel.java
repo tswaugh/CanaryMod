@@ -7,7 +7,7 @@ public class OItemFlintAndSteel extends OItem {
     }
 
     public boolean a(OItemStack paramOItemStack, OEntityPlayer paramOEntityPlayer, OWorld paramOWorld, int paramInt1, int paramInt2, int paramInt3, int paramInt4) {
-        // hMod: Store block data clicked
+        // CanaryMod: Store block data clicked
         Block blockClicked = new Block(paramOWorld.a(paramInt1, paramInt2, paramInt3), paramInt1, paramInt2, paramInt3);
         blockClicked.setFaceClicked(Block.Face.fromId(paramInt4));
 
@@ -33,7 +33,7 @@ public class OItemFlintAndSteel extends OItem {
         int i = paramOWorld.a(paramInt1, paramInt2, paramInt3);
 
         if (i == 0) {
-            // hMod: Hook to control ignites AND ligther use
+            // CanaryMod: Hook to control ignites AND ligther use
             Block blockPlaced = new Block(Block.Type.Fire.getType(), paramInt1, paramInt2, paramInt3);
             Player player = ((OEntityPlayerMP) paramOEntityPlayer).getPlayer();
 

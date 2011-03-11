@@ -65,11 +65,11 @@ public abstract class OEntity {
     public int                  bC;
     public int                  bD;
 
-    // hMod Start
+    // CanaryMod Start
     BaseEntity                  entity  = new BaseEntity(this);
     public static PluginLoader  manager = etc.getLoader();
 
-    // hMod end
+    // CanaryMod end
 
     public OEntity(OWorld paramOWorld) {
         aF = paramOWorld;
@@ -176,7 +176,7 @@ public abstract class OEntity {
                 }
             } else {
                 if (bt % 20 == 0) {
-                    // hMod Damage hook: Periodic burn damage
+                    // CanaryMod Damage hook: Periodic burn damage
                     if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE_TICK, null, entity, 1))
                         a((OEntity) null, 1);
                 }
@@ -203,7 +203,7 @@ public abstract class OEntity {
 
     protected void P() {
         if (!by) {
-            // hMod Damage hook: Lava
+            // CanaryMod Damage hook: Lava
             if (this instanceof OEntityLiving)
                 if ((Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.LAVA, null, entity, 4))
                     return;

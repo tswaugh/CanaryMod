@@ -57,10 +57,10 @@ public abstract class OEntityLiving extends OEntity {
     private OEntity   b;
     private int       c      = 0;
 
-    // hMod Start
+    // CanaryMod Start
     LivingEntity      entity = new LivingEntity(this);
 
-    // hMod end
+    // CanaryMod end
 
     public OEntityLiving(OWorld paramOWorld) {
         super(paramOWorld);
@@ -115,7 +115,7 @@ public abstract class OEntityLiving extends OEntity {
         }
 
         if ((J()) && (D())) {
-            // hMod Damage hook: Suffocation
+            // CanaryMod Damage hook: Suffocation
             if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.SUFFOCATION, null, entity, 1))
                 a((OEntity) null, 1);
         }
@@ -134,7 +134,7 @@ public abstract class OEntityLiving extends OEntity {
                     float f3 = bq.nextFloat() - bq.nextFloat();
                     aF.a("bubble", aJ + f1, aK + f2, aL + f3, aM, aN, aO);
                 }
-                // hMod Damage hook: Drowning
+                // CanaryMod Damage hook: Drowning
                 if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.WATER, null, entity, 2))
                     a((OEntity) null, 2);
             }
@@ -298,10 +298,10 @@ public abstract class OEntityLiving extends OEntity {
 
         aj = 1.5F;
 
-        // hMod damage entities.
+        // CanaryMod damage entities.
         LivingEntity attacker = (paramOEntity != null && paramOEntity instanceof OEntityLiving) ? new LivingEntity((OEntityLiving) paramOEntity) : null;
 
-        // hMod attack by entity, but it might not do damage!
+        // CanaryMod attack by entity, but it might not do damage!
         if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.ATTACK, attacker, entity, paramInt))
             return false;
 
@@ -309,14 +309,14 @@ public abstract class OEntityLiving extends OEntity {
         if (bw > C / 2.0F) {
             if (paramInt <= as)
                 return false;
-            // hMod: partial damage
+            // CanaryMod: partial damage
             if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENTITY, attacker, entity, paramInt - as))
                 return false;
             c(paramInt - as);
             as = paramInt;
             i = 0;
         } else {
-            // hMod: full damage
+            // CanaryMod: full damage
             if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENTITY, attacker, entity, paramInt))
                 return false;
 
@@ -330,7 +330,7 @@ public abstract class OEntityLiving extends OEntity {
         aa = 0.0F;
 
         if (i != 0) {
-            // hMod: forced cast to send 'damage animation'.
+            // CanaryMod: forced cast to send 'damage animation'.
             aF.a(this, (byte) 2);
             R();
             if (paramOEntity != null) {
@@ -406,7 +406,7 @@ public abstract class OEntityLiving extends OEntity {
             o();
         }
 
-        // hMod: Forced cast to play Death Animations.
+        // CanaryMod: Forced cast to play Death Animations.
         aF.a(this, (byte) 3);
     }
 
@@ -427,7 +427,7 @@ public abstract class OEntityLiving extends OEntity {
     protected void a(float paramFloat) {
         int i = (int) Math.ceil(paramFloat - 3.0F);
         if (i > 0) {
-            // hMod Damage hook: Falling
+            // CanaryMod Damage hook: Falling
             if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FALL, null, entity, i))
                 a((OEntity) null, i);
 

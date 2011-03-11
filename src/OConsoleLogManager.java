@@ -23,7 +23,7 @@ public class OConsoleLogManager {
         } catch (Exception localException) {
             a.log(Level.WARNING, "Failed to log to server.log", localException);
         }
-        // hMod: Keep the serveroutput logs.
+        // CanaryMod: Keep the serveroutput logs.
         File log = new File("logs");
         try {
             if (!log.exists())

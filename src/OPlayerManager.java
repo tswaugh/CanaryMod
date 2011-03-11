@@ -122,7 +122,7 @@ public class OPlayerManager {
             return;
         }
         
-        //hMod speed up teleporting.
+        //CanaryMod speed up teleporting.
         if (n > 10 || n < -10 || i1 > 10 || i1 < -10) {
             b(paramOEntityPlayerMP);
             a(paramOEntityPlayerMP);
@@ -151,7 +151,7 @@ public class OPlayerManager {
         return 144;
     }
 
-    // hMod: OPlayerInstance calls these statically
+    // CanaryMod: OPlayerInstance calls these statically
     static MinecraftServer a(OPlayerManager jh1) {
         return jh1.d;
     }
@@ -164,7 +164,7 @@ public class OPlayerManager {
         return jh1.c;
     }
 
-    // hMod: bring back old "send packet to chunk" method from alpha
+    // CanaryMod: bring back old "send packet to chunk" method from alpha
     public void sendPacketToChunk(OPacket packetToSend, int globalx, int globaly, int globalz) {
         // Get chunk coordinates
         int chunkx = globalx >> 4;
@@ -175,5 +175,5 @@ public class OPlayerManager {
         if (localat != null)
             localat.a(packetToSend);
     }
-    // end hMod
+    // end CanaryMod
 }

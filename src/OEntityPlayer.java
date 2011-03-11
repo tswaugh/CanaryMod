@@ -28,10 +28,10 @@ public abstract class OEntityPlayer extends OEntityLiving {
     private int                 d      = 0;
     public OEntityFish          B      = null;
 
-    // hMod start
+    // CanaryMod start
     HumanEntity                 entity = new HumanEntity(this);
 
-    // hMod end
+    // CanaryMod end
 
     public OEntityPlayer(OWorld paramOWorld) {
         super(paramOWorld);
@@ -145,7 +145,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
     }
 
     public void q() {
-        // hMod: adjust 'healing over time' independent of
+        // CanaryMod: adjust 'healing over time' independent of
         // monster-spawn=true/false (nice notchup!)
         PluginLoader.HookResult autoHeal = etc.getInstance().autoHeal();
         if ((aF.j == 0) && (autoHeal == PluginLoader.HookResult.DEFAULT_ACTION) || autoHeal == PluginLoader.HookResult.ALLOW_ACTION)
