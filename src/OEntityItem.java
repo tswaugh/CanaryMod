@@ -36,14 +36,15 @@ public class OEntityItem extends OEntity {
     protected void a() {
     }
 
-    private long lastcall = System.currentTimeMillis();
-    private static int floor(double d) { int rt = (int) d; return rt > d ? rt-1 : rt; }
+    //private long lastcall = System.currentTimeMillis();
+    //private static int ceil(double d) { int rt = (int) d; return rt > d ? rt : rt + 1; }
     @Override
     public void f_() {
         super.f_();
         if (c > 0) {
-            c -= floor((lastcall - System.currentTimeMillis())/50);
-            lastcall = System.currentTimeMillis();
+            /*c -= ceil((lastcall - System.currentTimeMillis())/25);
+            lastcall = System.currentTimeMillis();*/
+            c--;
         }
         aH = aK;
         aI = aL;
