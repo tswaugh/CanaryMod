@@ -44,12 +44,7 @@ public class OItemBucket extends OItem {
 
             if (!paramOWorld.a(paramOEntityPlayer, i, j, k))
                 return paramOItemStack;
-<<<<<<< HEAD
-            }
             // CanaryMod: Click == placed when handling an empty bukkit!
-=======
-            // hMod: Click == placed when handling an empty bukkit!
->>>>>>> 86436969753f31d5b04cb25ba9ae15df82cfe768
             Block blockClicked = new Block(paramOWorld.a(i, j, k), i, j, k);
             blockClicked.setFaceClicked(Block.Face.fromId(localOMovingObjectPosition.e));
             Block blockPlaced = new Block(0, i, j, k);

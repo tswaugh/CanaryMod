@@ -48,7 +48,6 @@
 	</target>
 
 	<target name="dist" depends="jar" >
-		<buildnumber file="files/version.txt" />
 		<copy todir="${dist}">
 			<fileset dir="files">
 				<include name="*.sql" />
@@ -57,7 +56,6 @@
 				<include name="*.sh" />
 			</fileset>
 			<fileset dir="jarjar">
-				<include name="minecraft_server.jar" />
 				<include name="jarjar.jar" />
 				<include name="mysql-connector-java-bin.jar" />
 				<include name="rules.rules" />

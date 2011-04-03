@@ -212,7 +212,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         int i1 = OMathHelper.b(aK);
         int i2 = OMathHelper.b(aL);
         int i3 = OMathHelper.b(aM);
-     // hMod: Change of the cart
+        // CanaryMod: Change of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, i1, i2, i3);
 
         if (aG.a(i1, i2 - 1, i3) == OBlock.aG.bl)
@@ -446,7 +446,6 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             if ((i4 >= 2) && (i4 <= 5))
                 paramDouble2 = i2 + 1;
             if (i4 > 9) {
-                MinecraftServer.a.warning("CanaryMod Warning: Scambled minecart track data at (" + i + "," + j + "," + k + ") data " + m);
                 i4 = 9;
             }
 

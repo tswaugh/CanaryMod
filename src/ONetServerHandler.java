@@ -266,7 +266,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         int i5 = (int) OMathHelper.e(i3 - localOChunkCoordinates.c);
         if (i4 > i5)
             i5 = i4;
-        // hMod: the player
+        // CanaryMod: the player
         Player player = getPlayer();
 
         if (paramOPacket14BlockDig.e == 0) {
