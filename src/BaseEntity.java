@@ -127,7 +127,7 @@ public class BaseEntity {
      * @return pitch
      */
     public float getPitch() {
-        return entity.aQ;
+        return entity.aR;
     }
 
     /**
@@ -146,7 +146,7 @@ public class BaseEntity {
      * @return rotation
      */
     public float getRotation() {
-        return entity.aR;
+        return entity.aQ;
     }
 
     /**

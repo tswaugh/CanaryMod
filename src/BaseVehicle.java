@@ -5,7 +5,7 @@
  */
 public class BaseVehicle extends BaseEntity {
     /**
-     * Creptes an interface for a vehicle
+     * Creates an interface for a vehicle
      * 
      * @param entity
      */
@@ -93,7 +93,7 @@ public class BaseVehicle extends BaseEntity {
      * Destroys this vehicle
      */
     public void destroy() {
-        entity.C();
+        entity.D();
     }
 
     /**

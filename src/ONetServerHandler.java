@@ -605,14 +605,14 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 // CanaryMod: Copy the old line text
                 String[] old = Arrays.copyOf(localOTileEntitySign2.a, localOTileEntitySign2.a.length);
 
+                for (int i3 = 0; i3 < 4; i3++)
+                    localOTileEntitySign2.a[i3] = paramOPacket130.d[i3];
+
                 // CanaryMod: Check if we can change it
                 Sign sign = new Sign(localOTileEntitySign2);
                 if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.SIGN_CHANGE, getPlayer(), sign))
                     localOTileEntitySign2.a = Arrays.copyOf(old, old.length);
-
                 
-                for (int i3 = 0; i3 < 4; i3++)
-                    localOTileEntitySign2.a[i3] = paramOPacket130.d[i3];
                 localOTileEntitySign2.i();
                 d.e.g(n, i1, i2);
             }

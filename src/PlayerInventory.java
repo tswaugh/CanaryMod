@@ -53,7 +53,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inve
     }
 
     public void update() {
-        user.l();
+        user.f_();
     }
 
     /**

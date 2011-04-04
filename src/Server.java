@@ -103,7 +103,7 @@ public class Server {
      * @return time server time
      */
     public long getTime() {
-        return server.e.k(); // Thank you Bukkit
+        return server.e.l();
     }
 
     /**
@@ -126,7 +126,7 @@ public class Server {
      *            time (-2^63 to 2^63-1)
      */
     public void setTime(long time) {
-        server.e.a(time); // Again, thank you Bukkit
+        server.e.a(time);
     }
 
     /**
@@ -724,6 +724,6 @@ public class Server {
      * @return true if the block is being indirectly powered
      */
     public boolean isBlockIndirectlyPowered(int x, int y, int z) {
-        return server.e.o(x, y, z);
+        return server.e.p(x, y, z);
     }
 }

@@ -303,24 +303,24 @@ public class Item {
     /**
      * Creates an item from the actual item class
      * 
-     * @param hn
+     * @param itemStack
      */
-    public Item(OItemStack hn) {
-        itemId = hn.c;
-        amount = hn.a;
-        slot = hn.b;
-        damage = hn.g();
+    public Item(OItemStack itemStack) {
+        itemId = itemStack.c;
+        amount = itemStack.a;
+        slot = itemStack.b;
+        damage = itemStack.g();
         itemType = Type.fromId(itemId);
     }
 
     /**
      * Creates an item from the actual item class at the given slot
      * 
-     * @param hn
+     * @param itemStack
      * @param slot
      */
-    public Item(OItemStack hn, int slot) {
-        this(hn);
+    public Item(OItemStack itemStack, int slot) {
+        this(itemStack);
         this.slot = slot;
     }
 
