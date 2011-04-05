@@ -119,7 +119,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             return true;
         c = (-c);
         b = 10;
-        W();
+        V();
         a += paramInt * 10;
         if (a > 40) {
             a(OItem.ax.bd, 1, 0.0F);

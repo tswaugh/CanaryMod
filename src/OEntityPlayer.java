@@ -444,7 +444,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
                 }
             }
             if ((paramOEntity instanceof OEntityLiving)) {
-                if (paramOEntity.N())
+                if (paramOEntity.M())
                     a((OEntityLiving) paramOEntity, true);
                 a(OStatList.s, i1);
             }
@@ -468,7 +468,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
     }
 
     public OEnumStatus a(int paramInt1, int paramInt2, int paramInt3) {
-        if ((F()) || (!N()))
+        if ((F()) || (!M()))
             return OEnumStatus.e;
 
         if (aG.m.c)
@@ -652,6 +652,4 @@ public abstract class OEntityPlayer extends OEntityLiving {
         super.a(paramFloat);
     }
 
-    public void J() {
-    }
 }

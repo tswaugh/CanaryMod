@@ -102,23 +102,23 @@ public abstract class OEntityLiving extends OEntity {
         return 80;
     }
 
-    public void K() {
+    public void J() {
         String str = e();
         if (str != null)
             aG.a(this, str, i(), (bq.nextFloat() - bq.nextFloat()) * 0.2F + 1.0F);
     }
 
     @Override
-    public void L() {
+    public void K() {
         U = V;
-        super.L();
+        super.K();
 
         if (bq.nextInt(1000) < a++) {
             a = (-c());
-            K();
+            J();
         }
 
-        if ((N()) && (E()))
+        if ((M()) && (E()))
             // CanaryMod Damage hook: Suffocation
             if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.SUFFOCATION, null, entity, 1))
                 a((OEntity) null, 1);
@@ -127,7 +127,7 @@ public abstract class OEntityLiving extends OEntity {
         if ((by) || (aG.t))
             bt = 0;
         int i;
-        if ((N()) && (a(OMaterial.f)) && (!b_())) {
+        if ((M()) && (a(OMaterial.f)) && (!b_())) {
             bx -= 1;
             if (bx == -20) {
                 bx = 0;
@@ -158,7 +158,7 @@ public abstract class OEntityLiving extends OEntity {
         if (W <= 0) {
             ab += 1;
             if (ab > 20) {
-                Q();
+                P();
                 D();
                 for (i = 0; i < 20; i++) {
                     double d1 = bq.nextGaussian() * 0.02D;
@@ -176,7 +176,7 @@ public abstract class OEntityLiving extends OEntity {
         aT = aR;
     }
 
-    public void M() {
+    public void L() {
         for (int i = 0; i < 20; i++) {
             double d1 = bq.nextGaussian() * 0.02D;
             double d2 = bq.nextGaussian() * 0.02D;
@@ -289,7 +289,7 @@ public abstract class OEntityLiving extends OEntity {
         if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.ATTACK, attacker, entity, paramInt))
             return false;
 
-        
+
         int i = 1;
         if (bw > C / 2.0F) {
             if (paramInt <= as)
@@ -318,7 +318,7 @@ public abstract class OEntityLiving extends OEntity {
         if (i != 0) {
             // CanaryMod: forced cast to send 'damage animation'.
             aG.a(this, (byte)2);
-            W();
+            V();
             if (paramOEntity != null) {
                 double d1 = paramOEntity.aK - aK;
                 double d2 = paramOEntity.aM - aM;
@@ -432,7 +432,7 @@ public abstract class OEntityLiving extends OEntity {
 
             if ((aW) && (b(aN, aO + 0.6000000238418579D - aL + d1, aP)))
                 aO = 0.300000011920929D;
-        } else if (V()) {
+        } else if (U()) {
             double d1 = aL;
             a(paramFloat1, paramFloat2, 0.02F);
             c(aN, aO, aP);
@@ -467,7 +467,7 @@ public abstract class OEntityLiving extends OEntity {
                 bh = 0.0F;
                 if (aO < -0.15D)
                     aO = -0.15D;
-                if ((Z()) && (aO < 0.0D))
+                if ((Y()) && (aO < 0.0D))
                     aO = 0.0D;
 
             }
@@ -518,7 +518,7 @@ public abstract class OEntityLiving extends OEntity {
     }
 
     @Override
-    public boolean N() {
+    public boolean M() {
         return (!bb) && (W > 0);
     }
 
@@ -554,7 +554,7 @@ public abstract class OEntityLiving extends OEntity {
             c_();
 
         boolean bool1 = g_();
-        boolean bool2 = V();
+        boolean bool2 = U();
 
         if (ax)
             if (bool1)
@@ -637,7 +637,7 @@ public abstract class OEntityLiving extends OEntity {
         }
 
         boolean bool1 = g_();
-        boolean bool2 = V();
+        boolean bool2 = U();
         if ((bool1) || (bool2))
             ax = (bq.nextFloat() < 0.8F);
     }
@@ -665,11 +665,11 @@ public abstract class OEntityLiving extends OEntity {
         aQ = b(aQ, f1, paramFloat1);
     }
 
-    public boolean O() {
+    public boolean N() {
         return b != null;
     }
 
-    public OEntity P() {
+    public OEntity O() {
         return b;
     }
 
@@ -686,7 +686,7 @@ public abstract class OEntityLiving extends OEntity {
         return paramFloat1 + f;
     }
 
-    public void Q() {
+    public void P() {
     }
 
     public boolean b() {
@@ -694,12 +694,12 @@ public abstract class OEntityLiving extends OEntity {
     }
 
     @Override
-    protected void R() {
+    protected void Q() {
         a((OEntity)null, 4);
     }
 
     @Override
-    public OVec3D S() {
+    public OVec3D R() {
         return b(1.0F);
     }
 

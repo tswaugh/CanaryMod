@@ -93,7 +93,7 @@ public abstract class OEntity {
 
     protected abstract void a();
 
-    public ODataWatcher T() {
+    public ODataWatcher S() {
         return bz;
     }
 
@@ -134,10 +134,10 @@ public abstract class OEntity {
     }
 
     public void f_() {
-        L();
+        K();
     }
 
-    public void L() {
+    public void K() {
         if ((aF != null) && (aF.bb))
             aF = null;
 
@@ -191,11 +191,11 @@ public abstract class OEntity {
                 bt -= 1;
             }
 
-        if (V())
-            U();
+        if (U())
+            T();
 
         if (aL < -64.0D)
-            R();
+            Q();
 
         if (!aG.t) {
             a(0, bt > 0);
@@ -205,7 +205,7 @@ public abstract class OEntity {
         c = false;
     }
 
-    protected void U() {
+    protected void T() {
         if (!by) {
             // CanaryMod Damage hook: Lava
             if (this instanceof OEntityLiving)
@@ -217,7 +217,7 @@ public abstract class OEntity {
         }
     }
 
-    protected void R() {
+    protected void Q() {
         D();
     }
 
@@ -247,7 +247,7 @@ public abstract class OEntity {
 
         OAxisAlignedBB localOAxisAlignedBB1 = aU.b();
 
-        int i = (aV) && (Z()) ? 1 : 0;
+        int i = (aV) && (Y()) ? 1 : 0;
 
         if (i != 0) {
             double d6 = 0.05D;
@@ -463,7 +463,7 @@ public abstract class OEntity {
         return 0.0F;
     }
 
-    public boolean V() {
+    public boolean U() {
         return aG.a(aU.b(-0.1000000014901161D, -0.4000000059604645D, -0.1000000014901161D), OMaterial.g);
     }
 
@@ -590,12 +590,12 @@ public abstract class OEntity {
         aP += paramDouble3;
     }
 
-    protected void W() {
+    protected void V() {
         aZ = true;
     }
 
     public boolean a(OEntity paramOEntity, int paramInt) {
-        W();
+        V();
         return false;
     }
 
@@ -611,7 +611,7 @@ public abstract class OEntity {
     }
 
     public boolean c(ONBTTagCompound paramONBTTagCompound) {
-        String str = X();
+        String str = W();
         if ((bb) || (str == null))
             return false;
         paramONBTTagCompound.a("id", str);
@@ -666,7 +666,7 @@ public abstract class OEntity {
         b(paramONBTTagCompound);
     }
 
-    protected final String X() {
+    protected final String W() {
         return OEntityList.b(this);
     }
 
@@ -703,7 +703,7 @@ public abstract class OEntity {
         return localOEntityItem;
     }
 
-    public boolean N() {
+    public boolean M() {
         return !bb;
     }
 
@@ -802,18 +802,18 @@ public abstract class OEntity {
         paramOEntity.aE = this;
     }
 
-    public OVec3D S() {
+    public OVec3D R() {
         return null;
     }
 
-    public void Y() {
+    public void X() {
     }
 
     public OItemStack[] k_() {
         return null;
     }
 
-    public boolean Z() {
+    public boolean Y() {
         return d(1);
     }
 

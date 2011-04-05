@@ -127,6 +127,6 @@ public class OBlockPortal extends OBlockBreakable {
         if (paramOWorld.t)
             return;
 
-        paramOEntity.Y();
+        paramOEntity.W();
     }
 }

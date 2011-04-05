@@ -1,6 +1,6 @@
 /**
- * BaseEntity.java - Class for accessing things that all entities share - X, Y,
- * Z, health.
+ * BaseEntity.java - Class for accessing things that all entities share - W, X,
+ * Y, health.
  * 
  * @author James
  */
@@ -65,7 +65,7 @@ public class BaseEntity {
     }
 
     /**
-     * Returns the entity's X
+     * Returns the entity's W
      * 
      * @return x
      */
@@ -74,7 +74,7 @@ public class BaseEntity {
     }
 
     /**
-     * Sets the entity's X
+     * Sets the entity's W
      * 
      * @param x
      *            x to set
@@ -84,7 +84,7 @@ public class BaseEntity {
     }
 
     /**
-     * Returns the entity's Y
+     * Returns the entity's X
      * 
      * @return y
      */
@@ -93,7 +93,7 @@ public class BaseEntity {
     }
 
     /**
-     * Sets the entity's Y
+     * Sets the entity's X
      * 
      * @param y
      *            y to set
@@ -103,7 +103,7 @@ public class BaseEntity {
     }
 
     /**
-     * Returns the entity's Z
+     * Returns the entity's Y
      * 
      * @return z
      */
@@ -112,7 +112,7 @@ public class BaseEntity {
     }
 
     /**
-     * Sets the entity's Z
+     * Sets the entity's Y
      * 
      * @param z
      *            z to set

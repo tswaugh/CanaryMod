@@ -258,13 +258,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         super.a(paramDouble, paramBoolean);
     }
 
-    private void aa() {
+    private void Z() {
         bH = (bH % 100 + 1);
     }
 
     @Override
     public void b(int paramInt1, int paramInt2, int paramInt3) {
-        aa();
+        Z();
         a.b(new OPacket100(bH, 1, "Crafting", 9));
         k = new OCraftingInventoryWorkbenchCB(i, aG, paramInt1, paramInt2, paramInt3);
         k.f = bH;
@@ -291,7 +291,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         if (inv != null)
             name = inv.getName();
 
-        aa();
+        Z();
         a.b(new OPacket100(bH, 0, name, paramOIInventory.q_()));
         k = new OCraftingInventoryChestCB(i, paramOIInventory);
         k.f = bH;
@@ -313,7 +313,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
 
         
-        aa();
+        Z();
         a.b(new OPacket100(bH, 2, name, paramOTileEntityFurnace.q_()));
         k = new OCraftingInventoryFurnaceCB(i, paramOTileEntityFurnace);
         k.f = bH;
@@ -332,7 +332,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         if (dis != null)
             name = dis.getName();
 
-        aa();
+        Z();
         a.b(new OPacket100(bH, 3, name, paramOTileEntityDispenser.q_()));
         k = new OCraftingInventoryDispenserCB(i, paramOTileEntityDispenser);
         k.f = bH;

@@ -155,7 +155,7 @@ public class OEntityItem extends OEntity {
 
     @Override
     public boolean a(OEntity paramOEntity, int paramInt) {
-        W();
+        V();
         f -= paramInt;
         if (f <= 0)
             D();

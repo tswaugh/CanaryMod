@@ -80,7 +80,7 @@ public class OEntityBoat extends OEntity {
         c = (-c);
         b = 10;
         a += paramInt * 10;
-        W();
+        V();
         if (a > 40) {
             for (int j = 0; j < 3; j++)
                 a(OBlock.x.bl, 1, 0.0F);
