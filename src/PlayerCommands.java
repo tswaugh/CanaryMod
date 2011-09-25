@@ -1078,7 +1078,6 @@ public class PlayerCommands {
 
             HitBlox hb = new HitBlox((Player) caller);
             Block block = hb.getTargetBlock();
-            System.out.println(String.format("x: %d y: %d z: %d",block.getX(), block.getY(), block.getZ()));
             if (block != null && block.getType() == 52) { // mob spawner
                 MobSpawner ms = (MobSpawner) ((Player) caller).getWorld().getComplexBlock(block.getX(), block.getY(), block.getZ());
                 if (ms != null){
