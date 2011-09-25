@@ -74,8 +74,12 @@ public class OEntityMinecart extends OEntity implements OIInventory {
 
    public boolean a(ODamageSource var1, int var2) {
       // CanaryMod: Attack of the cart
-      if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, cart, var1 == null ? null : var1, var2))
-         return true;
+      BaseEntity entity = null;
+      if(var1 != null && var1.a() != null) {
+    	  entity = new BaseEntity(var1.a());
+	  }
+      if((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, cart, entity, var2))
+	     return true;
 
       if(!this.bb.I && !this.bx) {
          this.c = -this.c;
