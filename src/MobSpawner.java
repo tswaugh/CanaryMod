@@ -54,7 +54,7 @@ public class MobSpawner implements ComplexBlock {
      */
     public void setSpawn(String spawn) {
         spawner.d = spawn;
-        update();
+        //update(); If we call update here, mobspawner resets to default (Pig)
     }
 
     /**
