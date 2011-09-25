@@ -24,7 +24,7 @@ public class Digging extends OItemInWorldManager {
      */
     public Digging(OWorldServer world, OEntityPlayerMP player) {
         this(world);
-        a = player;
+        b = player;
     }
 
     // Drop block break lag fix here.
@@ -39,7 +39,7 @@ public class Digging extends OItemInWorldManager {
     @Override
     public boolean c(int x, int y, int z) {
         // Block block = etc.getServer().getBlockAt(x, y, z);
-        Block block = ((OEntityPlayerMP) a).getPlayer().getWorld().getBlockAt(x, y, z); //
+        Block block = ((OEntityPlayerMP) b).getPlayer().getWorld().getBlockAt(x, y, z); //
         if (block.getType() == Block.Type.Obsidian.getType()) {
             boolean removeAll = true;
             ArrayList<Player> updatedPlayers = new ArrayList<Player>();
@@ -71,7 +71,7 @@ public class Digging extends OItemInWorldManager {
                 return true;
             }
         }
-        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_BROKEN, ((OEntityPlayerMP) a).getPlayer(), block))
+        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_BROKEN, ((OEntityPlayerMP) b).getPlayer(), block))
             return true;
         return super.c(x, y, z);
     }
@@ -127,7 +127,7 @@ public class Digging extends OItemInWorldManager {
     public boolean a(OEntityPlayer player, OWorld world, OItemStack item, Block blockToPlace, Block blockClicked) {
         // CanaryMod: only call this hook if we're not using buckets/signs
         if (item != null)
-            if (item.a > 0 && item.c != Item.Type.Sign.getId() && item.c != Item.Type.Bucket.getId() && item.c != Item.Type.WaterBucket.getId() && item.c != Item.Type.LavaBucket.getId())
+            if (item.a > 0 && item.c != Item.Type.Sign.getId() && item.c != Item.Type.Bucket.getId() && item.c != Item.Type.WaterBucket.getId() && item.c != Item.Type.LavaBucket.getId() && item.c != Item.Type.MilkBucket.getId())
                 if (player instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) player).getPlayer(), blockToPlace, blockClicked, new Item(item)))
                     return false;
         return super.a(player, world, item);

@@ -106,7 +106,20 @@ public class Block {
         RedstoneRepeaterOff(93), //
         RedstoneRepeaterOn(94), //
         LockedChest(95), //
-        Trapdoor(96);
+        Trapdoor(96), //
+        SilverBlock(97), //
+        StoneBrick(98), //
+        HugeBrownMushroom(99), //
+        HugeRedMushroom(100), //
+        IronBars(101), //
+        GlassPane(102), //
+        MelonBlock(103), //
+        PumpkinStem(104), //
+        MelonStem(105), //
+        Vine(106), //
+        FenceGate(107), //
+        BrickStair(108), //
+        StonebrickStair(109);
 
         private int                       id;
         private static Map<Integer, Type> map;

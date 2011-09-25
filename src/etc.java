@@ -1,6 +1,8 @@
-
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -11,6 +13,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,42 +27,47 @@ import net.minecraft.server.MinecraftServer;
  * @author James
  */
 public class etc {
-    private static final Logger log = Logger.getLogger("Minecraft");
-    private static final etc instance = new etc();
-    private static MinecraftServer server;
-    private String usersLoc = "users.txt", kitsLoc = "kits.txt", homeLoc = "homes.txt", warpLoc = "warps.txt", itemLoc = "items.txt", groupLoc = "groups.txt";
-    private String whitelistLoc = "whitelist.txt", reservelistLoc = "reservelist.txt";
-    private String whitelistMessage = "Not on whitelist.";
-    private Set<Integer> allowedItems = new HashSet<Integer>();
-    private Set<Integer> disallowedItems = new HashSet<Integer>();
-    private Set<Integer> itemSpawnBlacklist = new HashSet<Integer>();
-    private String[] motd = null;
-    private boolean saveHomes = true;
-    private boolean whitelistEnabled = false;
-    private boolean reservelistEnabled = false;
-    private int playerLimit = 20;
-    private int spawnProtectionSize = 16;
-    private LinkedHashMap<String, String> commands = new LinkedHashMap<String, String>();
-    private String dataSourceType;
-    private DataSource dataSource;
-    private PropertiesFile properties;
-    private PluginLoader loader;
-    private boolean logging = false;
-    private boolean enableHealth = true;
-    private PluginLoader.HookResult autoHeal = PluginLoader.HookResult.DEFAULT_ACTION;
-    private boolean showUnknownCommand = true;
-    private String versionStr;
-    private boolean tainted = true;
+    private static final Logger           log = Logger.getLogger("Minecraft");
+    private static final etc              instance  = new etc();
+    private static MinecraftServer        server;
+    private static String 				  configDir =	"config/";
+    private String                        usersLoc = "config/users.txt", kitsLoc = "config/kits.txt", homeLoc = "config/homes.txt", warpLoc = "config/warps.txt", itemLoc = "config/items.txt", groupLoc = "config/groups.txt";
+    private String                        whitelistLoc = "config/whitelist.txt", reservelistLoc = "config/reservelist.txt";
+    private String                        whitelistMessage = "Not on whitelist.";
+
+    private Set<Integer>                  allowedItems        = new HashSet<Integer>();
+    private Set<Integer>                  disallowedItems     = new HashSet<Integer>();
+    private Set<Integer>                  itemSpawnBlacklist  = new HashSet<Integer>();
+
+    private String	                      motd                = null;
+    private boolean                       saveHomes           = true;
+    private boolean                       whitelistEnabled    = false;
+    private boolean                       reservelistEnabled  = false;
+    private int                           playerLimit         = 20;
+    private int                           spawnProtectionSize = 16;
+    private LinkedHashMap<String, String> commands            = new LinkedHashMap<String, String>();
+    private String                        dataSourceType;
+    private DataSource                    dataSource;
+    private PropertiesFile                properties;
+    private PluginLoader                  loader;
+    private boolean                       logging             = false;
+    private boolean                       enableHealth        = true;
+    private PluginLoader.HookResult       autoHeal            = PluginLoader.HookResult.DEFAULT_ACTION;
+    private boolean                       showUnknownCommand  = true;
+    private String                        versionStr;
+    private boolean                       tainted             = true;
     // Version, DO NOT CHANGE (is loaded from file version.txt)!
-    private int version = 1;
-    private String username, password, db;
-    private String[] animals = new String[]{};
-    private String[] monsters = new String[]{};
-    private String[] waterAnimals = new String[]{};
-    private int mobSpawnRate = 100;
-    private boolean spawnWolves = true;
-    private boolean mobReload = false;
-    private List<OSpawnListEntry> animalsList, monsterList, waterAnimalsList;
+    private int                           version             = 1;
+    private String                        username, password, db;
+    private String[]                      animals             = new String[] {};
+    private String[]                      monsters            = new String[] {};
+    private String[]                      waterAnimals        = new String[] {};
+    private int                           mobSpawnRate        = 100;
+    private boolean                       spawnWolves         = true;
+    public boolean                        deathMessages       = true;
+    private boolean                       mobReload 		  = false;
+    private List<OSpawnListEntry>         animalsList, monsterList, waterAnimalsList;
+    private boolean                       crow                = false;
 
     private etc() {
         load();
@@ -81,6 +89,8 @@ public class etc {
      * Loads or reloads the mod
      */
     public final void load() {
+        if (configDir == null)
+        	configDir = "config/";
         if (properties == null)
             properties = new PropertiesFile("server.properties");
         else
@@ -92,25 +102,25 @@ public class etc {
 
         try {
             dataSourceType = properties.getString("data-source", "flatfile");
-
+            makeMotd();
             loadIds(allowedItems, properties.getString("alloweditems", ""));
             loadIds(disallowedItems, properties.getString("disalloweditems", ""));
             loadIds(itemSpawnBlacklist, properties.getString("itemspawnblacklist", ""));
-            motd = properties.getString("motd", "Type /help for a list of commands.").split("@");
+            motd = properties.getString("motd", "My Canary Server.");
             playerLimit = properties.getInt("max-players", 20);
             saveHomes = properties.getBoolean("save-homes", true);
             whitelistEnabled = properties.getBoolean("whitelist", false);
             whitelistMessage = properties.getString("whitelist-message", "Not on whitelist.");
             reservelistEnabled = properties.getBoolean("reservelist", false);
             if (dataSourceType.equalsIgnoreCase("flatfile")) {
-                usersLoc = properties.getString("admintxtlocation", "users.txt");
-                kitsLoc = properties.getString("kitstxtlocation", "kits.txt");
-                homeLoc = properties.getString("homelocation", "homes.txt");
-                warpLoc = properties.getString("warplocation", "warps.txt");
-                itemLoc = properties.getString("itemstxtlocation", "items.txt");
-                groupLoc = properties.getString("group-txt-location", "groups.txt");
-                whitelistLoc = properties.getString("whitelist-txt-location", "whitelist.txt");
-                reservelistLoc = properties.getString("reservelist-txt-location", "reservelist.txt");
+                usersLoc = properties.getString("admintxtlocation", "config/users.txt");
+                kitsLoc = properties.getString("kitstxtlocation", "config/kits.txt");
+                homeLoc = properties.getString("homelocation", "config/homes.txt");
+                warpLoc = properties.getString("warplocation", "config/warps.txt");
+                itemLoc = properties.getString("itemstxtlocation", "config/items.txt");
+                groupLoc = properties.getString("group-txt-location", "config/groups.txt");
+                whitelistLoc = properties.getString("whitelist-txt-location", "config/whitelist.txt");
+                reservelistLoc = properties.getString("reservelist-txt-location", "config/reservelist.txt");
             } else {
                 PropertiesFile sql = new PropertiesFile("mysql.properties");
                 sql.getString("driver", "com.mysql.jdbc.Driver");
@@ -120,23 +130,26 @@ public class etc {
             }
             spawnProtectionSize = properties.getInt("spawn-protection-size", 16);
             logging = properties.getBoolean("logging", false);
+            properties.getBoolean("allow-nether", true);
+            properties.getBoolean("save-homes", true);
             enableHealth = properties.getBoolean("enable-health", true);
+            deathMessages = properties.getBoolean("death-message", true);
 
             animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow").split(",");
             if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals("")))
-                animals = new String[]{};
-            validateMobGroup(animals, "natural-animals", new String[]{"Sheep", "Pig", "Chicken", "Cow", "Wolf"});
+                animals = new String[] {};
+            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf" });
             spawnWolves = properties.getBoolean("spawn-wolves", true);
 
-            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime").split(",");
+            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish").split(",");
             if (monsters.length == 1 && (monsters[0].equals(" ") || monsters[0].equals("")))
-                monsters = new String[]{};
-            validateMobGroup(monsters, "natural-monsters", new String[]{"PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper"});
+                monsters = new String[] {};
+            validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish" });
 
             waterAnimals = properties.getString("natural-wateranimals", "Squid").split(",");
             if (waterAnimals.length == 1 && (waterAnimals[0].equals(" ") || waterAnimals[0].equals("")))
-                waterAnimals = new String[]{};
-            validateMobGroup(waterAnimals, "natural-wateranimals", new String[]{"Squid"});
+                waterAnimals = new String[] {};
+            validateMobGroup(waterAnimals, "natural-wateranimals", new String[] { "Squid" });
 
             mobReload = true;
 
@@ -162,10 +175,13 @@ public class etc {
                     version = -1;
                     versionStr = versionParam;
                     tainted = true;
-                } else {
+                } else if(versionParam.startsWith("crow-")) {
+            		crow = true;
+                    versionStr = versionParam.substring(5); // and back to a string.
+                    tainted = false; // looks official. We hope.
+            	} else {
                     version = Integer.parseInt(versionParam);
-                    versionStr = Integer.toString(version); // and back to a
-                    // string.
+                    versionStr = Integer.toString(version); // and back to a string.
                     tainted = false; // looks official. We hope.
                 }
                 ins.close();
@@ -180,7 +196,7 @@ public class etc {
         } catch (Exception e) {
             log.log(Level.SEVERE, "Exception while reading from server.properties", e);
             // Just in case...
-            motd = new String[]{"Type /help for a list of commands."};
+            motd = "My Canary Server.";
         }
     }
 
@@ -373,20 +389,19 @@ public class etc {
      * that they appear in server log.
      */
     private MessageReceiver serverConsole = new MessageReceiver() {
-        @Override
-        public String getName() {
-            return "<Server>";
-        }
+		@Override
+		public String getName() {
+			return "<Server>";
+		}
 
-        @Override
-        public void notify(String message) {
-            // Strip the colors.
-            message = message.replaceAll("\\u00A7[a-f0-9]", "");
-            if (message != null)
-                log.info(message);
-        }
-
-    };
+		@Override
+		public void notify(String message) {
+			// Strip the colors.
+			message = message.replaceAll("\\u00A7[a-f0-9]", "");
+			if (message != null)
+				log.info(message);
+		}
+	};
 
     /**
      * Parses a console command
@@ -399,7 +414,7 @@ public class etc {
         if (getMCServer() == null)
             setServer(server);
         String[] split = command.split(" ");
-        if ((Boolean) getLoader().callHook(PluginLoader.Hook.SERVERCOMMAND, new Object[]{split}))
+        if ((Boolean) getLoader().callHook(PluginLoader.Hook.SERVERCOMMAND, new Object[] { split }))
             return true;
         if (split.length == 0)
             return false;
@@ -423,6 +438,7 @@ public class etc {
             log.info("enableplugin  Enables a plugin");
             log.info("disableplugin Disables a plugin");
             log.info("reloadplugin  Reloads a plugin");
+			log.info("gamemode  Set's the player's gamemode");
         } else
             dontParseRegular = ServerConsoleCommands.parseServerConsoleCommand(serverConsole, split[0], split);
 
@@ -473,8 +489,8 @@ public class etc {
             builder.append(string[i]);
             builder.append(seperator);
         }
-        if (builder.length() > 0) //Skye's fix for OutOfBounds exception.
-            builder.deleteCharAt(builder.length() - seperator.length()); // remove
+    	if (builder.length() > 0) //Skye's fix for OutOfBounds exception.
+    		builder.deleteCharAt(builder.length() - seperator.length()); // remove
         // the
         // extra
         // seperator
@@ -558,8 +574,68 @@ public class etc {
      * 
      * @return
      */
-    public String[] getMotd() {
-        return motd;
+    public String getMotd(MessageReceiver caller) {
+	    try {
+		      FileInputStream fis = new FileInputStream(etc.getConfigFolder()+"motd.txt");
+		      Scanner scanner = new Scanner(fis, "UTF-8");
+		      scanner.useDelimiter("\r\n");
+		      while (scanner.hasNext()) {
+		        String line = scanner.nextLine();
+		        if (line.startsWith("#")) {
+		          continue;
+		        }
+		        String msg = line;
+		        if(line.contains("&"))
+		        	msg = line.replace("&", "§");
+		        if(line.contains("&&"))
+		        	msg = line.replaceAll("&&", "&");
+		        ((Player)caller).getEntity().a.b(new OPacket3Chat(msg));
+		      }
+		      scanner.close();
+		      fis.close();
+		    } catch (FileNotFoundException e) {
+		      log.log(Level.WARNING, "motd.txt does not exist.");
+		      caller.notify("Cannot load motd");
+		    } catch (IOException e) {
+		      log.log(Level.WARNING, "Couldn't load motd.txt");
+		      caller.notify("Cannot load motd.txt");
+		    }
+	    return null;
+    }
+    
+    public void makeMotd(){
+    	new File(etc.getConfigFolder()).mkdirs();
+        File motdfile = new File(etc.getConfigFolder()+"motd.txt");
+        if (!motdfile.exists()) {
+        	FileWriter writer = null;
+            try {
+            	writer = new FileWriter(motdfile);
+      			writer.write("#For a list of colors, go here: http://wiki.canarymod.net/Colors\r\n");
+      			writer.write("#To use linebreaks, just press enter or return. For color, use &\r\n");
+      			writer.write("Welcome to my server! Please type /help for commands.");
+            } catch (Exception e) {
+            	log.log(Level.SEVERE, "Exception while creating motd.txt");
+            	try
+            	{
+            		if (writer != null)
+            			writer.close();
+            	}
+            	catch (IOException e1) {
+            		log.log(Level.SEVERE, "Exception while closing writer for motd.txt", e1);
+            	}
+            }
+            finally
+            {
+            	try
+            	{
+            		if (writer != null)
+            			writer.close();
+            	}
+            	catch (IOException e) {
+            		log.log(Level.SEVERE, "Exception while closing writer for motd.txt", e);
+            	}
+            }
+        }
     }
 
     /**
@@ -741,7 +817,7 @@ public class etc {
      * 
      * @param motd
      */
-    public void setMotd(String[] motd) {
+    public void setMotd(String motd) {
         this.motd = motd;
     }
 
@@ -1029,7 +1105,7 @@ public class etc {
 
     private static void validateMobGroup(String[] mobs, String groupname, String[] allowed) {
         lb1:
-        for (String i : mobs) {
+		for (String i : mobs) {
             for (String al : allowed)
                 if (al.equals(i))
                     continue lb1;
@@ -1046,4 +1122,10 @@ public class etc {
             return false;
     }
 
+	public static String getConfigFolder() {
+		return configDir;
+	}
+	public boolean isCrow() {
+		return crow;
+	}
 }

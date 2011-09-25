@@ -211,6 +211,15 @@ public class Item {
         Cookie(357), //
         Map(358), //
         Shears(359), //
+        MelonSlice(360), //
+        PumpkinSeeds(361), //
+        MelonSeeds(362), //
+        RawBeef(363), //
+        Steak(364), //
+        RawChicken(365), //
+        CookedChicken(366), //
+        RottenFlesh(367), //
+        EnderPearl(368), //
         GoldRecord(2256), //
         GreenRecord(2257);
         private int id;
