@@ -1070,24 +1070,30 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand mspawn = new BaseCommand("[Mob] - Change the looked at mob spawner's mob", "You must specify what to change the mob spawner to.", 2, 2) {
+    public static final BaseCommand mspawn = new BaseCommand("[Mob] - Change the looked at mob spawner's mob", "Correct usage is: /mspawn <name>.", 1, 2) {
 
-        @Override
         void execute(MessageReceiver caller, String[] split) {
             if (!(caller instanceof Player))
                 return;
 
-            if (!Mob.isValid(split[1])) {
-                caller.notify("Invalid mob specified.");
-                return;
-            }
-
             HitBlox hb = new HitBlox((Player) caller);
             Block block = hb.getTargetBlock();
+            System.out.println(String.format("x: %d y: %d z: %d",block.getX(), block.getY(), block.getZ()));
             if (block != null && block.getType() == 52) { // mob spawner
                 MobSpawner ms = (MobSpawner) ((Player) caller).getWorld().getComplexBlock(block.getX(), block.getY(), block.getZ());
-                if (ms != null)
-                    ms.setSpawn(split[1]);
+                if (ms != null){
+                    if (split.length == 1) {
+                        caller.notify(String.format("You are targeting a mob spawner of: %s",ms.getSpawn()));
+                    } else {
+                        if (!Mob.isValid(split[1])) {
+                            caller.notify(String.format("%s is not a valid mob name.",split[1]));                           
+                            return;
+                        } else {
+                            ms.setSpawn(split[1]);
+                        }
+                    }
+                }
+                    
             } else
                 caller.notify("You are not targeting a mob spawner.");
         }
