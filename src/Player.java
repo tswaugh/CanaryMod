@@ -829,4 +829,12 @@ public class Player extends HumanEntity implements MessageReceiver {
     		return false;
     	}
     }
+    
+    public void refreshCreativeMode() {
+        if (Player.getMode(this)){
+            getEntity().c.a(1);
+        } else {
+            getEntity().c.a(0);
+        }
+    }
 }
