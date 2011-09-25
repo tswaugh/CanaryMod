@@ -700,7 +700,7 @@ public class PlayerCommands {
                     toMove.switchWorlds();
                    
                 else {
-                    toMove.sendMessage("¤4The veil between the worlds keeps you bound to the Nether...");
+                    toMove.sendMessage("Â§4The veil between the worlds keeps you bound to the Nether...");
                     return;
                 }
 
@@ -909,7 +909,6 @@ public class PlayerCommands {
     @Command
     public static final BaseCommand mode = new BaseCommand("- Changes your gamemode"){
     	
-        
         @Override
         void execute(MessageReceiver caller, String[] split) {
             if (!(caller instanceof Player))
@@ -924,7 +923,7 @@ public class PlayerCommands {
             			int mode = Integer.parseInt(split[1]);
             			mode = OWorldSettings.a(mode);
             			if(player.getCreativeMode() != mode) {
-            				caller.notify("¤eSetting " + player.getName() + " to game mode " + mode);
+            				caller.notify("§eSetting " + player.getName() + " to game mode " + mode);
             				player.setCreativeMode(mode);
             			} else {
             				caller.notify(player.getName() + " already has game mode " + mode);
@@ -940,7 +939,7 @@ public class PlayerCommands {
         			int mode = Integer.parseInt(split[1]);
         			mode = OWorldSettings.a(mode);
         			if(player.getCreativeMode() != mode) {
-        				player.notify("¤eSetting your to game mode " + mode);
+        				player.notify("§eSetting your to game mode " + mode);
         				player.setCreativeMode(mode);
         			} else {
         				caller.notify("Your game mode is already " + mode);
@@ -949,8 +948,7 @@ public class PlayerCommands {
         			caller.notify("There\'s no game mode with id " + split[1]);
         		}
             } else {
-                Player player = ((Player) caller);
-                caller.notify(String.format("Your current mode is: %d",player.getCreativeMode()));
+            	caller.notify("Correct useage is: /mode [1/0] <player>.");
             }
     	}
     };
