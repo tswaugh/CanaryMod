@@ -285,7 +285,7 @@ public class OEntityBoat extends OEntity {
          this.c(this.bl, this.bm);
          
          // CanaryMod: Change of the boat
-         if (bf != prevX || bg != prevY || bh != prevZ)
+         if ((int)bf != (int)prevX || (int)bg != (int)prevY || (int)bh != (int)prevZ)
             manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, boat, (int) bf, (int) bg, (int) bh);
          
          List var32 = this.bb.b((OEntity)this, this.bp.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
