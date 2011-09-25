@@ -363,8 +363,13 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
     public void setContents(Item[] contents) {
         int arraySize = getContentsSize();
 
-        for (int i = 0; i < arraySize; i++)
-            setSlot(contents[i], i);
+        for (int i = 0; i < arraySize; i++) {
+            if (contents[i] == null) {
+                removeItem(i);
+            } else {
+              setSlot(contents[i], i);
+            }
+        }
     }
 
     public void clearContents() {
