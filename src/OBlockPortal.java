@@ -69,16 +69,26 @@ public class OBlockPortal extends OBlockBreakable {
                }
             }
          }
-
-         var1.t = true;
-
-         for(var7 = 0; var7 < 2; ++var7) {
-            for(var8 = 0; var8 < 3; ++var8) {
-               var1.e(var2 + var5 * var7, var3 + var8, var4 + var6 * var7, OBlock.bf.bA);
+         
+         // CanaryMod hook onPortalCreate
+         Block[][] portalBlocks = new Block[3][2];
+         for(var8 = 0; var8 < 3; ++var8) {
+            for(var7 = 0; var7 < 2; ++var7) {
+               portalBlocks[var8][var7] = new Block(var1.world, Block.Type.Portal.getType(), var2 + var5 * var7, var3 + 2 - var8, var4 + var6 * var7);
             }
          }
+         if(!(Boolean)etc.getLoader().callHook(PluginLoader.Hook.PORTAL_CREATE, (Object)portalBlocks)) {
+         
+             var1.t = true;
 
-         var1.t = false;
+             for(var7 = 0; var7 < 2; ++var7) {
+                 for(var8 = 0; var8 < 3; ++var8) {
+                     var1.e(var2 + var5 * var7, var3 + var8, var4 + var6 * var7, OBlock.bf.bA);
+                 }
+             }
+
+             var1.t = false;
+         }    
          return true;
       }
    }
