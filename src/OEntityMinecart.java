@@ -170,7 +170,11 @@ public class OEntityMinecart extends OEntity implements OIInventory {
    public void s_() {
       // CanaryMod: Update of the cart
       manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, cart);
-      
+
+      double prevX = bf;
+      double prevY = bg;
+      double prevZ = bh;
+ 
       if(this.b > 0) {
          --this.b;
       }
@@ -213,7 +217,8 @@ public class OEntityMinecart extends OEntity implements OIInventory {
          int var10 = OMathHelper.b(this.bg);
          int var11 = OMathHelper.b(this.bh);
          // CanaryMod: Change of the cart
-         manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, var9, var10, var11);
+         if ((int)var9 != (int)prevX || (int)var10 != (int)prevY || (int)var11!= (int)prevZ)
+           manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, var9, var10, var11);
          
          if(OBlockRail.g(this.bb, var9, var10 - 1, var11)) {
             --var10;
@@ -508,12 +513,22 @@ public class OEntityMinecart extends OEntity implements OIInventory {
       }
    }
 
+   // CanaryMod: Store last position, avoids Hook spaming
+   private int lastX = 0;
+   private int lastY = 0;
+   private int lastZ = 0;
+   
    public OVec3D h(double var1, double var3, double var5) {
       int var7 = OMathHelper.b(var1);
       int var8 = OMathHelper.b(var3);
       int var9 = OMathHelper.b(var5);
       // CanaryMod: Change of the cart
-      manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, var7, var8, var9);
+      if ((int)var7 != (int)lastX|| (int)var8 != (int)lastY || (int)var9!= (int)lastZ) {
+          manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, var7, var8, var9);
+          lastX = var7;
+          lastY = var8;
+          lastZ = var9;
+      }
       
       if(OBlockRail.g(this.bb, var7, var8 - 1, var9)) {
          --var8;
