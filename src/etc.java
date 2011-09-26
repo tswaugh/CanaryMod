@@ -575,32 +575,7 @@ public class etc {
      * @return
      */
     public String getMotd(MessageReceiver caller) {
-	    try {
-		      FileInputStream fis = new FileInputStream(etc.getConfigFolder()+"motd.txt");
-		      Scanner scanner = new Scanner(fis, "UTF-8");
-		      scanner.useDelimiter("\r\n");
-		      while (scanner.hasNext()) {
-		        String line = scanner.nextLine();
-		        if (line.startsWith("#")) {
-		          continue;
-		        }
-		        String msg = line;
-		        if(line.contains("&"))
-		        	msg = line.replace("&", "§");
-		        if(line.contains("&&"))
-		        	msg = line.replaceAll("&&", "&");
-		        ((Player)caller).getEntity().a.b(new OPacket3Chat(msg));
-		      }
-		      scanner.close();
-		      fis.close();
-		    } catch (FileNotFoundException e) {
-		      log.log(Level.WARNING, "motd.txt does not exist.");
-		      caller.notify("Cannot load motd");
-		    } catch (IOException e) {
-		      log.log(Level.WARNING, "Couldn't load motd.txt");
-		      caller.notify("Cannot load motd.txt");
-		    }
-	    return null;
+        return Motd.getMotd(caller);
     }
     
     public void makeMotd(){
