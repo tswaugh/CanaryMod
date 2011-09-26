@@ -119,65 +119,31 @@ public class OEntityItem extends OEntity {
 
    }
 
-   public void a_(OEntityPlayer var1) {
-      if(!this.bb.I) {
-         int var2 = this.a.a;
-         if(this.c == 0) {
-            // Clone player inventory because we might need to restore it if onItemPickUp hook is cancelled.
-            // we have to clone it because the function that checks if we can pick up items also picks them up...
-            OItemStack[] inventoryClone = new OItemStack[var1.j.a.length];
-            for(int i = 0; i < inventoryClone.length; i += 1) {
-               if(var1.j.a[i] != null) {
-                  inventoryClone[i] = var1.j.a[i].j();
-                  inventoryClone[i].b = var1.j.a[i].b;
-               } else {
-                  inventoryClone[i] = null;
-               }
-            }
-            // pick up items if possible
-            if(var1.j.a(this.a)) {
-               int quantityAfterPickup = this.a.a;
-               // if managed to take something
-               if(quantityAfterPickup < var2) {
-                  // CanaryMod: allow item pickups
-                  // for the hook, we need to pass how many items the player actually took.
-                  this.a.a = var2 - quantityAfterPickup;
-                  boolean result = (Boolean)etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP)var1).getPlayer(), item);
-                  this.a.a = quantityAfterPickup;
-                  // if item pick up cancelled
-                  if(result) {
-                     // restore the inventory to the previous state
-                     for(int i = 0; i < inventoryClone.length; i += 1) {
-                        if(inventoryClone[i] != null) {
-                           if(var1.j.a[i] == null) {
-                              var1.j.a[i] = inventoryClone[i];
-                           } else {
-                              var1.j.a[i].setFromStack(inventoryClone[i]);
-                           }
-                        } else {
-                           var1.j.a[i] = null;
-                        }
-                     }
-                     return;
-                  }
-                  if(this.a.c == OBlock.K.bA) {
-                     var1.a((OStatBase)OAchievementList.g);
-                  }
+  public void a_(OEntityPlayer var1) {
+           if(!this.bb.I) {
+              int var2 = this.a.a;
+              // CanaryMod: First simulate the pickup and call the hooks
+              if(this.c == 0 && var1.j.canPickup(this)) {
+                 if (var1.j.a(this.a)) {
+                   if(this.a.c == OBlock.K.bA) {
+                      var1.a((OStatBase)OAchievementList.g);
+                   }
 
-                  if(this.a.c == OItem.aD.bo) {
-                     var1.a((OStatBase)OAchievementList.t);
-                  }
+                   if(this.a.c == OItem.aD.bo) {
+                      var1.a((OStatBase)OAchievementList.t);
+                   }
 
-                  this.bb.a(this, "random.pop", 0.2F, ((this.bL.nextFloat() - this.bL.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                  var1.a((OEntity)this, var2);
-                  if(this.a.a <= 0) {
-                     this.N();
-                  }
-               }
-            }
-         }
-      }
-   }
+                   this.bb.a(this, "random.pop", 0.2F, ((this.bL.nextFloat() - this.bL.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                   var1.a((OEntity)this, var2);
+                   if(this.a.a <= 0) {
+                      this.N();
+                   }
+                 }
+              }
+
+           }
+        }
+
 
    public String Y() {
       return OStatCollector.a("item." + this.a.k());
