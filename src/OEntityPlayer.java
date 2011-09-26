@@ -326,18 +326,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
    }
 
    private void j(OEntity var1) {
-       System.out.println("Class: "+var1.getClass().toString());
-     // CanaryMod ITEM_PICK_UP
-     // Moved here to allow cancel of pickup
-     boolean result = false;
-     if (var1 instanceof OEntityItem) {  
-         ItemEntity item = ((OEntityItem) var1).item;
-         System.out.println(String.format("item: %d de %d (%s)",item.getItem().getAmount(),item.getItem().getItemId(),item.getItem().getType().toString()));
-         result = (Boolean)etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP)this).getPlayer(), item);
-     }
-     if (!result) {
-        var1.a_(this);
-     }
+      var1.a_(this);
    }
 
    public void a(ODamageSource var1) {
