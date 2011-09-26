@@ -26,7 +26,7 @@ public class Motd {
                 }
                 String msg = line;
                 if(line.contains("&"))
-                    msg = line.replace("&", "§");
+                    msg = line.replace("&", Colors.Marker);
                 if(line.contains("&&"))
                     msg = line.replaceAll("&&", "&");
                 ((Player)caller).getEntity().a.b(new OPacket3Chat(msg));
