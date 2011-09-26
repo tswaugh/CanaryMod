@@ -22,4 +22,5 @@ public class Colors {
     public static final String LightPurple = "\u00A7d";
     public static final String Yellow      = "\u00A7e";
     public static final String White       = "\u00A7f";
+    public static final String Marker     =  "\u00A7";
 }

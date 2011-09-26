@@ -581,14 +581,14 @@ public class Player extends HumanEntity implements MessageReceiver {
     public String getColor() {
         if (prefix != null)
             if (!prefix.equals(""))
-                return "§" + prefix;
+                return Colors.Marker + prefix;
         if (groups.size() > 0) {
             Group group = etc.getDataSource().getGroup(groups.get(0));
             if (group != null)
-                return "§" + group.Prefix;
+                return Colors.Marker + group.Prefix;
         }
         Group def = etc.getInstance().getDefaultGroup();
-        return def != null ? "§" + def.Prefix : "";
+        return def != null ? Colors.Marker + def.Prefix : "";
     }
 
     /**
