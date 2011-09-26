@@ -205,6 +205,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
                      this.ce = -1;
                      this.cb = -1;
                      this.cc = -1;
+                     player.refreshCreativeMode();
                   }
                }
             }
