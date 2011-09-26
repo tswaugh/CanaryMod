@@ -79,8 +79,8 @@ public class Main {
     }
 
     public static void checkCRC32(String fileName, long crc) throws IOException {
-        //if (etc.getInstance().getTainted())
-            //return;
+        if (etc.getInstance().getTainted())
+            return;
 
         long checksum = getCRC32(fileName);
         if (checksum != crc) {
