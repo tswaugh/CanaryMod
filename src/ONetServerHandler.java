@@ -461,14 +461,15 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
          if(this.p && this.e.e((double)var5 + 0.5D, (double)var6 + 0.5D, (double)var7 + 0.5D) < 64.0D && (var11 > etc.getInstance().getSpawnProtectionSize() || var4) && player.canBuild() && !cancelled) {
             this.e.c.a(this.e, var2, var3, var5, var6, var7, var8);
+            this.e.a.b((OPacket)(new OPacket53BlockChange(var5, var6, var7, var2)));
          } else {
              // CanaryMod: No point sending the client to update the blocks, you
              // weren't allowed to place!
+             this.e.a.b((OPacket)(new OPacket53BlockChange(var5, var6, var7, var2)));
              var2.D = false;
              return;
          }
-
-         this.e.a.b((OPacket)(new OPacket53BlockChange(var5, var6, var7, var2)));
+         
          if(var8 == 0) {
             --var6;
          }
