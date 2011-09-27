@@ -13,6 +13,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
    public double e;
    public List f = new LinkedList();
    public Set g = new HashSet();
+   public static ONetServerHandler n;
    private int cb = -99999999;
    private int cc = -99999999;
    private boolean cd = true;

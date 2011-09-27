@@ -465,11 +465,11 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
          } else {
              // CanaryMod: No point sending the client to update the blocks, you
              // weren't allowed to place!
-             this.e.a.b((OPacket)(new OPacket53BlockChange(var5, var6, var7, var2)));
+        	 this.e.a.b((OPacket)(new OPacket53BlockChange(var5, var6, var7, var2)));
              var2.D = false;
              return;
          }
-         
+
          if(var8 == 0) {
             --var6;
          }
