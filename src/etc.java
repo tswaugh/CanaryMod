@@ -41,6 +41,7 @@ public class etc {
 
     private String	                      motd                = null;
     private boolean                       saveHomes           = true;
+    private boolean                       hideSeed            = false;
     private boolean                       whitelistEnabled    = false;
     private boolean                       reservelistEnabled  = false;
     private int                           playerLimit         = 20;
@@ -108,6 +109,7 @@ public class etc {
             motd = properties.getString("motd", "My Canary Server.");
             playerLimit = properties.getInt("max-players", 20);
             saveHomes = properties.getBoolean("save-homes", true);
+            hideSeed = properties.getBoolean("hide-seed", false);
             whitelistEnabled = properties.getBoolean("whitelist", false);
             whitelistMessage = properties.getString("whitelist-message", "Not on whitelist.");
             reservelistEnabled = properties.getBoolean("reservelist", false);
@@ -612,6 +614,15 @@ public class etc {
     public boolean canSaveHomes() {
         return saveHomes;
     }
+    
+    /**
+     * Returns true if the server is hiding it's seed.
+     * 
+     * @return true if server hides it's seed.
+     */
+    public boolean getHideSeed() {
+        return hideSeed;
+    }
 
     /**
      * Returns the spawn protection size
@@ -786,6 +797,15 @@ public class etc {
      */
     public void setSaveHomes(boolean saveHomes) {
         this.saveHomes = saveHomes;
+    }
+    
+    /**
+     * If true the server will hide it's seed from other players.
+     * 
+     * @param hideSeed
+     */
+    public void setHideSeed(boolean hideSeed) {
+        this.hideSeed = hideSeed;
     }
 
     /**
