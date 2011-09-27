@@ -30,7 +30,7 @@ public class etc {
     private static final Logger           log = Logger.getLogger("Minecraft");
     private static final etc              instance  = new etc();
     private static MinecraftServer        server;
-    private static String 				  configDir =	"config/";
+    private static String                   configDir =    "config/";
     private String                        usersLoc = "config/users.txt", kitsLoc = "config/kits.txt", homeLoc = "config/homes.txt", warpLoc = "config/warps.txt", itemLoc = "config/items.txt", groupLoc = "config/groups.txt";
     private String                        whitelistLoc = "config/whitelist.txt", reservelistLoc = "config/reservelist.txt";
     private String                        whitelistMessage = "Not on whitelist.";
@@ -39,7 +39,7 @@ public class etc {
     private Set<Integer>                  disallowedItems     = new HashSet<Integer>();
     private Set<Integer>                  itemSpawnBlacklist  = new HashSet<Integer>();
 
-    private String	                      motd                = null;
+    private String                          motd                = null;
     private boolean                       saveHomes           = true;
     private boolean                       hideSeed            = false;
     private boolean                       whitelistEnabled    = false;
@@ -66,7 +66,7 @@ public class etc {
     private int                           mobSpawnRate        = 100;
     private boolean                       spawnWolves         = true;
     public boolean                        deathMessages       = true;
-    private boolean                       mobReload 		  = false;
+    private boolean                       mobReload           = false;
     private List<OSpawnListEntry>         animalsList, monsterList, waterAnimalsList;
     private boolean                       crow                = false;
 
@@ -91,7 +91,7 @@ public class etc {
      */
     public final void load() {
         if (configDir == null)
-        	configDir = "config/";
+            configDir = "config/";
         if (properties == null)
             properties = new PropertiesFile("server.properties");
         else
@@ -132,7 +132,6 @@ public class etc {
             spawnProtectionSize = properties.getInt("spawn-protection-size", 16);
             logging = properties.getBoolean("logging", false);
             properties.getBoolean("allow-nether", true);
-            properties.getBoolean("save-homes", true);
             enableHealth = properties.getBoolean("enable-health", true);
             deathMessages = properties.getBoolean("death-message", true);
 
@@ -177,10 +176,10 @@ public class etc {
                     versionStr = versionParam;
                     tainted = true;
                 } else if(versionParam.startsWith("crow-")) {
-            		crow = true;
+                    crow = true;
                     versionStr = versionParam.substring(5); // and back to a string.
                     tainted = false; // looks official. We hope.
-            	} else {
+                } else {
                     version = Integer.parseInt(versionParam);
                     versionStr = Integer.toString(version); // and back to a string.
                     tainted = false; // looks official. We hope.
@@ -390,19 +389,19 @@ public class etc {
      * that they appear in server log.
      */
     private MessageReceiver serverConsole = new MessageReceiver() {
-		@Override
-		public String getName() {
-			return "<Server>";
-		}
+        @Override
+        public String getName() {
+            return "<Server>";
+        }
 
-		@Override
-		public void notify(String message) {
-			// Strip the colors.
-			message = message.replaceAll("\\u00A7[a-f0-9]", "");
-			if (message != null)
-				log.info(message);
-		}
-	};
+        @Override
+        public void notify(String message) {
+            // Strip the colors.
+            message = message.replaceAll("\\u00A7[a-f0-9]", "");
+            if (message != null)
+                log.info(message);
+        }
+    };
 
     /**
      * Parses a console command
@@ -439,7 +438,7 @@ public class etc {
             log.info("enableplugin  Enables a plugin");
             log.info("disableplugin Disables a plugin");
             log.info("reloadplugin  Reloads a plugin");
-			log.info("gamemode  Set's the player's gamemode");
+            log.info("gamemode  Set's the player's gamemode");
         } else
             dontParseRegular = ServerConsoleCommands.parseServerConsoleCommand(serverConsole, split[0], split);
 
@@ -490,8 +489,8 @@ public class etc {
             builder.append(string[i]);
             builder.append(seperator);
         }
-    	if (builder.length() > 0) //Skye's fix for OutOfBounds exception.
-    		builder.deleteCharAt(builder.length() - seperator.length()); // remove
+        if (builder.length() > 0) //Skye's fix for OutOfBounds exception.
+            builder.deleteCharAt(builder.length() - seperator.length()); // remove
         // the
         // extra
         // seperator
@@ -576,7 +575,7 @@ public class etc {
      * @return
      */
     public String getMotd(MessageReceiver caller) {
-	    return Motd.getMotd(caller);
+        return Motd.getMotd(caller);
     }
     
     /**
@@ -614,16 +613,27 @@ public class etc {
     public boolean canSaveHomes() {
         return saveHomes;
     }
-    
+
     /**
      * Returns true if the server is hiding it's seed.
-     * 
-     * @return true if server hides it's seed.
+     *
+     * @return true
      */
+     
     public boolean getHideSeed() {
         return hideSeed;
     }
-
+    
+    /**
+     * If true, the server will hide the seed from other players
+     *
+     * @param hideSeed
+     */
+     
+    public void setHideSeed(boolean hideSeed) {
+        this.hideSeed = hideSeed;
+    }
+     
     /**
      * Returns the spawn protection size
      * 
@@ -797,15 +807,6 @@ public class etc {
      */
     public void setSaveHomes(boolean saveHomes) {
         this.saveHomes = saveHomes;
-    }
-    
-    /**
-     * If true the server will hide it's seed from other players.
-     * 
-     * @param hideSeed
-     */
-    public void setHideSeed(boolean hideSeed) {
-        this.hideSeed = hideSeed;
     }
 
     /**
@@ -1064,7 +1065,7 @@ public class etc {
 
     private static void validateMobGroup(String[] mobs, String groupname, String[] allowed) {
         lb1:
-		for (String i : mobs) {
+        for (String i : mobs) {
             for (String al : allowed)
                 if (al.equals(i))
                     continue lb1;
@@ -1081,10 +1082,10 @@ public class etc {
             return false;
     }
 
-	public static String getConfigFolder() {
-		return configDir;
-	}
-	public boolean isCrow() {
-		return crow;
-	}
+    public static String getConfigFolder() {
+        return configDir;
+    }
+    public boolean isCrow() {
+        return crow;
+    }
 }
