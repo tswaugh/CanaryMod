@@ -17,6 +17,8 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private int id = -1;
+    private OEntityPlayer ep;
+    private OEntityPlayerMP emp; 
     private String prefix = "";
     private String[] commands = new String[]{""};
     private ArrayList<String> groups = new ArrayList<String>();
@@ -856,4 +858,30 @@ public class Player extends HumanEntity implements MessageReceiver {
             getEntity().c.a(0);
         }
      }
+    
+    /**
+     * Get Experience Amount
+     * @return
+     */
+    public int getXP(){
+    	return getPlayer().getEntity().N;
+    }
+
+    /**
+     * Get Player Level
+     * @return
+     */
+    public int getLevel(){
+    	return getPlayer().getEntity().M;
+    }
+    
+    /**
+     * Add Experience
+     * @param s
+     */
+    public void addXP(String s){
+		int i = Integer.parseInt(s);
+		getPlayer().getEntity().d(i);
+    }
+    
 }

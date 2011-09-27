@@ -1141,4 +1141,37 @@ public class PlayerCommands {
         }
 
     };
+	    @Command
+    public static final BaseCommand xp = new BaseCommand("[level|total] - XP status", "Usage: /xp level|total", 2, 3) {
+
+        @Override
+        void execute(MessageReceiver caller, String[] split) {
+        	if (!(caller instanceof Player))
+                return;
+        	
+        	Player player = (Player) caller;
+        	if (split.length == 3) {
+    			Player p = etc.getServer().matchPlayer(split[2]);
+    			if(p == null) {
+    				player.notify(split[2]+" does not exist!");
+    				return;
+    			} else { 
+    				if (split[1].equalsIgnoreCase("level")) {
+    					player.sendMessage(p.getName()+" is level "+Colors.Yellow+p.getLevel());
+    				}
+        			if (split[1].equalsIgnoreCase("total")) {
+        				player.sendMessage(p.getName()+" has "+Colors.Yellow+p.getXP()+Colors.White+" Total EXP");
+        			}
+    			}
+        	} else if (split.length == 2) {
+        		if (split[1].equalsIgnoreCase("level")) {
+        			player.sendMessage("You are level "+Colors.Yellow+player.getLevel());
+        		}
+        		if (split[1].equalsIgnoreCase("total")) {
+        			player.sendMessage("You have "+Colors.Yellow+player.getXP()+Colors.White+" Total EXP");
+        		}
+        	}
+
+		}
+    };
 }
