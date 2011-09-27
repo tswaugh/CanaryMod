@@ -362,8 +362,11 @@ public abstract class OEntityLiving extends OEntity {
             }
 
             // CanaryMod attack by entity, but it might not do damage!
-            if(attacker != null && (Boolean)manager.callHook(PluginLoader.Hook.ATTACK, attacker, entity, var2))
+            if(attacker != null && (Boolean)manager.callHook(PluginLoader.Hook.ATTACK, attacker, entity, var2)) {
+               if (this instanceof OEntityCreature)
+                  ((OEntityCreature) this).f = 0;
                return false;
+            }
             
             
             boolean var3 = true;

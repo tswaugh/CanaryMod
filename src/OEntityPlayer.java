@@ -326,7 +326,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
    }
 
    private void j(OEntity var1) {
-      var1.a_(this);
+    	var1.a_(this);
    }
 
    public void a(ODamageSource var1) {
