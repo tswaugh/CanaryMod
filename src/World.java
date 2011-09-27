@@ -166,7 +166,7 @@ public class World {
         return toRet;
     }
 
-    /**
+	/**
      * Returns the list of all entities in the server in open chunks.
      *
      * @return list of entities
@@ -182,8 +182,23 @@ public class World {
                 toRet.add(((OEntityBoat) o).boat);
             else if (o instanceof OEntityPlayerMP)
                 toRet.add(((OEntityPlayerMP) o).getPlayer());
+            else if (o instanceof OEntityItem)
+                toRet.add(((OEntityItem)o).item);
         return toRet;
     }
+	
+	/**
+	* Returns the list of items in all open chunks.
+	*
+	* @return list of items
+	*/
+	public List<ItemEntity> getItemList() {
+		List<ItemEntity> toRet = new ArrayList<ItemEntity>();
+		for (Object o : world.g)
+			if (o instanceof OEntityItem)
+				toRet.add(((OEntityItem) o).item);
+		return toRet;
+	}
 
     /**
      * Returns the list of all living entities (players, animals, mobs) in open

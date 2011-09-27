@@ -55,6 +55,7 @@ public class Main {
 
             log("Finished converting minecraft_server.jar, Starting minecraft server...");
             dynamicLoadJar("minecraft_servero.jar");
+            Motd.makeMotd();
         } else
             checkCRC32("minecraft_servero.jar", minecraft_servero);
 

@@ -55,17 +55,20 @@ public class OEntityEnderman extends OEntityMob {
         return super.a_(var1);
     }
 
-    private boolean c(OEntityPlayer var1) {
+    private boolean c(OEntityPlayer var1)
+    {
         OItemStack var2 = var1.j.b[3];
-        if (var2 != null && var2.c == OBlock.bb.bA) {
+        if(var2 != null && var2.c == OBlock.bb.bA)
+        {
             return false;
-        } else {
-            OVec3D var3 = var1.c(1.0F).b();
-            OVec3D var4 = OVec3D.b(this.bf - var1.bf, this.bp.b + (double) (this.bA / 2.0F) - var1.bg + (double) var1.t(), this.bh - var1.bh);
-            double var5 = var4.c();
-            var4 = var4.b();
-            double var7 = var3.a(var4);
-            return var7 > 1.0D - 0.025D / var5 ? var1.f(this) : false;
+        } else
+        {
+        	OVec3D var3 = var1.c(1.0F).b();
+        	OVec3D var4 = OVec3D.b(this.bf - var1.bf, this.bp.b + (double) (this.bA / 2.0F) - var1.bg + (double) var1.t(), this.bh - var1.bh);
+        	double var5 = var4.c();
+        	var4 = var4.b();
+        	double var7 = var3.a(var4);
+        	return var7 > 1.0D - 0.025D / var5 ? var1.f(this) : false;
         }
     }
 

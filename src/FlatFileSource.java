@@ -443,6 +443,19 @@ public class FlatFileSource extends DataSource {
                 writer.write("jacko:91\r\n");
                 writer.write("lockedchest:95\r\n");
                 writer.write("trapdoor:96\r\n");
+				writer.write("silverblock:97\r\n");
+				writer.write("stonebrick:98\r\n");
+				writer.write("hugebrownmushroom:99\r\n");
+				writer.write("hugeredmushroom:100\r\n");
+				writer.write("ironbars:101\r\n");
+				writer.write("glasspane:102\r\n");
+				writer.write("melonblock:103\r\n");
+				writer.write("pumpkinstem:104\r\n");
+				writer.write("melonstem:105\r\n");
+				writer.write("vine:106\r\n");
+				writer.write("fencegate:107\r\n");
+				writer.write("brickstair:108\r\n");
+				writer.write("stonebrickstair:109\r\n");
                 writer.write("ironshovel:256\r\n");
                 writer.write("ironspade:256\r\n");
                 writer.write("ironpickaxe:257\r\n");
@@ -565,6 +578,15 @@ public class FlatFileSource extends DataSource {
                 writer.write("cookie:357\r\n");
                 writer.write("map:358\r\n");
                 writer.write("shears:359\r\n");
+				writer.write("melonslice:360\r\n");
+                writer.write("pumpkinseeds:361\r\n");
+                writer.write("melonseeds:362\r\n");
+                writer.write("rawbeef:363\r\n");
+                writer.write("steak:364\r\n");
+                writer.write("rawchicken:365\r\n");
+                writer.write("cookedchicken:366\r\n");
+                writer.write("rottenflesh:367\r\n");
+                writer.write("enderpearl:368\r\n");
                 writer.write("goldrecord:2256\r\n");
                 writer.write("greenrecord:2257\r\n");
             } catch (Exception e) {

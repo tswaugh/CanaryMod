@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
-
 import net.minecraft.server.MinecraftServer;
 
 public class PlayerCommands {
@@ -701,7 +700,7 @@ public class PlayerCommands {
                     toMove.switchWorlds();
                    
                 else {
-                    toMove.sendMessage(Colors.Red+"The veil between the worlds keeps you bound to the Nether...");
+                    toMove.sendMessage("§4The veil between the worlds keeps you bound to the Nether...");
                     return;
                 }
 
@@ -1080,6 +1079,7 @@ public class PlayerCommands {
 
             HitBlox hb = new HitBlox((Player) caller);
             Block block = hb.getTargetBlock();
+            System.out.println(String.format("x: %d y: %d z: %d",block.getX(), block.getY(), block.getZ()));
             if (block != null && block.getType() == 52) { // mob spawner
                 MobSpawner ms = (MobSpawner) ((Player) caller).getWorld().getComplexBlock(block.getX(), block.getY(), block.getZ());
                 if (ms != null){

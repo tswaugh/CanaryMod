@@ -1,5 +1,7 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -41,5 +43,40 @@ public class Motd {
               caller.notify("Cannot load motd.txt");
             }
         return null;
+    }
+    
+    public static void makeMotd(){
+    	new File(etc.getConfigFolder()).mkdirs();
+        File motdfile = new File(etc.getConfigFolder()+"motd.txt");
+        if (!motdfile.exists()) {
+        	FileWriter writer = null;
+            try {
+            	writer = new FileWriter(motdfile);
+      			writer.write("#For a list of colors, go here: http://wiki.canarymod.net/Colors\r\n");
+      			writer.write("#To use linebreaks, just press enter or return. For color, use &\r\n");
+      			writer.write("Welcome to my server! Please type /help for commands.");
+            } catch (Exception e) {
+            	log.log(Level.SEVERE, "Exception while creating motd.txt");
+            	try
+            	{
+            		if (writer != null)
+            			writer.close();
+            	}
+            	catch (IOException e1) {
+            		log.log(Level.SEVERE, "Exception while closing writer for motd.txt", e1);
+            	}
+            }
+            finally
+            {
+            	try
+            	{
+            		if (writer != null)
+            			writer.close();
+            	}
+            	catch (IOException e) {
+            		log.log(Level.SEVERE, "Exception while closing writer for motd.txt", e);
+            	}
+            }
+        }
     }
 }
