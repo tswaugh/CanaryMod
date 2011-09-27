@@ -114,9 +114,8 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack>  {
       int var2 = this.e(var1);
       return var2 >= 0;
    }
-
    
-   // CanaryMod: Simulate Pickup (Its the same as a(OItemStack) but without altering the inventory
+// CanaryMod: Simulate Pickup (Its the same as a(OItemStack) but without altering the inventory
    public boolean canPickup(OEntityItem entityItem) {
        OItemStack var1 = entityItem.a;
        int var2;       

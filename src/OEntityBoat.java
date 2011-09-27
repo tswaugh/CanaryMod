@@ -64,13 +64,13 @@ public class OEntityBoat extends OEntity {
 
    public boolean a(ODamageSource var1, int var2) {
       // CanaryMod: Attack of the boat
-	  BaseEntity entity = null;
-      if(var1 != null && var1.a() != null) {
-         entity = new BaseEntity(var1.a());
-      }
-      if((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, boat, entity, var2))
-	     return true;
-
+	   BaseEntity entity = null;
+	   if(var1 != null && var1.a() != null) {
+		   entity = new BaseEntity(var1.a());
+	   }
+	   if((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, boat, entity, var2))
+		   return true;
+      
       if(!this.bb.I && !this.bx) {
          this.c = -this.c;
          this.b = 10;

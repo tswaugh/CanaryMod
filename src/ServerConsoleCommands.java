@@ -272,9 +272,12 @@ public class ServerConsoleCommands {
                                                       @Override
                                                       void execute(MessageReceiver caller, String[] parameters) {
                                                           if (!etc.getInstance().getTainted())
-                                                              caller.notify(Colors.Gold + "CanaryMod Build " + etc.getInstance().getVersion());
+                                                        	  if(etc.getInstance().isCrow())
+                                                        		  caller.notify(Colors.Gold+"Crow Test Build " + etc.getInstance().getVersionStr());
+                                                        	  else
+                                                        		  caller.notify(Colors.Gold+"CanaryMod Build " + etc.getInstance().getVersionStr());
                                                           else
-                                                              caller.notify(Colors.Gold + "Unofficial CanaryMod Build " + etc.getInstance().getVersionStr());
+                                                        	  caller.notify(Colors.Gold+"Tainted Build Information: " + etc.getInstance().getVersionStr());
                                                       }
                                                   };
 }
