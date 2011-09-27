@@ -59,7 +59,7 @@ public class OEntityCow extends OEntityAnimal {
       OItemStack var2 = var1.j.b();
       if(var2 != null && var2.c == OItem.au.bo) {
          // CanaryMod hook: onCowMilk
-         if (!(Boolean)etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, etc.getServer().getPlayer(var1.r), new Mob(this)))
+         if (!(Boolean)etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) var1).getPlayer(), new Mob(this)))
          {
             var1.j.a(var1.j.c, new OItemStack(OItem.aE));
             return true;
