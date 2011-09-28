@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class OEntityMinecart extends OEntity implements OIInventory {
+public class OEntityMinecart extends OEntity implements OIInventory, Container<OItemStack> {
 
    private OItemStack[] h;
    public int a;
@@ -791,5 +791,40 @@ public class OEntityMinecart extends OEntity implements OIInventory {
    public void e() {}
 
    public void t_() {}
+   
+   @Override
+   public OItemStack[] getContents() {
+       return h;
+   }
+
+   @Override
+   public void setContents(OItemStack[] values) {
+       h = values;
+   }
+
+   @Override
+   public OItemStack getContentsAt(int index) {
+       return b_(index);
+   }
+
+   @Override
+   public void setContentsAt(int index, OItemStack value) {
+       a(index, value);
+   }
+
+   @Override
+   public int getContentsSize() {
+       return a();
+   }
+
+   @Override
+   public String getName() {
+       return name;
+   }
+
+   @Override
+   public void setName(String value) {
+       name = value;
+   }
 
 }

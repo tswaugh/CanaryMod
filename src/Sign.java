@@ -68,9 +68,26 @@ public class Sign implements ComplexBlock {
         return sign.i.world;
     }
 
-    @Override    
-    public void update() {
-       sign.i.world.getWorld().h(getX(), getY(), getZ());
+    @Override
+    public void update()
+    {
+      this.sign.k();
+      getWorld().getWorld().h(getX(), getY(), getZ());
+      OPacket packet = this.sign.l();
+      if(packet == null)
+      	return;
+      
+      OChunkCoordIntPair chunkpair = new OChunkCoordIntPair(getX() >> 4, getY() >> 4);
+      
+      this.sign.a(true);
+      for (Player player : etc.getServer().getPlayerList())
+      {
+          if (player.getUser().g.contains(chunkpair))
+          {
+              player.getUser().a.b(packet);
+          }
+      }
+      this.sign.a(false);
     }
 
     /**

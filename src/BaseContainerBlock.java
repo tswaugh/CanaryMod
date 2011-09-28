@@ -44,7 +44,7 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
 
     @Override
     public void update() {
-        container.i();
+        container.k();
     }
 
     @Override
