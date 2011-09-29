@@ -64,8 +64,9 @@ public class OEntityCow extends OEntityAnimal {
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) var1).getPlayer(), new Mob(this))) {
                 var1.j.a(var1.j.c, new OItemStack(OItem.aE));
                 return true;
+            } else {
+            	return false;
             }
-            return false;
         } else {
             return false;
         }

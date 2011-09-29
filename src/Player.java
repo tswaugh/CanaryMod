@@ -877,9 +877,38 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Add Experience
      * @param s
      */
-    public void addXP(String s){
-		int i = Integer.parseInt(s);
-		getPlayer().getEntity().d(i);
+    public void addXP(int i){
+   		getPlayer().getEntity().d(i);
+   		updateXP();
+    }
+
+    /**
+     * Remove Experience
+     * @param s
+     */
+    public void removeXP(int i){
+    	if(getXP() > 0) {
+    		getPlayer().getEntity().removeXP(i);
+    		updateXP();
+		} else {
+			notify("Cannot decrease XP below 0");
+		}
     }
     
+    /**
+     * Set Experience
+     * @param s
+     */
+    public void setXP(int i){
+    	if(getXP() > 0) {
+    		getPlayer().getEntity().setXP(i);
+   			updateXP();
+    	} else {
+    		notify("XP cannot be set to less than 0");
+    	}
+    }
+    
+    public void updateXP(){
+    	getPlayer().getEntity().a.b((OPacket) (new OPacket43Experience(getPlayer().getEntity().L, getPlayer().getEntity().N, getPlayer().getEntity().M)));
+    }
 }

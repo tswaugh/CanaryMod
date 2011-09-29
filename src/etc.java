@@ -1,8 +1,5 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -13,7 +10,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +26,7 @@ public class etc {
     private static final Logger           log = Logger.getLogger("Minecraft");
     private static final etc              instance  = new etc();
     private static MinecraftServer        server;
-    private static String                   configDir =    "config/";
+    private String                        configDir =    "config/";
     private String                        usersLoc = "config/users.txt", kitsLoc = "config/kits.txt", homeLoc = "config/homes.txt", warpLoc = "config/warps.txt", itemLoc = "config/items.txt", groupLoc = "config/groups.txt";
     private String                        whitelistLoc = "config/whitelist.txt", reservelistLoc = "config/reservelist.txt";
     private String                        whitelistMessage = "Not on whitelist.";
@@ -39,7 +35,8 @@ public class etc {
     private Set<Integer>                  disallowedItems     = new HashSet<Integer>();
     private Set<Integer>                  itemSpawnBlacklist  = new HashSet<Integer>();
 
-    private String                          motd                = null;
+    private String                        motd                = null;
+    private String                        motdLoc             = "config/motd.txt";
     private boolean                       saveHomes           = true;
     private boolean                       hideSeed            = false;
     private boolean                       whitelistEnabled    = false;
@@ -69,6 +66,7 @@ public class etc {
     private boolean                       mobReload           = false;
     private List<OSpawnListEntry>         animalsList, monsterList, waterAnimalsList;
     private boolean                       crow                = false;
+    private boolean                       allowNether         = true;
 
     private etc() {
         load();
@@ -112,6 +110,8 @@ public class etc {
             hideSeed = properties.getBoolean("hide-seed", false);
             whitelistEnabled = properties.getBoolean("whitelist", false);
             whitelistMessage = properties.getString("whitelist-message", "Not on whitelist.");
+            configDir = properties.getString("config-directory", "config/");
+            motdLoc = properties.getString("motdtxtlocation", "config/motd.txt");
             reservelistEnabled = properties.getBoolean("reservelist", false);
             if (dataSourceType.equalsIgnoreCase("flatfile")) {
                 usersLoc = properties.getString("admintxtlocation", "config/users.txt");
@@ -131,7 +131,7 @@ public class etc {
             }
             spawnProtectionSize = properties.getInt("spawn-protection-size", 16);
             logging = properties.getBoolean("logging", false);
-            properties.getBoolean("allow-nether", true);
+            allowNether = properties.getBoolean("allow-nether", true);
             enableHealth = properties.getBoolean("enable-health", true);
             deathMessages = properties.getBoolean("death-message", true);
 
@@ -397,7 +397,7 @@ public class etc {
         @Override
         public void notify(String message) {
             // Strip the colors.
-            message = message.replaceAll("\\u00A7[a-f0-9]", "");
+            //message = message.replaceAll("\\u00A7[a-f0-9]", "");
             if (message != null)
                 log.info(message);
         }
@@ -1082,10 +1082,48 @@ public class etc {
             return false;
     }
 
-    public static String getConfigFolder() {
+    /**
+     * Returns config directory
+     * 
+     * @return String configDir
+     */
+    public String getConfigFolder() {
         return configDir;
     }
+    
+    /**
+     * Returns if current build is a crow build
+     * 
+     * @return boolean crow
+     */
     public boolean isCrow() {
         return crow;
+    }
+    
+    /**
+     * Returns if nether is enabled
+     * 
+     * @return
+     */
+    public boolean isNetherEnabled() {
+        return allowNether;
+    }
+    
+    /**
+     * Returns the location of motd.txt
+     * 
+     * @return
+     */
+    public String getMotdLocation() {
+        return motdLoc;
+    }
+    
+    /**
+     * Returns the server message
+     * 
+     * @return
+     */
+    public String getServerMessage() {
+        return motd;
     }
 }
