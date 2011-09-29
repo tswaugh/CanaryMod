@@ -18,7 +18,7 @@ public class Motd {
     
     public static String getMotd(MessageReceiver caller) {
         try {
-              FileInputStream fis = new FileInputStream(etc.getConfigFolder()+"motd.txt");
+              FileInputStream fis = new FileInputStream(etc.getInstance().getConfigFolder()+"motd.txt");
               Scanner scanner = new Scanner(fis, "UTF-8");
               scanner.useDelimiter("\r\n");
               while (scanner.hasNext()) {
@@ -46,8 +46,8 @@ public class Motd {
     }
     
     public static void makeMotd(){
-    	new File(etc.getConfigFolder()).mkdirs();
-        File motdfile = new File(etc.getConfigFolder()+"motd.txt");
+    	new File(etc.getInstance().getConfigFolder()).mkdirs();
+        File motdfile = new File(etc.getInstance().getConfigFolder()+"motd.txt");
         if (!motdfile.exists()) {
         	FileWriter writer = null;
             try {

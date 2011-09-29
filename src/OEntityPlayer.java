@@ -1005,7 +1005,26 @@ public abstract class OEntityPlayer extends OEntityLiving {
             this.L -= this.U();
             this.y();
         }
+    }
+    
+    public void removeXP(int var1) {
+        this.L -= var1;
+        this.N -= var1;
 
+        while (this.L >= this.U()) {
+            this.L -= this.U();
+            this.y();
+        }
+    }
+    
+    public void setXP(int var1) {
+        this.L = var1;
+        this.N = var1;
+
+        while (this.L >= this.U()) {
+            this.L -= this.U();
+            this.y();
+        }
     }
 
     public int U() {

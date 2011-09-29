@@ -123,8 +123,10 @@ public class ONetLoginHandler extends ONetHandler {
       try {
          String var2 = this.e.p + "\u00a7" + this.e.f.g() + "\u00a7" + this.e.f.h();
          this.b.a((OPacket)(new OPacket255KickDisconnect(var2)));
-         this.b.d();
+         //CanaryMod swapped lines below. The network connection should be terminated AFTER removing the socket from the connection list.
          this.e.c.a(this.b.f());
+         this.b.d();
+         
          this.c = true;
       } catch (Exception var3) {
          var3.printStackTrace();
