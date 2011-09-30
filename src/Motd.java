@@ -3,6 +3,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,11 +29,7 @@ public class Motd {
                 if (line.startsWith("#")) {
                   continue;
                 }
-                String msg = line;
-                if(line.contains("&"))
-                    msg = line.replace("&", Colors.Marker);
-                if(line.contains("&&"))
-                    msg = line.replaceAll("&&", "&");
+                String msg = replace(line,((Player)caller));
                 ((Player)caller).getEntity().a.b(new OPacket3Chat(msg));
               }
               scanner.close();
@@ -79,4 +78,17 @@ public class Motd {
             }
         }
     }
+    
+    public static String replace(String text, Player p) {
+      if(text.contains("&")) text = text.replace("&", Colors.Marker);
+      if(text.contains("&&")) text = text.replaceAll("&&", "&");
+  	  if (text.contains("%playerlist%")) text = text.replaceAll("%playerlist%", etc.getServer().getPlayerNames());
+  	  if (text.contains("%player%")) text = text.replaceAll("%player%", p.getName());
+  	  if (text.contains("%group%")) text = text.replaceAll("%group%", p.getGroups()[0]);
+  	  if (text.contains("%onlineplayers%")) text = text.replaceAll("%onlineplayers%", Integer.toString(etc.getServer().getPlayerList().size()));
+  	  if (text.contains("%maxplayers%")) text = text.replaceAll("%maxplayers%", Integer.toString(etc.getInstance().getPlayerLimit()));
+  	  if (text.contains("%level%")) text = text.replaceAll("%level%", Integer.toString(p.getLevel()));
+  	  if (text.contains("%exp%")) text = text.replaceAll("%exp%", Integer.toString(p.getXP()));
+  	  return text;
+  	}
 }
