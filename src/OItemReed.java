@@ -1,4 +1,3 @@
-
 public class OItemReed extends OItem {
 
     private int a;
@@ -12,9 +11,8 @@ public class OItemReed extends OItem {
         // CanaryMod: Store blockClicked
         int clicked = var3.a(var4, var5, var6);
         Block blockClicked = new Block(var3.world, clicked, var4, var5, var6);
-      
-        int var8 = var3.a(var4, var5, var6);
 
+        int var8 = var3.a(var4, var5, var6);
         if (var8 == OBlock.aT.bA) {
             var7 = 0;
         } else if (var8 != OBlock.bv.bA) {
@@ -51,16 +49,13 @@ public class OItemReed extends OItem {
             if (var3.a(this.a, var4, var5, var6, false, var7)) {
                 // CanaryMod: Reed placement
                 Block blockPlaced = new Block(var3.world, var3.a(var4, var5, var6), var4, var5, var6);
-
                 blockClicked.setFaceClicked(Block.Face.fromId(var7));
                 Player player = ((OEntityPlayerMP) var2).getPlayer();
 
-                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(var1))) {
+                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(var1)))
                     return false;
-                }
 
                 OBlock var9 = OBlock.m[this.a];
-
                 if (var3.e(var4, var5, var6, this.a)) {
                     if (var3.a(var4, var5, var6) == this.a) {
                         OBlock.m[this.a].e(var3, var4, var5, var6, var7);

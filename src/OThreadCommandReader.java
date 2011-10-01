@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import net.minecraft.server.MinecraftServer;
 
-
 public class OThreadCommandReader extends Thread {
 
     // $FF: synthetic field
@@ -21,9 +20,8 @@ public class OThreadCommandReader extends Thread {
         try {
             while (!this.a.g && (var2 = var1.readLine()) != null) {
                 // CanaryMod: run through our parser first.
-                if (!etc.getInstance().parseConsoleCommand(var2, a)) {
+                if (!etc.getInstance().parseConsoleCommand(var2, a))
                     this.a.a(var2, this.a);
-                }
             }
         } catch (IOException var4) {
             var4.printStackTrace();

@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OBlockFire extends OBlock {
 
     private int[] a = new int[256];
@@ -51,7 +50,6 @@ public class OBlockFire extends OBlock {
 
     public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
         boolean var6 = var1.a(var2, var3 - 1, var4) == OBlock.bc.bA;
-
         if (!this.c(var1, var2, var3, var4)) {
             var1.e(var2, var3, var4, 0);
         }
@@ -60,7 +58,6 @@ public class OBlockFire extends OBlock {
             var1.e(var2, var3, var4, 0);
         } else {
             int var7 = var1.c(var2, var3, var4);
-
             if (var7 < 15) {
                 var1.d(var2, var3, var4, var7 + var5.nextInt(3) / 2);
             }
@@ -86,31 +83,25 @@ public class OBlockFire extends OBlock {
                         for (int var10 = var3 - 1; var10 <= var3 + 4; ++var10) {
                             if (var8 != var2 || var10 != var3 || var9 != var4) {
                                 int var11 = 100;
-
                                 if (var10 > var3 + 1) {
                                     var11 += (var10 - (var3 + 1)) * 100;
                                 }
 
                                 int var12 = this.h(var1, var8, var10, var9);
-
                                 if (var12 > 0) {
                                     int var13 = (var12 + 40) / (var7 + 30);
-
                                     if (var13 > 0 && var5.nextInt(var11) <= var13 && (!var1.u() || !var1.s(var8, var10, var9)) && !var1.s(var8 - 1, var10, var4) && !var1.s(var8 + 1, var10, var9) && !var1.s(var8, var10, var9 - 1) && !var1.s(var8, var10, var9 + 1)) {
                                         int var14 = var7 + var5.nextInt(5) / 4;
-
                                         if (var14 > 15) {
                                             var14 = 15;
                                         }
 
-                                        // CanaryMod: dynamic spreading of fire.{
+                                        // CanaryMod: dynamic spreading of fire.
                                         // avg call amount per placed block of fire ~ 4
                                         Block block = new Block(var1.world, var1.a(var8, var10, var9), var8, var10, var9);
-
                                         block.setStatus(3);
-                                        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
+                                        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null))
                                             var1.b(var8, var10, var9, this.bA, var14);
-                                        }
                                     }
                                 }
                             }
@@ -124,31 +115,24 @@ public class OBlockFire extends OBlock {
 
     private void a(OWorld var1, int var2, int var3, int var4, int var5, Random var6, int var7) {
         int var8 = this.b[var1.a(var2, var3, var4)];
-
         if (var6.nextInt(var5) < var8) {
             boolean var9 = var1.a(var2, var3, var4) == OBlock.an.bA;
-
             if (var6.nextInt(var7 + 10) < 5 && !var1.s(var2, var3, var4)) {
                 int var10 = var7 + var6.nextInt(5) / 4;
-
                 if (var10 > 15) {
                     var10 = 15;
                 }
                 // CanaryMod: VERY SLOW dynamic spreading of fire.
                 Block block = new Block(var1.world, var1.a(var2, var3, var4), var2, var3, var4);
-
                 block.setStatus(3);
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
+                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null))
                     var1.b(var2, var3, var4, this.bA, var10);
-                }
             } else {
                 // CanaryMod: fire destroying a block.
                 Block block = new Block(var1.world, var1.a(var2, var3, var4), var2, var3, var4);
-
                 block.setStatus(4);
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
+                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null))
                     var1.e(var2, var3, var4, 0);
-                }
             }
 
             if (var9) {
@@ -165,12 +149,10 @@ public class OBlockFire extends OBlock {
 
     private int h(OWorld var1, int var2, int var3, int var4) {
         byte var5 = 0;
-
         if (!var1.f(var2, var3, var4)) {
             return 0;
         } else {
             int var6 = this.f(var1, var2 + 1, var3, var4, var5);
-
             var6 = this.f(var1, var2 - 1, var3, var4, var6);
             var6 = this.f(var1, var2, var3 - 1, var4, var6);
             var6 = this.f(var1, var2, var3 + 1, var4, var6);
@@ -190,7 +172,6 @@ public class OBlockFire extends OBlock {
 
     public int f(OWorld var1, int var2, int var3, int var4, int var5) {
         int var6 = this.a[var1.a(var2, var3, var4)];
-
         return var6 > var5 ? var6 : var5;
     }
 

@@ -1,4 +1,3 @@
-
 public class OBlockNote extends OBlockContainer {
 
     public OBlockNote(int var1) {
@@ -13,7 +12,6 @@ public class OBlockNote extends OBlockContainer {
         if (var5 > 0 && OBlock.m[var5].d()) {
             boolean var6 = var1.q(var2, var3, var4);
             OTileEntityNote var7 = (OTileEntityNote) var1.b(var2, var3, var4);
-
             if (var7 != null && var7.b != var6) {
                 if (var6) {
                     var7.a(var1, var2, var3, var4);
@@ -30,7 +28,6 @@ public class OBlockNote extends OBlockContainer {
             return true;
         } else {
             OTileEntityNote var6 = (OTileEntityNote) var1.b(var2, var3, var4);
-
             if (var6 != null) {
                 var6.a();
                 var6.a(var1, var2, var3, var4);
@@ -43,7 +40,6 @@ public class OBlockNote extends OBlockContainer {
     public void b(OWorld var1, int var2, int var3, int var4, OEntityPlayer var5) {
         if (!var1.I) {
             OTileEntityNote var6 = (OTileEntityNote) var1.b(var2, var3, var4);
-
             if (var6 != null) {
                 var6.a(var1, var2, var3, var4);
             }
@@ -58,7 +54,6 @@ public class OBlockNote extends OBlockContainer {
     public void a(OWorld var1, int var2, int var3, int var4, int var5, int var6) {
         float var7 = (float) Math.pow(2.0D, (double) (var6 - 12) / 12.0D);
         String var8 = "harp";
-
         if (var5 == 1) {
             var8 = "bd";
         }

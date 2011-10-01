@@ -1,4 +1,3 @@
-
 public class OTileEntityMobSpawner extends OTileEntity {
 
     public int a = -1;
@@ -25,7 +24,6 @@ public class OTileEntityMobSpawner extends OTileEntity {
             double var1 = (double) ((float) this.j + this.i.w.nextFloat());
             double var3 = (double) ((float) this.k + this.i.w.nextFloat());
             double var5 = (double) ((float) this.l + this.i.w.nextFloat());
-
             this.i.a("smoke", var1, var3, var5, 0.0D, 0.0D, 0.0D);
             this.i.a("flame", var1, var3, var5, 0.0D, 0.0D, 0.0D);
 
@@ -47,13 +45,11 @@ public class OTileEntityMobSpawner extends OTileEntity {
 
                 for (int var8 = 0; var8 < var7; ++var8) {
                     OEntityLiving var9 = (OEntityLiving) ((OEntityLiving) OEntityList.a(this.d, this.i));
-
                     if (var9 == null) {
                         return;
                     }
 
                     int var10 = this.i.a(var9.getClass(), OAxisAlignedBB.b((double) this.j, (double) this.k, (double) this.l, (double) (this.j + 1), (double) (this.k + 1), (double) (this.l + 1)).b(8.0D, 4.0D, 8.0D)).size();
-
                     if (var10 >= 6) {
                         this.c();
                         return;
@@ -63,7 +59,6 @@ public class OTileEntityMobSpawner extends OTileEntity {
                         double var11 = (double) this.j + (this.i.w.nextDouble() - this.i.w.nextDouble()) * 4.0D;
                         double var13 = (double) (this.k + this.i.w.nextInt(3) - 1);
                         double var15 = (double) this.l + (this.i.w.nextDouble() - this.i.w.nextDouble()) * 4.0D;
-
                         var9.c(var11, var13, var15, this.i.w.nextFloat() * 360.0F, 0.0F);
                         if (var9.d()) {
                             this.i.b((OEntity) var9);

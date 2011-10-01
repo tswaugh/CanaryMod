@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,9 +17,9 @@ public class Player extends HumanEntity implements MessageReceiver {
     private static final Logger log = Logger.getLogger("Minecraft");
     private int id = -1;
     private String prefix = "";
-    private String[] commands = new String[]{""};
+    private String[] commands = new String[] { "" };
     private ArrayList<String> groups = new ArrayList<String>();
-    private String[] ips = new String[]{""};
+    private String[] ips = new String[] { "" };
     private boolean ignoreRestrictions = false;
     private boolean admin = false;
     private boolean canModifyWorld = false;
@@ -121,7 +120,7 @@ public class Player extends HumanEntity implements MessageReceiver {
                 sendMessage(Colors.Rose + "You are currently muted.");
                 return;
             }
-            if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[]{this, message}))
+            if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[] { this, message }))
                 return;
 
             String chat = "<" + getColor() + getName() + Colors.White + "> " + message;
@@ -132,8 +131,9 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Makes player use command.
-     *
+     * 
      * TODO: redo this in the same way as the server commands.
+     * 
      * @param command
      * 
      */
@@ -160,8 +160,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             }
 
             // Remove '/' before checking.
-            if (!ServerConsoleCommands.parseServerConsoleCommand(this, cmd.substring(1), split)
-                    && !PlayerCommands.parsePlayerCommand(this, cmd.substring(1), split)) {
+            if (!ServerConsoleCommands.parseServerConsoleCommand(this, cmd.substring(1), split) && !PlayerCommands.parsePlayerCommand(this, cmd.substring(1), split)) {
                 log.info(getName() + " tried command " + command);
                 if (etc.getInstance().showUnknownCommand())
                     sendMessage(Colors.Rose + "Unknown command");
@@ -227,15 +226,17 @@ public class Player extends HumanEntity implements MessageReceiver {
     public boolean canUseCommand(String command) {
         PluginLoader.HookResult res = (PluginLoader.HookResult) etc.getLoader().callHook(PluginLoader.Hook.COMMAND_CHECK, this, command);
         if (res == PluginLoader.HookResult.DEFAULT_ACTION)
-            return canUseCommandByDefault(command);//If someone wants to use false instead, this can be done with low priority plugin.
+            return canUseCommandByDefault(command);// If someone wants to use
+        // false instead, this can be
+        // done with low priority
+        // plugin.
         if (res == PluginLoader.HookResult.ALLOW_ACTION)
             return true;
         return false;
     }
 
     /**
-     * Returns true if this player can use the specified command
-     * This method ignores permission management plugins and shouldn't be used by other plugins.
+     * Returns true if this player can use the specified command This method ignores permission management plugins and shouldn't be used by other plugins.
      * 
      * @param command
      * @return
@@ -519,8 +520,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * If the user can ignore restrictions this will return true. Things like
-     * item amounts and such are unlimited, etc.
+     * If the user can ignore restrictions this will return true. Things like item amounts and such are unlimited, etc.
      * 
      * @return
      */
@@ -633,8 +633,8 @@ public class Player extends HumanEntity implements MessageReceiver {
         OEntityPlayerMP player = getEntity();
 
         // If player is in vehicle - eject them before they are teleported.
-        if (getMode(getPlayer())){
-      	  player.c.a(1);
+        if (getMode(getPlayer())) {
+            player.c.a(1);
         }
         if (player.bb != null)
             player.a(player.bb);
@@ -683,7 +683,8 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     *  Returns the item stack in the player's hand.
+     * Returns the item stack in the player's hand.
+     * 
      * @return Item
      */
     public Item getItemStackInHand() {
@@ -709,7 +710,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().at();
+        return getEntity().as();
     }
 
     /**
@@ -728,6 +729,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns the one-use only kits
+     * 
      * @return List of kit names
      */
     public List<String> getOnlyOneUseKits() {
@@ -805,110 +807,115 @@ public class Player extends HumanEntity implements MessageReceiver {
         return hash;
     }
 
-    
     /**
      * Set creative mode for this Player
-     *
+     * 
      * @param i
      */
     public void setCreativeMode(int i) {
-    	getEntity().c.a(i);
-    	getEntity().a.b((OPacket)(new OPacket70Bed(3, i)));
-    	if(i == 1 && !getMode(getPlayer())){
-    		modes.add(getPlayer());
-    	} else {
-    		modes.remove(getPlayer());
-    	}
+        getEntity().c.a(i);
+        getEntity().a.b((OPacket) (new OPacket70Bed(3, i)));
+        if (i == 1 && !getMode(getPlayer())) {
+            modes.add(getPlayer());
+        } else {
+            modes.remove(getPlayer());
+        }
     }
-    
+
     /**
      * Get creative mode for this Player
      * 
      * @return i
      */
     public int getCreativeMode() {
-    	int i = 0;
-    	if(getEntity().c.a() != 0)
-    		i = getEntity().c.a();
-    	return i;
+        int i = 0;
+        if (getEntity().c.a() != 0)
+            i = getEntity().c.a();
+        return i;
     }
-    
+
     /**
      * Check to see if this Player is in creative mode
      * 
      * @return
      */
-    public static boolean getMode(Player player){
-    	if(modes.contains(player)){
-    		return true;
-    	} else {
-    		return false;
-    	}
+    public static boolean getMode(Player player) {
+        if (modes.contains(player)) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
     /**
      * Refresh this Player's mode
      */
-    public void refreshCreativeMode() {        
-        if (Player.getMode(this)){        
+    public void refreshCreativeMode() {
+        if (Player.getMode(this)) {
             getEntity().c.a(1);
         } else {
             getEntity().c.a(0);
         }
-     }
-    
+    }
+
     /**
      * Get Experience Amount
+     * 
      * @return
      */
-    public int getXP(){
-    	return getPlayer().getEntity().N;
+    public int getXP() {
+        return getPlayer().getEntity().N;
     }
 
     /**
      * Get Player Level
+     * 
      * @return
      */
-    public int getLevel(){
-    	return getPlayer().getEntity().M;
+    public int getLevel() {
+        return getPlayer().getEntity().M;
     }
-    
+
     /**
      * Add Experience
+     * 
      * @param s
      */
-    public void addXP(int i){
-   		getPlayer().getEntity().d(i);
-   		updateXP();
+    public void addXP(int i) {
+        getPlayer().getEntity().d(i);
+        updateXP();
     }
 
     /**
      * Remove Experience
+     * 
      * @param s
      */
-    public void removeXP(int i){
-    	if(getXP() > 0) {
-    		getPlayer().getEntity().removeXP(i);
-    		updateXP();
-		} else {
-			notify("Cannot decrease XP below 0");
-		}
+    public void removeXP(int i) {
+        if (getXP() > 0) {
+            getPlayer().getEntity().removeXP(i);
+            updateXP();
+        } else {
+            notify("Cannot decrease XP below 0");
+        }
     }
-    
+
     /**
      * Set Experience
+     * 
      * @param s
      */
-    public void setXP(int i){
-    	if(getXP() > 0) {
-    		getPlayer().getEntity().setXP(i);
-   			updateXP();
-    	} else {
-    		notify("XP cannot be set to less than 0");
-    	}
+    public void setXP(int i) {
+        if (getXP() > 0) {
+            getPlayer().getEntity().setXP(i);
+            updateXP();
+        } else {
+            notify("XP cannot be set to less than 0");
+        }
     }
-    
-    public void updateXP(){
-    	getPlayer().getEntity().a.b((OPacket) (new OPacket43Experience(getPlayer().getEntity().L, getPlayer().getEntity().N, getPlayer().getEntity().M)));
+
+    public void updateXP() {
+        getPlayer().getEntity().a.b((OPacket) (new OPacket43Experience(getPlayer().getEntity().L, getPlayer().getEntity().N, getPlayer().getEntity().M)));
     }
+
 }

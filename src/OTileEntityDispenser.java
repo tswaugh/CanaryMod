@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.Random;
 
-
 public class OTileEntityDispenser extends OTileEntity implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] a = new OItemStack[9];
@@ -23,7 +22,6 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
     public OItemStack a(int var1, int var2) {
         if (this.a[var1] != null) {
             OItemStack var3;
-
             if (this.a[var1].a <= var2) {
                 var3 = this.a[var1];
                 this.a[var1] = null;
@@ -76,13 +74,11 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
     public void a(ONBTTagCompound var1) {
         super.a(var1);
         ONBTTagList var2 = var1.l("Items");
-
         this.a = new OItemStack[this.a()];
 
         for (int var3 = 0; var3 < var2.c(); ++var3) {
             ONBTTagCompound var4 = (ONBTTagCompound) var2.a(var3);
             int var5 = var4.c("Slot") & 255;
-
             if (var5 >= 0 && var5 < this.a.length) {
                 this.a[var5] = OItemStack.a(var4);
             }
@@ -97,7 +93,6 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         for (int var3 = 0; var3 < this.a.length; ++var3) {
             if (this.a[var3] != null) {
                 ONBTTagCompound var4 = new ONBTTagCompound();
-
                 var4.a("Slot", (byte) var3);
                 this.a[var3].b(var4);
                 var2.a((ONBTBase) var4);
@@ -115,10 +110,12 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         return this.i.b(this.j, this.k, this.l) != this ? false : var1.e((double) this.j + 0.5D, (double) this.k + 0.5D, (double) this.l + 0.5D) <= 64.0D;
     }
 
-    public void e() {}
+    public void e() {
+    }
 
-    public void t_() {}
-   
+    public void t_() {
+    }
+
     public OItemStack[] getContents() {
         return Arrays.copyOf(a, getContentsSize());
     }

@@ -3,7 +3,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-
 public class OBlockRedstoneWire extends OBlock {
 
     private boolean a = true;
@@ -37,12 +36,10 @@ public class OBlockRedstoneWire extends OBlock {
     private void g(OWorld var1, int var2, int var3, int var4) {
         this.a(var1, var2, var3, var4, var2, var3, var4);
         ArrayList var5 = new ArrayList(this.b);
-
         this.b.clear();
 
         for (int var6 = 0; var6 < var5.size(); ++var6) {
             OChunkPosition var7 = (OChunkPosition) var5.get(var6);
-
             var1.h(var7.a, var7.b, var7.c, this.bA);
         }
 
@@ -51,15 +48,12 @@ public class OBlockRedstoneWire extends OBlock {
     private void a(OWorld var1, int var2, int var3, int var4, int var5, int var6, int var7) {
         int var8 = var1.c(var2, var3, var4);
         int var9 = 0;
-
         this.a = false;
         boolean var10 = var1.r(var2, var3, var4);
-
         this.a = true;
         int var11;
         int var12;
         int var13;
-
         if (var10) {
             var9 = 15;
         } else {
@@ -103,10 +97,9 @@ public class OBlockRedstoneWire extends OBlock {
         }
 
         // CanaryMod: Allow redstone wire current changes
-        if (var8 != var9) {
+        if (var8 != var9)
             var9 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(var1.world, bA, var2, var3, var4), var8, var9);
-        }
-      
+
         if (var8 != var9) {
             var1.t = true;
             var1.c(var2, var3, var4, var9);
@@ -117,7 +110,6 @@ public class OBlockRedstoneWire extends OBlock {
                 var12 = var2;
                 var13 = var4;
                 int var14 = var3 - 1;
-
                 if (var11 == 0) {
                     var12 = var2 - 1;
                 }
@@ -140,7 +132,6 @@ public class OBlockRedstoneWire extends OBlock {
 
                 boolean var15 = false;
                 int var16 = this.f(var1, var12, var3, var13, -1);
-
                 var9 = var1.c(var2, var3, var4);
                 if (var9 > 0) {
                     --var9;
@@ -265,7 +256,6 @@ public class OBlockRedstoneWire extends OBlock {
             return var5;
         } else {
             int var6 = var1.c(var2, var3, var4);
-
             return var6 > var5 ? var6 : var5;
         }
     }
@@ -274,7 +264,6 @@ public class OBlockRedstoneWire extends OBlock {
         if (!var1.I) {
             int var6 = var1.c(var2, var3, var4);
             boolean var7 = this.c(var1, var2, var3, var4);
-
             if (!var7) {
                 this.g(var1, var2, var3, var4, var6);
                 var1.e(var2, var3, var4, 0);
@@ -306,7 +295,6 @@ public class OBlockRedstoneWire extends OBlock {
             boolean var7 = c(var1, var2 + 1, var3, var4, 3) || !var1.e(var2 + 1, var3, var4) && c(var1, var2 + 1, var3 - 1, var4, -1);
             boolean var8 = c(var1, var2, var3, var4 - 1, 2) || !var1.e(var2, var3, var4 - 1) && c(var1, var2, var3 - 1, var4 - 1, -1);
             boolean var9 = c(var1, var2, var3, var4 + 1, 0) || !var1.e(var2, var3, var4 + 1) && c(var1, var2, var3 - 1, var4 + 1, -1);
-
             if (!var1.e(var2, var3 + 1, var4)) {
                 if (var1.e(var2 - 1, var3, var4) && c(var1, var2 - 1, var3 + 1, var4, -1)) {
                     var6 = true;
@@ -335,7 +323,6 @@ public class OBlockRedstoneWire extends OBlock {
 
     public static boolean c(OIBlockAccess var0, int var1, int var2, int var3, int var4) {
         int var5 = var0.a(var1, var2, var3);
-
         if (var5 == OBlock.aw.bA) {
             return true;
         } else if (var5 == 0) {
@@ -346,7 +333,6 @@ public class OBlockRedstoneWire extends OBlock {
             return false;
         } else {
             int var6 = var0.c(var1, var2, var3);
-
             return var4 == OModelBed.e[var6 & 3];
         }
     }

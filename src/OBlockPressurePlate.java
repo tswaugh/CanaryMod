@@ -1,7 +1,6 @@
 import java.util.List;
 import java.util.Random;
 
-
 public class OBlockPressurePlate extends OBlock {
 
     private OEnumMobType a;
@@ -11,7 +10,6 @@ public class OBlockPressurePlate extends OBlock {
         this.a = var3;
         this.a(true);
         float var5 = 0.0625F;
-
         this.a(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
     }
 
@@ -35,11 +33,11 @@ public class OBlockPressurePlate extends OBlock {
         return var1.e(var2, var3 - 1, var4) || var1.a(var2, var3 - 1, var4) == OBlock.ba.bA;
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4) {}
+    public void a(OWorld var1, int var2, int var3, int var4) {
+    }
 
     public void a(OWorld var1, int var2, int var3, int var4, int var5) {
         boolean var6 = false;
-
         if (!var1.e(var2, var3 - 1, var4) && var1.a(var2, var3 - 1, var4) != OBlock.ba.bA) {
             var6 = true;
         }
@@ -72,7 +70,6 @@ public class OBlockPressurePlate extends OBlock {
         boolean var6 = false;
         float var7 = 0.125F;
         List var8 = null;
-
         if (this.a == OEnumMobType.a) {
             var8 = var1.b((OEntity) null, OAxisAlignedBB.b((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var7), (double) ((float) (var2 + 1) - var7), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var7)));
         }
@@ -90,9 +87,8 @@ public class OBlockPressurePlate extends OBlock {
         }
 
         // CanaryMod: Allow pressure plate interaction to power redstone
-        if (var6 != var5) {
+        if (var6 != var5)
             var6 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(var1.world, bA, var2, var3, var4), var5 ? 1 : 0, var6 ? 1 : 0) > 0;
-        }
 
         if (var6 && !var5) {
             var1.c(var2, var3, var4, 1);
@@ -118,7 +114,6 @@ public class OBlockPressurePlate extends OBlock {
 
     public void d(OWorld var1, int var2, int var3, int var4) {
         int var5 = var1.c(var2, var3, var4);
-
         if (var5 > 0) {
             var1.h(var2, var3, var4, this.bA);
             var1.h(var2, var3 - 1, var4, this.bA);
@@ -130,7 +125,6 @@ public class OBlockPressurePlate extends OBlock {
     public void a(OIBlockAccess var1, int var2, int var3, int var4) {
         boolean var5 = var1.c(var2, var3, var4) == 1;
         float var6 = 0.0625F;
-
         if (var5) {
             this.a(var6, 0.0F, var6, 1.0F - var6, 0.03125F, 1.0F - var6);
         } else {

@@ -1,4 +1,3 @@
-
 public class OInventoryCraftResult implements OIInventory {
 
     private OItemStack[] a = new OItemStack[1];
@@ -24,7 +23,6 @@ public class OInventoryCraftResult implements OIInventory {
     public OItemStack a(int var1, int var2) {
         if (this.a[var1] != null) {
             OItemStack var3 = this.a[var1];
-
             this.a[var1] = null;
             return var3;
         } else {
@@ -40,13 +38,16 @@ public class OInventoryCraftResult implements OIInventory {
         return 64;
     }
 
-    public void k() {}
+    public void k() {
+    }
 
     public boolean a(OEntityPlayer var1) {
         return true;
     }
 
-    public void e() {}
+    public void e() {
+    }
 
-    public void t_() {}
+    public void t_() {
+    }
 }

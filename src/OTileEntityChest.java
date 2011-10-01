@@ -1,6 +1,5 @@
 import java.util.Arrays;
 
-
 public class OTileEntityChest extends OTileEntity implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] p = new OItemStack[36];
@@ -30,7 +29,6 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
     public OItemStack a(int var1, int var2) {
         if (this.p[var1] != null) {
             OItemStack var3;
-
             if (this.p[var1].a <= var2) {
                 var3 = this.p[var1];
                 this.p[var1] = null;
@@ -66,13 +64,11 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
     public void a(ONBTTagCompound var1) {
         super.a(var1);
         ONBTTagList var2 = var1.l("Items");
-
         this.p = new OItemStack[this.a()];
 
         for (int var3 = 0; var3 < var2.c(); ++var3) {
             ONBTTagCompound var4 = (ONBTTagCompound) var2.a(var3);
             int var5 = var4.c("Slot") & 255;
-
             if (var5 >= 0 && var5 < this.p.length) {
                 this.p[var5] = OItemStack.a(var4);
             }
@@ -87,7 +83,6 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
         for (int var3 = 0; var3 < this.p.length; ++var3) {
             if (this.p[var3] != null) {
                 ONBTTagCompound var4 = new ONBTTagCompound();
-
                 var4.a("Slot", (byte) var3);
                 this.p[var3].b(var4);
                 var2.a((ONBTBase) var4);
@@ -163,7 +158,6 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
         float var1 = 0.1F;
         double var2;
         double var4;
-
         if (this.h > 0 && this.f == 0.0F && this.b == null && this.d == null) {
             var2 = (double) this.j + 0.5D;
             var4 = (double) this.l + 0.5D;
@@ -231,7 +225,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
         this.h();
         super.i();
     }
-   
+
     @Override
     public OItemStack[] getContents() {
         return Arrays.copyOf(p, getContentsSize());
@@ -241,9 +235,8 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
     public void setContents(OItemStack[] values) {
         int size = getContentsSize();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
             setContentsAt(i, values[i]);
-        }
     }
 
     @Override

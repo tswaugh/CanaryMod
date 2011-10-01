@@ -23,6 +23,7 @@ public class FlatFileSource extends DataSource {
         loadHomes();
         loadWarps();
         loadItems();
+        loadEnderBlocks();
         // loadBanList();
 
         String location = etc.getInstance().getUsersLocation();
@@ -685,6 +686,61 @@ public class FlatFileSource extends DataSource {
                 scanner.close();
             } catch (Exception e) {
                 log.log(Level.SEVERE, "Exception while reading banned-ips.txt", e);
+            }
+        }
+    }
+    
+    @Override
+    public void loadEnderBlocks() {
+        String location = etc.getInstance().getEnderBlocksLocation();
+
+        if (!new File(location).exists()) {
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter(location);
+                writer.write("#Add block IDs the endermen can pick up.\r\n");
+            } catch (Exception e) {
+                log.log(Level.SEVERE, String.format("Exception while creating %s", location), e);
+            } finally {
+                try {
+                    if (writer != null)
+                        writer.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+
+        synchronized (enderBlocksLock) {
+            enderBlocks = new ArrayList<Integer>();
+            try {
+                Scanner scanner = new Scanner(new File(location));
+                int linenum = 0;
+                while (scanner.hasNextLine()) {
+                    linenum++;
+                    String line = scanner.nextLine();
+                    if (line.startsWith("#") || line.equals(""))
+                        continue;
+                    
+                    int id;
+                    try {
+                       id = Integer.parseInt(line);
+                    } catch(Exception exc){
+                       log.log(Level.SEVERE,String.format("Problem while reading %s (Line %d violates the syntax)", location, linenum));
+                       continue;
+                    }
+                    enderBlocks.add(id);
+                }
+                scanner.close();
+            } catch (Exception e) {
+                log.log(Level.SEVERE, String.format("Exception while reading %s", location), e);
+            }
+            for (int i = 0; i < 256; i += 1)
+            {
+               OEntityEnderman.setHoldable(i, false);
+            }
+            for (Integer id : enderBlocks)
+            {
+               OEntityEnderman.setHoldable(id, true);
             }
         }
     }

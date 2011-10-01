@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
 public abstract class OBiomeGenBase {
 
     public static final OBiomeGenBase[] a = new OBiomeGenBase[256];
@@ -113,16 +112,12 @@ public abstract class OBiomeGenBase {
     // CanaryMod start - responsible for adding spawned monsters to the monster list.
     public List a(OEnumCreatureType var1) {
         etc config = etc.getInstance();
-
-        if (var1 == OEnumCreatureType.a) {
+        if (var1 == OEnumCreatureType.a)
             return config.getMonstersClass(this);
-        }
-        if (var1 == OEnumCreatureType.b) {
+        if (var1 == OEnumCreatureType.b)
             return config.getAnimalsClass(this);
-        }
-        if (var1 == OEnumCreatureType.c) {
+        if (var1 == OEnumCreatureType.c)
             return config.getWaterAnimalsClass(this);
-        }
         return null;
     }
 

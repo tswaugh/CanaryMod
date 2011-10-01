@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 public class OChunk {
 
     public static boolean a;
@@ -62,17 +61,16 @@ public class OChunk {
         this(var1, var3, var4);
         this.b = var2;
         int var10003 = var2.length;
-
-        var1.getClass();
         ONibbleArray var10001 = new ONibbleArray(var10003, 7);
+        var1.getClass();
         this.g = var10001;
+        var10001 = new ONibbleArray(var10003, 7);
         var10003 = var2.length;
         var1.getClass();
-        var10001 = new ONibbleArray(var10003, 7);
         this.h = var10001;
+        var10001 = new ONibbleArray(var10003, 7);
         var10003 = var2.length;
         var1.getClass();
-        var10001 = new ONibbleArray(var10003, 7);
         this.i = var10001;
     }
 
@@ -84,7 +82,8 @@ public class OChunk {
         return this.j[var2 << 4 | var1] & 255;
     }
 
-    public void a() {}
+    public void a() {
+    }
 
     public void b() {
         this.f.getClass();
@@ -92,19 +91,15 @@ public class OChunk {
 
         int var2;
         int var3;
-
         for (var2 = 0; var2 < 16; ++var2) {
             for (var3 = 0; var3 < 16; ++var3) {
                 this.f.getClass();
                 int var4 = 128 - 1;
-
                 this.f.getClass();
                 int var10000 = var2 << 11;
-
                 this.f.getClass();
 
                 int var5;
-
                 for (var5 = var10000 | var3 << 7; var4 > 0 && OBlock.q[this.b[var5 + var4 - 1] & 255] == 0; --var4) {
                     ;
                 }
@@ -116,7 +111,6 @@ public class OChunk {
 
                 if (!this.f.y.e) {
                     int var6 = 15;
-
                     this.f.getClass();
                     int var7 = 128 - 1;
 
@@ -143,7 +137,8 @@ public class OChunk {
         this.q = true;
     }
 
-    public void c() {}
+    public void c() {
+    }
 
     private void d(int var1, int var2) {
         this.d[var1 + var2 * 16] = true;
@@ -152,7 +147,6 @@ public class OChunk {
     private void i() {
         OWorld var10000 = this.f;
         int var10001 = this.l * 16 + 8;
-
         this.f.getClass();
         if (var10000.a(var10001, 128 / 2, this.m * 16 + 8, 16)) {
             for (int var1 = 0; var1 < 16; ++var1) {
@@ -166,7 +160,6 @@ public class OChunk {
                         int var7 = this.f.d(var4 + 1, var5);
                         int var8 = this.f.d(var4, var5 - 1);
                         int var9 = this.f.d(var4, var5 + 1);
-
                         if (var7 < var6) {
                             var6 = var7;
                         }
@@ -195,7 +188,6 @@ public class OChunk {
 
     private void f(int var1, int var2, int var3) {
         int var4 = this.f.d(var1, var2);
-
         if (var4 > var3) {
             this.d(var1, var2, var3, var4 + 1);
         } else if (var4 < var3) {
@@ -207,7 +199,6 @@ public class OChunk {
     private void d(int var1, int var2, int var3, int var4) {
         if (var4 > var3) {
             OWorld var10000 = this.f;
-
             this.f.getClass();
             if (var10000.a(var1, 128 / 2, var2, 16)) {
                 for (int var5 = var3; var5 < var4; ++var5) {
@@ -223,14 +214,12 @@ public class OChunk {
     private void g(int var1, int var2, int var3) {
         int var4 = this.j[var3 << 4 | var1] & 255;
         int var5 = var4;
-
         if (var2 > var4) {
             var5 = var2;
         }
 
         this.f.getClass();
         int var10000 = var1 << 11;
-
         this.f.getClass();
 
         for (int var6 = var10000 | var3 << 7; var5 > 0 && OBlock.q[this.b[var6 + var5 - 1] & 255] == 0; --var5) {
@@ -243,7 +232,6 @@ public class OChunk {
             int var7;
             int var8;
             int var9;
-
             if (var5 < this.k) {
                 this.k = var5;
             } else {
@@ -276,7 +264,6 @@ public class OChunk {
             for (var9 = 15; var5 > 0 && var9 > 0; this.h.a(var1, var5, var3, var9)) {
                 --var5;
                 int var11 = OBlock.q[this.a(var1, var5, var3)];
-
                 if (var11 == 0) {
                     var11 = 1;
                 }
@@ -290,7 +277,6 @@ public class OChunk {
             byte var15 = this.j[var3 << 4 | var1];
             int var12 = var4;
             int var13 = var15;
-
             if (var15 < var4) {
                 var12 = var15;
                 var13 = var4;
@@ -307,73 +293,56 @@ public class OChunk {
 
     public int a(int var1, int var2, int var3) {
         byte[] var10000 = this.b;
-
         this.f.getClass();
         int var10001 = var1 << 11;
-
         this.f.getClass();
         return var10000[var10001 | var3 << 7 | var2] & 255;
     }
-   
+
     public boolean a(int var1, int var2, int var3, int var4, int var5) {
         return a(var1, var2, var3, var4, var5, true);
     }
-   
+
     public boolean a(int var1, int var2, int var3, int var4, int var5, boolean checkPortal) {
         byte var6 = (byte) var4;
         int var7 = var3 << 4 | var1;
-
         if (var2 >= this.c[var7] - 1) {
             this.c[var7] = -999;
         }
 
         int var8 = this.j[var3 << 4 | var1] & 255;
         byte[] var10000 = this.b;
-
         this.f.getClass();
         int var10001 = var1 << 11;
-
         this.f.getClass();
         int var9 = var10000[var10001 | var3 << 7 | var2] & 255;
-
         if (var9 == var4 && this.g.a(var1, var2, var3) == var5) {
             return false;
         } else {
             int var10 = this.l * 16 + var1;
             int var11 = this.m * 16 + var3;
-
             if (checkPortal == true) {
                 int portalPointX = var10;
                 int portalPointY = var2;
                 int portalPointZ = var11;
                 // CanaryMod check if removed block is portal block
                 int portalId = Block.Type.Portal.getType();
-
                 if (chunk.getWorld().getBlockIdAt(portalPointX, portalPointY, portalPointZ) == portalId) {
-                    // These will be equal 1 if the portal is defined on their
-                    // axis
-                    // and 0 if not.
+                    // These will be equal 1 if the portal is defined on their axis and 0 if not.
                     int portalXOffset = (chunk.getWorld().getBlockIdAt(portalPointX - 1, portalPointY, portalPointZ) == portalId || chunk.getWorld().getBlockIdAt(portalPointX + 1, portalPointY, portalPointZ) == portalId) ? 1 : 0;
                     int portalZOffset = (chunk.getWorld().getBlockIdAt(portalPointX, portalPointY, portalPointZ - 1) == portalId || chunk.getWorld().getBlockIdAt(portalPointX, portalPointY, portalPointZ + 1) == portalId) ? 1 : 0;
-
-                    // If the portal is either x aligned or z aligned but not
-                    // both
-                    // (has neighbor portal in x or z plane but not both)
+                    // If the portal is either x aligned or z aligned but not both (has neighbor portal in x or z plane but not both)
                     if (portalXOffset != portalZOffset) {
                         // Get the edge of the portal.
                         int portalX = portalPointX - ((chunk.getWorld().getBlockIdAt(portalPointX - 1, portalPointY, portalPointZ) == portalId) ? 1 : 0);
                         int portalZ = portalPointZ - ((chunk.getWorld().getBlockIdAt(portalPointX, portalPointY, portalPointZ - 1) == portalId) ? 1 : 0);
                         int portalY = var2;
-
-                        while (chunk.getWorld().getBlockIdAt(portalX, ++portalY, portalZ) == portalId) {
+                        while (chunk.getWorld().getBlockIdAt(portalX, ++portalY, portalZ) == portalId)
                             ;
-                        }
                         portalY -= 1;
-                        // Scan the portal and see if its still all there (2x3
-                        // formation)
+                        // Scan the portal and see if its still all there (2x3 formation)
                         boolean completePortal = true;
                         Block[][] portalBlocks = new Block[3][2];
-
                         for (int i = 0; i < 3 && completePortal == true; i += 1) {
                             for (int j = 0; j < 2 && completePortal == true; j += 1) {
                                 portalBlocks[i][j] = chunk.getWorld().getBlockAt(portalX + j * portalXOffset, portalY - i, portalZ + j * portalZOffset);
@@ -385,20 +354,10 @@ public class OChunk {
                         if (completePortal == true) {
                             // CanaryMod hook onPortalDestroy
                             if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_DESTROY, (Object) portalBlocks)) {
-                                // Hook returned true = don't destroy the
-                                // portal.
-                                // in that case we need to reconstruct the
-                                // portal's
-                                // frame to make the portal valid.
-                                // Problem is we don't want to reconstruct it
-                                // right
-                                // away because more blocks might be deleted
-                                // (for
-                                // example on explosion).
-                                // In order to avoid spamming the hook for each
-                                // destroyed block, I'm queuing the
-                                // reconstruction
-                                // of the portal instead.
+                                // Hook returned true = don't destroy the portal.
+                                // in that case we need to reconstruct the portal's frame to make the portal valid.
+                                // Problem is we don't want to reconstruct it right away because more blocks might be deleted (for example on explosion).
+                                // In order to avoid spamming the hook for each destroyed block, I'm queuing the reconstruction of the portal instead.
                                 etc.getServer().addToServerQueue(new PortalReconstructJob(chunk.getWorld(), portalX, portalY, portalZ, (portalXOffset == 1)));
                             }
                         }
@@ -431,7 +390,6 @@ public class OChunk {
             this.d(var1, var3);
             this.g.a(var1, var2, var3, var5);
             OTileEntity var12;
-
             if (var4 != 0) {
                 if (!this.f.I) {
                     OBlock.m[var4].a(this.f, var10, var2, var11);
@@ -459,66 +417,51 @@ public class OChunk {
             return true;
         }
     }
-   
+
     public boolean a(int var1, int var2, int var3, int var4) {
         return a(var1, var2, var3, var4, true);
     }
-   
+
     public boolean a(int var1, int var2, int var3, int var4, boolean checkPortal) {
         byte var5 = (byte) var4;
         int var6 = var3 << 4 | var1;
-
         if (var2 >= this.c[var6] - 1) {
             this.c[var6] = -999;
         }
 
         int var7 = this.j[var6] & 255;
         byte[] var10000 = this.b;
-
         this.f.getClass();
         int var10001 = var1 << 11;
-
         this.f.getClass();
         int var8 = var10000[var10001 | var3 << 7 | var2] & 255;
-
         if (var8 == var4) {
             return false;
         } else {
             int var9 = this.l * 16 + var1;
             int var10 = this.m * 16 + var3;
-
             if (checkPortal == true) {
                 int portalPointX = var9;
                 int portalPointY = var2;
                 int portalPointZ = var10;
                 // CanaryMod check if removed block is portal block
                 int portalId = Block.Type.Portal.getType();
-
                 if (chunk.getWorld().getBlockIdAt(portalPointX, portalPointY, portalPointZ) == portalId) {
-                    // These will be equal 1 if the portal is defined on their
-                    // axis
-                    // and 0 if not.
+                    // These will be equal 1 if the portal is defined on theirn axis and 0 if not.
                     int portalXOffset = (chunk.getWorld().getBlockIdAt(portalPointX - 1, portalPointY, portalPointZ) == portalId || chunk.getWorld().getBlockIdAt(portalPointX + 1, portalPointY, portalPointZ) == portalId) ? 1 : 0;
                     int portalZOffset = (chunk.getWorld().getBlockIdAt(portalPointX, portalPointY, portalPointZ - 1) == portalId || chunk.getWorld().getBlockIdAt(portalPointX, portalPointY, portalPointZ + 1) == portalId) ? 1 : 0;
-
-                    // If the portal is either x aligned or z aligned but not
-                    // both
-                    // (has neighbor portal in x or z plane but not both)
+                    // If the portal is either x aligned or z aligned but not both (has neighbor portal in x or z plane but not both)
                     if (portalXOffset != portalZOffset) {
                         // Get the edge of the portal.
                         int portalX = portalPointX - ((chunk.getWorld().getBlockIdAt(portalPointX - 1, portalPointY, portalPointZ) == portalId) ? 1 : 0);
                         int portalZ = portalPointZ - ((chunk.getWorld().getBlockIdAt(portalPointX, portalPointY, portalPointZ - 1) == portalId) ? 1 : 0);
                         int portalY = var2;
-
-                        while (chunk.getWorld().getBlockIdAt(portalX, ++portalY, portalZ) == portalId) {
+                        while (chunk.getWorld().getBlockIdAt(portalX, ++portalY, portalZ) == portalId)
                             ;
-                        }
                         portalY -= 1;
-                        // Scan the portal and see if its still all there (2x3
-                        // formation)
+                        // Scan the portal and see if its still all there (2x3 formation)
                         boolean completePortal = true;
                         Block[][] portalBlocks = new Block[3][2];
-
                         for (int i = 0; i < 3 && completePortal == true; i += 1) {
                             for (int j = 0; j < 2 && completePortal == true; j += 1) {
                                 portalBlocks[i][j] = chunk.getWorld().getBlockAt(portalX + j * portalXOffset, portalY - i, portalZ + j * portalZOffset);
@@ -530,20 +473,10 @@ public class OChunk {
                         if (completePortal == true) {
                             // CanaryMod hook onPortalDestroy
                             if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_DESTROY, (Object) portalBlocks)) {
-                                // Hook returned true = don't destroy the
-                                // portal.
-                                // in that case we need to reconstruct the
-                                // portal's
-                                // frame to make the portal valid.
-                                // Problem is we don't want to reconstruct it
-                                // right
-                                // away because more blocks might be deleted
-                                // (for
-                                // example on explosion).
-                                // In order to avoid spamming the hook for each
-                                // destroyed block, I'm queuing the
-                                // reconstruction
-                                // of the portal instead.
+                                // Hook returned true = don't destroy the portal.
+                                // in that case we need to reconstruct the portal's frame to make the portal valid.
+                                // Problem is we don't want to reconstruct it right away because more blocks might be deleted (for example on explosion).
+                                // In order to avoid spamming the hook for each destroyed block, I'm queuing the reconstruction of the portal instead.
                                 etc.getServer().addToServerQueue(new PortalReconstructJob(chunk.getWorld(), portalX, portalY, portalZ, (portalXOffset == 1)));
                             }
                         }
@@ -572,7 +505,6 @@ public class OChunk {
             this.f.a(OEnumSkyBlock.b, var9, var2, var10, var9, var2, var10);
             this.d(var1, var3);
             OTileEntity var11;
-
             if (var4 != 0) {
                 if (!this.f.I) {
                     OBlock.m[var4].a(this.f, var9, var2, var10);
@@ -609,10 +541,8 @@ public class OChunk {
         this.q = true;
         this.g.a(var1, var2, var3, var4);
         int var5 = this.a(var1, var2, var3);
-
         if (var5 > 0 && OBlock.m[var5] instanceof OBlockContainer) {
             OTileEntity var6 = this.d(var1, var2, var3);
-
             if (var6 != null) {
                 var6.g();
                 var6.n = var4;
@@ -641,14 +571,12 @@ public class OChunk {
 
     public int c(int var1, int var2, int var3, int var4) {
         int var5 = this.h.a(var1, var2, var3);
-
         if (var5 > 0) {
             a = true;
         }
 
         var5 -= var4;
         int var6 = this.i.a(var1, var2, var3);
-
         if (var6 > var5) {
             var5 = var6;
         }
@@ -660,14 +588,12 @@ public class OChunk {
         this.s = true;
         int var2 = OMathHelper.b(var1.bf / 16.0D);
         int var3 = OMathHelper.b(var1.bh / 16.0D);
-
         if (var2 != this.l || var3 != this.m) {
             System.out.println("Wrong location! " + var1);
             Thread.dumpStack();
         }
 
         int var4 = OMathHelper.b(var1.bg / 16.0D);
-
         if (var4 < 0) {
             var4 = 0;
         }
@@ -706,10 +632,8 @@ public class OChunk {
     public OTileEntity d(int var1, int var2, int var3) {
         OChunkPosition var4 = new OChunkPosition(var1, var2, var3);
         OTileEntity var5 = (OTileEntity) this.n.get(var4);
-
         if (var5 == null) {
             int var6 = this.a(var1, var2, var3);
-
             if (!OBlock.p[var6]) {
                 return null;
             }
@@ -734,7 +658,6 @@ public class OChunk {
         int var2 = var1.j - this.l * 16;
         int var3 = var1.k;
         int var4 = var1.l - this.m * 16;
-
         this.a(var2, var3, var4, var1);
         if (this.e) {
             this.f.h.add(var1);
@@ -744,7 +667,6 @@ public class OChunk {
 
     public void a(int var1, int var2, int var3, OTileEntity var4) {
         OChunkPosition var5 = new OChunkPosition(var1, var2, var3);
-
         var4.i = this.f;
         var4.j = this.l * 16 + var1;
         var4.k = var2;
@@ -759,10 +681,8 @@ public class OChunk {
 
     public void e(int var1, int var2, int var3) {
         OChunkPosition var4 = new OChunkPosition(var1, var2, var3);
-
         if (this.e) {
             OTileEntity var5 = (OTileEntity) this.n.remove(var4);
-
             if (var5 != null) {
                 var5.i();
             }
@@ -786,7 +706,6 @@ public class OChunk {
 
         while (var1.hasNext()) {
             OTileEntity var2 = (OTileEntity) var1.next();
-
             this.f.a(var2);
         }
 
@@ -803,7 +722,6 @@ public class OChunk {
     public void a(OEntity var1, OAxisAlignedBB var2, List var3) {
         int var4 = OMathHelper.b((var2.b - 2.0D) / 16.0D);
         int var5 = OMathHelper.b((var2.e + 2.0D) / 16.0D);
-
         if (var4 < 0) {
             var4 = 0;
         }
@@ -817,7 +735,6 @@ public class OChunk {
 
             for (int var8 = 0; var8 < var7.size(); ++var8) {
                 OEntity var9 = (OEntity) var7.get(var8);
-
                 if (var9 != var1 && var9.bp.a(var2)) {
                     var3.add(var9);
                 }
@@ -829,7 +746,6 @@ public class OChunk {
     public void a(Class var1, OAxisAlignedBB var2, List var3) {
         int var4 = OMathHelper.b((var2.b - 2.0D) / 16.0D);
         int var5 = OMathHelper.b((var2.e + 2.0D) / 16.0D);
-
         if (var4 < 0) {
             var4 = 0;
         }
@@ -843,7 +759,6 @@ public class OChunk {
 
             for (int var8 = 0; var8 < var7.size(); ++var8) {
                 OEntity var9 = (OEntity) var7.get(var8);
-
                 if (var1.isAssignableFrom(var9.getClass()) && var9.bp.a(var2)) {
                     var3.add(var9);
                 }
@@ -872,7 +787,6 @@ public class OChunk {
         int var9 = var5 - var2;
         int var10 = var6 - var3;
         int var11 = var7 - var4;
-
         if (var9 * var10 * var11 == this.b.length) {
             System.arraycopy(this.b, 0, var1, var8, this.b.length);
             var8 += this.b.length;
@@ -889,7 +803,6 @@ public class OChunk {
             int var13;
             int var14;
             int var15;
-
             for (var12 = var2; var12 < var5; ++var12) {
                 for (var13 = var4; var13 < var7; ++var13) {
                     this.f.getClass();
@@ -972,17 +885,14 @@ public class OChunk {
     public int c(int var1, int var2) {
         int var3 = var1 | var2 << 4;
         int var4 = this.c[var3];
-
         if (var4 == -999) {
             this.f.getClass();
             int var5 = 128 - 1;
-
             var4 = -1;
 
             while (var5 > 0 && var4 == -1) {
                 int var6 = this.a(var1, var5, var2);
                 OMaterial var7 = var6 == 0 ? OMaterial.a : OBlock.m[var6].bN;
-
                 if (!var7.c() && !var7.d()) {
                     --var5;
                 } else {

@@ -1,4 +1,3 @@
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -22,12 +21,12 @@ public class PlayerCommands {
                     try {
                         add(command.equals("") ? field.getName() : command, (BaseCommand) field.get(null));
                     } catch (IllegalAccessException e) {
-                    } //impossible
+                    } // impossible
     }
 
     /**
      * Add a command to the player list.
-     *
+     * 
      * @param name
      * @param cmd
      */
@@ -41,7 +40,7 @@ public class PlayerCommands {
 
     /**
      * Remove a command from the player list.
-     *
+     * 
      * @param name
      */
     public void remove(String name) {
@@ -52,12 +51,14 @@ public class PlayerCommands {
     }
 
     /**
-     * Performs a lookup for a command of the given name and executes it if
-     * found. Returns false if command not found.
-     *
-     * @param command The command to run
-     * @param caller The {@link MessageReceiver} to send messages back to (assumed to be the caller)
-     * @param args The arguments to {@code command}
+     * Performs a lookup for a command of the given name and executes it if found. Returns false if command not found.
+     * 
+     * @param command
+     *            The command to run
+     * @param caller
+     *            The {@link MessageReceiver} to send messages back to (assumed to be the caller)
+     * @param args
+     *            The arguments to {@code command}
      * @return true if {@code command} was found, false otherwise
      */
     public static boolean parsePlayerCommand(MessageReceiver caller, String command, String[] args) {
@@ -75,12 +76,15 @@ public class PlayerCommands {
 
     /**
      * Searches for and returns {@code command} if found, {@code null} otherwise.
-     * @param command The command to search for
+     * 
+     * @param command
+     *            The command to search for
      * @return {@code command} if found, {@code null} otherwise
      */
     public BaseCommand getCommand(String command) {
         return commands.get(command);
     }
+
     @Command
     public static final BaseCommand help = new BaseCommand("[Page|Pattern] - Shows a list of commands. 7 per page.") {
 
@@ -154,7 +158,7 @@ public class PlayerCommands {
                 caller.notify("Can't find player " + split[1]);
         }
     };
-    @Command({"tell", "msg", "m"})
+    @Command({ "tell", "msg", "m" })
     public static final BaseCommand tell = new BaseCommand("[Player] [Message] - Sends a message to player", "Correct usage is: /msg [player] [message]", 3) {
 
         @Override
@@ -255,9 +259,9 @@ public class PlayerCommands {
                     if (caller.equals(player)) {
                         caller.notify("You'll turn inside out if you keep trying.");
                         return;
-                    } else 
-                    ((Player) caller).switchWorlds();
-                    } else {
+                    } else
+                        ((Player) caller).switchWorlds();
+                } else {
                     caller.notify("That player is in another world.");
                     return;
                 }
@@ -270,7 +274,7 @@ public class PlayerCommands {
             ((Player) caller).teleportTo(player);
         }
     };
-    @Command({"tphere", "s"})
+    @Command({ "tphere", "s" })
     public static final BaseCommand tphere = new BaseCommand("[Player] - Teleports the player to you", "Correct usage is: /tphere [player]", 2) {
 
         @Override
@@ -303,7 +307,7 @@ public class PlayerCommands {
             player.teleportTo((Player) caller);
         }
     };
-    @Command({"playerlist", "who"})
+    @Command({ "playerlist", "who" })
     public static final BaseCommand playerlist = new BaseCommand("- Shows a list of players") {
 
         @Override
@@ -311,7 +315,7 @@ public class PlayerCommands {
             caller.notify("Player list (" + etc.getServer().getPlayerList().size() + "/" + etc.getInstance().getPlayerLimit() + "): " + Colors.White + etc.getServer().getPlayerNames());
         }
     };
-    @Command({"item", "i", "give"})
+    @Command({ "item", "i", "give" })
     public static final BaseCommand item = new BaseCommand("[ID] <Amount> <Damage> <Player> - Gives items", "Correct usage is: /item [itemid] <amount> <damage> <player>", 2, 5) {
 
         @Override
@@ -412,7 +416,7 @@ public class PlayerCommands {
                 caller.notify("Can't find user " + split[3]);
         }
     };
-    @Command({"cloth", "dye"})
+    @Command({ "cloth", "dye" })
     public static final BaseCommand clothdye = new BaseCommand("[Color] [Amount] - Gives you the specified dye/cloth", "Overridden", 2) {
 
         @Override
@@ -422,8 +426,8 @@ public class PlayerCommands {
 
                 int amountIndex = 2;
                 if (split.length > 2 && !split[2].matches("\\d+")) {
-                        amountIndex = 3;
-                        color += " " + split[2];
+                    amountIndex = 3;
+                    color += " " + split[2];
                 }
 
                 Cloth.Color c = Cloth.Color.getColor(color);
@@ -445,7 +449,8 @@ public class PlayerCommands {
                         amount = 1024; // 16 stacks worth. More than enough.
                 }
 
-                // If caller is not a Player and no player specified, bail (We can't go giving items to non-players, can we?)
+                // If caller is not a Player and no player specified, bail (We
+                // can't go giving items to non-players, can we?)
                 if (!(caller instanceof Player) && split.length < amountIndex + 2)
                     return;
 
@@ -542,7 +547,7 @@ public class PlayerCommands {
 
                 // adds player to ban list
                 etc.getMCServer().f.c(player.getIP());
-                etc.getLoader().callHook(PluginLoader.Hook.IPBAN, new Object[]{(caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : ""});
+                etc.getLoader().callHook(PluginLoader.Hook.IPBAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
 
                 log.info("IP Banning " + player.getName() + " (IP: " + player.getIP() + ")");
                 caller.notify("IP Banning " + player.getName() + " (IP: " + player.getIP() + ")");
@@ -571,7 +576,7 @@ public class PlayerCommands {
                 // adds player to ban list
                 etc.getServer().ban(player.getName());
 
-                etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[]{(caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : ""});
+                etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
 
                 if (split.length > 2)
                     player.kick("Banned by " + caller.getName() + ": " + etc.combineSplit(2, split, " "));
@@ -617,7 +622,7 @@ public class PlayerCommands {
                     return;
                 }
 
-                etc.getLoader().callHook(PluginLoader.Hook.KICK, new Object[]{(caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : ""});
+                etc.getLoader().callHook(PluginLoader.Hook.KICK, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
 
                 if (split.length > 2)
                     player.kick("Kicked by " + caller.getName() + ": " + etc.combineSplit(2, split, " "));
@@ -629,7 +634,7 @@ public class PlayerCommands {
                 caller.notify("Can't find user " + split[1] + ".");
         }
     };
-    @Command({"me", "emote"})
+    @Command({ "me", "emote" })
     public static final BaseCommand me = new BaseCommand("[Message] - * hey0 says hi!") {
 
         @Override
@@ -699,9 +704,9 @@ public class PlayerCommands {
                 return;
             }
             if (toMove.getWorld().getType().getId() != 0)
-                if (toMove.canIgnoreRestrictions()) 
+                if (toMove.canIgnoreRestrictions())
                     toMove.switchWorlds();
-                   
+
                 else {
                     toMove.sendMessage("§4The veil between the worlds keeps you bound to the Nether...");
                     return;
@@ -763,7 +768,7 @@ public class PlayerCommands {
                 home = etc.getDataSource().getHome(caller.getName());
 
             if (player.getWorld().getType() != World.Type.NORMAL)
-                if (player.canIgnoreRestrictions()) 
+                if (player.canIgnoreRestrictions())
                     player.switchWorlds();
                 else {
                     player.notify("The veil between the worlds keeps you in the Nether...");
@@ -799,17 +804,15 @@ public class PlayerCommands {
             else
                 toWarp = (Player) caller;
 
-
-
             if (toWarp != null)
                 if (warp != null)
                     if ((caller instanceof Player) && !((Player) caller).isInGroup(warp.Group) && !warp.Group.equals(""))
                         caller.notify("Warp not found.");
                     else {
                         if (toWarp.getWorld().getType() != World.Type.NORMAL)
-                                if (toWarp.canIgnoreRestrictions())
-                                    toWarp.switchWorlds();
-                                else {
+                            if (toWarp.canIgnoreRestrictions())
+                                toWarp.switchWorlds();
+                            else {
                                 toWarp.sendMessage(Colors.Rose + "The veil between the worlds keeps you in the Nether...");
                                 return;
                             }
@@ -910,51 +913,51 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand mode = new BaseCommand("- Changes your gamemode"){
-    	
+    public static final BaseCommand mode = new BaseCommand("- Changes your gamemode") {
+
         @Override
         void execute(MessageReceiver caller, String[] split) {
             if (!(caller instanceof Player))
                 return;
-            if(split.length == 3 && ((Player)caller).isAdmin()) {
-            	Player player = etc.getServer().matchPlayer(split[2]);
-            	if (player == null) {
-            		caller.notify("Can't find user " + split[2] + ".");
-            		return;
-            	} else {
-            		try {
-            			int mode = Integer.parseInt(split[1]);
-            			mode = OWorldSettings.a(mode);
-            			if(player.getCreativeMode() != mode) {
-            				caller.notify(Colors.Yellow+"Setting " + player.getName() + " to game mode " + mode);
-            				player.setCreativeMode(mode);
-            			} else {
-            				caller.notify(player.getName() + " already has game mode " + mode);
-            			}
-            		} catch (NumberFormatException var11) {
-            			caller.notify("There\'s no game mode with id " + split[1]);
-            		}
-            	}
-            } else if(split.length == 2) {
+            if (split.length == 3 && ((Player) caller).isAdmin()) {
+                Player player = etc.getServer().matchPlayer(split[2]);
+                if (player == null) {
+                    caller.notify("Can't find user " + split[2] + ".");
+                    return;
+                } else {
+                    try {
+                        int mode = Integer.parseInt(split[1]);
+                        mode = OWorldSettings.a(mode);
+                        if (player.getCreativeMode() != mode) {
+                            caller.notify(Colors.Yellow + "Setting " + player.getName() + " to game mode " + mode);
+                            player.setCreativeMode(mode);
+                        } else {
+                            caller.notify(player.getName() + " already has game mode " + mode);
+                        }
+                    } catch (NumberFormatException var11) {
+                        caller.notify("There\'s no game mode with id " + split[1]);
+                    }
+                }
+            } else if (split.length == 2) {
                 if (caller instanceof Player)
-        		try {
-        			Player player = ((Player)caller);
-        			int mode = Integer.parseInt(split[1]);
-        			mode = OWorldSettings.a(mode);
-        			if(player.getCreativeMode() != mode) {
-        				player.notify(Colors.Yellow+"Setting your to game mode " + mode);
-        				player.setCreativeMode(mode);
-        			} else {
-        				caller.notify("Your game mode is already " + mode);
-        			}
-        		} catch (NumberFormatException var11) {
-        			caller.notify("There\'s no game mode with id " + split[1]);
-        		}
+                    try {
+                        Player player = ((Player) caller);
+                        int mode = Integer.parseInt(split[1]);
+                        mode = OWorldSettings.a(mode);
+                        if (player.getCreativeMode() != mode) {
+                            player.notify(Colors.Yellow + "Setting your to game mode " + mode);
+                            player.setCreativeMode(mode);
+                        } else {
+                            caller.notify("Your game mode is already " + mode);
+                        }
+                    } catch (NumberFormatException var11) {
+                        caller.notify("There\'s no game mode with id " + split[1]);
+                    }
             } else {
-               Player player = ((Player) caller);
-               caller.notify(String.format("Your current gamemode is: %d",player.getCreativeMode()));
- 	        }
-    	}
+                Player player = ((Player) caller);
+                caller.notify(String.format("Your current gamemode is: %d", player.getCreativeMode()));
+            }
+        }
     };
     @Command
     public static final BaseCommand getpos = new BaseCommand("- Displays your current position.") {
@@ -1082,22 +1085,22 @@ public class PlayerCommands {
 
             HitBlox hb = new HitBlox((Player) caller);
             Block block = hb.getTargetBlock();
-            System.out.println(String.format("x: %d y: %d z: %d",block.getX(), block.getY(), block.getZ()));
+            System.out.println(String.format("x: %d y: %d z: %d", block.getX(), block.getY(), block.getZ()));
             if (block != null && block.getType() == 52) { // mob spawner
                 MobSpawner ms = (MobSpawner) ((Player) caller).getWorld().getComplexBlock(block.getX(), block.getY(), block.getZ());
-                if (ms != null){
+                if (ms != null) {
                     if (split.length == 1) {
-                        caller.notify(String.format("You are targeting a mob spawner of: %s",ms.getSpawn()));
+                        caller.notify(String.format("You are targeting a mob spawner of: %s", ms.getSpawn()));
                     } else {
                         if (!Mob.isValid(split[1])) {
-                            caller.notify(String.format("%s is not a valid mob name.",split[1]));                           
+                            caller.notify(String.format("%s is not a valid mob name.", split[1]));
                             return;
                         } else {
                             ms.setSpawn(split[1]);
                         }
                     }
                 }
-                    
+
             } else
                 caller.notify("You are not targeting a mob spawner.");
         }
@@ -1146,37 +1149,37 @@ public class PlayerCommands {
         }
 
     };
-	    @Command
+    @Command
     public static final BaseCommand xp = new BaseCommand("[level|total] - XP status", "Usage: /xp level|total", 2, 3) {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
-        	if (!(caller instanceof Player))
+            if (!(caller instanceof Player))
                 return;
-        	
-        	Player player = (Player) caller;
-        	if (split.length == 3) {
-    			Player p = etc.getServer().matchPlayer(split[2]);
-    			if(p == null) {
-    				player.notify(split[2]+" does not exist!");
-    				return;
-    			} else { 
-    				if (split[1].equalsIgnoreCase("level")) {
-    					player.sendMessage(p.getName()+" is level "+Colors.Yellow+p.getLevel());
-    				}
-        			if (split[1].equalsIgnoreCase("total")) {
-        				player.sendMessage(p.getName()+" has "+Colors.Yellow+p.getXP()+Colors.White+" Total EXP");
-        			}
-    			}
-        	} else if (split.length == 2) {
-        		if (split[1].equalsIgnoreCase("level")) {
-        			player.sendMessage("You are level "+Colors.Yellow+player.getLevel());
-        		}
-        		if (split[1].equalsIgnoreCase("total")) {
-        			player.sendMessage("You have "+Colors.Yellow+player.getXP()+Colors.White+" Total EXP");
-        		}
-        	}
 
-		}
+            Player player = (Player) caller;
+            if (split.length == 3) {
+                Player p = etc.getServer().matchPlayer(split[2]);
+                if (p == null) {
+                    player.notify(split[2] + " does not exist!");
+                    return;
+                } else {
+                    if (split[1].equalsIgnoreCase("level")) {
+                        player.sendMessage(p.getName() + " is level " + Colors.Yellow + p.getLevel());
+                    }
+                    if (split[1].equalsIgnoreCase("total")) {
+                        player.sendMessage(p.getName() + " has " + Colors.Yellow + p.getXP() + Colors.White + " Total EXP");
+                    }
+                }
+            } else if (split.length == 2) {
+                if (split[1].equalsIgnoreCase("level")) {
+                    player.sendMessage("You are level " + Colors.Yellow + player.getLevel());
+                }
+                if (split[1].equalsIgnoreCase("total")) {
+                    player.sendMessage("You have " + Colors.Yellow + player.getXP() + Colors.White + " Total EXP");
+                }
+            }
+
+        }
     };
 }

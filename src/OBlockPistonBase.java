@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class OBlockPistonBase extends OBlock {
 
     private boolean a;
@@ -19,7 +18,6 @@ public class OBlockPistonBase extends OBlock {
 
     public int a(int var1, int var2) {
         int var3 = c(var2);
-
         return var3 > 5 ? this.bz : (var1 == var3 ? (!d(var2) && this.bF <= 0.0D && this.bG <= 0.0D && this.bH <= 0.0D && this.bI >= 1.0D && this.bJ >= 1.0D && this.bK >= 1.0D ? this.bz : 110) : (var1 == OPistonBlockTextures.a[var3] ? 109 : 108));
     }
 
@@ -33,7 +31,6 @@ public class OBlockPistonBase extends OBlock {
 
     public void a(OWorld var1, int var2, int var3, int var4, OEntityLiving var5) {
         int var6 = c(var1, var2, var3, var4, (OEntityPlayer) var5);
-
         var1.c(var2, var3, var4, var6);
         if (!var1.I) {
             this.g(var1, var2, var3, var4);
@@ -59,13 +56,11 @@ public class OBlockPistonBase extends OBlock {
         int var5 = var1.c(var2, var3, var4);
         int var6 = c(var5);
         boolean var7 = this.f(var1, var2, var3, var4, var6);
-
         if (var5 != 7) {
             if (var7 && !d(var5)) {
                 if (h(var1, var2, var3, var4, var6)) {
                     // CanaryMod hook onPistonExtend
                     boolean allowExtension = !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PISTON_EXTEND, new Block(var1.world, (this.a) ? Block.Type.StickyPiston.getType() : Block.Type.Piston.getType(), var2, var3, var4, var5));
-
                     if (allowExtension) {
                         var1.d(var2, var3, var4, var6 | 8);
                         var1.d(var2, var3, var4, 0, var6);
@@ -73,8 +68,7 @@ public class OBlockPistonBase extends OBlock {
                 }
             } else if (!var7 && d(var5)) {
                 // CanaryMod hook onPistonRetract
-                // hook result is saved in attemptRetractBlock because later in the code the block is actually moved,
-                // and only there we should deny retraction.
+                // hook result is saved in attemptRetractBlock because later in the code the block is actually moved, and only there we should deny retraction.
                 this.attemptRetractBlock = !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PISTON_RETRACT, new Block(var1.world, (this.a) ? Block.Type.StickyPiston.getType() : Block.Type.Piston.getType(), var2, var3, var4, var5));
                 var1.d(var2, var3, var4, var6);
                 var1.d(var2, var3, var4, 1, var6);
@@ -96,7 +90,6 @@ public class OBlockPistonBase extends OBlock {
             }
         } else if (var5 == 1) {
             OTileEntity var8 = var1.b(var2 + OPistonBlockTextures.b[var6], var3 + OPistonBlockTextures.c[var6], var4 + OPistonBlockTextures.d[var6]);
-
             if (var8 != null && var8 instanceof OTileEntityPiston) {
                 ((OTileEntityPiston) var8).e();
             }
@@ -110,13 +103,10 @@ public class OBlockPistonBase extends OBlock {
                 int var12 = var1.a(var9, var10, var11);
                 int var13 = var1.c(var9, var10, var11);
                 boolean var14 = false;
-
                 if (var12 == OBlock.ad.bA) {
                     OTileEntity var15 = var1.b(var9, var10, var11);
-
                     if (var15 != null && var15 instanceof OTileEntityPiston) {
                         OTileEntityPiston var16 = (OTileEntityPiston) var15;
-
                         if (var16.d() == var6 && var16.c()) {
                             var16.e();
                             var12 = var16.a();
@@ -155,29 +145,23 @@ public class OBlockPistonBase extends OBlock {
 
     public void a(OIBlockAccess var1, int var2, int var3, int var4) {
         int var5 = var1.c(var2, var3, var4);
-
         if (d(var5)) {
             switch (c(var5)) {
             case 0:
                 this.a(0.0F, 0.25F, 0.0F, 1.0F, 1.0F, 1.0F);
                 break;
-
             case 1:
                 this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
                 break;
-
             case 2:
                 this.a(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 1.0F);
                 break;
-
             case 3:
                 this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.75F);
                 break;
-
             case 4:
                 this.a(0.25F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
                 break;
-
             case 5:
                 this.a(0.0F, 0.0F, 0.0F, 0.75F, 1.0F, 1.0F);
             }
@@ -207,7 +191,6 @@ public class OBlockPistonBase extends OBlock {
     private static int c(OWorld var0, int var1, int var2, int var3, OEntityPlayer var4) {
         if (OMathHelper.e((float) var4.bf - (float) var1) < 2.0F && OMathHelper.e((float) var4.bh - (float) var3) < 2.0F) {
             double var5 = var4.bg + 1.82D - (double) var4.by;
-
             if (var5 - (double) var2 > 2.0D) {
                 return 1;
             }
@@ -218,7 +201,6 @@ public class OBlockPistonBase extends OBlock {
         }
 
         int var7 = OMathHelper.b((double) (var4.bl * 4.0F / 360.0F) + 0.5D) & 3;
-
         return var7 == 0 ? 2 : (var7 == 1 ? 5 : (var7 == 2 ? 3 : (var7 == 3 ? 4 : 0)));
     }
 
@@ -243,7 +225,6 @@ public class OBlockPistonBase extends OBlock {
             }
 
             OTileEntity var6 = var1.b(var2, var3, var4);
-
             return var6 == null;
         }
     }
@@ -260,7 +241,6 @@ public class OBlockPistonBase extends OBlock {
                     var0.getClass();
                     if (var6 < 128 - 1) {
                         int var9 = var0.a(var5, var6, var7);
-
                         if (var9 != 0) {
                             if (!a(var9, var0, var5, var6, var7, true)) {
                                 return false;
@@ -298,7 +278,6 @@ public class OBlockPistonBase extends OBlock {
 
         while (true) {
             int var10;
-
             if (var9 < 13) {
                 label63: {
                     if (var7 > 0) {
@@ -339,7 +318,6 @@ public class OBlockPistonBase extends OBlock {
                 int var11 = var8 - OPistonBlockTextures.d[var5];
                 int var12 = var1.a(var9, var10, var11);
                 int var13 = var1.c(var9, var10, var11);
-
                 if (var12 == this.bA && var9 == var2 && var10 == var3 && var11 == var4) {
                     var1.a(var6, var7, var8, OBlock.ad.bA, var5 | (this.a ? 8 : 0));
                     var1.a(var6, var7, var8, OBlockPistonMoving.a(OBlock.ab.bA, var5 | (this.a ? 8 : 0), var5, true, false));

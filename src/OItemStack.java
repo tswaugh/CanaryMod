@@ -1,4 +1,3 @@
-
 public final class OItemStack {
 
     // stack size
@@ -41,17 +40,16 @@ public final class OItemStack {
         this.a = var2;
         this.d = var3;
     }
-   
+
     public void setFromStack(OItemStack itemStack) {
         this.a = itemStack.a;
         this.b = itemStack.b;
         this.c = itemStack.c;
         this.d = itemStack.h();
     }
-   
+
     public static OItemStack a(ONBTTagCompound var0) {
         OItemStack var1 = new OItemStack();
-
         var1.c(var0);
         return var1.a() != null ? var1 : null;
     }
@@ -72,7 +70,6 @@ public final class OItemStack {
 
     public boolean a(OEntityPlayer var1, OWorld var2, int var3, int var4, int var5, int var6) {
         boolean var7 = this.a().a(this, var1, var2, var3, var4, var5, var6);
-
         if (var7) {
             var1.a(OStatList.E[this.c], 1);
         }
@@ -164,7 +161,6 @@ public final class OItemStack {
 
     public void a(OEntityLiving var1, OEntityPlayer var2) {
         boolean var3 = OItem.c[this.c].a(this, var1, (OEntityLiving) var2);
-
         if (var3) {
             var2.a(OStatList.E[this.c], 1);
         }
@@ -173,7 +169,6 @@ public final class OItemStack {
 
     public void a(int var1, int var2, int var3, int var4, OEntityPlayer var5) {
         boolean var6 = OItem.c[this.c].a(this, var1, var2, var3, var4, var5);
-
         if (var6) {
             var5.a(OStatList.E[this.c], 1);
         }
@@ -188,7 +183,8 @@ public final class OItemStack {
         return OItem.c[this.c].a(var1);
     }
 
-    public void a(OEntityPlayer var1) {}
+    public void a(OEntityPlayer var1) {
+    }
 
     public void a(OEntityLiving var1) {
         OItem.c[this.c].a(this, var1);

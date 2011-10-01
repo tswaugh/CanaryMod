@@ -1,4 +1,3 @@
-
 public class OItemBoat extends OItem {
 
     public OItemBoat(int var1) {
@@ -23,7 +22,6 @@ public class OItemBoat extends OItem {
         double var21 = 5.0D;
         OVec3D var23 = var13.c((double) var18 * var21, (double) var17 * var21, (double) var20 * var21);
         OMovingObjectPosition var24 = var2.a(var13, var23, true);
-
         if (var24 == null) {
             return var1;
         } else {
@@ -31,21 +29,17 @@ public class OItemBoat extends OItem {
                 int var25 = var24.b;
                 int var26 = var24.c;
                 int var27 = var24.d;
-
                 if (!var2.I) {
                     if (var2.a(var25, var26, var27) == OBlock.aT.bA) {
                         --var26;
                     }
                     // CanaryMod: placing of a boat
                     Block blockClicked = new Block(var2.world, var2.a(var25, var26, var27), var25, var26, var27);
-
                     blockClicked.setFaceClicked(Block.Face.fromId(var24.e));
                     Block blockPlaced = new Block(var2.world, 0, var25, var26, var27);
-
                     // CanaryMod: Call hook
-                    if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
+                    if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1)))
                         return var1;
-                    }
 
                     var2.b((OEntity) (new OEntityBoat(var2, (double) ((float) var25 + 0.5F), (double) ((float) var26 + 1.0F), (double) ((float) var27 + 0.5F))));
                 }

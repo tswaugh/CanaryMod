@@ -1,7 +1,6 @@
-
 public class OTileEntitySign extends OTileEntity {
 
-    public String[] a = new String[] { "", "", "", ""};
+    public String[] a = new String[] { "", "", "", "" };
     public int b = -1;
     private boolean c = true;
 
@@ -43,7 +42,7 @@ public class OTileEntitySign extends OTileEntity {
     public boolean a() {
         return this.c;
     }
-   
+
     public void a(boolean var1) {
         this.c = var1;
     }

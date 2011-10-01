@@ -8,6 +8,7 @@ public class OEntityItem extends OEntity {
     public float d = (float) (Math.random() * 3.141592653589793D * 2.0D);
     // CanaryMod Start
     ItemEntity item = new ItemEntity(this);
+
     // CanaryMod End
 
     public OEntityItem(OWorld var1, double var2, double var4, double var6, OItemStack var8) {
@@ -32,7 +33,8 @@ public class OEntityItem extends OEntity {
         this.by = this.bA / 2.0F;
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
     public void s_() {
         super.s_();
@@ -54,11 +56,9 @@ public class OEntityItem extends OEntity {
         this.g(this.bf, (this.bp.b + this.bp.e) / 2.0D, this.bh);
         this.a_(this.bi, this.bj, this.bk);
         float var1 = 0.98F;
-
         if (this.bq) {
             var1 = 0.58800006F;
             int var2 = this.bb.a(OMathHelper.b(this.bf), OMathHelper.b(this.bp.b) - 1, OMathHelper.b(this.bh));
-
             if (var2 > 0) {
                 var1 = OBlock.m[var2].bO * 0.98F;
             }
@@ -112,7 +112,6 @@ public class OEntityItem extends OEntity {
         this.f = var1.d("Health") & 255;
         this.b = var1.d("Age");
         ONBTTagCompound var2 = var1.k("Item");
-
         this.a = OItemStack.a(var2);
         if (this.a == null) {
             this.N();
@@ -123,7 +122,6 @@ public class OEntityItem extends OEntity {
     public void a_(OEntityPlayer var1) {
         if (!this.bb.I) {
             int var2 = this.a.a;
-
             // CanaryMod: First simulate the pickup and call the hooks
             if (this.c == 0 && var1.j.canPickup(this)) {
                 if (var1.j.a(this.a)) {

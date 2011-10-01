@@ -1,4 +1,3 @@
-
 public class OItemBucket extends OItem {
 
     private int a;
@@ -26,7 +25,6 @@ public class OItemBucket extends OItem {
         double var21 = 5.0D;
         OVec3D var23 = var13.c((double) var18 * var21, (double) var17 * var21, (double) var20 * var21);
         OMovingObjectPosition var24 = var2.a(var13, var23, this.a == 0);
-
         if (var24 == null) {
             return var1;
         } else {
@@ -34,13 +32,11 @@ public class OItemBucket extends OItem {
                 int var25 = var24.b;
                 int var26 = var24.c;
                 int var27 = var24.d;
-
                 if (!var2.a(var3, var25, var26, var27)) {
                     return var1;
                 }
                 // CanaryMod: Click == placed when handling an empty bukkit!
                 Block blockClicked = new Block(var2.world, var2.a(var25, var26, var27), var25, var26, var27);
-
                 blockClicked.setFaceClicked(Block.Face.fromId(var24.e));
                 Block blockPlaced = new Block(var2.world, 0, var25, var26, var27);
 
@@ -51,18 +47,16 @@ public class OItemBucket extends OItem {
 
                     if (var2.d(var25, var26, var27) == OMaterial.g && var2.c(var25, var26, var27) == 0) {
                         // Filling a bucket with water!
-                        if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
+                        if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1)))
                             return var1;
-                        }
                         var2.e(var25, var26, var27, 0);
                         return new OItemStack(OItem.av);
                     }
 
                     if (var2.d(var25, var26, var27) == OMaterial.h && var2.c(var25, var26, var27) == 0) {
                         // Filling a bucket with lava!
-                        if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
+                        if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1)))
                             return var1;
-                        }
 
                         var2.e(var25, var26, var27, 0);
                         return new OItemStack(OItem.aw);
@@ -110,9 +104,8 @@ public class OItemBucket extends OItem {
                         } else {
                             // CanaryMod: bucket empty
                             blockPlaced = new Block(var2.world, a, var25, var26, var27);
-                            if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
+                            if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1)))
                                 return var1;
-                            }
                             var2.b(var25, var26, var27, this.a, 0);
                         }
 
@@ -125,9 +118,8 @@ public class OItemBucket extends OItem {
                 }
             } else if (this.a == 0 && var24.g instanceof OEntityCow) {
                 // CanaryMod hook: onCowMilk
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) var3).getPlayer(), new Mob((OEntityCow) var24.g))) {
+                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, etc.getServer().getPlayer(var3.r), new Mob((OEntityCow) var24.g)))
                     return new OItemStack(OItem.aE);
-                }
             }
 
             return var1;

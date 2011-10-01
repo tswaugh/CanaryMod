@@ -1,4 +1,3 @@
-
 public class OItemSign extends OItem {
 
     public OItemSign(int var1) {
@@ -14,7 +13,6 @@ public class OItemSign extends OItem {
         } else {
             // CanaryMod: Store block data clicked
             Block blockClicked = new Block(var3.world, var3.a(var4, var5, var6), var4, var5, var6);
-
             blockClicked.setFaceClicked(Block.Face.fromId(var7));
 
             if (var7 == 1) {
@@ -44,14 +42,11 @@ public class OItemSign extends OItem {
             } else {
                 // CanaryMod: Now we can call itemUse :)
                 Block blockPlaced = new Block(var3.world, (var7 == 1 ? OBlock.aE.bA : OBlock.aJ.bA), var4, var5, var6);
-
-                if (var2 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var2).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
+                if (var2 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var2).getPlayer(), blockPlaced, blockClicked, new Item(var1)))
                     return false;
-                }
-        	
+
                 if (var7 == 1) {
                     int var8 = OMathHelper.b((double) ((var2.bl + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
-
                     var3.b(var4, var5, var6, OBlock.aE.bA, var8);
                 } else {
                     var3.b(var4, var5, var6, OBlock.aJ.bA, var7);
@@ -59,7 +54,6 @@ public class OItemSign extends OItem {
 
                 --var1.a;
                 OTileEntitySign var9 = (OTileEntitySign) var3.b(var4, var5, var6);
-
                 if (var9 != null) {
                     var2.a(var9);
                 }
