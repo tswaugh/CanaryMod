@@ -35,6 +35,8 @@ public class OExplosion {
             block.setStatus(1); // TNT
         else if (e instanceof OEntityCreeper)
             block.setStatus(2); // Creeper
+		else if (e instanceof OEntityFireball)
+            block.setStatus(3); // Ghast Fireball
 
         // CanaryMod: call explode hook.
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block))
