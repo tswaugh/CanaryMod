@@ -1,4 +1,3 @@
-
 public class OInventoryLargeChest implements OIInventory, Container<OItemStack> {
 
     private String a;
@@ -67,15 +66,14 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         this.b.t_();
         this.c.t_();
     }
-   
+
     @Override
     public OItemStack[] getContents() {
         int size = getContentsSize();
         OItemStack[] result = new OItemStack[size];
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
             result[i] = getContentsAt(i);
-        }
         return result;
     }
 
@@ -83,9 +81,8 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
     public void setContents(OItemStack[] values) {
         int size = getContentsSize();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
             setContentsAt(i, values[i]);
-        }
     }
 
     @Override
@@ -116,12 +113,10 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
     public Block getChestBlock() {
         if (b instanceof OTileEntityChest) {
             OTileEntityChest block = (OTileEntityChest) b;
-
             return block.i.world.getBlockAt(block.j, block.k, block.l);
         }
         if (c instanceof OTileEntityChest) {
             OTileEntityChest block = (OTileEntityChest) c;
-
             return block.i.world.getBlockAt(block.j, block.k, block.l);
         }
         return null;

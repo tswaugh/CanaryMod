@@ -14,7 +14,7 @@ import java.util.logging.Level;
  */
 public class MySQLSource extends DataSource {
 
-    private String table_groups, table_users, table_items, table_kits, table_warps, table_homes, table_reservelist, table_whitelist, table_bans;
+    private String table_groups, table_users, table_items, table_kits, table_warps, table_homes, table_reservelist, table_whitelist, table_bans, table_enderblocks;
 
     @Override
     public void initialize() {
@@ -28,11 +28,13 @@ public class MySQLSource extends DataSource {
         table_whitelist = properties.getString("whitelist", "whitelist");
         table_reservelist = properties.getString("reservelist", "reservelist");
         table_bans = properties.getString("bans", "bans");
+        table_enderblocks = properties.getString("enderblocks", "enderblocks");
         loadGroups();
         loadKits();
         loadHomes();
         loadWarps();
         loadItems();
+        loadEnderBlocks();
         // loadBanList();
     }
 
@@ -237,6 +239,44 @@ public class MySQLSource extends DataSource {
                         conn.close();
                 } catch (SQLException ex) {
                 }
+            }
+        }
+    }
+    
+    @Override
+    public void loadEnderBlocks() {
+        synchronized (enderBlocksLock) {
+            enderBlocks = new ArrayList<Integer>();
+            Connection conn = null;
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            try {
+                conn = etc.getSQLConnection();
+                ps = conn.prepareStatement("SELECT * FROM " + table_enderblocks);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    enderBlocks.add(rs.getInt("blockid"));
+                }
+            } catch (SQLException ex) {
+                log.log(Level.SEVERE, "Unable to retreive enderman blocks from enderblocks table", ex);
+            } finally {
+                try {
+                    if (ps != null)
+                        ps.close();
+                    if (rs != null)
+                        rs.close();
+                    if (conn != null)
+                        conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+            for (int i = 0; i < 256; i += 1)
+            {
+               OEntityEnderman.setHoldable(i, false);
+            }
+            for (Integer id : enderBlocks)
+            {
+               OEntityEnderman.setHoldable(id, true);
             }
         }
     }

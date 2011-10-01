@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -10,6 +13,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,8 +30,8 @@ public class etc {
     private static final Logger           log = Logger.getLogger("Minecraft");
     private static final etc              instance  = new etc();
     private static MinecraftServer        server;
-    private String                        configDir =    "config/";
-    private String                        usersLoc = "config/users.txt", kitsLoc = "config/kits.txt", homeLoc = "config/homes.txt", warpLoc = "config/warps.txt", itemLoc = "config/items.txt", groupLoc = "config/groups.txt";
+    private String                   	  configDir =    "config/";
+    private String                        usersLoc = "config/users.txt", kitsLoc = "config/kits.txt", homeLoc = "config/homes.txt", warpLoc = "config/warps.txt", itemLoc = "config/items.txt", groupLoc = "config/groups.txt", enderBlocksLoc = "config/endermanblocks.txt";
     private String                        whitelistLoc = "config/whitelist.txt", reservelistLoc = "config/reservelist.txt";
     private String                        whitelistMessage = "Not on whitelist.";
 
@@ -568,6 +572,15 @@ public class etc {
     public String getKitsLocation() {
         return kitsLoc;
     }
+    
+    /**
+     * Returns the location of endermanblocks.txt
+     * 
+     * @return
+     */
+    public String getEnderBlocksLocation() {
+        return enderBlocksLoc;
+    }
 
     /**
      * Returns the MOTD.
@@ -1083,46 +1096,46 @@ public class etc {
     }
 
     /**
-     * Returns config directory
-     * 
-     * @return String configDir
-     */
+    * Returns config directory
+    *
+    * @return String configDir
+    */
     public String getConfigFolder() {
         return configDir;
     }
     
     /**
-     * Returns if current build is a crow build
-     * 
-     * @return boolean crow
-     */
+    * Returns if current build is a crow build
+    *
+    * @return boolean crow
+    */
     public boolean isCrow() {
         return crow;
     }
     
     /**
-     * Returns if nether is enabled
-     * 
-     * @return
-     */
+    * Returns if nether is enabled
+    *
+    * @return
+    */
     public boolean isNetherEnabled() {
         return allowNether;
     }
     
     /**
-     * Returns the location of motd.txt
-     * 
-     * @return
-     */
+    * Returns the location of motd.txt
+    *
+    * @return
+    */
     public String getMotdLocation() {
         return motdLoc;
     }
-    
+        
     /**
-     * Returns the server message
-     * 
-     * @return
-     */
+    * Returns the server message
+    *
+    * @return
+    */
     public String getServerMessage() {
         return motd;
     }

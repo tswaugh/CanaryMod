@@ -1,4 +1,3 @@
-
 public class OEntityCow extends OEntityAnimal {
 
     public OEntityCow(OWorld var1) {
@@ -65,7 +64,7 @@ public class OEntityCow extends OEntityAnimal {
                 var1.j.a(var1.j.c, new OItemStack(OItem.aE));
                 return true;
             } else {
-            	return false;
+                return false;
             }
         } else {
             return false;

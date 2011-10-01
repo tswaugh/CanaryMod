@@ -1,6 +1,5 @@
 import java.util.List;
 
-
 public class OEntityBoat extends OEntity {
 
     public int a;
@@ -14,8 +13,8 @@ public class OEntityBoat extends OEntity {
     private double i;
     // CanaryMod Start
     Boat boat = new Boat(this);
-    // CanaryMod end
 
+    // CanaryMod end
 
     public OEntityBoat(OWorld var1) {
         super(var1);
@@ -31,7 +30,8 @@ public class OEntityBoat extends OEntity {
         return false;
     }
 
-    protected void b() {}
+    protected void b() {
+    }
 
     public OAxisAlignedBB b(OEntity var1) {
         return var1.bp;
@@ -66,14 +66,12 @@ public class OEntityBoat extends OEntity {
     public boolean a(ODamageSource var1, int var2) {
         // CanaryMod: Attack of the boat
         BaseEntity entity = null;
-
         if (var1 != null && var1.a() != null) {
             entity = new BaseEntity(var1.a());
         }
-        if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, boat, entity, var2)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, boat, entity, var2))
             return true;
-        }
-      
+
         if (!this.bb.I && !this.bx) {
             this.c = -this.c;
             this.b = 10;
@@ -85,7 +83,6 @@ public class OEntityBoat extends OEntity {
                 }
 
                 int var3;
-
                 for (var3 = 0; var3 < 3; ++var3) {
                     this.a(OBlock.y.bA, 1, 0.0F);
                 }
@@ -111,11 +108,11 @@ public class OEntityBoat extends OEntity {
         super.s_();
         // CanaryMod: Update of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, boat);
-      
+
         double prevX = bf;
         double prevY = bg;
         double prevZ = bh;
-      
+
         if (this.b > 0) {
             --this.b;
         }
@@ -134,7 +131,6 @@ public class OEntityBoat extends OEntity {
             double var5 = this.bp.b + (this.bp.e - this.bp.b) * (double) (var4 + 0) / (double) var1 - 0.125D;
             double var7 = this.bp.b + (this.bp.e - this.bp.b) * (double) (var4 + 1) / (double) var1 - 0.125D;
             OAxisAlignedBB var9 = OAxisAlignedBB.b(this.bp.a, var5, this.bp.c, this.bp.d, var7, this.bp.f);
-
             if (this.bb.b(var9, OMaterial.g)) {
                 var2 += 1.0D / (double) var1;
             }
@@ -144,7 +140,6 @@ public class OEntityBoat extends OEntity {
         double var12;
         double var14;
         double var16;
-
         if (this.bb.I) {
             if (this.d > 0) {
                 var10 = this.bf + (this.e - this.bf) / (double) this.d;
@@ -231,7 +226,6 @@ public class OEntityBoat extends OEntity {
                     double var21 = (double) (this.bL.nextInt(2) * 2 - 1) * 0.7D;
                     double var23;
                     double var25;
-
                     if (this.bL.nextBoolean()) {
                         var23 = this.bf - var14 * var19 * 0.8D + var16 * var21;
                         var25 = this.bh - var16 * var19 * 0.8D - var14 * var21;
@@ -249,7 +243,6 @@ public class OEntityBoat extends OEntity {
                     this.N();
 
                     int var27;
-
                     for (var27 = 0; var27 < 3; ++var27) {
                         this.a(OBlock.y.bA, 1, 0.0F);
                     }
@@ -268,13 +261,11 @@ public class OEntityBoat extends OEntity {
             var14 = (double) this.bl;
             var16 = this.bc - this.bf;
             double var28 = this.be - this.bh;
-
             if (var16 * var16 + var28 * var28 > 0.001D) {
                 var14 = (double) ((float) (Math.atan2(var28, var16) * 180.0D / 3.141592653589793D));
             }
 
             double var30;
-
             for (var30 = var14 - (double) this.bl; var30 >= 180.0D; var30 -= 360.0D) {
                 ;
             }
@@ -293,19 +284,16 @@ public class OEntityBoat extends OEntity {
 
             this.bl = (float) ((double) this.bl + var30);
             this.c(this.bl, this.bm);
-         
+
             // CanaryMod: Change of the boat
-            if ((int) bf != (int) prevX || (int) bg != (int) prevY || (int) bh != (int) prevZ) {
+            if ((int) bf != (int) prevX || (int) bg != (int) prevY || (int) bh != (int) prevZ)
                 manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, boat, (int) bf, (int) bg, (int) bh);
-            }
-         
+
             List var32 = this.bb.b((OEntity) this, this.bp.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
             int var33;
-
             if (var32 != null && var32.size() > 0) {
                 for (var33 = 0; var33 < var32.size(); ++var33) {
                     OEntity var34 = (OEntity) var32.get(var33);
-
                     if (var34 != this.aZ && var34.g() && var34 instanceof OEntityBoat) {
                         var34.i(this);
                     }
@@ -316,7 +304,6 @@ public class OEntityBoat extends OEntity {
                 int var37 = OMathHelper.b(this.bf + ((double) (var33 % 2) - 0.5D) * 0.8D);
                 int var35 = OMathHelper.b(this.bg);
                 int var36 = OMathHelper.b(this.bh + ((double) (var33 / 2) - 0.5D) * 0.8D);
-
                 if (this.bb.a(var37, var35, var36) == OBlock.aT.bA) {
                     this.bb.e(var37, var35, var36, 0);
                 }
@@ -333,19 +320,20 @@ public class OEntityBoat extends OEntity {
         if (this.aZ != null) {
             double var1 = Math.cos((double) this.bl * 3.141592653589793D / 180.0D) * 0.4D;
             double var3 = Math.sin((double) this.bl * 3.141592653589793D / 180.0D) * 0.4D;
-
             this.aZ.c(this.bf + var1, this.bg + this.n() + this.aZ.M(), this.bh + var3);
         }
     }
 
-    protected void b(ONBTTagCompound var1) {}
+    protected void b(ONBTTagCompound var1) {
+    }
 
-    protected void a(ONBTTagCompound var1) {}
+    protected void a(ONBTTagCompound var1) {
+    }
 
     public boolean b(OEntityPlayer var1) {
         // CanaryMod: Entering the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, boat, var1.entity);
-      
+
         if (this.aZ != null && this.aZ instanceof OEntityPlayer && this.aZ != var1) {
             return true;
         } else {

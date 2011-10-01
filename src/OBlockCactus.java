@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OBlockCactus extends OBlock {
 
     protected OBlockCactus(int var1, int var2) {
@@ -11,14 +10,12 @@ public class OBlockCactus extends OBlock {
     public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
         if (var1.f(var2, var3 + 1, var4)) {
             int var6;
-
             for (var6 = 1; var1.a(var2, var3 - var6, var4) == this.bA; ++var6) {
                 ;
             }
 
             if (var6 < 3) {
                 int var7 = var1.c(var2, var3, var4);
-
                 if (var7 == 15) {
                     var1.e(var2, var3 + 1, var4, this.bA);
                     var1.c(var2, var3, var4, 0);
@@ -32,7 +29,6 @@ public class OBlockCactus extends OBlock {
 
     public OAxisAlignedBB e(OWorld var1, int var2, int var3, int var4) {
         float var5 = 0.0625F;
-
         return OAxisAlignedBB.b((double) ((float) var2 + var5), (double) var3, (double) ((float) var4 + var5), (double) ((float) (var2 + 1) - var5), (double) ((float) (var3 + 1) - var5), (double) ((float) (var4 + 1) - var5));
     }
 
@@ -71,7 +67,6 @@ public class OBlockCactus extends OBlock {
             return false;
         } else {
             int var5 = var1.a(var2, var3 - 1, var4);
-
             return var5 == OBlock.aW.bA || var5 == OBlock.F.bA;
         }
     }

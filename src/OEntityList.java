@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class OEntityList {
 
     private static Map a = new HashMap();
@@ -25,9 +24,8 @@ public class OEntityList {
 
         try {
             Class var3 = (Class) a.get(var0);
-
             if (var3 != null) {
-                var2 = (OEntity) var3.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { var1});
+                var2 = (OEntity) var3.getConstructor(new Class[] { OWorld.class }).newInstance(new Object[] { var1 });
             }
         } catch (Exception var4) {
             var4.printStackTrace();
@@ -41,9 +39,8 @@ public class OEntityList {
 
         try {
             Class var3 = (Class) a.get(var0.i("id"));
-
             if (var3 != null) {
-                var2 = (OEntity) var3.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { var1});
+                var2 = (OEntity) var3.getConstructor(new Class[] { OWorld.class }).newInstance(new Object[] { var1 });
             }
         } catch (Exception var4) {
             var4.printStackTrace();
@@ -65,7 +62,7 @@ public class OEntityList {
     public static String b(OEntity var0) {
         return (String) b.get(var0.getClass());
     }
-   
+
     // CanaryMod: Let us do a name->class lookup for mob spawning
     public static Class<?> getEntity(String name) {
         return (Class<?>) a.get(name);

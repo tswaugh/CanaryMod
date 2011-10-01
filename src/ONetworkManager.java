@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 public class ONetworkManager {
 
     public static final Object a = new Object();
@@ -66,7 +65,6 @@ public class ONetworkManager {
     public void a(OPacket var1) {
         if (!this.q) {
             Object var2 = this.g;
-
             synchronized (this.g) {
                 this.x += var1.a() + 1;
                 if (var1.k) {
@@ -87,7 +85,6 @@ public class ONetworkManager {
             OPacket var3;
             int var10001;
             int[] var10000;
-
             if (!this.n.isEmpty() && (this.f == 0 || System.currentTimeMillis() - ((OPacket) this.n.get(0)).j >= (long) this.f)) {
                 var2 = this.g;
                 synchronized (this.g) {
@@ -137,11 +134,9 @@ public class ONetworkManager {
 
         try {
             OPacket var2 = OPacket.a(this.j, this.p.c());
-
             if (var2 != null) {
                 int[] var10000 = d;
                 int var10001 = var2.b();
-
                 var10000[var10001] += var2.a() + 1;
                 this.m.add(var2);
                 var1 = true;
@@ -161,7 +156,7 @@ public class ONetworkManager {
 
     private void a(Exception var1) {
         var1.printStackTrace();
-        this.a("disconnect.genericReason", new Object[] { "Internal exception: " + var1.toString()});
+        this.a("disconnect.genericReason", new Object[] { "Internal exception: " + var1.toString() });
     }
 
     public void a(String var1, Object... var2) {
@@ -213,7 +208,6 @@ public class ONetworkManager {
 
         while (!this.m.isEmpty() && var1-- >= 0) {
             OPacket var2 = (OPacket) this.m.remove(0);
-
             var2.a(this.p);
         }
 

@@ -3,7 +3,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 import net.minecraft.server.MinecraftServer;
 
-
 public class OConsoleCommandHandler {
 
     private static Logger a = Logger.getLogger("Minecraft");
@@ -19,7 +18,6 @@ public class OConsoleCommandHandler {
         OICommandListener var3 = var1.b;
         String var4 = var3.d();
         OServerConfigurationManager var5 = this.b.f;
-
         if (!var2.toLowerCase().startsWith("help") && !var2.toLowerCase().startsWith("?")) {
             if (var2.toLowerCase().startsWith("list")) {
                 var3.b("Connected players: " + var5.c());
@@ -29,7 +27,6 @@ public class OConsoleCommandHandler {
             } else {
                 int var6;
                 OWorldServer var7;
-
                 if (var2.toLowerCase().startsWith("save-all")) {
                     this.a(var4, "Forcing save..");
                     if (var5 != null) {
@@ -58,7 +55,6 @@ public class OConsoleCommandHandler {
                     }
                 } else {
                     String var14;
-
                     if (var2.toLowerCase().startsWith("op ")) {
                         var14 = var2.substring(var2.indexOf(" ")).trim();
                         var5.e(var14);
@@ -79,7 +75,6 @@ public class OConsoleCommandHandler {
                         this.a(var4, "Pardoning ip " + var14);
                     } else {
                         OEntityPlayerMP var15;
-
                         if (var2.toLowerCase().startsWith("ban ")) {
                             var14 = var2.substring(var2.indexOf(" ")).trim();
                             var5.a(var14);
@@ -94,14 +89,12 @@ public class OConsoleCommandHandler {
                             this.a(var4, "Pardoning " + var14);
                         } else {
                             int var8;
-
                             if (var2.toLowerCase().startsWith("kick ")) {
                                 var14 = var2.substring(var2.indexOf(" ")).trim();
                                 var15 = null;
 
                                 for (var8 = 0; var8 < var5.b.size(); ++var8) {
                                     OEntityPlayerMP var9 = (OEntityPlayerMP) var5.b.get(var8);
-
                                     if (var9.u.equalsIgnoreCase(var14)) {
                                         var15 = var9;
                                     }
@@ -116,7 +109,6 @@ public class OConsoleCommandHandler {
                             } else {
                                 OEntityPlayerMP var16;
                                 String[] var19;
-
                                 if (var2.toLowerCase().startsWith("tp ")) {
                                     var19 = var2.split(" ");
                                     if (var19.length == 3) {
@@ -138,7 +130,6 @@ public class OConsoleCommandHandler {
                                 } else {
                                     int var17;
                                     String var18;
-
                                     if (var2.toLowerCase().startsWith("give ")) {
                                         var19 = var2.split(" ");
                                         if (var19.length != 3 && var19.length != 4) {
@@ -153,7 +144,6 @@ public class OConsoleCommandHandler {
                                                 if (OItem.c[var17] != null) {
                                                     this.a(var4, "Giving " + var16.u + " some " + var17);
                                                     int var10 = 1;
-
                                                     if (var19.length > 3) {
                                                         var10 = this.a(var19[3], 1);
                                                     }
@@ -212,7 +202,6 @@ public class OConsoleCommandHandler {
                                         try {
                                             var8 = Integer.parseInt(var19[2]);
                                             OWorldServer var20;
-
                                             if ("add".equalsIgnoreCase(var18)) {
                                                 for (var17 = 0; var17 < this.b.e.length; ++var17) {
                                                     var20 = this.b.e[var17];
@@ -268,10 +257,8 @@ public class OConsoleCommandHandler {
 
     private void a(String var1, String var2, OICommandListener var3) {
         String[] var4 = var2.split(" ");
-
         if (var4.length >= 2) {
             String var5 = var4[1].toLowerCase();
-
             if ("on".equals(var5)) {
                 this.a(var1, "Turned on white-listing");
                 this.b.d.b("white-list", true);
@@ -283,7 +270,6 @@ public class OConsoleCommandHandler {
                 String var7 = "";
 
                 String var9;
-
                 for (Iterator var8 = var6.iterator(); var8.hasNext(); var7 = var7 + var9 + " ") {
                     var9 = (String) var8.next();
                 }
@@ -291,7 +277,6 @@ public class OConsoleCommandHandler {
                 var3.b("White-listed players: " + var7);
             } else {
                 String var10;
-
                 if ("add".equals(var5) && var4.length == 3) {
                     var10 = var4[2].toLowerCase();
                     this.b.f.k(var10);
@@ -336,7 +321,6 @@ public class OConsoleCommandHandler {
 
     private void a(String var1, String var2) {
         String var3 = var1 + ": " + var2;
-
         this.b.f.j("\u00a77(" + var3 + ")");
         a.info(var3);
     }

@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class OTileEntity {
 
     private static Map a = new HashMap();
@@ -26,7 +25,7 @@ public class OTileEntity {
             b.put(var0, var1);
         }
     }
-   
+
     public void a(ONBTTagCompound var1) {
         this.j = var1.e("x");
         this.k = var1.e("y");
@@ -35,7 +34,6 @@ public class OTileEntity {
 
     public void b(ONBTTagCompound var1) {
         String var2 = (String) b.get(this.getClass());
-
         if (var2 == null) {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
         } else {
@@ -46,14 +44,14 @@ public class OTileEntity {
         }
     }
 
-    public void h_() {}
+    public void h_() {
+    }
 
     public static OTileEntity c(ONBTTagCompound var0) {
         OTileEntity var1 = null;
 
         try {
             Class var2 = (Class) a.get(var0.i("id"));
-
             if (var2 != null) {
                 var1 = (OTileEntity) var2.newInstance();
             }
@@ -102,7 +100,8 @@ public class OTileEntity {
         this.m = false;
     }
 
-    public void b(int var1, int var2) {}
+    public void b(int var1, int var2) {
+    }
 
     public void g() {
         this.o = null;

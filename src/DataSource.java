@@ -22,9 +22,10 @@ public abstract class DataSource {
     protected List<Warp>           warps  = new ArrayList<Warp>();
     protected List<Ban>            bans   = new ArrayList<Ban>();
     protected Map<String, Integer> items  = new HashMap<String, Integer>();
+    protected List<Integer>        enderBlocks = new ArrayList<Integer>();
     protected MinecraftServer      server;
     protected final Object         groupLock = new Object(), kitLock = new Object(), banLock = new Object();
-    protected final Object         homeLock  = new Object(), warpLock = new Object(), itemLock = new Object();
+    protected final Object         homeLock  = new Object(), warpLock = new Object(), itemLock = new Object(), enderBlocksLock = new Object();
 
     /**
      * Initializes the data source
@@ -60,6 +61,11 @@ public abstract class DataSource {
      * Loads the ban list
      */
     abstract public void loadBanList();
+    
+    /**
+     * Loads the enderman blocks list
+     */
+    abstract public void loadEnderBlocks();
 
     /**
      * Adds user to the list

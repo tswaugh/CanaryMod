@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 import net.minecraft.server.MinecraftServer;
 
-
 public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public ONetServerHandler a;
@@ -34,7 +33,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         int var6 = var5.a;
         int var7 = var5.c;
         int var8 = var5.b;
-
         if (!var2.y.e) {
             var6 += this.bL.nextInt(20) - 10;
             var8 = var2.f(var6, var7);
@@ -96,7 +94,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
         for (int var1 = 0; var1 < 5; ++var1) {
             OItemStack var2 = this.b(var1);
-
             if (var2 != this.cg[var1]) {
                 this.b.b(this.v).a(this, new OPacket5PlayerInventory(this.aW, var1, var2));
                 this.cg[var1] = var2;
@@ -122,14 +119,12 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         } else {
             if (!this.b.n && var1 instanceof OEntityDamageSource) {
                 OEntity var3 = var1.a();
-
                 if (var3 instanceof OEntityPlayer) {
                     return false;
                 }
 
                 if (var3 instanceof OEntityArrow) {
                     OEntityArrow var4 = (OEntityArrow) var3;
-
                     if (var4.c instanceof OEntityPlayer) {
                         return false;
                     }
@@ -153,10 +148,8 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
         for (int var2 = 0; var2 < this.j.a(); ++var2) {
             OItemStack var3 = this.j.b_(var2);
-
             if (var3 != null && OItem.c[var3.c].i_() && this.a.b() <= 2) {
                 OPacket var4 = ((OItemMapBase) OItem.c[var3.c]).c(var3, this.bb, this);
-
                 if (var4 != null) {
                     this.a.b(var4);
                 }
@@ -165,30 +158,24 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
         if (var1 && !this.f.isEmpty()) {
             OChunkCoordIntPair var7 = (OChunkCoordIntPair) this.f.get(0);
-
             if (var7 != null) {
                 boolean var9 = false;
-
                 if (this.a.b() < 4) {
                     var9 = true;
                 }
 
                 if (var9) {
                     OWorldServer var10 = this.b.a(this.v);
-
                     this.f.remove(var7);
                     ONetServerHandler var10000 = this.a;
                     int var10003 = var7.a * 16;
                     int var10005 = var7.b * 16;
-
-                    var10.getClass();
                     OPacket51MapChunk var10001 = new OPacket51MapChunk(var10003, 0, var10005, 16, 128, 16, var10);
+                    var10.getClass();
                     var10000.b((OPacket) var10001);
                     int var8 = var7.a * 16;
-
                     var10003 = var7.b * 16;
                     int var10004 = var7.a * 16 + 16;
-
                     var10.getClass();
                     List var5 = var10.d(var8, 0, var10003, var10004, 128, var7.b * 16 + 16);
 
@@ -240,32 +227,14 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             --this.H;
         }
 
-        /* // CanaryMod: Update the health
-         if(this.an != this.cb) {
-         // updates your health when it is changed.
-         if(!etc.getInstance().isHealthEnabled()) {
-         an = 20;
-         aw = false;
-         } else if((Boolean)manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cb, an))
-         an = cb;
-         else if(this.an != this.cb || this.cc != this.m.a() || this.m.c() == 0.0F != this.cd) {
-         this.a.b((OPacket)(new OPacket8UpdateHealth(this.an, this.m.a(), this.m.c())));
-         this.cb = this.an;
-         this.cc = this.m.a();
-         this.cd = this.m.c() == 0.0F;
-         }
-         this.cb = this.an;
-         }*/
-      
         // CanaryMod: Update the health
         if (this.an != this.cb) {
             // updates your health when it is changed.
             if (!etc.getInstance().isHealthEnabled()) {
                 an = 20;
                 aw = false;
-            } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cb, an)) {
+            } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cb, an))
                 an = cb;
-            }
         }
 
         // CanaryMod: Update the health or Hunger bar
@@ -275,7 +244,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             this.cc = this.m.a();
             this.cd = this.m.c() == 0.0F;
         }
-      
+
         if (this.N != this.ce) {
             this.ce = this.N;
             this.a.b((OPacket) (new OPacket43Experience(this.L, this.N, this.M)));
@@ -288,12 +257,10 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             // CanaryMod: Let plugins know we're showing a sign
             if (var1 instanceof OTileEntitySign) {
                 Sign sign = new Sign((OTileEntitySign) var1);
-
                 manager.callHook(PluginLoader.Hook.SIGN_SHOW, getPlayer(), sign);
             }
 
             OPacket var2 = var1.l();
-
             if (var2 != null) {
                 this.a.b(var2);
             }
@@ -304,7 +271,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public void a(OEntity var1, int var2) {
         if (!var1.bx) {
             OEntityTracker var3 = this.b.b(this.v);
-
             if (var1 instanceof OEntityItem) {
                 var3.a(var1, new OPacket22Collect(var1.aW, this.aW));
             }
@@ -327,21 +293,19 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             this.t = -1;
             this.s = true;
             OEntityTracker var1 = this.b.b(this.v);
-
             var1.a(this, new OPacket18Animation(this, 1));
         }
 
     }
 
-    public void w() {}
+    public void w() {
+    }
 
     public OEnumStatus a(int var1, int var2, int var3) {
         OEnumStatus var4 = super.a(var1, var2, var3);
-
         if (var4 == OEnumStatus.a) {
             OEntityTracker var5 = this.b.b(this.v);
             OPacket17Sleep var6 = new OPacket17Sleep(this, 0, var1, var2, var3);
-
             var5.a(this, var6);
             this.a.a(this.bf, this.bg, this.bh, this.bl, this.bm);
             this.a.b((OPacket) var6);
@@ -353,7 +317,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public void a(boolean var1, boolean var2, boolean var3) {
         if (this.P()) {
             OEntityTracker var4 = this.b.b(this.v);
-
             var4.b(this, new OPacket18Animation(this, 3));
         }
 
@@ -368,12 +331,12 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         super.a(var1);
         this.a.b((OPacket) (new OPacket39AttachEntity(this, this.ba)));
         this.a.a(this.bf, this.bg, this.bh, this.bl, this.bm);
-        if (etc.getInstance().isHealthEnabled()) {
+        if (etc.getInstance().isHealthEnabled())
             this.j.h();
-        }
     }
 
-    protected void a(double var1, boolean var3) {}
+    protected void a(double var1, boolean var3) {
+    }
 
     public void b(double var1, boolean var3) {
         super.a(var1, var3);
@@ -395,22 +358,18 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         // CanaryMod: Check if we can open this
         Inventory inv = null;
         String name = var1.c();
-
         if (var1 instanceof OTileEntityChest) {
             inv = new Chest((OTileEntityChest) var1);
-            if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+            if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv))
                 return;
-            }
         } else if (var1 instanceof OInventoryLargeChest) {
             inv = new DoubleChest((OInventoryLargeChest) var1);
-            if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+            if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv))
                 return;
-            }
         }
 
-        if (inv != null) {
+        if (inv != null)
             name = inv.getName();
-        }
 
         this.au();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ch, 0, var1.c(), var1.a())));
@@ -422,13 +381,10 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public void a(OTileEntityFurnace var1) {
         Inventory inv = new Furnace(var1);
         String name = var1.c();
-
-        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv))
             return;
-        }
-        if (inv != null) {
+        if (inv != null)
             name = inv.getName();
-        }
         this.au();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ch, 2, var1.c(), var1.a())));
         this.l = new OContainerFurnace(this.j, var1);
@@ -439,14 +395,11 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public void a(OTileEntityDispenser var1) {
         Dispenser dis = new Dispenser(var1);
         String name = var1.c();
-
-        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), dis)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), dis))
             return;
-        }
 
-        if (dis != null) {
+        if (dis != null)
             name = dis.getName();
-        }
 
         this.au();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ch, 3, var1.c(), var1.a())));
@@ -476,7 +429,8 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.a.b((OPacket) (new OPacket105UpdateProgressbar(var1.f, var2, var3)));
     }
 
-    public void a(OItemStack var1) {}
+    public void a(OItemStack var1) {
+    }
 
     public void x() {
         this.a.b((OPacket) (new OPacket101CloseWindow(this.l.f)));
@@ -539,7 +493,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public void a(String var1) {
         OStringTranslate var2 = OStringTranslate.a();
         String var3 = var2.a(var1);
-
         this.a.b((OPacket) (new OPacket3Chat(var3)));
     }
 
@@ -552,7 +505,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         super.a(var1, var2);
         if (var1 != null && var1.a() != null && var1.a().b(var1) == OEnumAction.b) {
             OEntityTracker var3 = this.b.b(this.v);
-
             var3.b(this, new OPacket18Animation(this, 5));
         }
 
