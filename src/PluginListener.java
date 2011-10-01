@@ -290,10 +290,10 @@ public class PluginListener {
 
     /**
      * Called when a dynamite block or a creeper is triggerd. block status
-     * depends on explosive compound: 1 = dynamite. 2 = creeper.
+     * depends on explosive compound: 1 = dynamite. 2 = creeper. 3 = ghast fireball.
      *
      * @param block
-     *            Dynamite block/creeper location block.
+     *            Dynamite block/creeper/ghast fireball location block.
      * 
      * @return true if you dont the block to explode.
      */
