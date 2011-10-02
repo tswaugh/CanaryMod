@@ -815,11 +815,10 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void setCreativeMode(int i) {
         getEntity().c.a(i);
         getEntity().a.b((OPacket) (new OPacket70Bed(3, i)));
-        if (i == 1 && !getMode(getPlayer())) {
-            modes.add(getPlayer());
-        } else {
+        if (i == 1 && !getMode(getPlayer()))
+        	modes.add(getPlayer());
+        else
             modes.remove(getPlayer());
-        }
     }
 
     /**
@@ -840,11 +839,10 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public static boolean getMode(Player player) {
-        if (modes.contains(player)) {
+        if (modes.contains(player))
             return true;
-        } else {
+        else
             return false;
-        }
     }
 
     /**
@@ -854,7 +852,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         if (Player.getMode(this)) {
             getEntity().c.a(1);
         } else {
-            getEntity().c.a(0);
+        	getEntity().c.a(0);
         }
     }
 
