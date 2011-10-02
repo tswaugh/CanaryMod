@@ -217,7 +217,9 @@ public abstract class OEntity {
                 }
             } else {
                 if (this.bO % 20 == 0) {
-                    this.a(ODamageSource.b, 1);
+                    // CanaryMod Damage hook: Periodic burn damage
+                    if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE_TICK, null, entity, 1))
+                        this.a(ODamageSource.b, 1);
                 }
 
                 --this.bO;
@@ -242,6 +244,10 @@ public abstract class OEntity {
 
     protected void am() {
         if (!this.bT) {
+            // CanaryMod Damage hook: Lava
+            if (this instanceof OEntityLiving)
+               if ((Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.LAVA, null, entity, 4))
+                  return;
             this.a(ODamageSource.c, 4);
             this.bO = 600;
         }
@@ -529,7 +535,9 @@ public abstract class OEntity {
 
     protected void a(int var1) {
         if (!this.bT) {
-            this.a(ODamageSource.a, var1);
+            // CanaryMod Damage Hook: Fire
+            if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE, null, entity, var1))
+                this.a(ODamageSource.a, var1);
         }
 
     }
