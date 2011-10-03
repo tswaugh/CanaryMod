@@ -1182,4 +1182,30 @@ public class PlayerCommands {
 
         }
     };
+    @Command
+    public static final BaseCommand feed = new BaseCommand("<Player> <FoodLevel> - Sets player food level", "Correct usage is: /feed <player> <foodlevel>", 1, 3) {
+
+        @Override
+        void execute(MessageReceiver caller, String[] split) {
+            Player subject = (Player) caller;
+            int foodLevel = 20;
+            if (split.length == 3) {
+                subject = etc.getServer().matchPlayer(split[1]);
+                foodLevel = Integer.parseInt(split[2]);
+            } else if (split.length == 2) {
+                try {
+                    foodLevel = Integer.parseInt(split[1]);
+                } catch (Exception e){
+                    subject = etc.getServer().matchPlayer(split[1]);
+                }
+            }            
+
+            if (subject != null) {
+                subject.setFoodLevel(foodLevel);
+                subject.setFoodExhaustionLevel(1);
+            } else
+                caller.notify("Can't find player " + split[1]);
+        }
+    };
+
 }

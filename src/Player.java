@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -916,4 +917,68 @@ public class Player extends HumanEntity implements MessageReceiver {
         getPlayer().getEntity().a.b((OPacket) (new OPacket43Experience(getPlayer().getEntity().L, getPlayer().getEntity().N, getPlayer().getEntity().M)));
     }
 
+    /**
+     * Send update food and health to client
+     * 
+     */
+    public void updateLevels() {
+        OEntityPlayerMP entityMP = getEntity();
+        entityMP.a.b((OPacket) (new OPacket8UpdateHealth(entityMP.an, entityMP.m.a(), entityMP.m.c())));
+    }
+    
+    /**
+     * Get player Food Level
+     * 
+     * @return player food level
+     */
+    public int getFoodLevel() {
+        return ((OEntityPlayer)entity).m.a;
+    }
+    
+    /**
+     * Set Player food level
+     * 
+     * @param foodLevel
+     *         new food level, between 1 and 20
+     */
+    public void setFoodLevel(int foodLevel) {
+        ((OEntityPlayer)entity).m.a = Math.min(foodLevel,20);
+        updateLevels();
+    }
+    
+    /**
+     * Get Players food ExhaustionLevel
+     * @return
+     */
+    public float getFoodExhaustionLevel() {
+        return ((OEntityPlayer)entity).m.c;
+    }
+
+    /**
+     * Set player food exhaustion level
+     * 
+     * @param foodExhaustionLevel
+     */
+    public void setFoodExhaustionLevel(float foodExhaustionLevel) {
+        ((OEntityPlayer)entity).m.c = Math.min(foodExhaustionLevel,40F);
+        updateLevels();
+    }
+    
+    /**
+     * Updates the inventory on the client
+     * 
+     */
+    public void updateInventory() {
+        OContainer l = ((OEntityPlayer) entity).l;
+        ArrayList var3 = new ArrayList();
+
+        for (int var4 = 0; var4 < l.e.size(); ++var4) {
+            var3.add(((OSlot) l.e.get(var4)).a());
+        }
+        
+       ((OEntityPlayerMP) entity).a(l, var3);
+    }
+    
+    
+    
 }
