@@ -271,6 +271,10 @@ public class PluginLoader {
          */
         COW_MILK,
         /**
+         * Class {@link PluginListener#onEat(Player, Item) }
+         */
+        EAT,
+        /**
          * Unused.
          */
         NUM_HOOKS
@@ -831,6 +835,9 @@ public class PluginLoader {
                                 break;
                             case COW_MILK:
                                 toRet = listener.onCowMilk((Player) parameters[0], (Mob) parameters[1]);
+                                break;
+                            case EAT:
+                                toRet = listener.onEat((Player) parameters[0],(Item) parameters[1]);
                                 break;
                         }
                     } catch (UnsupportedOperationException ex) {

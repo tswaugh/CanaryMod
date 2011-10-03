@@ -236,7 +236,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cb, an))
                 an = cb;
         }
-
+        
         // CanaryMod: Update the health or Hunger bar
         if ((this.an != this.cb) || (this.cc != this.m.a()) || ((this.m.c() == 0.0F) != this.cd)) {
             this.a.b((OPacket) (new OPacket8UpdateHealth(this.an, this.m.a(), this.m.c())));
@@ -502,12 +502,18 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(OItemStack var1, int var2) {
-        super.a(var1, var2);
-        if (var1 != null && var1.a() != null && var1.a().b(var1) == OEnumAction.b) {
-            OEntityTracker var3 = this.b.b(this.v);
-            var3.b(this, new OPacket18Animation(this, 5));
-        }
-
+        // CanaryMod: Call EAT Hook
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.EAT, ((OEntityPlayerMP) this).getPlayer(), new Item(var1))){
+            if (var1 != null && var1.a() != null && var1.a().b(var1) == OEnumAction.b) {
+                super.a(var1, var2);
+                OEntityTracker var3 = this.b.b(this.v);
+                var3.b(this, new OPacket18Animation(this, 5));
+            }    
+        } else {
+            this.a.b((OPacket) (new OPacket38EntityStatus(this.aW, (byte) 9)));
+            this.getPlayer().updateLevels();
+            this.getPlayer().updateInventory();
+       }
     }
 
     protected void a(OPotionEffect var1) {

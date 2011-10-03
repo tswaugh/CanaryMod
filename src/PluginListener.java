@@ -884,4 +884,17 @@ public class PluginListener {
        return false;
     }
 
+    /**
+     * Called when a player eats food
+     * @param player
+     *          The player
+     * @param item
+     *          The eaten item
+     * @return true to prevent the player eat the item
+     */
+    public boolean onEat(Player player, Item item)
+    {
+       return false;
+    }
+
 }
