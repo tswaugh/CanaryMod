@@ -299,6 +299,10 @@ public class PluginLoader {
          */
         LEVEL_UP,
         /**
+         * Calls {@link PluginListener#onPlayerListNameGet(Player, defaultName) }
+         */
+        GET_PLAYERLISTNAME,
+        /**
          * Unused.
          */
         NUM_HOOKS
@@ -624,6 +628,7 @@ public class PluginLoader {
                 toRet = parameters[2];
                 break;
             case POTION_EFFECT:
+            case GET_PLAYERLISTNAME:
                 toRet = parameters[1];
                 break;
             default:
@@ -898,6 +903,9 @@ public class PluginLoader {
                             case LEVEL_UP:
                                 if (listener.onLevelUp((Player) parameters[0]))
                                     toRet = true;
+                                break;
+                            case GET_PLAYERLISTNAME:
+                                toRet = listener.onPlayerlistNameGet((Player) parameters[0],(String) parameters[1]);
                                 break;
                         }
                     } catch (UnsupportedOperationException ex) {

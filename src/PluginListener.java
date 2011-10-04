@@ -976,4 +976,16 @@ public class PluginListener {
     public boolean onLevelUp(Player player) {
     	return false;
     }
+
+    
+    /**
+     * Called when sending the playername to the new list
+     * 
+     * @param player
+     * @param playerName
+     * @return the playername to show.
+     */
+    public String onPlayerlistNameGet(Player player, String playerName) {
+        return playerName;
+    }
 }
