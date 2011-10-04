@@ -1180,7 +1180,6 @@ public class PlayerCommands {
                     player.sendMessage("You have " + Colors.Yellow + player.getXP() + Colors.White + " Total EXP");
                 }
             }
-
         }
     };
     @Command
@@ -1252,6 +1251,4 @@ public class PlayerCommands {
                 caller.notify(Colors.Yellow+"Can't find player " + split[1]);
         }
     };
-
-
 }

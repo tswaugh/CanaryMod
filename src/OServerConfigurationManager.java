@@ -114,7 +114,6 @@ public class OServerConfigurationManager {
         }
         etc.getInstance().getMotd(var1.getPlayer());
         etc.getLoader().callHook(PluginLoader.Hook.LOGIN, var1.getPlayer());
-        
     }
 
     public void d(OEntityPlayerMP var1) {
@@ -126,7 +125,6 @@ public class OServerConfigurationManager {
         this.c.a(var1.v).e(var1);
         this.b.remove(var1);
         this.a(var1.v).b(var1);
-        // CanaryMod: Player color and Prefix
         this.a((OPacket) (new OPacket201PlayerInfo(var1.getPlayer().getFullName(), false, 9999)));
     }
 
@@ -347,7 +345,6 @@ public class OServerConfigurationManager {
         }
 
     }
-    
 
     public void a(int var1, int var2, int var3, int var4) {
         this.a(var4).a(var1, var2, var3);

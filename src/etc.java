@@ -54,6 +54,7 @@ public class etc {
     private PluginLoader                  loader;
     private boolean                       logging             = false;
     private boolean                       enableHealth        = true;
+    private boolean                       enableExperience        = false;
     private PluginLoader.HookResult       autoHeal            = PluginLoader.HookResult.DEFAULT_ACTION;
     private boolean                       showUnknownCommand  = true;
     private String                        versionStr;
@@ -137,6 +138,7 @@ public class etc {
             logging = properties.getBoolean("logging", false);
             allowNether = properties.getBoolean("allow-nether", true);
             enableHealth = properties.getBoolean("enable-health", true);
+            enableExperience = properties.getBoolean("enable-experience", true);
             deathMessages = properties.getBoolean("death-message", true);
 
             animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow").split(",");
@@ -348,6 +350,15 @@ public class etc {
      */
     public boolean isHealthEnabled() {
         return enableHealth;
+    }
+    
+    /**
+     * Returns true if we want experience to be enabled.
+     * 
+     * @return
+     */
+    public boolean isExpEnabled() {
+        return enableExperience;
     }
 
     /**

@@ -291,6 +291,14 @@ public class PluginLoader {
          */
         POTION_EFFECT,
         /**
+         * Class {@link PluginListener#onExpChange(Player, oldExp, newExp) }
+         */
+        EXPERIENCE_CHANGE,
+        /**
+         * Class {@link PluginListener#onLevelUp(Player) }
+         */
+        LEVEL_UP,
+        /**
          * Unused.
          */
         NUM_HOOKS
@@ -359,14 +367,14 @@ public class PluginLoader {
          * Damage caused by lightning (5)
          */
         LIGHTNING,
-        /**
-         * Damage caused by starvation (1)
-         */
-        STARVATION, 
-        /**
-         * Damage caused by poison (1) (Potions, Poison)
-         */
-        POISON
+		/**
+		 * Damage caused by starvation (1)
+		 */
+		STARVATION,
+		/**
+		 * Damage caused by poison (1) (Potions, Poison)
+		 */
+		POISON
     }
 
     private static final Logger log = Logger.getLogger("Minecraft");
@@ -883,7 +891,15 @@ public class PluginLoader {
                             case POTION_EFFECT:
                                 toRet = listener.onPotionEffect((LivingEntity) parameters[0], (PotionEffect) parameters[1]);
                                 break;
-                         }
+                            case EXPERIENCE_CHANGE:
+                                if (listener.onExpChange((Player) parameters[0], (Integer) parameters[1], (Integer) parameters[2]))
+                                    toRet = true;
+                                break;
+                            case LEVEL_UP:
+                                if (listener.onLevelUp((Player) parameters[0]))
+                                    toRet = true;
+                                break;
+                        }
                     } catch (UnsupportedOperationException ex) {
                     }
                 }

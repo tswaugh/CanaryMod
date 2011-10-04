@@ -962,31 +962,33 @@ public abstract class OEntityPlayer extends OEntityLiving {
     }
 
     public void d(int var1) {
+    	addXP(var1);
+    }
+    
+    public void addXP(int var1) {
         this.L += var1;
         this.N += var1;
-
-        while (this.L >= this.U()) {
-            this.L -= this.U();
-            this.y();
-        }
+       	levelUp();
     }
 
     public void removeXP(int var1) {
         this.L -= var1;
         this.N -= var1;
-        while (this.L >= this.U()) {
-            this.L -= this.U();
-            this.y();
-        }
+       	levelUp();
     }
 
     public void setXP(int var1) {
         this.L = var1;
         this.N = var1;
-        while (this.L >= this.U()) {
-            this.L -= this.U();
-            this.y();
-        }
+       	levelUp();
+    }
+    
+    public void levelUp() {
+   		while (this.L >= this.U()) {
+   			this.L -= this.U();
+   			this.y();
+   			manager.callHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
+   		}
     }
 
     public int U() {

@@ -244,10 +244,22 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             this.cc = this.m.a();
             this.cd = this.m.c() == 0.0F;
         }
+        
+        // CanaryMod: Update experience
+        if(this.N != this.ce) {
+           // updates your experience when it is changed.
+           if (!etc.getInstance().isExpEnabled()) {
+        	   L = 0;
+        	   N = 0;
+        	   M = 0;
+           } else if ((Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, getPlayer(), ce, N))
+        	   N = ce;
+        }
 
-        if (this.N != this.ce) {
-            this.ce = this.N;
-            this.a.b((OPacket) (new OPacket43Experience(this.L, this.N, this.M)));
+        // CanaryMod: Update the experience bar
+        if(this.N != this.ce) {
+        	this.ce = this.N;
+        	this.a.b((OPacket)(new OPacket43Experience(this.L, this.N, this.M)));
         }
 
     }
@@ -515,6 +527,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             this.getPlayer().updateInventory();
        }
     }
+
 
     protected void a(OPotionEffect var1) {
         super.a(var1);
