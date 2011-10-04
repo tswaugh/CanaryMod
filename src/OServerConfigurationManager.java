@@ -88,9 +88,8 @@ public class OServerConfigurationManager {
     }
 
     public void c(OEntityPlayerMP var1) {
-        // CanaryMod: Playername with color and Prefix
-        String name = var1.getPlayer().getPLName();
-        this.a((OPacket) (new OPacket201PlayerInfo(name, true, 1000)));
+        // CanaryMod: Playername with color and Prefix        
+        this.a((OPacket) (new OPacket201PlayerInfo(var1.getPlayer().getPLName(), true, 1000)));
         this.b.add(var1);
         OWorldServer var2 = this.c.a(var1.v);
         var2.M.c((int) var1.bf >> 4, (int) var1.bh >> 4);
@@ -104,8 +103,7 @@ public class OServerConfigurationManager {
 
         for (int var3 = 0; var3 < this.b.size(); ++var3) {
             OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
-            var1.a.b((OPacket) (new OPacket201PlayerInfo(name, true, var4.i)));
-
+            var1.a.b((OPacket) (new OPacket201PlayerInfo(var4.getPlayer().getPLName(), true, var4.i)));
         }
 
         // CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
