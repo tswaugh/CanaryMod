@@ -88,7 +88,9 @@ public class OServerConfigurationManager {
     }
 
     public void c(OEntityPlayerMP var1) {
-        this.a((OPacket) (new OPacket201PlayerInfo(var1.u, true, 1000)));
+        // CanaryMod: Playername with color and Prefix
+        String name = var1.getPlayer().getFullName();
+        this.a((OPacket) (new OPacket201PlayerInfo(name, true, 1000)));
         this.b.add(var1);
         OWorldServer var2 = this.c.a(var1.v);
         var2.M.c((int) var1.bf >> 4, (int) var1.bh >> 4);
@@ -102,7 +104,7 @@ public class OServerConfigurationManager {
 
         for (int var3 = 0; var3 < this.b.size(); ++var3) {
             OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
-            var1.a.b((OPacket) (new OPacket201PlayerInfo(var4.u, true, var4.i)));
+            var1.a.b((OPacket) (new OPacket201PlayerInfo(name, true, var4.i)));
 
         }
 
@@ -112,6 +114,7 @@ public class OServerConfigurationManager {
         }
         etc.getInstance().getMotd(var1.getPlayer());
         etc.getLoader().callHook(PluginLoader.Hook.LOGIN, var1.getPlayer());
+        
     }
 
     public void d(OEntityPlayerMP var1) {
@@ -123,7 +126,8 @@ public class OServerConfigurationManager {
         this.c.a(var1.v).e(var1);
         this.b.remove(var1);
         this.a(var1.v).b(var1);
-        this.a((OPacket) (new OPacket201PlayerInfo(var1.u, false, 9999)));
+        // CanaryMod: Player color and Prefix
+        this.a((OPacket) (new OPacket201PlayerInfo(var1.getPlayer().getFullName(), false, 9999)));
     }
 
     public OEntityPlayerMP a(ONetLoginHandler var1, String var2) {
@@ -329,18 +333,21 @@ public class OServerConfigurationManager {
 
     public void b() {
         int var1;
+        /* CanaryMod: Spams like crazy . removed
         if (this.p-- <= 0) {
             for (var1 = 0; var1 < this.b.size(); ++var1) {
                 OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
                 this.a((OPacket) (new OPacket201PlayerInfo(var2.u, true, var2.i)));
             }
         }
+        */
 
         for (var1 = 0; var1 < this.d.length; ++var1) {
             this.d[var1].b();
         }
 
     }
+    
 
     public void a(int var1, int var2, int var3, int var4) {
         this.a(var4).a(var1, var2, var3);
