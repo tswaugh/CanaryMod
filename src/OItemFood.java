@@ -10,8 +10,6 @@ public class OItemFood extends OItem {
    private int by;
    private int bz;
    private float bA;
-   // CanaryMod: manager
-   public static PluginLoader manager = etc.getLoader();
 
 
    public OItemFood(int var1, int var2, float var3, boolean var4) {
@@ -32,7 +30,7 @@ public class OItemFood extends OItem {
       // CanaryMod FOODLEVEL_CHANGE HOOK
       int oldLevel = var3.V().a;
       int newLevel = Math.min(this.k()+oldLevel,20);
-      int retLevel = (Integer) manager.callHook(PluginLoader.Hook.FOODLEVEL_CHANGE, ((OEntityPlayerMP)var3).getPlayer(), oldLevel, newLevel);
+      int retLevel = (Integer) etc.getLoader().callHook(PluginLoader.Hook.FOODLEVEL_CHANGE, ((OEntityPlayerMP)var3).getPlayer(), oldLevel, newLevel);
       if (retLevel != oldLevel) {
           var3.V().a(retLevel);
       } 

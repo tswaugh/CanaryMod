@@ -7,8 +7,6 @@ public class OFoodStats {
    public float c;
    public int d = 0;
    private int e = 20;
-   // CanaryMod: manager
-   public static PluginLoader manager = etc.getLoader();
 
    public OFoodStats() {
       super();
@@ -29,12 +27,15 @@ public class OFoodStats {
       if(this.c > 4.0F) {
          this.c -= 4.0F;
          if(this.b > 0.0F) {
-            this.b = Math.max(this.b - 1.0F, 0.0F);
+            // CanaryMod: Calls onFoodExhaustionChange
+            float newLevel = Math.max(this.b - 1.0F, 0.0F);
+            float oldLevel = this.b;
+            this.b = (Float) etc.getLoader().callHook(PluginLoader.Hook.FOODEXHAUSTION_CHANGE, ((OEntityPlayerMP)var1).getPlayer(), oldLevel, newLevel);
          } else if(var2 > 0) {
-            // CanaryMod: FOODLEVEL_CHANGE Hook
+            // CanaryMod: Calls onFoodLevelChange
             int newLevel = Math.max(this.a -1, 0);
             int oldLevel = this.a;
-            this.a = (Integer) manager.callHook(PluginLoader.Hook.FOODLEVEL_CHANGE, ((OEntityPlayerMP)var1).getPlayer(), oldLevel, newLevel);
+            this.a = (Integer) etc.getLoader().callHook(PluginLoader.Hook.FOODLEVEL_CHANGE, ((OEntityPlayerMP)var1).getPlayer(), oldLevel, newLevel);
          }
       }
 
@@ -49,7 +50,7 @@ public class OFoodStats {
          if(this.d >= 80) {
             if(var1.an > 10 || var2 >= 3 || var1.an > 1 && var2 >= 2) {
                 // CanaryMod: DAMAGE From starvation
-                if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.STARVATION, null, ((OEntityPlayerMP) var1).getPlayer(), 1))
+                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.STARVATION, null, ((OEntityPlayerMP) var1).getPlayer(), 1))
                     var1.a(ODamageSource.f, 1);
             }
 
