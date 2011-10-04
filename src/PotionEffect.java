@@ -71,8 +71,8 @@ public class PotionEffect {
     * @param duration
     * @return
     */
-   public static PotionEffect getNewPotionEffect(int id,int amplifier,int duration) {
-       return new OPotionEffect(id,amplifier,duration).potionEffect;
+   public static PotionEffect getNewPotionEffect(PotionEffect.Type effect,int amplifier,int duration) {
+       return new OPotionEffect(effect.getId(),amplifier,duration).potionEffect;
    }
    
    public PotionEffect.Type getType() {

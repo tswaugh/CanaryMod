@@ -1006,6 +1006,14 @@ public class Player extends HumanEntity implements MessageReceiver {
         updateLevels();
     }
     
+    /**
+     * Adds a potion Effect to the player
+     * 
+     * @param PotionEffect
+     */
+    public void addPotionEffect(PotionEffect effect) {
+        ((OEntityLiving)this.entity).d(effect.potionEffect);
+    }
     
     
 }
