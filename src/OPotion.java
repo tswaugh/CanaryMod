@@ -52,7 +52,7 @@ public class OPotion {
       } else if(this.H == u.H) {
          if(var1.an > 1) {
              // Canarymod: DAMAGE From Poison
-             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POISON, null, var1.entity, 1))
+             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, var1.entity, 1))
                  var1.a(ODamageSource.l, 1);
          }
       } else if(this.H == s.H && var1 instanceof OEntityPlayer) {
@@ -61,7 +61,8 @@ public class OPotion {
          var1.c(4 << var2);
       } else if(this.H == i.H) {
          // Canarymod: Àcall to DAMAGE on 1.9?
-         var1.a(ODamageSource.l, 4 << var2);
+         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, var1.entity, 4 << var2))
+             var1.a(ODamageSource.l, 4 << var2);
       }
 
    }
