@@ -619,6 +619,14 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
+     * Gets the name that shows on PlayerList (tab)
+     */
+    public String getPLName() {
+        if (etc.getInstance().isPlayerList_colors()) 
+            return getFullName(); 
+            else return getName();
+    }
+    /**
      * Gets the actual user class.
      * 
      * @return
