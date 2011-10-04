@@ -885,7 +885,7 @@ public class PluginListener {
     }
 
     /**
-     * Called when a player eats food
+     * Called when a player tries to eat food
      * @param player
      *          The player
      * @param item
@@ -896,5 +896,19 @@ public class PluginListener {
     {
        return false;
     }
-
+    
+    /**
+     * Called when a player food level changes
+     * @param player
+     *           the player
+     * @param oldFoodLevel
+     *           the current food level
+     * @param newFoodLevel
+     *           the new food level
+     * @return
+     */
+    public int onFoodLevelChange(Player player,int oldFoodLevel,int newFoodLevel)
+    {
+        return newFoodLevel;
+    }    
 }

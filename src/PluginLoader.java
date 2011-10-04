@@ -271,9 +271,13 @@ public class PluginLoader {
          */
         COW_MILK,
         /**
-         * Class {@link PluginListener#onEat(Player, Item) }
+         * Calls {@link PluginListener#onEat(Player, Item) }
          */
         EAT,
+        /**
+         * Calls {@link PluginListener#onFoodLevelChange(Player, oldLevel, newLevel) }
+         */
+        FOODLEVEL_CHANGE,
         /**
          * Unused.
          */
@@ -342,7 +346,11 @@ public class PluginLoader {
         /**
          * Damage caused by lightning (5)
          */
-        LIGHTNING
+        LIGHTNING,
+        /**
+         * Damage caused by starvation (1)
+         */
+        STARVATION
     }
 
     private static final Logger log = Logger.getLogger("Minecraft");
@@ -585,6 +593,9 @@ public class PluginLoader {
             case CHUNK_CREATE:
             case SPAWNPOINT_CREATE:
                 toRet = null;
+                break;
+            case FOODLEVEL_CHANGE:
+                toRet = parameters[2];
                 break;
             default:
                 toRet = false;
@@ -838,6 +849,10 @@ public class PluginLoader {
                                 break;
                             case EAT:
                                 toRet = listener.onEat((Player) parameters[0],(Item) parameters[1]);
+                                break;
+                            case FOODLEVEL_CHANGE:
+                                int level = listener.onFoodLevelChange((Player) parameters[0],(Integer) parameters[1],(Integer) parameters[2]);
+                                    toRet = Integer.valueOf(level);
                                 break;
                         }
                     } catch (UnsupportedOperationException ex) {
