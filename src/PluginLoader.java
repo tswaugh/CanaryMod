@@ -367,14 +367,14 @@ public class PluginLoader {
          * Damage caused by lightning (5)
          */
         LIGHTNING,
-		/**
-		 * Damage caused by starvation (1)
-		 */
-		STARVATION,
-		/**
-		 * Damage caused by poison (1) (Potions, Poison)
-		 */
-		POISON
+        /**
+         * Damage caused by starvation (1)
+         */
+        STARVATION, 
+        /**
+         * Damage caused by poison (1) (Potions, Poison)
+         */
+        POTION
     }
 
     private static final Logger log = Logger.getLogger("Minecraft");
