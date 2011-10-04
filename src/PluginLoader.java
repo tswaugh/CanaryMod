@@ -279,6 +279,14 @@ public class PluginLoader {
          */
         FOODLEVEL_CHANGE,
         /**
+         * Calls (@link PluginListener#onFoodExahustionChange(Player, oldLevel, newLevel) }
+         */
+        FOODEXHAUSTION_CHANGE,
+        /**
+         * Calls (@link PluginListener#onFoodSaturationChange(Player, oldLevel, newLevel) }
+         */
+        FOODSATURATION_CHANGE,
+        /**
          * Unused.
          */
         NUM_HOOKS
@@ -595,7 +603,9 @@ public class PluginLoader {
                 toRet = null;
                 break;
             case FOODLEVEL_CHANGE:
-                toRet = parameters[2];
+            case FOODEXHAUSTION_CHANGE:
+            case FOODSATURATION_CHANGE:
+               toRet = parameters[2];
                 break;
             default:
                 toRet = false;
@@ -851,10 +861,15 @@ public class PluginLoader {
                                 toRet = listener.onEat((Player) parameters[0],(Item) parameters[1]);
                                 break;
                             case FOODLEVEL_CHANGE:
-                                int level = listener.onFoodLevelChange((Player) parameters[0],(Integer) parameters[1],(Integer) parameters[2]);
-                                    toRet = Integer.valueOf(level);
+                                toRet = (Integer) listener.onFoodLevelChange((Player) parameters[0],(Integer) parameters[1],(Integer) parameters[2]);
                                 break;
-                        }
+                            case FOODEXHAUSTION_CHANGE:
+                                toRet = (Float) listener.onFoodExhaustionChange((Player) parameters[0],(Float) parameters[1],(Float) parameters[2]);
+                                break;
+                            case FOODSATURATION_CHANGE:
+                                toRet = (Float) listener.onFoodSaturationChange((Player) parameters[0],(Float) parameters[1],(Float) parameters[2]);
+                                break;
+                         }
                     } catch (UnsupportedOperationException ex) {
                     }
                 }

@@ -1,5 +1,6 @@
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -708,7 +709,7 @@ public class PlayerCommands {
                     toMove.switchWorlds();
 
                 else {
-                    toMove.sendMessage("§4The veil between the worlds keeps you bound to the Nether...");
+                    toMove.sendMessage(Colors.Red+"The veil between the worlds keeps you bound to the Nether...");
                     return;
                 }
 
@@ -1184,7 +1185,6 @@ public class PlayerCommands {
     };
     @Command
     public static final BaseCommand feed = new BaseCommand("<Player> <FoodLevel> - Sets player food level", "Correct usage is: /feed <player> <foodlevel>", 1, 3) {
-
         @Override
         void execute(MessageReceiver caller, String[] split) {
             Player subject = (Player) caller;
@@ -1207,5 +1207,49 @@ public class PlayerCommands {
                 caller.notify("Can't find player " + split[1]);
         }
     };
+
+    @Command
+    public static final BaseCommand playerinfo = new BaseCommand("<Player> Shows player data", "Correct usage is: /playerinfo <player>", 1, 2) {
+
+        private void sendData(MessageReceiver caller, String caption, Object[] data) {
+            caller.notify(Colors.LightGreen + caption + Colors.Gold + Arrays.toString(data));
+        }
+        private void sendData(MessageReceiver caller, String caption, Object data) {
+            caller.notify(Colors.LightGreen + caption + Colors.Gold + String.valueOf(data));
+        }
+
+        @Override
+        void execute(MessageReceiver caller, String[] split) {
+            Player subject = (Player) caller;
+            if (split.length == 2) {
+                subject = etc.getServer().matchPlayer(split[1]);
+            }
+            if (subject != null) {
+                
+                caller.notify(Colors.Green + subject.getName() + "'s info:");
+                sendData(caller, "Prefix: ", subject.getColor());
+                sendData(caller, "IP address : ", subject.getIP());
+                sendData(caller, "Groups: ", subject.getGroups());
+                sendData(caller, "Commands: ", subject.getCommands());
+                sendData(caller, "Health: ", subject.getHealth());
+                sendData(caller, "Muted: ", subject.isMuted());
+                sendData(caller, "Food Level: ",subject.getFoodLevel());
+                sendData(caller, "Food Exhaustion: ",String.format("%.2f",subject.getFoodExhaustionLevel()));
+                sendData(caller, "Food Saturation: ",String.format("%.2f",subject.getFoodSaturationLevel()));
+                Location l = subject.getLocation();
+                sendData(caller, "Position: ", String.format("X: %.2f Y: %.2f Z: %.2f Pitch: %.2f Yawn: %.2f",l.x ,l.y,l.z,l.rotX,l.rotY));
+                sendData(caller, "World: ", String.format("%s (%d)",subject.getWorld().getType().name(),subject.getWorld().getType().getId()));
+                Warp home = etc.getDataSource().getHome(subject.getName());
+                if (home != null) {
+                   l = home.Location;
+                   sendData(caller, "Home: ", String.format("X: %.2f Y: %.2f Z: %.2f",l.x,l.y,l.z));
+                } else {
+                   sendData(caller, "Home: ", "Not set");
+                }
+            } else
+                caller.notify(Colors.Yellow+"Can't find player " + split[1]);
+        }
+    };
+
 
 }

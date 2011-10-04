@@ -905,10 +905,38 @@ public class PluginListener {
      *           the current food level
      * @param newFoodLevel
      *           the new food level
-     * @return
+     *           
+     * @return the new food level
      */
     public int onFoodLevelChange(Player player,int oldFoodLevel,int newFoodLevel)
     {
         return newFoodLevel;
+    }
+
+    /**
+     * Called when a player food exhaustion level changes
+     * 
+     * @param player
+     * @param oldLevel
+     * @param newLevel
+     * 
+     * @return new Level of FoodExhaustion
+     */
+    public Float onFoodExhaustionChange(Player player, Float oldLevel, Float newLevel) {
+        return newLevel;
+    }
+
+
+    /**
+     * Called when a player food saturation level changes
+     * 
+     * @param player
+     * @param oldLevel
+     * @param newLevel
+     * 
+     * @return new Level of FoodExhaustion
+     */
+    public Float onFoodSaturationChange(Player player, Float oldLevel, Float newLevel) {
+        return newLevel;
     }    
 }

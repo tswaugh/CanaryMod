@@ -7,14 +7,29 @@ public class OFoodStats {
    public float c;
    public int d = 0;
    private int e = 20;
+   // CanaryMod: enitity
+   private OEntityPlayer entity;
 
    public OFoodStats() {
       super();
    }
 
-   public void a(int var1, float var2) {
-      this.a = Math.min(var1 + this.a, 20);
-      this.b = Math.min(this.b + (float)var1 * var2 * 2.0F, (float)this.a);
+   public OFoodStats(OEntityPlayer oEntityPlayer) {
+     this.entity = oEntityPlayer;
+   }
+
+public void a(int var1, float var2) {
+      // CanaryMod: Calls onFoodLevelChange
+      int newLevel = Math.min(var1 + this.a, 20);
+      int oldLevel = this.a;
+      this.a = (Integer) etc.getLoader().callHook(PluginLoader.Hook.FOODLEVEL_CHANGE, ((OEntityPlayerMP)entity).getPlayer(), oldLevel, newLevel);
+
+      // CanaryMod: Calls onFoodSaturationChange
+      float newSLevel = Math.min(this.b + (float)var1 * var2 * 2.0F, (float)this.a);
+      float oldSLevel = this.b;
+      this.b = (Float) etc.getLoader().callHook(PluginLoader.Hook.FOODSATURATION_CHANGE, ((OEntityPlayerMP)entity).getPlayer(), oldSLevel, newSLevel);
+
+      ((OEntityPlayerMP)entity).getPlayer().updateLevels(); 
    }
 
    public void a(OItemFood var1) {
@@ -24,13 +39,16 @@ public class OFoodStats {
    public void a(OEntityPlayer var1) {
       int var2 = var1.bb.v;
       this.e = this.a;
-      if(this.c > 4.0F) {
-         this.c -= 4.0F;
+      if(this.c > 4.0F) { 
+         // CanaryMod: Calls onFoodExhaustionChange
+         float newExLevel = this.c-4.0F;
+         float oldExLevel = this.c;
+         this.c = (Float) etc.getLoader().callHook(PluginLoader.Hook.FOODEXHAUSTION_CHANGE, ((OEntityPlayerMP)var1).getPlayer(), oldExLevel, newExLevel);
          if(this.b > 0.0F) {
-            // CanaryMod: Calls onFoodExhaustionChange
+            // CanaryMod: Calls onFoodSaturationChange
             float newLevel = Math.max(this.b - 1.0F, 0.0F);
             float oldLevel = this.b;
-            this.b = (Float) etc.getLoader().callHook(PluginLoader.Hook.FOODEXHAUSTION_CHANGE, ((OEntityPlayerMP)var1).getPlayer(), oldLevel, newLevel);
+            this.b = (Float) etc.getLoader().callHook(PluginLoader.Hook.FOODSATURATION_CHANGE, ((OEntityPlayerMP)var1).getPlayer(), oldLevel, newLevel);
          } else if(var2 > 0) {
             // CanaryMod: Calls onFoodLevelChange
             int newLevel = Math.max(this.a -1, 0);

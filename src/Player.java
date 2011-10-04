@@ -978,6 +978,25 @@ public class Player extends HumanEntity implements MessageReceiver {
         
        ((OEntityPlayerMP) entity).a(l, var3);
     }
+
+ 
+    /**
+     * Get Players food saturationLevel
+     * @return
+     */
+    public Object getFoodSaturationLevel() {
+        return ((OEntityPlayer)entity).m.b;
+    }
+    
+    /**
+     * Set player food saturation level
+     * 
+     * @param foodSaturationLevel
+     */
+    public void setFoodSaturationLevel(float foodSaturationLevel) {
+        ((OEntityPlayer)entity).m.b = Math.min(foodSaturationLevel,getFoodLevel());
+        updateLevels();
+    }
     
     
     
