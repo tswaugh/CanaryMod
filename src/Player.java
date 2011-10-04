@@ -611,6 +611,14 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
+     * Gets the full name prefix+name
+     * 
+     */
+    public String getFullName() {
+        return this.getColor()+this.getName();
+    }
+    
+    /**
      * Gets the actual user class.
      * 
      * @return
