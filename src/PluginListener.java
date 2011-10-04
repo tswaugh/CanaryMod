@@ -952,5 +952,28 @@ public class PluginListener {
      */   
     public PotionEffect onPotionEffect(LivingEntity entity, PotionEffect potionEffect) {
         return potionEffect;
-    }    
+    }
+	    /**
+     * Called when a players experience changes.
+     * 
+     * @param player
+     *            the player which health is changed.
+     * @param oldValue
+     *            old experience value
+     * @param newValue
+     *            new experience value
+     * @return return true to stop the change.
+     */
+    public boolean onExpChange(Player player, int oldValue, int newValue) {
+        return false;
+    }
+    
+    /**
+     * Called when a player levels up
+     * @param player
+     * 			Player that levels up
+     */
+    public boolean onLevelUp(Player player) {
+    	return false;
+    }
 }

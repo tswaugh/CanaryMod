@@ -609,7 +609,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
-
+	
     /**
      * Gets the full name prefix+name
      * 
@@ -617,7 +617,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public String getFullName() {
         return this.getColor()+this.getName();
     }
-    
+
     /**
      * Gets the actual user class.
      * 
@@ -871,7 +871,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public int getXP() {
-        return getPlayer().getEntity().N;
+        return getEntity().N;
     }
 
     /**
@@ -880,7 +880,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public int getLevel() {
-        return getPlayer().getEntity().M;
+        return getEntity().M;
     }
 
     /**
@@ -889,7 +889,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param s
      */
     public void addXP(int i) {
-        getPlayer().getEntity().d(i);
+        getEntity().addXP(i);
         updateXP();
     }
 
@@ -900,7 +900,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public void removeXP(int i) {
         if (getXP() > 0) {
-            getPlayer().getEntity().removeXP(i);
+            getEntity().removeXP(i);
             updateXP();
         } else {
             notify("Cannot decrease XP below 0");
@@ -910,19 +910,22 @@ public class Player extends HumanEntity implements MessageReceiver {
     /**
      * Set Experience
      * 
-     * @param s
      */
     public void setXP(int i) {
-        if (getXP() > 0) {
-            getPlayer().getEntity().setXP(i);
+        if (getXP() >= 0) {
+            getEntity().setXP(i);
             updateXP();
         } else {
             notify("XP cannot be set to less than 0");
         }
     }
 
+    /**
+     * Send player the experience packet
+	 *
+     */
     public void updateXP() {
-        getPlayer().getEntity().a.b((OPacket) (new OPacket43Experience(getPlayer().getEntity().L, getPlayer().getEntity().N, getPlayer().getEntity().M)));
+        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().L, getEntity().N, getEntity().M)));
     }
 
     /**
@@ -1014,6 +1017,4 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void addPotionEffect(PotionEffect effect) {
         ((OEntityLiving)this.entity).d(effect.potionEffect);
     }
-    
-    
 }
