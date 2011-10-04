@@ -72,6 +72,10 @@ public class etc {
     private List<OSpawnListEntry>         animalsList, monsterList, waterAnimalsList;
     private boolean                       crow                = false;
     private boolean                       allowNether         = true;
+    // Playerlist options (tab)
+    private boolean                       playerList_autoupdate       = false;
+    private int                           playerList_ticks            = 500;
+    private boolean                       playerList_colors           = true;
 
     private etc() {
         load();
@@ -109,6 +113,9 @@ public class etc {
             loadIds(allowedItems, properties.getString("alloweditems", ""));
             loadIds(disallowedItems, properties.getString("disalloweditems", ""));
             loadIds(itemSpawnBlacklist, properties.getString("itemspawnblacklist", ""));
+            playerList_autoupdate = properties.getBoolean("playerlist-autoupdate",false);
+            playerList_ticks = properties.getInt("playerlist-ticks",500);
+            playerList_colors = properties.getBoolean("playerList-usecolors",true);
             motd = properties.getString("motd", "My Canary Server.");
             playerLimit = properties.getInt("max-players", 20);
             saveHomes = properties.getBoolean("save-homes", true);
@@ -204,6 +211,18 @@ public class etc {
             // Just in case...
             motd = "My Canary Server.";
         }
+    }
+
+    public boolean isPlayerList_autoupdate() {
+        return playerList_autoupdate;
+    }
+
+    public int getPlayerList_ticks() {
+        return playerList_ticks;
+    }
+
+    public boolean isPlayerList_colors() {
+        return playerList_colors;
     }
 
     /**

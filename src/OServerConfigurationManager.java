@@ -89,7 +89,7 @@ public class OServerConfigurationManager {
 
     public void c(OEntityPlayerMP var1) {
         // CanaryMod: Playername with color and Prefix
-        String name = var1.getPlayer().getFullName();
+        String name = var1.getPlayer().getPLName();
         this.a((OPacket) (new OPacket201PlayerInfo(name, true, 1000)));
         this.b.add(var1);
         OWorldServer var2 = this.c.a(var1.v);
@@ -125,7 +125,8 @@ public class OServerConfigurationManager {
         this.c.a(var1.v).e(var1);
         this.b.remove(var1);
         this.a(var1.v).b(var1);
-        this.a((OPacket) (new OPacket201PlayerInfo(var1.getPlayer().getFullName(), false, 9999)));
+        // CanaryMod: Player color and Prefix
+        this.a((OPacket) (new OPacket201PlayerInfo(var1.getPlayer().getPLName(), false, 9999)));
     }
 
     public OEntityPlayerMP a(ONetLoginHandler var1, String var2) {
@@ -331,14 +332,16 @@ public class OServerConfigurationManager {
 
     public void b() {
         int var1;
-        /* CanaryMod: Spams like crazy . removed
-        if (this.p-- <= 0) {
-            for (var1 = 0; var1 < this.b.size(); ++var1) {
-                OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
-                this.a((OPacket) (new OPacket201PlayerInfo(var2.u, true, var2.i)));
+        // CanaryMod: Spams like crazy 
+        if (etc.getInstance().isPlayerList_autoupdate())  {
+            if (this.p-- <= 0) {
+                for (var1 = 0; var1 < this.b.size(); ++var1) {
+                    OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
+                    this.a((OPacket) (new OPacket201PlayerInfo(var2.getPlayer().getPLName(), true, var2.i)));
+                }
+                this.p = etc.getInstance().getPlayerList_ticks();
             }
         }
-        */
 
         for (var1 = 0; var1 < this.d.length; ++var1) {
             this.d[var1].b();
