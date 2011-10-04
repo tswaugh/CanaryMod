@@ -624,9 +624,10 @@ public class Player extends HumanEntity implements MessageReceiver {
     public String getPLName() {
         String name;
         if (etc.getInstance().isPlayerList_colors()) 
-            name = getFullName(); 
+            name = getFullName()+Colors.Black; 
         else name = getName();
-        return (String) etc.getLoader().callHook(PluginLoader.Hook.GET_PLAYERLISTNAME, this, name);
+        name = (String) etc.getLoader().callHook(PluginLoader.Hook.GET_PLAYERLISTNAME, this, name); 
+        return name.substring(0, Math.min(name.length()-1, 15));
     }
     /**
      * Gets the actual user class.
