@@ -287,6 +287,10 @@ public class PluginLoader {
          */
         FOODSATURATION_CHANGE,
         /**
+         * Calls (@link PluginListener#onPotionEffect(Player,PotionEffect)
+         */
+        POTION_EFFECT,
+        /**
          * Unused.
          */
         NUM_HOOKS
@@ -358,7 +362,11 @@ public class PluginLoader {
         /**
          * Damage caused by starvation (1)
          */
-        STARVATION
+        STARVATION, 
+        /**
+         * Damage caused by poison (1) (Potions, Poison)
+         */
+        POISON
     }
 
     private static final Logger log = Logger.getLogger("Minecraft");
@@ -605,7 +613,10 @@ public class PluginLoader {
             case FOODLEVEL_CHANGE:
             case FOODEXHAUSTION_CHANGE:
             case FOODSATURATION_CHANGE:
-               toRet = parameters[2];
+                toRet = parameters[2];
+                break;
+            case POTION_EFFECT:
+                toRet = parameters[1];
                 break;
             default:
                 toRet = false;
@@ -868,6 +879,9 @@ public class PluginLoader {
                                 break;
                             case FOODSATURATION_CHANGE:
                                 toRet = (Float) listener.onFoodSaturationChange((Player) parameters[0],(Float) parameters[1],(Float) parameters[2]);
+                                break;
+                            case POTION_EFFECT:
+                                toRet = listener.onPotionEffect((LivingEntity) parameters[0], (PotionEffect) parameters[1]);
                                 break;
                          }
                     } catch (UnsupportedOperationException ex) {

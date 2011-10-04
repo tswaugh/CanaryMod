@@ -938,5 +938,19 @@ public class PluginListener {
      */
     public Float onFoodSaturationChange(Player player, Float oldLevel, Float newLevel) {
         return newLevel;
+    }
+
+    /**
+     * Called when a potion effect is applied to the player 
+     * 
+     * @param entity 
+     *              the affected entity
+     * @param potionEffect 
+     *              the potion being effect applied
+     * 
+     * @return modified potionEffect or null for no effect
+     */   
+    public PotionEffect onPotionEffect(LivingEntity entity, PotionEffect potionEffect) {
+        return potionEffect;
     }    
 }
