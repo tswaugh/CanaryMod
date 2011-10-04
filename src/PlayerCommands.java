@@ -1236,6 +1236,8 @@ public class PlayerCommands {
                 sendData(caller, "Food Level: ",subject.getFoodLevel());
                 sendData(caller, "Food Exhaustion: ",String.format("%.2f",subject.getFoodExhaustionLevel()));
                 sendData(caller, "Food Saturation: ",String.format("%.2f",subject.getFoodSaturationLevel()));
+                sendData(caller, "Experience: ",subject.getXP());
+                sendData(caller, "Level: ",subject.getLevel());
                 Location l = subject.getLocation();
                 sendData(caller, "Position: ", String.format("X: %.2f Y: %.2f Z: %.2f Pitch: %.2f Yawn: %.2f",l.x ,l.y,l.z,l.rotX,l.rotY));
                 sendData(caller, "World: ", String.format("%s (%d)",subject.getWorld().getType().name(),subject.getWorld().getType().getId()));
