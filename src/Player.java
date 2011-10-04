@@ -902,7 +902,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Remove Experience
+     * Remove Experience.
      * 
      * @param s
      */
@@ -916,8 +916,9 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Set Experience
+     * Set Experience.
      * 
+     * @param i the XP to set
      */
     public void setXP(int i) {
         if (getXP() >= 0) {
@@ -951,7 +952,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return player food level
      */
     public int getFoodLevel() {
-        return ((OEntityPlayer)entity).m.a;
+        return getEntity().m.a;
     }
     
     /**
@@ -961,7 +962,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *         new food level, between 1 and 20
      */
     public void setFoodLevel(int foodLevel) {
-        ((OEntityPlayer)entity).m.a = Math.min(foodLevel,20);
+        getEntity().m.a = Math.min(foodLevel,20);
         updateLevels();
     }
     
@@ -970,7 +971,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public float getFoodExhaustionLevel() {
-        return ((OEntityPlayer)entity).m.c;
+        return getEntity().m.c;
     }
 
     /**
@@ -979,7 +980,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param foodExhaustionLevel
      */
     public void setFoodExhaustionLevel(float foodExhaustionLevel) {
-        ((OEntityPlayer)entity).m.c = Math.min(foodExhaustionLevel,40F);
+        getEntity().m.c = Math.min(foodExhaustionLevel, 40F);
         updateLevels();
     }
     
@@ -988,14 +989,14 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      */
     public void updateInventory() {
-        OContainer l = ((OEntityPlayer) entity).l;
+        OContainer l = getEntity().l;
         ArrayList var3 = new ArrayList();
 
         for (int var4 = 0; var4 < l.e.size(); ++var4) {
             var3.add(((OSlot) l.e.get(var4)).a());
         }
         
-       ((OEntityPlayerMP) entity).a(l, var3);
+       getEntity().a(l, var3);
     }
 
  
@@ -1004,7 +1005,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public Object getFoodSaturationLevel() {
-        return ((OEntityPlayer)entity).m.b;
+        return getEntity().m.b;
     }
     
     /**
@@ -1013,16 +1014,82 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param foodSaturationLevel
      */
     public void setFoodSaturationLevel(float foodSaturationLevel) {
-        ((OEntityPlayer)entity).m.b = Math.min(foodSaturationLevel,getFoodLevel());
+        getEntity().m.b = Math.min(foodSaturationLevel,getFoodLevel());
         updateLevels();
     }
     
     /**
      * Adds a potion Effect to the player
      * 
-     * @param PotionEffect
+     * @param effect the effect to add.
      */
     public void addPotionEffect(PotionEffect effect) {
-        ((OEntityLiving)this.entity).d(effect.potionEffect);
+        getEntity().d(effect.potionEffect);
+    }
+
+    /**
+     * Returns whether this player can receive damage.
+     * @return the disableDamage state
+     */
+    public boolean isDamageDisabled() {
+        return getEntity().K.a;
+    }
+
+    /**
+     * Sets whether this player can receive damage.
+     * @param disabled the new value.
+     */
+    public void setDamageDisabled(boolean disabled) {
+        getEntity().K.a = disabled;
+    }
+
+    /**
+     * Returns whether the player is flying.
+     * @return the flying state
+     */
+    public boolean isFlying() {
+        return getEntity().K.b;
+    }
+    
+    /**
+     * Sets whether the player is flying.
+     * @param flying the flying state.
+     */
+    public void setFlying(boolean flying) {
+        getEntity().K.b = flying;
+    }
+
+    /**
+     * Returns whether falling is disabled.
+     * @return the disableFalling state
+     */
+    public boolean isFallingDisabled() {
+        return getEntity().K.c;
+    }
+
+    /**
+     * Sets whether falling is disabled.
+     * @param disabled the new value
+     */
+    public void setFallingDisabled(boolean disabled) {
+        getEntity().K.c = disabled;
+    }
+
+    /**
+     * Returns whether buckets are always full.
+     * When set, every bucket that the player holds stays full after emptying.
+     * @return whether buckets are always full.
+     */
+    public boolean isBucketAlwaysFull() {
+        return getEntity().K.d;
+    }
+
+    /**
+     * Sets whether buckets are always full.
+     * When set, every bucket that the player holds stays full after emptying.
+     * @param alwaysFull the new state
+     */
+    public void setBucketAlwaysFull(boolean alwaysFull) {
+        getEntity().K.d = alwaysFull;
     }
 }
