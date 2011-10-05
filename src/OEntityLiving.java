@@ -980,10 +980,10 @@ public abstract class OEntityLiving extends OEntity {
     }
 
     public void d(OPotionEffect var1) {
+        // CanaryMod - POTION_EFFECT HOOK
         PotionEffect pe = (PotionEffect) etc.getLoader().callHook(PluginLoader.Hook.POTION_EFFECT, this.entity, var1.potionEffect);
         if (pe == null) return;
         var1 = pe.potionEffect;
-        System.out.println("On Potion Effect!");
         if (this.aF.containsKey(Integer.valueOf(var1.a()))) {
             ((OPotionEffect) this.aF.get(Integer.valueOf(var1.a()))).a(var1);
             this.b((OPotionEffect) this.aF.get(Integer.valueOf(var1.a())));
