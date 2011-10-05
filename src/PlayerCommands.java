@@ -586,9 +586,13 @@ public class PlayerCommands {
                 log.info("Banning " + player.getName());
                 caller.notify("Banning " + player.getName());
             } else {
-                etc.getServer().ban(split[1]);
-                log.info("Banning " + split[1]);
-                caller.notify("Banning " + split[1]);
+                if (!etc.getMCServer().f.isBanned(split[1])) {
+                    etc.getServer().ban(split[1]);
+                    log.info("Banning " + split[1]);
+                    caller.notify("Banning " + split[1]); }
+                else {
+                    caller.notify(String.format("%s is already banned from this server", split[1]));
+                }
             }
         }
     };

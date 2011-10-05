@@ -673,9 +673,11 @@ public class OServerConfigurationManager {
      * @return bans
      */
     public String getBans() {
-        StringBuilder builder = new StringBuilder();
+        List<String> list = new ArrayList<String>(f);
+        java.util.Collections.sort(list);
+        StringBuilder builder = new StringBuilder();       
         int l = 0;
-        for (Object o : f) {
+        for (String o : list) {
             if (l > 0)
                 builder.append(", ");
             builder.append(o);
@@ -701,4 +703,12 @@ public class OServerConfigurationManager {
         return builder.toString();
     }
 
+    /**
+     * Returns player ban status
+     * @param name player name
+     * @return true if player is banned from server
+     */
+    public boolean isBanned(String name) {
+        return this.f.contains(name.toLowerCase());
+    }
 }
