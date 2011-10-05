@@ -988,4 +988,16 @@ public class PluginListener {
     public PlayerlistEntry onGetPlayerlistEntry(Player player, PlayerlistEntry entry) {
         return entry;
     }
+
+    /**
+     * Called when player connects to the server 
+     * 
+     * @param player
+     * @param hookParametersConnect
+     * @return modified hookParametersConnect
+     */
+
+    public Object onPlayerConnect(Player player, HookParametersConnect hookParametersConnect) {
+        return hookParametersConnect;
+    }
 }
