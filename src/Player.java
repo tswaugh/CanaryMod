@@ -621,14 +621,22 @@ public class Player extends HumanEntity implements MessageReceiver {
     /**
      * Gets the name that shows on PlayerList (tab)
      */
-    public String getPLName() {
+    public PlayerlistEntry getPlayerlistEntry(boolean show) {
         String name;
         if (etc.getInstance().isPlayerList_colors()) 
             name = getFullName()+Colors.Black; 
         else name = getName();
-        name = (String) etc.getLoader().callHook(PluginLoader.Hook.GET_PLAYERLISTNAME, this, name); 
-        return name.substring(0, Math.min(name.length()-1, 15));
+        PlayerlistEntry entry = new PlayerlistEntry(name,this.getPing(),show);
+        return (PlayerlistEntry) etc.getLoader().callHook(PluginLoader.Hook.GET_PLAYERLISTENTRY, this, entry); 
     }
+    
+    /**
+     * Gets player ping (as show in playerlist
+     */
+    public int getPing() {
+        return this.getEntity().i;
+    }
+    
     /**
      * Gets the actual user class.
      * 
