@@ -88,7 +88,12 @@ public class OTileEntityMobSpawner extends OTileEntity {
 
     public void a(ONBTTagCompound var1) {
         super.a(var1);
-        this.d = var1.i("EntityId");
+        // CanaryMod - There is no more Monster class
+        String entityId = var1.i("EntityId");
+        if (entityId.equalsIgnoreCase("Monster"))
+            this.d = "Pig";
+        else
+            this.d = entityId;
         this.a = var1.d("Delay");
     }
 
