@@ -982,10 +982,10 @@ public class PluginListener {
      * Called when sending the playername to the new list
      * 
      * @param player
-     * @param playerName
-     * @return the playername to show.
+     * @param entry (the playerlist entry)
+     * @return the playerlistentry to show.
      */
-    public String onPlayerlistNameGet(Player player, String playerName) {
-        return playerName;
+    public PlayerlistEntry onGetPlayerlistEntry(Player player, PlayerlistEntry entry) {
+        return entry;
     }
 }
