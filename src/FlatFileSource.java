@@ -788,11 +788,11 @@ public class FlatFileSource extends DataSource {
             StringBuilder toWrite = new StringBuilder();
             String line = "";
             while ((line = reader.readLine()) != null)
-                if (!line.split(":")[0].equalsIgnoreCase(player.getName()))
+                if (!line.split(":")[0].equalsIgnoreCase(player.getOfflineName()))
                     toWrite.append(line).append("\r\n");
                 else {
                     StringBuilder builder = new StringBuilder();
-                    builder.append(player.getName());
+                    builder.append(line.split(":")[0]);
                     builder.append(":");
                     builder.append(etc.combineSplit(0, player.getGroups(), ","));
                     builder.append(":");

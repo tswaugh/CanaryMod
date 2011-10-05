@@ -93,14 +93,18 @@ public class ServerConsoleCommands {
                                                                       onBadSyntax(caller, null);
                                                                       return;
                                                                   }
-
+                                                              
                                                               Player player = etc.getServer().matchPlayer(parameters[1]);
-
-                                                              if (player == null) {
-                                                                  caller.notify("Player does not exist.");
-                                                                  return;
-                                                              }
-
+                                                               if (player == null) {
+                                                                  if (!etc.getDataSource().doesPlayerExist(parameters[1])) {
+                                                                      caller.notify("Player does not exist.");
+                                                                      return; 
+                                                                  } else {
+                                                                      player = etc.getDataSource().getPlayer(parameters[1]);
+                                                                      player.setOfflineName(parameters[1]);
+                                                                  }
+                                                              } 
+                                                               
                                                               for (int i = 2; i < parameters.length; i++) {
                                                                   if (parameters[i].split(":").length != 2) {
                                                                       caller.notify("This key:value pair is deformed... " + parameters[i]);
@@ -110,7 +114,7 @@ public class ServerConsoleCommands {
                                                                   String value = parameters[i].split(":")[1];
                                                                   boolean newUser = false;
 
-                                                                  if (!etc.getDataSource().doesPlayerExist(player.getName())) {
+                                                                  if (!etc.getDataSource().doesPlayerExist(player.getOfflineName())) {
                                                                       if (!key.equalsIgnoreCase("groups") && !key.equalsIgnoreCase("g")) {
                                                                           caller.notify("When adding a new user, set their group(s) first.");
                                                                           return;
@@ -119,11 +123,23 @@ public class ServerConsoleCommands {
                                                                       newUser = true;
                                                                       player.setCanModifyWorld(true);
                                                                   }
-
-                                                                  updatePlayerValues(player, key, value);
-                                                                  saveChanges(player, newUser);
-
-                                                                  log.info("Modifed user " + parameters[1] + ". " + key + " => " + value + " by " + caller.getName());
+                                                                  
+                                                                  boolean skip = false;
+                                                                  if ((key.equalsIgnoreCase("groups") || key.equalsIgnoreCase("g"))) {
+                                                                      for (String groupname : value.split(",")) {
+                                                                          if (!etc.getDataSource().doesGroupExist(groupname)) {
+                                                                              caller.notify(String.format("Group %s does not exist. Skipping group key.",groupname));
+                                                                              skip = true;
+                                                                          }
+                                                                      }
+                                                                  } 
+                                                                  
+                                                                  if (!skip) {
+                                                                      updatePlayerValues(player, key, value);                                                                  
+                                                                      saveChanges(player, newUser);
+                                                                  }
+                                                                  
+                                                                  log.info("Modifed user " + player.getOfflineName() + ". " + key + " => " + value + " by " + caller.getName());
                                                               }
                                                               caller.notify("Modified user.");
                                                           } else {
@@ -131,19 +147,24 @@ public class ServerConsoleCommands {
                                                                   onBadSyntax(caller, null);
                                                                   return;
                                                               }
-
+                                                              
+                                                              
                                                               Player player = etc.getServer().matchPlayer(parameters[1]);
-
                                                               if (player == null) {
-                                                                  caller.notify("Player does not exist.");
-                                                                  return;
-                                                              }
+                                                                  if (!etc.getDataSource().doesPlayerExist(parameters[1])) {
+                                                                      caller.notify("Player does not exist.");
+                                                                      return; 
+                                                                  } else {
+                                                                      player = etc.getDataSource().getPlayer(parameters[1]);
+                                                                      player.setOfflineName(parameters[1]);
+                                                                  }
+                                                              } 
 
                                                               String key = parameters[2];
                                                               String value = parameters[3];
                                                               boolean newUser = false;
 
-                                                              if (!etc.getDataSource().doesPlayerExist(player.getName())) {
+                                                              if (!etc.getDataSource().doesPlayerExist(player.getOfflineName())) {
                                                                   if (!key.equalsIgnoreCase("groups") && !key.equalsIgnoreCase("g")) {
                                                                       caller.notify("When adding a new user, set their group(s) first.");
                                                                       return;
@@ -151,6 +172,15 @@ public class ServerConsoleCommands {
                                                                   caller.notify("Adding new user.");
                                                                   newUser = true;
                                                               }
+                                                              
+                                                              if ((key.equalsIgnoreCase("groups") || key.equalsIgnoreCase("g"))) {
+                                                                  for (String groupname : value.split(",")) {
+                                                                      if (!etc.getDataSource().doesGroupExist(groupname)) {
+                                                                          caller.notify(String.format("Group %s does not exist. %s groups not modified.",groupname,player.getOfflineName()));
+                                                                          return;
+                                                                      }
+                                                                  }
+                                                              } 
 
                                                               updatePlayerValues(player, key, value);
                                                               saveChanges(player, newUser);
@@ -160,7 +190,7 @@ public class ServerConsoleCommands {
                                                               // log too,
                                                               // regardless of
                                                               // caller.
-                                                              log.info("Modifed user " + parameters[1] + ". " + key + " => " + value + " by " + caller.getName());
+                                                              log.info("Modifed user " + player.getOfflineName() + ". " + key + " => " + value + " by " + caller.getName());
                                                           }
                                                       }
 
