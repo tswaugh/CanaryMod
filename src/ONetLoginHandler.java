@@ -95,16 +95,23 @@ public class ONetLoginHandler extends ONetHandler {
             var5.b((OPacket) var10001);
             var5.b((OPacket) (new OPacket6SpawnPosition(var4.a, var4.b, var4.c)));
             this.e.f.a(var2, var3);
-            this.e.f.a((OPacket) (new OPacket3Chat("\u00a7e" + var2.u + " joined the game.")));
+            // CanaryMod - onConnect Hook
+            HookParametersConnect hookResult = new HookParametersConnect(String.format(Colors.Yellow+"%s joined the game.", var2.u),true);
+            hookResult = (HookParametersConnect) etc.getLoader().callHook(PluginLoader.Hook.CONNECT, var2.getPlayer(),hookResult);
+            this.e.f.a((OPacket) (new OPacket3Chat(hookResult.getJoinMessage())));
             this.e.f.c(var2);
             var5.a(var2.bf, var2.bg, var2.bh, var2.bl, var2.bm);
             this.e.c.a(var5);
             var5.b((OPacket) (new OPacket4UpdateTime(var3.l())));
-            Iterator var6 = var2.ak().iterator();
+            
+            // CanaryMod - enable/disable potion effects on login
+            if (hookResult.applyPotionsEffects()) {
+                Iterator var6 = var2.ak().iterator();
 
-            while (var6.hasNext()) {
-                OPotionEffect var7 = (OPotionEffect) var6.next();
-                var5.b((OPacket) (new OPacket41EntityEffect(var2.aW, var7)));
+                while (var6.hasNext()) {
+                    OPotionEffect var7 = (OPotionEffect) var6.next();
+                    var5.b((OPacket) (new OPacket41EntityEffect(var2.aW, var7)));
+                }
             }
 
             var2.o();

@@ -303,6 +303,10 @@ public class PluginLoader {
          */
         GET_PLAYERLISTENTRY,
         /**
+         * Calls {@link PluginListener#onPlayerConnect(Player,HookParametersConnect) }
+         */
+        CONNECT,
+        /**
          * Unused.
          */
         NUM_HOOKS
@@ -629,6 +633,7 @@ public class PluginLoader {
                 break;
             case POTION_EFFECT:
             case GET_PLAYERLISTENTRY:
+            case CONNECT:
                 toRet = parameters[1];
                 break;
             default:
@@ -906,6 +911,9 @@ public class PluginLoader {
                                 break;
                             case GET_PLAYERLISTENTRY:
                                 toRet = listener.onGetPlayerlistEntry((Player) parameters[0],(PlayerlistEntry) parameters[1]);
+                                break;
+                            case CONNECT:
+                                toRet = listener.onPlayerConnect((Player) parameters[0],(HookParametersConnect) parameters[1]);
                                 break;
                         }
                     } catch (UnsupportedOperationException ex) {
