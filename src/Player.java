@@ -877,7 +877,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Get Experience Amount
+     * Get total experience amount for this Player.
      * 
      * @return
      */
@@ -886,7 +886,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Get Player Level
+     * Get experience level for this Player.
      * 
      * @return
      */
@@ -895,9 +895,8 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Add Experience
+     * Add experience points to total for this Player.
      * 
-     * @param s
      */
     public void addXP(int i) {
         getEntity().addXP(i);
@@ -905,9 +904,8 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Remove Experience.
+     * Remove experience points from total for this Player.
      * 
-     * @param s
      */
     public void removeXP(int i) {
         if (getXP() > 0) {
@@ -919,9 +917,8 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Set Experience.
+     * Set total experience points for this Player.
      * 
-     * @param i the XP to set
      */
     public void setXP(int i) {
         if (getXP() >= 0) {
@@ -933,7 +930,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Send player the experience packet
+     * Send player the updated experience packet.
 	 *
      */
     public void updateXP() {
