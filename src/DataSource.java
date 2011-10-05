@@ -98,6 +98,21 @@ public abstract class DataSource {
     abstract public Player getPlayer(String name);
 
     /**
+     * Checks to see if the specified group exists
+     * 
+     * @param groupName
+     * @return true if group exists 
+     */
+    public boolean doesGroupExist(String groupName) {
+        for (Group group : groups) {
+            if (group.Name.equals(groupName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
      * Adds specified group to the list of groups
      * 
      * @param group
