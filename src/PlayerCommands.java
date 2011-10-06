@@ -1186,7 +1186,7 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand feed = new BaseCommand("<Player> <FoodLevel> - Sets player food level", "Correct usage is: /feed <player> <foodlevel>", 1, 3) {
+    public static final BaseCommand setfoodlevel = new BaseCommand("<Player> <foodlevel> - Sets player food level", "Correct usage is: /setfoodlevel <player> <foodlevel>", 1, 3) {
         @Override
         void execute(MessageReceiver caller, String[] split) {
             Player subject = (Player) caller;
@@ -1209,7 +1209,33 @@ public class PlayerCommands {
                 caller.notify("Can't find player " + split[1]);
         }
     };
-
+    
+    @Command
+    public static final BaseCommand god = new BaseCommand("<Player> - Makes player invulnerable", "Correct usage is: /god <player>", 1, 2) {
+        @Override
+        void execute(MessageReceiver caller, String[] split) {
+            Player subject = (Player) caller;
+            String info = Colors.Yellow+"You are";
+            if (split.length == 2) {
+                subject = etc.getServer().matchPlayer(split[1]);
+                info = String.format("%s%s is", Colors.Yellow,subject.getName());
+            }                       
+            if (subject != null) {
+                if (Player.getMode(subject)) {
+                    caller.notify("Can't apply /god to players in creative mode");
+                    return;
+                }
+                subject.setDamageDisabled(!subject.isDamageDisabled());
+                if (subject.isDamageDisabled()) {
+                    caller.notify(info+" now invincible!");
+                } else {
+                    caller.notify(info+" no longer invincible.");
+                }
+            } else
+                caller.notify("Can't find player " + split[1]);
+        }
+    };
+    
     @Command
     public static final BaseCommand playerinfo = new BaseCommand("<Player> Shows player data", "Correct usage is: /playerinfo <player>", 1, 2) {
 
