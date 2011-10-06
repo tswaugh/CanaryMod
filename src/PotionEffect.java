@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  * PotionEffect.java - Interface to potions Effects, (poison in 1.8.1).
- * @author phi
+ * @author Talmor
  */
 public class PotionEffect {
    public final OPotionEffect potionEffect;
@@ -72,7 +72,7 @@ public class PotionEffect {
     * @return
     */
    public static PotionEffect getNewPotionEffect(PotionEffect.Type effect,int amplifier,int duration) {
-       return new OPotionEffect(effect.getId(),amplifier,duration).potionEffect;
+       return new OPotionEffect(effect.getId(),duration,amplifier).potionEffect;
    }
    
    public PotionEffect.Type getType() {
@@ -80,11 +80,11 @@ public class PotionEffect {
    }
    
    public int getAmplifier() {
-       return potionEffect.b();
+       return potionEffect.c();
    }
    
    public int getDuration() {
-       return potionEffect.c();
+       return potionEffect.b();
    }
    
    public void setType(Type effect) {
@@ -92,11 +92,11 @@ public class PotionEffect {
    }
    
    public void setDuration(int duration){
-       potionEffect.c = duration;
+       potionEffect.b = duration;
    }
    
    public void setAmplifier(int amplifier) {
-       potionEffect.b = amplifier;
+       potionEffect.c = amplifier;
    }
    
 }
