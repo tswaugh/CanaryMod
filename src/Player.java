@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1054,7 +1057,31 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void addPotionEffect(PotionEffect effect) {
         getEntity().d(effect.potionEffect);
     }
+    
+    /**
+     * Removes a potion Effect from player
+     * 
+     */
+    public void removePotionEffect(PotionEffect effect) {     
+        OPotionEffect var3 = (OPotionEffect) getEntity().aF.get(effect.getType().getId());
+        getEntity().aF.remove(Integer.valueOf(effect.getType().getId()));
+        getEntity().c(var3);
+    }
 
+    /**
+     * Returns a Collection of potion effects active on the player
+     * 
+     * @return List of potion effects 
+     */
+    public List<PotionEffect> getPotionEffects() {
+        Collection ak = getEntity().ak();
+        ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
+        for (Iterator<OPotionEffect> iterator = ak.iterator(); iterator.hasNext();) {
+            list.add(((OPotionEffect) iterator.next()).potionEffect);
+        }
+        return list;
+    }
+    
     /**
      * Returns whether this player can receive damage.
      * @return the disableDamage state

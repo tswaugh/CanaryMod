@@ -49,7 +49,7 @@ public abstract class OEntityLiving extends OEntity {
     private int c = 0;
     public int aD = 0;
     public int aE = 0;
-    protected HashMap aF = new HashMap();
+    public HashMap aF = new HashMap(); // CanaryMod - public
     protected int aG;
     protected double aH;
     protected double aI;
@@ -991,9 +991,8 @@ public abstract class OEntityLiving extends OEntity {
             this.aF.put(Integer.valueOf(var1.a()), var1);
             this.a(var1);
         }
-
     }
-
+        
     protected void a(OPotionEffect var1) {
     }
 

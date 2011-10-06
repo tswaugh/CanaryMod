@@ -5,6 +5,7 @@ public class OPotionEffect {
    public int a;
    public int b;
    public int c;
+   public boolean permanent = false;
    public PotionEffect potionEffect = new PotionEffect(this);
 
 
@@ -52,7 +53,7 @@ public class OPotionEffect {
    }
 
    private int d() {
-      return --this.b;
+      return this.permanent ? this.b:--this.b;
    }
 
    public void b(OEntityLiving var1) {
