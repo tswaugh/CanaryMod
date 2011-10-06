@@ -353,6 +353,7 @@ public class OServerConfigurationManager {
 
     }
 
+    
     public void a(int var1, int var2, int var3, int var4) {
         this.a(var4).a(var1, var2, var3);
     }
@@ -673,6 +674,21 @@ public class OServerConfigurationManager {
         return this.e;
     }
 
+    /**
+     * Forces sending the playerlist to all connected players
+     * 
+     */
+    public void sendPlayerlist() {
+        try {
+        for (int var1 = 0; var1 < this.b.size(); ++var1) {
+            OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
+            PlayerlistEntry entry = var2.getPlayer().getPlayerlistEntry(true);
+            this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
+        } } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * Returns the list of bans
      * 
