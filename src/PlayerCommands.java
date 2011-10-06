@@ -1185,22 +1185,35 @@ public class PlayerCommands {
             }
         }
     };
+    
     @Command
-    public static final BaseCommand setfoodlevel = new BaseCommand("<Player> <foodlevel> - Sets player food level", "Correct usage is: /setfoodlevel <player> <foodlevel>", 1, 3) {
+    public static final BaseCommand foodlevel = new BaseCommand("[add|remove|set] <Player> <value> - Sets player food level", "Correct usage is: /foodlevel [add|remove|set] <player> <value>", 2, 4) {
         @Override
         void execute(MessageReceiver caller, String[] split) {
             Player subject = (Player) caller;
+            String command = "add";
             int foodLevel = 20;
-            if (split.length == 3) {
-                subject = etc.getServer().matchPlayer(split[1]);
-                foodLevel = Integer.parseInt(split[2]);
-            } else if (split.length == 2) {
-                try {
-                    foodLevel = Integer.parseInt(split[1]);
-                } catch (Exception e){
-                    subject = etc.getServer().matchPlayer(split[1]);
-                }
-            }            
+            try {
+                if (split.length == 4) {
+                    command = split[1];
+                    subject = etc.getServer().matchPlayer(split[2]);
+                    foodLevel = Integer.parseInt(split[3]);
+                } else if (split.length == 3) {
+                    command = split[1];
+                    foodLevel = Integer.parseInt(split[2]);
+                }    
+            } catch (Exception e){
+                caller.notify("Error on /foodlevel command");
+                return;
+            }
+            
+            if (command.equalsIgnoreCase("add")) {
+                foodLevel = Math.min(20,subject.getFoodLevel()+foodLevel);
+            } else if (command.equalsIgnoreCase("remove")) {
+                foodLevel = Math.max(0,subject.getFoodLevel()-foodLevel);
+            } else if (command.endsWith("set")) {
+                foodLevel = Math.min(20,Math.max(foodLevel, 0));
+            }
 
             if (subject != null) {
                 subject.setFoodLevel(foodLevel);
