@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -600,6 +601,23 @@ public class PluginLoader {
         return server;
     }
 
+    private boolean debug_hooks = true;
+    private Hook lasthook;
+    private int lasthook_count = 0;
+    List ignore_hooks = Arrays.asList(new Hook[]{Hook.IGNITE,Hook.TIME_CHANGE,Hook.FLOW,Hook.LIQUID_DESTROY});
+    
+    public void debugHook(Hook h) {
+        if (debug_hooks && !ignore_hooks.contains(h)) {
+            if (h == lasthook) {
+                lasthook_count ++;
+            } else {
+                if (lasthook_count > 0)
+                   log.log(Level.INFO,String.format("Hook %s called %d times", lasthook,lasthook_count));
+                lasthook = h;
+                lasthook_count = 1;
+            }
+        }        
+    }
     /**
      * Calls a plugin hook.
      * 
@@ -612,6 +630,11 @@ public class PluginLoader {
     @SuppressWarnings("deprecation")
     public Object callHook(Hook h, Object... parameters) {
 
+        /*
+         * Debug hooks block
+         */
+        // debugHook(h);
+        
         Object toRet;
         switch (h) {
             case REDSTONE_CHANGE:
