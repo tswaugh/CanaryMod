@@ -47,20 +47,22 @@ public class OServerConfigurationManager {
         this.j = var1.a("banned-players.txt");
         this.k = var1.a("banned-ips.txt");
         this.l = var1.a("ops.txt");
-        this.m = var1.a("white-list.txt");
+        // CanaryMod - Disable Notchian whitelist
+        //this.m = var1.a("white-list.txt");
         int var2 = var1.d.a("view-distance", 10);
         this.d[0] = new OPlayerManager(var1, 0, var2);
         this.d[1] = new OPlayerManager(var1, -1, var2);
         this.e = var1.d.a("max-players", 20);
-        this.o = var1.d.a("white-list", false);
+        //this.o = var1.d.a("white-list", false);
+        this.o = false;
         this.i();
         this.k();
         this.m();
-        this.o();
+        //this.o();
         this.j();
         this.l();
         this.n();
-        this.p();
+        //this.p();
     }
 
     public void a(OWorldServer[] var1) {
@@ -140,8 +142,8 @@ public class OServerConfigurationManager {
         if (this.f.contains(var2.trim().toLowerCase())) {
             var1.a("You are banned from this server!");
             return null;
-        } else if (!this.g(var2)) {
-            var1.a("You are not white-listed on this server!");
+        } else if ((etc.getInstance().isWhitelistEnabled() && !(etc.getDataSource().isUserOnWhitelist(var2) || player.isAdmin()))) {
+            var1.a(etc.getInstance().getWhitelistMessage());
             return null;
         } else {
             String var3 = var1.b.c().toString();
@@ -634,12 +636,12 @@ public class OServerConfigurationManager {
 
     public void k(String var1) {
         this.i.add(var1);
-        this.p();
+        // this.p(); CanaryMod - Disable Notchian whitelist
     }
 
     public void l(String var1) {
         this.i.remove(var1);
-        this.p();
+        // this.p(); CanaryMod - Disable Notchian whitelist
     }
 
     public Set e() {
@@ -647,7 +649,7 @@ public class OServerConfigurationManager {
     }
 
     public void f() {
-        this.o();
+        // this.o();
     }
 
     public void a(OEntityPlayerMP var1, OWorldServer var2) {

@@ -121,6 +121,7 @@ public class etc {
             saveHomes = properties.getBoolean("save-homes", true);
             hideSeed = properties.getBoolean("hide-seed", false);
             whitelistEnabled = properties.getBoolean("whitelist", false);
+            properties.removeKey("white-list"); // delete Notchian white-list properties entry
             whitelistMessage = properties.getString("whitelist-message", "Not on whitelist.");
             configDir = properties.getString("config-directory", "config/");
             motdLoc = properties.getString("motdtxtlocation", "config/motd.txt");
