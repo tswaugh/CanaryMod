@@ -514,10 +514,19 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(OItemStack var1, int var2) {
-        super.a(var1, var2);
-        if(var1 != null && var1.a() != null && var1.a().b(var1) == OEnumAction.b) {
-           OEntityTracker var3 = this.b.b(this.v);
-           var3.b(this, new OPacket18Animation(this, 5));
+        // CanaryMod: Call EAT Hook
+        if (var1 != null && var1.a() != null && var1.a().b(var1) == OEnumAction.b) {
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.EAT, ((OEntityPlayerMP) this).getPlayer(), new Item(var1))){
+                    super.a(var1, var2);
+                    OEntityTracker var3 = this.b.b(this.v);
+                    var3.b(this, new OPacket18Animation(this, 5));
+            } else {
+                this.a.b((OPacket) (new OPacket38EntityStatus(this.aW, (byte) 9)));
+                this.getPlayer().updateLevels();
+                this.getPlayer().updateInventory();
+            } 
+        } else { // CanaryMod: Bow, or block action
+            super.a(var1, var2);
         }
     }
 
