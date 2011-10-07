@@ -98,7 +98,8 @@ public class ONetLoginHandler extends ONetHandler {
             // CanaryMod - onConnect Hook
             HookParametersConnect hookResult = new HookParametersConnect(String.format(Colors.Yellow+"%s joined the game.", var2.u),true);
             hookResult = (HookParametersConnect) etc.getLoader().callHook(PluginLoader.Hook.CONNECT, var2.getPlayer(),hookResult);
-            this.e.f.a((OPacket) (new OPacket3Chat(hookResult.getJoinMessage())));
+            if (!hookResult.isHidden()) 
+                this.e.f.a((OPacket) (new OPacket3Chat(hookResult.getJoinMessage())));
             this.e.f.c(var2);
             var5.a(var2.bf, var2.bg, var2.bh, var2.bl, var2.bm);
             this.e.c.a(var5);
