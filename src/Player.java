@@ -647,7 +647,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public PlayerlistEntry getPlayerlistEntry(boolean show) {
         String name;
         if (etc.getInstance().isPlayerList_colors()) 
-            name = getFullName()+Colors.Black; 
+            name = getFullName()+Colors.LightGreen; 
         else name = getName();
         PlayerlistEntry entry = new PlayerlistEntry(name,this.getPing(),show);
         return (PlayerlistEntry) etc.getLoader().callHook(PluginLoader.Hook.GET_PLAYERLISTENTRY, this, entry); 
