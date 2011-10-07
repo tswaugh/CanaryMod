@@ -7,7 +7,16 @@
 public class HookParametersConnect extends HookParameters{
     private String joinMessage;
     private boolean applyPotionsEffects;
+    private boolean Hidden = false;
 
+
+    public boolean isHidden() {
+        return Hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        Hidden = hidden;
+    }
 
     public boolean applyPotionsEffects() {
         return applyPotionsEffects;
