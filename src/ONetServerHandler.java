@@ -636,6 +636,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
                 this.e.a(this.e.l, var3);
             }
+            // if we shiftclicked on slot 0 -> resend all inventory to player
+            if (var1.b == 0 && var1.f)
+                this.e.a(this.e.l);
         }
 
     }
