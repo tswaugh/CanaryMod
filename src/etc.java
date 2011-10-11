@@ -76,6 +76,7 @@ public class etc {
     private boolean                       playerList_autoupdate       = false;
     private int                           playerList_ticks            = 500;
     private boolean                       playerList_colors           = true;
+    private boolean                       playerList_enabled          = true;
 
     private etc() {
         load();
@@ -115,7 +116,8 @@ public class etc {
             loadIds(itemSpawnBlacklist, properties.getString("itemspawnblacklist", ""));
             playerList_autoupdate = properties.getBoolean("playerlist-autoupdate",false);
             playerList_ticks = properties.getInt("playerlist-ticks",500);
-            playerList_colors = properties.getBoolean("playerList-usecolors",true);
+            playerList_colors = properties.getBoolean("playerlist-usecolors",true);
+            playerList_enabled = properties.getBoolean("playerlist-enabled",true);
             motd = properties.getString("motd", "My Canary Server.");
             playerLimit = properties.getInt("max-players", 20);
             saveHomes = properties.getBoolean("save-homes", true);
@@ -214,18 +216,38 @@ public class etc {
         }
     }
 
+    /**
+     * 
+     * @return true if we want the playerlist update automaticaly
+     */
     public boolean isPlayerList_autoupdate() {
         return playerList_autoupdate;
     }
 
+    /**
+     *  
+     * @return the interval between playerlist autoupdates
+     */
     public int getPlayerList_ticks() {
         return playerList_ticks;
     }
 
+    /**
+     *  
+     * 
+     * @return true if we want player colors on playerlist
+     */
     public boolean isPlayerList_colors() {
         return playerList_colors;
     }
 
+    /**
+     * returns true if we want enable the [tab]Playerlist
+     * @return
+     */
+    public boolean isPlayerList_enabled() {
+        return playerList_enabled;
+    }
     /**
      * Loads or reloads the data source
      */

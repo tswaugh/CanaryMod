@@ -90,9 +90,11 @@ public class OServerConfigurationManager {
     }
 
     public void c(OEntityPlayerMP var1) {
-        // CanaryMod: Playername with color and Prefix        
-        PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(true);
-        this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000)));
+        // CanaryMod: Playername with color and Prefix
+        if (etc.getInstance().isPlayerList_enabled()) {
+            PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(true);
+            this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000)));
+        }
         this.b.add(var1);
         OWorldServer var2 = this.c.a(var1.v);
         var2.M.c((int) var1.bf >> 4, (int) var1.bh >> 4);
@@ -104,10 +106,12 @@ public class OServerConfigurationManager {
         var2.b(var1);
         this.a(var1.v).a(var1);
 
-        for (int var3 = 0; var3 < this.b.size(); ++var3) {
-            OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
-            entry = var4.getPlayer().getPlayerlistEntry(true);
-            var1.a.b((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
+        if (etc.getInstance().isPlayerList_enabled()) {
+            for (int var3 = 0; var3 < this.b.size(); ++var3) {
+                OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
+                PlayerlistEntry entry = var4.getPlayer().getPlayerlistEntry(true);
+                var1.a.b((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
+            }
         }
 
         // CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
@@ -128,8 +132,10 @@ public class OServerConfigurationManager {
         this.b.remove(var1);
         this.a(var1.v).b(var1);
         // CanaryMod: Player color and Prefix
-        PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(false);
-        this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
+        if (etc.getInstance().isPlayerList_enabled()) {
+            PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(false);
+            this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
+        }
     }
 
     public OEntityPlayerMP a(ONetLoginHandler var1, String var2) {
@@ -336,7 +342,7 @@ public class OServerConfigurationManager {
     public void b() {
         int var1;
         // CanaryMod: Spams like crazy 
-        if (etc.getInstance().isPlayerList_autoupdate())  {
+        if (etc.getInstance().isPlayerList_enabled() && etc.getInstance().isPlayerList_autoupdate())  {
             if (this.p-- <= 0) {
                 for (var1 = 0; var1 < this.b.size(); ++var1) {
                     OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
@@ -673,22 +679,7 @@ public class OServerConfigurationManager {
     public int h() {
         return this.e;
     }
-
-    /**
-     * Forces sending the playerlist to all connected players
-     * 
-     */
-    public void sendPlayerlist() {
-        try {
-        for (int var1 = 0; var1 < this.b.size(); ++var1) {
-            OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
-            PlayerlistEntry entry = var2.getPlayer().getPlayerlistEntry(true);
-            this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
-        } } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
+  
     /**
      * Returns the list of bans
      * 
