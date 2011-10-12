@@ -43,11 +43,6 @@ public class BaseEntity {
      */
     public void teleportTo(double x, double y, double z, float rotation, float pitch) {
         entity.b(x, y, z, rotation, pitch);
-        if (this instanceof Player) {
-        	Player p = (Player) this;
-        	if(Player.getMode(p))
-        		p.refreshCreativeMode();
-        }
     }
 
     /**
@@ -58,11 +53,6 @@ public class BaseEntity {
      */
     public void teleportTo(BaseEntity ent) {
         teleportTo(ent.getX(), ent.getY(), ent.getZ(), ent.getRotation(), ent.getPitch());
-        if (this instanceof Player){
-        	Player p = (Player) this;
-        	if(Player.getMode(p))
-        		p.refreshCreativeMode();
-        }
     }
 
     /**
@@ -73,11 +63,6 @@ public class BaseEntity {
      */
     public void teleportTo(Location location) {
         teleportTo(location.x, location.y, location.z, location.rotX, location.rotY);
-        if (this instanceof Player){
-        	Player p = (Player) this;
-        	if(Player.getMode(p))
-        		p.refreshCreativeMode();
-        }
     }
 
     /**

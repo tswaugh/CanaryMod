@@ -684,11 +684,8 @@ public class Player extends HumanEntity implements MessageReceiver {
         OEntityPlayerMP player = getEntity();
 
         // If player is in vehicle - eject them before they are teleported.
-        if (getMode(getPlayer())) {
-            player.c.a(1);
-        }
-        if (player.bb != null)
-            player.a(player.bb);
+        if (player.ba != null)
+            player.a(player.ba);
         player.a.a(x, y, z, rotation, pitch);
     }
 
