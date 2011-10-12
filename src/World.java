@@ -431,9 +431,11 @@ public class World {
      *
      * @param loc
      * @param itemId
+     * 
+     * @return returns the ItemEntity that was dropped
      */
-    public void dropItem(Location loc, int itemId) {
-        dropItem(loc.x, loc.y, loc.z, itemId, 1, 0);
+    public ItemEntity dropItem(Location loc, int itemId) {
+        return dropItem(loc.x, loc.y, loc.z, itemId, 1, 0);
     }
 
     /**
@@ -443,9 +445,11 @@ public class World {
      * @param y
      * @param z
      * @param itemId
+     *
+     * @return returns the ItemEntity that was dropped
      */
-    public void dropItem(double x, double y, double z, int itemId) {
-        dropItem(x, y, z, itemId, 1, 0);
+    public ItemEntity dropItem(double x, double y, double z, int itemId) {
+        return dropItem(x, y, z, itemId, 1, 0);
     }
 
     /**
@@ -456,9 +460,11 @@ public class World {
      * @param z
      * @param itemId
      * @param quantity
+     * 
+     * @return returns the ItemEntity that was dropped
      */
-    public void dropItem(double x, double y, double z, int itemId, int quantity) {
-        dropItem(x, y, z, itemId, quantity, 0);
+    public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity) {
+        return dropItem(x, y, z, itemId, quantity, 0);
     }
 
     /**
@@ -467,9 +473,11 @@ public class World {
      * @param loc
      * @param itemId
      * @param quantity
+     * 
+     * @return returns the ItemEntity that was dropped
      */
-    public void dropItem(Location loc, int itemId, int quantity) {
-        dropItem(loc.x, loc.y, loc.z, itemId, quantity, 0);
+    public ItemEntity dropItem(Location loc, int itemId, int quantity) {
+        return dropItem(loc.x, loc.y, loc.z, itemId, quantity, 0);
     }
 
     /**
@@ -479,9 +487,11 @@ public class World {
      * @param itemId
      * @param quantity
      * @param damage
+     * 
+     * @return returns the ItemEntity that was dropped
      */
-    public void dropItem(Location loc, int itemId, int quantity, int damage) {
-        dropItem(loc.x, loc.y, loc.z, itemId, quantity, damage);
+    public ItemEntity dropItem(Location loc, int itemId, int quantity, int damage) {
+        return dropItem(loc.x, loc.y, loc.z, itemId, quantity, damage);
     }
 
     /**
@@ -492,8 +502,10 @@ public class World {
      * @param z
      * @param itemId
      * @param quantity
+     * 
+     * @return returns the ItemEntity that was dropped
      */
-    public void dropItem(double x, double y, double z, int itemId, int quantity, int damage) {
+    public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity, int damage) {
         double d1 = world.w.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double d2 = world.w.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double d3 = world.w.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
@@ -501,6 +513,7 @@ public class World {
         OEntityItem oei = new OEntityItem(world, x + d1, y + d2, z + d3, new OItemStack(itemId, quantity, damage));
         oei.c = 10;
         world.b(oei);
+        return oei.item;
     }
 
     /**

@@ -581,10 +581,12 @@ public class Server {
      * @param y
      * @param z
      * @param itemId
+     * 
+     * @return returns the ItemEntity that was dropped
      */
     @Deprecated
-    public void dropItem(double x, double y, double z, int itemId) {
-        dropItem(x, y, z, itemId, 1);
+    public ItemEntity dropItem(double x, double y, double z, int itemId) {
+        return dropItem(x, y, z, itemId, 1);
     }
 
     /**
@@ -594,10 +596,12 @@ public class Server {
      * @param loc
      * @param itemId
      * @param quantity
+     * 
+     * @return returns the ItemEntity that was dropped
      */
     @Deprecated
-    public void dropItem(Location loc, int itemId, int quantity) {
-        dropItem(loc.x, loc.y, loc.z, itemId, quantity);
+    public ItemEntity dropItem(Location loc, int itemId, int quantity) {
+        return dropItem(loc.x, loc.y, loc.z, itemId, quantity);
     }
 
     /**
@@ -610,9 +614,11 @@ public class Server {
      * @param z
      * @param itemId
      * @param quantity
+     * 
+     * @return returns the ItemEntity that was dropped
      */
     @Deprecated
-    public void dropItem(double x, double y, double z, int itemId, int quantity) {
+    public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity) {
         OWorldServer ows = server.a(0);
         double d1 = ows.w.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double d2 = ows.w.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
@@ -621,6 +627,7 @@ public class Server {
         OEntityItem oei = new OEntityItem(ows, x + d1, y + d2, z + d3, new OItemStack(itemId, quantity, 0));
         oei.c = 10;
         ows.b(oei);
+        return oei.item;
     }
 
     /**
