@@ -337,7 +337,7 @@ public class BaseEntity {
      * @return
      */
     public void setFireTicks(int ticks) {
-        getEntity().by = ticks;
+        getEntity().bO = ticks;
     }
 
     /**
