@@ -308,6 +308,10 @@ public class PluginLoader {
          */
         CONNECT,
         /**
+         * Calls {@link PluginListener#onEntityRightClick(Player,BaseEntity) }
+         */
+        ENTITY_RIGHTCLICKED,
+        /**
          * Unused.
          */
         NUM_HOOKS
@@ -642,6 +646,7 @@ public class PluginLoader {
                 break;
             case LIQUID_DESTROY:
             case TAME:
+            case ENTITY_RIGHTCLICKED:
             case COMMAND_CHECK:
                 toRet = HookResult.DEFAULT_ACTION;
                 break;
@@ -937,6 +942,11 @@ public class PluginLoader {
                                 break;
                             case CONNECT:
                                 toRet = listener.onPlayerConnect((Player) parameters[0],(HookParametersConnect) parameters[1]);
+                                break;
+                            case ENTITY_RIGHTCLICKED:
+                                ret = listener.onEntityRightClick((Player) parameters[0], (BaseEntity) parameters[1], (Item) parameters[2]);
+                                if (ret != HookResult.DEFAULT_ACTION && (HookResult) toRet == HookResult.DEFAULT_ACTION)
+                                    toRet = ret;
                                 break;
                         }
                     } catch (UnsupportedOperationException ex) {

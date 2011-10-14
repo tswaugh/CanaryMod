@@ -877,8 +877,10 @@ public class PluginListener {
      *          The milking player
      * @param cow
      *          The milked cow
+     * @deprecated Use {@link #onEntityRightClick(Player, Entity, Item) } instead.
      * @return true if to prevent the player from milking the cow
      */
+    @Deprecated
     public boolean onCowMilk(Player player, Mob cow)
     {
        return false;
@@ -999,5 +1001,27 @@ public class PluginListener {
 
     public Object onPlayerConnect(Player player, HookParametersConnect hookParametersConnect) {
         return hookParametersConnect;
+    }
+    
+    /**
+     * Called when someone presses right click aimed at an entity. You can
+     * intercept this to add your own right click actions to different item
+     * types (see itemInHand)
+     * Some interactions update the player's item in hand (for example shearing a sheep),
+     * but some do not (like using an item on a player). If you want to update the item stack
+     * anyways, you should return ALLOW_ACTION.
+     *
+     * @param player
+     * @param entityClicked
+     * @param itemInHand
+     * @return ALLOW_ACTION to allow interaction and always update the item stack the player is holding,
+     *         DEFAULT_ACTION to allow interaction and update the item stack if needed by default.
+     *         PREVENT_ACTION to prevent the interaction when right clicking completely.
+     */
+    
+    public PluginLoader.HookResult onEntityRightClick(Player player, BaseEntity entityClicked, Item itemInHand) {
+        if (entityClicked.entity instanceof OEntityCow)
+            onCowMilk(player, new Mob((OEntityCow)entityClicked.entity));
+        return PluginLoader.HookResult.DEFAULT_ACTION;
     }
 }
