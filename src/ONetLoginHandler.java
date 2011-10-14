@@ -127,18 +127,18 @@ public class ONetLoginHandler extends ONetHandler {
     }
 
     public void a(OPacket254ServerPing var1) {
+        if (this.b.f() == null) return; // CanaryMod - Fix if we don't have a socket, don't do anything
         try {
+            a.info(String.format("Sending server details to: %s",this.b.f().getInetAddress().toString()));
             String var2 = this.e.p + "\u00a7" + this.e.f.g() + "\u00a7" + this.e.f.h();
             this.b.a((OPacket) (new OPacket255KickDisconnect(var2)));
             // CanaryMod swapped lines below. The network connection should be terminated AFTER removing the socket from the connection list.
             this.e.c.a(this.b.f());
             this.b.d();
-
             this.c = true;
         } catch (Exception var3) {
             var3.printStackTrace();
         }
-
     }
 
     public void a(OPacket var1) {
