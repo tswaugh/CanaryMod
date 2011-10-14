@@ -594,18 +594,25 @@ public abstract class OEntityPlayer extends OEntityLiving {
     }
 
     public void c(OEntity var1) {
-        if (!var1.b(this)) {
-            OItemStack var2 = this.K();
-            if (var2 != null && var1 instanceof OEntityLiving) {
-                var2.a((OEntityLiving) var1);
-                if (var2.a <= 0) {
-                    var2.a(this);
-                    this.L();
+        // CanaryMod hook: ENTITY_RIGHCLICKED
+        OItemStack itemInHand = this.K();
+        PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.ENTITY_RIGHTCLICKED, ((OEntityPlayerMP) this).getPlayer(), var1.entity, (itemInHand == null) ? null : new Item(itemInHand));
+        if (res != PluginLoader.HookResult.PREVENT_ACTION) {
+            // Normally when interact action is not defined on the interacted entity, false is returned, and the item stack is not used.
+            // For example sheep can interact by shearing and cows by milking, and the item stack changes from this interaction if it returns true.
+            // Players on the other hand won't interact normally, but if we want to update the item stack anyways, we will ALLOW the action.
+            if (!var1.b(this) || res == PluginLoader.HookResult.ALLOW_ACTION) {
+                OItemStack var2 = itemInHand;
+                if (var2 != null && var1 instanceof OEntityLiving) {
+                    var2.a((OEntityLiving) var1);
+                    if (var2.a <= 0) {
+                        var2.a(this);
+                        this.L();
+                    }
                 }
             }
-
         }
-    }
+	}
 
     public OItemStack K() {
         return this.j.b();
