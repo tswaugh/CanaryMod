@@ -960,22 +960,36 @@ public class Server {
      * Adds a recipe to the crafting manager.
      * Due to deadlines, this documentation isn't written yet, you may want to
      * refer to MCP in the meantime.
-     * @param i The item to return
+     * @param item The item to return
      * @param recipe The recipe to return the item for
      */
-    public void addRecipe(Item i, Object... recipe) {
-        OCraftingManager.a().a(i.getBaseItem(), recipe);
+    public void addRecipe(Item item, Object... recipe) {
+        for (int i = 0; i < recipe.length; i++) {
+            if (recipe[i] instanceof Block.Type) {
+                recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
+            } else if (recipe[i] instanceof Item.Type) {
+                recipe[i] = OItem.c[((Item.Type) recipe[i]).getId()];
+            }
+        }
+        OCraftingManager.a().a(item.getBaseItem(), recipe);
     }
 
     /**
      * Adds a shapeless recipe to the crafting manager.
      * Due to deadlines, this documentation isn't written yet, you may want to
      * refer to MCP in the meantime.
-     * @param i The item to return
+     * @param item The item to return
      * @param recipe The recipes to return the item for.
      */
-    public void addShapelessRecipe(Item i, Object... recipe) {
-        OCraftingManager.a().b(i.getBaseItem(), recipe);
+    public void addShapelessRecipe(Item item, Object... recipe) {
+        for (int i = 0; i < recipe.length; i++) {
+            if (recipe[i] instanceof Block.Type) {
+                recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
+            } else if (recipe[i] instanceof Item.Type) {
+                recipe[i] = OItem.c[((Item.Type) recipe[i]).getId()];
+            }
+        }
+        OCraftingManager.a().b(item.getBaseItem(), recipe);
     }
 
     /**

@@ -35,7 +35,7 @@ public class OEntityEnderman extends OEntityMob {
     public void a(ONBTTagCompound var1) {
         super.a(var1);
         this.b(var1.d("carried"));
-        this.d(var1.d("carryingData"));
+        this.d(var1.d("carriedData")); // CanaryMod: fix Notch bug
     }
 
     protected OEntity o() {
