@@ -1,5 +1,4 @@
 
-
 public class OContainerWorkbench extends OContainer {
 
    public OInventoryCrafting a = new OInventoryCrafting(this, 3, 3);
@@ -50,11 +49,11 @@ public class OContainerWorkbench extends OContainer {
       player.a.b(new OPacket103SetSlot(player.l.f,0,craftresult));       
    }
 
-   public void a(OEntityPlayer var1) {
-      super.a(var1);
+   public void b(OEntityPlayer var1) {
+      super.b(var1);
       if(!this.c.I) {
          for(int var2 = 0; var2 < 9; ++var2) {
-            OItemStack var3 = this.a.b_(var2);
+            OItemStack var3 = this.a.c(var2);
             if(var3 != null) {
                var1.b(var3);
             }
@@ -63,8 +62,8 @@ public class OContainerWorkbench extends OContainer {
       }
    }
 
-   public boolean b(OEntityPlayer var1) {
-      return this.c.a(this.h, this.i, this.j) != OBlock.az.bA?false:var1.e((double)this.h + 0.5D, (double)this.i + 0.5D, (double)this.j + 0.5D) <= 64.0D;
+   public boolean a(OEntityPlayer var1) {
+      return this.c.a(this.h, this.i, this.j) != OBlock.ay.bM?false:var1.g((double)this.h + 0.5D, (double)this.i + 0.5D, (double)this.j + 0.5D) <= 64.0D;
    }
 
    public OItemStack a(int var1) {
@@ -99,7 +98,7 @@ public class OContainerWorkbench extends OContainer {
             return null;
          }
 
-         var3.a(var4);
+         var3.b(var4);
       }
 
       return var2;

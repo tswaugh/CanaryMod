@@ -1,73 +1,80 @@
+
 public class OEntityCow extends OEntityAnimal {
 
-    public OEntityCow(OWorld var1) {
-        super(var1);
-        this.ab = "/mob/cow.png";
-        this.b(0.9F, 1.3F);
-    }
+   public OEntityCow(OWorld var1) {
+      super(var1);
+      this.be = "/mob/cow.png";
+      this.b(0.9F, 1.3F);
+   }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-    }
+   public int e() {
+      return 10;
+   }
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-    }
+   public void a(ONBTTagCompound var1) {
+      super.a(var1);
+   }
 
-    protected String h() {
-        return "mob.cow";
-    }
+   public void b(ONBTTagCompound var1) {
+      super.b(var1);
+   }
 
-    protected String i() {
-        return "mob.cowhurt";
-    }
+   protected String h() {
+      return "mob.cow";
+   }
 
-    protected String j() {
-        return "mob.cowhurt";
-    }
+   protected String i() {
+      return "mob.cowhurt";
+   }
 
-    protected float l() {
-        return 0.4F;
-    }
+   protected String j() {
+      return "mob.cowhurt";
+   }
 
-    protected int k() {
-        return OItem.aD.bo;
-    }
+   protected float z() {
+      return 0.4F;
+   }
 
-    protected void a(boolean var1) {
-        int var2 = this.bL.nextInt(3);
+   protected int m() {
+      return OItem.aE.bM;
+   }
 
-        int var3;
+   protected void a(boolean var1, int var2) {
+      int var3 = this.aH.nextInt(3) + this.aH.nextInt(1 + var2);
 
-        for (var3 = 0; var3 < var2; ++var3) {
-            this.b(OItem.aD.bo, 1);
-        }
+      int var4;
+      for(var4 = 0; var4 < var3; ++var4) {
+         this.b(OItem.aE.bM, 1);
+      }
 
-        var2 = this.bL.nextInt(3) + 1;
+      var3 = this.aH.nextInt(3) + 1 + this.aH.nextInt(1 + var2);
 
-        for (var3 = 0; var3 < var2; ++var3) {
-            if (this.bO > 0) {
-                this.b(OItem.bh.bo, 1);
-            } else {
-                this.b(OItem.bg.bo, 1);
-            }
-        }
+      for(var4 = 0; var4 < var3; ++var4) {
+         if(this.ai()) {
+            this.b(OItem.bi.bM, 1);
+         } else {
+            this.b(OItem.bh.bM, 1);
+         }
+      }
 
-    }
+   }
 
-    public boolean b(OEntityPlayer var1) {
-        OItemStack var2 = var1.j.b();
+   public boolean b(OEntityPlayer var1) {
+      OItemStack var2 = var1.k.a();
+      if(var2 != null && var2.c == OItem.av.bM) {
+          // CanaryMod hook: onCowMilk
+          if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) var1).getPlayer(), new Mob(this))) {
+              var1.k.a(var1.k.c, new OItemStack(OItem.aF));
+              return true;
+          } else {
+        	  return super.b(var1);
+          }
+      } else {
+    	  return super.b(var1);
+      }
+   }
 
-        if (var2 != null && var2.c == OItem.au.bo) {
-            // CanaryMod hook: onCowMilk
-            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) var1).getPlayer(), new Mob(this))) {
-                var1.j.a(var1.j.c, new OItemStack(OItem.aE));
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
+   protected OEntityAnimal a(OEntityAnimal var1) {
+      return new OEntityCow(this.X);
+   }
 }

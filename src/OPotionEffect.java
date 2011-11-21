@@ -8,7 +8,6 @@ public class OPotionEffect {
    public boolean permanent = false;
    public PotionEffect potionEffect = new PotionEffect(this);
 
-
    public OPotionEffect(int var1, int var2, int var3) {
       super();
       this.a = var1;
@@ -16,13 +15,22 @@ public class OPotionEffect {
       this.c = var3;
    }
 
+   public OPotionEffect(OPotionEffect var1) {
+      super();
+      this.a = var1.a;
+      this.b = var1.b;
+      this.c = var1.c;
+   }
+
    public void a(OPotionEffect var1) {
       if(this.a != var1.a) {
          System.err.println("This method should only be called for matching effects!");
       }
 
-      if(var1.c >= this.c) {
+      if(var1.c > this.c) {
          this.c = var1.c;
+         this.b = var1.b;
+      } else if(var1.c == this.c && this.b < var1.b) {
          this.b = var1.b;
       }
 
@@ -42,18 +50,18 @@ public class OPotionEffect {
 
    public boolean a(OEntityLiving var1) {
       if(this.b > 0) {
-         if(OPotion.a[this.a].a(this.b, this.c)) {
+         if(OPotion.a[this.a].b(this.b, this.c)) {
             this.b(var1);
          }
 
-         this.d();
+         this.e();
       }
 
       return this.b > 0;
    }
 
-   private int d() {
-      return this.permanent ? this.b:--this.b;
+   private int e() {
+	   return this.permanent ? this.b:--this.b;
    }
 
    public void b(OEntityLiving var1) {
@@ -63,7 +71,31 @@ public class OPotionEffect {
 
    }
 
+   public String d() {
+      return OPotion.a[this.a].c();
+   }
+
    public int hashCode() {
       return this.a;
+   }
+
+   public String toString() {
+      String var1 = "";
+      if(this.c() > 0) {
+         var1 = this.d() + " x " + (this.c() + 1) + ", Duration: " + this.b();
+      } else {
+         var1 = this.d() + ", Duration: " + this.b();
+      }
+
+      return OPotion.a[this.a].f()?"(" + var1 + ")":var1;
+   }
+
+   public boolean equals(Object var1) {
+      if(!(var1 instanceof OPotionEffect)) {
+         return false;
+      } else {
+         OPotionEffect var2 = (OPotionEffect)var1;
+         return this.a == var2.a && this.c == var2.c && this.b == var2.b;
+      }
    }
 }
