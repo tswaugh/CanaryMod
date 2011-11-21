@@ -60,7 +60,7 @@ public class Mob extends LivingEntity {
             OEntityLiving mob2 = rider.getMob();
             mob2.c(getX(), getY(), getZ(), getRotation(), 0f);
             world.b(mob2);
-            mob2.b(entity);
+            mob2.a(entity);
         }
     }
 

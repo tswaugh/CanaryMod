@@ -1,4 +1,7 @@
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+
 /**
  * BaseEntity.java - Class for accessing things that all entities share - W, X,
  * Y, health.
@@ -29,7 +32,7 @@ public class BaseEntity {
      * @return id
      */
     public int getId() {
-        return entity.aW;
+        return entity.S;
     }
 
     /**
@@ -71,7 +74,7 @@ public class BaseEntity {
      * @return x
      */
     public double getX() {
-        return entity.bf;
+        return entity.ab;
     }
 
     /**
@@ -90,7 +93,7 @@ public class BaseEntity {
      * @return y
      */
     public double getY() {
-        return entity.bg;
+        return entity.ac;
     }
 
     /**
@@ -109,7 +112,7 @@ public class BaseEntity {
      * @return z
      */
     public double getZ() {
-        return entity.bh;
+        return entity.ad;
     }
 
     /**
@@ -128,7 +131,7 @@ public class BaseEntity {
      * @return pitch
      */
     public float getPitch() {
-        return entity.bm;
+        return entity.ai;
     }
 
     /**
@@ -147,7 +150,7 @@ public class BaseEntity {
      * @return rotation
      */
     public float getRotation() {
-        return entity.bl;
+        return entity.ah;
     }
 
     /**
@@ -253,8 +256,9 @@ public class BaseEntity {
      * 
      * @return
      */
+    @Deprecated
     public int getBaseAirTicks() {
-        return getEntity().bS;
+        return 300;
     }
 
     /**
@@ -262,8 +266,9 @@ public class BaseEntity {
      * 
      * @param ticks
      */
+    @Deprecated
     public void setBaseAirTicks(int ticks) {
-        getEntity().bz = ticks;
+        throw new NotImplementedException();
     }
 
     /**
@@ -276,7 +281,7 @@ public class BaseEntity {
      * @return
      */
     public int getNoDamageTicks() {
-        return getEntity().bR;
+        return getEntity().aL;
     }
 
     /**
@@ -289,7 +294,7 @@ public class BaseEntity {
      * @param ticks
      */
     public void setNoDamageTicks(int ticks) {
-        getEntity().bB = ticks;
+        getEntity().aL = ticks;
     }
 
     /**
@@ -301,7 +306,7 @@ public class BaseEntity {
      * @return
      */
     public int getAirTicks() {
-        return getEntity().bS;
+        return getEntity().al();
     }
 
     /**
@@ -313,7 +318,7 @@ public class BaseEntity {
      * @return
      */
     public void setAirTicks(int ticks) {
-        getEntity().bC = ticks;
+        getEntity().j(ticks);
     }
 
     /**
@@ -325,7 +330,7 @@ public class BaseEntity {
      * @return
      */
     public int getFireTicks() {
-        return getEntity().bO;
+        return getEntity().c;
     }
 
     /**
@@ -337,7 +342,7 @@ public class BaseEntity {
      * @return
      */
     public void setFireTicks(int ticks) {
-        getEntity().bO = ticks;
+        getEntity().c = ticks;
     }
 
     /**
@@ -345,7 +350,7 @@ public class BaseEntity {
      * @return the World this entity is in
      */
     public World getWorld() {
-        return getEntity().bb.world;
+        return getEntity().X.world;
     }
 
     /**
@@ -354,7 +359,7 @@ public class BaseEntity {
      * @return x-motion
      */
     public double getMotionX() {
-        return entity.bi;
+        return entity.ae;
     }
 
     /**
@@ -363,7 +368,7 @@ public class BaseEntity {
      * @return y-motion
      */
     public double getMotionY() {
-        return entity.bj;
+        return entity.af;
     }
 
     /**
@@ -372,7 +377,7 @@ public class BaseEntity {
      * @return z-motion
      */
     public double getMotionZ() {
-        return entity.bk;
+        return entity.ag;
     }
 
     /**
@@ -395,8 +400,8 @@ public class BaseEntity {
      * motion to set
      */
     public void setMotionX(double motion) {
-        entity.bi = motion;
-        entity.bt = true;
+        entity.ae = motion;
+        entity.aq = true;
     }
 
     /**
@@ -406,8 +411,8 @@ public class BaseEntity {
      * motion to set
      */
     public void setMotionY(double motion) {
-        entity.bj = motion;
-        entity.bt = true;
+        entity.af = motion;
+        entity.aq = true;
     }
 
     /**
@@ -417,15 +422,15 @@ public class BaseEntity {
      * motion to set
      */
     public void setMotionZ(double motion) {
-        entity.bk = motion;
-        entity.bt = true;
+        entity.ag = motion;
+        entity.aq = true;
     }
 
     /**
      * Destroys this entity
      */
     public void destroy() {
-        entity.N();
+        entity.J();
     }
 
     /**

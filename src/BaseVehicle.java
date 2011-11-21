@@ -25,7 +25,7 @@ public class BaseVehicle extends BaseEntity {
      * @return true if unoccupied.
      */
     public boolean isEmpty() {
-        if (entity.aZ == null)
+        if (entity.V == null)
             return true;
         else
             return false;
@@ -38,9 +38,9 @@ public class BaseVehicle extends BaseEntity {
      * @return passenger
      */
     public Player getPassenger() {
-        if (entity.aZ != null)
-            if (isPlayer(entity.aZ))
-                return ((OEntityPlayerMP) entity.aZ).getPlayer();
+        if (entity.V != null)
+            if (isPlayer(entity.V))
+                return ((OEntityPlayerMP) entity.V).getPlayer();
 
         return null;
     }

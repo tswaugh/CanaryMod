@@ -10,7 +10,7 @@ public class Enderman extends Mob {
      * @return Block
      */
     public Block getBlockInHand() {
-        return new Block(Block.Type.fromId(((OEntityEnderman)getEntity()).x()), ((OEntityEnderman)getEntity()).y());
+        return new Block(Block.Type.fromId(((OEntityEnderman)getEntity()).M()), ((OEntityEnderman)getEntity()).N());
     }
     
     /**

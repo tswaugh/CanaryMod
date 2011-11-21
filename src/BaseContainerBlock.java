@@ -23,19 +23,19 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
     }
 
     public int getX() {
-        return container.j;
-    }
-
-    public int getY() {
-        return container.k;
-    }
-
-    public int getZ() {
         return container.l;
     }
 
+    public int getY() {
+        return container.m;
+    }
+
+    public int getZ() {
+        return container.n;
+    }
+
     public World getWorld() {
-        return container.i.world;
+        return container.k.world;
     }
 
     public Block getBlock() {
