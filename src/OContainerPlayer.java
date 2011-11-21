@@ -27,7 +27,7 @@ public class OContainerPlayer extends OContainer {
       }
 
       for(var3 = 0; var3 < 4; ++var3) {
-         this.a((OSlot)(new OSlotArmor(this, var1, var1.a() - 1 - var3, 8, 8 + var3 * 18, var3)));
+         this.a((OSlot)(new OSlotArmor(this, var1, var1.d() - 1 - var3, 8, 8 + var3 * 18, var3)));
       }
 
       for(var3 = 0; var3 < 3; ++var3) {
@@ -53,12 +53,12 @@ public class OContainerPlayer extends OContainer {
       OEntityPlayerMP player = (OEntityPlayerMP) super.g.get(0); 
       player.a.b(new OPacket103SetSlot(player.l.f,0,craftresult));
    }
-
-   public void a(OEntityPlayer var1) {
-      super.a(var1);
+   
+   public void b(OEntityPlayer var1) {
+      super.b(var1);
 
       for(int var2 = 0; var2 < 4; ++var2) {
-         OItemStack var3 = this.a.b_(var2);
+         OItemStack var3 = this.a.c(var2);
          if(var3 != null) {
             var1.b(var3);
             this.a.a(var2, (OItemStack)null);
@@ -67,7 +67,7 @@ public class OContainerPlayer extends OContainer {
 
    }
 
-   public boolean b(OEntityPlayer var1) {
+   public boolean a(OEntityPlayer var1) {
       return true;
    }
 
@@ -103,7 +103,7 @@ public class OContainerPlayer extends OContainer {
             return null;
          }
 
-         var3.a(var4);
+         var3.b(var4);
       }
 
       return var2;

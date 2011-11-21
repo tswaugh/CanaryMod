@@ -73,7 +73,7 @@ public class World {
      * @return time server time
      */
     public long getTime() {
-        return world.l();
+        return world.m();
     }
 
     /**
@@ -282,7 +282,7 @@ public class World {
      * @return block data
      */
     public int getBlockData(int x, int y, int z) {
-        return world.c(x, y, z);
+        return world.a(x, y, z);
     }
 
     /**
@@ -300,7 +300,7 @@ public class World {
      */
     public boolean setBlockData(int x, int y, int z, int data) {
         boolean toRet = world.d(x, y, z, data);
-        etc.getMCServer().f.a(new OPacket53BlockChange(x, y, z, world), getType().getId());
+        etc.getMCServer().h.a(new OPacket53BlockChange(x, y, z, world), getType().getId());
         ComplexBlock block = getComplexBlock(x, y, z);
         if (block != null)
             block.update();
@@ -409,7 +409,7 @@ public class World {
      * @return complex block
      */
     public ComplexBlock getOnlyComplexBlock(int x, int y, int z) {
-        OTileEntity localav = world.b(x, y, z);
+        OTileEntity localav = world.l(x, y, z);
         if (localav != null)
             if (localav instanceof OTileEntityChest)
                 return new Chest((OTileEntityChest) localav);
@@ -567,7 +567,21 @@ public class World {
      * @return true if the chunk is loaded
      */
     public boolean isChunkLoaded(int x, int y, int z) {
-        return world.M.a(x >> 4, z >> 4);
+        return isChunkLoaded(x >> 4, z >> 4);
+    }
+    
+    /**
+     * Checks to see whether or not the chunk containing the given chunk
+     * coordinates is loaded into memory.
+     *
+     * @param x
+     *            a block x-coordinate
+     * @param z
+     *            a block z-coordinate
+     * @return true if the chunk is loaded
+     */
+    public boolean isChunkLoaded(int x, int z) {
+        return world.J.c(x, z);
     }
 
     /**
@@ -609,7 +623,7 @@ public class World {
      * @return chunk
      */
     public Chunk loadChunk(int x, int z) {
-        return world.M.c(x, z).chunk;
+        return world.J.a(x, z).chunk;
     }
 
     /**
@@ -651,8 +665,8 @@ public class World {
      * @return chunk
      */
     public Chunk getChunk(int x, int z) {
-        if (world.M.a(x, z)) {
-            return world.M.b(x, z).chunk;
+        if (isChunkLoaded(x, z)) {
+            return world.J.b(x, z).chunk;
         } else {
             return null;
         }
@@ -821,7 +835,7 @@ public class World {
      * @return seed of the world
      */
     public long getRandomSeed() {
-        return world.l();
+        return world.m();
     }
 
 }

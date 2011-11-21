@@ -3,1054 +3,1153 @@ import java.util.List;
 
 public abstract class OEntityPlayer extends OEntityLiving {
 
-    public OInventoryPlayer j = new OInventoryPlayer(this);
-    public OContainer k;
-    public OContainer l;
-    protected OFoodStats m = new OFoodStats(this);
-    protected int n = 0;
-    public float o = 0;
-    public int p = 0;
-    public float q;
-    public String r;
-    public boolean s = false;
-    public int t = 0;
-    public String u;
-    public int v;
-    public int w = 0;
-    public double x;
-    public double y;
-    public double z;
-    public double A;
-    public double B;
-    public double C;
-    protected boolean D;
-    public OChunkCoordinates E;
-    private int a;
-    public float F;
-    public float G;
-    private OChunkCoordinates b;
-    private OChunkCoordinates c;
-    public int H = 20;
-    protected boolean I = false;
-    public float J;
-    public OPlayerCapabilities K = new OPlayerCapabilities();
-    public int L;
-    public int M;
-    public int N;
-    private OItemStack d;
-    private int e;
-    protected float O = 0.1F;
-    protected float P = 0.02F;
-    private int f = 0;
-    public OEntityFish Q = null;
-    // CanaryMod start
-    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
-    HumanEntity entity = new HumanEntity(this);
+   public OInventoryPlayer k = new OInventoryPlayer(this);
+   public OContainer l;
+   public OContainer m;
+   protected OFoodStats n = new OFoodStats();
+   protected int o = 0;
+   public byte p = 0;
+   public int q = 0;
+   public float r;
+   public float s;
+   public boolean t = false;
+   public int u = 0;
+   public String v;
+   public int w;
+   public int x = 0;
+   public double y;
+   public double z;
+   public double A;
+   public double B;
+   public double C;
+   public double D;
+   protected boolean E;
+   public OChunkCoordinates F;
+   private int a;
+   public float G;
+   public float H;
+   private OChunkCoordinates b;
+   private OChunkCoordinates c;
+   public int I = 20;
+   protected boolean J = false;
+   public float K;
+   public OPlayerCapabilities L = new OPlayerCapabilities();
+   public int M;
+   public int N;
+   public float O;
+   private OItemStack d;
+   private int e;
+   protected float P = 0.1F;
+   protected float Q = 0.02F;
+   public OEntityFish R = null;
+   // CanaryMod start
+   @SuppressWarnings("FieldNameHidesFieldInSuperclass")
+   HumanEntity entity = new HumanEntity(this);
 
-    // CanaryMod end
+   // CanaryMod end
 
-    public OEntityPlayer(OWorld var1) {
-        super(var1);
-        this.k = new OContainerPlayer(this.j, !var1.I);
-        this.l = this.k;
-        this.by = 1.62F;
-        OChunkCoordinates var2 = var1.m();
-        this.c((double) var2.a + 0.5D, (double) (var2.b + 1), (double) var2.c + 0.5D, 0.0F, 0.0F);
-        this.an = 20;
-        this.ae = "humanoid";
-        this.ad = 180.0F;
-        this.bN = 20;
-        this.ab = "/mob/char.png";
-    }
+   public OEntityPlayer(OWorld var1) {
+      super(var1);
+      this.l = new OContainerPlayer(this.k, !var1.I);
+      this.m = this.l;
+      this.au = 1.62F;
+      OChunkCoordinates var2 = var1.o();
+      this.c((double)var2.a + 0.5D, (double)(var2.b + 1), (double)var2.c + 0.5D, 0.0F, 0.0F);
+      this.bh = "humanoid";
+      this.bg = 180.0F;
+      this.aJ = 20;
+      this.be = "/mob/char.png";
+   }
 
-    protected void b() {
-        super.b();
-        this.bU.a(16, Byte.valueOf((byte) 0));
-        this.bU.a(17, Byte.valueOf((byte) 0));
-    }
+   public int e() {
+      return 20;
+   }
 
-    public boolean o_() {
-        return this.d != null;
-    }
+   protected void a() {
+      super.a();
+      this.aN.a(16, Byte.valueOf((byte)0));
+      this.aN.a(17, Byte.valueOf((byte)0));
+   }
 
-    public void E() {
-        if (this.d != null) {
-            this.d.a(this.bb, this, this.e);
-        }
+   public boolean x() {
+      return this.d != null;
+   }
 
-        this.F();
-    }
+   public void p_() {
+      if(this.d != null) {
+         this.d.a(this.X, this, this.e);
+      }
 
-    public void F() {
-        this.d = null;
-        this.e = 0;
-        if (!this.bb.I) {
-            this.h(false);
-        }
+      this.q_();
+   }
 
-    }
+   public void q_() {
+      this.d = null;
+      this.e = 0;
+      if(!this.X.I) {
+         this.e(false);
+      }
 
-    public boolean G() {
-        return this.o_() && OItem.c[this.d.c].b(this.d) == OEnumAction.c;
-    }
+   }
 
-    public void s_() {
-        if (this.d != null) {
-            OItemStack var1 = this.j.b();
-            if (var1 != this.d) {
-                this.F();
-            } else {
-                if (this.e <= 25 && this.e % 4 == 0) {
-                    this.b(var1, 5);
-                }
+   public boolean A() {
+      return this.x() && OItem.d[this.d.c].b(this.d) == OEnumAction.d;
+   }
 
-                if (--this.e == 0 && !this.bb.I) {
-                    this.C();
-                }
-            }
-        }
-
-        if (this.w > 0) {
-            --this.w;
-        }
-
-        if (this.P()) {
-            ++this.a;
-            if (this.a > 100) {
-                this.a = 100;
+   public void b() {
+      if(this.d != null) {
+         OItemStack var1 = this.k.a();
+         if(var1 != this.d) {
+            this.q_();
+         } else {
+            if(this.e <= 25 && this.e % 4 == 0) {
+               this.b(var1, 5);
             }
 
-            if (!this.bb.I) {
-                if (!this.w()) {
-                    this.a(true, true, false);
-                } else if (this.bb.d()) {
-                    this.a(false, true, true);
-                }
+            if(--this.e == 0 && !this.X.I) {
+               this.w();
             }
-        } else if (this.a > 0) {
-            ++this.a;
-            if (this.a >= 110) {
-                this.a = 0;
-            }
-        }
-
-        super.s_();
-        if (!this.bb.I && this.l != null && !this.l.b(this)) {
-            this.x();
-            this.l = this.k;
-        }
-
-        if (this.K.b) {
-            for (int var10 = 0; var10 < 8; ++var10) {
-                ;
-            }
-        }
-
-        if (this.bO > 0 && this.K.a) {
-            this.bO = 0;
-        }
-
-        this.x = this.A;
-        this.y = this.B;
-        this.z = this.C;
-        double var2 = this.bf - this.A;
-        double var4 = this.bg - this.B;
-        double var6 = this.bh - this.C;
-        double var8 = 10.0D;
-        if (var2 > var8) {
-            this.x = this.A = this.bf;
-        }
-
-        if (var6 > var8) {
-            this.z = this.C = this.bh;
-        }
-
-        if (var4 > var8) {
-            this.y = this.B = this.bg;
-        }
-
-        if (var2 < -var8) {
-            this.x = this.A = this.bf;
-        }
-
-        if (var6 < -var8) {
-            this.z = this.C = this.bh;
-        }
-
-        if (var4 < -var8) {
-            this.y = this.B = this.bg;
-        }
-
-        this.A += var2 * 0.25D;
-        this.C += var6 * 0.25D;
-        this.B += var4 * 0.25D;
-        this.a(OStatList.k, 1);
-        if (this.ba == null) {
-            this.c = null;
-        }
-
-        if (!this.bb.I) {
-            this.m.a(this);
-        }
-
-    }
-
-    protected void b(OItemStack var1, int var2) {
-        if (var1.m() == OEnumAction.b) {
-            for (int var3 = 0; var3 < var2; ++var3) {
-                OVec3D var4 = OVec3D.b(((double) this.bL.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-                var4.a(-this.bm * 3.1415927F / 180.0F);
-                var4.b(-this.bl * 3.1415927F / 180.0F);
-                OVec3D var5 = OVec3D.b(((double) this.bL.nextFloat() - 0.5D) * 0.3D, (double) (-this.bL.nextFloat()) * 0.6D - 0.3D, 0.6D);
-                var5.a(-this.bm * 3.1415927F / 180.0F);
-                var5.b(-this.bl * 3.1415927F / 180.0F);
-                var5 = var5.c(this.bf, this.bg + (double) this.t(), this.bh);
-                this.bb.a("iconcrack_" + var1.a().bo, var5.a, var5.b, var5.c, var4.a, var4.b + 0.05D, var4.c);
-            }
-
-            this.bb.a(this, "mob.eat", 0.5F + 0.5F * (float) this.bL.nextInt(2), (this.bL.nextFloat() - this.bL.nextFloat()) * 0.2F + 1.0F);
-        }
-
-    }
-
-    protected void C() {
-        if (this.d != null) {
-            this.b(this.d, 16);
-            int var1 = this.d.a;
-            OItemStack var2 = this.d.b(this.bb, this);
-            if (var2 != this.d || var2 != null && var2.a != var1) {
-                this.j.a[this.j.c] = var2;
-                if (var2.a == 0) {
-                    this.j.a[this.j.c] = null;
-                }
-            }
-
-            this.F();
-        }
-
-    }
-
-    protected boolean H() {
-        return this.an <= 0 || this.P();
-    }
-
-    protected void x() {
-        this.l = this.k;
-    }
-
-    public void I() {
-        double var1 = this.bf;
-        double var3 = this.bg;
-        double var5 = this.bh;
-        super.I();
-        this.q = this.o;
-        this.o = 0.0F;
-        this.h(this.bf - var1, this.bg - var3, this.bh - var5);
-    }
-
-    private int o() {
-        return this.a(OPotion.e) ? 6 - (1 + this.b(OPotion.e).c()) * 1 : (this.a(OPotion.f) ? 6 + (1 + this.b(OPotion.f).c()) * 2 : 6);
-    }
-
-    protected void c_() {
-        int var1 = this.o();
-        if (this.s) {
-            ++this.t;
-            if (this.t >= var1) {
-                this.t = 0;
-                this.s = false;
-            }
-        } else {
-            this.t = 0;
-        }
-
-        this.am = (float) this.t / (float) var1;
-    }
-
-    public void s() {
-        // CanaryMod: adjust 'healing over time' independent of monster-spawn=true/false (nice notchup!)
-        PluginLoader.HookResult autoHeal = etc.getInstance().autoHeal();
-        if (this.bb.q == 0 && autoHeal == PluginLoader.HookResult.DEFAULT_ACTION || autoHeal == PluginLoader.HookResult.ALLOW_ACTION) {
-            if (this.an < 20 && this.bM % 20 * 12 == 0)
-                this.b(1);
-        }
-
-        if (this.n > 0) {
-            --this.n;
-        }
-
-        if (this.bb.v == 0 && this.an < 20 && this.bM % 20 * 12 == 0) {
-            this.c(1);
-        }
-
-        this.j.h();
-        this.q = this.o;
-        super.s();
-        this.aj = this.O;
-        this.ak = this.P;
-        if (this.at()) {
-            this.aj = (float) ((double) this.aj + (double) this.O * 0.3D);
-            this.ak = (float) ((double) this.ak + (double) this.P * 0.3D);
-        }
-
-        float var1 = OMathHelper.a(this.bi * this.bi + this.bk * this.bk);
-        float var2 = (float) Math.atan(-this.bj * 0.20000000298023224D) * 15.0F;
-        if (var1 > 0.1F) {
-            var1 = 0.1F;
-        }
-
-        if (!this.bq || this.an <= 0) {
-            var1 = 0.0F;
-        }
-
-        if (this.bq || this.an <= 0) {
-            var2 = 0.0F;
-        }
-
-        this.r += (var1 - this.o) * 0.4F;
-        this.av += (var2 - this.aj) * 0.8F;
-        if (this.an > 0) {
-            List var3 = this.bb.b((OEntity) this, this.bp.b(1.0D, 0.0D, 1.0D));
-            if (var3 != null) {
-                for (int var4 = 0; var4 < var3.size(); ++var4) {
-                    OEntity var5 = (OEntity) var3.get(var4);
-                    if (!var5.bx) {
-                        this.j(var5);
-                    }
-                }
-            }
-        }
-
-    }
-
-    private void j(OEntity var1) {
-        var1.a_(this);
-    }
-
-    public void a(ODamageSource var1) {
-        super.a(var1);
-        this.b(0.2F, 0.2F);
-        this.c(this.bf, this.bg, this.bh);
-        this.bj = 0.10000000149011612D;
-        if (this.u.equals("Notch")) {
-            this.a(new OItemStack(OItem.h, 1), true);
-        }
-
-        this.j.j();
-        if (var1 != null) {
-            this.bi = (double) (-OMathHelper.b((this.ar + this.bl) * 3.1415927F / 180.0F) * 0.1F);
-            this.bk = (double) (-OMathHelper.a((this.ar + this.bl) * 3.1415927F / 180.0F) * 0.1F);
-        } else {
-            this.bi = this.bk = 0.0D;
-        }
-
-        this.by = 0.1F;
-        this.a(OStatList.y, 1);
-    }
-
-    public void b(OEntity var1, int var2) {
-        this.p += var2;
-        if (var1 instanceof OEntityPlayer) {
-            this.a(OStatList.A, 1);
-        } else {
-            this.a(OStatList.z, 1);
-        }
-
-    }
-
-    public void J() {
-        this.a(this.j.a(this.j.c, 1), false);
-    }
-
-    public void b(OItemStack var1) {
-        this.a(var1, false);
-    }
-
-    public void a(OItemStack var1, boolean var2) {
-        if (var1 != null) {
-            OEntityItem var3 = new OEntityItem(this.bb, this.bf, this.bg - 0.30000001192092896D + (double) this.t(), this.bh, var1);
-            var3.c = 40;
-            float var4 = 0.1F;
-            float var5;
-            if (var2) {
-                var5 = this.bL.nextFloat() * 0.5F;
-                float var6 = this.bL.nextFloat() * 3.1415927F * 2.0F;
-                var3.bi = (double) (-OMathHelper.a(var6) * var5);
-                var3.bk = (double) (OMathHelper.b(var6) * var5);
-                var3.bj = 0.20000000298023224D;
-            } else {
-                var4 = 0.3F;
-                var3.bi = (double) (-OMathHelper.a(this.bl / 180.0F * 3.1415927F) * OMathHelper.b(this.bm / 180.0F * 3.1415927F) * var4);
-                var3.bk = (double) (OMathHelper.b(this.bl / 180.0F * 3.1415927F) * OMathHelper.b(this.bm / 180.0F * 3.1415927F) * var4);
-                var3.bj = (double) (-OMathHelper.a(this.bm / 180.0F * 3.1415927F) * var4 + 0.1F);
-                var4 = 0.02F;
-                var5 = this.bL.nextFloat() * 3.1415927F * 2.0F;
-                var4 *= this.bL.nextFloat();
-                var3.bi += Math.cos((double) var5) * (double) var4;
-                var3.bj += (double) ((this.bL.nextFloat() - this.bL.nextFloat()) * 0.1F);
-                var3.bk += Math.sin((double) var5) * (double) var4;
-            }
-
-            if (!(Boolean) manager.callHook(PluginLoader.Hook.ITEM_DROP, ((OEntityPlayerMP) this).getPlayer(), var3.item)) {
-                Item droppedItem = var3.item.getItem();
-                if (droppedItem.getAmount() < 0) {
-                    droppedItem.setAmount(1);
-                    droppedItem.update();
-                }
-                this.a(var3);
-                this.a(OStatList.v, 1);
-                // return the item to the inventory.
-            } else
-                j.a(var1);
-        }
-    }
-
-    protected void a(OEntityItem var1) {
-        this.bb.b((OEntity) var1);
-    }
-
-    public float a(OBlock var1) {
-        float var2 = this.j.a(var1);
-        if (this.a(OMaterial.g)) {
-            var2 /= 5.0F;
-        }
-
-        if (!this.bq) {
-            var2 /= 5.0F;
-        }
-
-        if (this.a(OPotion.e)) {
-            var2 *= 1.0F + (float) (this.b(OPotion.e).c() + 1) * 0.2F;
-        }
-
-        if (this.a(OPotion.f)) {
-            var2 *= 1.0F - (float) (this.b(OPotion.f).c() + 1) * 0.2F;
-        }
-
-        return var2;
-    }
-
-    public boolean b(OBlock var1) {
-        return this.j.b(var1);
-    }
-
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-        ONBTTagList var2 = var1.l("Inventory");
-        this.j.b(var2);
-        this.v = var1.e("Dimension");
-        this.D = var1.m("Sleeping");
-        this.a = var1.d("SleepTimer");
-        this.L = var1.e("Xp");
-        this.M = var1.e("XpLevel");
-        this.N = var1.e("XpTotal");
-        if (this.D) {
-            this.E = new OChunkCoordinates(OMathHelper.b(this.bf), OMathHelper.b(this.bg), OMathHelper.b(this.bh));
-            this.a(true, true, false);
-        }
-
-        if (var1.b("SpawnX") && var1.b("SpawnY") && var1.b("SpawnZ")) {
-            this.b = new OChunkCoordinates(var1.e("SpawnX"), var1.e("SpawnY"), var1.e("SpawnZ"));
-        }
-
-        this.m.a(var1);
-    }
-
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-        var1.a("Inventory", (ONBTBase) this.j.a(new ONBTTagList()));
-        var1.a("Dimension", this.v);
-        var1.a("Sleeping", this.D);
-        var1.a("SleepTimer", (short) this.a);
-        var1.a("Xp", this.L);
-        var1.a("XpLevel", this.M);
-        var1.a("XpTotal", this.N);
-        if (this.b != null) {
-            var1.a("SpawnX", this.b.a);
-            var1.a("SpawnY", this.b.b);
-            var1.a("SpawnZ", this.b.c);
-        }
-
-        this.m.b(var1);
-    }
-
-    public void a(OIInventory var1) {
-    }
-
-    public void b(int var1, int var2, int var3) {
-    }
-
-    public void a(OEntity var1, int var2) {
-    }
-
-    public float t() {
-        return 0.12F;
-    }
-
-    protected void m_() {
-        this.by = 1.62F;
-    }
-
-    public boolean a(ODamageSource var1, int var2) {
-        if (this.K.a && !var1.d()) {
-            return false;
-        } else {
-            this.aO = 0;
-            if (this.an <= 0) {
-                return false;
-            } else {
-                if (this.P() && !this.bb.I) {
-                    this.a(true, true, false);
-                }
-
-                OEntity var3 = var1.a();
-                if (var3 instanceof OEntityMob || var3 instanceof OEntityArrow) {
-                    if (this.bb.v == 0) {
-                        var2 = 0;
-                    }
-
-                    if (this.bb.v == 1) {
-                        var2 = var2 / 3 + 1;
-                    }
-
-                    if (this.bb.v == 3) {
-                        var2 = var2 * 3 / 2;
-                    }
-                }
-
-                if (var2 == 0) {
-                    return false;
-                } else {
-                    OEntity var4 = var3;
-                    if (var3 instanceof OEntityArrow && ((OEntityArrow) var3).c != null) {
-                        var4 = ((OEntityArrow) var3).c;
-                    }
-
-                    if (var4 instanceof OEntityLiving) {
-                        this.a((OEntityLiving) var4, false);
-                    }
-
-                    this.a(OStatList.x, var2);
-                    return super.a(var1, var2);
-                }
-            }
-        }
-    }
-
-    protected boolean n_() {
-        return false;
-    }
-
-    protected void a(OEntityLiving var1, boolean var2) {
-        if (!(var1 instanceof OEntityCreeper) && !(var1 instanceof OEntityGhast)) {
-            if (var1 instanceof OEntityWolf) {
-                OEntityWolf var3 = (OEntityWolf) var1;
-                if (var3.z() && this.u.equals(var3.w())) {
-                    return;
-                }
-            }
-
-            if (!(var1 instanceof OEntityPlayer) || this.n_()) {
-                List var7 = this.bb.a(OEntityWolf.class, OAxisAlignedBB.b(this.bf, this.bg, this.bh, this.bf + 1.0D, this.bg + 1.0D, this.bh + 1.0D).b(16.0D, 4.0D, 16.0D));
-                Iterator var4 = var7.iterator();
-
-                while (var4.hasNext()) {
-                    OEntity var5 = (OEntity) var4.next();
-                    OEntityWolf var6 = (OEntityWolf) var5;
-                    if (var6.z() && var6.C() == null && this.u.equals(var6.w()) && (!var2 || !var6.x())) {
-                        var6.c(false);
-                        var6.d(var1);
-                    }
-                }
-
-            }
-        }
-    }
-
-    protected void b(ODamageSource var1, int var2) {
-        if (!var1.b() && this.G()) {
-            var2 = 1 + var2 >> 1;
-        }
-
-        if (!var1.b()) {
-            int var3 = 25 - this.j.i();
-            int var4 = var2 * var3 + this.f;
-            this.j.d(var2);
-            var2 = var4 / 25;
-            this.f = var4 % 25;
-        }
-
-        this.b(var1.c());
-        super.b(var1, var2);
-    }
-
-    public void a(OTileEntityFurnace var1) {
-    }
-
-    public void a(OTileEntityDispenser var1) {
-    }
-
-    public void a(OTileEntitySign var1) {
-    }
-
-    public void c(OEntity var1) {
-        // CanaryMod hook: ENTITY_RIGHCLICKED
-        OItemStack itemInHand = this.K();
-        PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.ENTITY_RIGHTCLICKED, ((OEntityPlayerMP) this).getPlayer(), var1.entity, (itemInHand == null) ? null : new Item(itemInHand));
-        if (res != PluginLoader.HookResult.PREVENT_ACTION) {
-            // Normally when interact action is not defined on the interacted entity, false is returned, and the item stack is not used.
-            // For example sheep can interact by shearing and cows by milking, and the item stack changes from this interaction if it returns true.
-            // Players on the other hand won't interact normally, but if we want to update the item stack anyways, we will ALLOW the action.
-            if (!var1.b(this) || res == PluginLoader.HookResult.ALLOW_ACTION) {
-                OItemStack var2 = itemInHand;
-                if (var2 != null && var1 instanceof OEntityLiving) {
-                    var2.a((OEntityLiving) var1);
-                    if (var2.a <= 0) {
-                        var2.a(this);
-                        this.L();
-                    }
-                }
-            }
-        }
-	}
-
-    public OItemStack K() {
-        return this.j.b();
-    }
-
-    public void L() {
-        this.j.a(this.j.c, (OItemStack) null);
-    }
-
-    public double M() {
-        return (double) (this.by - 0.5F);
-    }
-
-    public void v() {
-        if (!this.s || this.t >= this.o() / 2 || this.t < 0) {
-            this.t = -1;
-            this.s = true;
-        }
-
-    }
-
-    public void d(OEntity var1) {
-        int var2 = this.j.a(var1);
-        if (var2 > 0) {
-            boolean var3 = this.bj < 0.0D && !this.bq && !this.p() && !this.ao();
-            if (var3) {
-                var2 = var2 * 3 / 2 + 1;
-            }
-
-            boolean var4 = var1.a(ODamageSource.b(this), var2);
-            if (var4) {
-                if (this.at()) {
-                    var1.b((double) (-OMathHelper.a(this.bl * 3.1415927F / 180.0F) * 1.0F), 0.1D, (double) (OMathHelper.b(this.bl * 3.1415927F / 180.0F) * 1.0F));
-                    this.bi *= 0.6D;
-                    this.bk *= 0.6D;
-                    this.g(false);
-                }
-
-                if (var3) {
-                    this.e(var1);
-                }
-            }
-
-            OItemStack var5 = this.K();
-            if (var5 != null && var1 instanceof OEntityLiving) {
-                var5.a((OEntityLiving) var1, this);
-                if (var5.a <= 0) {
-                    var5.a(this);
-                    this.L();
-                }
-            }
-
-            if (var1 instanceof OEntityLiving) {
-                if (var1.ac()) {
-                    this.a((OEntityLiving) var1, true);
-                }
-
-                this.a(OStatList.w, var2);
-            }
-
-            this.b(0.3F);
-        }
-
-    }
-
-    public void e(OEntity var1) {
-    }
-
-    public void a(OItemStack var1) {
-    }
-
-    public void N() {
-        super.N();
-        this.k.a(this);
-        if (this.l != null) {
-            this.l.a(this);
-        }
-
-    }
-
-    public boolean O() {
-        return !this.D && super.O();
-    }
-
-    public OEnumStatus a(int var1, int var2, int var3) {
-        if (!this.bb.I) {
-            if (this.P() || !this.ac()) {
-                return OEnumStatus.e;
-            }
-
-            if (this.bb.y.c) {
-                return OEnumStatus.b;
-            }
-
-            if (this.bb.d()) {
-                return OEnumStatus.c;
-            }
-
-            if (Math.abs(this.bf - (double) var1) > 3.0D || Math.abs(this.bg - (double) var2) > 2.0D || Math.abs(this.bh - (double) var3) > 3.0D) {
-                return OEnumStatus.d;
-            }
-        }
-
-        this.b(0.2F, 0.2F);
-        this.by = 0.2F;
-        if (this.bb.g(var1, var2, var3)) {
-            int var4 = this.bb.c(var1, var2, var3);
-            int var5 = OBlockBed.c(var4);
-            float var6 = 0.5F;
-            float var7 = 0.5F;
-            switch (var5) {
-            case 0:
-                var7 = 0.9F;
-                break;
-            case 1:
-                var6 = 0.1F;
-                break;
-            case 2:
-                var7 = 0.1F;
-                break;
-            case 3:
-                var6 = 0.9F;
-            }
-
-            this.b(var5);
-            this.c((double) ((float) var1 + var6), (double) ((float) var2 + 0.9375F), (double) ((float) var3 + var7));
-        } else {
-            this.c((double) ((float) var1 + 0.5F), (double) ((float) var2 + 0.9375F), (double) ((float) var3 + 0.5F));
-        }
-
-        this.D = true;
-        this.a = 0;
-        this.E = new OChunkCoordinates(var1, var2, var3);
-        this.bi = this.bk = this.bj = 0.0D;
-        if (!this.bb.I) {
-            this.bb.q();
-        }
-
-        return OEnumStatus.a;
-    }
-
-    private void b(int var1) {
-        this.F = 0.0F;
-        this.G = 0.0F;
-        switch (var1) {
-        case 0:
-            this.G = -1.8F;
-            break;
-        case 1:
-            this.F = 1.8F;
-            break;
-        case 2:
-            this.G = 1.8F;
-            break;
-        case 3:
-            this.F = -1.8F;
-        }
-
-    }
-
-    public void a(boolean var1, boolean var2, boolean var3) {
-        this.b(0.6F, 1.8F);
-        this.m_();
-        OChunkCoordinates var4 = this.E;
-        OChunkCoordinates var5 = this.E;
-        if (var4 != null && this.bb.a(var4.a, var4.b, var4.c) == OBlock.T.bA) {
-            OBlockBed.a(this.bb, var4.a, var4.b, var4.c, false);
-            var5 = OBlockBed.f(this.bb, var4.a, var4.b, var4.c, 0);
-            if (var5 == null) {
-                var5 = new OChunkCoordinates(var4.a, var4.b + 1, var4.c);
-            }
-
-            this.c((double) ((float) var5.a + 0.5F), (double) ((float) var5.b + this.by + 0.1F), (double) ((float) var5.c + 0.5F));
-        }
-
-        this.D = false;
-        if (!this.bb.I && var2) {
-            this.bb.q();
-        }
-
-        if (var1) {
-            this.a = 0;
-        } else {
+         }
+      }
+
+      if(this.x > 0) {
+         --this.x;
+      }
+
+      if(this.L()) {
+         ++this.a;
+         if(this.a > 100) {
             this.a = 100;
-        }
+         }
 
-        if (var3) {
-            this.a(this.E);
-        }
+         if(!this.X.I) {
+            if(!this.v()) {
+               this.a(true, true, false);
+            } else if(this.X.e()) {
+               this.a(false, true, true);
+            }
+         }
+      } else if(this.a > 0) {
+         ++this.a;
+         if(this.a >= 110) {
+            this.a = 0;
+         }
+      }
 
-    }
+      super.b();
+      if(!this.X.I && this.m != null && !this.m.a(this)) {
+         this.r();
+         this.m = this.l;
+      }
 
-    private boolean w() {
-        return this.bb.a(this.E.a, this.E.b, this.E.c) == OBlock.T.bA;
-    }
+      if(this.L.b) {
+         for(int var10 = 0; var10 < 8; ++var10) {
+            ;
+         }
+      }
 
-    public static OChunkCoordinates a(OWorld var0, OChunkCoordinates var1) {
-        OIChunkProvider var2 = var0.n();
-        var2.c(var1.a - 3 >> 4, var1.c - 3 >> 4);
-        var2.c(var1.a + 3 >> 4, var1.c - 3 >> 4);
-        var2.c(var1.a - 3 >> 4, var1.c + 3 >> 4);
-        var2.c(var1.a + 3 >> 4, var1.c + 3 >> 4);
-        if (var0.a(var1.a, var1.b, var1.c) != OBlock.T.bA) {
-            return null;
-        } else {
-            OChunkCoordinates var3 = OBlockBed.f(var0, var1.a, var1.b, var1.c, 0);
-            return var3;
-        }
-    }
+      if(this.ai() && this.L.a) {
+         this.Y();
+      }
 
-    public boolean P() {
-        return this.D;
-    }
+      this.y = this.B;
+      this.z = this.C;
+      this.A = this.D;
+      double var2 = this.ab - this.B;
+      double var4 = this.ac - this.C;
+      double var6 = this.ad - this.D;
+      double var8 = 10.0D;
+      if(var2 > var8) {
+         this.y = this.B = this.ab;
+      }
 
-    public boolean Q() {
-        return this.D && this.a >= 100;
-    }
+      if(var6 > var8) {
+         this.A = this.D = this.ad;
+      }
 
-    public void a(String var1) {
-    }
+      if(var4 > var8) {
+         this.z = this.C = this.ac;
+      }
 
-    public OChunkCoordinates R() {
-        return this.b;
-    }
+      if(var2 < -var8) {
+         this.y = this.B = this.ab;
+      }
 
-    public void a(OChunkCoordinates var1) {
-        if (var1 != null) {
-            this.b = new OChunkCoordinates(var1);
-        } else {
-            this.b = null;
-        }
+      if(var6 < -var8) {
+         this.A = this.D = this.ad;
+      }
 
-    }
+      if(var4 < -var8) {
+         this.z = this.C = this.ac;
+      }
 
-    public void a(OStatBase var1) {
-        this.a(var1, 1);
-    }
+      this.B += var2 * 0.25D;
+      this.D += var6 * 0.25D;
+      this.C += var4 * 0.25D;
+      this.a(OStatList.k, 1);
+      if(this.W == null) {
+         this.c = null;
+      }
 
-    public void a(OStatBase var1, int var2) {
-    }
+      if(!this.X.I) {
+         this.n.a(this);
+      }
 
-    protected void S() {
-        super.S();
-        this.a(OStatList.u, 1);
-        if (this.at()) {
-            this.b(0.8F);
-        } else {
-            this.b(0.2F);
-        }
+   }
 
-    }
+   protected void b(OItemStack var1, int var2) {
+      if(var1.m() == OEnumAction.c) {
+         this.X.a(this, "random.drink", 0.5F, this.X.w.nextFloat() * 0.1F + 0.9F);
+      }
 
-    public void a(float var1, float var2) {
-        double var3 = this.bf;
-        double var5 = this.bg;
-        double var7 = this.bh;
-        if (this.K.b) {
-            double var9 = this.bj;
-            float var11 = this.ak;
-            this.ak = 0.05F;
-            super.a(var1, var2);
-            this.bj = var9 * 0.6D;
-            this.ak = var11;
-        } else {
-            super.a(var1, var2);
-        }
+      if(var1.m() == OEnumAction.b) {
+         for(int var3 = 0; var3 < var2; ++var3) {
+            OVec3D var4 = OVec3D.b(((double)this.aH.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+            var4.a(-this.ai * 3.1415927F / 180.0F);
+            var4.b(-this.ah * 3.1415927F / 180.0F);
+            OVec3D var5 = OVec3D.b(((double)this.aH.nextFloat() - 0.5D) * 0.3D, (double)(-this.aH.nextFloat()) * 0.6D - 0.3D, 0.6D);
+            var5.a(-this.ai * 3.1415927F / 180.0F);
+            var5.b(-this.ah * 3.1415927F / 180.0F);
+            var5 = var5.c(this.ab, this.ac + (double)this.n(), this.ad);
+            this.X.a("iconcrack_" + var1.a().bM, var5.a, var5.b, var5.c, var4.a, var4.b + 0.05D, var4.c);
+         }
 
-        this.a(this.bf - var3, this.bg - var5, this.bh - var7);
-    }
+         this.X.a(this, "random.eat", 0.5F + 0.5F * (float)this.aH.nextInt(2), (this.aH.nextFloat() - this.aH.nextFloat()) * 0.2F + 1.0F);
+      }
 
-    public void a(double var1, double var3, double var5) {
-        if (this.ba == null) {
-            int var7;
-            if (this.a(OMaterial.g)) {
-                var7 = Math.round(OMathHelper.a(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
-                if (var7 > 0) {
-                    this.a(OStatList.q, var7);
-                    this.b(0.015F * (float) var7 * 0.01F);
-                }
-            } else if (this.ao()) {
-                var7 = Math.round(OMathHelper.a(var1 * var1 + var5 * var5) * 100.0F);
-                if (var7 > 0) {
-                    this.a(OStatList.m, var7);
-                    this.b(0.015F * (float) var7 * 0.01F);
-                }
-            } else if (this.p()) {
-                if (var3 > 0.0D) {
-                    this.a(OStatList.o, (int) Math.round(var3 * 100.0D));
-                }
-            } else if (this.bq) {
-                var7 = Math.round(OMathHelper.a(var1 * var1 + var5 * var5) * 100.0F);
-                if (var7 > 0) {
-                    this.a(OStatList.l, var7);
-                    if (this.at()) {
-                        this.b(0.099999994F * (float) var7 * 0.01F);
-                    } else {
-                        this.b(0.01F * (float) var7 * 0.01F);
-                    }
-                }
+   }
+
+   protected void w() {
+      if(this.d != null) {
+         this.b(this.d, 16);
+         int var1 = this.d.a;
+         OItemStack var2 = this.d.b(this.X, this);
+         if(var2 != this.d || var2 != null && var2.a != var1) {
+            this.k.a[this.k.c] = var2;
+            if(var2.a == 0) {
+               this.k.a[this.k.c] = null;
+            }
+         }
+
+         this.q_();
+      }
+
+   }
+
+   protected boolean B() {
+      return this.ar() <= 0 || this.L();
+   }
+
+   protected void r() {
+      this.m = this.l;
+   }
+
+   public void C() {
+      double var1 = this.ab;
+      double var3 = this.ac;
+      double var5 = this.ad;
+      super.C();
+      this.r = this.s;
+      this.s = 0.0F;
+      this.j(this.ab - var1, this.ac - var3, this.ad - var5);
+   }
+
+   private int u() {
+      return this.a(OPotion.e)?6 - (1 + this.b(OPotion.e).c()) * 1:(this.a(OPotion.f)?6 + (1 + this.b(OPotion.f).c()) * 2:6);
+   }
+
+   protected void D() {
+      int var1 = this.u();
+      if(this.t) {
+         ++this.u;
+         if(this.u >= var1) {
+            this.u = 0;
+            this.t = false;
+         }
+      } else {
+         this.u = 0;
+      }
+
+      this.bp = (float)this.u / (float)var1;
+   }
+
+   public void f() {
+       // CanaryMod: adjust 'healing over time' independent of monster-spawn=true/false (nice notchup!)
+       PluginLoader.HookResult autoHeal = etc.getInstance().autoHeal();
+       if (this.X.q == 0 && autoHeal == PluginLoader.HookResult.DEFAULT_ACTION || autoHeal == PluginLoader.HookResult.ALLOW_ACTION) {
+           if (this.bE < 20 && this.bM % 20 * 12 == 0)
+               this.b(1);
+       }
+
+      if(this.o > 0) {
+         --this.o;
+      }
+
+      if(this.X.v == 0 && this.ar() < this.e() && this.aI % 20 * 12 == 0) {
+         this.c(1);
+      }
+
+      this.k.c();
+      this.r = this.s;
+      super.f();
+      this.bm = this.P;
+      this.bn = this.Q;
+      if(this.ak()) {
+         this.bm = (float)((double)this.bm + (double)this.P * 0.3D);
+         this.bn = (float)((double)this.bn + (double)this.Q * 0.3D);
+      }
+
+      float var1 = OMathHelper.a(this.ae * this.ae + this.ag * this.ag);
+      float var2 = (float)Math.atan(-this.af * 0.20000000298023224D) * 15.0F;
+      if(var1 > 0.1F) {
+         var1 = 0.1F;
+      }
+
+      if(!this.am || this.ar() <= 0) {
+         var1 = 0.0F;
+      }
+
+      if(this.am || this.ar() <= 0) {
+         var2 = 0.0F;
+      }
+
+      this.s += (var1 - this.s) * 0.4F;
+      this.bz += (var2 - this.bz) * 0.8F;
+      if(this.ar() > 0) {
+         List var3 = this.X.b((OEntity)this, this.al.b(1.0D, 0.0D, 1.0D));
+         if(var3 != null) {
+            for(int var4 = 0; var4 < var3.size(); ++var4) {
+               OEntity var5 = (OEntity)var3.get(var4);
+               if(!var5.at) {
+                  this.f(var5);
+               }
+            }
+         }
+      }
+
+   }
+
+   private void f(OEntity var1) {
+      var1.a(this);
+   }
+
+   public void a(ODamageSource var1) {
+      super.a(var1);
+      this.b(0.2F, 0.2F);
+      this.e(this.ab, this.ac, this.ad);
+      this.af = 0.10000000149011612D;
+      if(this.v.equals("Notch")) {
+         this.a(new OItemStack(OItem.i, 1), true);
+      }
+
+      this.k.h();
+      if(var1 != null) {
+         this.ae = (double)(-OMathHelper.b((this.bv + this.ah) * 3.1415927F / 180.0F) * 0.1F);
+         this.ag = (double)(-OMathHelper.a((this.bv + this.ah) * 3.1415927F / 180.0F) * 0.1F);
+      } else {
+         this.ae = this.ag = 0.0D;
+      }
+
+      this.au = 0.1F;
+      this.a(OStatList.y, 1);
+   }
+
+   public void b(OEntity var1, int var2) {
+      this.q += var2;
+      if(var1 instanceof OEntityPlayer) {
+         this.a(OStatList.A, 1);
+      } else {
+         this.a(OStatList.z, 1);
+      }
+
+   }
+
+   protected int e(int var1) {
+      int var2 = OEnchantmentHelper.a(this.k);
+      return var2 > 0 && this.aH.nextInt(var2 + 1) > 0?var1:super.e(var1);
+   }
+
+   public void E() {
+      this.a(this.k.a(this.k.c, 1), false);
+   }
+
+   public void b(OItemStack var1) {
+      this.a(var1, false);
+   }
+
+   public void a(OItemStack var1, boolean var2) {
+      if(var1 != null) {
+         OEntityItem var3 = new OEntityItem(this.X, this.ab, this.ac - 0.30000001192092896D + (double)this.n(), this.ad, var1);
+         var3.c = 40;
+         float var4 = 0.1F;
+         float var5;
+         if(var2) {
+            var5 = this.aH.nextFloat() * 0.5F;
+            float var6 = this.aH.nextFloat() * 3.1415927F * 2.0F;
+            var3.ae = (double)(-OMathHelper.a(var6) * var5);
+            var3.ag = (double)(OMathHelper.b(var6) * var5);
+            var3.af = 0.20000000298023224D;
+         } else {
+            var4 = 0.3F;
+            var3.ae = (double)(-OMathHelper.a(this.ah / 180.0F * 3.1415927F) * OMathHelper.b(this.ai / 180.0F * 3.1415927F) * var4);
+            var3.ag = (double)(OMathHelper.b(this.ah / 180.0F * 3.1415927F) * OMathHelper.b(this.ai / 180.0F * 3.1415927F) * var4);
+            var3.af = (double)(-OMathHelper.a(this.ai / 180.0F * 3.1415927F) * var4 + 0.1F);
+            var4 = 0.02F;
+            var5 = this.aH.nextFloat() * 3.1415927F * 2.0F;
+            var4 *= this.aH.nextFloat();
+            var3.ae += Math.cos((double)var5) * (double)var4;
+            var3.af += (double)((this.aH.nextFloat() - this.aH.nextFloat()) * 0.1F);
+            var3.ag += Math.sin((double)var5) * (double)var4;
+         }
+         if (!(Boolean) manager.callHook(PluginLoader.Hook.ITEM_DROP, ((OEntityPlayerMP) this).getPlayer(), var3.item)) {
+             Item droppedItem = var3.item.getItem();
+             if (droppedItem.getAmount() < 0) {
+                 droppedItem.setAmount(1);
+                 droppedItem.update();
+             }
+             this.a(var3);
+             this.a(OStatList.v, 1);
+             // return the item to the inventory.
+         } else
+             k.a(var1);
+      }
+   }
+
+   protected void a(OEntityItem var1) {
+      this.X.b((OEntity)var1);
+   }
+
+   public float a(OBlock var1) {
+      float var2 = this.k.a(var1);
+      float var3 = var2;
+      int var4 = OEnchantmentHelper.b(this.k);
+      if(var4 > 0 && this.k.b(var1)) {
+         var3 = var2 + (float)(var4 * var4 + 1);
+      }
+
+      if(this.a(OPotion.e)) {
+         var3 *= 1.0F + (float)(this.b(OPotion.e).c() + 1) * 0.2F;
+      }
+
+      if(this.a(OPotion.f)) {
+         var3 *= 1.0F - (float)(this.b(OPotion.f).c() + 1) * 0.2F;
+      }
+
+      if(this.a(OMaterial.g) && !OEnchantmentHelper.g(this.k)) {
+         var3 /= 5.0F;
+      }
+
+      if(!this.am) {
+         var3 /= 5.0F;
+      }
+
+      return var3;
+   }
+
+   public boolean b(OBlock var1) {
+      return this.k.b(var1);
+   }
+
+   public void b(ONBTTagCompound var1) {
+      super.b(var1);
+      ONBTTagList var2 = var1.m("Inventory");
+      this.k.b(var2);
+      this.w = var1.f("Dimension");
+      this.E = var1.n("Sleeping");
+      this.a = var1.e("SleepTimer");
+      this.O = var1.h("XpP");
+      this.M = var1.f("XpLevel");
+      this.N = var1.f("XpTotal");
+      if(this.E) {
+         this.F = new OChunkCoordinates(OMathHelper.b(this.ab), OMathHelper.b(this.ac), OMathHelper.b(this.ad));
+         this.a(true, true, false);
+      }
+
+      if(var1.c("SpawnX") && var1.c("SpawnY") && var1.c("SpawnZ")) {
+         this.b = new OChunkCoordinates(var1.f("SpawnX"), var1.f("SpawnY"), var1.f("SpawnZ"));
+      }
+
+      this.n.a(var1);
+      this.L.b(var1);
+   }
+
+   public void a(ONBTTagCompound var1) {
+      super.a(var1);
+      var1.a("Inventory", (ONBTBase)this.k.a(new ONBTTagList()));
+      var1.a("Dimension", this.w);
+      var1.a("Sleeping", this.E);
+      var1.a("SleepTimer", (short)this.a);
+      var1.a("XpP", this.O);
+      var1.a("XpLevel", this.M);
+      var1.a("XpTotal", this.N);
+      if(this.b != null) {
+         var1.a("SpawnX", this.b.a);
+         var1.a("SpawnY", this.b.b);
+         var1.a("SpawnZ", this.b.c);
+      }
+
+      this.n.b(var1);
+      this.L.a(var1);
+   }
+
+   public void a(OIInventory var1) {}
+
+   public void c(int var1, int var2, int var3) {}
+
+   public void b(int var1, int var2, int var3) {}
+
+   public void a(OEntity var1, int var2) {}
+
+   public float n() {
+      return 0.12F;
+   }
+
+   protected void n_() {
+      this.au = 1.62F;
+   }
+
+   public boolean a(ODamageSource var1, int var2) {
+      if(this.L.a && !var1.f()) {
+         return false;
+      } else {
+         this.bU = 0;
+         if(this.ar() <= 0) {
+            return false;
+         } else {
+            if(this.L() && !this.X.I) {
+               this.a(true, true, false);
+            }
+
+            OEntity var3 = var1.a();
+            if(var3 instanceof OEntityMob || var3 instanceof OEntityArrow) {
+               if(this.X.v == 0) {
+                  var2 = 0;
+               }
+
+               if(this.X.v == 1) {
+                  var2 = var2 / 2 + 1;
+               }
+
+               if(this.X.v == 3) {
+                  var2 = var2 * 3 / 2;
+               }
+            }
+
+            if(var2 == 0) {
+               return false;
             } else {
-                var7 = Math.round(OMathHelper.a(var1 * var1 + var5 * var5) * 100.0F);
-                if (var7 > 25) {
-                    this.a(OStatList.p, var7);
-                }
+               OEntity var4 = var3;
+               if(var3 instanceof OEntityArrow && ((OEntityArrow)var3).c != null) {
+                  var4 = ((OEntityArrow)var3).c;
+               }
+
+               if(var4 instanceof OEntityLiving) {
+                  this.a((OEntityLiving)var4, false);
+               }
+
+               this.a(OStatList.x, var2);
+               return super.a(var1, var2);
+            }
+         }
+      }
+   }
+
+   protected int b(ODamageSource var1, int var2) {
+      int var3 = super.b(var1, var2);
+      if(var3 <= 0) {
+         return 0;
+      } else {
+         int var4 = OEnchantmentHelper.a(this.k, var1);
+         if(var4 > 20) {
+            var4 = 20;
+         }
+
+         if(var4 > 0 && var4 <= 20) {
+            int var5 = 25 - var4;
+            int var6 = var3 * var5 + this.bs;
+            var3 = var6 / 25;
+            this.bs = var6 % 25;
+         }
+
+         return var3;
+      }
+   }
+
+   protected boolean o() {
+      return false;
+   }
+
+   protected void a(OEntityLiving var1, boolean var2) {
+      if(!(var1 instanceof OEntityCreeper) && !(var1 instanceof OEntityGhast)) {
+         if(var1 instanceof OEntityWolf) {
+            OEntityWolf var3 = (OEntityWolf)var1;
+            if(var3.Q() && this.v.equals(var3.H())) {
+               return;
+            }
+         }
+
+         if(!(var1 instanceof OEntityPlayer) || this.o()) {
+            List var7 = this.X.a(OEntityWolf.class, OAxisAlignedBB.b(this.ab, this.ac, this.ad, this.ab + 1.0D, this.ac + 1.0D, this.ad + 1.0D).b(16.0D, 4.0D, 16.0D));
+            Iterator var4 = var7.iterator();
+
+            while(var4.hasNext()) {
+               OEntity var5 = (OEntity)var4.next();
+               OEntityWolf var6 = (OEntityWolf)var5;
+               if(var6.Q() && var6.x() == null && this.v.equals(var6.H()) && (!var2 || !var6.M())) {
+                  var6.b(false);
+                  var6.e(var1);
+               }
             }
 
-        }
-    }
+         }
+      }
+   }
 
-    private void h(double var1, double var3, double var5) {
-        if (this.ba != null) {
-            int var7 = Math.round(OMathHelper.a(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
-            if (var7 > 0) {
-                if (this.ba instanceof OEntityMinecart) {
-                    this.a(OStatList.r, var7);
-                    if (this.c == null) {
-                        this.c = new OChunkCoordinates(OMathHelper.b(this.bf), OMathHelper.b(this.bg), OMathHelper.b(this.bh));
-                    } else if (this.c.a(OMathHelper.b(this.bf), OMathHelper.b(this.bg), OMathHelper.b(this.bh)) >= 1000.0D) {
-                        this.a((OStatBase) OAchievementList.q, 1);
-                    }
-                } else if (this.ba instanceof OEntityBoat) {
-                    this.a(OStatList.s, var7);
-                } else if (this.ba instanceof OEntityPig) {
-                    this.a(OStatList.t, var7);
-                }
+   protected void f(int var1) {
+      this.k.d(var1);
+   }
+
+   protected int F() {
+      return this.k.g();
+   }
+
+   protected void c(ODamageSource var1, int var2) {
+      if(!var1.d() && this.A()) {
+         var2 = 1 + var2 >> 1;
+      }
+
+      var2 = this.e(var1, var2);
+      var2 = this.b(var1, var2);
+      this.c(var1.e());
+      super.c(var1, var2);
+   }
+
+   public void a(OTileEntityFurnace var1) {}
+
+   public void a(OTileEntityDispenser var1) {}
+
+   public void a(OTileEntitySign var1) {}
+
+   public void a(OTileEntityBrewingStand var1) {}
+
+   public void d(OEntity var1) {
+       // CanaryMod hook: ENTITY_RIGHCLICKED
+       OItemStack itemInHand = this.G();
+       PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.ENTITY_RIGHTCLICKED, ((OEntityPlayerMP) this).getPlayer(), var1.entity, (itemInHand == null) ? null : new Item(itemInHand));
+       if (res != PluginLoader.HookResult.PREVENT_ACTION) {
+           // Normally when interact action is not defined on the interacted entity, false is returned, and the item stack is not used.
+           // For example sheep can interact by shearing and cows by milking, and the item stack changes from this interaction if it returns true.
+           // Players on the other hand won't interact normally, but if we want to update the item stack anyways, we will ALLOW the action.
+           if (!var1.b(this) || res == PluginLoader.HookResult.ALLOW_ACTION) {
+               OItemStack var2 = itemInHand;
+               if (var2 != null && var1 instanceof OEntityLiving) {
+                   var2.a((OEntityLiving) var1);
+                   if (var2.a <= 0) {
+                       var2.a(this);
+                       this.H();
+                   }
+               }
+           }
+       }
+   }
+
+   public OItemStack G() {
+      return this.k.a();
+   }
+
+   public void H() {
+      this.k.a(this.k.c, (OItemStack)null);
+   }
+
+   public double I() {
+      return (double)(this.au - 0.5F);
+   }
+
+   public void o_() {
+      if(!this.t || this.u >= this.u() / 2 || this.u < 0) {
+         this.u = -1;
+         this.t = true;
+      }
+
+   }
+
+   public void e(OEntity var1) {
+      int var2 = this.k.a(var1);
+      if(this.a(OPotion.g)) {
+         var2 += 3 << this.b(OPotion.g).c();
+      }
+
+      if(this.a(OPotion.t)) {
+         var2 -= 2 << this.b(OPotion.t).c();
+      }
+
+      int var3 = 0;
+      int var4 = 0;
+      if(var1 instanceof OEntityLiving) {
+         var4 = OEnchantmentHelper.a(this.k, (OEntityLiving)var1);
+         var3 += OEnchantmentHelper.b(this.k, (OEntityLiving)var1);
+      }
+
+      if(this.ak()) {
+         ++var3;
+      }
+
+      if(var2 > 0 || var4 > 0) {
+         boolean var5 = this.az > 0.0F && !this.am && !this.t_() && !this.l_() && !this.a(OPotion.q) && this.W == null && var1 instanceof OEntityLiving;
+         if(var5) {
+            var2 += this.aH.nextInt(var2 / 2 + 2);
+         }
+
+         var2 += var4;
+         boolean var6 = var1.a(ODamageSource.b(this), var2);
+         if(var6) {
+            if(var3 > 0) {
+               var1.b((double)(-OMathHelper.a(this.ah * 3.1415927F / 180.0F) * (float)var3 * 0.5F), 0.1D, (double)(OMathHelper.b(this.ah * 3.1415927F / 180.0F) * (float)var3 * 0.5F));
+               this.ae *= 0.6D;
+               this.ag *= 0.6D;
+               this.d(false);
             }
-        }
 
-    }
-
-    protected void a(float var1) {
-        if (!this.K.c) {
-            if (var1 >= 2.0F) {
-                this.a(OStatList.n, (int) Math.round((double) var1 * 100.0D));
+            if(var5) {
+               this.b(var1);
             }
 
-            super.a(var1);
-        }
-    }
+            if(var4 > 0) {
+               this.a_(var1);
+            }
 
-    public void a(OEntityLiving var1) {
-        if (var1 instanceof OEntityMob) {
-            this.a((OStatBase) OAchievementList.s);
-        }
+            if(var2 >= 18) {
+               this.a((OStatBase)OAchievementList.E);
+            }
+         }
 
-    }
+         OItemStack var7 = this.G();
+         if(var7 != null && var1 instanceof OEntityLiving) {
+            var7.a((OEntityLiving)var1, this);
+            if(var7.a <= 0) {
+               var7.a(this);
+               this.H();
+            }
+         }
 
-    public void T() {
-        if (this.H > 0) {
-            this.H = 10;
-        } else {
-            this.I = true;
-        }
-    }
+         if(var1 instanceof OEntityLiving) {
+            if(var1.af()) {
+               this.a((OEntityLiving)var1, true);
+            }
 
-    public void d(int var1) {
+            this.a(OStatList.w, var2);
+            int var8 = OEnchantmentHelper.c(this.k, (OEntityLiving)var1);
+            if(var8 > 0) {
+               var1.h(var8 * 4);
+            }
+         }
+
+         this.c(0.3F);
+      }
+
+   }
+
+   public void b(OEntity var1) {}
+
+   public void a_(OEntity var1) {}
+
+   public void a(OItemStack var1) {}
+
+   public void J() {
+      super.J();
+      this.l.b(this);
+      if(this.m != null) {
+         this.m.b(this);
+      }
+
+   }
+
+   public boolean K() {
+      return !this.E && super.K();
+   }
+
+   public OEnumStatus a(int var1, int var2, int var3) {
+      if(!this.X.I) {
+         if(this.L() || !this.af()) {
+            return OEnumStatus.e;
+         }
+
+         if(this.X.y.c) {
+            return OEnumStatus.b;
+         }
+
+         if(this.X.e()) {
+            return OEnumStatus.c;
+         }
+
+         if(Math.abs(this.ab - (double)var1) > 3.0D || Math.abs(this.ac - (double)var2) > 2.0D || Math.abs(this.ad - (double)var3) > 3.0D) {
+            return OEnumStatus.d;
+         }
+
+         double var4 = 8.0D;
+         double var6 = 5.0D;
+         List var8 = this.X.a(OEntityMob.class, OAxisAlignedBB.b((double)var1 - var4, (double)var2 - var6, (double)var3 - var4, (double)var1 + var4, (double)var2 + var6, (double)var3 + var4));
+         if(!var8.isEmpty()) {
+            return OEnumStatus.f;
+         }
+      }
+
+      this.b(0.2F, 0.2F);
+      this.au = 0.2F;
+      if(this.X.c(var1, var2, var3)) {
+         int var9 = this.X.e(var1, var2, var3);
+         int var10 = OBlockBed.c(var9);
+         float var11 = 0.5F;
+         float var12 = 0.5F;
+         switch(var10) {
+         case 0:
+            var12 = 0.9F;
+            break;
+         case 1:
+            var11 = 0.1F;
+            break;
+         case 2:
+            var12 = 0.1F;
+            break;
+         case 3:
+            var11 = 0.9F;
+         }
+
+         this.b(var10);
+         this.e((double)((float)var1 + var11), (double)((float)var2 + 0.9375F), (double)((float)var3 + var12));
+      } else {
+         this.e((double)((float)var1 + 0.5F), (double)((float)var2 + 0.9375F), (double)((float)var3 + 0.5F));
+      }
+
+      this.E = true;
+      this.a = 0;
+      this.F = new OChunkCoordinates(var1, var2, var3);
+      this.ae = this.ag = this.af = 0.0D;
+      if(!this.X.I) {
+         this.X.s();
+      }
+
+      return OEnumStatus.a;
+   }
+
+   private void b(int var1) {
+      this.G = 0.0F;
+      this.H = 0.0F;
+      switch(var1) {
+      case 0:
+         this.H = -1.8F;
+         break;
+      case 1:
+         this.G = 1.8F;
+         break;
+      case 2:
+         this.H = 1.8F;
+         break;
+      case 3:
+         this.G = -1.8F;
+      }
+
+   }
+
+   public void a(boolean var1, boolean var2, boolean var3) {
+      this.b(0.6F, 1.8F);
+      this.n_();
+      OChunkCoordinates var4 = this.F;
+      OChunkCoordinates var5 = this.F;
+      if(var4 != null && this.X.a(var4.a, var4.b, var4.c) == OBlock.S.bM) {
+         OBlockBed.a(this.X, var4.a, var4.b, var4.c, false);
+         var5 = OBlockBed.f(this.X, var4.a, var4.b, var4.c, 0);
+         if(var5 == null) {
+            var5 = new OChunkCoordinates(var4.a, var4.b + 1, var4.c);
+         }
+
+         this.e((double)((float)var5.a + 0.5F), (double)((float)var5.b + this.au + 0.1F), (double)((float)var5.c + 0.5F));
+      }
+
+      this.E = false;
+      if(!this.X.I && var2) {
+         this.X.s();
+      }
+
+      if(var1) {
+         this.a = 0;
+      } else {
+         this.a = 100;
+      }
+
+      if(var3) {
+         this.a(this.F);
+      }
+
+   }
+
+   private boolean v() {
+      return this.X.a(this.F.a, this.F.b, this.F.c) == OBlock.S.bM;
+   }
+
+   public static OChunkCoordinates a(OWorld var0, OChunkCoordinates var1) {
+      OIChunkProvider var2 = var0.p();
+      var2.a(var1.a - 3 >> 4, var1.c - 3 >> 4);
+      var2.a(var1.a + 3 >> 4, var1.c - 3 >> 4);
+      var2.a(var1.a - 3 >> 4, var1.c + 3 >> 4);
+      var2.a(var1.a + 3 >> 4, var1.c + 3 >> 4);
+      if(var0.a(var1.a, var1.b, var1.c) != OBlock.S.bM) {
+         return null;
+      } else {
+         OChunkCoordinates var3 = OBlockBed.f(var0, var1.a, var1.b, var1.c, 0);
+         return var3;
+      }
+   }
+
+   public boolean L() {
+      return this.E;
+   }
+
+   public boolean M() {
+      return this.E && this.a >= 100;
+   }
+
+   public void a(String var1) {}
+
+   public OChunkCoordinates N() {
+      return this.b;
+   }
+
+   public void a(OChunkCoordinates var1) {
+      if(var1 != null) {
+         this.b = new OChunkCoordinates(var1);
+      } else {
+         this.b = null;
+      }
+
+   }
+
+   public void a(OStatBase var1) {
+      this.a(var1, 1);
+   }
+
+   public void a(OStatBase var1, int var2) {}
+
+   protected void O() {
+      super.O();
+      this.a(OStatList.u, 1);
+      if(this.ak()) {
+         this.c(0.8F);
+      } else {
+         this.c(0.2F);
+      }
+
+   }
+
+   public void a(float var1, float var2) {
+      double var3 = this.ab;
+      double var5 = this.ac;
+      double var7 = this.ad;
+      if(this.L.b) {
+         double var9 = this.af;
+         float var11 = this.bn;
+         this.bn = 0.05F;
+         super.a(var1, var2);
+         this.af = var9 * 0.6D;
+         this.bn = var11;
+      } else {
+         super.a(var1, var2);
+      }
+
+      this.d(this.ab - var3, this.ac - var5, this.ad - var7);
+   }
+
+   public void d(double var1, double var3, double var5) {
+      if(this.W == null) {
+         int var7;
+         if(this.a(OMaterial.g)) {
+            var7 = Math.round(OMathHelper.a(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
+            if(var7 > 0) {
+               this.a(OStatList.q, var7);
+               this.c(0.015F * (float)var7 * 0.01F);
+            }
+         } else if(this.l_()) {
+            var7 = Math.round(OMathHelper.a(var1 * var1 + var5 * var5) * 100.0F);
+            if(var7 > 0) {
+               this.a(OStatList.m, var7);
+               this.c(0.015F * (float)var7 * 0.01F);
+            }
+         } else if(this.t_()) {
+            if(var3 > 0.0D) {
+               this.a(OStatList.o, (int)Math.round(var3 * 100.0D));
+            }
+         } else if(this.am) {
+            var7 = Math.round(OMathHelper.a(var1 * var1 + var5 * var5) * 100.0F);
+            if(var7 > 0) {
+               this.a(OStatList.l, var7);
+               if(this.ak()) {
+                  this.c(0.099999994F * (float)var7 * 0.01F);
+               } else {
+                  this.c(0.01F * (float)var7 * 0.01F);
+               }
+            }
+         } else {
+            var7 = Math.round(OMathHelper.a(var1 * var1 + var5 * var5) * 100.0F);
+            if(var7 > 25) {
+               this.a(OStatList.p, var7);
+            }
+         }
+
+      }
+   }
+
+   private void j(double var1, double var3, double var5) {
+      if(this.W != null) {
+         int var7 = Math.round(OMathHelper.a(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
+         if(var7 > 0) {
+            if(this.W instanceof OEntityMinecart) {
+               this.a(OStatList.r, var7);
+               if(this.c == null) {
+                  this.c = new OChunkCoordinates(OMathHelper.b(this.ab), OMathHelper.b(this.ac), OMathHelper.b(this.ad));
+               } else if(this.c.a(OMathHelper.b(this.ab), OMathHelper.b(this.ac), OMathHelper.b(this.ad)) >= 1000.0D) {
+                  this.a((OStatBase)OAchievementList.q, 1);
+               }
+            } else if(this.W instanceof OEntityBoat) {
+               this.a(OStatList.s, var7);
+            } else if(this.W instanceof OEntityPig) {
+               this.a(OStatList.t, var7);
+            }
+         }
+      }
+
+   }
+
+   protected void b(float var1) {
+      if(!this.L.c) {
+         if(var1 >= 2.0F) {
+            this.a(OStatList.n, (int)Math.round((double)var1 * 100.0D));
+         }
+
+         super.b(var1);
+      }
+   }
+
+   public void a(OEntityLiving var1) {
+      if(var1 instanceof OEntityMob) {
+         this.a((OStatBase)OAchievementList.s);
+      }
+
+   }
+
+   public void P() {
+      if(this.I > 0) {
+         this.I = 10;
+      } else {
+         this.J = true;
+      }
+   }
+
+	public void g(int var1) {
     	addXP(var1);
     }
     
     public void addXP(int var1) {
-        this.L += var1;
-        this.N += var1;
+        this.q += var1;
+        this.O += (float)var1 / (float)this.Q();
+		this.N += var1;
        	levelUp();
     }
 
     public void removeXP(int var1) {
-        this.L -= var1;
-        this.N -= var1;
+        this.q -= var1;
+        this.O -= (float)var1 / (float)this.Q();
+		this.N -= var1;
        	levelUp();
     }
 
     public void setXP(int var1) {
-        this.L = var1;
-        this.N = var1;
+        this.q = var1;
+        this.O = (float)var1 / (float)this.Q();
+		this.N = var1;
        	levelUp();
     }
     
     public void levelUp() {
-   		while (this.L >= this.U()) {
-   			this.L -= this.U();
-   			this.y();
+   		while (this.O >= 1.0F) {
+   			--this.O;
+   			this.an();
    			manager.callHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
    		}
     }
-
-    public int U() {
-        return (this.M + 1) * 10;
+	
+	public void c_(int var1) {
+		this.M -= var1;
+		if(this.M < 0) {
+			this.M = 0;
+		}
+	}
+	
+	public int Q() {
+    	return 7 + (this.M * 7 >> 1);
     }
 
-    private void y() {
+    private void an() {
         ++this.M;
     }
 
-    public void b(float var1) {
-        if (!this.K.a) {
-            if (!this.bb.I) {
-                this.m.a(var1);
-            }
+   public void c(float var1) {
+      if(!this.L.a) {
+         if(!this.X.I) {
+            this.n.a(var1);
+         }
 
-        }
-    }
+      }
+   }
 
-    public OFoodStats V() {
-        return this.m;
-    }
+   public OFoodStats R() {
+      return this.n;
+   }
 
-    public boolean c(boolean var1) {
-        return (var1 || this.m.b()) && !this.K.a;
-    }
+   public boolean b(boolean var1) {
+      return (var1 || this.n.b()) && !this.L.a;
+   }
 
-    public boolean W() {
-        return this.an > 0 && this.an < 20;
-    }
+   public boolean r_() {
+      return this.ar() > 0 && this.ar() < this.e();
+   }
 
-    public void a(OItemStack var1, int var2) {
-        if (var1 != this.d) {
-            this.d = var1;
-            this.e = var2;
-            if (!this.bb.I) {
-                this.h(true);
-            }
+   public void a(OItemStack var1, int var2) {
+      if(var1 != this.d) {
+         this.d = var1;
+         this.e = var2;
+         if(!this.X.I) {
+            this.e(true);
+         }
 
-        }
-    }
+      }
+   }
 
-    public boolean c(int var1, int var2, int var3) {
-        return true;
-    }
+   public boolean d(int var1, int var2, int var3) {
+      return true;
+   }
 
-    protected int a(OEntityPlayer var1) {
-        return this.N >> 1;
-    }
+   protected int c(OEntityPlayer var1) {
+      int var2 = this.M * 7;
+      return var2 > 100?100:var2;
+   }
 
-    protected boolean X() {
-        return true;
-    }
+   protected boolean T() {
+      return true;
+   }
 
-    public String Y() {
-        return this.u;
-    }
+   public String U() {
+      return this.v;
+   }
+
+   public void d(int var1) {}
+
+   public void d(OEntityPlayer var1) {
+      this.k.a(var1.k);
+      this.bq = var1.bq;
+      this.n = var1.n;
+      this.M = var1.M;
+      this.N = var1.N;
+      this.O = var1.O;
+      this.q = var1.q;
+   }
 }
