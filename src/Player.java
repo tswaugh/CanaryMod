@@ -77,7 +77,6 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      * @param message
      */
-    @Override
     public void notify(String message) {
         if (message.length() > 0)
             sendMessage(Colors.Rose + message);
@@ -157,7 +156,7 @@ public class Player extends HumanEntity implements MessageReceiver {
                     sendMessage(Colors.Rose + "Unknown command.");
                 return;
             }
-            if ((command.startsWith("/#")) && (etc.getMCServer().f.h(getName()))) {
+            if ((command.startsWith("/#")) && (etc.getMCServer().h.h(getName()))) {
                 String str = command.substring(2);
                 log.info(getName() + " issued server command: " + str);
                 etc.getMCServer().a(str, getEntity().a);
@@ -684,8 +683,8 @@ public class Player extends HumanEntity implements MessageReceiver {
         OEntityPlayerMP player = getEntity();
 
         // If player is in vehicle - eject them before they are teleported.
-        if (player.ba != null)
-            player.a(player.ba);
+        if (player.W != null)
+            player.a(player.W);
         player.a.a(x, y, z, rotation, pitch);
     }
 
@@ -736,9 +735,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return Item
      */
     public Item getItemStackInHand() {
-        OItemStack result = getEntity().j.b();
+        OItemStack result = getEntity().k.a();
         if (result != null) {
-            return new Item(result, getEntity().j.c);
+            return new Item(result, getEntity().k.c);
         }
         return null;
     }
@@ -772,7 +771,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         OPacket19EntityAction sneakUpdate = new OPacket19EntityAction();
         sneakUpdate.a = getId();
         sneakUpdate.b = sneaking ? 1 : 2;
-        etc.getMCServer().f.a(sneakUpdate, getWorld().getType().getId());
+        etc.getMCServer().h.a(sneakUpdate, getWorld().getType().getId());
     }
 
     /**
@@ -795,11 +794,11 @@ public class Player extends HumanEntity implements MessageReceiver {
         if (!mcServer.d.a("allow-nether", true))
             return;
         // Dismount first or get buggy
-        if (ent.ba != null)
-            ent.c(ent.ba);
+        if (ent.W != null)
+            ent.c(ent.W);
 
         // Canary: We don't want a portal created
-        mcServer.f.f(ent, false);
+        mcServer.h.a(ent, false);
     }
 
     @Override

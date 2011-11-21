@@ -17,34 +17,34 @@ public class MobSpawner implements ComplexBlock {
         this.spawner = spawner;
     }
 
-    @Override
+    
     public int getX() {
-        return spawner.j;
-    }
-
-    @Override
-    public int getY() {
-        return spawner.k;
-    }
-
-    @Override
-    public int getZ() {
         return spawner.l;
     }
 
-    @Override
+    
+    public int getY() {
+        return spawner.m;
+    }
+
+    
+    public int getZ() {
+        return spawner.n;
+    }
+
+    
     public Block getBlock() {
         return getWorld().getBlockAt(getX(), getY(), getZ());
     }
 
-    @Override
+    
     public World getWorld() {
-        return spawner.i.world;
+        return spawner.k.world;
     }
 
-    @Override
+    
     public void update() {
-        spawner.i();
+        spawner.h();
     }
 
     /**

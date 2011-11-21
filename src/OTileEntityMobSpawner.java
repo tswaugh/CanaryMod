@@ -2,7 +2,7 @@
 public class OTileEntityMobSpawner extends OTileEntity {
 
    public int a = -1;
-   private String d = "Pig";
+   public String d = "Pig";
    public double b;
    public double c = 0.0D;
 

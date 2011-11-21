@@ -400,8 +400,8 @@ public class Item {
      * @return
      */
     public static boolean isValidItem(int itemId) {
-        if (itemId < OItem.c.length)
-            return OItem.c[itemId] != null;
+        if (itemId < OItem.d.length)
+            return OItem.d[itemId] != null;
         return false;
     }
 

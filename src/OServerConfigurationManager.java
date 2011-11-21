@@ -221,6 +221,62 @@ public class OServerConfigurationManager {
       var5.q();
       return var5;
    }
+   
+// Canary: disable the creation of portals when switching worlds
+   public void f(OEntityPlayerMP var1, boolean createPortal) {
+      OWorldServer var2 = this.c.a(var1.w);
+      boolean var3 = false;
+      byte var11;
+      if(var1.s == -1) {
+         var11 = 0;
+      } else {
+         var11 = -1;
+      }
+
+      var1.w = var11;
+      OWorldServer var4 = this.c.a(var1.w);
+      var1.a.b((OPacket)(new OPacket9Respawn((byte)var1.w)));
+      var2.f(var1);
+      var1.at = false;
+      double var5 = var1.aP;
+      double var7 = var1.aR;
+      double var9 = 8.0D;
+      if(var1.s == -1) {
+         var5 /= var9;
+         var7 /= var9;
+         var1.c(var5, var1.aQ, var7, var1.aV, var1.aW);
+         if(var1.T()) {
+            var2.a(var1, false);
+         }
+      } else {
+         var5 *= var9;
+         var7 *= var9;
+         var1.c(var5, var1.aQ, var7, var1.aV, var1.aW);
+         if(var1.T()) {
+            var2.a(var1, false);
+         }
+      }
+
+      if(var1.T()) {
+         var4.b(var1);
+         var1.c(var5, var1.aQ, var7, var1.aV, var1.aW);
+         var4.a(var1, false);
+         var4.C.a = true;
+         if (createPortal) (new OTeleporter()).a(var4, var1);
+         var4.C.a = false;
+      }
+
+      this.a(var1);
+      var1.a.a(var1.aP, var1.aQ, var1.aR, var1.aV, var1.aW);
+      var1.a((OWorld)var4);
+      this.a(var1, var4);
+      this.g(var1);
+   }
+   
+   // Canary: Create a portal on default calls
+   public void f(OEntityPlayerMP var1) {
+       this.f(var1,true);
+   }
 
    public void a(OEntityPlayerMP var1, int var2) {
       int var3 = var1.w;
@@ -617,11 +673,6 @@ public class OServerConfigurationManager {
          var1.a.b((OPacket)(new OPacket70Bed(1, 0)));
       }
 
-   }
-
-   public void f(OEntityPlayerMP var1) {
-      var1.a(var1.l);
-      var1.v();
    }
 
    public int j() {

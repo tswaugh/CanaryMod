@@ -42,17 +42,14 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
         return getWorld().getBlockAt(getX(), getY(), getZ());
     }
 
-    @Override
     public void update() {
         container.k();
     }
 
-    @Override
     public String getName() {
         return container.getName();
     }
 
-    @Override
     public void setName(String value) {
         container.setName(value);
     }

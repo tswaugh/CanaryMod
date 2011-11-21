@@ -49,7 +49,7 @@ public abstract class OEntity {
    protected Random aH;
    public int aI;
    public int aJ;
-   private int c;
+   public int c;
    protected boolean aK;
    public int aL;
    private boolean d;
