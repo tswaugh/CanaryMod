@@ -33,7 +33,7 @@ public class Server {
      *            Message text to send
      */
     public void messageAll(String msg) {
-        server.f.a(new OPacket3Chat(msg));
+        server.h.a(new OPacket3Chat(msg));
     }
 
     /**
@@ -44,7 +44,7 @@ public class Server {
      * 
      */
     public void ban(String player) {
-        server.f.a(player);
+        server.h.a(player);
     }
 
     /**
@@ -55,7 +55,7 @@ public class Server {
      * 
      */
     public void unban(String player) {
-        server.f.b(player);
+        server.h.b(player);
     }
 
     /**
@@ -110,7 +110,7 @@ public class Server {
      */
     @Deprecated
     public long getTime() {
-        return server.a(0).l();
+    	return server.e[0].n();
     }
 
     /**
@@ -175,8 +175,8 @@ public class Server {
         Player lastPlayer = null;
         name = name.toLowerCase();
 
-        for (OEntityPlayerMP player : (List<OEntityPlayerMP>) server.f.b) {
-            String playerName = player.u;
+        for (OEntityPlayerMP player : (List<OEntityPlayerMP>) server.h.b) {
+            String playerName = player.v;
 
             if (playerName.toLowerCase().equals(name)) {
                 // Perfect match found
@@ -202,7 +202,7 @@ public class Server {
      * @return
      */
     public Player getPlayer(String name) {
-        OEntityPlayerMP user = server.f.i(name);
+        OEntityPlayerMP user = server.h.i(name);
         return user == null ? null : user.getPlayer();
     }
 
@@ -213,7 +213,7 @@ public class Server {
      */
     public List<Player> getPlayerList() {
         List<Player> toRet = new ArrayList<Player>();
-        for (OEntityPlayerMP oepmp : (List<OEntityPlayerMP>) server.f.b)
+        for (OEntityPlayerMP oepmp : (List<OEntityPlayerMP>) server.h.b)
             toRet.add(oepmp.getPlayer());
         return toRet;
     }
@@ -224,7 +224,7 @@ public class Server {
      * @return list of player names
      */
     public String getPlayerNames() {
-        return server.f.c();
+        return server.h.c();
     }
 
     /**
@@ -402,7 +402,7 @@ public class Server {
      */
     @Deprecated
     public int getBlockData(int x, int y, int z) {
-        return server.a(0).c(x, y, z);
+        return server.a(0).e(x, y, z);
     }
 
     /**
@@ -422,7 +422,7 @@ public class Server {
     @Deprecated
     public boolean setBlockData(int x, int y, int z, int data) {
         boolean toRet = server.a(0).d(x, y, z, data);
-        etc.getMCServer().f.a(new OPacket53BlockChange(x, y, z, etc.getMCServer().a(0)), 0);
+        etc.getMCServer().h.a(new OPacket53BlockChange(x, y, z, etc.getMCServer().a(0)), 0);
         ComplexBlock block = getComplexBlock(x, y, z);
         if (block != null)
             block.update();
@@ -545,7 +545,7 @@ public class Server {
      */
     @Deprecated
     public ComplexBlock getOnlyComplexBlock(int x, int y, int z) {
-        OTileEntity localav = server.a(0).b(x, y, z);
+        OTileEntity localav = server.a(0).l(x, y, z);
         if (localav != null)
             if (localav instanceof OTileEntityChest)
                 return new Chest((OTileEntityChest) localav);
@@ -688,7 +688,7 @@ public class Server {
      * Saves all player inventories to file
      */
     public void saveInventories() {
-        server.f.d();
+        server.h.g();
     }
 
     /**
@@ -720,7 +720,7 @@ public class Server {
      */
     @Deprecated
     public boolean isChunkLoaded(int x, int y, int z) {
-        return server.a(0).M.a(x >> 4, z >> 4);
+        return server.a(0).J.c(x >> 4, z >> 4);
     }
 
     /**
@@ -765,7 +765,7 @@ public class Server {
      */
     @Deprecated
     public void loadChunk(int x, int z) {
-        server.a(0).M.c(x, z);
+        server.a(0).J.a(x, z);
     }
 
     /**
@@ -795,7 +795,7 @@ public class Server {
      */
     @Deprecated
     public boolean isBlockPowered(int x, int y, int z) {
-        return server.a(0).q(x, y, z);
+        return server.a(0).t(x, y, z);
     }
 
     /**
@@ -826,7 +826,7 @@ public class Server {
      */
     @Deprecated
     public boolean isBlockIndirectlyPowered(int x, int y, int z) {
-        return server.a(0).r(x, y, z);
+        return server.a(0).u(x, y, z);
     }
 
     /**
@@ -966,9 +966,9 @@ public class Server {
     public void addRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
             if (recipe[i] instanceof Block.Type) {
-                recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
+                recipe[i] = OBlock.k[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
-                recipe[i] = OItem.c[((Item.Type) recipe[i]).getId()];
+                recipe[i] = OItem.d[((Item.Type) recipe[i]).getId()];
             }
         }
         OCraftingManager.a().a(item.getBaseItem(), recipe);
@@ -984,9 +984,9 @@ public class Server {
     public void addShapelessRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
             if (recipe[i] instanceof Block.Type) {
-                recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
+                recipe[i] = OBlock.k[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
-                recipe[i] = OItem.c[((Item.Type) recipe[i]).getId()];
+                recipe[i] = OItem.d[((Item.Type) recipe[i]).getId()];
             }
         }
         OCraftingManager.a().b(item.getBaseItem(), recipe);

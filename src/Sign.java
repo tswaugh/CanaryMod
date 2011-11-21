@@ -45,17 +45,17 @@ public class Sign implements ComplexBlock {
 
     @Override
     public int getX() {
-        return sign.j;
+        return sign.l;
     }
 
     @Override
     public int getY() {
-        return sign.k;
+        return sign.m;
     }
 
     @Override
     public int getZ() {
-        return sign.l;
+        return sign.n;
     }
 
     @Override
@@ -65,12 +65,12 @@ public class Sign implements ComplexBlock {
 
     @Override
     public World getWorld() {
-        return sign.i.world;
+        return sign.k.world;
     }
 
     @Override    
     public void update() {
-       sign.i.world.getWorld().h(getX(), getY(), getZ());
+       sign.k.world.getWorld().h(getX(), getY(), getZ());
     }
 
     /**

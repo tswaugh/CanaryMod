@@ -2,7 +2,7 @@ public class PlayerInventory extends ItemArray implements Inventory {
     private final OEntityPlayerMP user;
 
     public PlayerInventory(Player player) {
-        super(player.getUser().j);
+        super(player.getUser().k);
         user = player.getUser();
     }
 
@@ -54,7 +54,7 @@ public class PlayerInventory extends ItemArray implements Inventory {
 
     @Override
     public void update() {
-        user.m_();
+        user.b();
     }
 
     /**

@@ -528,9 +528,9 @@ public class PlayerCommands {
                 ips = true;
 
             if (!ips)
-                caller.notify(Colors.Blue + "Ban list:" + Colors.White + " " + etc.getMCServer().f.getBans());
+                caller.notify(Colors.Blue + "Ban list:" + Colors.White + " " + etc.getMCServer().h.getBans());
             else
-                caller.notify(Colors.Blue + "IP Ban list:" + Colors.White + " " + etc.getMCServer().f.getIpBans());
+                caller.notify(Colors.Blue + "IP Ban list:" + Colors.White + " " + etc.getMCServer().h.getIpBans());
         }
     };
     @Command
@@ -547,7 +547,7 @@ public class PlayerCommands {
                 }
 
                 // adds player to ban list
-                etc.getMCServer().f.c(player.getIP());
+                etc.getMCServer().h.a(player.getIP());
                 etc.getLoader().callHook(PluginLoader.Hook.IPBAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
 
                 log.info("IP Banning " + player.getName() + " (IP: " + player.getIP() + ")");
@@ -586,7 +586,7 @@ public class PlayerCommands {
                 log.info("Banning " + player.getName());
                 caller.notify("Banning " + player.getName());
             } else {
-                if (!etc.getMCServer().f.isBanned(split[1])) {
+                if (!etc.getMCServer().h.isBanned(split[1])) {
                     etc.getServer().ban(split[1]);
                     log.info("Banning " + split[1]);
                     caller.notify("Banning " + split[1]); }
@@ -610,7 +610,7 @@ public class PlayerCommands {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
-            etc.getMCServer().f.d(parameters[1]);
+            etc.getMCServer().h.b(parameters[1]);
             caller.notify("Unbanned " + parameters[1]);
         }
     };
@@ -747,7 +747,7 @@ public class PlayerCommands {
 
             OWorldInfo info = player.getWorld().getWorld().C;
             info.a((int) player.getX(), (int) player.getY(), (int) player.getZ());
-            info = etc.getMCServer().a(-1).p();
+            info = etc.getMCServer().a(-1).r();
             info.a((int) player.getX(), (int) player.getY(), (int) player.getZ());
 
             log.info("Spawn position changed.");
