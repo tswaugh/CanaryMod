@@ -1,5 +1,6 @@
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+
 
 
 /**
@@ -268,7 +269,7 @@ public class BaseEntity {
      */
     @Deprecated
     public void setBaseAirTicks(int ticks) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("BaseAirTicks has been abolished by Notch.");
     }
 
     /**
