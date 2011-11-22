@@ -151,16 +151,16 @@ public class etc {
             enableExperience = properties.getBoolean("enable-experience", true);
             deathMessages = properties.getBoolean("death-message", true);
 
-            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow").split(",");
+            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,Mooshroom,SnowGolem").split(",");
             if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals("")))
                 animals = new String[] {};
-            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf" });
+            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf", "Mooshroom", "SnowGolem" });
             spawnWolves = properties.getBoolean("spawn-wolves", true);
 
-            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish").split(",");
+            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish,Enderdragon,Blaze,LavaSlime").split(",");
             if (monsters.length == 1 && (monsters[0].equals(" ") || monsters[0].equals("")))
                 monsters = new String[] {};
-            validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish" });
+            validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish", "Enderdragon", "Blaze", "LavaSlime" });
 
             waterAnimals = properties.getString("natural-wateranimals", "Squid").split(",");
             if (waterAnimals.length == 1 && (waterAnimals[0].equals(" ") || waterAnimals[0].equals("")))
@@ -508,23 +508,23 @@ public class etc {
      */
     public static String getCompassPointForDirection(double degrees) {
         if (0 <= degrees && degrees < 22.5)
-            return "N";
-        else if (22.5 <= degrees && degrees < 67.5)
-            return "NE";
-        else if (67.5 <= degrees && degrees < 112.5)
             return "E";
-        else if (112.5 <= degrees && degrees < 157.5)
+        else if (22.5 <= degrees && degrees < 67.5)
             return "SE";
-        else if (157.5 <= degrees && degrees < 202.5)
+        else if (67.5 <= degrees && degrees < 112.5)
             return "S";
-        else if (202.5 <= degrees && degrees < 247.5)
+        else if (112.5 <= degrees && degrees < 157.5)
             return "SW";
-        else if (247.5 <= degrees && degrees < 292.5)
+        else if (157.5 <= degrees && degrees < 202.5)
             return "W";
-        else if (292.5 <= degrees && degrees < 337.5)
+        else if (202.5 <= degrees && degrees < 247.5)
             return "NW";
-        else if (337.5 <= degrees && degrees < 360.0)
+        else if (247.5 <= degrees && degrees < 292.5)
             return "N";
+        else if (292.5 <= degrees && degrees < 337.5)
+            return "NE";
+        else if (337.5 <= degrees && degrees < 360.0)
+            return "E";
         else
             return "ERR";
     }
