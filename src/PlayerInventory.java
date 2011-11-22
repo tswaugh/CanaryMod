@@ -52,7 +52,6 @@ public class PlayerInventory extends ItemArray implements Inventory {
             user.getPlayer().giveItemDrop(itemId, temp);
     }
 
-    @Override
     public void update() {
         user.b();
     }
@@ -76,12 +75,10 @@ public class PlayerInventory extends ItemArray implements Inventory {
         return user.getPlayer();
     }
 
-    @Override
     public String getName() {
         return container.getName();
     }
 
-    @Override
     public void setName(String value) {
         container.setName(value);
     }

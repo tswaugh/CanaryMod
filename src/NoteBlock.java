@@ -10,34 +10,34 @@ class NoteBlock implements ComplexBlock {
         this.note = note;
     }
 
-    @Override
+    
     public int getX() {
-        return note.j;
-    }
-
-    @Override
-    public int getY() {
-        return note.k;
-    }
-
-    @Override
-    public int getZ() {
         return note.l;
     }
 
-    @Override
+    
+    public int getY() {
+        return note.m;
+    }
+
+    
+    public int getZ() {
+        return note.n;
+    }
+
+    
     public void update() {
         note.i();
     }
 
-    @Override
+    
     public Block getBlock() {
         return getWorld().getBlockAt(getX(), getY(), getZ());
     }
 
-    @Override
+    
     public World getWorld() {
-        return note.i.world;
+        return note.k.world;
     }
 
     /**

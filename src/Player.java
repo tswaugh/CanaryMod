@@ -757,7 +757,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().as();
+        return getEntity().aj();
     }
 
     /**
@@ -767,7 +767,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *            true if sneaking
      */
     public void setSneaking(boolean sneaking) {
-        getEntity().f(sneaking);
+        getEntity().c(sneaking);
         OPacket19EntityAction sneakUpdate = new OPacket19EntityAction();
         sneakUpdate.a = getId();
         sneakUpdate.b = sneaking ? 1 : 2;
@@ -798,7 +798,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             ent.c(ent.W);
 
         // Canary: We don't want a portal created
-        mcServer.h.a(ent, false);
+        //mcServer.h.a(ent, false);
     }
 
     @Override
@@ -961,7 +961,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 	 *
      */
     public void updateXP() {
-        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().L, getEntity().N, getEntity().M)));
+        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().O, getEntity().N, getEntity().M)));
     }
 
     /**
@@ -970,7 +970,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public void updateLevels() {
         OEntityPlayerMP entityMP = getEntity();
-        entityMP.a.b((OPacket) (new OPacket8UpdateHealth(entityMP.an, entityMP.m.a(), entityMP.m.c())));
+        entityMP.a.b((OPacket) (new OPacket8UpdateHealth(entityMP.bq, entityMP.n.a(), entityMP.n.c())));
     }
     
     /**
@@ -979,7 +979,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return player food level
      */
     public int getFoodLevel() {
-        return getEntity().m.a;
+        return getEntity().n.a;
     }
     
     /**
@@ -989,7 +989,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *         new food level, between 1 and 20
      */
     public void setFoodLevel(int foodLevel) {
-        getEntity().m.a = Math.min(foodLevel,20);
+        getEntity().n.a = Math.min(foodLevel,20);
         updateLevels();
     }
     
@@ -998,7 +998,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public float getFoodExhaustionLevel() {
-        return getEntity().m.c;
+        return getEntity().n.c;
     }
 
     /**
@@ -1007,7 +1007,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param foodExhaustionLevel
      */
     public void setFoodExhaustionLevel(float foodExhaustionLevel) {
-        getEntity().m.c = Math.min(foodExhaustionLevel, 40F);
+        getEntity().n.c = Math.min(foodExhaustionLevel, 40F);
         updateLevels();
     }
     
@@ -1032,7 +1032,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public Object getFoodSaturationLevel() {
-        return getEntity().m.b;
+        return getEntity().n.b;
     }
     
     /**
@@ -1041,7 +1041,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param foodSaturationLevel
      */
     public void setFoodSaturationLevel(float foodSaturationLevel) {
-        getEntity().m.b = Math.min(foodSaturationLevel,getFoodLevel());
+        getEntity().n.b = Math.min(foodSaturationLevel,getFoodLevel());
         updateLevels();
     }
     
@@ -1059,8 +1059,8 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      */
     public void removePotionEffect(PotionEffect effect) {     
-        OPotionEffect var3 = (OPotionEffect) getEntity().aF.get(effect.getType().getId());
-        getEntity().aF.remove(Integer.valueOf(effect.getType().getId()));
+        OPotionEffect var3 = (OPotionEffect) getEntity().bL.get(effect.getType().getId());
+        getEntity().bL.remove(Integer.valueOf(effect.getType().getId()));
         getEntity().c(var3);
     }
 
@@ -1070,9 +1070,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return List of potion effects 
      */
     public List<PotionEffect> getPotionEffects() {
-        Collection ak = getEntity().ak();
+        Collection ay = getEntity().ay();
         ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
-        for (Iterator<OPotionEffect> iterator = ak.iterator(); iterator.hasNext();) {
+        for (Iterator<OPotionEffect> iterator = ay.iterator(); iterator.hasNext();) {
             list.add(((OPotionEffect) iterator.next()).potionEffect);
         }
         return list;
@@ -1083,7 +1083,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the disableDamage state
      */
     public boolean isDamageDisabled() {
-        return getEntity().K.a;
+        return getEntity().L.a;
     }
 
     /**
@@ -1091,7 +1091,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param disabled the new value.
      */
     public void setDamageDisabled(boolean disabled) {
-        getEntity().K.a = disabled;
+        getEntity().L.a = disabled;
     }
 
     /**
@@ -1099,7 +1099,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the flying state
      */
     public boolean isFlying() {
-        return getEntity().K.b;
+        return getEntity().L.b;
     }
     
     /**
@@ -1107,7 +1107,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param flying the flying state.
      */
     public void setFlying(boolean flying) {
-        getEntity().K.b = flying;
+        getEntity().L.b = flying;
     }
 
     /**
@@ -1115,7 +1115,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the disableFalling state
      */
     public boolean isFallingDisabled() {
-        return getEntity().K.c;
+        return getEntity().L.c;
     }
 
     /**
@@ -1123,7 +1123,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param disabled the new value
      */
     public void setFallingDisabled(boolean disabled) {
-        getEntity().K.c = disabled;
+        getEntity().L.c = disabled;
     }
 
     /**
@@ -1132,7 +1132,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return whether buckets are always full.
      */
     public boolean isBucketAlwaysFull() {
-        return getEntity().K.d;
+        return getEntity().L.d;
     }
 
     /**
@@ -1141,6 +1141,6 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param alwaysFull the new state
      */
     public void setBucketAlwaysFull(boolean alwaysFull) {
-        getEntity().K.d = alwaysFull;
+        getEntity().L.d = alwaysFull;
     }
 }
