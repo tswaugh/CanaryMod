@@ -37,6 +37,11 @@ public class HumanEntity extends LivingEntity {
         return getEntity().v;
     }
 
+    /**
+     * Returns the world
+     * 
+     * @return
+     */
     public World getWorld() {
         return etc.getMCServer().a(getEntity().u).world;
     }

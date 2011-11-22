@@ -151,16 +151,16 @@ public class etc {
             enableExperience = properties.getBoolean("enable-experience", true);
             deathMessages = properties.getBoolean("death-message", true);
 
-            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,Mooshroom,SnowGolem").split(",");
+            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,Mooshroom,SnowMan").split(",");
             if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals("")))
                 animals = new String[] {};
-            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf", "Mooshroom", "SnowGolem" });
+            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf", "Mooshroom", "SnowMan" });
             spawnWolves = properties.getBoolean("spawn-wolves", true);
 
-            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish,Enderdragon,Blaze,LavaSlime").split(",");
+            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish,EnderDragon,Blaze,LavaSlime").split(",");
             if (monsters.length == 1 && (monsters[0].equals(" ") || monsters[0].equals("")))
                 monsters = new String[] {};
-            validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish", "Enderdragon", "Blaze", "LavaSlime" });
+            validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish", "EnderDragon", "Blaze", "LavaSlime" });
 
             waterAnimals = properties.getString("natural-wateranimals", "Squid").split(",");
             if (waterAnimals.length == 1 && (waterAnimals[0].equals(" ") || waterAnimals[0].equals("")))

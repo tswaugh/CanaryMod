@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="jarjar/jarjar.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Scotty/workspace/java/4.10.1/jarjar/minecraft_servero.jar"/>
+	<classpathentry kind="lib" path="jarjar/minecraft_servero.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

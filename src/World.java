@@ -15,7 +15,8 @@ public class World {
 
     public enum Type {
         NETHER(-1),
-        NORMAL(0);
+        NORMAL(0),
+        END(1);
         private int id;
         private static Map<Integer, Type> map;
 
@@ -59,7 +60,7 @@ public class World {
 
     /**
      * Returns this dimension's type.
-     * Currently Nether and Normal, possibly Aether in the future
+     * Currently Nether, End and Normal
      * 
      * @return the dimension type
      */
