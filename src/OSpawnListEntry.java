@@ -19,12 +19,18 @@ public class OSpawnListEntry extends OWeightedRandomChoice {
         chanceMap.put(OEntitySilverfish.class, 0);
         chanceMap.put(OEntityGhast.class, 10);
         chanceMap.put(OEntityPigZombie.class, 10);
+        chanceMap.put(OEntityLavaSlime.class, 10);
+        chanceMap.put(OEntityEnderDragon.class, 10);
+        chanceMap.put(OEntityBlaze.class, 10);
 
-        chanceMap.put(OEntitySheep.class, 12);
+        chanceMap.put(OEntitySheep.class, 10);
         chanceMap.put(OEntityPig.class, 10);
         chanceMap.put(OEntityChicken.class, 10);
-        chanceMap.put(OEntityCow.class, 8);
-        chanceMap.put(OEntityWolf.class, 2);
+        chanceMap.put(OEntityCow.class, 10);
+        chanceMap.put(OEntityWolf.class, 4);
+        chanceMap.put(OEntityMushroomCow.class, 4);
+        chanceMap.put(OEntitySnowMan.class, 2);
+        chanceMap.put(OEntityVillager.class, 2);
 
         chanceMap.put(OEntitySquid.class, 10);
     }
@@ -41,6 +47,6 @@ public class OSpawnListEntry extends OWeightedRandomChoice {
     public static OSpawnListEntry getSpawnListEntry(Class<?> entityClass) {
         if (!OEntityLiving.class.isAssignableFrom(entityClass))
             throw new IllegalArgumentException(entityClass + " is not an entity class!");
-        return new OSpawnListEntry(entityClass, chanceMap.get(entityClass), 5, 5);
+        return new OSpawnListEntry(entityClass, ((Integer)chanceMap.get(entityClass)).intValue(), 5, 5);
     }
 }

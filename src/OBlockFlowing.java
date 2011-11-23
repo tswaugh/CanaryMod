@@ -19,10 +19,10 @@ public class OBlockFlowing extends OBlockFluid {
    }
 
    public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
-       // CanaryMod: Store originating block
+          // CanaryMod: Store originating block
        World world = var1.world;
        Block blockFrom = new Block(world, bL, var2, var3, var4);
-       
+   
       int var6 = this.c(var1, var2, var3, var4);
       byte var7 = 1;
       if(this.bZ == OMaterial.h && !var1.y.d) {
@@ -87,16 +87,14 @@ public class OBlockFlowing extends OBlockFluid {
             this.h(var1, var2, var3 - 1, var4);
             return;
          }
-
-         // CanaryMod: downwards flow.
-         Block blockTo = new Block(world, 0, var2, var3 - 1, var4);
-         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo)) {
-	         if(var6 >= 8) {
-	            var1.b(var2, var3 - 1, var4, this.bM, var6);
-	         } else {
-	            var1.b(var2, var3 - 1, var4, this.bM, var6 + 8);
-	         }
-         }
+		// CanaryMod: downwards flow.
+		Block blockTo = new Block(world, 0, var2, var3 - 1, var4);
+		if (!((Boolean)etc.getLoader().callHook(PluginLoader.Hook.FLOW, new Object[] { blockFrom, blockTo })).booleanValue()) {
+			if(var6 >= 8)
+				var1.b(var2, var3 - 1, var4, this.bM, var6);
+			else
+				var1.b(var2, var3 - 1, var4, this.bM, var6 + 8);
+		}
       } else if(var6 >= 0 && (var6 == 0 || this.k(var1, var2, var3 - 1, var4))) {
          boolean[] var13 = this.j(var1, var2, var3, var4);
          var10 = var6 + var7;
@@ -108,23 +106,29 @@ public class OBlockFlowing extends OBlockFluid {
             return;
          }
 
-         // CanaryMod: sidewards flow.
-         if (var13[0]) {
-             Block blockTo = new Block(world, 0, var2 - 1, var3, var4);
-             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))
-            	 this.g(var1, var2 - 1, var3, var4, var10);
+		 // CanaryMod: sidewards flow.
+         if(var13[0]) {
+		    Block blockTo = new Block(world, 0, var2 - 1, var3, var4);
+			if (!((Boolean)etc.getLoader().callHook(PluginLoader.Hook.FLOW, new Object[] { blockFrom, blockTo })).booleanValue())
+				this.g(var1, var2 - 1, var3, var4, var10);
          }
 
          if(var13[1]) {
-            this.g(var1, var2 + 1, var3, var4, var10);
+			Block blockTo = new Block(world, 0, var2 + 1, var3, var4);
+			if (!((Boolean)etc.getLoader().callHook(PluginLoader.Hook.FLOW, new Object[] { blockFrom, blockTo })).booleanValue())
+				this.g(var1, var2 + 1, var3, var4, var10);
          }
 
          if(var13[2]) {
-            this.g(var1, var2, var3, var4 - 1, var10);
+			Block blockTo = new Block(world, 0, var2, var3, var4 - 1);
+			if (!((Boolean)etc.getLoader().callHook(PluginLoader.Hook.FLOW, new Object[] { blockFrom, blockTo })).booleanValue())
+				this.g(var1, var2, var3, var4 - 1, var10);
          }
 
          if(var13[3]) {
-            this.g(var1, var2, var3, var4 + 1, var10);
+			Block blockTo = new Block(world, 0, var2, var3, var4 + 1);
+			if (!((Boolean)etc.getLoader().callHook(PluginLoader.Hook.FLOW, new Object[] { blockFrom, blockTo })).booleanValue())
+				this.g(var1, var2, var3, var4 + 1, var10);
          }
       }
 
@@ -266,14 +270,14 @@ public class OBlockFlowing extends OBlockFluid {
    }
 
    private boolean l(OWorld var1, int var2, int var3, int var4) {
-       // CanaryMod: See if this liquid can destroy this block.
-       Block block = new Block(var1.world, var1.a(var2, var3, var4), var2, var3, var4);
-       PluginLoader.HookResult ret = (PluginLoader.HookResult) etc.getLoader().callHook(PluginLoader.Hook.LIQUID_DESTROY, bM, block);
-       if (ret == PluginLoader.HookResult.PREVENT_ACTION)
-           return false;
-       else if (ret == PluginLoader.HookResult.ALLOW_ACTION)
-           return true;
-
+      // CanaryMod: See if this liquid can destroy this block.
+	  Block block = new Block(var1.world, var1.a(var2, var3, var4), var2, var3, var4);
+	  PluginLoader.HookResult ret = (PluginLoader.HookResult)etc.getLoader().callHook(PluginLoader.Hook.LIQUID_DESTROY, new Object[] { Integer.valueOf(this.bM), block });
+	  if (ret == PluginLoader.HookResult.PREVENT_ACTION)
+		return false;
+	  if (ret == PluginLoader.HookResult.ALLOW_ACTION) {
+		return true;
+	  }
       OMaterial var5 = var1.d(var2, var3, var4);
       return var5 == this.bZ?false:(var5 == OMaterial.h?false:!this.k(var1, var2, var3, var4));
    }

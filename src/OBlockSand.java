@@ -11,13 +11,13 @@ public class OBlockSand extends OBlock {
 
    public void b(OWorld var1, int var2, int var3, int var4) {
        // CanaryMod: Physics
-       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(var1.world, bL, var2, var3, var4), true))
+       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(var1.world, bM, var2, var3, var4), true))
     	   var1.c(var2, var3, var4, this.bM, this.f());
    }
 
    public void a(OWorld var1, int var2, int var3, int var4, int var5) {
        // CanaryMod: Physics
-       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(var1.world, bL, var2, var3, var4), true))
+       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(var1.world, bM, var2, var3, var4), true))
     	   var1.c(var2, var3, var4, this.bM, this.f());
    }
 

@@ -114,8 +114,10 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
    }
 
    public void a(ODamageSource var1) {
-      this.b.h.a((OPacket)(new OPacket3Chat(var1.a((OEntityPlayer)this))));
-      this.k.h();
+	   if (etc.getInstance().deathMessages) {
+		   this.b.h.a((OPacket)(new OPacket3Chat(var1.a((OEntityPlayer)this))));
+	   }
+	   this.k.h();
    }
 
    public boolean a(ODamageSource var1, int var2) {

@@ -1030,6 +1030,8 @@ public class etc {
             toRet.clear();
             toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityGhast.class));
             toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityPigZombie.class));
+            toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityBlaze.class));
+            toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityLavaSlime.class));
         }
         return toRet;
     }
