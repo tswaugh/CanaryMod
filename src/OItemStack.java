@@ -308,7 +308,7 @@ public final class OItemStack {
 
       ONBTTagList var3 = (ONBTTagList)this.d.b("ench");
       ONBTTagCompound var4 = new ONBTTagCompound();
-      var4.a("OItemDye", (short)var1.t);
+      var4.a("id", (short)var1.t); // CanaryMod: fix jarjar
       var4.a("lvl", (short)((byte)var2));
       var3.a((ONBTBase)var4);
    }

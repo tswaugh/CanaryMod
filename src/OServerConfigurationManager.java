@@ -60,10 +60,10 @@ public class OServerConfigurationManager {
 		this.n();
 		this.p();
 		//this.r();
-		//this.m();
-		//this.o();
+		this.m();
+		this.o();
 		this.q();
-		this.s();
+		//this.s();
    }
 
    public void a(OWorldServer[] var1) {
@@ -589,12 +589,12 @@ public class OServerConfigurationManager {
 
    public void k(String var1) {
       this.i.add(var1);
-      this.s();
+      //this.s(); CanaryMod - Disable Notchian whitelist
    }
 
    public void l(String var1) {
       this.i.remove(var1);
-      this.s();
+      //this.s(); CanaryMod - Disable Notchian whitelist
    }
 
    public Set h() {

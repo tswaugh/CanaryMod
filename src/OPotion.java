@@ -81,7 +81,7 @@ public class OPotion {
          ((OEntityPlayer)var1).c(0.025F * (float)(var2 + 1));
       } else if((this.H != h.H || var1.az()) && (this.H != i.H || !var1.az())) {
          if(this.H == i.H && !var1.az() || this.H == h.H && var1.az()) {
-             // Canarymod: Àcall to DAMAGE on 1.9?
+             // Canarymod: call to DAMAGE on 1.9?
              if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, var1.entity, 4 << var2))
             	 var1.a(ODamageSource.l, 6 << var2);
          }

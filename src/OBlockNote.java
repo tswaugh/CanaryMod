@@ -57,7 +57,7 @@ public class OBlockNote extends OBlockContainer {
       String var8 = "harp";
       if(var5 == 1) {
     	  // CanaryMod: bd gets jarjar'd, reverse here
-    	  var8 = "bh";
+    	  var8 = "bd";
       }
 
       if(var5 == 2) {

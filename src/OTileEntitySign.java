@@ -44,8 +44,4 @@ public class OTileEntitySign extends OTileEntity {
    public boolean b_() {
       return this.c;
    }
-   
-   public void a(boolean var1) {
-       this.c = var1;
-   }
 }

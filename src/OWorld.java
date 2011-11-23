@@ -268,7 +268,7 @@ public class OWorld implements OIBlockAccess {
       if(var1 >= -30000000 && var3 >= -30000000 && var1 < 30000000 && var3 < 30000000) {
          if(var2 < 0) {
             return false;
-         } else if(var2 >= 128) {
+         } else if(var2 >= this.c) {
             return false;
          } else {
             OChunk var6 = this.c(var1 >> 4, var3 >> 4);

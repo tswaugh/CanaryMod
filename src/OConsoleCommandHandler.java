@@ -172,7 +172,7 @@ public class OConsoleCommandHandler {
                               } else {
                                  var3.b("Can\'t find user " + var20);
                               }
-                           } else if(var2.toLowerCase().startsWith("OBlockSnow")) {
+                           } else if(var2.toLowerCase().startsWith("xp")) {
                               var21 = var2.split(" ");
                               if(var21.length != 3) {
                                  return;
@@ -297,7 +297,7 @@ public class OConsoleCommandHandler {
       String[] var4 = var2.split(" ");
       if(var4.length >= 2) {
          String var5 = var4[1].toLowerCase();
-         if("ORConThreadBase".equals(var5)) {
+         if("on".equals(var5)) {
             this.a(var1, "Turned on white-listing");
             this.b.d.b("white-list", true);
          } else if("off".equals(var5)) {
