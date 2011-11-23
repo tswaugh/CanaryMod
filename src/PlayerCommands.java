@@ -711,9 +711,13 @@ public class PlayerCommands {
             if (toMove.getWorld().getType().getId() != 0)
                 if (toMove.canIgnoreRestrictions())
                     toMove.switchWorlds();
-
                 else {
-                    toMove.sendMessage(Colors.Red+"The veil between the worlds keeps you bound to the Nether...");
+                	String worldName = "";
+                	if(toMove.getWorld().getType().getId() == -1)
+                		worldName = "Nether";
+                	else if(toMove.getWorld().getType().getId() == 1)
+                		worldName = "End";
+                    toMove.sendMessage(Colors.Red+"The veil between the worlds keeps you bound to the "+worldName+"...");
                     return;
                 }
 

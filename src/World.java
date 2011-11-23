@@ -16,7 +16,7 @@ public class World {
     public enum Type {
         NETHER(-1),
         NORMAL(0),
-        END(1);
+        ENDER(1);
         private int id;
         private static Map<Integer, Type> map;
 

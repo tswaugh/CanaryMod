@@ -72,7 +72,7 @@ public class OItemBlock extends OItem {
          // CanaryMod: take over block placement
          if(var3.b(var4, var5, var6, this.a, this.a(var1.h()))) {
              // CanaryMod: Check if this was playerPlaced and call the hook
-             if (var2 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PLACE, ((OEntityPlayerMP) var2).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
+             if (var2 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PLACE, ((OEntityPlayerMP) var2).getPlayer(), blockPlaced, blockClicked, new Item(var1)) || var2 instanceof OEntityPlayerMP && a == 90 && ((OEntityPlayerMP) var2).getPlayer().getWorld().getType().getId() == 1) {
                  // CanaryMod: Undo!
 
                  // Specialcase iceblocks, replace with 'glass' first (so it doesnt explode into water)

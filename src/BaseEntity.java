@@ -1,8 +1,3 @@
-
-
-
-
-
 /**
  * BaseEntity.java - Class for accessing things that all entities share - W, X,
  * Y, health.

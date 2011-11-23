@@ -32,39 +32,38 @@ public class OServerConfigurationManager {
 
 
    public OServerConfigurationManager(MinecraftServer var1) {
-       // CanaryMod: initialize
-       etc.setServer(var1);
-       etc.getInstance().loadData();
-       a.info("Note: your current classpath is: " + System.getProperty("java.class.path", "*UNKNOWN*"));
-       if (!etc.getInstance().getTainted())
-           if (etc.getInstance().isCrow())
-               a.info("Crow Test Build " + etc.getInstance().getVersionStr());
-           else
-               a.info("CanaryMod Build " + etc.getInstance().getVersionStr());
-       else
-           a.info("Tainted Build Information: " + etc.getInstance().getVersionStr());
+		// CanaryMod: initialize
+		etc.setServer(var1);
+		etc.getInstance().loadData();
+		a.info("Note: your current classpath is: " + System.getProperty("java.class.path", "*UNKNOWN*"));
+		if (!etc.getInstance().getTainted())
+		   if (etc.getInstance().isCrow())
+			   a.info("Crow Test Build " + etc.getInstance().getVersionStr());
+		   else
+			   a.info("CanaryMod Build " + etc.getInstance().getVersionStr());
+		else
+		   a.info("Tainted Build Information: " + etc.getInstance().getVersionStr());
 
-      this.c = var1;
-      this.j = var1.f("banned-players.txt");
-      this.k = var1.f("banned-ips.txt");
-      this.l = var1.f("ops.txt");
-      // CanaryMod - Disable Notchian whitelist
-      //this.m = var1.f("white-list.txt");
-      int var2 = var1.d.a("view-distance", 10);
-      this.d[0] = new OPlayerManager(var1, 0, var2);
-      this.d[1] = new OPlayerManager(var1, -1, var2);
-      this.d[2] = new OPlayerManager(var1, 1, var2);
-      this.e = var1.d.a("max-players", 20);
-      //this.o = var1.d.a("white-list", false);
-      this.o = false;
-      this.l();
-      this.n();
-      this.p();
-      //this.r();
-      //this.m();
-      //this.o();
-      this.q();
-      this.s();
+		this.c = var1;
+		this.j = var1.f("banned-players.txt");
+		this.k = var1.f("banned-ips.txt");
+		this.l = var1.f("ops.txt");
+		// CanaryMod - Disable Notchian whitelist
+		//this.m = var1.f("white-list.txt");
+		int var2 = var1.d.a("view-distance", 10);
+		this.d[0] = new OPlayerManager(var1, 0, var2);
+		this.d[1] = new OPlayerManager(var1, -1, var2);
+		this.d[2] = new OPlayerManager(var1, 1, var2);
+		this.e = var1.d.a("max-players", 20);
+		this.o = var1.d.a("white-list", false);
+		this.l();
+		this.n();
+		this.p();
+		//this.r();
+		//this.m();
+		//this.o();
+		this.q();
+		this.s();
    }
 
    public void a(OWorldServer[] var1) {
@@ -93,36 +92,33 @@ public class OServerConfigurationManager {
    }
 
    public void c(OEntityPlayerMP var1) {
-       // CanaryMod: Playername with color and Prefix
-       if (etc.getInstance().isPlayerList_enabled()) {
-           PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(true);
-           this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000)));
-       }
-      this.b.add(var1);
-      OWorldServer var2 = this.c.a(var1.w);
-      var2.J.a((int)var1.ab >> 4, (int)var1.ad >> 4);
+		// CanaryMod: Playername with color and Prefix
+		if (etc.getInstance().isPlayerList_enabled()) {
+		   PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(true);
+		   this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000)));
+		}
+		this.b.add(var1);
+		OWorldServer var2 = this.c.a(var1.w);
+		var2.J.a((int)var1.ab >> 4, (int)var1.ad >> 4);
 
-      while(var2.a(var1, var1.al).size() != 0) {
-         var1.e(var1.ab, var1.ac + 1.0D, var1.ad);
-      }
+		while(var2.a(var1, var1.al).size() != 0) {
+		 var1.e(var1.ab, var1.ac + 1.0D, var1.ad);
+		}
 
-      var2.b(var1);
-      this.a(var1.w).a(var1);
+		var2.b(var1);
+		this.a(var1.w).a(var1);
 
-      if (etc.getInstance().isPlayerList_enabled()) {
-          for (int var3 = 0; var3 < this.b.size(); ++var3) {
-              OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
-              PlayerlistEntry entry = var4.getPlayer().getPlayerlistEntry(true);
-              var1.a.b((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
-          }
-      }
+		for(int var3 = 0; var3 < this.b.size(); ++var3) {
+		 OEntityPlayerMP var4 = (OEntityPlayerMP)this.b.get(var3);
+		 var1.a.b((OPacket)(new OPacket201PlayerInfo(var4.v, true, var4.i)));
+		}
 
-      // CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
-      if (Player.getMode(var1.getPlayer())) {
-          var1.getPlayer().setCreativeMode(1);
-      }
-      etc.getInstance().getMotd(var1.getPlayer());
-      etc.getLoader().callHook(PluginLoader.Hook.LOGIN, var1.getPlayer());
+		// CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
+		if (Player.getMode(var1.getPlayer())) {
+			var1.getPlayer().setCreativeMode(1);
+		}
+		etc.getInstance().getMotd(var1.getPlayer());
+		etc.getLoader().callHook(PluginLoader.Hook.LOGIN, var1.getPlayer());
    }
 
    public void d(OEntityPlayerMP var1) {
@@ -130,51 +126,53 @@ public class OServerConfigurationManager {
    }
 
    public void e(OEntityPlayerMP var1) {
-      this.n.a(var1);
-      this.c.a(var1.w).e(var1);
-      this.b.remove(var1);
-      this.a(var1.w).b(var1);
-      // CanaryMod: Player color and Prefix
-      if (etc.getInstance().isPlayerList_enabled()) {
-          PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(false);
-          this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
-      }
+		this.n.a(var1);
+		this.c.a(var1.w).e(var1);
+		this.b.remove(var1);
+		this.a(var1.w).b(var1);
+		// CanaryMod: Player color and Prefix
+		if (etc.getInstance().isPlayerList_enabled()) {
+			PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(false);
+			this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
+		}
+
    }
 
    public OEntityPlayerMP a(ONetLoginHandler var1, String var2) {
-       // TODO: add reasons, expire tempbans
-       if (!etc.getLoader().isLoaded())
-           var1.a("The server is not finished loading yet!");
-       // CanaryMod: whole section below is modified to handle whitelists etc
-       OEntityPlayerMP temp = new OEntityPlayerMP(c, c.a(0), var2, new OItemInWorldManager(c.a(0)));
-       Player player = temp.getPlayer();
-       if(this.f.contains(var2.trim().toLowerCase())) {
-         var1.a("You are banned from this server!");
-         return null;
-       } else if ((etc.getInstance().isWhitelistEnabled() && !(etc.getDataSource().isUserOnWhitelist(var2) || player.isAdmin()))) {
-           var1.a(etc.getInstance().getWhitelistMessage());
-           return null;
-      } else {
-         String var3 = var1.b.c().toString();
-         var3 = var3.substring(var3.indexOf("/") + 1);
-         var3 = var3.substring(0, var3.indexOf(":"));
-         if(this.g.contains(var3)) {
-            var1.a("Your IP address is banned from this server!");
-            return null;
-         } else if(this.b.size() >= this.e) {
-            var1.a("The server is full!");
-            return null;
-         } else {
-            for(int var4 = 0; var4 < this.b.size(); ++var4) {
-               OEntityPlayerMP var5 = (OEntityPlayerMP)this.b.get(var4);
-               if(var5.v.equalsIgnoreCase(var2)) {
-                  var5.a.a("You logged in from another location");
-               }
-            }
+		// TODO: add reasons, expire tempbans
+		if (!etc.getLoader().isLoaded())
+			var1.a("The server is not finished loading yet!");
+			
+		// CanaryMod: whole section below is modified to handle whitelists etc
+		OEntityPlayerMP temp = new OEntityPlayerMP(c, c.a(0), var2, new OItemInWorldManager(c.a(0)));
+		Player player = temp.getPlayer();
+		if(this.f.contains(var2.trim().toLowerCase())) {
+			var1.a("You are banned from this server!");
+			return null;
+		} else if ((etc.getInstance().isWhitelistEnabled() && !(etc.getDataSource().isUserOnWhitelist(var2) || player.isAdmin()))) {
+			var1.a(etc.getInstance().getWhitelistMessage());
+			return null;
+		} else {
+			String var3 = var1.b.c().toString();
+			var3 = var3.substring(var3.indexOf("/") + 1);
+			var3 = var3.substring(0, var3.indexOf(":"));
+			if(this.g.contains(var3)) {
+				var1.a("Your IP address is banned from this server!");
+				return null;
+			} else if(this.b.size() >= this.e) {
+				var1.a("The server is full!");
+				return null;
+			} else {
+				for(int var4 = 0; var4 < this.b.size(); ++var4) {
+					OEntityPlayerMP var5 = (OEntityPlayerMP)this.b.get(var4);
+					if(var5.v.equalsIgnoreCase(var2)) {
+						var5.a.a("You logged in from another location");
+					}
+				}
 
-            return new OEntityPlayerMP(this.c, this.c.a(0), var2, new OItemInWorldManager(this.c.a(0)));
-         }
-      }
+				return new OEntityPlayerMP(this.c, this.c.a(0), var2, new OItemInWorldManager(this.c.a(0)));
+			}
+		}
    }
 
    public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3) {
@@ -220,64 +218,6 @@ public class OServerConfigurationManager {
       var5.k();
       var5.q();
       return var5;
-   }
-   
-// Canary: disable the creation of portals when switching worlds
-   public void f(OEntityPlayerMP var1, boolean createPortal)
-   {
-     OWorldServer var2 = this.c.a(var1.u);
-     boolean var3 = false;
-     byte var11;
-     if (var1.u == -1)
-       var11 = 0;
-     else {
-       var11 = -1;
-     }
-
-     var1.u = var11;
-     OWorldServer var4 = this.c.a(var1.u);
-     var1.a.b(new OPacket9Respawn((byte)var1.u, (byte)var1.X.v, var1.X.m(), 128, var1.c.a()));
-     var2.f(var1);
-     var1.bA = false;
-     double var5 = var1.bV;
-     double var7 = var1.aR;
-     double var9 = 8.0D;
-     if (var1.u == -1) {
-       var5 /= var9;
-       var7 /= var9;
-       var1.c(var5, var1.bW, var7, var1.bX, var1.S);
-       if (var1.ac())
-         var2.a(var1, false);
-     }
-     else {
-       var5 *= var9;
-       var7 *= var9;
-       var1.c(var5, var1.bW, var7, var1.bX, var1.S);
-       if (var1.ac()) {
-         var2.a(var1, false);
-       }
-     }
-
-     if (var1.ac()) {
-       var4.b(var1);
-       var1.c(var5, var1.bW, var7, var1.bX, var1.S);
-       var4.a(var1, false);
-       var4.J.a = true;
-       if (createPortal)
-         new OTeleporter().a(var4, var1);
-       var4.J.a = false;
-     }
-
-     a(var1);
-     var1.a.a(var1.bV, var1.bW, var1.aR, var1.bX, var1.S);
-     var1.a(var4);
-     a(var1, var4);
-     a(var1);
-   }
-   
-   // Canary: Create a portal on default calls
-   public void f(OEntityPlayerMP var1) {
-       this.f(var1,true);
    }
 
    public void a(OEntityPlayerMP var1, int var2) {
@@ -334,18 +274,14 @@ public class OServerConfigurationManager {
    }
 
    public void b() {
-	   int var1;
-       // CanaryMod: Spams like crazy 
-       if (etc.getInstance().isPlayerList_enabled() && etc.getInstance().isPlayerList_autoupdate())  {
-           if (this.p-- <= 0) {
-               for (var1 = 0; var1 < this.b.size(); ++var1) {
-                   OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
-                   PlayerlistEntry entry = var2.getPlayer().getPlayerlistEntry(true);
-                   this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
-               }
-               this.p = etc.getInstance().getPlayerList_ticks();
-           }
-       }
+      if(++this.p > 200) {
+         this.p = 0;
+      }
+
+      if(this.p < this.b.size()) {
+         OEntityPlayerMP var1 = (OEntityPlayerMP)this.b.get(this.p);
+         this.a((OPacket)(new OPacket201PlayerInfo(var1.v, true, var1.i)));
+      }
 
       for(int var2 = 0; var2 < this.d.length; ++var2) {
          this.d[var2].b();
@@ -401,12 +337,12 @@ public class OServerConfigurationManager {
 
    public void a(String var1) {
       this.f.add(var1.toLowerCase());
-      // this.m(); CanaryMod - Disable Notchian whitelist
+      //this.m(); CanaryMod - Disable Notchian whitelist
    }
 
    public void b(String var1) {
       this.f.remove(var1.toLowerCase());
-      // this.m(); CanaryMod - Disable Notchian whitelist
+      //this.m(); CanaryMod - Disable Notchian whitelist
    }
 
    private void l() {
@@ -666,7 +602,7 @@ public class OServerConfigurationManager {
    }
 
    public void i() {
-      //this.r();
+      //this.r(); CanaryMod - Disable Notchian whitelist
    }
 
    public void a(OEntityPlayerMP var1, OWorldServer var2) {
@@ -677,6 +613,11 @@ public class OServerConfigurationManager {
 
    }
 
+   public void f(OEntityPlayerMP var1) {
+      var1.a(var1.l);
+      var1.v();
+   }
+
    public int j() {
       return this.b.size();
    }
@@ -684,6 +625,7 @@ public class OServerConfigurationManager {
    public int k() {
       return this.e;
    }
+   
    /**
     * Returns the list of bans
     * 

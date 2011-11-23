@@ -17,11 +17,11 @@ public class Main {
 
     public static final long   minecraft_server                   = 0xE92F8851L;
 
-    public static final long   minecraft_servero                  = 0x38FE0BEDL;
+    public static final long   minecraft_servero                  = 0x1FE623BCL;
 
     public static final long   mysql                              = 0xb2e59524L;
     public static final long   jarjar                             = 0x0de915d3L;
-    public static final long   rules                              = 0x20E82AD1L;
+    public static final long   rules                              = 0xC227C6F0L;
 
     public static final Logger log                                = Logger.getLogger("Minecraft");
 

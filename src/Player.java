@@ -796,9 +796,12 @@ public class Player extends HumanEntity implements MessageReceiver {
         // Dismount first or get buggy
         if (ent.W != null)
             ent.c(ent.W);
-
+        
         // Canary: We don't want a portal created
         //mcServer.h.a(ent, false);
+        
+        // CanaryMod: Refresh the creative mode
+        refreshCreativeMode();
     }
 
     @Override

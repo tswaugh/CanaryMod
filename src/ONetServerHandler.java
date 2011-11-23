@@ -517,7 +517,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 	   // CanaryMod: disconnect!
 	   OEntity.manager.callHook(PluginLoader.Hook.DISCONNECT, getPlayer());
 	   a.info(this.e.v + " lost connection: " + var1);
-	   this.d.h.a((OPacket) (new OPacket3Chat("\u00a7e" + this.e.u + " left the game.")));
+	   this.d.h.a((OPacket) (new OPacket3Chat("\u00a7e" + this.e.v + " left the game.")));
 	   this.d.h.e(this.e);
 	   this.c = true;
    }
