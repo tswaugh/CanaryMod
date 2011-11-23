@@ -1,0 +1,9 @@
+build/*
+files/*
+jarjar/*
+bin/*
+build/*
+.externalToolBuilders/*
+!.gitignore
+.project
+.classpath

@@ -797,13 +797,43 @@ public class Player extends HumanEntity implements MessageReceiver {
         if (ent.W != null)
             ent.c(ent.W);
         
+        if(getWorld().getType().getId() == 0){
+        	switchWorlds(-1);
+        } else {
+        	switchWorlds(0);
+        }
         // Canary: We don't want a portal created
         //mcServer.h.a(ent, false);
         
         // CanaryMod: Refresh the creative mode
         refreshCreativeMode();
     }
+    
+    /**
+     * Switch to the specified dimension at the according position.
+     */
+    public void switchWorlds(int world){
+        MinecraftServer mcServer = etc.getMCServer();
+        OEntityPlayerMP ent = getEntity();
+        
+        // Nether is not allowed, so shush
+        if (!mcServer.d.a("allow-nether", true))
+            return;
+        // Dismount first or get buggy
+        if (ent.W != null)
+            ent.c(ent.W);
 
+        ent.a((OStatBase)OAchievementList.B);
+        OChunkCoordinates var2 = ent.b.a(world).d();
+        if(var2 != null) {
+           ent.a.a((double)var2.a, (double)var2.b, (double)var2.c, 0.0F, 0.0F);
+        }
+
+        ent.b.h.a(ent, world);
+        
+        refreshCreativeMode();
+    }
+    
     @Override
     public void teleportTo(BaseEntity ent) {
         if (!getWorld().equals(ent.getWorld()))

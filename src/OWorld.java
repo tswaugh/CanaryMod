@@ -214,9 +214,7 @@ public class OWorld implements OIBlockAccess {
    }
 
    public int a(int var1, int var2, int var3) {
-	  // CanaryMod: Changing to the old way Fire was checked.
-      //return var1 >= -30000000 && var3 >= -30000000 && var1 < 30000000 && var3 < 30000000?(var2 < 0?0:(var2 >= this.c?0:this.c(var1 >> 4, var3 >> 4).a(var1 & 15, var2, var3 & 15))):0;
-	   return (var1 >= -30000000) && (var3 >= -30000000) && (var1 < 30000000) && (var3 < 30000000) ? c(var1 >> 4, var3 >> 4).a(var1 & 15, var2, var3 & 15) : var2 >= 128 ? 0 : var2 < 0 ? 0 : 0;
+      return var1 >= -30000000 && var3 >= -30000000 && var1 < 30000000 && var3 < 30000000?(var2 < 0?0:(var2 >= this.c?0:this.c(var1 >> 4, var3 >> 4).a(var1 & 15, var2, var3 & 15))):0;
    }
 
    public boolean b(int var1, int var2, int var3) {
