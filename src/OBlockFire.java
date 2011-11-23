@@ -105,7 +105,12 @@ public class OBlockFire extends OBlock {
                                  var14 = 15;
                               }
 
-                              var1.b(var8, var10, var9, this.bM, var14);
+                              // CanaryMod: dynamic spreading of fire.
+                              // avg call amount per placed block of fire ~ 4
+                              Block block = new Block(var1.world, var1.a(var8, var10, var9), var8, var10, var9);
+                              block.setStatus(3);
+                              if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null))
+                            	  var1.b(var8, var10, var9, this.bM, var14);
                            }
                         }
                      }
