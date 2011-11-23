@@ -101,6 +101,7 @@ public class ONetLoginHandler extends ONetHandler {
          hookResult = (HookParametersConnect) etc.getLoader().callHook(PluginLoader.Hook.CONNECT, var2.getPlayer(),hookResult);
          if (!hookResult.isHidden()) 
         	 this.e.h.a((OPacket) (new OPacket3Chat(hookResult.getJoinMessage())));
+         var2.getPlayer().refreshCreativeMode();
          this.e.h.c(var2);
          var5.a(var2.ab, var2.ac, var2.ad, var2.ah, var2.ai);
          this.e.c.a(var5);

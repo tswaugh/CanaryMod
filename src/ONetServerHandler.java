@@ -271,6 +271,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
       this.o = var5;
       this.e.b(var1, var3, var5, var7, var8);
       this.e.a.b((OPacket)(new OPacket13PlayerLookMove(var1, var3 + 1.6200000047683716D, var3, var5, var7, var8, false)));
+      player.refreshCreativeMode();
    }
    
    // CanaryMod: Store x/y/z

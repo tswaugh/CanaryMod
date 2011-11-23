@@ -119,6 +119,7 @@ public class OServerConfigurationManager {
 		}
 		etc.getInstance().getMotd(var1.getPlayer());
 		etc.getLoader().callHook(PluginLoader.Hook.LOGIN, var1.getPlayer());
+		var1.getPlayer().refreshCreativeMode();
    }
 
    public void d(OEntityPlayerMP var1) {
