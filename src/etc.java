@@ -151,10 +151,10 @@ public class etc {
             enableExperience = properties.getBoolean("enable-experience", true);
             deathMessages = properties.getBoolean("death-message", true);
 
-            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,Mooshroom,SnowMan").split(",");
+            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,MushroomCow,SnowMan").split(",");
             if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals("")))
                 animals = new String[] {};
-            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf", "Mooshroom", "SnowMan" });
+            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf", "MushroomCow", "SnowMan" });
             spawnWolves = properties.getBoolean("spawn-wolves", true);
 
             monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish,EnderDragon,Blaze,LavaSlime").split(",");
