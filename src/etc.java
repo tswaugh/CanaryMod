@@ -152,10 +152,10 @@ public class etc {
             enableExperience = properties.getBoolean("enable-experience", true);
             deathMessages = properties.getBoolean("death-message", true);
 
-            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,MushroomCow").split(",");
+            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow").split(",");
             if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals("")))
                 animals = new String[] {};
-            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf", "MushroomCow" });
+            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf" });
             spawnWolves = properties.getBoolean("spawn-wolves", true);
             spawnMooshrooms = properties.getBoolean("spawn-mooshrooms", true);
 
@@ -1035,6 +1035,15 @@ public class etc {
             toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityBlaze.class));
             toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityLavaSlime.class));
         }
+        
+        // Fixing ender entities
+        if (biomeSpawner instanceof OBiomeGenSky) {
+            OSpawnListEntry endermanEntry = OSpawnListEntry.getSpawnListEntry(OEntityEnderman.class);
+            if (!toRet.contains(endermanEntry))
+            	toRet.clear();
+            	toRet.add(endermanEntry);
+        }
+        
         return toRet;
     }
 

@@ -6,7 +6,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
    public OInventoryPlayer k = new OInventoryPlayer(this);
    public OContainer l;
    public OContainer m;
-   protected OFoodStats n = new OFoodStats();
+   protected OFoodStats n = new OFoodStats(this);
    protected int o = 0;
    public byte p = 0;
    public int q = 0;
