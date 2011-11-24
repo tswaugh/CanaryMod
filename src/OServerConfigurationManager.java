@@ -133,7 +133,7 @@ public class OServerConfigurationManager {
 		// CanaryMod: Player color and Prefix
 		if (etc.getInstance().isPlayerList_enabled()) {
 			PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(false);
-			this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing())));
+			this.a(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
 		}
 
    }
@@ -273,20 +273,19 @@ public class OServerConfigurationManager {
       this.f(var1);
    }
 
-   public void b() {
-      if(++this.p > 200) {
-         this.p = 0;
+   public void b()
+   {
+      if ((etc.getInstance().isPlayerList_autoupdate()) && (this.p-- <= 0)) {
+         for (int var1 = 0; var1 < this.b.size(); var1++) {
+            OEntityPlayerMP var2 = (OEntityPlayerMP)this.b.get(var1);
+    		PlayerlistEntry entry = var2.getPlayer().getPlayerlistEntry(true);
+    		a(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
+    	 }
+    	 this.p = etc.getInstance().getPlayerList_ticks();
       }
 
-      if(this.p < this.b.size()) {
-         OEntityPlayerMP var1 = (OEntityPlayerMP)this.b.get(this.p);
-         this.a((OPacket)(new OPacket201PlayerInfo(var1.v, true, var1.i)));
-      }
-
-      for(int var2 = 0; var2 < this.d.length; ++var2) {
-         this.d[var2].b();
-      }
-
+      for (int var1 = 0; var1 < this.d.length; var1++)
+         this.d[var1].b();
    }
 
    public void a(int var1, int var2, int var3, int var4) {

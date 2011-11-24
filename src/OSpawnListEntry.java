@@ -17,11 +17,13 @@ public class OSpawnListEntry extends OWeightedRandomChoice {
         chanceMap.put(OEntityEnderman.class, 10);
         chanceMap.put(OEntityCaveSpider.class, 0);
         chanceMap.put(OEntitySilverfish.class, 0);
+        
+        chanceMap.put(OEntityEnderDragon.class, 0);
+        
         chanceMap.put(OEntityGhast.class, 10);
         chanceMap.put(OEntityPigZombie.class, 10);
         chanceMap.put(OEntityLavaSlime.class, 10);
-        chanceMap.put(OEntityEnderDragon.class, 10);
-        chanceMap.put(OEntityBlaze.class, 10);
+        chanceMap.put(OEntityBlaze.class, 5);
 
         chanceMap.put(OEntitySheep.class, 10);
         chanceMap.put(OEntityPig.class, 10);
@@ -29,8 +31,8 @@ public class OSpawnListEntry extends OWeightedRandomChoice {
         chanceMap.put(OEntityCow.class, 10);
         chanceMap.put(OEntityWolf.class, 4);
         chanceMap.put(OEntityMushroomCow.class, 4);
-        chanceMap.put(OEntitySnowMan.class, 2);
-        chanceMap.put(OEntityVillager.class, 2);
+        chanceMap.put(OEntitySnowMan.class, 0);
+        chanceMap.put(OEntityVillager.class, 0);
 
         chanceMap.put(OEntitySquid.class, 10);
     }

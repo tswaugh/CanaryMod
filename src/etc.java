@@ -67,6 +67,7 @@ public class etc {
     private String[]                      waterAnimals        = new String[] {};
     private int                           mobSpawnRate        = 100;
     private boolean                       spawnWolves         = true;
+    private boolean                       spawnMooshrooms     = true;
     public boolean                        deathMessages       = true;
     private boolean                       mobReload           = false;
     private List<OSpawnListEntry>         animalsList, monsterList, waterAnimalsList;
@@ -151,16 +152,17 @@ public class etc {
             enableExperience = properties.getBoolean("enable-experience", true);
             deathMessages = properties.getBoolean("death-message", true);
 
-            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,MushroomCow,SnowMan").split(",");
+            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,MushroomCow").split(",");
             if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals("")))
                 animals = new String[] {};
-            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf", "MushroomCow", "SnowMan" });
+            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf", "MushroomCow" });
             spawnWolves = properties.getBoolean("spawn-wolves", true);
+            spawnMooshrooms = properties.getBoolean("spawn-mooshrooms", true);
 
-            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish,EnderDragon,Blaze,LavaSlime").split(",");
+            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish").split(",");
             if (monsters.length == 1 && (monsters[0].equals(" ") || monsters[0].equals("")))
                 monsters = new String[] {};
-            validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish", "EnderDragon", "Blaze", "LavaSlime" });
+            validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish" });
 
             waterAnimals = properties.getString("natural-wateranimals", "Squid").split(",");
             if (waterAnimals.length == 1 && (waterAnimals[0].equals(" ") || waterAnimals[0].equals("")))
@@ -1046,6 +1048,14 @@ public class etc {
             OSpawnListEntry wolfEntry = OSpawnListEntry.getSpawnListEntry(OEntityWolf.class);
             if (!toRet.contains(wolfEntry))
                 toRet.add(wolfEntry);
+        }
+        
+        // Mooshrooms also like to spawn
+        if (spawnMooshrooms && (biomeGen instanceof OBiomeGenMushroomIsland)) {
+            OSpawnListEntry mooshroomEntry = OSpawnListEntry.getSpawnListEntry(OEntityMushroomCow.class);
+            if (!toRet.contains(mooshroomEntry))
+            	toRet.clear();
+            	toRet.add(mooshroomEntry);
         }
 
         return toRet;
