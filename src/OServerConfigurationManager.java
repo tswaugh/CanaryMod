@@ -170,9 +170,18 @@ public class OServerConfigurationManager {
 					}
 				}
 
-				return new OEntityPlayerMP(this.c, this.c.a(0), var2, new OItemInWorldManager(this.c.a(0)));
+				//return new OEntityPlayerMP(this.c, this.c.a(0), var2, new OItemInWorldManager(this.c.a(0)));
 			}
 		}
+                Object obj = etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, var2);
+        if (obj instanceof String) {
+            String result = (String) obj;
+            if (result != null && !result.equals("")) {
+                var1.a(result);
+                return null;
+            }
+        }
+        return temp;
    }
 
    public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3) {

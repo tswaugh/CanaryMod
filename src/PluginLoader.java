@@ -314,11 +314,11 @@ public class PluginLoader {
         /**
          * Calls {@Link PluginListener#onMobTarget(Player,LivingEntity) }
          */
-        MOB_TARGET
+        MOB_TARGET,
         /**
          * Unused.
          */
-        NUM_HOOKS
+        NUM_HOOKS;
     }
 
     /**

@@ -6,7 +6,7 @@
  */
 public class Mob extends LivingEntity {
 
-	OEntityCreature MobcEnt;
+	OEntityCreature MobcEnt = null;
     /**
      * Creates a mob interface
      * 
