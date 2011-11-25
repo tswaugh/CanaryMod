@@ -5,6 +5,8 @@
  * @author James
  */
 public class Mob extends LivingEntity {
+
+	OEntityCreature MobcEnt;
     /**
      * Creates a mob interface
      * 
@@ -13,6 +15,7 @@ public class Mob extends LivingEntity {
      */
     public Mob(OEntityLiving locallb) {
         super(locallb);
+        
     }
 
     /**
@@ -73,6 +76,26 @@ public class Mob extends LivingEntity {
         return OEntityList.b(entity);
     }
 
+    /**
+     * Returns the current target of the mob
+     * 
+     * @return OEntity
+     */
+    public OEntity getTarget() {
+    	MobcEnt = (OEntityCreature)this.getEntity();
+        return this.MobcEnt.a;
+    }
+    
+    /**
+     * Sets the mobs target
+     * 
+     * @param entity
+     */
+    public void setTarget(OEntity target){
+    	MobcEnt = (OEntityCreature)this.getEntity();
+        this.MobcEnt.a = target; 
+    }
+    
     /**
      * Drops this mob's loot. Automatically called if health is set to 0.
      */

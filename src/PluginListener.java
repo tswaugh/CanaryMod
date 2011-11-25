@@ -1024,4 +1024,17 @@ public class PluginListener {
             onCowMilk(player, new Mob((OEntityCow)entityClicked.entity));
         return PluginLoader.HookResult.DEFAULT_ACTION;
     }
+    
+    /**
+     * Called when a Mob Entity targets a player for following and/or attacking.
+     * You can interrupt this by returning true.
+     * @param player
+     * @param mob
+     * @return false to allow target to occur,
+     *         true to cancel the target.
+     */ 
+     
+    public boolean onMobTarget(Player player, LivingEntity mob){
+        return false;
+    }
 }

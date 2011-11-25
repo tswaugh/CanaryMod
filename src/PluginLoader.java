@@ -312,6 +312,10 @@ public class PluginLoader {
          */
         ENTITY_RIGHTCLICKED,
         /**
+         * Calls {@Link PluginListener#onMobTarget(Player,LivingEntity) }
+         */
+        MOB_TARGET
+        /**
          * Unused.
          */
         NUM_HOOKS
@@ -947,6 +951,10 @@ public class PluginLoader {
                                 ret = listener.onEntityRightClick((Player) parameters[0], (BaseEntity) parameters[1], (Item) parameters[2]);
                                 if (ret != HookResult.DEFAULT_ACTION && (HookResult) toRet == HookResult.DEFAULT_ACTION)
                                     toRet = ret;
+                                break;
+                            case MOB_TARGET:
+                                if(listener.onMobTarget((Player) parameters[0], (LivingEntity) parameters[1]))
+                                    toRet = true;
                                 break;
                         }
                     } catch (UnsupportedOperationException ex) {
