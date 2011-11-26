@@ -123,7 +123,7 @@ public class World {
     public List<Mob> getMobList() {
         List<Mob> toRet = new ArrayList<Mob>();
         for (Object o : world.g)
-            if (o instanceof OEntityMob || o instanceof OEntityGhast)
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime)
                 toRet.add(new Mob((OEntityLiving) o));
         return toRet;
     }
@@ -140,6 +140,8 @@ public class World {
                 toRet.add(new Mob((OEntityLiving) o));
         return toRet;
     }
+    
+    
 
     /**
      * Returns the list of minecarts in all open chunks.
@@ -175,7 +177,7 @@ public class World {
     public List<BaseEntity> getEntityList() {
         List<BaseEntity> toRet = new ArrayList<BaseEntity>();
         for (Object o : world.g)
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal)
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager)
                 toRet.add(new Mob((OEntityLiving) o));
             else if (o instanceof OEntityMinecart)
                 toRet.add(((OEntityMinecart) o).cart);
@@ -210,7 +212,7 @@ public class World {
     public List<LivingEntity> getLivingEntityList() {
         List<LivingEntity> toRet = new ArrayList<LivingEntity>();
         for (Object o : world.g)
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal)
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager)
                 toRet.add(new Mob((OEntityLiving) o));
             else if (o instanceof OEntityPlayerMP)
                 toRet.add(((OEntityPlayerMP) o).getPlayer());
