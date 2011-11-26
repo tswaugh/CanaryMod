@@ -1,5 +1,6 @@
 import java.util.HashMap;
 
+
 public class OSpawnListEntry extends OWeightedRandomChoice {
 
     public Class a;
@@ -47,8 +48,9 @@ public class OSpawnListEntry extends OWeightedRandomChoice {
     // CanaryMod: actual method to get entries
     @SuppressWarnings("element-type-mismatch")
     public static OSpawnListEntry getSpawnListEntry(Class<?> entityClass) {
-        if (!OEntityLiving.class.isAssignableFrom(entityClass))
+        if (!OEntityLiving.class.isAssignableFrom(entityClass)) {
             throw new IllegalArgumentException(entityClass + " is not an entity class!");
-        return new OSpawnListEntry(entityClass, ((Integer)chanceMap.get(entityClass)).intValue(), 5, 5);
+        }
+        return new OSpawnListEntry(entityClass, ((Integer) chanceMap.get(entityClass)).intValue(), 5, 5);
     }
 }

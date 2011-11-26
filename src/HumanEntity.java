@@ -3,11 +3,11 @@
  * @author
  */
 public class HumanEntity extends LivingEntity {
+
     /**
      * Constructor
      */
-    public HumanEntity() {
-    }
+    public HumanEntity() {}
 
     /**
      * Constructor

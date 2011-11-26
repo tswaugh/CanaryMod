@@ -1,4 +1,5 @@
 
+
 /**
  * MobSpawner.java - Wrapper for mob spawners.
  * 
@@ -17,32 +18,26 @@ public class MobSpawner implements ComplexBlock {
         this.spawner = spawner;
     }
 
-    
     public int getX() {
         return spawner.l;
     }
 
-    
     public int getY() {
         return spawner.m;
     }
 
-    
     public int getZ() {
         return spawner.n;
     }
 
-    
     public Block getBlock() {
         return getWorld().getBlockAt(getX(), getY(), getZ());
     }
 
-    
     public World getWorld() {
         return spawner.k.world;
     }
 
-    
     public void update() {
         spawner.h();
     }
@@ -54,7 +49,7 @@ public class MobSpawner implements ComplexBlock {
      */
     public void setSpawn(String spawn) {
         spawner.d = spawn;
-        //update(); If we call update here, mobspawner resets to default (Pig)
+        // update(); If we call update here, mobspawner resets to default (Pig)
     }
 
     /**

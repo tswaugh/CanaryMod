@@ -10,32 +10,26 @@ class NoteBlock implements ComplexBlock {
         this.note = note;
     }
 
-    
     public int getX() {
         return note.l;
     }
 
-    
     public int getY() {
         return note.m;
     }
 
-    
     public int getZ() {
         return note.n;
     }
 
-    
     public void update() {
         note.i();
     }
 
-    
     public Block getBlock() {
         return getWorld().getBlockAt(getX(), getY(), getZ());
     }
 
-    
     public World getWorld() {
         return note.k.world;
     }

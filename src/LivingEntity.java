@@ -4,11 +4,11 @@
  * @author
  */
 public class LivingEntity extends BaseEntity {
+
     /**
      * Interface for living entities
      */
-    public LivingEntity() {
-    }
+    public LivingEntity() {}
 
     /**
      * Interface for living entities
@@ -54,10 +54,12 @@ public class LivingEntity extends BaseEntity {
      * @param health
      */
     public void setHealth(int health) {
-        if (health < -1)
+        if (health < -1) {
             health = -1;
-        if (health > 20)
+        }
+        if (health > 20) {
             health = 20;
+        }
         getEntity().bq = health;
     }
 

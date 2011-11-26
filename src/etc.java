@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 
 import net.minecraft.server.MinecraftServer;
 
+
 /**
  * etc.java - My catch-all class for a bunch of shit. If there's something you
  * need it's probably in here.
@@ -28,56 +29,56 @@ import net.minecraft.server.MinecraftServer;
  */
 public class etc {
     private static final Logger           log = Logger.getLogger("Minecraft");
-    private static final etc              instance  = new etc();
+    private static final etc              instance = new etc();
     private static MinecraftServer        server;
-    private String                   	  configDir =    "config/";
+    private String                   	  configDir = "config/";
     private String                        usersLoc = "config/users.txt", kitsLoc = "config/kits.txt", homeLoc = "config/homes.txt", warpLoc = "config/warps.txt", itemLoc = "config/items.txt", groupLoc = "config/groups.txt", enderBlocksLoc = "config/endermanblocks.txt";
     private String                        whitelistLoc = "config/whitelist.txt", reservelistLoc = "config/reservelist.txt";
     private String                        whitelistMessage = "Not on whitelist.";
 
-    private Set<Integer>                  allowedItems        = new HashSet<Integer>();
-    private Set<Integer>                  disallowedItems     = new HashSet<Integer>();
-    private Set<Integer>                  itemSpawnBlacklist  = new HashSet<Integer>();
+    private Set<Integer>                  allowedItems = new HashSet<Integer>();
+    private Set<Integer>                  disallowedItems = new HashSet<Integer>();
+    private Set<Integer>                  itemSpawnBlacklist = new HashSet<Integer>();
 
-    private String                        motd                = null;
-    private String                        motdLoc             = "config/motd.txt";
-    private boolean                       saveHomes           = true;
-    private boolean                       hideSeed            = false;
-    private boolean                       whitelistEnabled    = false;
-    private boolean                       reservelistEnabled  = false;
-    private int                           playerLimit         = 20;
+    private String                        motd = null;
+    private String                        motdLoc = "config/motd.txt";
+    private boolean                       saveHomes = true;
+    private boolean                       hideSeed = false;
+    private boolean                       whitelistEnabled = false;
+    private boolean                       reservelistEnabled = false;
+    private int                           playerLimit = 20;
     private int                           spawnProtectionSize = 16;
-    private LinkedHashMap<String, String> commands            = new LinkedHashMap<String, String>();
+    private LinkedHashMap<String, String> commands = new LinkedHashMap<String, String>();
     private String                        dataSourceType;
     private DataSource                    dataSource;
     private PropertiesFile                properties;
     private PluginLoader                  loader;
-    private boolean                       logging             = false;
-    private boolean                       enableHealth        = true;
-    private boolean                       enableExperience        = false;
-    private PluginLoader.HookResult       autoHeal            = PluginLoader.HookResult.DEFAULT_ACTION;
-    private boolean                       showUnknownCommand  = true;
+    private boolean                       logging = false;
+    private boolean                       enableHealth = true;
+    private boolean                       enableExperience = false;
+    private PluginLoader.HookResult       autoHeal = PluginLoader.HookResult.DEFAULT_ACTION;
+    private boolean                       showUnknownCommand = true;
     private String                        versionStr;
-    private boolean                       tainted             = true;
+    private boolean                       tainted = true;
     // Version, DO NOT CHANGE (is loaded from file version.txt)!
-    private int                           version             = 1;
+    private int                           version = 1;
     private String                        username, password, db;
-    private String[]                      animals             = new String[] {};
-    private String[]                      monsters            = new String[] {};
-    private String[]                      waterAnimals        = new String[] {};
-    private int                           mobSpawnRate        = 100;
-    private boolean                       spawnWolves         = true;
-    private boolean                       spawnMooshrooms     = true;
-    public boolean                        deathMessages       = true;
-    private boolean                       mobReload           = false;
+    private String[]                      animals = new String[] {};
+    private String[]                      monsters = new String[] {};
+    private String[]                      waterAnimals = new String[] {};
+    private int                           mobSpawnRate = 100;
+    private boolean                       spawnWolves = true;
+    private boolean                       spawnMooshrooms = true;
+    public boolean                        deathMessages = true;
+    private boolean                       mobReload = false;
     private List<OSpawnListEntry>         animalsList, monsterList, waterAnimalsList;
-    private boolean                       crow                = false;
-    private boolean                       allowNether         = true;
+    private boolean                       crow = false;
+    private boolean                       allowNether = true;
     // Playerlist options (tab)
-    private boolean                       playerList_autoupdate       = false;
-    private int                           playerList_ticks            = 500;
-    private boolean                       playerList_colors           = true;
-    private boolean                       playerList_enabled          = true;
+    private boolean                       playerList_autoupdate = false;
+    private int                           playerList_ticks = 500;
+    private boolean                       playerList_colors = true;
+    private boolean                       playerList_enabled = true;
 
     private etc() {
         load();
@@ -86,12 +87,13 @@ public class etc {
     private void loadIds(Collection<Integer> storage, String rawData) {
         for (String id : rawData.split(",")) {
             id = id.trim();
-            if (id.length() > 0)
+            if (id.length() > 0) {
                 try {
                     storage.add(Integer.parseInt(id));
                 } catch (NumberFormatException e) {
                     log.log(Level.SEVERE, "While parsing the config: '" + id + "' is not a number");
                 }
+            }
         }
     }
 
@@ -99,26 +101,28 @@ public class etc {
      * Loads or reloads the mod
      */
     public final void load() {
-        if (configDir == null)
+        if (configDir == null) {
             configDir = "config/";
-        if (properties == null)
+        }
+        if (properties == null) {
             properties = new PropertiesFile("server.properties");
-        else
+        } else {
             try {
                 properties.load();
             } catch (IOException e) {
                 log.log(Level.SEVERE, "Exception while reading from server.properties", e);
             }
+        }
 
         try {
             dataSourceType = properties.getString("data-source", "flatfile");
             loadIds(allowedItems, properties.getString("alloweditems", ""));
             loadIds(disallowedItems, properties.getString("disalloweditems", ""));
             loadIds(itemSpawnBlacklist, properties.getString("itemspawnblacklist", ""));
-            playerList_autoupdate = properties.getBoolean("playerlist-autoupdate",false);
-            playerList_ticks = properties.getInt("playerlist-ticks",500);
-            playerList_colors = properties.getBoolean("playerlist-usecolors",true);
-            playerList_enabled = properties.getBoolean("playerlist-enabled",true);
+            playerList_autoupdate = properties.getBoolean("playerlist-autoupdate", false);
+            playerList_ticks = properties.getInt("playerlist-ticks", 500);
+            playerList_colors = properties.getBoolean("playerlist-usecolors", true);
+            playerList_enabled = properties.getBoolean("playerlist-enabled", true);
             motd = properties.getString("motd", "My Canary Server.");
             playerLimit = properties.getInt("max-players", 20);
             saveHomes = properties.getBoolean("save-homes", true);
@@ -140,6 +144,7 @@ public class etc {
                 reservelistLoc = properties.getString("reservelist-txt-location", "config/reservelist.txt");
             } else {
                 PropertiesFile sql = new PropertiesFile("mysql.properties");
+
                 sql.getString("driver", "com.mysql.jdbc.Driver");
                 username = sql.getString("user", "root");
                 password = sql.getString("pass", "root");
@@ -153,20 +158,23 @@ public class etc {
             deathMessages = properties.getBoolean("death-message", true);
 
             animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow").split(",");
-            if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals("")))
+            if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals(""))) {
                 animals = new String[] {};
+            }
             validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf" });
             spawnWolves = properties.getBoolean("spawn-wolves", true);
             spawnMooshrooms = properties.getBoolean("spawn-mooshrooms", true);
 
             monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish").split(",");
-            if (monsters.length == 1 && (monsters[0].equals(" ") || monsters[0].equals("")))
+            if (monsters.length == 1 && (monsters[0].equals(" ") || monsters[0].equals(""))) {
                 monsters = new String[] {};
+            }
             validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish" });
 
             waterAnimals = properties.getString("natural-wateranimals", "Squid").split(",");
-            if (waterAnimals.length == 1 && (waterAnimals[0].equals(" ") || waterAnimals[0].equals("")))
+            if (waterAnimals.length == 1 && (waterAnimals[0].equals(" ") || waterAnimals[0].equals(""))) {
                 waterAnimals = new String[] {};
+            }
             validateMobGroup(waterAnimals, "natural-wateranimals", new String[] { "Squid" });
 
             mobReload = true;
@@ -174,17 +182,21 @@ public class etc {
             mobSpawnRate = properties.getInt("natural-spawn-rate", mobSpawnRate);
 
             String autoHealString = properties.getString("auto-heal", "default");
-            if (autoHealString.equalsIgnoreCase("true"))
+
+            if (autoHealString.equalsIgnoreCase("true")) {
                 autoHeal = PluginLoader.HookResult.ALLOW_ACTION;
-            else if (autoHealString.equalsIgnoreCase("false"))
+            } else if (autoHealString.equalsIgnoreCase("false")) {
                 autoHeal = PluginLoader.HookResult.PREVENT_ACTION;
+            }
 
             showUnknownCommand = properties.getBoolean("show-unknown-command", true);
             File file = new File("version.txt");
+
             if (file.exists()) {
                 InputStreamReader ins = new InputStreamReader(file.toURI().toURL().openStream());
                 BufferedReader bufferedReader = new BufferedReader(ins);
                 String versionParam = bufferedReader.readLine();
+
                 if (versionParam.startsWith("git-")) { // recommended
                     // version.txt for git
                     // builds:
@@ -193,7 +205,7 @@ public class etc {
                     version = -1;
                     versionStr = versionParam;
                     tainted = true;
-                } else if(versionParam.startsWith("crow-")) {
+                } else if (versionParam.startsWith("crow-")) {
                     crow = true;
                     versionStr = versionParam.substring(5); // and back to a string.
                     tainted = false; // looks official. We hope.
@@ -250,14 +262,16 @@ public class etc {
     public boolean isPlayerList_enabled() {
         return playerList_enabled;
     }
+
     /**
      * Loads or reloads the data source
      */
     public void loadData() {
-        if (dataSourceType.equalsIgnoreCase("flatfile") && dataSource == null)
+        if (dataSourceType.equalsIgnoreCase("flatfile") && dataSource == null) {
             dataSource = new FlatFileSource();
-        else if (dataSourceType.equalsIgnoreCase("mysql") && dataSource == null)
+        } else if (dataSourceType.equalsIgnoreCase("mysql") && dataSource == null) {
             dataSource = new MySQLSource();
+        }
 
         dataSource.initialize();
     }
@@ -317,8 +331,9 @@ public class etc {
      * @return
      */
     public static PluginLoader getLoader() {
-        if (instance.loader == null)
+        if (instance.loader == null) {
             instance.loader = new PluginLoader(server);
+        }
 
         return instance.loader;
     }
@@ -330,8 +345,10 @@ public class etc {
      */
     public Group getDefaultGroup() {
         Group group = dataSource.getDefaultGroup();
-        if (group == null)
+
+        if (group == null) {
             log.log(Level.SEVERE, "No default group! Expect lots of errors!");
+        }
         return group;
     }
 
@@ -341,10 +358,11 @@ public class etc {
      * @param home
      */
     public void changeHome(Warp home) {
-        if (dataSource.getHome(home.Name) == null)
+        if (dataSource.getHome(home.Name) == null) {
             dataSource.addHome(home);
-        else
+        } else {
             dataSource.changeHome(home);
+        }
     }
 
     /**
@@ -353,10 +371,11 @@ public class etc {
      * @param warp
      */
     public void setWarp(Warp warp) {
-        if (dataSource.getWarp(warp.Name) == null)
+        if (dataSource.getWarp(warp.Name) == null) {
             dataSource.addWarp(warp);
-        else
+        } else {
             dataSource.changeWarp(warp);
+        }
     }
 
     /**
@@ -454,9 +473,10 @@ public class etc {
 
         public void notify(String message) {
             // Strip the colors.
-            //message = message.replaceAll("\\u00A7[a-f0-9]", "");
-            if (message != null)
+            // message = message.replaceAll("\\u00A7[a-f0-9]", "");
+            if (message != null) {
                 log.info(message);
+            }
         }
     };
 
@@ -468,21 +488,27 @@ public class etc {
      * @return
      */
     public boolean parseConsoleCommand(String command, MinecraftServer server) {
-        if (getMCServer() == null)
+        if (getMCServer() == null) {
             setServer(server);
+        }
         String[] split = command.split(" ");
-        if ((Boolean) getLoader().callHook(PluginLoader.Hook.SERVERCOMMAND, new Object[] { split }))
+
+        if ((Boolean) getLoader().callHook(PluginLoader.Hook.SERVERCOMMAND, new Object[] { split })) {
             return true;
-        if (split.length == 0)
+        }
+        if (split.length == 0) {
             return false;
+        }
 
         boolean dontParseRegular = true;
+
         if (split[0].equalsIgnoreCase("save-all")) {
             dontParseRegular = false;
             getServer().saveInventories();
         } else if (split[0].equalsIgnoreCase("help") || split[0].equalsIgnoreCase("mod-help")) {
-            if (split[0].equalsIgnoreCase("help"))
+            if (split[0].equalsIgnoreCase("help")) {
                 dontParseRegular = false;
+            }
             log.info("Server mod help:");
             log.info("help          Displays this mod's and server's help");
             log.info("mod-help      Displays this mod's help");
@@ -496,8 +522,9 @@ public class etc {
             log.info("disableplugin Disables a plugin");
             log.info("reloadplugin  Reloads a plugin");
             log.info("gamemode  Set's the player's gamemode");
-        } else
+        } else {
             dontParseRegular = ServerConsoleCommands.parseServerConsoleCommand(serverConsole, split[0], split);
+        }
 
         return dontParseRegular;
     }
@@ -509,26 +536,27 @@ public class etc {
      * @return
      */
     public static String getCompassPointForDirection(double degrees) {
-        if (0 <= degrees && degrees < 22.5)
+        if (0 <= degrees && degrees < 22.5) {
             return "E";
-        else if (22.5 <= degrees && degrees < 67.5)
+        } else if (22.5 <= degrees && degrees < 67.5) {
             return "SE";
-        else if (67.5 <= degrees && degrees < 112.5)
+        } else if (67.5 <= degrees && degrees < 112.5) {
             return "S";
-        else if (112.5 <= degrees && degrees < 157.5)
+        } else if (112.5 <= degrees && degrees < 157.5) {
             return "SW";
-        else if (157.5 <= degrees && degrees < 202.5)
+        } else if (157.5 <= degrees && degrees < 202.5) {
             return "W";
-        else if (202.5 <= degrees && degrees < 247.5)
+        } else if (202.5 <= degrees && degrees < 247.5) {
             return "NW";
-        else if (247.5 <= degrees && degrees < 292.5)
+        } else if (247.5 <= degrees && degrees < 292.5) {
             return "N";
-        else if (292.5 <= degrees && degrees < 337.5)
+        } else if (292.5 <= degrees && degrees < 337.5) {
             return "NE";
-        else if (337.5 <= degrees && degrees < 360.0)
+        } else if (337.5 <= degrees && degrees < 360.0) {
             return "E";
-        else
+        } else {
             return "ERR";
+        }
     }
 
     /**
@@ -542,12 +570,14 @@ public class etc {
      */
     public static String combineSplit(int startIndex, String[] string, String seperator) {
         StringBuilder builder = new StringBuilder();
+
         for (int i = startIndex; i < string.length; i++) {
             builder.append(string[i]);
             builder.append(seperator);
         }
-        if (builder.length() > 0) //Skye's fix for OutOfBounds exception.
-            builder.deleteCharAt(builder.length() - seperator.length()); // remove
+        if (builder.length() > 0) { // Skye's fix for OutOfBounds exception.
+            builder.deleteCharAt(builder.length() - seperator.length());
+        } // remove
         // the
         // extra
         // seperator
@@ -763,8 +793,9 @@ public class etc {
         this.allowedItems.clear();
         // this.allowedItems.addAll(Arrays.asList(allowedItems)); <-- if only
         // java was smart >.>
-        for (int item : allowedItems)
+        for (int item : allowedItems) {
             this.allowedItems.add(item);
+        }
     }
 
     /**
@@ -776,8 +807,9 @@ public class etc {
         this.disallowedItems.clear();
         // this.allowedItems.addAll(Arrays.asList(allowedItems)); <-- if only
         // java was smart >.>
-        for (int item : disallowedItems)
+        for (int item : disallowedItems) {
             this.disallowedItems.add(item);
+        }
     }
 
     /**
@@ -816,8 +848,9 @@ public class etc {
         this.itemSpawnBlacklist.clear();
         // this.allowedItems.addAll(Arrays.asList(allowedItems)); <-- if only
         // java was smart >.>
-        for (int item : itemSpawnBlacklist)
+        for (int item : itemSpawnBlacklist) {
             this.itemSpawnBlacklist.add(item);
+        }
     }
 
     /**
@@ -1024,10 +1057,12 @@ public class etc {
     }
 
     public List getMonstersClass(OBiomeGenBase biomeSpawner) {
-        if (mobReload)
+        if (mobReload) {
             reloadMonsterClass();
+        }
 
         ArrayList toRet = new ArrayList(monsterList);
+
         if (biomeSpawner instanceof OBiomeGenHell) {
             toRet.clear();
             toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityGhast.class));
@@ -1039,40 +1074,49 @@ public class etc {
         // Fixing ender entities
         if (biomeSpawner instanceof OBiomeGenSky) {
             OSpawnListEntry endermanEntry = OSpawnListEntry.getSpawnListEntry(OEntityEnderman.class);
-            if (!toRet.contains(endermanEntry))
-            	toRet.clear();
-            	toRet.add(endermanEntry);
+
+            if (!toRet.contains(endermanEntry)) {
+                toRet.clear();
+            }
+            toRet.add(endermanEntry);
         }
         
         return toRet;
     }
 
     public List getAnimalsClass(OBiomeGenBase biomeGen) {
-        if (mobReload)
+        if (mobReload) {
             reloadMonsterClass();
+        }
 
         // Wolfies also like to spawn
         ArrayList toRet = new ArrayList(animalsList); // Create a copy.
+
         if (spawnWolves && ((biomeGen instanceof OBiomeGenTaiga) || (biomeGen instanceof OBiomeGenForest))) {
             OSpawnListEntry wolfEntry = OSpawnListEntry.getSpawnListEntry(OEntityWolf.class);
-            if (!toRet.contains(wolfEntry))
+
+            if (!toRet.contains(wolfEntry)) {
                 toRet.add(wolfEntry);
+            }
         }
         
         // Mooshrooms also like to spawn
         if (spawnMooshrooms && (biomeGen instanceof OBiomeGenMushroomIsland)) {
             OSpawnListEntry mooshroomEntry = OSpawnListEntry.getSpawnListEntry(OEntityMushroomCow.class);
-            if (!toRet.contains(mooshroomEntry))
-            	toRet.clear();
-            	toRet.add(mooshroomEntry);
+
+            if (!toRet.contains(mooshroomEntry)) {
+                toRet.clear();
+            }
+            toRet.add(mooshroomEntry);
         }
 
         return toRet;
     }
 
     public List getWaterAnimalsClass(OBiomeGenBase biomeSpawner) {
-        if (mobReload)
+        if (mobReload) {
             reloadMonsterClass();
+        }
         return waterAnimalsList;
     }
 
@@ -1081,12 +1125,15 @@ public class etc {
         animalsList = new ArrayList(getAnimals().length);
         waterAnimalsList = new ArrayList(getWaterAnimals().length);
 
-        for (String monster : getMonsters())
+        for (String monster : getMonsters()) {
             monsterList.add(OSpawnListEntry.getSpawnListEntry(OEntityList.getEntity(monster)));
-        for (String animal : getAnimals())
+        }
+        for (String animal : getAnimals()) {
             animalsList.add(OSpawnListEntry.getSpawnListEntry(OEntityList.getEntity(animal)));
-        for (String waterAnimal : getWaterAnimals())
+        }
+        for (String waterAnimal : getWaterAnimals()) {
             waterAnimalsList.add(OSpawnListEntry.getSpawnListEntry(OEntityList.getEntity(waterAnimal)));
+        }
 
         mobReload = false;
     }
@@ -1140,20 +1187,24 @@ public class etc {
 
     public static int floor(float paramFloat) {
         int i = (int) paramFloat;
+
         return paramFloat < i ? i - 1 : i;
     }
 
     public static int floor(double paramDouble) {
         int i = (int) paramDouble;
+
         return paramDouble < i ? i - 1 : i;
     }
 
     private static void validateMobGroup(String[] mobs, String groupname, String[] allowed) {
         lb1:
         for (String i : mobs) {
-            for (String al : allowed)
-                if (al.equals(i))
+            for (String al : allowed) {
+                if (al.equals(i)) {
                     continue lb1;
+                }
+            }
             log.warning("Invalid mobType '" + i + "' in group '" + groupname + "', please remove it from your config file!");
             System.exit(0);
         }
@@ -1161,53 +1212,55 @@ public class etc {
 
     public static boolean isInValidLivingGroup(String classname, Class<?> objectgroup) {
         Class<?> entity = OEntityList.getEntity(classname);
-        if (entity != null)
+
+        if (entity != null) {
             return objectgroup.isAssignableFrom(entity);
-        else
+        } else {
             return false;
+        }
     }
 
     /**
-    * Returns config directory
-    *
-    * @return String configDir
-    */
+     * Returns config directory
+     *
+     * @return String configDir
+     */
     public String getConfigFolder() {
         return configDir;
     }
     
     /**
-    * Returns if current build is a crow build
-    *
-    * @return boolean crow
-    */
+     * Returns if current build is a crow build
+     *
+     * @return boolean crow
+     */
     public boolean isCrow() {
         return crow;
     }
     
     /**
-    * Returns if nether is enabled
-    *
-    * @return
-    */
+     * Returns if nether is enabled
+     *
+     * @return
+     */
     public boolean isNetherEnabled() {
         return allowNether;
     }
     
     /**
-    * Returns the location of motd.txt
-    *
-    * @return
-    */
+     * Returns the location of motd.txt
+     *
+     * @return
+     */
     public String getMotdLocation() {
         return motdLoc;
     }
         
     /**
-    * Returns the server message
-    *
-    * @return
-    */
+     * Returns the server message
+     *
+     * @return
+     */
     public String getServerMessage() {
         return motd;
     }

@@ -1,4 +1,5 @@
 
+
 /**
  * Mob.java - Interface for mobs
  * 
@@ -6,7 +7,8 @@
  */
 public class Mob extends LivingEntity {
 
-	OEntityCreature MobcEnt = null;
+    OEntityCreature MobcEnt = null;
+
     /**
      * Creates a mob interface
      * 
@@ -61,6 +63,7 @@ public class Mob extends LivingEntity {
 
         if (rider != null) {
             OEntityLiving mob2 = rider.getMob();
+
             mob2.c(getX(), getY(), getZ(), getRotation(), 0f);
             world.b(mob2);
             mob2.a(entity);
@@ -82,7 +85,7 @@ public class Mob extends LivingEntity {
      * @return OEntity
      */
     public OEntity getTarget() {
-    	MobcEnt = (OEntityCreature)this.getEntity();
+        MobcEnt = (OEntityCreature) this.getEntity();
         return this.MobcEnt.a;
     }
     
@@ -91,8 +94,8 @@ public class Mob extends LivingEntity {
      * 
      * @param entity
      */
-    public void setTarget(OEntity target){
-    	MobcEnt = (OEntityCreature)this.getEntity();
+    public void setTarget(OEntity target) {
+        MobcEnt = (OEntityCreature) this.getEntity();
         this.MobcEnt.a = target; 
     }
     
@@ -107,8 +110,9 @@ public class Mob extends LivingEntity {
     @Override
     public void setHealth(int health) {
         super.setHealth(health);
-        if (health <= 0)
+        if (health <= 0) {
             dropLoot();
+        }
     }
 
     /**
@@ -128,17 +132,20 @@ public class Mob extends LivingEntity {
      * @return true of mob is valid
      */
     public static boolean isValid(String mob) {
-        if (mob == null)
+        if (mob == null) {
             return false;
+        }
         OEntity c = OEntityList.a(mob, etc.getMCServer().a(0));
+
         return c instanceof OIMob || c instanceof OIAnimals;
     }
 	
     /**
-    * Returns Mob location
-    */
+     * Returns Mob location
+     */
     public Location getLocation() {
         Location loc = new Location();
+
         loc.x = getX();
         loc.y = getY();
         loc.z = getZ();

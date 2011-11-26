@@ -13,17 +13,18 @@ import java.util.logging.Logger;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 
+
 public class Main {
 
-    public static final long   minecraft_server                   = 0xE92F8851L;
+    public static final long   minecraft_server = 0xE92F8851L;
 
-    public static final long   minecraft_servero                  = 0x1FE623BCL;
+    public static final long   minecraft_servero = 0x1FE623BCL;
 
-    public static final long   mysql                              = 0xb2e59524L;
-    public static final long   jarjar                             = 0x0de915d3L;
-    public static final long   rules                              = 0xC227C6F0L;
+    public static final long   mysql = 0xb2e59524L;
+    public static final long   jarjar = 0x0de915d3L;
+    public static final long   rules = 0xC227C6F0L;
 
-    public static final Logger log                                = Logger.getLogger("Minecraft");
+    public static final Logger log = Logger.getLogger("Minecraft");
 
     public static void main(String[] args) throws IOException {
 
@@ -43,8 +44,9 @@ public class Main {
                 checkCRC32("minecraft_server.jar", minecraft_server);
 
                 log("Finished downloading minecraft_server.jar, start converting minecraft_server.jar to minecraft_servero.jar...");
-            } else
+            } else {
                 log("Missing minecraft_servero.jar, start converting minecraft_server.jar to minecraft_servero.jar...");
+            }
 
             try {
                 com.tonicsystems.jarjar.Main.main(new String[] { "process", "rules.rules", "minecraft_server.jar", "minecraft_servero.jar" });
@@ -56,14 +58,17 @@ public class Main {
             log("Finished converting minecraft_server.jar, Starting minecraft server...");
             dynamicLoadJar("minecraft_servero.jar");
             Motd.makeMotd();
-        } else
+        } else {
             checkCRC32("minecraft_servero.jar", minecraft_servero);
+        }
 
-        if (etc.getInstance().getDataSourceType().equalsIgnoreCase("mysql"))
+        if (etc.getInstance().getDataSourceType().equalsIgnoreCase("mysql")) {
             checkCRC32("mysql-connector-java-bin.jar", mysql);
+        }
 
-        if (checkForUpdate())
+        if (checkForUpdate()) {
             System.out.println("Update found.");
+        }
         // derp.
 
         // This mod works with GUI now :D
@@ -80,10 +85,12 @@ public class Main {
     }
 
     public static void checkCRC32(String fileName, long crc) throws IOException {
-        if (etc.getInstance().getTainted())
+        if (etc.getInstance().getTainted()) {
             return;
+        }
 
         long checksum = getCRC32(fileName);
+
         if (checksum != crc) {
             log("-----------------------------");
             log(fileName + " does not match checksum! Checksum found: " + checksum + ", required checksum: " + crc + ".");
@@ -99,10 +106,11 @@ public class Main {
         FileInputStream stream = new FileInputStream(fileName);
         CheckedInputStream cis = new CheckedInputStream(stream, new CRC32());
         byte[] buf = new byte[128];
-        while (cis.read(buf) >= 0) {
-        }
+
+        while (cis.read(buf) >= 0) {}
 
         long rt = cis.getChecksum().getValue();
+
         stream.close();
         cis.close();
 
@@ -121,6 +129,7 @@ public class Main {
         URL url = new URL(website);
         ReadableByteChannel rbc = Channels.newChannel(url.openStream());
         FileOutputStream fos = new FileOutputStream(fileLocation);
+
         fos.getChannel().transferFrom(rbc, 0, 1 << 24);
     }
 
@@ -131,8 +140,10 @@ public class Main {
     public static void dynamicLoadJar(String fileName) throws IOException {
         URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
         Class<?> sysclass = URLClassLoader.class;
+
         try {
             Method method = sysclass.getDeclaredMethod("addURL", new Class[] { URL.class });
+
             method.setAccessible(true);
             method.invoke(sysloader, new Object[] { (new File(fileName)).toURI().toURL() });
         } catch (Throwable t) {

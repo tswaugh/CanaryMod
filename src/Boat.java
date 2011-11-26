@@ -4,6 +4,7 @@
  * @author James
  */
 public class Boat extends BaseVehicle {
+
     /**
      * Interface for boats.
      * 

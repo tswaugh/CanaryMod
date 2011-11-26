@@ -4,26 +4,32 @@
  * @author James
  */
 public class Location {
+
     /**
      * X location
      */
     public double x;
+
     /**
      * Z location
      */
     public double z;
+
     /**
      * Y location
      */
     public double y;
+
     /**
      * Rotation
      */
     public float  rotX;
+
     /**
      * Pitch
      */
     public float  rotY;
+
     /**
      * World
      */
@@ -32,8 +38,7 @@ public class Location {
     /**
      * Creates a location
      */
-    public Location() {
-    }
+    public Location() {}
 
     /**
      * Creates a location with the specified coordinates

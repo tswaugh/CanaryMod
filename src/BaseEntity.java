@@ -19,8 +19,7 @@ public class BaseEntity {
     /**
      * Interface for entities.
      */
-    public BaseEntity() {
-    }
+    public BaseEntity() {}
 
     /**
      * Returns the ID for this mob
@@ -239,8 +238,9 @@ public class BaseEntity {
      * @return player
      */
     public Player getPlayer() {
-        if (!isPlayer())
+        if (!isPlayer()) {
             return null;
+        }
 
         OEntityPlayerMP p = (OEntityPlayerMP) entity;
 

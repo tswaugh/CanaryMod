@@ -2,12 +2,14 @@
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * Item.java - Item stuff.
  * 
  * @author James
  */
 public class Item {
+
     /**
      * Type - Used to identify items
      */
@@ -231,8 +233,9 @@ public class Item {
         }
 
         private static void add(int type, Type name) {
-            if (map == null)
+            if (map == null) {
                 map = new HashMap<Integer, Type>();
+            }
 
             map.put(type, name);
         }
@@ -254,8 +257,7 @@ public class Item {
     /**
      * Create an item with an id of 1 and amount of 1
      */
-    public Item() {
-    }
+    public Item() {}
 
     /**
      * Create a new item.
@@ -400,8 +402,9 @@ public class Item {
      * @return
      */
     public static boolean isValidItem(int itemId) {
-        if (itemId < OItem.d.length)
+        if (itemId < OItem.d.length) {
             return OItem.d[itemId] != null;
+        }
         return false;
     }
 
@@ -461,17 +464,23 @@ public class Item {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final Item other = (Item) obj;
-        if (itemId != other.itemId)
+
+        if (itemId != other.itemId) {
             return false;
-        if (amount != other.amount)
+        }
+        if (amount != other.amount) {
             return false;
-        if (slot != other.slot)
+        }
+        if (slot != other.slot) {
             return false;
+        }
         return true;
     }
 
@@ -483,6 +492,7 @@ public class Item {
     @Override
     public int hashCode() {
         int hash = 7;
+
         hash = 97 * hash + itemId;
         hash = 97 * hash + amount;
         hash = 97 * hash + slot;
@@ -515,10 +525,11 @@ public class Item {
     }
 
     public Cloth.Color getColor() {
-        if (!isCloth())
+        if (!isCloth()) {
             return null;
-        else
+        } else {
             return Cloth.Color.getColor(damage);
+        }
     }
 
     public OItemStack getBaseItem() {

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import net.minecraft.server.MinecraftServer;
 
+
 /**
  * DataSource.java - Abstract class for implementing new data sources.
  * 
@@ -15,17 +16,17 @@ import net.minecraft.server.MinecraftServer;
  */
 public abstract class DataSource {
 
-    protected static final Logger  log    = Logger.getLogger("Minecraft");
+    protected static final Logger  log = Logger.getLogger("Minecraft");
     protected List<Group>          groups = new ArrayList<Group>();
-    protected List<Kit>            kits   = new ArrayList<Kit>();
-    protected List<Warp>           homes  = new ArrayList<Warp>();
-    protected List<Warp>           warps  = new ArrayList<Warp>();
-    protected List<Ban>            bans   = new ArrayList<Ban>();
-    protected Map<String, Integer> items  = new HashMap<String, Integer>();
+    protected List<Kit>            kits = new ArrayList<Kit>();
+    protected List<Warp>           homes = new ArrayList<Warp>();
+    protected List<Warp>           warps = new ArrayList<Warp>();
+    protected List<Ban>            bans = new ArrayList<Ban>();
+    protected Map<String, Integer> items = new HashMap<String, Integer>();
     protected List<Integer>        enderBlocks = new ArrayList<Integer>();
     protected MinecraftServer      server;
     protected final Object         groupLock = new Object(), kitLock = new Object(), banLock = new Object();
-    protected final Object         homeLock  = new Object(), warpLock = new Object(), itemLock = new Object(), enderBlocksLock = new Object();
+    protected final Object         homeLock = new Object(), warpLock = new Object(), itemLock = new Object(), enderBlocksLock = new Object();
 
     /**
      * Initializes the data source
@@ -134,13 +135,16 @@ public abstract class DataSource {
      */
     public Group getGroup(String name) {
         synchronized (groupLock) {
-            for (Group group : groups)
-                if (group.Name.equalsIgnoreCase(name))
+            for (Group group : groups) {
+                if (group.Name.equalsIgnoreCase(name)) {
                     return group;
+                }
+            }
         }
 
-        if (!name.equals(""))
+        if (!name.equals("")) {
             log.log(Level.INFO, "Unable to find group '" + name + "'. Are you sure you have that group?");
+        }
 
         return null;
     }
@@ -152,9 +156,11 @@ public abstract class DataSource {
      */
     public Group getDefaultGroup() {
         synchronized (groupLock) {
-            for (Group group : groups)
-                if (group.DefaultGroup)
+            for (Group group : groups) {
+                if (group.DefaultGroup) {
                     return group;
+                }
+            }
         }
         return null;
     }
@@ -181,9 +187,11 @@ public abstract class DataSource {
      */
     public Kit getKit(String name) {
         synchronized (kitLock) {
-            for (Kit kit : kits)
-                if (kit.Name.equalsIgnoreCase(name))
+            for (Kit kit : kits) {
+                if (kit.Name.equalsIgnoreCase(name)) {
                     return kit;
+                }
+            }
         }
         return null;
     }
@@ -207,12 +215,15 @@ public abstract class DataSource {
      */
     public String getKitNames(Player player) {
         StringBuilder builder = new StringBuilder();
+
         builder.append(""); // incaseofnull
 
         synchronized (kitLock) {
-            for (Kit kit : kits)
-                if (player.isInGroup(kit.Group) || kit.Group.equals(""))
+            for (Kit kit : kits) {
+                if (player.isInGroup(kit.Group) || kit.Group.equals("")) {
                     builder.append(kit.Name).append(" ");
+                }
+            }
         }
 
         return builder.toString();
@@ -240,9 +251,11 @@ public abstract class DataSource {
      */
     public Warp getHome(String name) {
         synchronized (homeLock) {
-            for (Warp home : homes)
-                if (home.Name.equalsIgnoreCase(name))
+            for (Warp home : homes) {
+                if (home.Name.equalsIgnoreCase(name)) {
                     return home;
+                }
+            }
         }
         return null;
     }
@@ -276,9 +289,11 @@ public abstract class DataSource {
      */
     public Warp getWarp(String name) {
         synchronized (warpLock) {
-            for (Warp warp : warps)
-                if (warp.Name.equalsIgnoreCase(name))
+            for (Warp warp : warps) {
+                if (warp.Name.equalsIgnoreCase(name)) {
                     return warp;
+                }
+            }
         }
         return null;
     }
@@ -302,12 +317,15 @@ public abstract class DataSource {
      */
     public String getWarpNames(Player player) {
         StringBuilder builder = new StringBuilder();
+
         builder.append(""); // incaseofnull
 
         synchronized (warpLock) {
-            for (Warp warp : warps)
-                if (player.isInGroup(warp.Group) || warp.Group.equals(""))
+            for (Warp warp : warps) {
+                if (player.isInGroup(warp.Group) || warp.Group.equals("")) {
                     builder.append(warp.Name).append(" ");
+                }
+            }
         }
 
         return builder.toString();
@@ -321,8 +339,9 @@ public abstract class DataSource {
      */
     public int getItem(String name) {
         synchronized (itemLock) {
-            if (items.containsKey(name))
+            if (items.containsKey(name)) {
                 return items.get(name);
+            }
         }
         return 0;
     }
@@ -336,9 +355,11 @@ public abstract class DataSource {
      */
     public String getItem(int id) {
         synchronized (itemLock) {
-            for (String name : items.keySet())
-                if (items.get(name) == id)
+            for (String name : items.keySet()) {
+                if (items.get(name) == id) {
                     return name;
+                }
+            }
         }
         return String.valueOf(id);
     }
@@ -404,9 +425,11 @@ public abstract class DataSource {
      */
     public boolean isOnBanList(String player, String ip) {
         synchronized (banLock) {
-            for (Ban ban : bans)
-                if (ban.getName().equalsIgnoreCase(player) || ban.getIp().equalsIgnoreCase(ip))
+            for (Ban ban : bans) {
+                if (ban.getName().equalsIgnoreCase(player) || ban.getIp().equalsIgnoreCase(ip)) {
                     return true;
+                }
+            }
         }
         return false;
     }
@@ -422,9 +445,11 @@ public abstract class DataSource {
      */
     public Ban getBan(String player, String ip) {
         synchronized (banLock) {
-            for (Ban ban : bans)
-                if (ban.getName().equalsIgnoreCase(player) || ban.getIp().equalsIgnoreCase(ip))
+            for (Ban ban : bans) {
+                if (ban.getName().equalsIgnoreCase(player) || ban.getIp().equalsIgnoreCase(ip)) {
                     return ban;
+                }
+            }
         }
         return null;
     }

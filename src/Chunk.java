@@ -1,4 +1,5 @@
 
+
 /**
  * Chunk.java - Interface to chunks, especially for generating chunks.
  * @author phi
@@ -79,7 +80,7 @@ public class Chunk {
      */
     public boolean setBlockIdAt(int x, int y, int z, int id) {
         if (isLoaded()) {
-            //handles notification
+            // handles notification
             return getWorld().setBlockAt(id, x | (getX() << 4), y, x | (getZ() << 4));
         } else {
             return chunk.a(x, y, z, id);
@@ -106,7 +107,7 @@ public class Chunk {
      */
     public void setBlockDataAt(int x, int y, int z, int data) {
         if (isLoaded()) {
-            //handles notification
+            // handles notification
             getWorld().setBlockData(x | (getX() << 4), y, x | (getZ() << 4), data);
         } else {
             chunk.b(x, y, z, data);

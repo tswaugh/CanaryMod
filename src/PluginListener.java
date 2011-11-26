@@ -1,4 +1,5 @@
 
+
 /**
  * PluginListener.java - Extend this and register it to listen to specific
  * hooks.
@@ -6,27 +7,23 @@
  * @author Maine
  */
 public class PluginListener {
+
     /**
      * Priority - Used for priority for plugin listeners
      */
     public enum Priority {
+
         /**
          * Highly critical for hooks that absolutely must occur before any
          * others. Use carefully.
          */
-        CRITICAL,
-        /**
+        CRITICAL, /**
          * May block/interrupt/undo the action, but prefer MEDIUM
-         */
-        HIGH,
-        /**
+         */ HIGH, /**
          * Preferred priority for blocking/interrupting/undoing the action
-         */
-        MEDIUM,
-        /**
+         */ MEDIUM, /**
          * Must not block/interrupt/undo the action
-         */
-        LOW
+         */ LOW
     }
 
     /**
@@ -39,8 +36,7 @@ public class PluginListener {
      * @param to
      *            current block location
      */
-    public void onPlayerMove(Player player, Location from, Location to) {
-    }
+    public void onPlayerMove(Player player, Location from, Location to) {}
 
     /**
      * Called when a player teleports from one location to another
@@ -73,16 +69,14 @@ public class PluginListener {
      * 
      * @param player
      */
-    public void onLogin(Player player) {
-    }
+    public void onLogin(Player player) {}
 
     /**
      * Called on player disconnect
      * 
      * @param player
      */
-    public void onDisconnect(Player player) {
-    }
+    public void onDisconnect(Player player) {}
 
     /**
      * Called when a player talks. If you return true the message won't be sent
@@ -129,8 +123,7 @@ public class PluginListener {
      * @param reason
      *            reason for ban
      */
-    public void onBan(Player mod, Player player, String reason) {
-    }
+    public void onBan(Player mod, Player player, String reason) {}
 
     /**
      * Called when a player is IP banned
@@ -142,8 +135,7 @@ public class PluginListener {
      * @param reason
      *            for IP ban
      */
-    public void onIpBan(Player mod, Player player, String reason) {
-    }
+    public void onIpBan(Player mod, Player player, String reason) {}
 
     /**
      * Called when a player is kicked
@@ -155,8 +147,7 @@ public class PluginListener {
      * @param reason
      *            reason for kick
      */
-    public void onKick(Player mod, Player player, String reason) {
-    }
+    public void onKick(Player mod, Player player, String reason) {}
 
     /**
      * Called when someone presses right click aimed at a block. You can
@@ -209,8 +200,7 @@ public class PluginListener {
      * @param player
      *            player swinging
      */
-    public void onArmSwing(Player player) {
-    }
+    public void onArmSwing(Player player) {}
 
     /**
      * Called when a player drops an item.
@@ -428,8 +418,7 @@ public class PluginListener {
      * @param vehicle
      *            the vehicle placed
      */
-    public void onVehicleCreate(BaseVehicle vehicle) {
-    }
+    public void onVehicleCreate(BaseVehicle vehicle) {}
 
     /**
      * Called when vehicle receives damage
@@ -450,8 +439,7 @@ public class PluginListener {
      * @param vehicle
      *            the vehicle
      */
-    public void onVehicleUpdate(BaseVehicle vehicle) {
-    }
+    public void onVehicleUpdate(BaseVehicle vehicle) {}
 
     /**
      * Called when a collision occurs with a vehicle and an entity.
@@ -471,8 +459,7 @@ public class PluginListener {
      * @param vehicle
      *            the vehicle
      */
-    public void onVehicleDestroyed(BaseVehicle vehicle) {
-    }
+    public void onVehicleDestroyed(BaseVehicle vehicle) {}
 
     /**
      * Called when a player enter or leaves a vehicle
@@ -482,8 +469,7 @@ public class PluginListener {
      * @param player
      *            the player
      */
-    public void onVehicleEnter(BaseVehicle vehicle, HumanEntity player) {
-    }
+    public void onVehicleEnter(BaseVehicle vehicle, HumanEntity player) {}
 
     /**
      * Called when a vehicle changes block
@@ -497,8 +483,7 @@ public class PluginListener {
      * @param z
      *            coordinate z
      */
-    public void onVehiclePositionChange(BaseVehicle vehicle, int x, int y, int z) {
-    }
+    public void onVehiclePositionChange(BaseVehicle vehicle, int x, int y, int z) {}
 
     /**
      * Called when a player uses an item (rightclick with item in hand)
@@ -540,8 +525,7 @@ public class PluginListener {
      * @param itemInHand
      */
     @Deprecated
-    public void onBlockRightClicked(Player player, Block blockClicked, Item itemInHand) {
-    }
+    public void onBlockRightClicked(Player player, Block blockClicked, Item itemInHand) {}
 
     /**
      * Called when someone presses right click aimed at a block. You can
@@ -617,8 +601,7 @@ public class PluginListener {
      * @param sign
      *            Sign which is being shown to the player
      */
-    public void onSignShow(Player player, Sign sign) {
-    }
+    public void onSignShow(Player player, Sign sign) {}
 
     /**
      * Called when a sign is changed by a player (Usually, when they first place
@@ -694,8 +677,9 @@ public class PluginListener {
      * @return true to prevent the weather from changing
      */
     public boolean onWeatherChange(World world, boolean newValue) {
-        if (world.equals(etc.getServer().getDefaultWorld()))
+        if (world.equals(etc.getServer().getDefaultWorld())) {
             onWeatherChange(newValue);
+        }
         return false;
     }
 
@@ -722,8 +706,9 @@ public class PluginListener {
      * @return true to prevent the thunder from changing
      */
     public boolean onThunderChange(World world, boolean newValue) {
-        if (world.equals(etc.getServer().getDefaultWorld()))
+        if (world.equals(etc.getServer().getDefaultWorld())) {
             return onThunderChange(newValue);
+        }
         return false;
     }
 
@@ -766,15 +751,13 @@ public class PluginListener {
      * Called before chunk is unloaded
      * @param chunk
      */
-    public void onChunkUnload(Chunk chunk) {
-    }
+    public void onChunkUnload(Chunk chunk) {}
 
     /**
      * Called after a chunk was loaded
      * @param chunk
      */
-    public void onChunkLoaded(Chunk chunk) {
-    }
+    public void onChunkLoaded(Chunk chunk) {}
 
     /**
      * Called when a chunk is generated.
@@ -806,8 +789,7 @@ public class PluginListener {
      * Called after a chunk was generated
      * @param chunk
      */
-    public void onChunkCreated(Chunk chunk) {
-    }
+    public void onChunkCreated(Chunk chunk) {}
 
     /**
      * Called when a portal is created.
@@ -834,8 +816,7 @@ public class PluginListener {
      * @param player
      * 			Player that respawns
      */
-    public void onPlayerRespawn(Player player) {
-    }
+    public void onPlayerRespawn(Player player) {}
 
     /**
      * Called when an entity despawns
@@ -855,7 +836,7 @@ public class PluginListener {
      *          The block the enderman picks up
      * @return true if to prevent the enderman from pickup up the block
      */
-    public boolean onEndermanPickup(Enderman entity, Block block){
+    public boolean onEndermanPickup(Enderman entity, Block block) {
         return false;
     }
     
@@ -867,7 +848,7 @@ public class PluginListener {
      *          The block the enderman drops
      * @return true if to prevent the enderman from dropping the block
      */
-    public boolean onEndermanDrop(Enderman entity, Block block){
+    public boolean onEndermanDrop(Enderman entity, Block block) {
         return false;
     }
     
@@ -881,9 +862,8 @@ public class PluginListener {
      * @return true if to prevent the player from milking the cow
      */
     @Deprecated
-    public boolean onCowMilk(Player player, Mob cow)
-    {
-       return false;
+    public boolean onCowMilk(Player player, Mob cow) {
+        return false;
     }
 
     /**
@@ -894,9 +874,8 @@ public class PluginListener {
      *          The eaten item
      * @return true to prevent the player eat the item
      */
-    public boolean onEat(Player player, Item item)
-    {
-       return false;
+    public boolean onEat(Player player, Item item) {
+        return false;
     }
     
     /**
@@ -910,8 +889,7 @@ public class PluginListener {
      *           
      * @return the new food level
      */
-    public int onFoodLevelChange(Player player,int oldFoodLevel,int newFoodLevel)
-    {
+    public int onFoodLevelChange(Player player, int oldFoodLevel, int newFoodLevel) {
         return newFoodLevel;
     }
 
@@ -927,7 +905,6 @@ public class PluginListener {
     public Float onFoodExhaustionChange(Player player, Float oldLevel, Float newLevel) {
         return newLevel;
     }
-
 
     /**
      * Called when a player food saturation level changes
@@ -955,7 +932,8 @@ public class PluginListener {
     public PotionEffect onPotionEffect(LivingEntity entity, PotionEffect potionEffect) {
         return potionEffect;
     }
-	    /**
+
+    /**
      * Called when a players experience changes.
      * 
      * @param player
@@ -976,10 +954,9 @@ public class PluginListener {
      * 			Player that levels up
      */
     public boolean onLevelUp(Player player) {
-    	return false;
+        return false;
     }
 
-    
     /**
      * Called when sending the playername to the new list
      * 
@@ -1020,8 +997,9 @@ public class PluginListener {
      */
     
     public PluginLoader.HookResult onEntityRightClick(Player player, BaseEntity entityClicked, Item itemInHand) {
-        if (entityClicked.entity instanceof OEntityCow)
-            onCowMilk(player, new Mob((OEntityCow)entityClicked.entity));
+        if (entityClicked.entity instanceof OEntityCow) {
+            onCowMilk(player, new Mob((OEntityCow) entityClicked.entity));
+        }
         return PluginLoader.HookResult.DEFAULT_ACTION;
     }
     
@@ -1034,7 +1012,7 @@ public class PluginListener {
      *         true to cancel the target.
      */ 
      
-    public boolean onMobTarget(Player player, LivingEntity mob){
+    public boolean onMobTarget(Player player, LivingEntity mob) {
         return false;
     }
 }

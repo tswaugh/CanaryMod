@@ -1,10 +1,10 @@
 
 public class ItemEntity extends BaseEntity {
+
     /**
      * Constructor
      */
-    public ItemEntity() {
-    }
+    public ItemEntity() {}
 
     /**
      * Constructor

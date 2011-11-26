@@ -1,114 +1,121 @@
-import java.util.Random;
 
-public abstract class OEntityMob extends OEntityCreature
-  implements OIMob
-{
-  protected int d = 2;
-  protected OEntityLiving ole;
-  protected LivingEntity le;
-  public OEntityMob(OWorld paramOWorld) {
-    super(paramOWorld);
-    this.bB = 5;
-    ole = (OEntityLiving)this;
-    le = new LivingEntity(ole);
-  }
+public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
-  public void f() {
-    float f = a(1.0F);
-    if (f > 0.5F) {
-      this.bU += 2;
+    protected int c = 2;
+    
+    // CanaryMod start
+    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
+    protected LivingEntity entity = new LivingEntity(this);
+    // CanaryMod end
+    
+    public OEntityMob(OWorld var1) {
+        super(var1);
+        this.az = 5;
     }
-    super.f();
-  }
 
-  public void b() {
-    super.b();
-    if ((!this.X.I) && (this.X.v == 0)) J(); 
-  }
+    public void d() {
+        float var1 = this.a(1.0F);
 
-  protected OEntity k()
-  {
-    OEntityPlayer localOEntityPlayer = this.X.b(this, 16.0D);
-    if ((localOEntityPlayer != null) && (i(localOEntityPlayer))){
-              // CanaryMod: calls onMobTarget
-        if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET,(Player) localOEntityPlayer.entity.getPlayer(), le))
-        return localOEntityPlayer;
-        else{
-            return null;
+        if (var1 > 0.5F) {
+            this.aS += 2;
+        }
+
+        super.d();
+    }
+
+    public void w_() {
+        super.w_();
+        if (!this.bf.I && this.bf.v == 0) {
+            this.S();
+        }
+
+    }
+
+    protected OEntity k() {
+        OEntityPlayer var1 = this.bf.b(this, 16.0D);
+
+        return var1 != null && this.g(var1) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity) ? var1 : null; // CanaryMod: MOB_TARGET hook
+    }
+
+    public boolean a(ODamageSource var1, int var2) {
+        if (super.a(var1, var2)) {
+            OEntity var3 = var1.a();
+
+            if (this.bd != var3 && this.be != var3) {
+                if (var3 != this) {
+                    // CanaryMod start - MOB_TARGET hook
+                    if (var3 instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), entity)) {
+                        this.d = var3;
+                    }
+                    // CanaryMod end
+                }
+
+                return true;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
         }
     }
-    return null;
-  }
 
-  public boolean a(ODamageSource paramODamageSource, int paramInt) {
-    if (super.a(paramODamageSource, paramInt)) {
-      OEntity localOEntity = paramODamageSource.a();
-      if ((this.V == localOEntity) || (this.W == localOEntity)) return true;
+    protected boolean d(OEntity var1) {
+        int var2 = this.c;
 
-      if (localOEntity != this) {
-          if(localOEntity.entity.isPlayer())
-              // CanaryMod: calls onMobTarget
-          if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET,(Player) localOEntity.entity.getPlayer(), le))
-        this.a = localOEntity;
-          else
-              this.a = null;
-      }
-      return true;
-    }
-    return false;
-  }
+        if (this.a(OPotion.g)) {
+            var2 += 3 << this.b(OPotion.g).c();
+        }
 
-  protected boolean f(OEntity paramOEntity)
-  {
-    int i = this.d;
-    if (a(OPotion.g)) {
-      i += (3 << b(OPotion.g).c());
-    }
-    if (a(OPotion.t)) {
-      i -= (2 << b(OPotion.t).c());
+        if (this.a(OPotion.t)) {
+            var2 -= 2 << this.b(OPotion.t).c();
+        }
+
+        return var1.a(ODamageSource.a((OEntityLiving) this), var2);
     }
 
-    return paramOEntity.a(ODamageSource.a(this), i);
-  }
+    protected void a(OEntity var1, float var2) {
+        if (this.av <= 0 && var2 < 2.0F && var1.bt.e > this.bt.b && var1.bt.b < this.bt.e) {
+            this.av = 20;
+            this.d(var1);
+        }
 
-  protected void a(OEntity paramOEntity, float paramFloat) {
-    if ((this.bx <= 0) && (paramFloat < 2.0F) && (paramOEntity.al.e > this.al.b) && (paramOEntity.al.b < this.al.e)) {
-      this.bx = 20;
-      f(paramOEntity);
     }
-  }
 
-  protected float a(int paramInt1, int paramInt2, int paramInt3) {
-    return 0.5F - this.X.k(paramInt1, paramInt2, paramInt3);
-  }
-
-  public void a(ONBTTagCompound paramONBTTagCompound) {
-    super.a(paramONBTTagCompound);
-  }
-
-  public void b(ONBTTagCompound paramONBTTagCompound) {
-    super.b(paramONBTTagCompound);
-  }
-
-  protected boolean B_() {
-    int i = OMathHelper.b(this.ab);
-    int j = OMathHelper.b(this.al.b);
-    int k = OMathHelper.b(this.ad);
-    if (this.X.a(OEnumSkyBlock.a, i, j, k) > this.aH.nextInt(32)) return false;
-
-    int m = this.X.j(i, j, k);
-
-    if (this.X.v()) {
-      int n = this.X.k;
-      this.X.k = 10;
-      m = this.X.j(i, j, k);
-      this.X.k = n;
+    protected float a(int var1, int var2, int var3) {
+        return 0.5F - this.bf.m(var1, var2, var3);
     }
-    return m <= this.aH.nextInt(8);
-  }
 
-  public boolean v_()
-  {
-    return (B_()) && (super.v_());
-  }
+    public void b(ONBTTagCompound var1) {
+        super.b(var1);
+    }
+
+    public void a(ONBTTagCompound var1) {
+        super.a(var1);
+    }
+
+    protected boolean y() {
+        int var1 = OMathHelper.b(this.bj);
+        int var2 = OMathHelper.b(this.bt.b);
+        int var3 = OMathHelper.b(this.bl);
+
+        if (this.bf.a(OEnumSkyBlock.a, var1, var2, var3) > this.bP.nextInt(32)) {
+            return false;
+        } else {
+            int var4 = this.bf.l(var1, var2, var3);
+
+            if (this.bf.v()) {
+                int var5 = this.bf.k;
+
+                this.bf.k = 10;
+                var4 = this.bf.l(var1, var2, var3);
+                this.bf.k = var5;
+            }
+
+            return var4 <= this.bP.nextInt(8);
+        }
+    }
+
+    public boolean g() {
+        return this.y() && super.g();
+    }
 }
