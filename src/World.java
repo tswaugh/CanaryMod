@@ -136,7 +136,7 @@ public class World {
     public List<Mob> getAnimalList() {
         List<Mob> toRet = new ArrayList<Mob>();
         for (Object o : world.g)
-            if (o instanceof OEntityAnimal)
+            if (o instanceof OEntityAnimal || o instanceof OEntitySquid || o instanceof OEntitySnowMan)
                 toRet.add(new Mob((OEntityLiving) o));
         return toRet;
     }
@@ -177,7 +177,7 @@ public class World {
     public List<BaseEntity> getEntityList() {
         List<BaseEntity> toRet = new ArrayList<BaseEntity>();
         for (Object o : world.g)
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager)
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowMan)
                 toRet.add(new Mob((OEntityLiving) o));
             else if (o instanceof OEntityMinecart)
                 toRet.add(((OEntityMinecart) o).cart);
@@ -212,7 +212,7 @@ public class World {
     public List<LivingEntity> getLivingEntityList() {
         List<LivingEntity> toRet = new ArrayList<LivingEntity>();
         for (Object o : world.g)
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager)
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowMan)
                 toRet.add(new Mob((OEntityLiving) o));
             else if (o instanceof OEntityPlayerMP)
                 toRet.add(((OEntityPlayerMP) o).getPlayer());
