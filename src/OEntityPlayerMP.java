@@ -245,13 +245,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         }
       
         // CanaryMod: Update the health
-        if (this.bq != this.cc) {
+        if (this.ao != this.cc) {
             // updates your health when it is changed.
             if (!etc.getInstance().isHealthEnabled()) {
-                bq = 20;
-                bA = false;
-            } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cc, bq)) {
-                bq = cc;
+                ao = 20;
+                ay = false;
+            } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cc, ao)) {
+                ao = cc;
             }
         }
       

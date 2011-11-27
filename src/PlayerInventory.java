@@ -62,7 +62,7 @@ public class PlayerInventory extends ItemArray implements Inventory {
     }
 
     public void update() {
-        user.b();
+        user.w_();
     }
 
     /**
