@@ -83,9 +83,8 @@ public class OTileEntityMobSpawner extends OTileEntity {
         this.a = 200 + this.k.w.nextInt(600);
     }
 
-<<<<<<<
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
+    public void a(ONBTTagCompound var1) {
+        super.a(var1);
         // CanaryMod - There is no more Monster class
         String entityId = var1.j("EntityId");
 
@@ -94,11 +93,6 @@ public class OTileEntityMobSpawner extends OTileEntity {
         } else {
             this.d = entityId;
         }
-=======
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-        this.d = var1.j("EntityId");
->>>>>>>
         this.a = var1.e("Delay");
     }
 

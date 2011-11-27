@@ -190,37 +190,39 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     public void f() {}
 
-<<<<<<<
-    public void z_() {}
-=======
     public void g() {}
-}
->>>>>>>
 
+    @Override
     public OItemStack[] getContents() {
         return Arrays.copyOf(d, getContentsSize());
     }
 
+    @Override
     public void setContents(OItemStack[] values) {
         d = Arrays.copyOf(values, getContentsSize());
     }
 
+    @Override
     public OItemStack getContentsAt(int index) {
-        return c(index);
+        return c_(index);
     }
 
+    @Override
     public void setContentsAt(int index, OItemStack value) {
         a(index, value);
     }
 
+    @Override
     public int getContentsSize() {
-        return d();
+        return c();
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String value) {
         name = value;
     }

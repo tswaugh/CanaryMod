@@ -7,8 +7,6 @@
  */
 public class Mob extends LivingEntity {
 
-    OEntityCreature MobcEnt = null;
-
     /**
      * Creates a mob interface
      * 
@@ -75,6 +73,7 @@ public class Mob extends LivingEntity {
      * 
      * @return name
      */
+    @Override
     public String getName() {
         return OEntityList.b(entity);
     }
@@ -85,18 +84,16 @@ public class Mob extends LivingEntity {
      * @return OEntity
      */
     public OEntity getTarget() {
-        MobcEnt = (OEntityCreature) this.getEntity();
-        return this.MobcEnt.a;
+        return this.getEntity().d;
     }
     
     /**
      * Sets the mobs target
      * 
-     * @param entity
+     * @param target the entity to target
      */
     public void setTarget(OEntity target) {
-        MobcEnt = (OEntityCreature) this.getEntity();
-        this.MobcEnt.a = target; 
+        this.getEntity().d = target; 
     }
     
     /**
@@ -142,6 +139,7 @@ public class Mob extends LivingEntity {
 	
     /**
      * Returns Mob location
+     * @return this mob's location
      */
     public Location getLocation() {
         Location loc = new Location();
@@ -153,6 +151,11 @@ public class Mob extends LivingEntity {
         loc.rotY = getPitch();
         loc.dimension = getWorld().getType().getId();
         return loc;
+    }
+
+    @Override
+    public OEntityCreature getEntity() {
+        return (OEntityCreature) entity;
     }
 
 }

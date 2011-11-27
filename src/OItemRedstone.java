@@ -11,12 +11,7 @@ public class OItemRedstone extends OItem {
 
         blockClicked.setFaceClicked(Block.Face.fromId(var7));
 
-<<<<<<<
-        if (var3.a(var4, var5, var6) != OBlock.aS.bM) {
-=======
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
         if (var3.a(var4, var5, var6) != OBlock.aU.bO) {
->>>>>>>
             if (var7 == 0) {
                 --var5;
             }
@@ -49,7 +44,7 @@ public class OItemRedstone extends OItem {
         if (!var2.d(var4, var5, var6)) {
             return false;
         } else {
-            if (OBlock.av.d(var3, var4, var5, var6)) {
+            if (OBlock.ax.c(var3, var4, var5, var6)) {
                 // CanaryMod: Redstone dust hook!
                 Block blockPlaced = new Block(var3.world, Block.Type.RedstoneWire.getType(), var4, var5, var6);
                 Player player = ((OEntityPlayerMP) var2).getPlayer();
@@ -58,13 +53,6 @@ public class OItemRedstone extends OItem {
                     return false;
                 }
 
-<<<<<<<
-=======
-        if (!var2.d(var4, var5, var6)) {
-            return false;
-        } else {
-            if (OBlock.ax.c(var3, var4, var5, var6)) {
->>>>>>>
                 --var1.a;
                 var3.e(var4, var5, var6, OBlock.ax.bO);
             }

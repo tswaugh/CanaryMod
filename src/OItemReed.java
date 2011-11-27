@@ -49,7 +49,6 @@ public class OItemReed extends OItem {
             return false;
         } else {
             if (var3.a(this.a, var4, var5, var6, false, var7)) {
-<<<<<<<
                 // CanaryMod: Reed placement
                 Block blockPlaced = new Block(var3.world, var3.a(var4, var5, var6), var4, var5, var6);
 
@@ -60,10 +59,7 @@ public class OItemReed extends OItem {
                     return false;
                 }
 
-                OBlock var9 = OBlock.k[this.a];
-=======
                 OBlock var9 = OBlock.m[this.a];
->>>>>>>
 
                 if (var3.e(var4, var5, var6, this.a)) {
                     if (var3.a(var4, var5, var6) == this.a) {

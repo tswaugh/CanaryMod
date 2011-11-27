@@ -445,7 +445,7 @@ public class World {
      * @return complex block
      */
     public ComplexBlock getOnlyComplexBlock(int x, int y, int z) {
-        OTileEntity localav = world.l(x, y, z);
+        OTileEntity localav = world.b(x, y, z);
 
         if (localav != null) {
             if (localav instanceof OTileEntityChest) {
@@ -621,7 +621,7 @@ public class World {
      * @return true if the chunk is loaded
      */
     public boolean isChunkLoaded(int x, int z) {
-        return world.J.c(x, z);
+        return world.J.a(x, z);
     }
 
     /**
@@ -663,7 +663,7 @@ public class World {
      * @return chunk
      */
     public Chunk loadChunk(int x, int z) {
-        return world.J.a(x, z).chunk;
+        return world.J.c(x, z).chunk;
     }
 
     /**

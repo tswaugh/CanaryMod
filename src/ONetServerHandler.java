@@ -88,9 +88,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
                 Location to = new Location();
 
-                to.x = etc.floor(e.ab);
-                to.y = etc.floor(e.ac);
-                to.z = etc.floor(e.ad);
+                to.x = etc.floor(e.bj);
+                to.y = etc.floor(e.bk);
+                to.z = etc.floor(e.bl);
                 to.rotX = player.getRotation();
                 to.rotY = player.getPitch();
 
@@ -377,21 +377,15 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     this.e.a.b((OPacket) (new OPacket53BlockChange(var5, var6, var7, var2)));
                 }
             } else if (var1.e == 3) {
-<<<<<<<
                 // CanaryMod: Send block update
                 Block block = new Block(var2.world, type, x, y, z);
 
                 block.setStatus(3); // Send update for block
                 OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
 
-                double var19 = this.e.ab - ((double) var5 + 0.5D);
-                double var21 = this.e.ac - ((double) var6 + 0.5D);
-                double var23 = this.e.ad - ((double) var7 + 0.5D);
-=======
                 double var19 = this.e.bj - ((double) var5 + 0.5D);
                 double var21 = this.e.bk - ((double) var6 + 0.5D);
                 double var23 = this.e.bl - ((double) var7 + 0.5D);
->>>>>>>
                 double var25 = var19 * var19 + var21 * var21 + var23 * var23;
 
                 if (var25 < 256.0D) {
@@ -408,14 +402,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
     public void a(OPacket15Place var1) {
         OWorldServer var2 = this.d.a(this.e.w);
-<<<<<<<
-        OItemStack var3 = this.e.k.a();
-=======
         OItemStack var3 = this.e.k.d();
-        boolean var4 = var2.K = var2.y.g != 0 || this.d.h.h(this.e.v);
-
-        if (var1.d == 255) {
->>>>>>>
       
         // CanaryMod: Store block data to call hooks
         // CanaryMod START
@@ -423,7 +410,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         Block blockPlaced = null;
 
         // We allow admins and ops to build!
-        boolean var4 = var2.D = var2.y.g != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
+        boolean var4 = var2.K = var2.y.g != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
       
         if (var1.d == 255) {
             // ITEM_USE -- if we have a lastRightClicked then it could be a
@@ -476,13 +463,8 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 blockPlaced.setType(var2.world.getBlockIdAt(blockPlaced.getX(), blockPlaced.getY(), blockPlaced.getZ()));
             }
 
-<<<<<<<
             if (var3 == null) {
                 return;
-=======
-            if (this.p && this.e.e((double) var5 + 0.5D, (double) var6 + 0.5D, (double) var7 + 0.5D) < 64.0D && (var11 > 16 || var4)) {
-                this.e.c.a(this.e, var2, var3, var5, var6, var7, var8);
->>>>>>>
             }
 
             ((Digging) this.e.c).a(this.e, var2, var3, blockPlaced, blockClicked);
@@ -510,7 +492,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_CREATED, player, blockPlaced, blockClicked, item.getItemId());
             // CanaryMod: If we were building inside spawn, bail! (unless ops/admin)
 
-            if (this.p && this.e.g((double) var5 + 0.5D, (double) var6 + 0.5D, (double) var7 + 0.5D) < 64.0D && (var11 > 16 || var4)) {
+            if (this.p && this.e.e((double) var5 + 0.5D, (double) var6 + 0.5D, (double) var7 + 0.5D) < 64.0D && (var11 > 16 || var4)) {
                 this.e.c.a(this.e, var2, var3, var5, var6, var7, var8);
             } else {
                 // CanaryMod: No point sending the client to update the blocks, you weren't allowed to place!
@@ -606,13 +588,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
     public void a(OPacket18Animation var1) {
         if (var1.b == 1) {
-<<<<<<<
             // CanaryMod: Swing the arm!
             OEntity.manager.callHook(PluginLoader.Hook.ARM_SWING, getPlayer());
-            this.e.o_();
-=======
             this.e.r_();
->>>>>>>
         }
 
     }
@@ -834,8 +812,8 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
      * @return item
      */
     public int getItemInHand() {
-        if (e.k.a() != null) {
-            return e.k.a().c;
+        if (e.k.d() != null) {
+            return e.k.d().c;
         }
         return -1;
     }

@@ -27,7 +27,7 @@ public class BaseEntity {
      * @return id
      */
     public int getId() {
-        return entity.S;
+        return entity.ba;
     }
 
     /**
@@ -69,7 +69,7 @@ public class BaseEntity {
      * @return x
      */
     public double getX() {
-        return entity.ab;
+        return entity.bj;
     }
 
     /**
@@ -88,7 +88,7 @@ public class BaseEntity {
      * @return y
      */
     public double getY() {
-        return entity.ac;
+        return entity.bk;
     }
 
     /**
@@ -107,7 +107,7 @@ public class BaseEntity {
      * @return z
      */
     public double getZ() {
-        return entity.ad;
+        return entity.bl;
     }
 
     /**
@@ -126,7 +126,7 @@ public class BaseEntity {
      * @return pitch
      */
     public float getPitch() {
-        return entity.ai;
+        return entity.bq;
     }
 
     /**
@@ -145,7 +145,7 @@ public class BaseEntity {
      * @return rotation
      */
     public float getRotation() {
-        return entity.ah;
+        return entity.br;
     }
 
     /**
@@ -250,7 +250,8 @@ public class BaseEntity {
     /**
      * Get the default amount of AirTicks for this entity 20 ticks per second.
      * 
-     * @return
+     * @return 300
+     * @deprecated It doesn't exist anymore P:
      */
     @Deprecated
     public int getBaseAirTicks() {
@@ -261,6 +262,8 @@ public class BaseEntity {
      * Set the default amount of AirTicks for this entity 20 ticks per second.
      * 
      * @param ticks
+     * @deprecated It doesn't exist anymore
+     * @throws UnsupportedOperationException because it doesn't exist anymore
      */
     @Deprecated
     public void setBaseAirTicks(int ticks) {
@@ -277,7 +280,7 @@ public class BaseEntity {
      * @return
      */
     public int getNoDamageTicks() {
-        return getEntity().aL;
+        return getEntity().bT;
     }
 
     /**
@@ -290,7 +293,7 @@ public class BaseEntity {
      * @param ticks
      */
     public void setNoDamageTicks(int ticks) {
-        getEntity().aL = ticks;
+        getEntity().bT = ticks;
     }
 
     /**
@@ -302,7 +305,7 @@ public class BaseEntity {
      * @return
      */
     public int getAirTicks() {
-        return getEntity().al();
+        return getEntity().aF();
     }
 
     /**
@@ -311,10 +314,10 @@ public class BaseEntity {
      * This gets lowered every game tick when you are under water. 20 ticks per
      * second.
      * 
-     * @return
+     * @param ticks the number of ticks you have air
      */
     public void setAirTicks(int ticks) {
-        getEntity().j(ticks);
+        getEntity().l(ticks);
     }
 
     /**
@@ -335,7 +338,7 @@ public class BaseEntity {
      * This gets lowered every game tick when you are on fire. 20 ticks per
      * second.
      * 
-     * @return
+     * @param ticks the amount of fire ticks
      */
     public void setFireTicks(int ticks) {
         getEntity().c = ticks;
@@ -346,7 +349,7 @@ public class BaseEntity {
      * @return the World this entity is in
      */
     public World getWorld() {
-        return getEntity().X.world;
+        return getEntity().bf.world;
     }
 
     /**
@@ -355,7 +358,7 @@ public class BaseEntity {
      * @return x-motion
      */
     public double getMotionX() {
-        return entity.ae;
+        return entity.bm;
     }
 
     /**
@@ -364,7 +367,7 @@ public class BaseEntity {
      * @return y-motion
      */
     public double getMotionY() {
-        return entity.af;
+        return entity.bn;
     }
 
     /**
@@ -373,7 +376,7 @@ public class BaseEntity {
      * @return z-motion
      */
     public double getMotionZ() {
-        return entity.ag;
+        return entity.bo;
     }
 
     /**
@@ -396,8 +399,8 @@ public class BaseEntity {
      * motion to set
      */
     public void setMotionX(double motion) {
-        entity.ae = motion;
-        entity.aq = true;
+        entity.bm = motion;
+        entity.by = true;
     }
 
     /**
@@ -407,8 +410,8 @@ public class BaseEntity {
      * motion to set
      */
     public void setMotionY(double motion) {
-        entity.af = motion;
-        entity.aq = true;
+        entity.bn = motion;
+        entity.by = true;
     }
 
     /**
@@ -418,15 +421,15 @@ public class BaseEntity {
      * motion to set
      */
     public void setMotionZ(double motion) {
-        entity.ag = motion;
-        entity.aq = true;
+        entity.bo = motion;
+        entity.by = true;
     }
 
     /**
      * Destroys this entity
      */
     public void destroy() {
-        entity.J();
+        entity.S();
     }
 
     /**
@@ -436,6 +439,23 @@ public class BaseEntity {
      */
     public String getName() {
         return OEntityList.b(entity);
+    }
+
+    /**
+     * Returns whether this entity is sprinting.
+     * @return the sprinting state
+     */
+    public boolean getSprinting() {
+        return entity.aE();
+    }
+
+    /**
+     * Set whether this entity is sprinting.
+     * Note: for players, this may not make them go faster.
+     * @param sprinting 
+     */
+    public void setSprinting(boolean sprinting) {
+        entity.f(sprinting);
     }
 
 }

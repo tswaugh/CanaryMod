@@ -14,7 +14,7 @@ public class OItemHoe extends OItem {
             int var8 = var3.a(var4, var5, var6);
             int var9 = var3.a(var4, var5 + 1, var6);
 
-            if ((var7 == 0 || var9 != 0 || var8 != OBlock.u.bM) && var8 != OBlock.v.bM) {
+            if ((var7 == 0 || var9 != 0 || var8 != OBlock.w.bO) && var8 != OBlock.x.bO) {
                 return false;
             } else {
                 // CanaryMod: Hoes
@@ -27,18 +27,11 @@ public class OItemHoe extends OItem {
                 if (var2 instanceof OEntityPlayerMP) {
                     Player player = ((OEntityPlayerMP) var2).getPlayer();
 
-<<<<<<<
                     if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(var1))) {
                         return false;
                     }
                 }
-                OBlock var10 = OBlock.aA;
-=======
-            if ((var7 == 0 || var9 != 0 || var8 != OBlock.w.bO) && var8 != OBlock.x.bO) {
-                return false;
-            } else {
                 OBlock var10 = OBlock.aC;
->>>>>>>
 
                 var3.a((double) ((float) var4 + 0.5F), (double) ((float) var5 + 0.5F), (double) ((float) var6 + 0.5F), var10.bZ.c(), (var10.bZ.a() + 1.0F) / 2.0F, var10.bZ.b() * 0.8F);
                 if (var3.I) {

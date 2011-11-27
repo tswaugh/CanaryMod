@@ -27,17 +27,10 @@ public class OTileEntity {
         }
     }
 
-<<<<<<<
-    public void b(ONBTTagCompound var1) {
+    public void a(ONBTTagCompound var1) {
         this.l = var1.f("x");
         this.m = var1.f("y");
         this.n = var1.f("z");
-=======
-    public void a(ONBTTagCompound var1) {
-        this.l = var1.f("OSlotEnchantmentTable");
-        this.m = var1.f("OIEnchantmentModifier");
-        this.n = var1.f("ORecipesArmor");
->>>>>>>
     }
 
     public void b(ONBTTagCompound var1) {
@@ -46,17 +39,10 @@ public class OTileEntity {
         if (var2 == null) {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
         } else {
-<<<<<<<
             var1.a("id", var2);
             var1.a("x", this.l);
             var1.a("y", this.m);
             var1.a("z", this.n);
-=======
-            var1.a("ORegionFileChunkBuffer", var2);
-            var1.a("OSlotEnchantmentTable", this.l);
-            var1.a("OIEnchantmentModifier", this.m);
-            var1.a("ORecipesArmor", this.n);
->>>>>>>
         }
     }
 
@@ -66,11 +52,7 @@ public class OTileEntity {
         OTileEntity var1 = null;
 
         try {
-<<<<<<<
             Class var2 = (Class) a.get(var0.j("id"));
-=======
-            Class var2 = (Class) a.get(var0.j("ORegionFileChunkBuffer"));
->>>>>>>
 
             if (var2 != null) {
                 var1 = (OTileEntity) var2.newInstance();
@@ -82,11 +64,7 @@ public class OTileEntity {
         if (var1 != null) {
             var1.a(var0);
         } else {
-<<<<<<<
             System.out.println("Skipping TileEntity with id " + var0.j("id"));
-=======
-            System.out.println("Skipping TileEntity with id " + var0.j("ORegionFileChunkBuffer"));
->>>>>>>
         }
 
         return var1;

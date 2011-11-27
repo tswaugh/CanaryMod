@@ -238,34 +238,37 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
         super.i();
     }
    
+    @Override
     public OItemStack[] getContents() {
         return Arrays.copyOf(i, getContentsSize());
     }
 
+    @Override
     public void setContents(OItemStack[] values) {
-        int size = getContentsSize();
-
-        for (int i = 0; i < size; i++) {
-            setContentsAt(i, values[i]);
-        }
+        i = Arrays.copyOf(values, getContentsSize());
     }
 
+    @Override
     public OItemStack getContentsAt(int index) {
-        return c(index);
+        return c_(index);
     }
 
+    @Override
     public void setContentsAt(int index, OItemStack value) {
         a(index, value);
     }
 
+    @Override
     public int getContentsSize() {
-        return d();
+        return c();
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String value) {
         name = value;
     }

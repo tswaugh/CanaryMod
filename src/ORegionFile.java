@@ -33,11 +33,7 @@ public class ORegionFile {
                 this.h = var1.lastModified();
             }
 
-<<<<<<<
             this.c = new RandomAccessFile(var1, "rw");
-=======
-            this.c = new RandomAccessFile(var1, "OBiomeGenDesert");
->>>>>>>
             int var2;
 
             if (this.c.length() < 4096L) {

@@ -434,7 +434,7 @@ public class Server {
      */
     @Deprecated
     public int getBlockData(int x, int y, int z) {
-        return server.a(0).e(x, y, z);
+        return server.a(0).c(x, y, z);
     }
 
     /**
@@ -583,7 +583,7 @@ public class Server {
      */
     @Deprecated
     public ComplexBlock getOnlyComplexBlock(int x, int y, int z) {
-        OTileEntity localav = server.a(0).l(x, y, z);
+        OTileEntity localav = server.a(0).b(x, y, z);
 
         if (localav != null) {
             if (localav instanceof OTileEntityChest) {
@@ -762,7 +762,7 @@ public class Server {
      */
     @Deprecated
     public boolean isChunkLoaded(int x, int y, int z) {
-        return server.a(0).J.c(x >> 4, z >> 4);
+        return server.a(0).J.a(x >> 4, z >> 4);
     }
 
     /**
@@ -1014,7 +1014,7 @@ public class Server {
     public void addRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
             if (recipe[i] instanceof Block.Type) {
-                recipe[i] = OBlock.k[((Block.Type) recipe[i]).getType()];
+                recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
                 recipe[i] = OItem.d[((Item.Type) recipe[i]).getId()];
             }
@@ -1032,7 +1032,7 @@ public class Server {
     public void addShapelessRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
             if (recipe[i] instanceof Block.Type) {
-                recipe[i] = OBlock.k[((Block.Type) recipe[i]).getType()];
+                recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
                 recipe[i] = OItem.d[((Item.Type) recipe[i]).getId()];
             }

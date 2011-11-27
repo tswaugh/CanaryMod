@@ -18,28 +18,34 @@ public class MobSpawner implements ComplexBlock {
         this.spawner = spawner;
     }
 
+    @Override
     public int getX() {
         return spawner.l;
     }
 
+    @Override
     public int getY() {
         return spawner.m;
     }
 
+    @Override
     public int getZ() {
         return spawner.n;
     }
 
+    @Override
     public Block getBlock() {
         return getWorld().getBlockAt(getX(), getY(), getZ());
     }
 
+    @Override
     public World getWorld() {
         return spawner.k.world;
     }
 
+    @Override
     public void update() {
-        spawner.h();
+        spawner.i();
     }
 
     /**
@@ -62,9 +68,9 @@ public class MobSpawner implements ComplexBlock {
     }
 
     /**
-     * Allows delay of what to spawn to change on-the-fly Modification of this
-     * is near-useless as delays get randomized after spawn. See:
-     * Block.setSpawnData() if you want to adjust this value.
+     * Allows delay of what to spawn to change on-the-fly.
+     * Modification of this is near-useless as delays get randomized after
+     * spawn.
      * 
      * @param delay
      */

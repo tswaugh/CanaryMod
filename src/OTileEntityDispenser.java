@@ -119,30 +119,37 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
 
     public void g() {}
    
+    @Override
     public OItemStack[] getContents() {
         return Arrays.copyOf(a, getContentsSize());
     }
 
+    @Override
     public void setContents(OItemStack[] values) {
         a = Arrays.copyOf(values, getContentsSize());
     }
 
+    @Override
     public OItemStack getContentsAt(int index) {
         return c_(index);
     }
 
+    @Override
     public void setContentsAt(int index, OItemStack value) {
         a(index, value);
     }
 
+    @Override
     public int getContentsSize() {
         return c();
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String value) {
         name = value;
     }

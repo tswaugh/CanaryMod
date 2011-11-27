@@ -33,6 +33,7 @@ public class HumanEntity extends LivingEntity {
      * 
      * @return
      */
+    @Override
     public String getName() {
         return getEntity().v;
     }
@@ -42,6 +43,7 @@ public class HumanEntity extends LivingEntity {
      * 
      * @return
      */
+    @Override
     public World getWorld() {
         return etc.getMCServer().a(getEntity().w).world;
     }

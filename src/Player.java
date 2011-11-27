@@ -755,8 +755,8 @@ public class Player extends HumanEntity implements MessageReceiver {
         OEntityPlayerMP player = getEntity();
 
         // If player is in vehicle - eject them before they are teleported.
-        if (player.W != null) {
-            player.a(player.W);
+        if (player.be != null) {
+            player.a(player.be);
         }
         player.a.a(x, y, z, rotation, pitch);
     }
@@ -810,7 +810,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return Item
      */
     public Item getItemStackInHand() {
-        OItemStack result = getEntity().k.a();
+        OItemStack result = getEntity().k.d();
 
         if (result != null) {
             return new Item(result, getEntity().k.c);
@@ -833,7 +833,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().aj();
+        return getEntity().aD();
     }
 
     /**
@@ -843,7 +843,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *            true if sneaking
      */
     public void setSneaking(boolean sneaking) {
-        getEntity().c(sneaking);
+        getEntity().e(sneaking);
         OPacket19EntityAction sneakUpdate = new OPacket19EntityAction();
 
         sneakUpdate.a = getId();
@@ -862,7 +862,9 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Switch to the other dimension at the according position.
+     * @deprecated use {@link #switchWorlds(int) } instead.
      */
+    @Deprecated
     public void switchWorlds() {
         MinecraftServer mcServer = etc.getMCServer();
         OEntityPlayerMP ent = getEntity();
@@ -872,8 +874,8 @@ public class Player extends HumanEntity implements MessageReceiver {
             return;
         }
         // Dismount first or get buggy
-        if (ent.W != null) {
-            ent.c(ent.W);
+        if (ent.be != null) {
+            ent.c(ent.be);
         }
         
         if (getWorld().getType().getId() == 0) {
@@ -900,18 +902,18 @@ public class Player extends HumanEntity implements MessageReceiver {
             return;
         }
         // Dismount first or get buggy
-        if (ent.W != null) {
-            ent.c(ent.W);
+        if (ent.be != null) {
+            ent.c(ent.be);
         }
 
         ent.a((OStatBase) OAchievementList.B);
-        OChunkCoordinates var2 = ent.b.a(world).d();
+        OChunkCoordinates var2 = mcServer.a(world).d();
 
         if (var2 != null) {
             ent.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F);
         }
 
-        ent.b.h.a(ent, world);
+        mcServer.h.a(ent, world);
         
         refreshCreativeMode();
     }
@@ -919,7 +921,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     @Override
     public void teleportTo(BaseEntity ent) {
         if (!getWorld().equals(ent.getWorld())) {
-            switchWorlds();
+            switchWorlds(ent.getWorld().getType().getId());
         }
         super.teleportTo(ent);
     }
@@ -927,34 +929,19 @@ public class Player extends HumanEntity implements MessageReceiver {
     @Override
     public void teleportTo(Location location) {
         if (!getWorld().equals(location.getWorld())) {
-            switchWorlds();
+            switchWorlds(location.dimension);
         }
         super.teleportTo(location);
     }
 
-    /**
-     * Returns a String representation of this Player
-     * 
-     * @return String representation of this Player
-     */
     @Override
     public String toString() {
         return String.format("Player[id=%d, name=%s]", id, getName());
     }
 
-    /**
-     * Tests the given object to see if it equals this object
-     * 
-     * @param obj
-     *            the object to test
-     * @return true if the two objects match
-     */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Player)) {
             return false;
         }
         final Player other = (Player) obj;
@@ -962,16 +949,11 @@ public class Player extends HumanEntity implements MessageReceiver {
         return getName().equals(other.getName());
     }
 
-    /**
-     * Returns a unique hashcode for this Player
-     * 
-     * @return hashcode
-     */
     @Override
     public int hashCode() {
         int hash = 7;
-
-        hash = 71 * hash + id;
+        hash = 89 * hash + this.id;
+        hash = 89 * hash + (this.getName() != null ? this.getName().hashCode() : 0);
         return hash;
     }
 
@@ -1007,7 +989,9 @@ public class Player extends HumanEntity implements MessageReceiver {
     /**
      * Check to see if this Player is in creative mode
      * 
-     * @return
+     * @param player the Player to check.
+     * @return <tt>true</tt> if the given Player is in creative mode,
+     *          <tt>null</tt> otherwise.
      */
     public static boolean getMode(Player player) {
         if (modes.contains(player)) {
@@ -1049,6 +1033,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     /**
      * Add experience points to total for this Player.
      * 
+     * @param i the amount of experience points to add.
      */
     public void addXP(int i) {
         getEntity().addXP(i);
@@ -1058,6 +1043,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     /**
      * Remove experience points from total for this Player.
      * 
+     * @param i the amount of experience points to remove.
      */
     public void removeXP(int i) {
         if (getXP() > 0) {
@@ -1071,9 +1057,10 @@ public class Player extends HumanEntity implements MessageReceiver {
     /**
      * Set total experience points for this Player.
      * 
+     * @param i the new amount of experience points.
      */
     public void setXP(int i) {
-        if (getXP() >= 0) {
+        if (i >= 0) {
             getEntity().setXP(i);
             updateXP();
         } else {
@@ -1096,7 +1083,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void updateLevels() {
         OEntityPlayerMP entityMP = getEntity();
 
-        entityMP.a.b((OPacket) (new OPacket8UpdateHealth(entityMP.bq, entityMP.n.a(), entityMP.n.c())));
+        entityMP.a.b((OPacket) (new OPacket8UpdateHealth(getHealth(), getFoodLevel(), getFoodSaturationLevel())));
     }
     
     /**
@@ -1156,7 +1143,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Get Players food saturationLevel
      * @return
      */
-    public Object getFoodSaturationLevel() {
+    public float getFoodSaturationLevel() {
         return getEntity().n.b;
     }
     
@@ -1182,11 +1169,12 @@ public class Player extends HumanEntity implements MessageReceiver {
     /**
      * Removes a potion Effect from player
      * 
+     * @param effect The potion effect to remove
      */
     public void removePotionEffect(PotionEffect effect) {     
-        OPotionEffect var3 = (OPotionEffect) getEntity().bL.get(effect.getType().getId());
+        OPotionEffect var3 = (OPotionEffect) getEntity().aJ.get(effect.getType().getId());
 
-        getEntity().bL.remove(Integer.valueOf(effect.getType().getId()));
+        getEntity().aJ.remove(Integer.valueOf(effect.getType().getId()));
         getEntity().c(var3);
     }
 
@@ -1196,7 +1184,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return List of potion effects 
      */
     public List<PotionEffect> getPotionEffects() {
-        Collection ay = getEntity().ay();
+        Collection ay = getEntity().as();
         ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
 
         for (Iterator<OPotionEffect> iterator = ay.iterator(); iterator.hasNext();) {
