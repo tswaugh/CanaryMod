@@ -84,7 +84,7 @@ public class Mob extends LivingEntity {
      * @return OEntity
      */
     public OEntity getTarget() {
-        return this.getEntity().d;
+        return ((OEntityCreature) getEntity()).d;
     }
     
     /**
@@ -93,7 +93,7 @@ public class Mob extends LivingEntity {
      * @param target the entity to target
      */
     public void setTarget(OEntity target) {
-        this.getEntity().d = target; 
+    	((OEntityCreature) getEntity()).d = target; 
     }
     
     /**
@@ -153,9 +153,5 @@ public class Mob extends LivingEntity {
         return loc;
     }
 
-    @Override
-    public OEntityCreature getEntity() {
-        return (OEntityCreature) entity;
-    }
 
 }

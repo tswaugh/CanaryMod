@@ -7,7 +7,7 @@ public class EnchantmentTable extends ItemArray implements Inventory {
     private final OContainerEnchantment enchantTable;
     
     public EnchantmentTable(OContainerEnchantment block) {
-        super((OInventoryCraftResult) block.a);
+        super(block.a);
         enchantTable = block;
     }
 
