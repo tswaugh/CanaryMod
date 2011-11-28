@@ -84,6 +84,10 @@ public class Mob extends LivingEntity {
      * @return OEntity
      */
     public OEntity getTarget() {
+        if(getEntity() instanceof OEntityGhast){
+            OEntityGhast var1 = (OEntityGhast) getEntity();
+            return var1.getTarget();
+        }
         return ((OEntityCreature) getEntity()).d;
     }
     
@@ -93,6 +97,11 @@ public class Mob extends LivingEntity {
      * @param target the entity to target
      */
     public void setTarget(OEntity target) {
+        if(getEntity() instanceof OEntityGhast){
+            OEntityGhast var1 = (OEntityGhast) getEntity();
+            var1.setTarget(target);
+            return;
+        }
     	((OEntityCreature) getEntity()).d = target; 
     }
     

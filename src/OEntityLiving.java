@@ -118,7 +118,7 @@ public abstract class OEntityLiving extends OEntity {
         }
 
     }
-
+    
     public void af() {
         this.am = this.an;
         super.af();
