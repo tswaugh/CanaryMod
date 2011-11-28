@@ -3,7 +3,7 @@
  * TODO: add hooks.
  * @author willem
  */
-public class EnchantmentTable extends ItemArray implements Inventory {
+public class EnchantmentTable extends ItemArray<OInventoryBasic> implements Inventory {
     private final OContainerEnchantment enchantTable;
     
     public EnchantmentTable(OContainerEnchantment block) {

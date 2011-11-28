@@ -136,7 +136,7 @@ rule ez ORConOutputStream
 rule f OBlockChest
 rule fa OChunkCache
 rule fb OFurnaceRecipes
-rule fc OComponentNetherBridgeNetherBrickRoom
+rule fc OComponentNetherBridgeNetherStalkRoom
 rule fd OPacket71Weather
 rule fe OIUpdatePlayerListBox
 rule ff OBlockObsidian
@@ -163,9 +163,9 @@ rule fz OMapGenStronghold
 rule g ORConThreadQueryAuth
 rule ga OEntitySkeleton
 rule gb OEntityEnderCrystal
-rule gc OPlayerHash
+rule gc OLongHashMap
 rule gd OMapGenBase
-rule ge OPathfinder
+rule ge OPathFinder
 rule gf OWorldGenCactus
 rule gg OMapGenVillageStart
 rule gh OEntityBoat
@@ -206,7 +206,7 @@ rule ho OSaveConverterMcRegion
 rule hp OEntityItem
 rule hq OCraftingManager
 rule hr OGenLayerRiver
-rule hs OMapDataBase
+rule hs OWorldSavedData
 rule ht ONBTTagByteArray
 rule hu OEntityDamageSourceIndirect
 rule hv OServerConfigurationManager
@@ -251,10 +251,10 @@ rule jf OEnumAction
 rule jg OPacket38EntityStatus
 rule jh OComponentNetherBridgePiece
 rule ji OEnumMovingObjectType
-rule jj OModelBed
+rule jj ODirection
 rule jk OStatList
 rule jl OPacket24MobSpawn
-rule jm OItemLog
+rule jm OItemMetadata
 rule jn OMapGenStrongholdPieces
 rule jo OBlockBreakable
 rule jp OBlockPistonBase
@@ -264,7 +264,7 @@ rule js OTileEntityChest
 rule jt OEntityFallingSand
 rule ju OPacket14BlockDig
 rule jv OBlockFence
-rule jw OMCHash
+rule jw OIntHashMap
 rule jx OStructurePiece
 rule jy ORecipesCrafting
 rule jz OPacket17Sleep
@@ -312,7 +312,7 @@ rule lm OMaterialTransparent
 rule ln OItemReed
 rule lo OComponentNetherBridgeCorridor
 rule lp OIInventory
-rule lq OEntityFish
+rule lq OEntityFishHook
 rule lr OBlockGlowStone
 rule ls OPacket0KeepAlive
 rule lt OWatchableObject
@@ -425,7 +425,7 @@ rule pr OItemPiston
 rule ps ONBTTagByte
 rule pt OEnumDoor
 rule pu OBlockSilverfish
-rule pv OPlayerHashEntry
+rule pv OLongHashMapEntry
 rule pw OPacket102WindowClick
 rule px OEntityPainting
 rule py OExplosion
@@ -584,12 +584,12 @@ rule vo OChunkPosition
 rule vp OIServer
 rule vq ONibbleArray
 rule vr OEntityPig
-rule vs OPistonBlockTextures
+rule vs OFacing
 rule vt OIStatType
 rule vu OInventoryCraftResult
 rule vv OPlayerCapabilities
 rule vw OGenLayerRiverMix
-rule vx OMCHashEntry
+rule vx OIntHashMapEntry
 rule vy OConsoleLogFormatter
 rule vz OEntitySnowmanBase
 rule w OMapGenStrongholdStairs2
@@ -605,7 +605,7 @@ rule wi OPlayerManager
 rule wj OPacket52MultiBlockChange
 rule wk OEntityChicken
 rule wl OWorldGenPumpkin
-rule wm OItemVine
+rule wm OItemColored
 rule wn OWorldProvider
 rule wo OWorldGenRavine
 rule wp ORecipesWeapons
@@ -625,7 +625,7 @@ rule xb OWorldGenFire
 rule xc OEntitySquid
 rule xd ORedstoneUpdateInfo
 rule xe OWorldChunkManager
-rule xf OBlockNetherBrick
+rule xf OBlockNetherStalk
 rule xg OMapGenMineshaft
 rule xh OEnchantmentAquaAffinity
 rule xi OBlockMycelium

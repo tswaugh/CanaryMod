@@ -2335,7 +2335,7 @@ public class OWorld implements OIBlockAccess {
         int var12 = var5 + var7;
         int var13 = var6 + var7;
         OChunkCache var14 = new OChunkCache(this, var8, var9, var10, var11, var12, var13);
-        OPathEntity var15 = (new OPathfinder(var14)).a(var1, var2, var3);
+        OPathEntity var15 = (new OPathFinder(var14)).a(var1, var2, var3);
 
         OProfiler.a();
         return var15;
@@ -2354,7 +2354,7 @@ public class OWorld implements OIBlockAccess {
         int var14 = var7 + var9;
         int var15 = var8 + var9;
         OChunkCache var16 = new OChunkCache(this, var10, var11, var12, var13, var14, var15);
-        OPathEntity var17 = (new OPathfinder(var16)).a(var1, var2, var3, var4, var5);
+        OPathEntity var17 = (new OPathFinder(var16)).a(var1, var2, var3, var4, var5);
 
         OProfiler.a();
         return var17;
@@ -2627,11 +2627,11 @@ public class OWorld implements OIBlockAccess {
         }
     }
 
-    public void a(String var1, OMapDataBase var2) {
+    public void a(String var1, OWorldSavedData var2) {
         this.E.a(var1, var2);
     }
 
-    public OMapDataBase a(Class var1, String var2) {
+    public OWorldSavedData a(Class var1, String var2) {
         return this.E.a(var1, var2);
     }
 

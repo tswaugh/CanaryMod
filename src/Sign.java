@@ -67,7 +67,7 @@ public class Sign implements ComplexBlock {
     }
 
     public void update() {
-        sign.k.world.getWorld().h(getX(), getY(), getZ());
+        getWorld().getWorld().b(getX(), getY(), getZ(), sign);
     }
 
     /**

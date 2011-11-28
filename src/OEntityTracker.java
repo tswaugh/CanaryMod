@@ -14,7 +14,7 @@ public class OEntityTracker {
     private static final DelayQueue<DelayedTask> delayQueue = new DelayQueue<DelayedTask>();
 
     private Set a = new HashSet();
-    private OMCHash b = new OMCHash();
+    private OIntHashMap b = new OIntHashMap();
     private MinecraftServer c;
     private int d;
     private int e;
@@ -39,7 +39,7 @@ public class OEntityTracker {
                     var4.b(var2);
                 }
             }
-        } else if (var1 instanceof OEntityFish) {
+        } else if (var1 instanceof OEntityFishHook) {
             this.a(var1, 64, 5, true);
         } else if (var1 instanceof OEntityArrow) {
             this.a(var1, 64, 20, false);

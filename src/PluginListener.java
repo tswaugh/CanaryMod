@@ -17,13 +17,19 @@ public class PluginListener {
          * Highly critical for hooks that absolutely must occur before any
          * others. Use carefully.
          */
-        CRITICAL, /**
+        CRITICAL,
+        /**
          * May block/interrupt/undo the action, but prefer MEDIUM
-         */ HIGH, /**
+         */
+        HIGH,
+         /**
          * Preferred priority for blocking/interrupting/undoing the action
-         */ MEDIUM, /**
+         */
+        MEDIUM,
+         /**
          * Must not block/interrupt/undo the action
-         */ LOW
+         */
+        LOW
     }
 
     /**
@@ -230,7 +236,7 @@ public class PluginListener {
      *         world
      */
     public boolean onItemDrop(Player player, ItemEntity item) {
-        return false;
+        return onItemDrop(player, item.getItem());
     }
 
     /**
@@ -259,7 +265,7 @@ public class PluginListener {
      * @return true if you want to leave the item where it was
      */
     public boolean onItemPickUp(Player player, ItemEntity item) {
-        return false;
+        return onItemPickUp(player, item.getItem());
     }
 
     /**
@@ -390,6 +396,7 @@ public class PluginListener {
      * 
      * @param block
      * 			  the piston's block
+     * @param isSticky Whether the piston is sticky
      * @return false if you want the piston to attempt retracting the attached block.
      */
     public boolean onPistonRetract(Block block, boolean isSticky) {
@@ -493,7 +500,7 @@ public class PluginListener {
      * @param blockPlaced
      *            where a block would end up when the item was a bucket
      * @param blockClicked
-     * @param item
+     * @param itemInHand
      *            the item being used (in hand)
      * @return true to prevent using the item.
      */
@@ -739,7 +746,7 @@ public class PluginListener {
      * Called when a player tries to use a command.
      * @param player
      *            Player who wants to use the command.
-     * @param wolf
+     * @param command The command itself.
      * @return Whether the player is allowed (ALLOW_ACTION),
      *            prohibited (PREVENT_ACTION), or when another plugin should decide (DEFAULT_ACTION)
      */
@@ -952,6 +959,7 @@ public class PluginListener {
      * Called when a player levels up
      * @param player
      * 			Player that levels up
+     * @return true to prevent the default action.
      */
     public boolean onLevelUp(Player player) {
         return false;
@@ -998,7 +1006,9 @@ public class PluginListener {
     
     public PluginLoader.HookResult onEntityRightClick(Player player, BaseEntity entityClicked, Item itemInHand) {
         if (entityClicked.entity instanceof OEntityCow) {
-            onCowMilk(player, new Mob((OEntityCow) entityClicked.entity));
+            return onCowMilk(player, new Mob((OEntityCow) entityClicked.entity))
+                    ? PluginLoader.HookResult.PREVENT_ACTION
+                    : PluginLoader.HookResult.DEFAULT_ACTION;
         }
         return PluginLoader.HookResult.DEFAULT_ACTION;
     }

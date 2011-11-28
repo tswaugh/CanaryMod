@@ -23,7 +23,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     private double n;
     private double o;
     private boolean p = true;
-    private OMCHash q = new OMCHash();
+    private OIntHashMap q = new OIntHashMap();
 
     public ONetServerHandler(MinecraftServer var1, ONetworkManager var2, OEntityPlayerMP var3) {
         super();

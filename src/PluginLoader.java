@@ -29,153 +29,299 @@ public class PluginLoader {
         /**
          * Calls {@link PluginListener#onLoginChecks(java.lang.String) }
          */
-        LOGINCHECK, /**
+        LOGINCHECK,
+        /**
          * Calls {@link PluginListener#onLogin(Player) }
-         */ LOGIN, /**
+         */
+        LOGIN,
+        /**
          * Calls {@link PluginListener#onChat(Player, java.lang.String) }
-         */ CHAT, /**
+         */
+        CHAT,
+        /**
          * Calls {@link PluginListener#onCommand(Player, java.lang.String[]) }
-         */ COMMAND, /**
+         */
+        COMMAND,
+        /**
          * Calls {@link PluginListener#onConsoleCommand(java.lang.String[]) }
-         */ SERVERCOMMAND, /**
+         */
+        SERVERCOMMAND,
+        /**
          * Calls {@link PluginListener#onBan(Player, Player, java.lang.String) }
-         */ BAN, /**
+         */
+        BAN,
+        /**
          * Calls {@link PluginListener#onIpBan(Player, Player, java.lang.String) }
-         */ IPBAN, /**
+         */
+        IPBAN,
+        /**
          * Calls {@link PluginListener#onKick(Player, Player, java.lang.String) }
-         */ KICK, /**
+         */
+        KICK,
+        /**
          * Calls {@link PluginListener#onBlockCreate(Player, Block, Block, int) }
-         */ BLOCK_CREATED, /**
+         */
+        BLOCK_CREATED,
+        /**
          * Calls {@link PluginListener#onBlockDestroy(Player, Block) }
-         */ BLOCK_DESTROYED, /**
+         */
+        BLOCK_DESTROYED,
+        /**
          * Calls {@link PluginListener#onDisconnect(Player) }
-         */ DISCONNECT, /**
+         */
+        DISCONNECT,
+        /**
          * Calls {@link PluginListener#onPlayerMove(Player, Location, Location) }
-         */ PLAYER_MOVE, /**
+         */
+        PLAYER_MOVE,
+        /**
          * Calls {@link PluginListener#onArmSwing(Player) }
-         */ ARM_SWING, /**
+         */
+        ARM_SWING,
+        /**
          * Calls {@link PluginListener#onItemDrop(Player, ItemEntity) }
-         */ ITEM_DROP, /**
+         */
+        ITEM_DROP,
+        /**
          * Calls {@link PluginListener#onItemPickUp(Player, ItemEntity) }
-         */ ITEM_PICK_UP, /**
+         */
+        ITEM_PICK_UP,
+        /**
          * Calls {@link PluginListener#onTeleport(Player, Location, Location) }
-         */ TELEPORT, /**
+         */
+        TELEPORT,
+        /**
          * Calls {@link PluginListener#onBlockBreak(Player, Block) }
-         */ BLOCK_BROKEN, /**
+         */
+        BLOCK_BROKEN,
+        /**
          * Calls {@link PluginListener#onIgnite(Block, Player) }
-         */ IGNITE, /**
+         */
+        IGNITE,
+        /**
          * Calls {@link PluginListener#onFlow(Block, Block) }
-         */ FLOW, /**
+         */
+        FLOW,
+        /**
          * Calls {@link PluginListener#onExplode(Block) }
-         */ EXPLODE, /**
+         */
+        EXPLODE,
+        /**
          * Calls {@link PluginListener#onMobSpawn(Mob) }
-         */ MOB_SPAWN, /**
+         */
+        MOB_SPAWN,
+        /**
          * Calls {@link PluginListener#onDamage(PluginLoader.DamageType, BaseEntity, BaseEntity, int) }
-         */ DAMAGE, /**
+         */
+        DAMAGE,
+        /**
          * Calls {@link PluginListener#onHealthChange(Player, int, int) }
-         */ HEALTH_CHANGE, /**
+         */
+        HEALTH_CHANGE,
+        /**
          * Calls {@link PluginListener#onRedstoneChange(Block, int, int) }
-         */ REDSTONE_CHANGE, /**
+         */
+        REDSTONE_CHANGE,
+        /**
          * Calls {@link PluginListener#onPistonExtend(Block, Boolean) }
-         */ PISTON_EXTEND, /**
+         */
+        PISTON_EXTEND,
+        /**
          * Calls {@link PluginListener#onPistonRetract(Block, Boolean) }
-         */ PISTON_RETRACT, /**
+         */
+        PISTON_RETRACT,
+        /**
          * Calls {@link PluginListener#onBlockPhysics(Block, boolean) }
-         */ BLOCK_PHYSICS, /**
+         */
+        BLOCK_PHYSICS,
+        /**
          * Calls {@link PluginListener#onVehicleCreate(BaseVehicle) }
-         */ VEHICLE_CREATE, /**
+         */
+        VEHICLE_CREATE,
+        /**
          * Calls {@link PluginListener#onVehicleUpdate(BaseVehicle) }
-         */ VEHICLE_UPDATE, /**
+         */
+        VEHICLE_UPDATE,
+        /**
          * Calls {@link PluginListener#onVehicleDamage(BaseVehicle, BaseEntity, int) }
-         */ VEHICLE_DAMAGE, /**
+         */
+        VEHICLE_DAMAGE,
+        /**
          * Calls {@link PluginListener#onVehicleCollision(BaseVehicle, BaseEntity) }
-         */ VEHICLE_COLLISION, /**
+         */
+        VEHICLE_COLLISION,
+        /**
          * Calls {@link PluginListener#onVehicleDestroyed(BaseVehicle) }
-         */ VEHICLE_DESTROYED, /**
+         */
+        VEHICLE_DESTROYED,
+        /**
          * Calls {@link PluginListener#onVehicleEnter(BaseVehicle, HumanEntity) }
-         */ VEHICLE_ENTERED, /**
+         */
+        VEHICLE_ENTERED,
+        /**
          * Calls {@link PluginListener#onVehiclePositionChange(BaseVehicle, int, int, int) }
-         */ VEHICLE_POSITIONCHANGE, /**
+         */
+        VEHICLE_POSITIONCHANGE,
+        /**
          * Calls {@link PluginListener#onItemUse(Player, Block, Block, Item) }
-         */ ITEM_USE, /**
+         */
+        ITEM_USE,
+        /**
          * Calls {@link PluginListener#onBlockPlace(Player, Block, Block, Item) }
-         */ BLOCK_PLACE, /**
+         */
+        BLOCK_PLACE,
+        /**
          * Calls {@link PluginListener#onBlockRightClicked(Player, Block, Item) }
-         */ BLOCK_RIGHTCLICKED, /**
+         */
+        BLOCK_RIGHTCLICKED,
+        /**
          * Calls {@link PluginListener#onLiquidDestroy(PluginLoader.HookResult, int, Block) }
-         */ LIQUID_DESTROY, /**
+         */
+        LIQUID_DESTROY,
+        /**
          * Calls {@link PluginListener#onAttack(LivingEntity, LivingEntity, java.lang.Integer) }
-         */ ATTACK, /**
+         */
+        ATTACK,
+        /**
          * Calls {@link PluginListener#onOpenInventory(Player, Inventory) }
-         */ OPEN_INVENTORY, /**
+         */
+        OPEN_INVENTORY,
+        /**
          * Calls {@link PluginListener#onSignShow(Player, Sign) }
-         */ SIGN_SHOW, /**
+         */
+        SIGN_SHOW,
+        /**
          * Calls {@link PluginListener#onSignChange(Player, Sign) }
-         */ SIGN_CHANGE, /**
+         */
+        SIGN_CHANGE,
+        /**
          * Calls {@link PluginListener#onLeafDecay(Block) }
-         */ LEAF_DECAY, /**
+         */
+        LEAF_DECAY,
+        /**
          * Calls {@link PluginListener#onTame(Player, Mob) }
-         */ TAME, /**
+         */
+        TAME,
+        /**
          * Calls {@link PluginListener#onLightningStrike(BaseEntity) }
-         */ LIGHTNING_STRIKE, /**
+         */
+        LIGHTNING_STRIKE,
+        /**
          * Calls {@link PluginListener#onWeatherChange(boolean) }
-         */ WEATHER_CHANGE, /**
+         */
+        WEATHER_CHANGE,
+        /**
          * Calls {@link PluginListener#onThunderChange(boolean) }
-         */ THUNDER_CHANGE, /**
+         */
+        THUNDER_CHANGE,
+        /**
          * Calls {@link PluginListener#onPortalUse(Player, World) }
-         */ PORTAL_USE, /**
+         */
+        PORTAL_USE,
+        /**
          * Calls {@link PluginListener#onChunkCreate(int, int, World) }
-         */ CHUNK_CREATE, /**
+         */
+        CHUNK_CREATE,
+        /**
          * Calls {@link PluginListener#onSpawnpointCreate(World) }
-         */ SPAWNPOINT_CREATE, /**
+         */
+        SPAWNPOINT_CREATE,
+        /**
          * Calls {@link PluginListener#onChunkCreated(Chunk chunk) }
-         */ CHUNK_CREATED, /**
+         */
+        CHUNK_CREATED,
+        /**
          * Calls {@link PluginListener#onChunkLoaded(Chunk chunk) }
-         */ CHUNK_LOADED, /**
+         */
+        CHUNK_LOADED,
+        /**
          * Calls {@link PluginListener#onChunkUnload(Chunk chunk) }
-         */ CHUNK_UNLOAD, /**
+         */
+        CHUNK_UNLOAD,
+        /**
          * Calls {@link PluginListener#onTimeChange(World, long) }
-         */ TIME_CHANGE, /**
+         */
+        TIME_CHANGE,
+        /**
          * Calls {@link PluginListener#canPlayerUseCommand(Player, String) }
-         */ COMMAND_CHECK, /**
+         */
+        COMMAND_CHECK,
+        /**
          * Class {@link PluginListener#onPortalCreate(Block[][]) }
-         */ PORTAL_CREATE, /**
+         */
+        PORTAL_CREATE,
+        /**
          * Class {@link PluginListener#onPortalDestroy(Block[][]) }
-         */ PORTAL_DESTROY, /**
+         */
+        PORTAL_DESTROY,
+        /**
          * Class {@link PluginListener#onPlayerRespawn(Player) }
-         */ PLAYER_RESPAWN, /**
+         */
+        PLAYER_RESPAWN,
+        /**
          * Class {@link PluginListener#onEntityDespawn(BaseEntity) }
-         */ ENTITY_DESPAWN, /**
+         */
+        ENTITY_DESPAWN,
+        /**
          * Class {@link PluginListener#onEndermanPickup(Enderman, Block) }
-         */ ENDERMAN_PICKUP, /**
+         */
+        ENDERMAN_PICKUP,
+        /**
          * Class {@link PluginListener#onEndermanDrop(Enderman, Block) }
-         */ ENDERMAN_DROP, /**
+         */
+        ENDERMAN_DROP,
+        /**
          * Class {@link PluginListener#onCowMilk(Player, Mob) }
-         */ COW_MILK, /**
+         */
+        COW_MILK,
+        /**
          * Calls {@link PluginListener#onEat(Player, Item) }
-         */ EAT, /**
+         */
+        EAT,
+        /**
          * Calls {@link PluginListener#onFoodLevelChange(Player, oldLevel, newLevel) }
-         */ FOODLEVEL_CHANGE, /**
+         */
+        FOODLEVEL_CHANGE,
+        /**
          * Calls (@link PluginListener#onFoodExahustionChange(Player, oldLevel, newLevel) }
-         */ FOODEXHAUSTION_CHANGE, /**
+         */
+        FOODEXHAUSTION_CHANGE,
+        /**
          * Calls (@link PluginListener#onFoodSaturationChange(Player, oldLevel, newLevel) }
-         */ FOODSATURATION_CHANGE, /**
+         */
+        FOODSATURATION_CHANGE,
+        /**
          * Calls (@link PluginListener#onPotionEffect(Player,PotionEffect)
-         */ POTION_EFFECT, /**
+         */
+        POTION_EFFECT,
+        /**
          * Class {@link PluginListener#onExpChange(Player, oldExp, newExp) }
-         */ EXPERIENCE_CHANGE, /**
+         */
+        EXPERIENCE_CHANGE,
+        /**
          * Class {@link PluginListener#onLevelUp(Player) }
-         */ LEVEL_UP, /**
+         */
+        LEVEL_UP,
+        /**
          * Calls {@link PluginListener#onPlayerListNameGet(Player, defaultName) }
-         */ GET_PLAYERLISTENTRY, /**
+         */
+        GET_PLAYERLISTENTRY,
+        /**
          * Calls {@link PluginListener#onPlayerConnect(Player,HookParametersConnect) }
-         */ CONNECT, /**
+         */
+        CONNECT,
+        /**
          * Calls {@link PluginListener#onEntityRightClick(Player,BaseEntity) }
-         */ ENTITY_RIGHTCLICKED, /**
+         */
+        ENTITY_RIGHTCLICKED,
+        /**
          * Calls {@Link PluginListener#onMobTarget(Player,LivingEntity) }
-         */ MOB_TARGET, /**
+         */
+        MOB_TARGET,
+        /**
          * Unused.
-         */ NUM_HOOKS;
+         */
+        NUM_HOOKS;
     }
 
 
@@ -189,9 +335,12 @@ public class PluginLoader {
          */
         PREVENT_ACTION, /**
          * Allow the action
-         */ ALLOW_ACTION, /**
+         */
+        ALLOW_ACTION,
+        /**
          * Do whatever it would normally do, continue processing
-         */ DEFAULT_ACTION
+         */
+        DEFAULT_ACTION
     }
 
 
@@ -200,31 +349,44 @@ public class PluginLoader {
         /**
          * Creeper explosion
          */
-        CREEPER_EXPLOSION, /**
+        CREEPER_EXPLOSION,
+        /**
          * Damage dealt by another entity
-         */ ENTITY, /**
+         */
+        ENTITY, /**
          * Damage caused by explosion
-         */ EXPLOSION, /**
+         */
+        EXPLOSION, /**
          * Damage caused from falling (fall distance - 3.0)
-         */ FALL, /**
+         */
+        FALL, /**
          * Damage caused by fire (1)
-         */ FIRE, /**
+         */
+        FIRE, /**
          * Low periodic damage caused by burning (1)
-         */ FIRE_TICK, /**
+         */
+        FIRE_TICK, /**
          * Damage caused from lava (4)
-         */ LAVA, /**
+         */
+        LAVA, /**
          * Damage caused from drowning (2)
-         */ WATER, /**
+         */
+        WATER, /**
          * Damage caused by cactus (1)
-         */ CACTUS, /**
+         */
+        CACTUS, /**
          * Damage caused by suffocating(1)
-         */ SUFFOCATION, /**
+         */
+        SUFFOCATION, /**
          * Damage caused by lightning (5)
-         */ LIGHTNING, /**
+         */
+        LIGHTNING, /**
          * Damage caused by starvation (1)
-         */ STARVATION, /**
+         */
+        STARVATION, /**
          * Damage caused by poison (1) (Potions, Poison)
-         */ POTION
+         */
+        POTION
     }
 
     private static final Logger log = Logger.getLogger("Minecraft");

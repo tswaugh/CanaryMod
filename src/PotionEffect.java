@@ -10,7 +10,25 @@ public class PotionEffect {
     public final OPotionEffect potionEffect;
    
     public enum Type {
-        MOVE_SPEED(1), SLOW_DOWN(2), DIG_SPEED(3), DIG_SLOW(4), DAMAGE_BOOST(5), HEAL(6), HARM(7), JUMP(8), CONFUSION(9), REGENERATION(10), RESISTANCE(11), FIRE_RESISTANCE(12), WATER_BREATHING(13), INVISIBILITY(14), BLINDNESS(15), NIGHTVISION(16), HUNGER(17), WEAKNESS(18), POISON(19);
+        MOVE_SPEED(1), //
+        SLOW_DOWN(2), //
+        DIG_SPEED(3), //
+        DIG_SLOW(4), //
+        DAMAGE_BOOST(5), //
+        HEAL(6), //
+        HARM(7), //
+        JUMP(8), //
+        CONFUSION(9), //
+        REGENERATION(10), //
+        RESISTANCE(11), //
+        FIRE_RESISTANCE(12), //
+        WATER_BREATHING(13), //
+        INVISIBILITY(14), //
+        BLINDNESS(15), //
+        NIGHTVISION(16), //
+        HUNGER(17), //
+        WEAKNESS(18), //
+        POISON(19);
       
         private int id; 
         private static Map<Integer, Type> map;
@@ -48,7 +66,7 @@ public class PotionEffect {
     /**
      * Creates a new PotionEffect
      * 
-     * @param id - ID of the 
+     * @param effect 
      * @param amplifier
      * @param duration
      * @return

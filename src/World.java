@@ -15,7 +15,10 @@ public class World {
     private final OWorldServer world;
 
     public enum Type {
-        NETHER(-1), NORMAL(0), ENDER(1);
+        NETHER(-1), //
+        NORMAL(0), //
+        END(1);
+        
         private int id;
         private static Map<Integer, Type> map;
 
@@ -43,7 +46,7 @@ public class World {
     }
 
     /**
-     * Instantiated this wrapper around {@code dimension}
+     * Instantiates this wrapper around {@code world}
      * @param world the OWorldServer to wrap
      */
     public World(OWorldServer world) {

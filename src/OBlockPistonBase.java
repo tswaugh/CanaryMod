@@ -19,7 +19,7 @@ public class OBlockPistonBase extends OBlock {
     public int a(int var1, int var2) {
         int var3 = d(var2);
 
-        return var3 > 5 ? this.bN : (var1 == var3 ? (!e(var2) && this.bT <= 0.0D && this.bU <= 0.0D && this.bV <= 0.0D && this.bW >= 1.0D && this.bX >= 1.0D && this.bY >= 1.0D ? this.bN : 110) : (var1 == OPistonBlockTextures.a[var3] ? 109 : 108));
+        return var3 > 5 ? this.bN : (var1 == var3 ? (!e(var2) && this.bT <= 0.0D && this.bU <= 0.0D && this.bV <= 0.0D && this.bW >= 1.0D && this.bX >= 1.0D && this.bY >= 1.0D ? this.bN : 110) : (var1 == OFacing.a[var3] ? 109 : 108));
     }
 
     public int c() {
@@ -100,7 +100,7 @@ public class OBlockPistonBase extends OBlock {
                 var1.d(var2, var3, var4, var6);
             }
         } else if (var5 == 1) {
-            OTileEntity var8 = var1.b(var2 + OPistonBlockTextures.b[var6], var3 + OPistonBlockTextures.c[var6], var4 + OPistonBlockTextures.d[var6]);
+            OTileEntity var8 = var1.b(var2 + OFacing.b[var6], var3 + OFacing.c[var6], var4 + OFacing.d[var6]);
 
             if (var8 != null && var8 instanceof OTileEntityPiston) {
                 ((OTileEntityPiston) var8).g();
@@ -109,9 +109,9 @@ public class OBlockPistonBase extends OBlock {
             var1.a(var2, var3, var4, OBlock.ae.bO, var6);
             var1.a(var2, var3, var4, OBlockPistonMoving.a(this.bO, var6, var6, false, true));
             if (this.a) {
-                int var9 = var2 + OPistonBlockTextures.b[var6] * 2;
-                int var10 = var3 + OPistonBlockTextures.c[var6] * 2;
-                int var11 = var4 + OPistonBlockTextures.d[var6] * 2;
+                int var9 = var2 + OFacing.b[var6] * 2;
+                int var10 = var3 + OFacing.c[var6] * 2;
+                int var11 = var4 + OFacing.d[var6] * 2;
                 int var12 = var1.a(var9, var10, var11);
                 int var13 = var1.c(var9, var10, var11);
                 boolean var14 = false;
@@ -133,9 +133,9 @@ public class OBlockPistonBase extends OBlock {
 
 
                 if (this.attemptRetractBlock && !var14 && var12 > 0 && a(var12, var1, var9, var10, var11, false) && (OBlock.m[var12].g() == 0 || var12 == OBlock.ab.bO || var12 == OBlock.X.bO)) {
-                    var2 += OPistonBlockTextures.b[var6];
-                    var3 += OPistonBlockTextures.c[var6];
-                    var4 += OPistonBlockTextures.d[var6];
+                    var2 += OFacing.b[var6];
+                    var3 += OFacing.c[var6];
+                    var4 += OFacing.d[var6];
                     var1.a(var2, var3, var4, OBlock.ae.bO, var13);
                     var1.a(var2, var3, var4, OBlockPistonMoving.a(var12, var13, var6, false, false));
                     b = false;
@@ -144,12 +144,12 @@ public class OBlockPistonBase extends OBlock {
                 } // if retraction fails normally (i2 == 0) OR the onPistonRetract returned false earlier.
                 else if (!var14 || !this.attemptRetractBlock) {
                     b = false;
-                    var1.e(var2 + OPistonBlockTextures.b[var6], var3 + OPistonBlockTextures.c[var6], var4 + OPistonBlockTextures.d[var6], 0);
+                    var1.e(var2 + OFacing.b[var6], var3 + OFacing.c[var6], var4 + OFacing.d[var6], 0);
                     b = true;
                 }
             } else {
                 b = false;
-                var1.e(var2 + OPistonBlockTextures.b[var6], var3 + OPistonBlockTextures.c[var6], var4 + OPistonBlockTextures.d[var6], 0);
+                var1.e(var2 + OFacing.b[var6], var3 + OFacing.c[var6], var4 + OFacing.d[var6], 0);
                 b = true;
             }
 
@@ -257,9 +257,9 @@ public class OBlockPistonBase extends OBlock {
     }
 
     private static boolean g(OWorld var0, int var1, int var2, int var3, int var4) {
-        int var5 = var1 + OPistonBlockTextures.b[var4];
-        int var6 = var2 + OPistonBlockTextures.c[var4];
-        int var7 = var3 + OPistonBlockTextures.d[var4];
+        int var5 = var1 + OFacing.b[var4];
+        int var6 = var2 + OFacing.c[var4];
+        int var7 = var3 + OFacing.d[var4];
         int var8 = 0;
 
         while (true) {
@@ -280,9 +280,9 @@ public class OBlockPistonBase extends OBlock {
                             return false;
                         }
 
-                        var5 += OPistonBlockTextures.b[var4];
-                        var6 += OPistonBlockTextures.c[var4];
-                        var7 += OPistonBlockTextures.d[var4];
+                        var5 += OFacing.b[var4];
+                        var6 += OFacing.c[var4];
+                        var7 += OFacing.d[var4];
                         ++var8;
                         continue;
                     }
@@ -294,9 +294,9 @@ public class OBlockPistonBase extends OBlock {
     }
 
     private boolean h(OWorld var1, int var2, int var3, int var4, int var5) {
-        int var6 = var2 + OPistonBlockTextures.b[var5];
-        int var7 = var3 + OPistonBlockTextures.c[var5];
-        int var8 = var4 + OPistonBlockTextures.d[var5];
+        int var6 = var2 + OFacing.b[var5];
+        int var7 = var3 + OFacing.c[var5];
+        int var8 = var4 + OFacing.d[var5];
         int var9 = 0;
 
         while (true) {
@@ -318,9 +318,9 @@ public class OBlockPistonBase extends OBlock {
                             return false;
                         }
 
-                        var6 += OPistonBlockTextures.b[var5];
-                        var7 += OPistonBlockTextures.c[var5];
-                        var8 += OPistonBlockTextures.d[var5];
+                        var6 += OFacing.b[var5];
+                        var7 += OFacing.c[var5];
+                        var8 += OFacing.d[var5];
                         ++var9;
                         continue;
                     }
@@ -331,9 +331,9 @@ public class OBlockPistonBase extends OBlock {
             }
 
             while (var6 != var2 || var7 != var3 || var8 != var4) {
-                var9 = var6 - OPistonBlockTextures.b[var5];
-                var10 = var7 - OPistonBlockTextures.c[var5];
-                int var11 = var8 - OPistonBlockTextures.d[var5];
+                var9 = var6 - OFacing.b[var5];
+                var10 = var7 - OFacing.c[var5];
+                int var11 = var8 - OFacing.d[var5];
                 int var12 = var1.a(var9, var10, var11);
                 int var13 = var1.c(var9, var10, var11);
 

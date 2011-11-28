@@ -6,7 +6,7 @@ import net.minecraft.server.MinecraftServer;
 public class OPlayerManager {
 
     public List a = new ArrayList();
-    private OPlayerHash b = new OPlayerHash();
+    private OLongHashMap b = new OLongHashMap();
     private List c = new ArrayList();
     private MinecraftServer d;
     private int e;
@@ -171,7 +171,7 @@ public class OPlayerManager {
     }
 
     // $FF: synthetic method
-    static OPlayerHash a(OPlayerManager var0) {
+    static OLongHashMap a(OPlayerManager var0) {
         return var0.b;
     }
 

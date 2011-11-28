@@ -17,11 +17,15 @@ public class Minecart extends BaseVehicle {
         /**
          * Base minecart.
          */
-        Minecart(0), /**
+        Minecart(0),
+        /**
          * Storage minecart. Has storage for items.
-         */ StorageCart(1), /**
+         */
+        StorageCart(1),
+        /**
          * Powered minecart. Has storage for fuel.
-         */ PoweredMinecart(2);
+         */
+        PoweredMinecart(2);
 
         private final int                       id;
         private static final Map<Integer, Type> lookup = new HashMap<Integer, Type>();

@@ -350,7 +350,7 @@ public class OBlockRedstoneWire extends OBlock {
         } else {
             int var6 = var0.c(var1, var2, var3);
 
-            return var4 == (var6 & 3) || var4 == OModelBed.e[var6 & 3];
+            return var4 == (var6 & 3) || var4 == ODirection.e[var6 & 3];
         }
     }
 

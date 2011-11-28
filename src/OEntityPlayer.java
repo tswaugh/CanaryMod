@@ -42,7 +42,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
     private int e;
     protected float P = 0.1F;
     protected float Q = 0.02F;
-    public OEntityFish R = null;
+    public OEntityFishHook R = null;
     // CanaryMod start
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     HumanEntity entity = new HumanEntity(this);

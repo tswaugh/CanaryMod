@@ -18,11 +18,11 @@ public class Main {
 
     public static final long   minecraft_server = 0x162C10E0L;
 
-    public static final long   minecraft_servero = 0x9C33757CL;
+    public static final long   minecraft_servero = 0x80bbe76bL;
 
     public static final long   mysql = 0xb2e59524L;
     public static final long   jarjar = 0x0de915d3L;
-    public static final long   rules = 0x45D9CCD7L;
+    public static final long   rules = 0xb47bb8c9L;
 
     public static final Logger log = Logger.getLogger("Minecraft");
 
@@ -93,7 +93,7 @@ public class Main {
 
         if (checksum != crc) {
             log("-----------------------------");
-            log(fileName + " does not match checksum! Checksum found: " + checksum + ", required checksum: " + crc + ".");
+            log(fileName + " does not match checksum! Checksum found: " + Long.toHexString(checksum) + ", required checksum: " + Long.toHexString(crc) + ".");
             log("This means some of your files are either corrupted,outdated or to new(minecraft got updated?).");
             log("If you still want to run the server, delete version.txt to run the server in tainted mode.");
             log("-----------------------------");
