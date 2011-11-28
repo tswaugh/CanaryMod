@@ -214,6 +214,7 @@ public class PluginListener {
      * @return true if you don't want the dropped item to be spawned in the
      *         world
      */
+    @Deprecated
     public boolean onItemDrop(Player player, Item item) {
         return false;
     }
@@ -229,7 +230,6 @@ public class PluginListener {
      *         world
      */
     public boolean onItemDrop(Player player, ItemEntity item) {
-        onItemDrop(player, item.getItem());
         return false;
     }
 
@@ -244,6 +244,7 @@ public class PluginListener {
      * 			   You can still get the Item via ItemEntity.getItem()
      * @return true if you want to leave the item where it was
      */
+    @Deprecated
     public boolean onItemPickUp(Player player, Item item) {
         return false;
     }
@@ -258,7 +259,6 @@ public class PluginListener {
      * @return true if you want to leave the item where it was
      */
     public boolean onItemPickUp(Player player, ItemEntity item) {
-        onItemPickUp(player, item.getItem());
         return false;
     }
 
