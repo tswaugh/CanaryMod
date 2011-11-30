@@ -369,12 +369,12 @@ public class OServerConfigurationManager {
 
     public void a(String var1) {
         this.f.add(var1.toLowerCase());
-        // this.m(); CanaryMod - Disable Notchian whitelist
+        this.m();
     }
 
     public void b(String var1) {
         this.f.remove(var1.toLowerCase());
-        // this.m(); CanaryMod - Disable Notchian whitelist
+        this.m();
     }
 
     private void l() {
@@ -643,7 +643,8 @@ public class OServerConfigurationManager {
         return this.i;
     }
 
-    public void i() {// this.r(); CanaryMod - Disable Notchian whitelist
+    public void i() {
+        // this.r(); CanaryMod - Disable Notchian whitelist
     }
 
     public void a(OEntityPlayerMP var1, OWorldServer var2) {
