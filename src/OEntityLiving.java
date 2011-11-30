@@ -28,7 +28,7 @@ public abstract class OEntityLiving extends OEntity {
     public float al = 0.02F;
     public float am;
     public float an;
-    protected int ao = this.c();
+    public int ao = this.c();
     public int ap;
     protected int aq;
     private int a;
@@ -74,6 +74,7 @@ public abstract class OEntityLiving extends OEntity {
     
     // CanaryMod Start
     LivingEntity entity = new LivingEntity(this);
+    protected MobSpawner spawner = null;
     // CanaryMod end
 
     public OEntityLiving(OWorld var1) {
@@ -391,6 +392,7 @@ public abstract class OEntityLiving extends OEntity {
 
     }
 
+    
     public boolean a(ODamageSource var1, int var2) {
         if (this.bf.I) {
             return false;

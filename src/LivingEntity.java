@@ -119,4 +119,21 @@ public class LivingEntity extends BaseEntity {
     public void setLastDamage(int amount) {
         getEntity().aR = amount;
     }
+    
+    /**
+     * Drops this mob's loot. Automatically called if health is set to 0.
+     */
+    public void dropLoot() {
+        // Forced cast to get to the intended method
+        getEntity().a(true, 0);
+    }
+    
+    /**
+     * Gets the entity's mob spawner.
+     * @return MobSpawner of the entity, or null if it wasn't spawned with a mob spawner.
+     */
+    public MobSpawner getSpawner()
+    {
+        return getEntity().spawner;
+    }
 }
