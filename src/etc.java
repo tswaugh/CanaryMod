@@ -33,7 +33,7 @@ public class etc {
     private static MinecraftServer        server;
     private String                   	  configDir = "config/";
     private String                        usersLoc = "config/users.txt", kitsLoc = "config/kits.txt", homeLoc = "config/homes.txt", warpLoc = "config/warps.txt", itemLoc = "config/items.txt", groupLoc = "config/groups.txt", enderBlocksLoc = "config/endermanblocks.txt";
-    private String                        whitelistLoc = "config/whitelist.txt", reservelistLoc = "config/reservelist.txt";
+    private String                        whitelistLoc = "config/whitelist.txt", reservelistLoc = "config/reservelist.txt", antiXRayBlocksLoc = "config/antixray.txt";
     private String                        whitelistMessage = "Not on whitelist.";
 
     private Set<Integer>                  allowedItems = new HashSet<Integer>();
@@ -56,6 +56,9 @@ public class etc {
     private boolean                       logging = false;
     private boolean                       enableHealth = true;
     private boolean                       enableExperience = false;
+    private boolean                       enableAntiXRay      = false;
+    private boolean                       enableAntiXRayLighting = false;
+    private int[]                         opaqueAntiXRayBlocks = new int[] {1, 2, 3, 4, 5, 7, 12, 13, 14, 15, 16, 17, 19, 21, 22, 23, 24, 25, 29, 33, 35, 36, 41, 42, 43, 45, 46, 47, 48, 49, 54, 56, 57, 58, 60, 61, 62, 73, 74, 80, 82, 84, 86, 87, 88, 89, 91, 95, 97, 98, 99, 100, 103, 110, 112, 120, 121};
     private PluginLoader.HookResult       autoHeal = PluginLoader.HookResult.DEFAULT_ACTION;
     private boolean                       showUnknownCommand = true;
     private String                        versionStr;
@@ -142,6 +145,7 @@ public class etc {
                 groupLoc = properties.getString("group-txt-location", "config/groups.txt");
                 whitelistLoc = properties.getString("whitelist-txt-location", "config/whitelist.txt");
                 reservelistLoc = properties.getString("reservelist-txt-location", "config/reservelist.txt");
+                antiXRayBlocksLoc = properties.getString("antixray-txt-location", "config/antixray.txt");
             } else {
                 PropertiesFile sql = new PropertiesFile("mysql.properties");
 
@@ -155,6 +159,8 @@ public class etc {
             allowNether = properties.getBoolean("allow-nether", true);
             enableHealth = properties.getBoolean("enable-health", true);
             enableExperience = properties.getBoolean("enable-experience", true);
+            enableAntiXRay = properties.getBoolean("enable-antixray", false);
+            enableAntiXRayLighting = properties.getBoolean("enable-antixray-lighting", false);
             deathMessages = properties.getBoolean("death-message", true);
 
             animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow").split(",");
@@ -422,6 +428,41 @@ public class etc {
      */
     public boolean isExpEnabled() {
         return enableExperience;
+    }
+    
+    /**
+     * Returns true if anti-xray mechanism is working
+     * 
+     * @return
+     */
+    public boolean isAntiXRayEnabled() {
+        return enableAntiXRay;
+    }
+    
+    /**
+     * Returns true if anti-xray lighting mechanism is working
+     * 
+     * @return
+     */
+    public boolean isAntiXRayLightingEnabled() {
+        return enableAntiXRayLighting;
+    }
+    
+    /**
+     * Returns true if an anti xray block is opaque.
+     * @param id - The id of the block to check.
+     * 
+     * @return
+     */
+    public boolean isOpaqueAntiXRayBlock(int id) {
+        for (int i = 0; i < this.opaqueAntiXRayBlocks.length; i += 1)
+        {
+            if (this.opaqueAntiXRayBlocks[i] == id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -700,6 +741,15 @@ public class etc {
     public String getReservelistLocation() {
         return reservelistLoc;
     }
+    
+    /**
+     * Returns the location of antixray.txt
+     * 
+     * @return
+     */
+    public String getAntiXRayBlocksLocation() {
+        return antiXRayBlocksLoc;
+    }
 
     /**
      * Returns true if the server is saving homes
@@ -896,6 +946,15 @@ public class etc {
      */
     public void setReservelistLocation(String reservelistLoc) {
         this.reservelistLoc = reservelistLoc;
+    }
+    
+    /**
+     * Set the location of antixray.txt
+     * 
+     * @param antiXRayLoc
+     */
+    public void setAntiXRayLocation(String antiXRayLoc) {
+        this.antiXRayBlocksLoc = antiXRayLoc;
     }
 
     /**

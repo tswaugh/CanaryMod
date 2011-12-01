@@ -25,6 +25,7 @@ public class FlatFileSource extends DataSource {
         loadWarps();
         loadItems();
         loadEnderBlocks();
+        loadAntiXRayBlocks();
         // loadBanList();
 
         String location = etc.getInstance().getUsersLocation();
@@ -801,6 +802,51 @@ public class FlatFileSource extends DataSource {
             try {
                 writer = new FileWriter(location);
                 writer.write("#Add block IDs the endermen can pick up.\r\n");
+                writer.write("1\r\n");
+                writer.write("2\r\n");
+                writer.write("3\r\n");
+                writer.write("4\r\n");
+                writer.write("5\r\n");
+                writer.write("12\r\n");
+                writer.write("13\r\n");
+                writer.write("14\r\n");
+                writer.write("15\r\n");
+                writer.write("16\r\n");
+                writer.write("17\r\n");
+                writer.write("18\r\n");
+                writer.write("19\r\n");
+                writer.write("20\r\n");
+                writer.write("21\r\n");
+                writer.write("22\r\n");
+                writer.write("24\r\n");
+                writer.write("35\r\n");
+                writer.write("37\r\n");
+                writer.write("38\r\n");
+                writer.write("39\r\n");
+                writer.write("40\r\n");
+                writer.write("41\r\n");
+                writer.write("42\r\n");
+                writer.write("45\r\n");
+                writer.write("46\r\n");
+                writer.write("47\r\n");
+                writer.write("48\r\n");
+                writer.write("56\r\n");
+                writer.write("57\r\n");
+                writer.write("58\r\n");
+                writer.write("73\r\n");
+                writer.write("74\r\n");
+                writer.write("79\r\n");
+                writer.write("81\r\n");
+                writer.write("82\r\n");
+                writer.write("86\r\n");
+                writer.write("87\r\n");
+                writer.write("88\r\n");
+                writer.write("89\r\n");
+                writer.write("91\r\n");
+                writer.write("98\r\n");
+                writer.write("99\r\n");
+                writer.write("100\r\n");
+                writer.write("103\r\n");
             } catch (Exception e) {
                 log.log(Level.SEVERE, String.format("Exception while creating %s", location), e);
             } finally {
@@ -845,6 +891,60 @@ public class FlatFileSource extends DataSource {
             }
             for (Integer id : enderBlocks) {
                 OEntityEnderman.setHoldable(id, true);
+            }
+        }
+    }
+    
+    
+    @Override
+    public void loadAntiXRayBlocks() {
+        String location = etc.getInstance().getAntiXRayBlocksLocation();
+
+        if (!new File(location).exists()) {
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter(location);
+                writer.write("#Add block IDs the anti xray will hide.\r\n");
+                writer.write("14\r\n");
+                writer.write("15\r\n");
+                writer.write("16\r\n");
+                writer.write("21\r\n");
+                writer.write("56\r\n");
+                writer.write("73\r\n");
+            } catch (Exception e) {
+                log.log(Level.SEVERE, String.format("Exception while creating %s", location), e);
+            } finally {
+                try {
+                    if (writer != null)
+                        writer.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+
+        synchronized (antiXRayBlocksLock) {
+            antiXRayBlocks = new ArrayList<Integer>();
+            try {
+                Scanner scanner = new Scanner(new File(location));
+                int linenum = 0;
+                while (scanner.hasNextLine()) {
+                    linenum++;
+                    String line = scanner.nextLine();
+                    if (line.startsWith("#") || line.equals(""))
+                        continue;
+                    
+                    int id;
+                    try {
+                       id = Integer.parseInt(line);
+                    } catch(Exception exc){
+                       log.log(Level.SEVERE,String.format("Problem while reading %s (Line %d violates the syntax)", location, linenum));
+                       continue;
+                    }
+                    antiXRayBlocks.add(id);
+                }
+                scanner.close();
+            } catch (Exception e) {
+                log.log(Level.SEVERE, String.format("Exception while reading %s", location), e);
             }
         }
     }

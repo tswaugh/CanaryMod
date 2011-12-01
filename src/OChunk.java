@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Logger;
 
 
 public class OChunk {
@@ -34,6 +35,12 @@ public class OChunk {
 
     // CanaryMod
     public final Chunk chunk = new Chunk(this);
+    // antiXRayBlocks holds integers that represent the local coordinates of hidden blocks in the chunk.
+    // The index of each block is represented like so: (x << 11 | z << 7 || y).
+    // X and Z can be between 0-15: 4 bits each. Y can be from 0 to 127: 7 bits. Byte looks like so UXXXXYYYYZZZZZZZ (with U being Unused at the moment)
+    public final HashMap<Integer, Integer> antiXRayBlocks = new HashMap<Integer, Integer>();
+    public boolean needsScanning = true;
+    public Object antiXRayBlocksLock = new Object();
 
     public OChunk(OWorld var1, int var2, int var3) {
         super();
@@ -352,7 +359,38 @@ public class OChunk {
                     }
                 }
             }
-            this.b[var1 << this.f.b | var3 << this.f.a | var2] = (byte) (var6 & 255);
+            Integer index = new Integer(var1 << 11 | var3 << 7 | var2);
+            int oldBlockID = this.b[index];
+            this.b[index] = (byte) (var6 & 255);
+            // CanaryMod: If the anti xray mechanism is enabled
+            if (etc.getInstance().isAntiXRayEnabled())
+            {
+                // If setting an anti xray blocks to something else.
+                if (etc.getDataSource().getAntiXRayBlocks().contains(new Integer(oldBlockID)))
+                {
+                    synchronized (this.antiXRayBlocksLock)
+                    {
+                        if (this.antiXRayBlocks.containsKey(index))
+                        {
+                            this.antiXRayBlocks.remove(index);
+                        }
+                    }
+                }
+                // If setting the block to one of the anti xray blocks
+                if (etc.getDataSource().getAntiXRayBlocks().contains(new Integer(var4)))
+                {
+                    // Add it to the anti xray blocks if it doesn't already exist.
+                    synchronized (this.antiXRayBlocksLock)
+                    {
+                        if (!this.antiXRayBlocks.containsKey(index))
+                        {
+                            this.antiXRayBlocks.put(index, new Integer(var4));
+                        }
+                    }
+                }
+                updateNeighborAntiXRayBlocks(var1, var2, var3);
+            }
+            
             if (var9 != 0) {
                 if (!this.f.I) {
                     OBlock.m[var9].d(this.f, var10, var2, var11);
@@ -476,7 +514,38 @@ public class OChunk {
                     }
                 }
             }
-            this.b[var1 << this.f.b | var3 << this.f.a | var2] = (byte) (var5 & 255);
+            Integer index = new Integer(var1 << 11 | var3 << 7 | var2);
+            int oldBlockID = this.b[index];
+            this.b[index] = (byte) (var5 & 255);
+            // CanaryMod: If the anti xray mechanism is enabled
+            if (etc.getInstance().isAntiXRayEnabled())
+            {
+                // If setting an anti xray blocks to something else.
+                if (etc.getDataSource().getAntiXRayBlocks().contains(new Integer(oldBlockID)))
+                {
+                    synchronized (this.antiXRayBlocksLock)
+                    {
+                        if (this.antiXRayBlocks.containsKey(index))
+                        {
+                            this.antiXRayBlocks.remove(index);
+                        }
+                    }
+                }
+                // If setting the block to one of the anti xray blocks
+                if (etc.getDataSource().getAntiXRayBlocks().contains(new Integer(var4)))
+                {
+                    // Add it to the anti xray blocks if it doesn't already exist.
+                    synchronized (this.antiXRayBlocksLock)
+                    {
+                        if (!this.antiXRayBlocks.containsKey(index))
+                        {
+                            this.antiXRayBlocks.put(index, new Integer(var4));
+                        }
+                    }
+                }
+                updateNeighborAntiXRayBlocks(var1, var2, var3);
+            }
+            
             if (var8 != 0) {
                 OBlock.m[var8].d(this.f, var9, var2, var10);
             }
@@ -811,64 +880,170 @@ public class OChunk {
         }
     }
 
-    public int a(byte[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-        int var9 = var5 - var2;
-        int var10 = var6 - var3;
-        int var11 = var7 - var4;
+    // CanaryMod function alias: By default when returning the chunk data, it will be returned without the anti xray mechanism interfering with it.
+    // When the anti xray is enabled, it'll generate the chunk data without the hidden blocks.
+    public int a(byte[] chunkDataToFill, int relativeStartX, int relativeStartY, int relativeStartZ, int relativeEndX, int relativeEndY, int relativeEndZ, int bufferOffset) {
+        return a(chunkDataToFill, relativeStartX, relativeStartY, relativeStartZ, relativeEndX, relativeEndY, relativeEndZ, bufferOffset, false);
+    }
+    
+    // CanaryMod function alias: Returns the chunk's data at a given xyz to xyz based on wether anti xray is enabled.
+    // The chunkDataToFill consists of 4 sections: block types, block datas, block light maps and sky light maps.
+    // The block types take 1 byte per block and the datas and light maps takes 4 bits per block, So the final chunkDataToFill's size must be sizeX * sizeY * sizeZ * 2.5 in length.
+    public int a(byte[] chunkDataToFill, int relativeStartX, int relativeStartY, int relativeStartZ, int relativeEndX, int relativeEndY, int relativeEndZ, int bufferOffset, boolean replaceAntiXRayBlocks) {
+        int sizeX = relativeEndX - relativeStartX;
+        int sizeY = relativeEndY - relativeStartY;
+        int sizeZ = relativeEndZ - relativeStartZ;
 
-        if (var9 * var10 * var11 == this.b.length) {
-            System.arraycopy(this.b, 0, var1, var8, this.b.length);
-            var8 += this.b.length;
-            System.arraycopy(this.g.a, 0, var1, var8, this.g.a.length);
-            var8 += this.g.a.length;
-            System.arraycopy(this.i.a, 0, var1, var8, this.i.a.length);
-            var8 += this.i.a.length;
-            System.arraycopy(this.h.a, 0, var1, var8, this.h.a.length);
-            var8 += this.h.a.length;
-            return var8;
-        } else {
-            int var12;
-            int var13;
-            int var14;
-            int var15;
+        // If all the sizes match b's length (the number of blocks the chunk holds) it means we are returning the whole chunk's data.
+        if (sizeX * sizeY * sizeZ == this.b.length) {
+        	System.arraycopy(this.b, 0, chunkDataToFill, bufferOffset, this.b.length);     
+        	
+        	if (replaceAntiXRayBlocks)
+            {
+        	    // If the chunk has not been scanned yet (not fully generated)
+                if (needsScanning)
+                {
+                    // Scan all the data and replace with stone.
+                    List<Integer> antiXRayBlocksIDs = etc.getDataSource().getAntiXRayBlocks();
+                    for (int i = 0; i < this.b.length; i += 1)
+                    {
+                        if (antiXRayBlocksIDs.contains(new Integer(chunkDataToFill[bufferOffset + i])))
+                        {
+                            synchronized (this.antiXRayBlocksLock)
+                            {
+                                if (!this.antiXRayBlocks.containsKey(new Integer(bufferOffset + i)))
+                                {
+                                    this.antiXRayBlocks.put(new Integer(bufferOffset + i), new Integer(chunkDataToFill[bufferOffset + i]));
+                                }
+                            }
+                            if (isHidden(((bufferOffset + i) >> 11) & 0xf, (bufferOffset + i) & 0x7f, ((bufferOffset + i) >> 7) & 0xf))
+                            {
+                                chunkDataToFill[bufferOffset + i] = 1;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // Replacing blocks for a whole chunk is easy pie.
+                    for (Integer replacedBlockIndex : this.antiXRayBlocks.keySet())
+                    {
+                        // The index we need to modify in the chunkDataToFill is represented by this load o' crap.
+                        byte replacedBlockX = (byte)((replacedBlockIndex >> 11) & 0xf);
+                        byte replacedBlockY = (byte)(replacedBlockIndex & 0x7f);
+                        byte replacedBlockZ = (byte)((replacedBlockIndex >> 7) & 0xf);
+                        
+                        try
+                        {
+                            // Replaces the hidden block with stone.
+                        	
+                            if (isHidden(replacedBlockX, replacedBlockY, replacedBlockZ))
+                            {
+                                chunkDataToFill[bufferOffset + replacedBlockY + (replacedBlockZ * sizeY) + (replacedBlockX * sizeY * sizeZ)] = 1;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.getLogger("Minecraft").severe("Error in masking full chunk: (" + this.l + ", " + this.m + ")");
+                            Logger.getLogger("Minecraft").severe("Buffer offset: " + bufferOffset);
+                            Logger.getLogger("Minecraft").severe("Matches AntiXRay cache index: " + replacedBlockIndex + " translates to (" + replacedBlockX + ", " + replacedBlockY + ", " + replacedBlockZ + ")");
+                            Logger.getLogger("Minecraft").severe("Chunk data result index: "  + (bufferOffset + replacedBlockY + (replacedBlockZ * sizeY) + (replacedBlockX * sizeY * sizeZ)));
+                        }
+                    }
+                }
+            }
+            bufferOffset += this.b.length;
+            System.arraycopy(this.g.a, 0, chunkDataToFill, bufferOffset, this.g.a.length);
+            bufferOffset += this.g.a.length;
+            System.arraycopy(this.i.a, 0, chunkDataToFill, bufferOffset, this.i.a.length);
+            bufferOffset += this.i.a.length;
+            System.arraycopy(this.h.a, 0, chunkDataToFill, bufferOffset, this.h.a.length);
+            bufferOffset += this.h.a.length;
+            return bufferOffset;
+        }
+        // The sizes don't add up to the whole chunk, so we need to do some indexing games.
+        else {
+            int relativeX;
+            int relativeZ;
+            int relevantIndex;
+            int relevantSize;
 
-            for (var12 = var2; var12 < var5; ++var12) {
-                for (var13 = var4; var13 < var7; ++var13) {
-                    var14 = var12 << this.f.b | var13 << this.f.a | var3;
-                    var15 = var6 - var3;
-                    System.arraycopy(this.b, var14, var1, var8, var15);
-                    var8 += var15;
+            // CanaryMod: Copy the relevant blocks. Each block data takes up 1 byte (1-256 possible block IDs)
+            for (relativeX = relativeStartX; relativeX < relativeEndX; ++relativeX) {
+                for (relativeZ = relativeStartZ; relativeZ < relativeEndZ; ++relativeZ) {
+                    relevantIndex = relativeX << this.f.b | relativeZ << this.f.a | relativeStartY;
+                    relevantSize = relativeEndY - relativeStartY;
+                    System.arraycopy(this.b, relevantIndex, chunkDataToFill, bufferOffset, relevantSize);
+                    if (replaceAntiXRayBlocks)
+                    {
+                        if (needsScanning)
+                        {
+                            // Scan all the data and replace with stone.
+                            List<Integer> antiXRayBlockIDs = etc.getDataSource().getAntiXRayBlocks();
+                            for (int i = 0; i < relevantSize; i += 1)
+                            {
+                                if (antiXRayBlockIDs.contains(new Integer(chunkDataToFill[bufferOffset + i])))
+                                {
+                                    synchronized (this.antiXRayBlocksLock)
+                                    {
+                                        if (!this.antiXRayBlocks.containsKey(new Integer(bufferOffset + i)))
+                                        {
+                                            this.antiXRayBlocks.put(new Integer(bufferOffset + i), new Integer(chunkDataToFill[bufferOffset + i]));
+                                        }
+                                    }
+                                    if (isHidden(((bufferOffset + i) >> 11) & 0xf, (bufferOffset + i) & 0x7f, ((bufferOffset + i) >> 7) & 0xf))
+                                    {
+                                        chunkDataToFill[bufferOffset + i] = 1;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int relativeY = relativeStartY; relativeY < relativeEndY; relativeY += 1)
+                            {
+                                if (this.antiXRayBlocks.containsKey(new Integer(relativeX << 11 | relativeZ << 7 | relativeY)))
+                                {
+                                    if (isHidden(relativeX, relativeY, relativeZ))
+                                    {
+                                        chunkDataToFill[bufferOffset + relativeY - relativeStartY] = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    bufferOffset += relevantSize;
                 }
             }
 
-            for (var12 = var2; var12 < var5; ++var12) {
-                for (var13 = var4; var13 < var7; ++var13) {
-                    var14 = (var12 << this.f.b | var13 << this.f.a | var3) >> 1;
-                    var15 = (var6 - var3) / 2;
-                    System.arraycopy(this.g.a, var14, var1, var8, var15);
-                    var8 += var15;
+            for (relativeX = relativeStartX; relativeX < relativeEndX; ++relativeX) {
+                for (relativeZ = relativeStartZ; relativeZ < relativeEndZ; ++relativeZ) {
+                    relevantIndex = (relativeX << this.f.b | relativeZ << this.f.a | relativeStartY) >> 1;
+                    relevantSize = (relativeEndY - relativeStartY) / 2;
+                    System.arraycopy(this.g.a, relevantIndex, chunkDataToFill, bufferOffset, relevantSize);
+                    bufferOffset += relevantSize;
                 }
             }
 
-            for (var12 = var2; var12 < var5; ++var12) {
-                for (var13 = var4; var13 < var7; ++var13) {
-                    var14 = (var12 << this.f.b | var13 << this.f.a | var3) >> 1;
-                    var15 = (var6 - var3) / 2;
-                    System.arraycopy(this.i.a, var14, var1, var8, var15);
-                    var8 += var15;
+            for (relativeX = relativeStartX; relativeX < relativeEndX; ++relativeX) {
+                for (relativeZ = relativeStartZ; relativeZ < relativeEndZ; ++relativeZ) {
+                    relevantIndex = (relativeX << this.f.b | relativeZ << this.f.a | relativeStartY) >> 1;
+                    relevantSize = (relativeEndY - relativeStartY) / 2;
+                    System.arraycopy(this.i.a, relevantIndex, chunkDataToFill, bufferOffset, relevantSize);
+                    bufferOffset += relevantSize;
                 }
             }
 
-            for (var12 = var2; var12 < var5; ++var12) {
-                for (var13 = var4; var13 < var7; ++var13) {
-                    var14 = (var12 << this.f.b | var13 << this.f.a | var3) >> 1;
-                    var15 = (var6 - var3) / 2;
-                    System.arraycopy(this.h.a, var14, var1, var8, var15);
-                    var8 += var15;
+            for (relativeX = relativeStartX; relativeX < relativeEndX; ++relativeX) {
+                for (relativeZ = relativeStartZ; relativeZ < relativeEndZ; ++relativeZ) {
+                    relevantIndex = (relativeX << this.f.b | relativeZ << this.f.a | relativeStartY) >> 1;
+                    relevantSize = (relativeEndY - relativeStartY) / 2;
+                    System.arraycopy(this.h.a, relevantIndex, chunkDataToFill, bufferOffset, relevantSize);
+                    bufferOffset += relevantSize;
                 }
             }
 
-            return var8;
+            return bufferOffset;
         }
     }
 
@@ -878,6 +1053,14 @@ public class OChunk {
 
     public boolean g() {
         return false;
+    }
+    
+    // In order to construct the anti xray cache using this method, i'm editing OChunkBlockMap to accept a chunk reference.
+    // That overloaded method will create the cache for meh.
+    public void scan()
+    {
+        OChunkBlockMap.a(this);
+        needsScanning = false;
     }
 
     public void h() {
@@ -938,5 +1121,213 @@ public class OChunk {
 
     public OChunkCoordIntPair j() {
         return new OChunkCoordIntPair(this.l, this.m);
+    }
+    
+    // CanaryMod function: Used to determine if a block should be hidden in the chunk.
+    public boolean isHidden(int x, int y, int z)
+    {
+        // If not all neighbor blocks are opaque we need to check for lightings.
+        if (isBlockedByNeighbors(x, y, z) == false)
+        {
+            if (etc.getInstance().isAntiXRayLightingEnabled())
+            {
+                return !isLit(x, y, z);
+            }
+            return false;
+        }
+        return true;
+    }
+    
+    // CanaryMod function: Used to check for opaque blocks around a single block safely.
+    public boolean isBlockedByNeighbors(int x, int y, int z)
+    {
+        // Blocks at the edges of the chunk are considered hidden by the nonexistant block.
+        if (y < 127 && !etc.getInstance().isOpaqueAntiXRayBlock(this.b[x << 11 | z << 7 | y + 1]))
+        {
+            return false;
+        }
+        
+        if (y > 0 && !etc.getInstance().isOpaqueAntiXRayBlock(this.b[x << 11 | z << 7 | y - 1]))
+        {
+            return false;
+        }
+        
+        if ((x < 15 && !etc.getInstance().isOpaqueAntiXRayBlock(this.b[(x + 1) << 11 | z << 7 | y])) ||
+            (x == 15 && this.f.A.a(l + 1, m) && !etc.getInstance().isOpaqueAntiXRayBlock(this.f.a(l * 16 + x + 1, y, m * 16 + z))))
+        {
+            return false;
+        }
+        
+        if ((x > 0 && !etc.getInstance().isOpaqueAntiXRayBlock(this.b[(x - 1) << 11 | z << 7 | y])) ||
+            (x == 0 && this.f.A.a(l - 1, m) && !etc.getInstance().isOpaqueAntiXRayBlock(this.f.a(l * 16 + x - 1, y, m * 16 + z))))
+        {
+            return false;
+        }
+        
+        if ((z < 15 && !etc.getInstance().isOpaqueAntiXRayBlock(this.b[x << 11 | (z + 1) << 7 | y])) ||
+            (z == 15 && this.f.A.a(l, m + 1) && !etc.getInstance().isOpaqueAntiXRayBlock(this.f.a(l * 16 + x, y, m * 16 + z + 1))))
+        {
+            return false;
+        }
+        
+        if ((z > 0 && !etc.getInstance().isOpaqueAntiXRayBlock(this.b[x << 11 | (z - 1) << 7 | y])) ||
+            (z == 0 && this.f.A.a(l, m - 1) && !etc.getInstance().isOpaqueAntiXRayBlock(this.f.a(l * 16 + x, y, m * 16 + z - 1))))
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    // CanaryMod function: Used to check for opaque blocks around a single block safely.
+    public boolean isLit(int x, int y, int z)
+    {
+        int absoluteX = l * 16 + x;
+        int absoluteZ = m * 16 + z;
+        // Blocks at the edges of the chunk are considered hidden by the nonexistant block.
+        if (y == 127 || (y < 127 && this.f.a(absoluteX, y + 1, absoluteZ, false) > 0))
+        {
+            return true;
+        }
+        
+        if (y == 0 || (y > 0 && this.f.a(absoluteX, y - 1, absoluteZ, false) > 0))
+        {
+            return true;
+        }
+        
+        if ((x < 15 && this.f.a(absoluteX + 1, y, absoluteZ, false) > 0) ||
+            (x == 15 && this.f.A.a(l + 1, m) && this.f.a(absoluteX + 1, y, absoluteZ, false) > 0))
+        {
+            return true;
+        }
+        
+        if ((x > 0 && this.f.a(absoluteX - 1, y, absoluteZ, false) > 0) ||
+            (x == 0 && this.f.A.a(l - 1, m) && this.f.a(absoluteX - 1, y, absoluteZ, false) > 0))
+        {
+            return true;
+        }
+        
+        if ((z < 15 && this.f.a(absoluteX, y, absoluteZ + 1, false) > 0) ||
+            (z == 15 && this.f.A.a(l, m + 1) && this.f.a(absoluteX, y, absoluteZ + 1, false) > 0))
+        {
+            return true;
+        }
+        
+        if ((z > 0 && this.f.a(absoluteX, y, absoluteZ - 1, false) > 0) ||
+            (z == 0 && this.f.A.a(l, m - 1) && this.f.a(absoluteX, y, absoluteZ - 1, false) > 0))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    // CanaryMod function: Used to update chunk borders when neighbor chunks are generated.
+    public void updateChunkBorder(int borderX, int borderZ, boolean xAlignedBorder)
+    {
+        for (int i = 0; i < 16; i += 1)
+        {
+            Integer index = (xAlignedBorder == true) ? (i << 11 | borderZ) : (borderX << 11 | i);
+            for (int j = 0; j < 128; j += 1)
+            {
+                if (this.antiXRayBlocks.containsKey(index))
+                {
+                    // Queue update for block.
+                    this.f.h(this.l * 16 + ((index >> 11) & 0xf), j, this.m * 16 + ((index >> 7) & 0xf));
+                }
+                index += 1;
+            }
+        }
+    }
+    
+    // CanaryMod function: Used to update all the neighboring chunks.
+    public void updateNeighborChunks()
+    {
+        if (this.f.A.a(l + 1, m))
+        {
+            this.f.c(l + 1, m).updateChunkBorder(0, 0, false);
+        }
+        if (this.f.A.a(l - 1, m))
+        {
+            this.f.c(l - 1, m).updateChunkBorder(15, 0, false);
+        }
+        if (this.f.A.a(l, m + 1))
+        {
+            this.f.c(l, m + 1).updateChunkBorder(0, 0, true);
+        }
+        if (this.f.A.a(l, m - 1))
+        {
+            this.f.c(l, m - 1).updateChunkBorder(0, 15, true);
+        }
+    }
+    
+    // CanaryMod function: Used to update neighboring anti xray blocks.
+    public void updateNeighborAntiXRayBlocks(int x, int y, int z)
+    {
+        updateAntiXRayBlock(l * 16 + x, y, m * 16 + z, x + 1, y, z);
+        updateAntiXRayBlock(l * 16 + x, y, m * 16 + z, x - 1, y, z);
+        updateAntiXRayBlock(l * 16 + x, y, m * 16 + z, x, y + 1, z);
+        updateAntiXRayBlock(l * 16 + x, y, m * 16 + z, x, y - 1, z);
+        updateAntiXRayBlock(l * 16 + x, y, m * 16 + z, x, y, z + 1);
+        updateAntiXRayBlock(l * 16 + x, y, m * 16 + z, x, y, z - 1);
+    }
+    
+    // CanaryMod function: Used to update single xray blocks.
+    public void updateAntiXRayBlock(int updaterX, int updaterY, int updaterZ, int x, int y, int z)
+    {
+        // Check for invalid heights
+        if (y < 0 || y > 127)
+        {
+            return;
+        }
+        
+        // If updated block is inside the chunk
+        if (x >= 0 && x <= 15 && z >= 0 && z <= 15)
+        {
+            Integer index = x << 11 | z << 7 | y;
+            if (this.antiXRayBlocks.containsKey(index))
+            {
+                // Queue update for block.
+                this.f.h(this.l * 16 + x, y, this.m * 16 + z);
+            }
+        }
+        else
+        {
+            int chunkXOffset = 0, chunkZOffset = 0, xPos = x & 0xf, zPos = z & 0xf;
+            if (x > 15)
+            {
+                chunkXOffset = x / 16;
+                xPos = x & 0xf;
+            }
+            else if (x < 0)
+            {
+                chunkXOffset = x / 16 - 1;
+                xPos = (16 - (-x & 0xf)) & 0xf;
+            }
+            if (z > 15)
+            {
+                chunkZOffset = z / 16;
+                zPos = z & 0xf;
+            }
+            else if (z < 0)
+            {
+                chunkZOffset = z / 16 - 1;
+                zPos = (16 - (-z & 0xf)) & 0xf;
+            }
+            
+            // If the neighbor chunk exists
+            if (this.f.A.a(l + chunkXOffset, m + chunkZOffset))
+            {
+                // Update the anti xray block in the other chunk.
+                Integer index = xPos << 11 | zPos << 7 | y;
+                synchronized (this.antiXRayBlocksLock)
+                {
+                    if (this.f.c(l + chunkXOffset, m + chunkZOffset).antiXRayBlocks.containsKey(index))
+                    {
+                        // Queue update for block.
+                        this.f.h((this.l + chunkXOffset) * 16 + xPos, y, (this.m + chunkZOffset) * 16 + zPos);
+                    }
+                }
+            }
+        }
     }
 }

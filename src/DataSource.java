@@ -24,9 +24,10 @@ public abstract class DataSource {
     protected List<Ban>            bans = new ArrayList<Ban>();
     protected Map<String, Integer> items = new HashMap<String, Integer>();
     protected List<Integer>        enderBlocks = new ArrayList<Integer>();
+    protected List<Integer>        antiXRayBlocks = new ArrayList<Integer>();
     protected MinecraftServer      server;
-    protected final Object         groupLock = new Object(), kitLock = new Object(), banLock = new Object();
-    protected final Object         homeLock = new Object(), warpLock = new Object(), itemLock = new Object(), enderBlocksLock = new Object();
+    protected final Object         groupLock = new Object(), kitLock = new Object(), banLock = new Object(), homeLock  = new Object();
+    protected final Object         warpLock = new Object(), itemLock = new Object(), enderBlocksLock = new Object(), antiXRayBlocksLock = new Object();
 
     /**
      * Initializes the data source
@@ -68,6 +69,11 @@ public abstract class DataSource {
      */
     abstract public void loadEnderBlocks();
 
+    /**
+     * Loads the anti xray blocks list
+     */
+    abstract public void loadAntiXRayBlocks();
+    
     /**
      * Adds user to the list
      * 
@@ -475,4 +481,15 @@ public abstract class DataSource {
      * @return true if player is on reserve list
      */
     abstract public boolean isUserOnReserveList(String user);
+    
+    /**
+     * Retrieves the list of blocks the anti xray will hide
+     * 
+     * @return the list of anti xray blocks
+     */
+    public List<Integer> getAntiXRayBlocks() {
+    	synchronized (antiXRayBlocksLock) {
+    		return antiXRayBlocks;
+    	}
+    }
 }

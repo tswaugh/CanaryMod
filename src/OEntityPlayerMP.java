@@ -433,7 +433,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 4, name, 9)));
-        this.m = container;
+        this.m = new OContainerEnchantment(this.k, this.bf, var1, var2, var3);
         this.m.f = this.ci;
         this.m.a((OICrafting) this);
     }

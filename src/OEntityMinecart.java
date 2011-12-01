@@ -337,8 +337,8 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 }
 
                 this.bj = var34 + var22 * var32;
-                this.bl = var36 + var24 * var32;
-                this.c(this.bj, this.bk + (double) this.bC, this.bl);
+                this.bk = var36 + var24 * var32;
+                this.e(this.bj, this.bk + (double) this.bC, this.bl);
                 var42 = this.bm;
                 var44 = this.bo;
                 if (this.bd != null) {

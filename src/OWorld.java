@@ -2281,7 +2281,7 @@ public class OWorld implements OIBlockAccess {
             OEntity var4 = (OEntity) this.g.get(var3);
 
             if (var1.isAssignableFrom(var4.getClass())) {
-                ++var2;
+            	++var2;
             }
         }
 
@@ -2439,53 +2439,61 @@ public class OWorld implements OIBlockAccess {
         return null;
     }
 
+    // CanaryMod function: Overloaded original function to enable anti xray chunk data requests
+    // without changing the normal behaviour of minecraft.
     public byte[] c(int var1, int var2, int var3, int var4, int var5, int var6) {
-        byte[] var7 = new byte[var4 * var5 * var6 * 5 / 2];
-        int var8 = var1 >> 4;
-        int var9 = var3 >> 4;
-        int var10 = var1 + var4 - 1 >> 4;
-        int var11 = var3 + var6 - 1 >> 4;
-        int var12 = 0;
-        int var13 = var2;
-        int var14 = var2 + var5;
+        return c(var1, var2, var3, var4, var5, var6, false);
 
-        if (var2 < 0) {
-            var13 = 0;
+    }
+    
+    // CanaryMod function: The overloaded method now takes an extra boolean enableXRay and passes it down to the chunk class.
+    public byte[] c(int globalStartX, int globalStartY, int globalStartZ, int sizeX, int sizeY, int sizeZ, boolean enableXRay) {
+        byte[] chunkDataToFill = new byte[sizeX * sizeY * sizeZ * 5 / 2];
+        int chunkStartX = globalStartX >> 4;
+        int chunkStartZ = globalStartZ >> 4;
+        int chunkEndX = globalStartX + sizeX - 1 >> 4;
+        int chunkEndZ = globalStartZ + sizeZ - 1 >> 4;
+        int bufferOffset = 0;
+        int chunkStartY = globalStartY;
+        int chunkEndY = globalStartY + sizeY;
+
+        if (globalStartY < 0) {
+            chunkStartY = 0;
         }
 
-        if (var14 > this.c) {
-            var14 = this.c;
+        if (chunkEndY > this.c) {
+            chunkEndY = this.c;
         }
 
-        for (int var15 = var8; var15 <= var10; ++var15) {
-            int var16 = var1 - var15 * 16;
-            int var17 = var1 + var4 - var15 * 16;
+        for (int chunkX = chunkStartX; chunkX <= chunkEndX; ++chunkX) {
+            int relativeStartX = globalStartX - chunkX * 16;
+            int relativeEndX = globalStartX + sizeX - chunkX * 16;
 
-            if (var16 < 0) {
-                var16 = 0;
+            if (relativeStartX < 0) {
+                relativeStartX = 0;
             }
 
-            if (var17 > 16) {
-                var17 = 16;
+            if (relativeEndX > 16) {
+                relativeEndX = 16;
             }
 
-            for (int var18 = var9; var18 <= var11; ++var18) {
-                int var19 = var3 - var18 * 16;
-                int var20 = var3 + var6 - var18 * 16;
+            for (int chunkZ = chunkStartZ; chunkZ <= chunkEndZ; ++chunkZ) {
+                int relativeStartZ = globalStartZ - chunkZ * 16;
+                int relativeEndZ = globalStartZ + sizeZ - chunkZ * 16;
 
-                if (var19 < 0) {
-                    var19 = 0;
+                if (relativeStartZ < 0) {
+                    relativeStartZ = 0;
                 }
 
-                if (var20 > 16) {
-                    var20 = 16;
+                if (relativeEndZ > 16) {
+                    relativeEndZ = 16;
                 }
 
-                var12 = this.c(var15, var18).a(var7, var16, var13, var19, var17, var14, var20, var12);
+                bufferOffset = this.c(chunkX, chunkZ).a(chunkDataToFill, relativeStartX, chunkStartY, relativeStartZ, relativeEndX, chunkEndY, relativeEndZ, bufferOffset, enableXRay);
             }
         }
 
-        return var7;
+        return chunkDataToFill;
     }
 
     public void l() {

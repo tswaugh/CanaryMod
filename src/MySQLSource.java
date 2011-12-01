@@ -15,7 +15,7 @@ import java.util.logging.Level;
  */
 public class MySQLSource extends DataSource {
 
-    private String table_groups, table_users, table_items, table_kits, table_warps, table_homes, table_reservelist, table_whitelist, table_bans, table_enderblocks;
+    private String table_groups, table_users, table_items, table_kits, table_warps, table_homes, table_reservelist, table_whitelist, table_bans, table_enderblocks, table_antixrayblocks;
 
     @Override
     public void initialize() {
@@ -31,6 +31,7 @@ public class MySQLSource extends DataSource {
         table_reservelist = properties.getString("reservelist", "reservelist");
         table_bans = properties.getString("bans", "bans");
         table_enderblocks = properties.getString("enderblocks", "enderblocks");
+        table_antixrayblocks = properties.getString("antixrayblocks", "antixrayblocks");
         loadGroups();
         loadKits();
         loadHomes();
@@ -308,6 +309,37 @@ public class MySQLSource extends DataSource {
             }
             for (Integer id : enderBlocks) {
                 OEntityEnderman.setHoldable(id, true);
+            }
+        }
+    }
+    
+    
+    @Override
+    public void loadAntiXRayBlocks() {
+        synchronized (antiXRayBlocksLock) {
+            antiXRayBlocks = new ArrayList<Integer>();
+            Connection conn = null;
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            try {
+                conn = etc.getSQLConnection();
+                ps = conn.prepareStatement("SELECT * FROM " + table_antixrayblocks);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    antiXRayBlocks.add(rs.getInt("blockid"));
+                }
+            } catch (SQLException ex) {
+                log.log(Level.SEVERE, "Unable to retreive anti-xray blocks from anti-xray table", ex);
+            } finally {
+                try {
+                    if (ps != null)
+                        ps.close();
+                    if (rs != null)
+                        rs.close();
+                    if (conn != null)
+                        conn.close();
+                } catch (SQLException ex) {
+                }
             }
         }
     }
