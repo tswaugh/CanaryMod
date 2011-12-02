@@ -113,6 +113,7 @@ public class OEntityBoat extends OEntity {
         double prevX = bj;
         double prevY = bk;
         double prevZ = bl;
+
         if (this.k() > 0) {
             this.c(this.k() - 1);
         }

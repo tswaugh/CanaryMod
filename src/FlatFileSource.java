@@ -895,13 +895,13 @@ public class FlatFileSource extends DataSource {
         }
     }
     
-    
     @Override
     public void loadAntiXRayBlocks() {
         String location = etc.getInstance().getAntiXRayBlocksLocation();
 
         if (!new File(location).exists()) {
             FileWriter writer = null;
+
             try {
                 writer = new FileWriter(location);
                 writer.write("#Add block IDs the anti xray will hide.\r\n");
@@ -915,10 +915,10 @@ public class FlatFileSource extends DataSource {
                 log.log(Level.SEVERE, String.format("Exception while creating %s", location), e);
             } finally {
                 try {
-                    if (writer != null)
+                    if (writer != null) {
                         writer.close();
-                } catch (IOException e) {
-                }
+                    }
+                } catch (IOException e) {}
             }
         }
 
@@ -927,18 +927,22 @@ public class FlatFileSource extends DataSource {
             try {
                 Scanner scanner = new Scanner(new File(location));
                 int linenum = 0;
+
                 while (scanner.hasNextLine()) {
                     linenum++;
                     String line = scanner.nextLine();
-                    if (line.startsWith("#") || line.equals(""))
+
+                    if (line.startsWith("#") || line.equals("")) {
                         continue;
+                    }
                     
                     int id;
+
                     try {
-                       id = Integer.parseInt(line);
-                    } catch(Exception exc){
-                       log.log(Level.SEVERE,String.format("Problem while reading %s (Line %d violates the syntax)", location, linenum));
-                       continue;
+                        id = Integer.parseInt(line);
+                    } catch (Exception exc) {
+                        log.log(Level.SEVERE, String.format("Problem while reading %s (Line %d violates the syntax)", location, linenum));
+                        continue;
                     }
                     antiXRayBlocks.add(id);
                 }

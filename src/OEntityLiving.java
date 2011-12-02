@@ -28,7 +28,7 @@ public abstract class OEntityLiving extends OEntity {
     public float al = 0.02F;
     public float am;
     public float an;
-    public int ao = this.c();
+    protected int ao = this.c();
     public int ap;
     protected int aq;
     private int a;
@@ -392,7 +392,6 @@ public abstract class OEntityLiving extends OEntity {
 
     }
 
-    
     public boolean a(ODamageSource var1, int var2) {
         if (this.bf.I) {
             return false;

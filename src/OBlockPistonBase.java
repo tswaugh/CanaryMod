@@ -131,7 +131,6 @@ public class OBlockPistonBase extends OBlock {
                     }
                 }
 
-
                 if (this.attemptRetractBlock && !var14 && var12 > 0 && a(var12, var1, var9, var10, var11, false) && (OBlock.m[var12].g() == 0 || var12 == OBlock.ab.bO || var12 == OBlock.X.bO)) {
                     var2 += OFacing.b[var6];
                     var3 += OFacing.c[var6];
@@ -164,28 +163,28 @@ public class OBlockPistonBase extends OBlock {
 
         if (e(var5)) {
             switch (d(var5)) {
-            case 0:
-                this.a(0.0F, 0.25F, 0.0F, 1.0F, 1.0F, 1.0F);
-                break;
+                case 0:
+                    this.a(0.0F, 0.25F, 0.0F, 1.0F, 1.0F, 1.0F);
+                    break;
 
-            case 1:
-                this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
-                break;
+                case 1:
+                    this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
+                    break;
 
-            case 2:
-                this.a(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 1.0F);
-                break;
+                case 2:
+                    this.a(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 1.0F);
+                    break;
 
-            case 3:
-                this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.75F);
-                break;
+                case 3:
+                    this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.75F);
+                    break;
 
-            case 4:
-                this.a(0.25F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-                break;
+                case 4:
+                    this.a(0.25F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+                    break;
 
-            case 5:
-                this.a(0.0F, 0.0F, 0.0F, 0.75F, 1.0F, 1.0F);
+                case 5:
+                    this.a(0.0F, 0.0F, 0.0F, 0.75F, 1.0F, 1.0F);
             }
         } else {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);

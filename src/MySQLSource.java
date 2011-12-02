@@ -314,7 +314,6 @@ public class MySQLSource extends DataSource {
         }
     }
     
-    
     @Override
     public void loadAntiXRayBlocks() {
         synchronized (antiXRayBlocksLock) {
@@ -322,6 +321,7 @@ public class MySQLSource extends DataSource {
             Connection conn = null;
             PreparedStatement ps = null;
             ResultSet rs = null;
+
             try {
                 conn = etc.getSQLConnection();
                 ps = conn.prepareStatement("SELECT * FROM " + table_antixrayblocks);
@@ -333,14 +333,16 @@ public class MySQLSource extends DataSource {
                 log.log(Level.SEVERE, "Unable to retreive anti-xray blocks from anti-xray table", ex);
             } finally {
                 try {
-                    if (ps != null)
+                    if (ps != null) {
                         ps.close();
-                    if (rs != null)
+                    }
+                    if (rs != null) {
                         rs.close();
-                    if (conn != null)
+                    }
+                    if (conn != null) {
                         conn.close();
-                } catch (SQLException ex) {
-                }
+                    }
+                } catch (SQLException ex) {}
             }
         }
     }

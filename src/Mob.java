@@ -84,8 +84,9 @@ public class Mob extends LivingEntity {
      * @return OEntity
      */
     public OEntity getTarget() {
-        if(getEntity() instanceof OEntityGhast){
+        if (getEntity() instanceof OEntityGhast) {
             OEntityGhast var1 = (OEntityGhast) getEntity();
+
             return var1.getTarget();
         }
         return ((OEntityCreature) getEntity()).d;
@@ -97,20 +98,13 @@ public class Mob extends LivingEntity {
      * @param target the entity to target
      */
     public void setTarget(OEntity target) {
-        if(getEntity() instanceof OEntityGhast){
+        if (getEntity() instanceof OEntityGhast) {
             OEntityGhast var1 = (OEntityGhast) getEntity();
+
             var1.setTarget(target);
             return;
         }
-    	((OEntityCreature) getEntity()).d = target; 
-    }
-    
-    /**
-     * Drops this mob's loot. Automatically called if health is set to 0.
-     */
-    public void dropLoot() {
-        // Forced cast to get to the intended method
-        getEntity().a((OEntity) null);
+        ((OEntityCreature) getEntity()).d = target; 
     }
 
     @Override
@@ -161,6 +155,5 @@ public class Mob extends LivingEntity {
         loc.dimension = getWorld().getType().getId();
         return loc;
     }
-
 
 }

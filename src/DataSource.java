@@ -26,7 +26,7 @@ public abstract class DataSource {
     protected List<Integer>        enderBlocks = new ArrayList<Integer>();
     protected List<Integer>        antiXRayBlocks = new ArrayList<Integer>();
     protected MinecraftServer      server;
-    protected final Object         groupLock = new Object(), kitLock = new Object(), banLock = new Object(), homeLock  = new Object();
+    protected final Object         groupLock = new Object(), kitLock = new Object(), banLock = new Object(), homeLock = new Object();
     protected final Object         warpLock = new Object(), itemLock = new Object(), enderBlocksLock = new Object(), antiXRayBlocksLock = new Object();
 
     /**
@@ -488,8 +488,8 @@ public abstract class DataSource {
      * @return the list of anti xray blocks
      */
     public List<Integer> getAntiXRayBlocks() {
-    	synchronized (antiXRayBlocksLock) {
-    		return antiXRayBlocks;
-    	}
+        synchronized (antiXRayBlocksLock) {
+            return antiXRayBlocks;
+        }
     }
 }

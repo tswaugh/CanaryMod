@@ -952,6 +952,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     @Override
     public int hashCode() {
         int hash = 7;
+
         hash = 89 * hash + this.id;
         hash = 89 * hash + (this.getName() != null ? this.getName().hashCode() : 0);
         return hash;

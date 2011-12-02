@@ -2,6 +2,7 @@
 import java.util.Arrays;
 import java.util.List;
 
+
 public class OInventoryBasic implements OIInventory, Container<OItemStack> {
 
     private String a;
@@ -77,11 +78,9 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         return true;
     }
 
-    public void f() {
-    }
+    public void f() {}
 
-    public void g() {
-    }
+    public void g() {}
 
     @Override
     public OItemStack[] getContents() {

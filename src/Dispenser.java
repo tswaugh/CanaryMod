@@ -9,7 +9,8 @@ public class Dispenser extends BaseContainerBlock implements ComplexBlock {
     }
     
     public void fire() {
-        OTileEntityDispenser dis = (OTileEntityDispenser) container;
-        OBlock.R.a(dis.k, dis.l, dis.m, dis.n, dis.k.w);
+        OWorld oworld = this.getWorld().getWorld();
+
+        OBlock.R.a(oworld, this.getX(), this.getY(), this.getZ(), oworld.w);
     }
 }

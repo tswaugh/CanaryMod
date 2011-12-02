@@ -46,7 +46,6 @@ public class Chest extends BaseContainerBlock<OTileEntityChest> implements Compl
             if ((cblock != null) && (cblock instanceof Chest)) {
                 Chest chest = (Chest) cblock;
 
-                // Compiler derps on uncasted.
                 return new DoubleChest(new OInventoryLargeChest(getName(), container, chest.container));
             }
         }

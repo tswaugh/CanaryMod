@@ -66,8 +66,8 @@ public class OTileEntityMobSpawner extends OTileEntity {
 
                         var9.c(var11, var13, var15, this.k.w.nextFloat() * 360.0F, 0.0F);
                         if (var9.g()) {
-                        	// CanaryMod - set spawner block for spawned entity
-                            var9.spawner = (MobSpawner)k.world.getComplexBlock(l, m, n);
+                            // CanaryMod - set spawner block for spawned entity
+                            var9.spawner = (MobSpawner) k.world.getComplexBlock(l, m, n);
                             this.k.b((OEntity) var9);
                             this.k.f(2004, this.l, this.m, this.n, 0);
                             var9.ah();

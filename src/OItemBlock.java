@@ -64,7 +64,7 @@ public class OItemBlock extends OItem {
         } else if (var5 == var3.c - 1 && OBlock.m[this.a].cb.a()) {
             return false;
         } else if (var3.a(this.a, var4, var5, var6, false, var7)
-                //CanaryMod: prevent unwanted blocks from getting placed.
+                // CanaryMod: prevent unwanted blocks from getting placed.
                 && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PLACE, ((OEntityPlayerMP) var2).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
             OBlock var9 = OBlock.m[this.a];
 

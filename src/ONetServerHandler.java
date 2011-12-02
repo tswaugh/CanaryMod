@@ -429,29 +429,29 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         if (blockClicked != null && var3 != null) {
             blockPlaced = new Block(var2.world, var3.c, blockClicked.getX(), blockClicked.getY(), blockClicked.getZ());
             switch (var1.d) {
-            case 0:
-                blockPlaced.setY(blockPlaced.getY() - 1);
-                break;
+                case 0:
+                    blockPlaced.setY(blockPlaced.getY() - 1);
+                    break;
 
-            case 1:
-                blockPlaced.setY(blockPlaced.getY() + 1);
-                break;
+                case 1:
+                    blockPlaced.setY(blockPlaced.getY() + 1);
+                    break;
 
-            case 2:
-                blockPlaced.setZ(blockPlaced.getZ() - 1);
-                break;
+                case 2:
+                    blockPlaced.setZ(blockPlaced.getZ() - 1);
+                    break;
 
-            case 3:
-                blockPlaced.setZ(blockPlaced.getZ() + 1);
-                break;
+                case 3:
+                    blockPlaced.setZ(blockPlaced.getZ() + 1);
+                    break;
 
-            case 4:
-                blockPlaced.setX(blockPlaced.getX() - 1);
-                break;
+                case 4:
+                    blockPlaced.setX(blockPlaced.getX() - 1);
+                    break;
 
-            case 5:
-                blockPlaced.setX(blockPlaced.getX() + 1);
-                break;
+                case 5:
+                    blockPlaced.setX(blockPlaced.getX() + 1);
+                    break;
             }
         }
 
@@ -584,8 +584,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         getPlayer().chat(var2);
     }
 
-    private void c(String var1) {
-    	// Handled by PlayerCommands class
+    private void c(String var1) {// Handled by PlayerCommands class
     }
 
     public void a(OPacket18Animation var1) {

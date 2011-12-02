@@ -408,8 +408,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             return;
         }
         
-        if (inv != null)
+        if (inv != null) {
             name = inv.getName();
+        }
         
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 1, name, 9)));
@@ -428,8 +429,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             return;
         }
         
-        if (inv != null)
+        if (inv != null) {
             name = inv.getName();
+        }
         
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 4, name, 9)));
@@ -475,8 +477,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             return;
         }
         
-        if (inv != null)
+        if (inv != null) {
             name = inv.getName();
+        }
         
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 2, name, var1.c())));
@@ -494,8 +497,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             return;
         }
         
-        if (inv != null)
+        if (inv != null) {
             name = inv.getName();
+        }
         
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 3, name, var1.c())));
@@ -513,8 +517,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             return;
         }
         
-        if (inv != null)
+        if (inv != null) {
             name = inv.getName();
+        }
         
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 5, name, var1.c())));

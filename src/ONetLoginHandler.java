@@ -93,6 +93,7 @@ public class ONetLoginHandler extends ONetHandler {
 
             var2.c.b(var3.r().n());
             ONetServerHandler var5 = new ONetServerHandler(this.e, this.b, var2);
+
             // CanaryMod - if seed is hidden send 0 instead.
             var5.b((OPacket) (new OPacket1Login("", var2.ba, etc.getInstance().getHideSeed() == true ? 0 : var3.m(), var2.c.a(), (byte) var3.y.g, (byte) var3.v, (byte) var3.c, (byte) this.e.h.k())));
             var5.b((OPacket) (new OPacket6SpawnPosition(var4.a, var4.b, var4.c)));

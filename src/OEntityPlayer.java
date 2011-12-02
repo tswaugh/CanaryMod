@@ -836,20 +836,20 @@ public abstract class OEntityPlayer extends OEntityLiving {
             float var12 = 0.5F;
 
             switch (var10) {
-            case 0:
-                var12 = 0.9F;
-                break;
+                case 0:
+                    var12 = 0.9F;
+                    break;
 
-            case 1:
-                var11 = 0.1F;
-                break;
+                case 1:
+                    var11 = 0.1F;
+                    break;
 
-            case 2:
-                var12 = 0.1F;
-                break;
+                case 2:
+                    var12 = 0.1F;
+                    break;
 
-            case 3:
-                var11 = 0.9F;
+                case 3:
+                    var11 = 0.9F;
             }
 
             this.c(var10);
@@ -873,20 +873,20 @@ public abstract class OEntityPlayer extends OEntityLiving {
         this.G = 0.0F;
         this.H = 0.0F;
         switch (var1) {
-        case 0:
-            this.H = -1.8F;
-            break;
+            case 0:
+                this.H = -1.8F;
+                break;
 
-        case 1:
-            this.G = 1.8F;
-            break;
+            case 1:
+                this.G = 1.8F;
+                break;
 
-        case 2:
-            this.H = 1.8F;
-            break;
+            case 2:
+                this.H = 1.8F;
+                break;
 
-        case 3:
-            this.G = -1.8F;
+            case 3:
+                this.G = -1.8F;
         }
 
     }

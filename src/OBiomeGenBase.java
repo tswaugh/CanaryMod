@@ -137,7 +137,6 @@ public abstract class OBiomeGenBase {
         }
         return null;
     }
-
     // CanaryMod end
 
     public boolean b() {

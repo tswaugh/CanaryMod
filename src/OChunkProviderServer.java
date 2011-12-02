@@ -94,10 +94,9 @@ public class OChunkProviderServer implements OIChunkProvider {
 
             var5.a(this, this, var1, var2);
             // CanaryMod scan newly created and loaded chunks for anti xray blocks
-            if (etc.getInstance().isAntiXRayEnabled())
-            {
-            	var5.scan();
-            	var5.updateNeighborChunks();
+            if (etc.getInstance().isAntiXRayEnabled()) {
+                var5.scan();
+                var5.updateNeighborChunks();
             }
         }
 

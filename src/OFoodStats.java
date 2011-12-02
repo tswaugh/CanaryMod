@@ -72,8 +72,9 @@ public class OFoodStats {
             if (this.d >= 80) {
                 if (var1.ai() > 10 || var2 >= 3 || var1.ai() > 1 && var2 >= 2) {
                     // CanaryMod: DAMAGE From starvation
-                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.STARVATION, null, ((OEntityPlayerMP) var1).getPlayer(), 1))
+                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.STARVATION, null, ((OEntityPlayerMP) var1).getPlayer(), 1)) {
                         var1.a(ODamageSource.f, 1);
+                    }
                 }
 
                 this.d = 0;

@@ -250,7 +250,6 @@ public abstract class OEntity {
         OProfiler.a();
     }
 
-    
     protected void av() {
         if (!this.bU) {
             // CanaryMod Damage hook: Lava

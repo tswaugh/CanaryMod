@@ -335,12 +335,9 @@ public class PluginLoader {
          */
         PREVENT_ACTION, /**
          * Allow the action
-         */
-        ALLOW_ACTION,
-        /**
+         */ ALLOW_ACTION, /**
          * Do whatever it would normally do, continue processing
-         */
-        DEFAULT_ACTION
+         */ DEFAULT_ACTION
     }
 
 
@@ -349,44 +346,31 @@ public class PluginLoader {
         /**
          * Creeper explosion
          */
-        CREEPER_EXPLOSION,
-        /**
+        CREEPER_EXPLOSION, /**
          * Damage dealt by another entity
-         */
-        ENTITY, /**
+         */ ENTITY, /**
          * Damage caused by explosion
-         */
-        EXPLOSION, /**
+         */ EXPLOSION, /**
          * Damage caused from falling (fall distance - 3.0)
-         */
-        FALL, /**
+         */ FALL, /**
          * Damage caused by fire (1)
-         */
-        FIRE, /**
+         */ FIRE, /**
          * Low periodic damage caused by burning (1)
-         */
-        FIRE_TICK, /**
+         */ FIRE_TICK, /**
          * Damage caused from lava (4)
-         */
-        LAVA, /**
+         */ LAVA, /**
          * Damage caused from drowning (2)
-         */
-        WATER, /**
+         */ WATER, /**
          * Damage caused by cactus (1)
-         */
-        CACTUS, /**
+         */ CACTUS, /**
          * Damage caused by suffocating(1)
-         */
-        SUFFOCATION, /**
+         */ SUFFOCATION, /**
          * Damage caused by lightning (5)
-         */
-        LIGHTNING, /**
+         */ LIGHTNING, /**
          * Damage caused by starvation (1)
-         */
-        STARVATION, /**
+         */ STARVATION, /**
          * Damage caused by poison (1) (Potions, Poison)
-         */
-        POTION
+         */ POTION
     }
 
     private static final Logger log = Logger.getLogger("Minecraft");

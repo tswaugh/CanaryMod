@@ -2281,7 +2281,7 @@ public class OWorld implements OIBlockAccess {
             OEntity var4 = (OEntity) this.g.get(var3);
 
             if (var1.isAssignableFrom(var4.getClass())) {
-            	++var2;
+                ++var2;
             }
         }
 

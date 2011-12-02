@@ -1,6 +1,3 @@
-
-import java.io.IOException;
-
 /**
  * Location.java - Used for passing a location to other functions and such.
  * 
@@ -121,12 +118,14 @@ public class Location implements java.io.Serializable {
      *         <tt>-1</tt> otherwise.
      */
     public double distanceTo(Location other) {
-        if (this.dimension != other.dimension)
+        if (this.dimension != other.dimension) {
             return -1;
+        }
         double dx = Math.abs(this.x - other.x),
                dy = Math.abs(this.y - other.y),
                dz = Math.abs(this.z - other.z);
-        return Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+        return Math.sqrt(dx * dx + dy * dy + dz * dz);
     }
 
     @Override
@@ -137,6 +136,7 @@ public class Location implements java.io.Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
+
         hash = 19 * hash + (int) (Double.doubleToLongBits(this.x) ^ (Double.doubleToLongBits(this.x) >>> 32));
         hash = 19 * hash + (int) (Double.doubleToLongBits(this.z) ^ (Double.doubleToLongBits(this.z) >>> 32));
         hash = 19 * hash + (int) (Double.doubleToLongBits(this.y) ^ (Double.doubleToLongBits(this.y) >>> 32));
@@ -146,8 +146,8 @@ public class Location implements java.io.Serializable {
         return hash;
     }
     
-    // Used by Java to read it, this makes it read all fields and not error out
-    // on extra fields.
+    // Used by Java to read this class from serialized state, this makes it read
+    // all fields and not error out on extra fields.
     private void readObject(java.io.ObjectInputStream in)
             throws java.io.IOException, ClassNotFoundException {
         in.defaultReadObject();

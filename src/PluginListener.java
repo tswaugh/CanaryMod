@@ -17,19 +17,13 @@ public class PluginListener {
          * Highly critical for hooks that absolutely must occur before any
          * others. Use carefully.
          */
-        CRITICAL,
-        /**
+        CRITICAL, /**
          * May block/interrupt/undo the action, but prefer MEDIUM
-         */
-        HIGH,
-         /**
+         */ HIGH, /**
          * Preferred priority for blocking/interrupting/undoing the action
-         */
-        MEDIUM,
-         /**
+         */ MEDIUM, /**
          * Must not block/interrupt/undo the action
-         */
-        LOW
+         */ LOW
     }
 
     /**
@@ -1006,9 +1000,7 @@ public class PluginListener {
     
     public PluginLoader.HookResult onEntityRightClick(Player player, BaseEntity entityClicked, Item itemInHand) {
         if (entityClicked.entity instanceof OEntityCow) {
-            return onCowMilk(player, new Mob((OEntityCow) entityClicked.entity))
-                    ? PluginLoader.HookResult.PREVENT_ACTION
-                    : PluginLoader.HookResult.DEFAULT_ACTION;
+            return onCowMilk(player, new Mob((OEntityCow) entityClicked.entity)) ? PluginLoader.HookResult.PREVENT_ACTION : PluginLoader.HookResult.DEFAULT_ACTION;
         }
         return PluginLoader.HookResult.DEFAULT_ACTION;
     }

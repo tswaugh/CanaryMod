@@ -1,8 +1,5 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -13,7 +10,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,9 +52,9 @@ public class etc {
     private boolean                       logging = false;
     private boolean                       enableHealth = true;
     private boolean                       enableExperience = false;
-    private boolean                       enableAntiXRay      = false;
+    private boolean                       enableAntiXRay = false;
     private boolean                       enableAntiXRayLighting = false;
-    private int[]                         opaqueAntiXRayBlocks = new int[] {1, 2, 3, 4, 5, 7, 12, 13, 14, 15, 16, 17, 19, 21, 22, 23, 24, 25, 29, 33, 35, 36, 41, 42, 43, 45, 46, 47, 48, 49, 54, 56, 57, 58, 60, 61, 62, 73, 74, 80, 82, 84, 86, 87, 88, 89, 91, 95, 97, 98, 99, 100, 103, 110, 112, 120, 121};
+    private int[]                         opaqueAntiXRayBlocks = new int[] { 1, 2, 3, 4, 5, 7, 12, 13, 14, 15, 16, 17, 19, 21, 22, 23, 24, 25, 29, 33, 35, 36, 41, 42, 43, 45, 46, 47, 48, 49, 54, 56, 57, 58, 60, 61, 62, 73, 74, 80, 82, 84, 86, 87, 88, 89, 91, 95, 97, 98, 99, 100, 103, 110, 112, 120, 121};
     private PluginLoader.HookResult       autoHeal = PluginLoader.HookResult.DEFAULT_ACTION;
     private boolean                       showUnknownCommand = true;
     private String                        versionStr;
@@ -455,10 +451,8 @@ public class etc {
      * @return
      */
     public boolean isOpaqueAntiXRayBlock(int id) {
-        for (int i = 0; i < this.opaqueAntiXRayBlocks.length; i += 1)
-        {
-            if (this.opaqueAntiXRayBlocks[i] == id)
-            {
+        for (int i = 0; i < this.opaqueAntiXRayBlocks.length; i += 1) {
+            if (this.opaqueAntiXRayBlocks[i] == id) {
                 return true;
             }
         }
@@ -508,10 +502,12 @@ public class etc {
      * that they appear in server log.
      */
     private MessageReceiver serverConsole = new MessageReceiver() {
+        @Override
         public String getName() {
             return "<Server>";
         }
 
+        @Override
         public void notify(String message) {
             // Strip the colors.
             // message = message.replaceAll("\\u00A7[a-f0-9]", "");
@@ -709,6 +705,7 @@ public class etc {
     /**
      * Returns the MOTD.
      * 
+     * @param caller 
      * @return
      */
     public String getMotd(MessageReceiver caller) {

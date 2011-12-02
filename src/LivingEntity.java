@@ -132,8 +132,7 @@ public class LivingEntity extends BaseEntity {
      * Gets the entity's mob spawner.
      * @return MobSpawner of the entity, or null if it wasn't spawned with a mob spawner.
      */
-    public MobSpawner getSpawner()
-    {
+    public MobSpawner getSpawner() {
         return getEntity().spawner;
     }
 }

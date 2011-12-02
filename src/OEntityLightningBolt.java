@@ -73,7 +73,7 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
 
                         block.setStatus(5); // lightning
                         if (!(Boolean) manager.callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                        this.bf.e(var1, var2, var3, OBlock.at.bO);
+                            this.bf.e(var1, var2, var3, OBlock.at.bO);
                         }
                     }
                 }

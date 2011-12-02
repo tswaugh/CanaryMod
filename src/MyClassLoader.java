@@ -43,11 +43,13 @@ public class MyClassLoader extends URLClassLoader {
                     Object java_util_jar_JarFile = loader.get(sun_misc_URLClassPath_JarLoader);
 
                     ((java.util.jar.JarFile) java_util_jar_JarFile).close();
-                } catch (Throwable t) {// if we got this far, this is probably not a JAR loader so
+                } catch (Throwable t) {
+                    // if we got this far, this is probably not a JAR loader so
                     // skip it
                 }
             }
-        } catch (Throwable t) {// probably not a SUN VM
+        } catch (Throwable t) {
+            // probably not a SUN VM
         }
         return;
     }

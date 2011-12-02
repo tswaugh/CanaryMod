@@ -39,13 +39,13 @@ public class OEntitySpider extends OEntityMob {
 
     protected OEntity k() {
         float var1 = this.a(1.0F);
-	double var2 = 16.0D;
-     OEntityPlayer var3 = this.bf.b(this, var2);
-    if (var1 < 0.5F  && var3 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), entity)) {
+        double var2 = 16.0D;
+        OEntityPlayer var3 = this.bf.b(this, var2);
+
+        if (var1 < 0.5F && var3 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), entity)) {
       
-      return var3;
-    }
-         else {
+            return var3;
+        } else {
             return null;
         }
     }

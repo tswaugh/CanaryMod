@@ -50,7 +50,7 @@ public class OServerConfigurationManager {
         this.j = var1.a("banned-players.txt");
         this.k = var1.a("banned-ips.txt");
         this.l = var1.a("ops.txt");
-        //this.m = var1.a("white-list.txt"); //CanaryMod: disable Notchian whitelist
+        // this.m = var1.a("white-list.txt"); //CanaryMod: disable Notchian whitelist
         int var2 = var1.d.a("view-distance", 10);
 
         this.d[0] = new OPlayerManager(var1, 0, var2);
@@ -643,8 +643,7 @@ public class OServerConfigurationManager {
         return this.i;
     }
 
-    public void i() {
-    	// this.r(); CanaryMod - Disable Notchian whitelist
+    public void i() {// this.r(); CanaryMod - Disable Notchian whitelist
     }
 
     public void a(OEntityPlayerMP var1, OWorldServer var2) {
