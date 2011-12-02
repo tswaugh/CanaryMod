@@ -272,3 +272,29 @@ CREATE TABLE  `reservelist` (
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `antixrayblocks`
+--
+
+DROP TABLE IF EXISTS `antixrayblocks`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `antixrayblocks` (
+  `antixrayblocks` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`antixrayblocks`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `enderblocks`
+--
+
+DROP TABLE IF EXISTS `enderblocks`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `enderblocks` (
+  `enderblocks` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`enderblocks`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;

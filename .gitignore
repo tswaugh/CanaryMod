@@ -3,6 +3,8 @@ files/*
 jarjar/*
 bin/*
 build/*
+servero/*
+.settings/*
 .externalToolBuilders/*
 !.gitignore
 .project

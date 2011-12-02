@@ -454,6 +454,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 break;
             }
         }
+
         // CanaryMod: END
       
         if (var1.d == 255) {
@@ -482,17 +483,17 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             if (var10 > var11) {
                 var11 = var10;
             }
-         
+            
             // CanaryMod: call BLOCK_RIGHTCLICKED
             Item item = (var3 != null) ? new Item(var3) : new Item(Item.Type.Air);
             Player player = getPlayer();
             boolean cancelled = (Boolean) OEntity.manager.callHook(PluginLoader.Hook.BLOCK_RIGHTCLICKED, player, blockClicked, item);
-
+         
             // CanaryMod: call original BLOCK_CREATED
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_CREATED, player, blockPlaced, blockClicked, item.getItemId());
             // CanaryMod: If we were building inside spawn, bail! (unless ops/admin)
 
-            if (this.p && this.e.e((double) var5 + 0.5D, (double) var6 + 0.5D, (double) var7 + 0.5D) < 64.0D && (var11 > 16 || var4)) {
+            if (this.p && this.e.e((double) var5 + 0.5D, (double) var6 + 0.5D, (double) var7 + 0.5D) < 64.0D && (var11 > etc.getInstance().getSpawnProtectionSize() || var4) && player.canBuild() && !cancelled) {
                 this.e.c.a(this.e, var2, var3, var5, var6, var7, var8);
             } else {
                 // CanaryMod: No point sending the client to update the blocks, you weren't allowed to place!
@@ -583,7 +584,8 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         getPlayer().chat(var2);
     }
 
-    private void c(String var1) {// Handled by PlayerCommands class
+    private void c(String var1) {
+    	// Handled by PlayerCommands class
     }
 
     public void a(OPacket18Animation var1) {

@@ -38,6 +38,7 @@ public class MySQLSource extends DataSource {
         loadWarps();
         loadItems();
         loadEnderBlocks();
+        loadAntiXRayBlocks();
         // loadBanList();
     }
 

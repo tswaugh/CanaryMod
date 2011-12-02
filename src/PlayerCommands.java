@@ -1355,9 +1355,6 @@ public class PlayerCommands {
                     player.sendMessage("You are level " + Colors.Yellow + player.getLevel());
                 } else if (split[1].equalsIgnoreCase("total")) {
                     player.sendMessage("You have " + Colors.Yellow + player.getXP() + Colors.White + " Total EXP");
-                } else {
-                    player.setXP(Integer.parseInt(split[1]));
-                    player.sendMessage("You have " + Colors.Yellow + player.getXP() + Colors.White + " Total EXP");
                 }
             }
         }

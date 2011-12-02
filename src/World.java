@@ -315,7 +315,7 @@ public class World {
      * @return block data
      */
     public int getBlockData(int x, int y, int z) {
-        return world.a(x, y, z);
+        return world.c(x, y, z);
     }
 
     /**
