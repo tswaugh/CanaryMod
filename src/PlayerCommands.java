@@ -293,18 +293,9 @@ public class PlayerCommands {
                 caller.notify("Can't find user " + split[1] + ".");
                 return;
             }
-            if (!(player.getWorld().getType() == ((Player) caller).getWorld().getType())) {
-                if (((Player) caller).canIgnoreRestrictions()) {
-                    if (caller.equals(player)) {
-                        caller.notify("You'll turn inside out if you keep trying.");
-                        return;
-                    } else {
-                        ((Player) caller).switchWorlds();
-                    }
-                } else {
-                    caller.notify("That player is in another world.");
-                    return;
-                }
+            if (player.getWorld().getType() != ((Player) caller).getWorld().getType() && !((Player) caller).canIgnoreRestrictions()) {
+                caller.notify("That player is in another world.");
+                return;
             }
             if (caller.equals(player)) {
                 caller.notify("You're already here!");
@@ -331,17 +322,9 @@ public class PlayerCommands {
                 return;
             }
 
-            if (!(player.getWorld().getType() == ((Player) caller).getWorld().getType())) {
-                if (((Player) caller).canIgnoreRestrictions()) {
-                    if (caller.equals(player)) {
-                        caller.notify("You'll turn inside out if you keep trying.");
-                        return;
-                    }
-                    player.switchWorlds();
-                } else {
-                    caller.notify("That player is in another world.");
-                    return;
-                }
+            if (player.getWorld().getType() != ((Player) caller).getWorld().getType() && !((Player) caller).canIgnoreRestrictions()) {
+                caller.notify("That player is in another world.");
+                return;
             }
             if (caller.equals(player)) {
                 caller.notify("Wow look at that! You teleported yourself to yourself!");
@@ -766,7 +749,7 @@ public class PlayerCommands {
                 caller.notify("Could not find player.");
                 return;
             }
-            if ((player.getWorld().getType().getId()) != 0) {
+            if (player.getWorld().getType() != World.Type.NORMAL) {
                 caller.notify("You cannot set a home in the Nether, mortal.");
                 return;
             }
@@ -806,18 +789,12 @@ public class PlayerCommands {
                 caller.notify("Could not find player.");
                 return;
             }
-            if (toMove.getWorld().getType().getId() != 0) {
-                if (toMove.canIgnoreRestrictions()) {
-                    toMove.switchWorlds();
+            World.Type worldType = toMove.getWorld().getType();
+            if (worldType != World.Type.NORMAL) {
+                if (toMove != caller || toMove.canIgnoreRestrictions()) {
+                    toMove.switchWorlds(World.Type.NORMAL.getId());
                 } else {
-                    String worldName = "";
-
-                    if (toMove.getWorld().getType().getId() == -1) {
-                        worldName = "Nether";
-                    } else if (toMove.getWorld().getType().getId() == 1) {
-                        worldName = "End";
-                    }
-                    toMove.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + worldName + "...");
+                    toMove.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + worldType + "...");
                     return;
                 }
             }
@@ -853,11 +830,9 @@ public class PlayerCommands {
                 return;
             }
 
-            OWorldInfo info = player.getWorld().getWorld().C;
-
-            info.a((int) player.getX(), (int) player.getY(), (int) player.getZ());
-            info = etc.getMCServer().a(-1).r();
-            info.a((int) player.getX(), (int) player.getY(), (int) player.getZ());
+            for (World.Type type: World.Type.values()) {
+                etc.getMCServer().a(type.getId()).r().a((int) player.getX(), (int) player.getY(), (int) player.getZ());
+            }
 
             log.info("Spawn position changed.");
             if (player == caller) {
@@ -885,11 +860,12 @@ public class PlayerCommands {
                 home = etc.getDataSource().getHome(caller.getName());
             }
 
-            if (player.getWorld().getType() != World.Type.NORMAL) {
+            World.Type worldType = player.getWorld().getType();
+            if (worldType != World.Type.NORMAL) {
                 if (player.canIgnoreRestrictions()) {
-                    player.switchWorlds();
+                    player.switchWorlds(World.Type.NORMAL.getId());
                 } else {
-                    player.notify("The veil between the worlds keeps you in the Nether...");
+                    player.notify("The veil between the worlds keeps you in the " + worldType + "...");
                     return;
                 }
             }
@@ -930,19 +906,19 @@ public class PlayerCommands {
                 if (warp != null) {
                     if ((caller instanceof Player) && !((Player) caller).isInGroup(warp.Group) && !warp.Group.equals("")) {
                         caller.notify("Warp not found.");
-                    } else { {
-                            if (toWarp.getWorld().getType() != World.Type.NORMAL) {
-                                if (toWarp.canIgnoreRestrictions()) {
-                                    toWarp.switchWorlds();
-                                } else {
-                                    toWarp.sendMessage(Colors.Rose + "The veil between the worlds keeps you in the Nether...");
-                                    return;
-                                }
+                    } else {
+                        World.Type worldType = toWarp.getWorld().getType();
+                        if (worldType != World.Type.NORMAL) {
+                            if (toWarp != caller || toWarp.canIgnoreRestrictions()) {
+                                toWarp.switchWorlds(World.Type.NORMAL.getId());
+                            } else {
+                                toWarp.sendMessage(Colors.Rose + "The veil between the worlds keeps you in the " + worldType + "...");
+                                return;
                             }
-
-                            toWarp.teleportTo(warp.Location);
-                            toWarp.sendMessage(Colors.Rose + "Woosh!");
                         }
+
+                        toWarp.teleportTo(warp.Location);
+                        toWarp.sendMessage(Colors.Rose + "Woosh!");
                     }
                 } else {
                     caller.notify("Warp not found");

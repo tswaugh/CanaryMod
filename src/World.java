@@ -42,6 +42,12 @@ public class World {
         public static Type fromId(final int type) {
             return map.get(type);
         }
+        
+        @Override
+        public String toString() {
+            String name = this.name();
+            return name.substring(0, 1).toUpperCase() + name.substring(1);
+        }
 
     }
 

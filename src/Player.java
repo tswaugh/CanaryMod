@@ -36,7 +36,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     private String offlineName = ""; // Allows modify command to work on offline players
     
     /**
-     * Creates an empty player. Add the player by calling {@link #setUser(es)}
+     * Creates an empty player. Add the player by calling {@link #setUser(OEntityPlayerMP)}
      */
     public Player() {}
 
