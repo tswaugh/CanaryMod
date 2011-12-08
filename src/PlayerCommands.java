@@ -1065,7 +1065,7 @@ public class PlayerCommands {
 
                         mode = OWorldSettings.a(mode);
                         if (player.getCreativeMode() != mode) {
-                            player.notify(Colors.Yellow + "Setting your to game mode " + mode);
+                            player.notify(Colors.Yellow + "Setting your game mode to " + mode);
                             player.setCreativeMode(mode);
                         } else {
                             caller.notify("Your game mode is already " + mode);
