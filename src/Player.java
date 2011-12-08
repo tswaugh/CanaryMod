@@ -1006,7 +1006,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Refresh this Player's mode
      */
     public void refreshCreativeMode() {
-        if (Player.getMode(this)) {
+        if (Player.getMode(this) || etc.getMCServer().d.a("gamemode", 0) == 1) {
             getEntity().c.a(1);
         } else {
             getEntity().c.a(0);
