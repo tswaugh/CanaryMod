@@ -744,7 +744,7 @@ public class World {
      * @return true if the block is being powered
      */
     public boolean isBlockPowered(int x, int y, int z) {
-        return world.q(x, y, z);
+        return world.t(x, y, z);
     }
 
     /**
@@ -770,7 +770,7 @@ public class World {
      * @return true if the block is being indirectly powered
      */
     public boolean isBlockIndirectlyPowered(int x, int y, int z) {
-        return world.r(x, y, z);
+        return world.u(x, y, z);
     }
 
     /**

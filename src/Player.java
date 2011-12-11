@@ -898,12 +898,12 @@ public class Player extends HumanEntity implements MessageReceiver {
         OEntityPlayerMP ent = getEntity();
         
         // Nether is not allowed, so shush
-        if (!mcServer.d.a("allow-nether", true)) {
+        if (world == World.Type.NETHER.getId() && !mcServer.d.a("allow-nether", true)) {
             return;
         }
-        //CanaryMod: Allow end teleportation
-        if (world == 1 && !mcServer.d.a("allow-end", true)) {
-        	return;
+        // The End is not allowed, so shush
+        if (world == World.Type.END.getId() && !mcServer.d.a("allow-end", true)) {
+            return;
         }
         // Dismount first or get buggy
         if (ent.be != null) {

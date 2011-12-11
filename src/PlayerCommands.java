@@ -1269,8 +1269,10 @@ public class PlayerCommands {
                 caller.notify("Weather toggled.");
             } else if (split[1].equalsIgnoreCase("on")) {
                 world.setRaining(true);
+                caller.notify(Colors.Yellow + "Weather turned on.");
             } else if (split[1].equalsIgnoreCase("off")) {
                 world.setRaining(false);
+                caller.notify(Colors.Yellow + "Weather turned off.");
             } else {
                 onBadSyntax(caller, split);
             }
@@ -1293,8 +1295,10 @@ public class PlayerCommands {
                 caller.notify("Thunder toggled.");
             } else if (split[1].equalsIgnoreCase("on")) {
                 world.setThundering(true);
+                caller.notify(Colors.Yellow + "Thunder turned on.");
             } else if (split[1].equalsIgnoreCase("off")) {
                 world.setThundering(false);
+                caller.notify(Colors.Yellow + "Thunder turned off.");
             } else {
                 onBadSyntax(caller, split);
             }
@@ -1416,10 +1420,11 @@ public class PlayerCommands {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
-            Player subject = (Player) caller;
-
+            Player subject = null;
             if (split.length == 2) {
                 subject = etc.getServer().matchPlayer(split[1]);
+            } else if (caller instanceof Player) {
+                subject = (Player) caller;
             }
             if (subject != null) {
                 
@@ -1447,7 +1452,7 @@ public class PlayerCommands {
                 } else {
                     sendData(caller, "Home: ", "Not set");
                 }
-            } else {
+            } else if (split.length == 2) {
                 caller.notify(Colors.Yellow + "Can't find player " + split[1]);
             }
         }
