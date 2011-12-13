@@ -1039,6 +1039,21 @@ public class Server {
         }
         OCraftingManager.a().b(item.getBaseItem(), recipe);
     }
+    
+    /**
+     * Adds a smelting recipe to the furnace recipes.
+     * {@code from} is the item that is put into the furnace, and should have 
+     * amount 1. {@code to} is the result after smelting.
+     * @param from The inserted item
+     * @param to The resulting item
+     * @throws IllegalArgumentException if the amount of {@code from} doesn't
+     *          equal 1.
+     */
+    public void addSmeltingRecipe(Item from, Item to) {
+        if (from.getAmount() != 1)
+            throw new IllegalArgumentException("The 'from' amount should be 1");
+        OFurnaceRecipes.a().a(from.getItemId(), to.getBaseItem());
+    }
 
     /**
      * Returns the list with recipes, as kept by the crafting manager.

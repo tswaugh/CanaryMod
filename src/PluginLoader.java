@@ -729,13 +729,13 @@ public class PluginLoader {
                             break;
 
                         case COMMAND:
-                            if (listener.onCommand((Player) parameters[0], (String[]) parameters[1])) {
+                            if (listener.onCommand((Player) parameters[0], ((String[]) parameters[1]).clone())) {
                                 toRet = true;
                             }
                             break;
 
                         case SERVERCOMMAND:
-                            if (listener.onConsoleCommand((String[]) parameters[0])) {
+                            if (listener.onConsoleCommand(((String[]) parameters[0]).clone())) {
                                 toRet = true;
                             }
                             break;
@@ -1009,11 +1009,11 @@ public class PluginLoader {
                             break;
 
                         case PORTAL_CREATE:
-                            toRet = listener.onPortalCreate((Block[][]) parameters[0]);
+                            toRet = listener.onPortalCreate(((Block[][]) parameters[0]).clone());
                             break;
 
                         case PORTAL_DESTROY:
-                            toRet = listener.onPortalDestroy((Block[][]) parameters[0]);
+                            toRet = listener.onPortalDestroy(((Block[][]) parameters[0]).clone());
                             break;
 
                         case PLAYER_RESPAWN:
