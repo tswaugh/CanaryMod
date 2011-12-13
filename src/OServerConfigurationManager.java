@@ -119,7 +119,7 @@ public class OServerConfigurationManager {
         }
 
         // CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
-        if (Player.getMode(var1.getPlayer())) {
+        if (var1.getPlayer().getMode()) {
             var1.getPlayer().setCreativeMode(1);
         }
         etc.getInstance().getMotd(var1.getPlayer());

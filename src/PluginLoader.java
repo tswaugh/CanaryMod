@@ -309,7 +309,11 @@ public class PluginLoader {
         /**
          * Calls {@link PluginListener#onPlayerConnect(Player,HookParametersConnect) }
          */
-        CONNECT,
+        PLAYER_CONNECT,
+        /**
+         * Calls {@link PluginListener#onPlayerDisconnect(Player,HookParametersDisconnect) }
+         */
+        PLAYER_DISCONNECT,
         /**
          * Calls {@link PluginListener#onEntityRightClick(Player,BaseEntity) }
          */
@@ -678,7 +682,11 @@ public class PluginLoader {
 
         case POTION_EFFECT:
         case GET_PLAYERLISTENTRY:
-        case CONNECT:
+        case PLAYER_CONNECT:
+            toRet = parameters[1];
+            break;
+
+        case PLAYER_DISCONNECT:
             toRet = parameters[1];
             break;
 
@@ -1072,8 +1080,12 @@ public class PluginLoader {
                             toRet = listener.onGetPlayerlistEntry((Player) parameters[0], (PlayerlistEntry) parameters[1]);
                             break;
 
-                        case CONNECT:
+                        case PLAYER_CONNECT:
                             toRet = listener.onPlayerConnect((Player) parameters[0], (HookParametersConnect) parameters[1]);
+                            break;
+                            
+                        case PLAYER_DISCONNECT:
+                            toRet = listener.onPlayerDisconnect((Player) parameters[0], (HookParametersDisconnect) parameters[1]);
                             break;
 
                         case ENTITY_RIGHTCLICKED:

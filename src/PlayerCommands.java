@@ -1391,7 +1391,7 @@ public class PlayerCommands {
                 info = String.format("%s%s is", Colors.Yellow, subject.getName());
             }                       
             if (subject != null) {
-                if (Player.getMode(subject)) {
+                if (subject.getMode()) {
                     caller.notify("Can't apply /god to players in creative mode");
                     return;
                 }

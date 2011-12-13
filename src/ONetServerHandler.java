@@ -51,7 +51,15 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         this.e.E();
         this.b((OPacket) (new OPacket255KickDisconnect(var1)));
         this.b.d();
-        this.d.h.a((OPacket) (new OPacket3Chat("\u00a7e" + this.e.v + " left the game.")));
+        
+        // CanaryMod - onPlayerDisconnect Hook
+        HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.e.v));
+
+        hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult);
+        if (!hookResult.isHidden()) { 
+        	this.d.h.a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
+        }
+        
         this.d.h.e(this.e);
         this.c = true;
     }
@@ -555,7 +563,15 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         // CanaryMod: disconnect!
         OEntity.manager.callHook(PluginLoader.Hook.DISCONNECT, getPlayer());
         a.info(this.e.v + " lost connection: " + var1);
-        this.d.h.a((OPacket) (new OPacket3Chat("\u00a7e" + this.e.v + " left the game.")));
+
+        // CanaryMod - onPlayerDisconnect Hook
+        HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the server.", this.e.v));
+
+        hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult);
+        if (!hookResult.isHidden()) { 
+        	this.d.h.a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
+        }
+
         this.d.h.e(this.e);
         this.c = true;
     }

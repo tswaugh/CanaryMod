@@ -98,7 +98,7 @@ public class ONetLoginHandler extends ONetHandler {
             var5.b((OPacket) (new OPacket1Login("", var2.ba, etc.getInstance().getHideSeed() == true ? 0 : var3.m(), var2.c.a(), (byte) var3.y.g, (byte) var3.v, (byte) var3.c, (byte) this.e.h.k())));
             var5.b((OPacket) (new OPacket6SpawnPosition(var4.a, var4.b, var4.c)));
             this.e.h.a(var2, var3);
-            // CanaryMod - onConnect Hook
+            // CanaryMod - onPlayerConnect Hook
             HookParametersConnect hookResult = new HookParametersConnect(String.format(Colors.Yellow + "%s joined the game.", var2.v), true);
 
             hookResult = (HookParametersConnect) etc.getLoader().callHook(PluginLoader.Hook.CONNECT, var2.getPlayer(), hookResult);

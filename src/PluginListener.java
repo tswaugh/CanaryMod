@@ -989,6 +989,18 @@ public class PluginListener {
     }
     
     /**
+     * Called when player connects to the server 
+     * 
+     * @param player
+     * @param hookParametersConnect
+     * @return modified hookParametersConnect
+     */
+
+    public Object onPlayerDisconnect(Player player, HookParametersDisconnect hookParametersDisconnect) {
+        return hookParametersDisconnect;
+    }
+    
+    /**
      * Called when someone presses right click aimed at an entity. You can
      * intercept this to add your own right click actions to different item
      * types (see itemInHand)

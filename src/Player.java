@@ -13,7 +13,7 @@ import net.minecraft.server.MinecraftServer;
 
 
 /**
- * Player.java - Interface for eo so mods don't have to update often.
+ * Player.java - Interface so mods don't have to update often.
  * 
  * @author James
  */
@@ -32,7 +32,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     private PlayerInventory inventory;
     private List<String> onlyOneUseKits = new ArrayList<String>();
     private Pattern badChatPattern = Pattern.compile("[^ !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ\\[\\\\\\]^_'abcdefghijklmnopqrstuvwxyz{|}~\u2302\u00C7\u00FC\u00E9\u00E2\u00E4\u00E0\u00E5\u00E7\u00EA\u00EB\u00E8\u00EF\u00EE\u00EC\u00C4\u00C5\u00C9\u00E6\u00C6\u00F4\u00F6\u00F2\u00FB\u00F9\u00FF\u00D6\u00DC\u00F8\u00A3\u00D8\u00D7\u0192\u00E1\u00ED\u00F3\u00FA\u00F1\u00D1\u00AA\u00BA\u00BF\u00AE\u00AC\u00BD\u00BC\u00A1\u00AB\u00BB]");
-    public static ArrayList<Player> modes = new ArrayList<Player>();
+    public ArrayList<Player> modes = new ArrayList<Player>();
     private String offlineName = ""; // Allows modify command to work on offline players
     
     /**
@@ -970,7 +970,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void setCreativeMode(int i) {
         getEntity().c.a(i);
         getEntity().a.b((OPacket) (new OPacket70Bed(3, i)));
-        if (i == 1 && !getMode(getPlayer())) {
+        if (i == 1 && !getPlayer().getMode()) {
             modes.add(getPlayer());
         } else {
             modes.remove(getPlayer());
@@ -990,6 +990,23 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
         return i;
     }
+    
+    /**
+     * Check to see if this Player is in creative mode
+     * 
+     * @param player the Player to check.
+     * @return <tt>true</tt> if the given Player is in creative mode,
+     *          <tt>null</tt> otherwise.
+     * @deprecated  Fixed with {@link #getMode()}
+     */
+    @Deprecated
+    public boolean getMode(Player player) {
+        if (modes.contains(this)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Check to see if this Player is in creative mode
@@ -998,8 +1015,8 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return <tt>true</tt> if the given Player is in creative mode,
      *          <tt>null</tt> otherwise.
      */
-    public static boolean getMode(Player player) {
-        if (modes.contains(player)) {
+    public boolean getMode() {
+        if (modes.contains(this)) {
             return true;
         } else {
             return false;
@@ -1010,7 +1027,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Refresh this Player's mode
      */
     public void refreshCreativeMode() {
-        if (Player.getMode(this) || etc.getMCServer().d.a("gamemode", 0) == 1) {
+        if (getMode() || etc.getMCServer().d.a("gamemode", 0) == 1) {
             getEntity().c.a(1);
         } else {
             getEntity().c.a(0);
