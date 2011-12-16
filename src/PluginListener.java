@@ -166,7 +166,7 @@ public class PluginListener {
      * @param itemInHand
      * @return false if you want the action to go through
      * 
-     * @deprecated use onBlockRightClick to get the information
+     * @deprecated use {@link #onBlockRightClick(Player, Block, Item)} to get the information
      * @see #onBlockRightClick(Player, Block, Item)
      * @see #onBlockPlace(Player, Block, Block, Item)
      * @see #onItemUse(Player, Block, Block, Item)

@@ -672,7 +672,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Sets the prefix
+     * Sets the prefix.
      * 
      * @param prefix
      */
@@ -681,8 +681,8 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 	
     /**
-     * Get players name
-     * 
+     * Get players name.
+     * @return The offline name
      */
     public String getOfflineName() {
         if (getEntity() != null) {
@@ -693,23 +693,25 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Sets offline player name
-     * 
+     * Sets offline player name.
+     * @param name The offline name
      */
     public void setOfflineName(String name) {
         offlineName = name;
     }
 
     /**
-     * Gets the full name prefix+name
-     * 
+     * Gets the full name prefix+name.
+     * @return The name including prefix
      */
     public String getFullName() {
         return this.getColor() + this.getName();
     }
 
     /**
-     * Gets the name that shows on PlayerList (tab)
+     * Gets the name that shows on PlayerList (tab).
+     * @param show Whether to show the player
+     * @return PlayerListEntry The entry to display.
      */
     public PlayerlistEntry getPlayerlistEntry(boolean show) {
         String name;
@@ -725,7 +727,8 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
     
     /**
-     * Gets player ping (as show in playerlist
+     * Gets player ping (as shown in playerlist).
+     * @return The ping
      */
     public int getPing() {
         return this.getEntity().i;
@@ -745,7 +748,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      * @param player
      */
-    public void setUser(OEntityPlayerMP player) {
+    protected void setUser(OEntityPlayerMP player) {
         entity = player;
         inventory = new PlayerInventory(this);
     }
@@ -762,18 +765,18 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Returns true if the player is muted
+     * Returns true if the player is muted.
      * 
-     * @return
+     * @return Whether the player is muted.
      */
     public boolean isMuted() {
         return muted;
     }
 
     /**
-     * Toggles mute
+     * Toggles mute.
      * 
-     * @return
+     * @return Whether the player is now muted.
      */
     public boolean toggleMute() {
         muted = !muted;
@@ -781,9 +784,9 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Checks to see if this player is in any groups
+     * Checks to see if this player is in any groups.
      * 
-     * @return true if this player is in any group
+     * @return true if this player isn't in any group.
      */
     public boolean hasNoGroups() {
         if (groups.isEmpty()) {
@@ -819,7 +822,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Returns this player's inventory
+     * Returns this player's inventory.
      * 
      * @return inventory
      */
@@ -828,7 +831,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Returns whether or not this Player is currently sneaking (crouching)
+     * Returns whether or not this Player is currently sneaking (crouching).
      * 
      * @return true if sneaking
      */
@@ -892,6 +895,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     
     /**
      * Switch to the specified dimension at the according position.
+     * @param world The id of the world to swith to.
      */
     public void switchWorlds(int world) {
         MinecraftServer mcServer = etc.getMCServer();
@@ -990,28 +994,10 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
         return i;
     }
-    
-    /**
-     * Check to see if this Player is in creative mode
-     * 
-     * @param player the Player to check.
-     * @return <tt>true</tt> if the given Player is in creative mode,
-     *          <tt>null</tt> otherwise.
-     * @deprecated  Fixed with {@link #getMode()}
-     */
-    @Deprecated
-    public boolean getMode(Player player) {
-        if (modes.contains(this)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     /**
      * Check to see if this Player is in creative mode
      * 
-     * @param player the Player to check.
      * @return <tt>true</tt> if the given Player is in creative mode,
      *          <tt>null</tt> otherwise.
      */

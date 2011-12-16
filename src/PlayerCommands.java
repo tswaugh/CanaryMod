@@ -1356,7 +1356,9 @@ public class PlayerCommands {
                 } else if (split.length == 3) {
                     command = split[1];
                     foodLevel = Integer.parseInt(split[2]);
-                }    
+                }
+            } catch (NumberFormatException e) {
+                caller.notify((split.length == 4 ? split[3] : split[2]) + " is not a valid number.");
             } catch (Exception e) {
                 caller.notify("Error on /foodlevel command");
                 return;

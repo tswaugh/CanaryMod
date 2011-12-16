@@ -124,7 +124,6 @@ public class LivingEntity extends BaseEntity {
      * Drops this mob's loot. Automatically called if health is set to 0.
      */
     public void dropLoot() {
-        // Forced cast to get to the intended method
         getEntity().a(true, 0);
     }
     

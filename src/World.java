@@ -108,8 +108,9 @@ public class World {
      *            time (-2^63 to 2^63-1)
      */
     public void setTime(long time) {
-        etc.getMCServer().a(0).a(time);
-        etc.getMCServer().a(-1).a(time);
+        etc.getServer().getWorld(-1).getWorld().a(time);
+        etc.getServer().getWorld(0).getWorld().a(time);
+        etc.getServer().getWorld(1).getWorld().a(time);
     }
 
     /**
@@ -469,6 +470,8 @@ public class World {
                 return new Dispenser((OTileEntityDispenser) localav);
             } else if (localav instanceof OTileEntityNote) {
                 return new NoteBlock((OTileEntityNote) localav);
+            } else if (localav instanceof OTileEntityBrewingStand) {
+                return new BrewingStand((OTileEntityBrewingStand) localav);
             }
         }
         return null;

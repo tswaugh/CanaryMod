@@ -145,7 +145,7 @@ public class BaseEntity {
      * @return rotation
      */
     public float getRotation() {
-        return entity.br;
+        return entity.bp;
     }
 
     /**

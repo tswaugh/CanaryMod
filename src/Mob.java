@@ -23,9 +23,19 @@ public class Mob extends LivingEntity {
      * 
      * @param mob
      *            name of mob
+     * @deprecated Use {@link #Mob(java.lang.String, World)} instead.
      */
     public Mob(String mob) {
         this((OEntityLiving) OEntityList.a(mob, etc.getMCServer().a(0)));
+    }
+    
+    /**
+     * Creates a mob interface
+     * @param mob name of the mob
+     * @param world World for the mob
+     */
+    public Mob(String mob, World world) {
+        this((OEntityLiving) OEntityList.a(mob, world.getWorld()));
     }
 
     /**
@@ -37,7 +47,7 @@ public class Mob extends LivingEntity {
      *            location of mob
      */
     public Mob(String mobName, Location location) {
-        this(mobName);
+        this(mobName,  location.getWorld());
         teleportTo(location);
     }
 
@@ -135,7 +145,7 @@ public class Mob extends LivingEntity {
         if (mob == null) {
             return false;
         }
-        OEntity c = OEntityList.a(mob, etc.getMCServer().a(0));
+        OEntity c = OEntityList.a(mob, etc.getServer().getWorld(0).getWorld());
 
         return c instanceof OIMob || c instanceof OIAnimals;
     }

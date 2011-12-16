@@ -23,7 +23,7 @@ class NoteBlock implements ComplexBlock {
     }
 
     public void update() {
-        note.i();
+        note.l_();
     }
 
     public Block getBlock() {

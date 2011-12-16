@@ -66,10 +66,27 @@ public class Minecart extends BaseVehicle {
      * @param z
      * @param type
      *            0=Minecart, 1=StorageCart, 2=PoweredMinecart
+     * @deprecated Use {@link #Minecart(World, double, double, double, Minecart.Type)} instead.
      */
+    @Deprecated
     public Minecart(double x, double y, double z, Type type) {
         super(new OEntityMinecart(etc.getMCServer().a(0), x, y, z, type.getType()));
         etc.getMCServer().a(0).b(entity);
+    }
+
+    /**
+     * Create a new Minecart at the given position
+     * 
+     * @param world The world for the new minecart
+     * @param x The x coordinate for the new minecart
+     * @param y The y coordinate for the new minecart
+     * @param z The z coordinate for the new minecart
+     * @param type The type for the new minecart
+     * 
+     */
+    public Minecart(World world, double x, double y, double z, Type type) {
+        super(new OEntityMinecart(world.getWorld(), x, y, z, type.getType()));
+        world.getWorld().b(entity);
     }
 
     /**
