@@ -163,7 +163,7 @@ public class Player extends HumanEntity implements MessageReceiver {
                 }
                 return;
             }
-            if ((command.startsWith("/#")) && (etc.getMCServer().h.h(getName()))) {
+            if (command.startsWith("/#") && this.isOp()) {
                 String str = command.substring(2);
 
                 log.info(getName() + " issued server command: " + str);
@@ -1265,5 +1265,22 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public void setBucketAlwaysFull(boolean alwaysFull) {
         getEntity().L.d = alwaysFull;
+    }
+    
+    /**
+     * Returns whether this player is an op.
+     * @return {@code true} if the player is op.
+     */
+    public boolean isOp() {
+        return etc.getMCServer().h.h(getName());
+    }
+    
+    /**
+     * Static method to determine whether a player is op.
+     * @param playerName The name of the player to check.
+     * @return {@code true} if the player is op.
+     */
+    public static boolean isOp(String playerName) {
+        return etc.getMCServer().h.h(playerName);
     }
 }
