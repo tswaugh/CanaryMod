@@ -539,10 +539,10 @@ public class PluginLoader {
             Plugin plugin = (Plugin) c.newInstance();
 
             plugin.setName(fileName);
-            plugin.initialize();
+            plugin.enable();
             synchronized (lock) {
                 plugins.add(plugin);
-                plugin.enable();
+                plugin.initialize();
             }
         } catch (Throwable ex) {
             log.log(Level.SEVERE, "Exception while loading plugin", ex);

@@ -2,12 +2,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.CRC32;
@@ -25,6 +27,8 @@ public class Main {
     public static final long   rules = 0xbc10cd92L;
 
     public static final Logger log = Logger.getLogger("Minecraft");
+    
+    private static boolean     newIsCrow = false;
 
     public static void main(String[] args) throws IOException {
 
@@ -67,7 +71,10 @@ public class Main {
         }
 
         if (checkForUpdate()) {
-            System.out.println("Update found.");
+            log("===============");
+            log("New " + (newIsCrow ? "Canary" : "Crow") + " version found.");
+            log("You can download it at http://www.canarymod.net/download");
+            log("===============");
         }
         // derp.
 
@@ -153,6 +160,30 @@ public class Main {
     }
 
     public static boolean checkForUpdate() {
-        return false;
+        etc e = etc.getInstance();
+        boolean crow = e.isCrow();
+        String version = e.getVersionStr();
+        if (e.getTainted()) {
+            log("=== Not checking for updates, tainted version detected (check "
+                    + "version.txt) ===");
+        }
+        try {
+            URLConnection canaryURL = new URL(
+                    "http://dl.canarymod.net/version.txt").openConnection();
+            URLConnection crowURL = new URL(
+                    "http://dl.canarymod.net/crow/version.txt").openConnection();
+            if (canaryURL.getLastModified() > crowURL.getLastModified()) {
+                return crow || !version.equals(
+                            new Scanner(canaryURL.getInputStream()).nextLine());
+            } else {
+                newIsCrow = true;
+                return !(crow && version.equals(
+                            new Scanner(crowURL.getInputStream()).nextLine()));
+            }
+        } catch (Exception ex) {
+            log("=== Checking for updates failed: " + ex.getMessage() + " ===");
+            ex.printStackTrace();
+            return false;
+        }
     }
 }
