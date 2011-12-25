@@ -43,9 +43,13 @@ public class OExplosion {
         } // Ghast Fireball
 
         // CanaryMod: call explode hook.
-        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block)) {
+        if((Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g)){
             return;
         }
+        /*if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block)) {
+            return;
+        }*/
+        
 
         float var1 = this.f;
         byte var2 = 16;

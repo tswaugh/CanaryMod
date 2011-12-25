@@ -6,6 +6,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -103,7 +104,7 @@ public class PluginLoader {
          *///
         FLOW, //
         /**
-         * Calls {@link PluginListener#onExplode(Block) }
+         * Calls {@link PluginListener#onExplode(Block, OEntity, HashSet) }
          *///
         EXPLODE, //
         /**
@@ -839,7 +840,7 @@ public class PluginLoader {
                             break;
 
                         case EXPLODE:
-                            if (listener.onExplode((Block) parameters[0])) {
+                            if (listener.onExplode((Block) parameters[0], (OEntity) parameters[1], (HashSet) parameters[2])) {
                                 toRet = true;
                             }
                             break;

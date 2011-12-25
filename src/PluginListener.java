@@ -1,4 +1,7 @@
 
+import java.util.HashSet;
+
+
 
 /**
  * PluginListener.java - Extend this and register it to listen to specific
@@ -291,12 +294,37 @@ public class PluginListener {
      * @param block
      *            Dynamite block/creeper/ghast fireball location block.
      * 
+     * @deprecated
+     *            Use onExplode(Block,OEntity,HashSet) instead. You can still use 
+     *             block.getStatus to get what exploded, as well as using OEntity.
      * @return true if you dont the block to explode.
      */
+    @Deprecated
     public boolean onExplode(Block block) {
         return false;
     }
 
+    /**
+     * Called when a tnt block, creeper, or ghast fireball explodes. Block status
+     * depends on the entity exploding: 1 = tnt. 2 = creeper. 3 = ghast fireball.
+     * 
+     * You can also get the explosion type from OEntity using instanceof.
+     * 
+     * @param block
+     *              The block location where the explosion occurred.
+     * 
+     * @param entity
+     *              The entity that caused the explosion(tnt, creeper, or fireball)
+     * 
+     * @param blocksaffected
+     *              The blocks affected by the explosion in a hashset.
+     * 
+     * @return true if you don't want the explosion to occur.
+     */
+    public boolean onExplode(Block block, OEntity entity, HashSet blocksaffected){
+        return onExplode(block);
+    }
+    
     /**
      * Called when fluid wants to flow to a certain block. (10 & 11 for lava and
      * 8 & 9 for water)
@@ -678,7 +706,7 @@ public class PluginListener {
      * Called when the weather changes (rain/snow)
      *
      * @param world
-     *            The {@link World} the wheather changes in
+     *            The {@link World} the weather changes in
      * @param newValue
      *            The new weather value
      * @return true to prevent the weather from changing
