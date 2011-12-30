@@ -92,8 +92,9 @@ public class OBlockPortal extends OBlockBreakable {
                     }
                 }
                 var1.t = false;
+                return true;
             }    
-            return true;
+            return false;
         }
     }
 
