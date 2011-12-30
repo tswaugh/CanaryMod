@@ -126,13 +126,14 @@ public class Player extends HumanEntity implements MessageReceiver {
                 sendMessage(Colors.Rose + "You are currently muted.");
                 return;
             }
-            if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[] { this, message })) {
+            StringBuilder sbMessage = new StringBuilder(message);
+            if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[] { this, sbMessage })) {
                 return;
             }
 
-            String chat = "<" + getColor() + getName() + Colors.White + "> " + message;
+            String chat = "<" + getColor() + getName() + Colors.White + "> " + sbMessage.toString();
 
-            log.log(Level.INFO, "<" + getName() + "> " + message);
+            log.log(Level.INFO, "<" + getName() + "> " + sbMessage.toString());
             etc.getServer().messageAll(chat);
         }
     }
