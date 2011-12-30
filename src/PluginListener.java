@@ -105,8 +105,8 @@ public class PluginListener {
      * @return false if you want the message to be sent.
      */
     public boolean onChat(Player player, StringBuilder sbMessage) {
-        /*if (onChat(player, sbMessage.toString()))
-            return true;*/
+        if (onChat(player, sbMessage.toString()))
+            return true;
         return false;
     }
 
