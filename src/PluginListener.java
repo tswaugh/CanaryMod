@@ -105,8 +105,8 @@ public class PluginListener {
      * @return false if you want the message to be sent.
      */
     public boolean onChat(Player player, StringBuilder sbMessage) {
-        if (onChat(player, sbMessage.toString()))
-            return true;
+        /*if (onChat(player, sbMessage.toString()))
+            return true;*/
         return false;
     }
 
@@ -607,9 +607,32 @@ public class PluginListener {
      * @param inventory
      *            the inventory that they are attempting to open
      * @return
+     * @deprecated Use onOpenInventory(HookParametersOpenInventory) instead.
      */
     public boolean onOpenInventory(Player player, Inventory inventory) {
         return false;
+    }
+    
+    /**
+     * Called when a player attempts to open an inventory; whether it's a workbench, a chest or their own player inventory
+     * 
+     * @param openInventory The parameter object for this hook
+     * @return true if to disable open inventory
+     */
+    public boolean onOpenInventory(HookParametersOpenInventory openInventory) {
+        if (onOpenInventory(openInventory.getPlayer(), openInventory.getInventory()))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Called when a player closes an inventory; whether it's a workbench, a chest or their own player inventory
+     * 
+     * @param closeInventory The parameter object for this hook
+     */
+    public void onCloseInventory(HookParametersCloseInventory closeInventory) {
     }
 
     /**

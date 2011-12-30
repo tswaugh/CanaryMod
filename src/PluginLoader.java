@@ -188,6 +188,10 @@ public class PluginLoader {
          *///
         OPEN_INVENTORY, //
         /**
+         * Calls {@link PluginListener#onOpenInventory(Player, Inventory) }
+         *///
+        CLOSE_INVENTORY, //
+        /**
          * Calls {@link PluginListener#onSignShow(Player, Sign) }
          *///
         SIGN_SHOW, //
@@ -946,9 +950,13 @@ public class PluginLoader {
                             break;
 
                         case OPEN_INVENTORY:
-                            if (listener.onOpenInventory((Player) parameters[0], (Inventory) parameters[1])) {
+                            if (listener.onOpenInventory((HookParametersOpenInventory)parameters[0])) {
                                 toRet = true;
                             }
+                            break;
+                            
+                        case CLOSE_INVENTORY:
+                            listener.onCloseInventory((HookParametersCloseInventory)parameters[0]);
                             break;
 
                         case SIGN_SHOW:

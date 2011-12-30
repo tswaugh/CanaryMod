@@ -1129,31 +1129,36 @@ public class OChunk {
     
     // CanaryMod function: Used to check for opaque blocks around a single block safely.
     public boolean isLit(int x, int y, int z) {
+        return isLit(x, y, z, 0);
+    }
+    
+ // CanaryMod function: Used to check for opaque blocks around a single block safely.
+    public boolean isLit(int x, int y, int z, int lightValue) {
         int absoluteX = l * 16 + x;
         int absoluteZ = m * 16 + z;
 
         // Blocks at the edges of the chunk are considered hidden by the nonexistant block.
-        if (y == 127 || (y < 127 && this.f.a(absoluteX, y + 1, absoluteZ, false) > 0)) {
+        if (y == 127 || (y < 127 && this.f.a(absoluteX, y + 1, absoluteZ, false) > lightValue)) {
             return true;
         }
         
-        if (y == 0 || (y > 0 && this.f.a(absoluteX, y - 1, absoluteZ, false) > 0)) {
+        if (y == 0 || (y > 0 && this.f.a(absoluteX, y - 1, absoluteZ, false) > lightValue)) {
             return true;
         }
         
-        if ((x < 15 && this.f.a(absoluteX + 1, y, absoluteZ, false) > 0) || (x == 15 && this.f.A.a(l + 1, m) && this.f.a(absoluteX + 1, y, absoluteZ, false) > 0)) {
+        if ((x < 15 && this.f.a(absoluteX + 1, y, absoluteZ, false) > lightValue) || (x == 15 && this.f.A.a(l + 1, m) && this.f.a(absoluteX + 1, y, absoluteZ, false) > lightValue)) {
             return true;
         }
         
-        if ((x > 0 && this.f.a(absoluteX - 1, y, absoluteZ, false) > 0) || (x == 0 && this.f.A.a(l - 1, m) && this.f.a(absoluteX - 1, y, absoluteZ, false) > 0)) {
+        if ((x > 0 && this.f.a(absoluteX - 1, y, absoluteZ, false) > lightValue) || (x == 0 && this.f.A.a(l - 1, m) && this.f.a(absoluteX - 1, y, absoluteZ, false) > lightValue)) {
             return true;
         }
         
-        if ((z < 15 && this.f.a(absoluteX, y, absoluteZ + 1, false) > 0) || (z == 15 && this.f.A.a(l, m + 1) && this.f.a(absoluteX, y, absoluteZ + 1, false) > 0)) {
+        if ((z < 15 && this.f.a(absoluteX, y, absoluteZ + 1, false) > lightValue) || (z == 15 && this.f.A.a(l, m + 1) && this.f.a(absoluteX, y, absoluteZ + 1, false) > lightValue)) {
             return true;
         }
         
-        if ((z > 0 && this.f.a(absoluteX, y, absoluteZ - 1, false) > 0) || (z == 0 && this.f.A.a(l, m - 1) && this.f.a(absoluteX, y, absoluteZ - 1, false) > 0)) {
+        if ((z > 0 && this.f.a(absoluteX, y, absoluteZ - 1, false) > lightValue) || (z == 0 && this.f.A.a(l, m - 1) && this.f.a(absoluteX, y, absoluteZ - 1, false) > lightValue)) {
             return true;
         }
         return false;

@@ -402,9 +402,10 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         // CanaryMod: Check if we can open this
         OContainerWorkbench container = new OContainerWorkbench(this.k, this.bf, var1, var2, var3);
         Inventory inv = new Workbench(container);
+        container.setInventory(inv);
         String name = "Crafting";
         
-        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
         
@@ -423,9 +424,10 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         // CanaryMod: Check if we can open this
         OContainerEnchantment container = new OContainerEnchantment(this.k, this.bf, var1, var2, var3);
         Inventory inv = new EnchantmentTable(container);
+        container.setInventory(inv);
         String name = "Enchanting";
         
-        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
         
@@ -445,14 +447,17 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         Inventory inv = null;
         String name = var1.e();
 
+        HookParametersOpenInventory openInventoryParameters = null;
         if (var1 instanceof OTileEntityChest) {
             inv = new Chest((OTileEntityChest) var1);
-            if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+            openInventoryParameters = new HookParametersOpenInventory(getPlayer(), inv, false);
+            if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, openInventoryParameters)) {
                 return;
             }
         } else if (var1 instanceof OInventoryLargeChest) {
             inv = new DoubleChest((OInventoryLargeChest) var1);
-            if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+            openInventoryParameters = new HookParametersOpenInventory(getPlayer(), inv, false);
+            if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, openInventoryParameters)) {
                 return;
             }
         }
@@ -463,7 +468,10 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
        
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 0, name, var1.c())));
-        this.m = new OContainerChest(this.k, var1);
+        // CanaryMod: Check if openend the chest in silence mode.
+        this.m = new OContainerChest(this.k, var1, (openInventoryParameters == null) ? false : openInventoryParameters.isSilenced());
+        this.m.setInventory(inv);
+        // CanaryMod end
         this.m.f = this.ci;
         this.m.a((OICrafting) this);
     }
@@ -473,7 +481,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         Inventory inv = new Furnace(var1);
         String name = var1.e();
         
-        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
         
@@ -484,6 +492,8 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 2, name, var1.c())));
         this.m = new OContainerFurnace(this.k, var1);
+        //CanaryMod: Set the inventory for the GUI
+        this.m.setInventory(inv);
         this.m.f = this.ci;
         this.m.a((OICrafting) this);
     }
@@ -493,7 +503,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         Inventory inv = new Dispenser(var1);
         String name = var1.e();
         
-        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
         
@@ -504,6 +514,8 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 3, name, var1.c())));
         this.m = new OContainerDispenser(this.k, var1);
+        //CanaryMod: Set the inventory for the GUI
+        this.m.setInventory(inv);
         this.m.f = this.ci;
         this.m.a((OICrafting) this);
     }
@@ -513,7 +525,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         Inventory inv = new BrewingStand(var1);
         String name = var1.e();
         
-        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, getPlayer(), inv)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
         
@@ -524,6 +536,8 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.aH();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.ci, 5, name, var1.c())));
         this.m = new OContainerBrewingStand(this.k, var1);
+        //CanaryMod: Set the inventory for the GUI
+        this.m.setInventory(inv);
         this.m.f = this.ci;
         this.m.a((OICrafting) this);
     }
