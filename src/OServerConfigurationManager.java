@@ -198,7 +198,6 @@ public class OServerConfigurationManager {
     }
 
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3) {
-        etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, ((OEntityPlayerMP)var1).getPlayer());
         this.c.b(var1.w).a(var1);
         this.c.b(var1.w).b(var1);
         this.a(var1.w).b(var1);
@@ -244,6 +243,7 @@ public class OServerConfigurationManager {
         this.b.add(var5);
         var5.u();
         var5.A();
+        etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, ((OEntityPlayerMP)var5).getPlayer());
         return var5;
     }
 
