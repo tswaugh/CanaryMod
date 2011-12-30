@@ -754,7 +754,7 @@ public class PluginLoader {
                             break;
 
                         case CHAT:
-                            if (listener.onChat((Player) parameters[0], (String) parameters[1])) {
+                            if (listener.onChat((Player) parameters[0], (StringBuilder) parameters[1])) {
                                 toRet = true;
                             }
                             break;
