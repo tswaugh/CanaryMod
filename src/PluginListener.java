@@ -105,9 +105,7 @@ public class PluginListener {
      * @return false if you want the message to be sent.
      */
     public boolean onChat(Player player, StringBuilder sbMessage) {
-        if (onChat(player, sbMessage.toString()))
-            return true;
-        return false;
+        return onChat(player, sbMessage.toString());
     }
 
     /**
@@ -862,11 +860,23 @@ public class PluginListener {
 
     /**
      * Called when a player respawns
-     * 
      * @param player
-     *            Player that respawns
+     *          Player that respawns
+     * @deprecated Use {@link #onPlayerRespawn(Player, Location) } instead.
      */
-    public void onPlayerRespawn(Player player) {
+    @Deprecated
+    public void onPlayerRespawn(Player player) {}
+    
+    /**
+     * Called when a player respawns
+     * @param player
+     *          Player that respawns
+     * @param spawnLocation
+     *          Location the player will spawn at
+     */
+    public void onPlayerRespawn(Player player, Location spawnLocation)
+    {
+        onPlayerRespawn(player);
     }
 
     /**

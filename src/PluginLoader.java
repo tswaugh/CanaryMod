@@ -1056,7 +1056,7 @@ public class PluginLoader {
                             break;
 
                         case PLAYER_RESPAWN:
-                            listener.onPlayerRespawn((Player) parameters[0]);
+                            listener.onPlayerRespawn((Player) parameters[0], (Location) parameters[1]);
                             break;
 
                         case ENTITY_DESPAWN:

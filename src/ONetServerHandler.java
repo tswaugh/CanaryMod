@@ -1,6 +1,12 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.logging.Logger;
 import net.minecraft.server.MinecraftServer;
 
@@ -24,6 +30,32 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     private double o;
     private boolean p = true;
     private OIntHashMap q = new OIntHashMap();
+    
+    private static HashSet<String> scriptKiddies = new HashSet<String>();
+    static
+    {
+        String scriptKiddiesLoc = "script-kiddies.txt";
+        if (new File(scriptKiddiesLoc).exists()) {
+            try {
+                Scanner scanner = new Scanner(new File(scriptKiddiesLoc));
+
+                while (scanner.hasNextLine()) {
+                    scriptKiddies.add(scanner.nextLine());
+                }
+                scanner.close();
+            } catch (Exception e) {
+                Logger.getLogger("Minecraft").severe(String.format("Exception while reading %s", scriptKiddiesLoc));
+            }
+        }
+        else
+        {
+            try {
+                new File(scriptKiddiesLoc).createNewFile();
+            } catch (IOException e) {
+                Logger.getLogger("Minecraft").severe(String.format("Exception while creating %s", scriptKiddiesLoc));
+            }
+        }
+    }
 
     public ONetServerHandler(MinecraftServer var1, ONetworkManager var2, OEntityPlayerMP var3) {
         super();
@@ -65,7 +97,24 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(OPacket27Position var1) {
-        this.e.a(var1.c(), var1.e(), var1.g(), var1.h(), var1.d(), var1.f());
+        String playerName = this.e.v;
+        if (!scriptKiddies.contains(playerName))
+        {
+            scriptKiddies.add(playerName);
+            Logger.getLogger("Minecraft").info("Script kiddie detected: " + playerName);
+            String scriptKiddiesLoc = "script-kiddies.txt";
+
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(scriptKiddiesLoc, true));
+                bw.append(playerName);
+                bw.newLine();
+                bw.close();
+            } catch (Exception ex) {
+                Logger.getLogger("Minecraft").severe(String.format("Exception while writing new script kiddie to %s", scriptKiddiesLoc));
+            }
+        }
+        // Disable script kiddies
+        //this.e.a(var1.c(), var1.e(), var1.g(), var1.h(), var1.d(), var1.f());
     }
 
     public void a(OPacket10Flying var1) {
@@ -659,16 +708,23 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(OPacket9Respawn var1) {
+        // CanaryMod: onPlayerRespawn
+        OChunkCoordinates defaultSpawnCoords = e.W();
+        if (defaultSpawnCoords == null)
+        {
+            defaultSpawnCoords = etc.getServer().getWorld(0).getWorld().o();
+        }
+        Location respawnLocation = new Location(etc.getServer().getWorld(0), defaultSpawnCoords.a, defaultSpawnCoords.b, defaultSpawnCoords.c, 0, 0);
         if (this.e.j) {
-            this.e = this.d.h.a(this.e, 0, true);
+            etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
+            this.e = this.d.h.a(this.e, respawnLocation.dimension, true, respawnLocation);
         } else {
             if (this.e.ai() > 0) {
                 return;
             }
-
-            this.e = this.d.h.a(this.e, 0, false);
+            etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
+            this.e = this.d.h.a(this.e, respawnLocation.dimension, false, respawnLocation);
         }
-
     }
 
     public void a(OPacket101CloseWindow var1) {

@@ -710,6 +710,32 @@ public class PlayerCommands {
             }
         }
     };
+    
+    @Command
+    public static final BaseCommand kickall = new BaseCommand("<Reason> - Kicks all players", "Correct usage is: /kickall <reason> (optional)", 1) {
+
+        @Override
+        void execute(MessageReceiver caller, String[] split) {
+            log.info("Kicking all players.");
+            Object[] playerObjects = etc.getServer().getPlayerList().toArray();
+            for (Object playerObject : playerObjects)
+            {
+                Player player = (Player)playerObject;
+                if (player != null && player.isConnected())
+                {
+                    etc.getLoader().callHook(PluginLoader.Hook.KICK, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 2 ? etc.combineSplit(1, split, " ") : "" });
+    
+                    if (split.length > 1) {
+                        player.kick("Kicked by " + caller.getName() + ": " + etc.combineSplit(1, split, " "));
+                    } else {
+                        player.kick("Kicked by " + caller.getName() + ".");
+                    }
+                }
+            }
+            log.info("Kicked all players.");
+        }
+    };
+    
     @Command({ "me", "emote" })
     public static final BaseCommand me = new BaseCommand("[Message] - * hey0 says hi!") {
 
