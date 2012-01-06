@@ -222,8 +222,30 @@ public class Item {
         CookedChicken(366), //
         RottenFlesh(367), //
         EnderPearl(368), //
+        BlazeRod(369), //
+        GhastTear(370), //
+        GoldNugget(371), //
+        NetherWart(372), //
+        Potion(373), //
+        SpiderEye(374), //
+        FermentedSpiderEye, //
+        BlazePowder(377), //
+        MagmaCream(378), //
+        BrewingStand(379), //
+        Cauldron(380), //
+        EyeofEnder(381), //
+        GlisteringMelon(382), //
         GoldRecord(2256), //
-        GreenRecord(2257);
+        GreenRecord(2257), //
+        BlocksRecord(2258), //
+        ChirpRecord(2259), //
+        FarRecord(2260), //
+        MallRecord(2261), //
+        MellohiRecord(2262), //
+        StalRecord(2263), //
+        StradRecord(2264), //
+        WardRecord(2265), //
+        ElevenRecord(2266); //
         private int id;
         private static Map<Integer, Type> map;
 
