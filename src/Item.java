@@ -227,8 +227,9 @@ public class Item {
         GoldNugget(371), //
         NetherWart(372), //
         Potion(373), //
-        SpiderEye(374), //
-        FermentedSpiderEye, //
+        GlassBottle(374),//
+        SpiderEye(375), //
+        FermentedSpiderEye(376), //
         BlazePowder(377), //
         MagmaCream(378), //
         BrewingStand(379), //
