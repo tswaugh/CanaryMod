@@ -105,7 +105,10 @@ public class ONetLoginHandler extends ONetHandler {
             if (!hookResult.isHidden()) { 
                 this.e.h.a((OPacket) (new OPacket3Chat(hookResult.getJoinMessage())));
             }
+            
+            // CanaryMod - Check Creative Mode
             var2.getPlayer().refreshCreativeMode();
+            
             this.e.h.c(var2);
             var5.a(var2.bj, var2.bk, var2.bl, var2.bp, var2.bq);
             this.e.c.a(var5);

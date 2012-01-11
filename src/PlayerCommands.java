@@ -613,7 +613,7 @@ public class PlayerCommands {
                 }
 
                 // adds player to ban list
-                etc.getMCServer().h.a(player.getIP());
+                etc.getMCServer().h.c(player.getIP());
                 etc.getLoader().callHook(PluginLoader.Hook.IPBAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
 
                 log.info("IP Banning " + player.getName() + " (IP: " + player.getIP() + ")");

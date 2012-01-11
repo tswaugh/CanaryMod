@@ -328,6 +328,10 @@ public class PluginLoader {
          *///
         MOB_TARGET, //
         /**
+         * Calls {@Link PluginListener#onBlockUpdate(Block) }
+         *///
+        BLOCK_UPDATE, //
+        /**
          * For internal use only.
          *///
         NUM_HOOKS;

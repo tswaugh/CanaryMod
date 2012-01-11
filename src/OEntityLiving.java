@@ -145,15 +145,16 @@ public abstract class OEntityLiving extends OEntity {
             if (this.aF() == -20) {
                 this.l(0);
 
-                for (int var1 = 0; var1 < 8; ++var1) {
-                    float var2 = this.bP.nextFloat() - this.bP.nextFloat();
-                    float var3 = this.bP.nextFloat() - this.bP.nextFloat();
-                    float var4 = this.bP.nextFloat() - this.bP.nextFloat();
-
-                    this.bf.a("bubble", this.bj + (double) var2, this.bk + (double) var3, this.bl + (double) var4, this.bm, this.bn, this.bo);
-                }
                 // CanaryMod Damage hook: Drowning
                 if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.WATER, null, entity, 2)) {
+	                for (int var1 = 0; var1 < 8; ++var1) {
+	                    float var2 = this.bP.nextFloat() - this.bP.nextFloat();
+	                    float var3 = this.bP.nextFloat() - this.bP.nextFloat();
+	                    float var4 = this.bP.nextFloat() - this.bP.nextFloat();
+	
+	                    this.bf.a("bubble", this.bj + (double) var2, this.bk + (double) var3, this.bl + (double) var4, this.bm, this.bn, this.bo);
+	                }
+                
                     this.a(ODamageSource.e, 2);
                 }
 

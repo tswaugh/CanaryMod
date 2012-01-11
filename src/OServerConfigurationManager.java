@@ -102,10 +102,10 @@ public class OServerConfigurationManager {
         this.b.add(var1);
         OWorldServer var2 = this.c.a(var1.w);
 
-        var2.J.c((int) var1.bj >> 4, (int) var1.bl >> 4);
+        var2.J.c((int) var1.bi >> 4, (int) var1.bk >> 4);
 
         while (var2.a(var1, var1.bt).size() != 0) {
-            var1.c(var1.bj, var1.bk + 1.0D, var1.bl);
+            var1.c(var1.bi, var1.bj + 1.0D, var1.bk);
         }
 
         var2.b(var1);
@@ -199,7 +199,7 @@ public class OServerConfigurationManager {
 
     // CanaryMod alias to set location when respawning.
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3) {
-        return a(var1, var2, var3, null);
+    	return a(var1, var2, var3, null);
     }
     
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3, Location spawnLocation) {
@@ -237,7 +237,7 @@ public class OServerConfigurationManager {
         // CanaryMod set player location and angle if a spawn location is defined
         if (spawnLocation != null)
         {
-            var5.c((double) spawnLocation.x, (double) spawnLocation.y, (double)spawnLocation.z, 0.0F, 0.0F);
+        	var5.c((double) spawnLocation.x, (double) spawnLocation.y, (double)spawnLocation.z, 0.0F, 0.0F);
         }
 
         var6.J.c((int) var5.bj >> 4, (int) var5.bl >> 4);
@@ -324,9 +324,10 @@ public class OServerConfigurationManager {
             }
             this.p = etc.getInstance().getPlayerList_ticks();
         }
-
-        for (int var1 = 0; var1 < this.d.length; var1++) {
-            this.d[var1].b();
+        if(this.b.size() > 0){
+        	for (int var1 = 0; var1 < this.d.length; var1++) {
+        		this.d[var1].b();
+        	}
         }
     }
 

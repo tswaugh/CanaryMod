@@ -1,4 +1,3 @@
-
 public class HookParametersCloseInventory extends HookParameters {
     private Player player;
     private Inventory inventory;

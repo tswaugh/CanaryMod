@@ -4,7 +4,6 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     protected int c = 2;
     
     // CanaryMod start
-    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     protected LivingEntity entity = new LivingEntity(this);
     // CanaryMod end
     
@@ -34,7 +33,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     protected OEntity k() {
         OEntityPlayer var1 = this.bf.b(this, 16.0D);
 
-        return var1 != null && this.g(var1) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity) ? var1 : null; // CanaryMod: MOB_TARGET hook
+        return var1 != null && this.g(var1) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity) ? null : var1; // CanaryMod: MOB_TARGET hook
     }
 
     public boolean a(ODamageSource var1, int var2) {

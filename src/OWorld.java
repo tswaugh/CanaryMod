@@ -289,17 +289,23 @@ public class OWorld implements OIBlockAccess {
     }
 
     public boolean b(int var1, int var2, int var3, int var4) {
+        // CanaryMod: Get Block Info
+        Block block = this.world.getBlockAt(var1, var2, var3);
+
         if (var1 >= -30000000 && var3 >= -30000000 && var1 < 30000000 && var3 < 30000000) {
             if (var2 < 0) {
                 return false;
             } else if (var2 >= this.c) {
                 return false;
             } else {
-                OChunk var5 = this.c(var1 >> 4, var3 >> 4);
-                boolean var6 = var5.a(var1 & 15, var2, var3 & 15, var4);
-
-                this.s(var1, var2, var3);
-                return var6;
+            	if(!(Boolean)OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block)){
+	                OChunk var5 = this.c(var1 >> 4, var3 >> 4);
+	                boolean var6 = var5.a(var1 & 15, var2, var3 & 15, var4);
+	
+	                this.s(var1, var2, var3);
+	                return var6;
+            	}
+            	return false;
             }
         } else {
             return false;

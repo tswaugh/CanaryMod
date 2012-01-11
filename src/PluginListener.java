@@ -1089,4 +1089,16 @@ public class PluginListener {
     public boolean onMobTarget(Player player, LivingEntity mob) {
         return false;
     }
+    
+    /**
+     * Called when a Block udpates
+     * 
+     * @param Block
+     * @return false to allow the update, true to cancel it.
+     * NOTE: Only farmland right now
+     */
+
+    public boolean onBlockUpdate(Block block) {
+        return false;
+    }
 }
