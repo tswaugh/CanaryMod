@@ -46,7 +46,7 @@ public class OEntityList {
         OEntity var2 = null;
 
         try {
-            Class var3 = (Class) a.get(var0.j("id"));
+            Class var3 = (Class) b.get(var0.j("id"));
 
             if (var3 != null) {
                 var2 = (OEntity) var3.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { var1});
@@ -94,7 +94,7 @@ public class OEntityList {
    
     // CanaryMod: Let us do a name->class lookup for mob spawning
     public static Class<?> getEntity(String name) {
-        return (Class<?>) a.get(name);
+        return (Class<?>) b.get(name);
     }
     
     // CanaryMod: Let us do a class->name lookup for mob spawning

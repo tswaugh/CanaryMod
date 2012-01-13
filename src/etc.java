@@ -1113,6 +1113,8 @@ public class etc {
         List<String> allowed = Arrays.asList(getMonsters());
         
         Iterator<OSpawnListEntry> it = toRet.iterator();
+        if (!it.hasNext())
+            return toRet;
         for (OSpawnListEntry en = it.next(); it.hasNext(); en = it.next()) {
             if (!allowed.contains(OEntityList.getName(en.a)))
                 it.remove();
@@ -1126,6 +1128,8 @@ public class etc {
         List<String> allowed = Arrays.asList(getAnimals());
         
         Iterator<OSpawnListEntry> it = toRet.iterator();
+        if (!it.hasNext())
+            return toRet;
         for (OSpawnListEntry en = it.next(); it.hasNext(); en = it.next()) {
             if (!allowed.contains(OEntityList.getName(en.a)))
                 it.remove();
@@ -1139,6 +1143,8 @@ public class etc {
         List<String> allowed = Arrays.asList(getWaterAnimals());
         
         Iterator<OSpawnListEntry> it = toRet.iterator();
+        if (!it.hasNext())
+            return toRet;
         for (OSpawnListEntry en = it.next(); it.hasNext(); en = it.next()) {
             if (!allowed.contains(OEntityList.getName(en.a)))
                 it.remove();
