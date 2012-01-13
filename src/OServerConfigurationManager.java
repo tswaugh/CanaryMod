@@ -79,7 +79,7 @@ public class OServerConfigurationManager {
         this.a(var1.w).a(var1);
         OWorldServer var2 = this.c.a(var1.w);
 
-        var2.J.c((int) var1.bj >> 4, (int) var1.bl >> 4);
+        var2.J.c((int) var1.bm >> 4, (int) var1.bo >> 4);
     }
 
     public int a() {
@@ -102,10 +102,10 @@ public class OServerConfigurationManager {
         this.b.add(var1);
         OWorldServer var2 = this.c.a(var1.w);
 
-        var2.J.c((int) var1.bi >> 4, (int) var1.bk >> 4);
+        var2.J.c((int) var1.bm >> 4, (int) var1.bo >> 4);
 
-        while (var2.a(var1, var1.bt).size() != 0) {
-            var1.c(var1.bi, var1.bj + 1.0D, var1.bk);
+        while (var2.a(var1, var1.bw).size() != 0) {
+            var1.c(var1.bm, var1.bn + 1.0D, var1.bo);
         }
 
         var2.b(var1);
@@ -208,7 +208,7 @@ public class OServerConfigurationManager {
         this.a(var1.w).b(var1);
         this.b.remove(var1);
         this.c.a(var1.w).f(var1);
-        OChunkCoordinates var4 = var1.W();
+        OChunkCoordinates var4 = var1.X();
 
         var1.w = var2;
         OEntityPlayerMP var5 = new OEntityPlayerMP(this.c, this.c.a(var1.w), var1.v, new OItemInWorldManager(this.c.a(var1.w)));
@@ -217,7 +217,7 @@ public class OServerConfigurationManager {
             var5.c((OEntityPlayer) var1);
         }
 
-        var5.ba = var1.ba;
+        var5.bd = var1.bd;
         var5.a = var1.a;
         OWorldServer var6 = this.c.a(var1.w);
 
@@ -240,20 +240,20 @@ public class OServerConfigurationManager {
         	var5.c((double) spawnLocation.x, (double) spawnLocation.y, (double)spawnLocation.z, 0.0F, 0.0F);
         }
 
-        var6.J.c((int) var5.bj >> 4, (int) var5.bl >> 4);
+        var6.J.c((int) var5.bm >> 4, (int) var5.bo >> 4);
 
-        while (var6.a(var5, var5.bt).size() != 0) {
-            var5.c(var5.bj, var5.bk + 1.0D, var5.bl);
+        while (var6.a(var5, var5.bw).size() != 0) {
+            var5.c(var5.bm, var5.bn + 1.0D, var5.bo);
         }
 
-        var5.a.b((OPacket) (new OPacket9Respawn((byte) var5.w, (byte) var5.bf.v, var5.bf.m(), var5.bf.c, var5.c.a())));
-        var5.a.a(var5.bj, var5.bk, var5.bl, var5.bp, var5.bq);
+        var5.a.b((OPacket) (new OPacket9Respawn((byte) var5.w, (byte) var5.bi.v, var5.bi.m(), var5.bi.r().q(), var5.bi.c, var5.c.a())));
+        var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt);
         this.a(var5, var6);
         this.a(var5.w).a(var5);
         var6.b(var5);
         this.b.add(var5);
-        var5.u();
-        var5.A();
+        var5.v();
+        var5.B();
         return var5;
     }
 
@@ -264,42 +264,42 @@ public class OServerConfigurationManager {
         var1.w = var2;
         OWorldServer var5 = this.c.a(var1.w);
 
-        var1.a.b((OPacket) (new OPacket9Respawn((byte) var1.w, (byte) var1.bf.v, var5.m(), var5.c, var1.c.a())));
+        var1.a.b((OPacket) (new OPacket9Respawn((byte) var1.w, (byte) var1.bi.v, var5.m(), var5.r().q(), var5.c, var1.c.a())));
         var4.f(var1);
-        var1.bB = false;
-        double var6 = var1.bj;
-        double var8 = var1.bl;
+        var1.bE = false;
+        double var6 = var1.bm;
+        double var8 = var1.bo;
         double var10 = 8.0D;
 
         if (var1.w == -1) {
             var6 /= var10;
             var8 /= var10;
-            var1.c(var6, var1.bk, var8, var1.bp, var1.bq);
-            if (var1.aj()) {
+            var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
+            if (var1.aq()) {
                 var4.a(var1, false);
             }
         } else if (var1.w == 0) {
             var6 *= var10;
             var8 *= var10;
-            var1.c(var6, var1.bk, var8, var1.bp, var1.bq);
-            if (var1.aj()) {
+            var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
+            if (var1.aq()) {
                 var4.a(var1, false);
             }
         } else {
             OChunkCoordinates var12 = var5.d();
 
             var6 = (double) var12.a;
-            var1.bk = (double) var12.b;
+            var1.bn = (double) var12.b;
             var8 = (double) var12.c;
-            var1.c(var6, var1.bk, var8, 90.0F, 0.0F);
-            if (var1.aj()) {
+            var1.c(var6, var1.bn, var8, 90.0F, 0.0F);
+            if (var1.aq()) {
                 var4.a(var1, false);
             }
         }
 
-        if (var3 != 1 && var1.aj()) {
+        if (var3 != 1 && var1.aq()) {
             var5.b(var1);
-            var1.c(var6, var1.bk, var8, var1.bp, var1.bq);
+            var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
             var5.a(var1, false);
             var5.J.a = true;
             (new OTeleporter()).a(var5, var1);
@@ -307,7 +307,7 @@ public class OServerConfigurationManager {
         }
 
         this.a(var1);
-        var1.a.a(var1.bj, var1.bk, var1.bl, var1.bp, var1.bq);
+        var1.a.a(var1.bm, var1.bn, var1.bo, var1.bs, var1.bt);
         var1.a((OWorld) var5);
         var1.c.a(var5);
         this.a(var1, var5);
@@ -596,9 +596,9 @@ public class OServerConfigurationManager {
             OEntityPlayerMP var13 = (OEntityPlayerMP) this.b.get(var12);
 
             if (var13 != var1 && var13.w == var10) {
-                double var14 = var2 - var13.bj;
-                double var16 = var4 - var13.bk;
-                double var18 = var6 - var13.bl;
+                double var14 = var2 - var13.bm;
+                double var16 = var4 - var13.bn;
+                double var18 = var6 - var13.bo;
 
                 if (var14 * var14 + var16 * var16 + var18 * var18 < var8 * var8) {
                     var13.a.b(var11);
@@ -668,7 +668,7 @@ public class OServerConfigurationManager {
 
     public void f(OEntityPlayerMP var1) {
         var1.a(var1.l);
-        var1.s_();
+        var1.t_();
     }
 
     public int j() {

@@ -28,7 +28,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
             if (this.c[var1].a <= var2) {
                 var3 = this.c[var1];
                 this.c[var1] = null;
-                this.x_();
+                this.z_();
                 return var3;
             } else {
                 var3 = this.c[var1].a(var2);
@@ -36,7 +36,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
                     this.c[var1] = null;
                 }
 
-                this.x_();
+                this.z_();
                 return var3;
             }
         } else {
@@ -50,7 +50,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
             var2.a = this.a();
         }
 
-        this.x_();
+        this.z_();
     }
 
     public int c() {
@@ -65,7 +65,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         return 64;
     }
 
-    public void x_() {
+    public void z_() {
         if (this.d != null) {
             for (int var1 = 0; var1 < this.d.size(); ++var1) {
                 ((OIInvBasic) this.d.get(var1)).a(this);

@@ -164,7 +164,7 @@ public class OBlockRedstoneWire extends OBlock {
                 }
             }
 
-            if (var8 == 0 || var9 == 0) {
+            if (var8 < var9 || var9 == 0) {
                 this.b.add(new OChunkPosition(var2, var3, var4));
                 this.b.add(new OChunkPosition(var2 - 1, var3, var4));
                 this.b.add(new OChunkPosition(var2 + 1, var3, var4));
@@ -231,6 +231,10 @@ public class OBlockRedstoneWire extends OBlock {
         if (!var1.I) {
             var1.h(var2, var3 + 1, var4, this.bO);
             var1.h(var2, var3 - 1, var4, this.bO);
+            var1.h(var2 + 1, var3, var4, this.bO);
+            var1.h(var2 - 1, var3, var4, this.bO);
+            var1.h(var2, var3, var4 + 1, this.bO);
+            var1.h(var2, var3, var4 - 1, this.bO);
             this.g(var1, var2, var3, var4);
             this.h(var1, var2 - 1, var3, var4);
             this.h(var1, var2 + 1, var3, var4);
@@ -290,7 +294,7 @@ public class OBlockRedstoneWire extends OBlock {
     }
 
     public int a(int var1, Random var2, int var3) {
-        return OItem.aB.bM;
+        return OItem.aB.bN;
     }
 
     public boolean d(OWorld var1, int var2, int var3, int var4, int var5) {
@@ -343,10 +347,8 @@ public class OBlockRedstoneWire extends OBlock {
             return true;
         } else if (var5 == 0) {
             return false;
-        } else if (OBlock.m[var5].e() && var4 != -1) {
-            return true;
         } else if (var5 != OBlock.bj.bO && var5 != OBlock.bk.bO) {
-            return false;
+            return OBlock.m[var5].e() && var4 != -1;
         } else {
             int var6 = var0.c(var1, var2, var3);
 

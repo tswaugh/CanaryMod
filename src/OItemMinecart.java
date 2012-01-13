@@ -5,7 +5,7 @@ public class OItemMinecart extends OItem {
 
     public OItemMinecart(int var1, int var2) {
         super(var1);
-        this.bN = 1;
+        this.bO = 1;
         this.a = var2;
     }
 

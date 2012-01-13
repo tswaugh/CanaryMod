@@ -16,7 +16,7 @@ public class OItemBed extends OItem {
         } else {
             ++var5;
             OBlockBed var8 = (OBlockBed) OBlock.U;
-            int var9 = OMathHelper.b((double) (var2.bp * 4.0F / 360.0F) + 0.5D) & 3;
+            int var9 = OMathHelper.b((double) (var2.bs * 4.0F / 360.0F) + 0.5D) & 3;
             byte var10 = 0;
             byte var11 = 0;
 

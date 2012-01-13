@@ -109,7 +109,7 @@ public class OItemDye extends OItem {
       if(var2 instanceof OEntitySheep) {
          OEntitySheep var3 = (OEntitySheep)var2;
          int var4 = OBlockCloth.d(var1.h());
-         if(!var3.p_() && var3.u() != var4) {
+         if(!var3.p_() && var3.w() != var4) {
             var3.b(var4);
             --var1.a;
          }

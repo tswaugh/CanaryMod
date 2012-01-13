@@ -25,37 +25,12 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     private long j;
     private static Random k = new Random();
     private long l;
-    private double m;
+    private int m = 0;
     private double n;
     private double o;
-    private boolean p = true;
-    private OIntHashMap q = new OIntHashMap();
-    
-    private static HashSet<String> scriptKiddies = new HashSet<String>();
-    static
-    {
-        String scriptKiddiesLoc = "script-kiddies.txt";
-        if (new File(scriptKiddiesLoc).exists()) {
-            try {
-                Scanner scanner = new Scanner(new File(scriptKiddiesLoc));
-
-                while (scanner.hasNextLine()) {
-                    scriptKiddies.add(scanner.nextLine());
-                }
-                scanner.close();
-            } catch (Exception e) {
-                Logger.getLogger("Minecraft").severe(String.format("Exception while reading %s", scriptKiddiesLoc));
-            }
-        }
-        else
-        {
-            try {
-                new File(scriptKiddiesLoc).createNewFile();
-            } catch (IOException e) {
-                Logger.getLogger("Minecraft").severe(String.format("Exception while creating %s", scriptKiddiesLoc));
-            }
-        }
-    }
+    private double p;
+    private boolean q = true;
+    private OIntHashMap r = new OIntHashMap();
 
     public ONetServerHandler(MinecraftServer var1, ONetworkManager var2, OEntityPlayerMP var3) {
         super();
@@ -77,44 +52,29 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             this.b((OPacket) (new OPacket0KeepAlive(this.i)));
         }
 
+        if (this.m > 0) {
+            --this.m;
+        }
+
     }
 
     public void a(String var1) {
-        this.e.E();
-        this.b((OPacket) (new OPacket255KickDisconnect(var1)));
-        this.b.d();
-        
-        // CanaryMod - onPlayerDisconnect Hook
-        HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.e.v));
+        if (!this.c) {
+            this.e.F();
+            this.b((OPacket) (new OPacket255KickDisconnect(var1)));
+            this.b.d();
 
-        hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult);
-        if (!hookResult.isHidden()) { 
-        	this.d.h.a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
-        }
-        
-        this.d.h.e(this.e);
-        this.c = true;
-    }
+            // CanaryMod - onPlayerDisconnect Hook
+            HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.e.v));
 
-    public void a(OPacket27Position var1) {
-        String playerName = this.e.v;
-        if (!scriptKiddies.contains(playerName))
-        {
-            scriptKiddies.add(playerName);
-            Logger.getLogger("Minecraft").info("Script kiddie detected: " + playerName);
-            String scriptKiddiesLoc = "script-kiddies.txt";
-
-            try {
-                BufferedWriter bw = new BufferedWriter(new FileWriter(scriptKiddiesLoc, true));
-                bw.append(playerName);
-                bw.newLine();
-                bw.close();
-            } catch (Exception ex) {
-                Logger.getLogger("Minecraft").severe(String.format("Exception while writing new script kiddie to %s", scriptKiddiesLoc));
+            hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult);
+            if (!hookResult.isHidden()) { 
+                    this.d.h.a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
             }
+
+            this.d.h.e(this.e);
+            this.c = true;
         }
-        // Disable script kiddies
-        //this.e.a(var1.c(), var1.e(), var1.g(), var1.h(), var1.d(), var1.f());
     }
 
     public void a(OPacket10Flying var1) {
@@ -124,10 +84,10 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         if (!this.e.j) {
             double var3;
 
-            if (!this.p) {
-                var3 = var1.b - this.n;
-                if (var1.a == this.m && var3 * var3 < 0.01D && var1.c == this.o) {
-                    this.p = true;
+            if (!this.q) {
+                var3 = var1.b - this.o;
+                if (var1.a == this.n && var3 * var3 < 0.01D && var1.c == this.p) {
+                    this.q = true;
                 }
             }
          
@@ -154,20 +114,20 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 OEntity.manager.callHook(PluginLoader.Hook.PLAYER_MOVE, player, from, to);
             }
 
-            if (this.p) {
+            if (this.q) {
                 double var7;
                 double var9;
                 double var11;
                 double var15;
 
-                if (this.e.be != null) {
-                    float var5 = this.e.bp;
-                    float var6 = this.e.bq;
+                if (this.e.bh != null) {
+                    float var5 = this.e.bs;
+                    float var6 = this.e.bt;
 
-                    this.e.be.i();
-                    var7 = this.e.bj;
-                    var9 = this.e.bk;
-                    var11 = this.e.bl;
+                    this.e.bh.i();
+                    var7 = this.e.bm;
+                    var9 = this.e.bn;
+                    var11 = this.e.bo;
                     double var13 = 0.0D;
 
                     var15 = 0.0D;
@@ -181,44 +141,44 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                         var15 = var1.c;
                     }
 
-                    this.e.bu = var1.g;
+                    this.e.bx = var1.g;
                     this.e.a(true);
                     this.e.a(var13, 0.0D, var15);
                     this.e.b(var7, var9, var11, var5, var6);
-                    this.e.bm = var13;
-                    this.e.bo = var15;
-                    if (this.e.be != null) {
-                        var2.b(this.e.be, true);
+                    this.e.bp = var13;
+                    this.e.br = var15;
+                    if (this.e.bh != null) {
+                        var2.b(this.e.bh, true);
                     }
 
-                    if (this.e.be != null) {
-                        this.e.be.i();
+                    if (this.e.bh != null) {
+                        this.e.bh.i();
                     }
 
                     this.d.h.d(this.e);
-                    this.m = this.e.bj;
-                    this.n = this.e.bk;
-                    this.o = this.e.bl;
+                    this.n = this.e.bm;
+                    this.o = this.e.bn;
+                    this.p = this.e.bo;
                     var2.g(this.e);
                     return;
                 }
 
-                if (this.e.U()) {
+                if (this.e.V()) {
                     this.e.a(true);
-                    this.e.b(this.m, this.n, this.o, this.e.bp, this.e.bq);
+                    this.e.b(this.n, this.o, this.p, this.e.bs, this.e.bt);
                     var2.g(this.e);
                     return;
                 }
 
-                var3 = this.e.bk;
-                this.m = this.e.bj;
-                this.n = this.e.bk;
-                this.o = this.e.bl;
-                var7 = this.e.bj;
-                var9 = this.e.bk;
-                var11 = this.e.bl;
-                float var17 = this.e.bp;
-                float var18 = this.e.bq;
+                var3 = this.e.bn;
+                this.n = this.e.bm;
+                this.o = this.e.bn;
+                this.p = this.e.bo;
+                var7 = this.e.bm;
+                var9 = this.e.bn;
+                var11 = this.e.bo;
+                float var17 = this.e.bs;
+                float var18 = this.e.bt;
 
                 if (var1.h && var1.b == -999.0D && var1.d == -999.0D) {
                     var1.h = false;
@@ -229,7 +189,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     var9 = var1.b;
                     var11 = var1.c;
                     var15 = var1.d - var1.b;
-                    if (!this.e.U() && (var15 > 1.65D || var15 < 0.1D)) {
+                    if (!this.e.V() && (var15 > 1.65D || var15 < 0.1D)) {
                         this.a("Illegal stance");
                         a.warning(this.e.v + " had an illegal stance: " + var15);
                         return;
@@ -247,15 +207,15 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 }
 
                 this.e.a(true);
-                this.e.bL = 0.0F;
-                this.e.b(this.m, this.n, this.o, var17, var18);
-                if (!this.p) {
+                this.e.bO = 0.0F;
+                this.e.b(this.n, this.o, this.p, var17, var18);
+                if (!this.q) {
                     return;
                 }
 
-                var15 = var7 - this.e.bj;
-                double var19 = var9 - this.e.bk;
-                double var21 = var11 - this.e.bl;
+                var15 = var7 - this.e.bm;
+                double var19 = var9 - this.e.bn;
+                double var21 = var11 - this.e.bo;
                 double var23 = var15 * var15 + var19 * var19 + var21 * var21;
 
                 if (var23 > 100.0D) {
@@ -265,46 +225,46 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 }
 
                 float var25 = 0.0625F;
-                boolean var26 = var2.a(this.e, this.e.bt.b().e((double) var25, (double) var25, (double) var25)).size() == 0;
+                boolean var26 = var2.a(this.e, this.e.bw.b().e((double) var25, (double) var25, (double) var25)).size() == 0;
 
-                if (this.e.bu && !var1.g && var19 > 0.0D) {
+                if (this.e.bx && !var1.g && var19 > 0.0D) {
                     this.e.c(0.2F);
                 }
 
                 this.e.a(var15, var19, var21);
-                this.e.bu = var1.g;
+                this.e.bx = var1.g;
                 this.e.b(var15, var19, var21);
                 double var27 = var19;
 
-                var15 = var7 - this.e.bj;
-                var19 = var9 - this.e.bk;
+                var15 = var7 - this.e.bm;
+                var19 = var9 - this.e.bn;
                 if (var19 > -0.5D || var19 < 0.5D) {
                     var19 = 0.0D;
                 }
 
-                var21 = var11 - this.e.bl;
+                var21 = var11 - this.e.bo;
                 var23 = var15 * var15 + var19 * var19 + var21 * var21;
                 boolean var29 = false;
 
-                if (var23 > 0.0625D && !this.e.U() && !this.e.c.b()) {
+                if (var23 > 0.0625D && !this.e.V() && !this.e.c.b()) {
                     var29 = true;
                     a.warning(this.e.v + " moved wrongly!");
                     System.out.println("Got position " + var7 + ", " + var9 + ", " + var11);
-                    System.out.println("Expected " + this.e.bj + ", " + this.e.bk + ", " + this.e.bl);
+                    System.out.println("Expected " + this.e.bm + ", " + this.e.bn + ", " + this.e.bo);
                 }
 
                 this.e.b(var7, var9, var11, var17, var18);
-                boolean var30 = var2.a(this.e, this.e.bt.b().e((double) var25, (double) var25, (double) var25)).size() == 0;
+                boolean var30 = var2.a(this.e, this.e.bw.b().e((double) var25, (double) var25, (double) var25)).size() == 0;
 
-                if (var26 && (var29 || !var30) && !this.e.U()) {
-                    this.a(this.m, this.n, this.o, var17, var18);
+                if (var26 && (var29 || !var30) && !this.e.V()) {
+                    this.a(this.n, this.o, this.p, var17, var18);
                     return;
                 }
 
-                OAxisAlignedBB var31 = this.e.bt.b().b((double) var25, (double) var25, (double) var25).a(0.0D, -0.55D, 0.0D);
+                OAxisAlignedBB var31 = this.e.bw.b().b((double) var25, (double) var25, (double) var25).a(0.0D, -0.55D, 0.0D);
 
                 // CanaryMod: Allow ops and people with ignoreRestrictions to fly
-                if (!this.d.q && !this.e.c.b() && !var2.b(var31) && !getPlayer().canIgnoreRestrictions()) {
+                if (!this.d.r && !this.e.c.b() && !var2.b(var31) && !getPlayer().canIgnoreRestrictions()) {
                     if (var27 >= -0.03125D) {
                         ++this.g;
                         if (this.g > 80) {
@@ -317,9 +277,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     this.g = 0;
                 }
 
-                this.e.bu = var1.g;
+                this.e.bx = var1.g;
                 this.d.h.d(this.e);
-                this.e.b(this.e.bk - var3, var1.g);
+                this.e.b(this.e.bn - var3, var1.g);
             }
 
         }
@@ -340,10 +300,10 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             return;
         }
 
-        this.p = false;
-        this.m = var1;
-        this.n = var3;
-        this.o = var5;
+        this.q = false;
+        this.n = var1;
+        this.o = var3;
+        this.p = var5;
         this.e.b(var1, var3, var5, var7, var8);
         this.e.a.b((OPacket) (new OPacket13PlayerLookMove(var1, var3 + 1.6200000047683716D, var3, var5, var7, var8, false)));
         player.refreshCreativeMode();
@@ -356,12 +316,12 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         OWorldServer var2 = this.d.a(this.e.w);
 
         if (var1.e == 4) {
-            this.e.N();
+            this.e.O();
         } else if (var1.e == 5) {
-            this.e.I();
+            this.e.J();
         } else {
             // CanaryMod: We allow admins and ops to dig!
-            boolean var3 = var2.K = var2.y.g != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
+            boolean var3 = var2.K = var2.y.h != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
             boolean var4 = false;
 
             if (var1.e == 0) {
@@ -377,9 +337,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             int var7 = var1.c;
 
             if (var4) {
-                double var8 = this.e.bj - ((double) var5 + 0.5D);
-                double var10 = this.e.bk - ((double) var6 + 0.5D) + 1.5D;
-                double var12 = this.e.bl - ((double) var7 + 0.5D);
+                double var8 = this.e.bm - ((double) var5 + 0.5D);
+                double var10 = this.e.bn - ((double) var6 + 0.5D) + 1.5D;
+                double var12 = this.e.bo - ((double) var7 + 0.5D);
                 double var14 = var8 * var8 + var10 * var10 + var12 * var12;
 
                 if (var14 > 36.0D) {
@@ -387,7 +347,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 }
             }
 
-            OChunkCoordinates var16 = var2.o();
+            OChunkCoordinates var16 = var2.d();
             int var17 = OMathHelper.a(var5 - var16.a);
             int var18 = OMathHelper.a(var7 - var16.c);
 
@@ -440,9 +400,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 block.setStatus(3); // Send update for block
                 OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
 
-                double var19 = this.e.bj - ((double) var5 + 0.5D);
-                double var21 = this.e.bk - ((double) var6 + 0.5D);
-                double var23 = this.e.bl - ((double) var7 + 0.5D);
+                double var19 = this.e.bm - ((double) var5 + 0.5D);
+                double var21 = this.e.bn - ((double) var6 + 0.5D);
+                double var23 = this.e.bo - ((double) var7 + 0.5D);
                 double var25 = var19 * var19 + var21 * var21 + var23 * var23;
 
                 if (var25 < 256.0D) {
@@ -467,7 +427,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         Block blockPlaced = null;
 
         // We allow admins and ops to build!
-        boolean var4 = var2.K = var2.y.g != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
+        boolean var4 = var2.K = var2.y.h != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
       
         if (var1.d == 255) {
             // ITEM_USE -- if we have a lastRightClicked then it could be a
@@ -531,7 +491,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             int var6 = var1.b;
             int var7 = var1.c;
             int var8 = var1.d;
-            OChunkCoordinates var9 = var2.o();
+            OChunkCoordinates var9 = var2.d();
          
             // CanaryMod : Fix stupid buggy spawn protection. (2 times)
             int var10 = (int) OMathHelper.e((var8 == 4 ? var5 - 1 : (var8 == 5 ? (var5 + 1) : var5)) - var9.a);
@@ -550,7 +510,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_CREATED, player, blockPlaced, blockClicked, item.getItemId());
             // CanaryMod: If we were building inside spawn, bail! (unless ops/admin)
 
-            if (this.p && this.e.e((double) var5 + 0.5D, (double) var6 + 0.5D, (double) var7 + 0.5D) < 64.0D && (var11 > etc.getInstance().getSpawnProtectionSize() || var4) && player.canBuild() && !cancelled) {
+            if (this.q && this.e.e((double) var5 + 0.5D, (double) var6 + 0.5D, (double) var7 + 0.5D) < 64.0D && (var11 > etc.getInstance().getSpawnProtectionSize() || var4) && player.canBuild() && !cancelled) {
                 this.e.c.a(this.e, var2, var3, var5, var6, var7, var8);
             } else {
                 // CanaryMod: No point sending the client to update the blocks, you weren't allowed to place!
@@ -600,7 +560,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
             this.e.m.a();
             this.e.h = false;
-            if (!OItemStack.a(this.e.k.d(), var1.e)) {
+            if (!OItemStack.b(this.e.k.d(), var1.e)) {
                 this.b((OPacket) (new OPacket103SetSlot(this.e.m.f, var12.c, this.e.k.d())));
             }
         }
@@ -656,23 +616,23 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         if (var1.b == 1) {
             // CanaryMod: Swing the arm!
             OEntity.manager.callHook(PluginLoader.Hook.ARM_SWING, getPlayer());
-            this.e.r_();
+            this.e.s_();
         }
 
     }
 
     public void a(OPacket19EntityAction var1) {
         if (var1.b == 1) {
-            this.e.e(true);
-        } else if (var1.b == 2) {
-            this.e.e(false);
-        } else if (var1.b == 4) {
             this.e.f(true);
-        } else if (var1.b == 5) {
+        } else if (var1.b == 2) {
             this.e.f(false);
+        } else if (var1.b == 4) {
+            this.e.g(true);
+        } else if (var1.b == 5) {
+            this.e.g(false);
         } else if (var1.b == 3) {
             this.e.a(false, true, true);
-            this.p = false;
+            this.q = false;
         }
 
     }
@@ -709,17 +669,16 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
     public void a(OPacket9Respawn var1) {
         // CanaryMod: onPlayerRespawn
-        OChunkCoordinates defaultSpawnCoords = e.W();
-        if (defaultSpawnCoords == null)
-        {
-            defaultSpawnCoords = etc.getServer().getWorld(0).getWorld().o();
+        OChunkCoordinates defaultSpawnCoords = e.X();
+        if (defaultSpawnCoords == null) {
+            defaultSpawnCoords = etc.getServer().getWorld(0).getWorld().d();
         }
         Location respawnLocation = new Location(etc.getServer().getWorld(0), defaultSpawnCoords.a, defaultSpawnCoords.b, defaultSpawnCoords.c, 0, 0);
         if (this.e.j) {
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
             this.e = this.d.h.a(this.e, respawnLocation.dimension, true, respawnLocation);
         } else {
-            if (this.e.ai() > 0) {
+            if (this.e.ap() > 0) {
                 return;
             }
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
@@ -728,21 +687,21 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(OPacket101CloseWindow var1) {
-        this.e.D();
+        this.e.E();
     }
 
     public void a(OPacket102WindowClick var1) {
         if (this.e.m.f == var1.a && this.e.m.c(this.e)) {
             OItemStack var2 = this.e.m.a(var1.b, var1.c, var1.f, this.e);
 
-            if (OItemStack.a(var1.e, var2)) {
+            if (OItemStack.b(var1.e, var2)) {
                 this.e.a.b((OPacket) (new OPacket106Transaction(var1.a, var1.d, true)));
                 this.e.h = true;
                 this.e.m.a();
-                this.e.C();
+                this.e.D();
                 this.e.h = false;
             } else {
-                this.q.a(this.e.m.f, Short.valueOf(var1.d));
+                this.r.a(this.e.m.f, Short.valueOf(var1.d));
                 this.e.a.b((OPacket) (new OPacket106Transaction(var1.a, var1.d, false)));
                 this.e.m.a(this.e, false);
                 ArrayList var3 = new ArrayList();
@@ -793,7 +752,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(OPacket106Transaction var1) {
-        Short var2 = (Short) this.q.a(this.e.m.f);
+        Short var2 = (Short) this.r.a(this.e.m.f);
 
         if (var2 != null && var1.b == var2.shortValue() && this.e.m.f == var1.a && !this.e.m.c(this.e)) {
             this.e.m.a(this.e, true);
@@ -859,7 +818,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     var7.a = Arrays.copyOf(old, old.length);
                 }
 
-                var7.x_();
+                var7.z_();
                 var2.h(var9, var10, var6);
             }
         }
@@ -872,7 +831,6 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
             this.e.i = (this.e.i * 3 + var2) / 4;
         }
-
     }
 
     public boolean c() {

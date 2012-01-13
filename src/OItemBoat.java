@@ -5,16 +5,16 @@ public class OItemBoat extends OItem {
 
     public OItemBoat(int var1) {
         super(var1);
-        this.bN = 1;
+        this.bO = 1;
     }
 
     public OItemStack a(OItemStack var1, OWorld var2, OEntityPlayer var3) {
         float var4 = 1.0F;
-        float var5 = var3.bs + (var3.bq - var3.bs) * var4;
-        float var6 = var3.br + (var3.bp - var3.br) * var4;
-        double var7 = var3.bg + (var3.bj - var3.bg) * (double) var4;
-        double var9 = var3.bh + (var3.bk - var3.bh) * (double) var4 + 1.62D - (double) var3.bC;
-        double var11 = var3.bi + (var3.bl - var3.bi) * (double) var4;
+        float var5 = var3.bv + (var3.bt - var3.bv) * var4;
+        float var6 = var3.bu + (var3.bs - var3.bu) * var4;
+        double var7 = var3.bj + (var3.bm - var3.bj) * (double) var4;
+        double var9 = var3.bk + (var3.bn - var3.bk) * (double) var4 + 1.62D - (double) var3.bF;
+        double var11 = var3.bl + (var3.bo - var3.bl) * (double) var4;
         OVec3D var13 = OVec3D.b(var7, var9, var11);
         float var14 = OMathHelper.b(-var6 * 0.017453292F - 3.1415927F);
         float var15 = OMathHelper.a(-var6 * 0.017453292F - 3.1415927F);
@@ -29,17 +29,17 @@ public class OItemBoat extends OItem {
         if (var24 == null) {
             return var1;
         } else {
-            OVec3D var25 = var3.d(var4);
+            OVec3D var25 = var3.e(var4);
             boolean var26 = false;
             float var27 = 1.0F;
-            List var28 = var2.b((OEntity) var3, var3.bt.a(var25.a * var21, var25.b * var21, var25.c * var21).b((double) var27, (double) var27, (double) var27));
+            List var28 = var2.b((OEntity) var3, var3.bw.a(var25.a * var21, var25.b * var21, var25.c * var21).b((double) var27, (double) var27, (double) var27));
 
             for (int var29 = 0; var29 < var28.size(); ++var29) {
                 OEntity var30 = (OEntity) var28.get(var29);
 
                 if (var30.e_()) {
                     float var31 = var30.j_();
-                    OAxisAlignedBB var32 = var30.bt.b((double) var31, (double) var31, (double) var31);
+                    OAxisAlignedBB var32 = var30.bw.b((double) var31, (double) var31, (double) var31);
 
                     if (var32.a(var13)) {
                         var26 = true;

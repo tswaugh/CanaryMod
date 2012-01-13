@@ -214,8 +214,8 @@ public class OBlockPistonBase extends OBlock {
     }
 
     private static int c(OWorld var0, int var1, int var2, int var3, OEntityPlayer var4) {
-        if (OMathHelper.e((float) var4.bj - (float) var1) < 2.0F && OMathHelper.e((float) var4.bl - (float) var3) < 2.0F) {
-            double var5 = var4.bk + 1.82D - (double) var4.bC;
+        if (OMathHelper.e((float) var4.bm - (float) var1) < 2.0F && OMathHelper.e((float) var4.bo - (float) var3) < 2.0F) {
+            double var5 = var4.bn + 1.82D - (double) var4.bF;
 
             if (var5 - (double) var2 > 2.0D) {
                 return 1;
@@ -226,7 +226,7 @@ public class OBlockPistonBase extends OBlock {
             }
         }
 
-        int var7 = OMathHelper.b((double) (var4.bp * 4.0F / 360.0F) + 0.5D) & 3;
+        int var7 = OMathHelper.b((double) (var4.bs * 4.0F / 360.0F) + 0.5D) & 3;
 
         return var7 == 0 ? 2 : (var7 == 1 ? 5 : (var7 == 2 ? 3 : (var7 == 3 ? 4 : 0)));
     }

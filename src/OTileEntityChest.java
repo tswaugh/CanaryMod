@@ -34,7 +34,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
             if (this.i[var1].a <= var2) {
                 var3 = this.i[var1];
                 this.i[var1] = null;
-                this.x_();
+                this.z_();
                 return var3;
             } else {
                 var3 = this.i[var1].a(var2);
@@ -42,7 +42,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
                     this.i[var1] = null;
                 }
 
-                this.x_();
+                this.z_();
                 return var3;
             }
         } else {
@@ -56,7 +56,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
             var2.a = this.a();
         }
 
-        this.x_();
+        this.z_();
     }
 
     public String e() {

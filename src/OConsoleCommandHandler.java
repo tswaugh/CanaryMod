@@ -129,7 +129,7 @@ public class OConsoleCommandHandler {
                                         } else if (var17.w != var18.w) {
                                             var3.b("User " + var21[1] + " and " + var21[2] + " are in different dimensions. No tp.");
                                         } else {
-                                            var17.a.a(var18.bj, var18.bk, var18.bl, var18.bp, var18.bq);
+                                            var17.a.a(var18.bm, var18.bn, var18.bo, var18.bs, var18.bt);
                                             this.a(var4, "Teleporting " + var21[1] + " to " + var21[2] + ".");
                                         }
                                     } else {

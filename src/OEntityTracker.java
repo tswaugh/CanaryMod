@@ -92,13 +92,13 @@ public class OEntityTracker {
             var2 = this.d;
         }
 
-        if (this.b.b(var1.ba)) {
+        if (this.b.b(var1.bd)) {
             throw new IllegalStateException("Entity is already tracked!");
         } else {
             OEntityTrackerEntry var5 = new OEntityTrackerEntry(var1, var2, var3, var4);
 
             this.a.add(var5);
-            this.b.a(var1.ba, var5);
+            this.b.a(var1.bd, var5);
             var5.b(this.c.a(this.e).i);
         }
     }
@@ -115,7 +115,7 @@ public class OEntityTracker {
             }
         }
 
-        OEntityTrackerEntry var5 = (OEntityTrackerEntry) this.b.d(var1.ba);
+        OEntityTrackerEntry var5 = (OEntityTrackerEntry) this.b.d(var1.bd);
 
         if (var5 != null) {
             this.a.remove(var5);
@@ -175,7 +175,7 @@ public class OEntityTracker {
     }
 
     public void a(OEntity var1, OPacket var2) {
-        OEntityTrackerEntry var3 = (OEntityTrackerEntry) this.b.a(var1.ba);
+        OEntityTrackerEntry var3 = (OEntityTrackerEntry) this.b.a(var1.bd);
 
         if (var3 != null) {
             var3.a(var2);
@@ -184,7 +184,7 @@ public class OEntityTracker {
     }
 
     public void b(OEntity var1, OPacket var2) {
-        OEntityTrackerEntry var3 = (OEntityTrackerEntry) this.b.a(var1.ba);
+        OEntityTrackerEntry var3 = (OEntityTrackerEntry) this.b.a(var1.bd);
 
         if (var3 != null) {
             var3.b(var2);

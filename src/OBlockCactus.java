@@ -85,6 +85,6 @@ public class OBlockCactus extends OBlock {
         if (var5 instanceof OEntityLiving && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.CACTUS, null, new LivingEntity((OEntityLiving) var5), 1)) {
             return;
         }
-        var5.a(ODamageSource.g, 1);
+        var5.a(ODamageSource.h, 1);
     }
 }

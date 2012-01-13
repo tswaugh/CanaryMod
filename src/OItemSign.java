@@ -3,7 +3,7 @@ public class OItemSign extends OItem {
 
     public OItemSign(int var1) {
         super(var1);
-        this.bN = 1;
+        this.bO = 1;
     }
 
     public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
@@ -50,7 +50,7 @@ public class OItemSign extends OItem {
                 }
 
                 if (var7 == 1) {
-                    int var8 = OMathHelper.b((double) ((var2.bp + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
+                    int var8 = OMathHelper.b((double) ((var2.bs + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
 
                     var3.b(var4, var5, var6, OBlock.aF.bO, var8);
                 } else {

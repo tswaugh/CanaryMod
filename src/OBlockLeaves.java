@@ -136,8 +136,16 @@ public class OBlockLeaves extends OBlockLeavesBase {
         return OBlock.A.bO;
     }
 
+    public void a(OWorld var1, int var2, int var3, int var4, int var5, float var6, int var7) {
+        super.a(var1, var2, var3, var4, var5, var6, var7);
+        if (!var1.I && (var5 & 3) == 0 && var1.w.nextInt(200) == 0) {
+            this.a(var1, var2, var3, var4, new OItemStack(OItem.i, 1, 0));
+        }
+
+    }
+
     public void a(OWorld var1, OEntityPlayer var2, int var3, int var4, int var5, int var6) {
-        if (!var1.I && var2.P() != null && var2.P().c == OItem.bd.bM) {
+        if (!var1.I && var2.Q() != null && var2.Q().c == OItem.bd.bN) {
             var2.a(OStatList.C[this.bO], 1);
             this.a(var1, var3, var4, var5, new OItemStack(OBlock.M.bO, 1, var6 & 3));
         } else {

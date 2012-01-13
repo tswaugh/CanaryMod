@@ -16,9 +16,9 @@ public class OEntityBoat extends OEntity {
 
     public OEntityBoat(OWorld var1) {
         super(var1);
-        this.bc = true;
+        this.bf = true;
         this.b(1.5F, 0.6F);
-        this.bC = this.bE / 2.0F;
+        this.bF = this.bH / 2.0F;
     }
 
     protected boolean g_() {
@@ -26,17 +26,17 @@ public class OEntityBoat extends OEntity {
     }
 
     protected void b() {
-        this.bV.a(17, new Integer(0));
-        this.bV.a(18, new Integer(1));
-        this.bV.a(19, new Integer(0));
+        this.bY.a(17, new Integer(0));
+        this.bY.a(18, new Integer(1));
+        this.bY.a(19, new Integer(0));
     }
 
     public OAxisAlignedBB a_(OEntity var1) {
-        return var1.bt;
+        return var1.bw;
     }
 
     public OAxisAlignedBB h_() {
-        return this.bt;
+        return this.bw;
     }
 
     public boolean f_() {
@@ -45,20 +45,20 @@ public class OEntityBoat extends OEntity {
 
     public OEntityBoat(OWorld var1, double var2, double var4, double var6) {
         this(var1);
-        this.c(var2, var4 + (double) this.bC, var6);
-        this.bm = 0.0D;
-        this.bn = 0.0D;
-        this.bo = 0.0D;
-        this.bg = var2;
-        this.bh = var4;
-        this.bi = var6;
+        this.c(var2, var4 + (double) this.bF, var6);
+        this.bp = 0.0D;
+        this.bq = 0.0D;
+        this.br = 0.0D;
+        this.bj = var2;
+        this.bk = var4;
+        this.bl = var6;
       
         // CanaryMod: Creation of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_CREATE, boat);
     }
 
     public double q() {
-        return (double) this.bE * 0.0D - 0.30000001192092896D;
+        return (double) this.bH * 0.0D - 0.30000001192092896D;
     }
 
     public boolean a(ODamageSource var1, int var2) {
@@ -72,14 +72,14 @@ public class OEntityBoat extends OEntity {
             return true;
         }
 
-        if (!this.bf.I && !this.bB) {
+        if (!this.bi.I && !this.bE) {
             this.d(-this.l());
             this.c(10);
             this.b(this.j() + var2 * 10);
-            this.aB();
+            this.aM();
             if (this.j() > 40) {
-                if (this.bd != null) {
-                    this.bd.b((OEntity) this);
+                if (this.bg != null) {
+                    this.bg.b((OEntity) this);
                 }
 
                 int var3;
@@ -89,10 +89,10 @@ public class OEntityBoat extends OEntity {
                 }
 
                 for (var3 = 0; var3 < 2; ++var3) {
-                    this.a(OItem.C.bM, 1, 0.0F);
+                    this.a(OItem.C.bN, 1, 0.0F);
                 }
 
-                this.S();
+                this.T();
             }
 
             return true;
@@ -102,11 +102,11 @@ public class OEntityBoat extends OEntity {
     }
 
     public boolean e_() {
-        return !this.bB;
+        return !this.bE;
     }
 
-    public void w_() {
-        super.w_();
+    public void y_() {
+        super.y_();
         // CanaryMod: Update of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, boat);
       
@@ -122,44 +122,44 @@ public class OEntityBoat extends OEntity {
             this.b(this.j() - 1);
         }
 
-        this.bg = this.bj;
-        this.bh = this.bk;
-        this.bi = this.bl;
+        this.bj = this.bm;
+        this.bk = this.bn;
+        this.bl = this.bo;
         byte var1 = 5;
         double var2 = 0.0D;
 
         for (int var4 = 0; var4 < var1; ++var4) {
-            double var5 = this.bt.b + (this.bt.e - this.bt.b) * (double) (var4 + 0) / (double) var1 - 0.125D;
-            double var7 = this.bt.b + (this.bt.e - this.bt.b) * (double) (var4 + 1) / (double) var1 - 0.125D;
-            OAxisAlignedBB var9 = OAxisAlignedBB.b(this.bt.a, var5, this.bt.c, this.bt.d, var7, this.bt.f);
+            double var5 = this.bw.b + (this.bw.e - this.bw.b) * (double) (var4 + 0) / (double) var1 - 0.125D;
+            double var7 = this.bw.b + (this.bw.e - this.bw.b) * (double) (var4 + 1) / (double) var1 - 0.125D;
+            OAxisAlignedBB var9 = OAxisAlignedBB.b(this.bw.a, var5, this.bw.c, this.bw.d, var7, this.bw.f);
 
-            if (this.bf.b(var9, OMaterial.g)) {
+            if (this.bi.b(var9, OMaterial.g)) {
                 var2 += 1.0D / (double) var1;
             }
         }
 
-        double var10 = Math.sqrt(this.bm * this.bm + this.bo * this.bo);
+        double var10 = Math.sqrt(this.bp * this.bp + this.br * this.br);
         double var12;
         double var14;
 
         if (var10 > 0.15D) {
-            var12 = Math.cos((double) this.bp * 3.141592653589793D / 180.0D);
-            var14 = Math.sin((double) this.bp * 3.141592653589793D / 180.0D);
+            var12 = Math.cos((double) this.bs * 3.141592653589793D / 180.0D);
+            var14 = Math.sin((double) this.bs * 3.141592653589793D / 180.0D);
 
             for (int var16 = 0; (double) var16 < 1.0D + var10 * 60.0D; ++var16) {
-                double var17 = (double) (this.bP.nextFloat() * 2.0F - 1.0F);
-                double var19 = (double) (this.bP.nextInt(2) * 2 - 1) * 0.7D;
+                double var17 = (double) (this.bS.nextFloat() * 2.0F - 1.0F);
+                double var19 = (double) (this.bS.nextInt(2) * 2 - 1) * 0.7D;
                 double var21;
                 double var23;
 
-                if (this.bP.nextBoolean()) {
-                    var21 = this.bj - var12 * var17 * 0.8D + var14 * var19;
-                    var23 = this.bl - var14 * var17 * 0.8D - var12 * var19;
-                    this.bf.a("splash", var21, this.bk - 0.125D, var23, this.bm, this.bn, this.bo);
+                if (this.bS.nextBoolean()) {
+                    var21 = this.bm - var12 * var17 * 0.8D + var14 * var19;
+                    var23 = this.bo - var14 * var17 * 0.8D - var12 * var19;
+                    this.bi.a("splash", var21, this.bn - 0.125D, var23, this.bp, this.bq, this.br);
                 } else {
-                    var21 = this.bj + var12 + var14 * var17 * 0.7D;
-                    var23 = this.bl + var14 - var12 * var17 * 0.7D;
-                    this.bf.a("splash", var21, this.bk - 0.125D, var23, this.bm, this.bn, this.bo);
+                    var21 = this.bm + var12 + var14 * var17 * 0.7D;
+                    var23 = this.bo + var14 - var12 * var17 * 0.7D;
+                    this.bi.a("splash", var21, this.bn - 0.125D, var23, this.bp, this.bq, this.br);
                 }
             }
         }
@@ -167,13 +167,13 @@ public class OEntityBoat extends OEntity {
         double var25;
         double var27;
 
-        if (this.bf.I) {
+        if (this.bi.I) {
             if (this.a > 0) {
-                var12 = this.bj + (this.b - this.bj) / (double) this.a;
-                var14 = this.bk + (this.c - this.bk) / (double) this.a;
-                var25 = this.bl + (this.d - this.bl) / (double) this.a;
+                var12 = this.bm + (this.b - this.bm) / (double) this.a;
+                var14 = this.bn + (this.c - this.bn) / (double) this.a;
+                var25 = this.bo + (this.d - this.bo) / (double) this.a;
 
-                for (var27 = this.e - (double) this.bp; var27 < -180.0D; var27 += 360.0D) {
+                for (var27 = this.e - (double) this.bs; var27 < -180.0D; var27 += 360.0D) {
                     ;
                 }
 
@@ -181,71 +181,71 @@ public class OEntityBoat extends OEntity {
                     var27 -= 360.0D;
                 }
 
-                this.bp = (float) ((double) this.bp + var27 / (double) this.a);
-                this.bq = (float) ((double) this.bq + (this.f - (double) this.bq) / (double) this.a);
+                this.bs = (float) ((double) this.bs + var27 / (double) this.a);
+                this.bt = (float) ((double) this.bt + (this.f - (double) this.bt) / (double) this.a);
                 --this.a;
                 this.c(var12, var14, var25);
-                this.c(this.bp, this.bq);
+                this.c(this.bs, this.bt);
             } else {
-                var12 = this.bj + this.bm;
-                var14 = this.bk + this.bn;
-                var25 = this.bl + this.bo;
+                var12 = this.bm + this.bp;
+                var14 = this.bn + this.bq;
+                var25 = this.bo + this.br;
                 this.c(var12, var14, var25);
-                if (this.bu) {
-                    this.bm *= 0.5D;
-                    this.bn *= 0.5D;
-                    this.bo *= 0.5D;
+                if (this.bx) {
+                    this.bp *= 0.5D;
+                    this.bq *= 0.5D;
+                    this.br *= 0.5D;
                 }
 
-                this.bm *= 0.9900000095367432D;
-                this.bn *= 0.949999988079071D;
-                this.bo *= 0.9900000095367432D;
+                this.bp *= 0.9900000095367432D;
+                this.bq *= 0.949999988079071D;
+                this.br *= 0.9900000095367432D;
             }
 
         } else {
             if (var2 < 1.0D) {
                 var12 = var2 * 2.0D - 1.0D;
-                this.bn += 0.03999999910593033D * var12;
+                this.bq += 0.03999999910593033D * var12;
             } else {
-                if (this.bn < 0.0D) {
-                    this.bn /= 2.0D;
+                if (this.bq < 0.0D) {
+                    this.bq /= 2.0D;
                 }
 
-                this.bn += 0.007000000216066837D;
+                this.bq += 0.007000000216066837D;
             }
 
-            if (this.bd != null) {
-                this.bm += this.bd.bm * 0.2D;
-                this.bo += this.bd.bo * 0.2D;
+            if (this.bg != null) {
+                this.bp += this.bg.bp * 0.2D;
+                this.br += this.bg.br * 0.2D;
             }
 
             var12 = 0.4D;
-            if (this.bm < -var12) {
-                this.bm = -var12;
+            if (this.bp < -var12) {
+                this.bp = -var12;
             }
 
-            if (this.bm > var12) {
-                this.bm = var12;
+            if (this.bp > var12) {
+                this.bp = var12;
             }
 
-            if (this.bo < -var12) {
-                this.bo = -var12;
+            if (this.br < -var12) {
+                this.br = -var12;
             }
 
-            if (this.bo > var12) {
-                this.bo = var12;
+            if (this.br > var12) {
+                this.br = var12;
             }
 
-            if (this.bu) {
-                this.bm *= 0.5D;
-                this.bn *= 0.5D;
-                this.bo *= 0.5D;
+            if (this.bx) {
+                this.bp *= 0.5D;
+                this.bq *= 0.5D;
+                this.br *= 0.5D;
             }
 
-            this.a(this.bm, this.bn, this.bo);
-            if (this.bv && var10 > 0.2D) {
-                if (!this.bf.I) {
-                    this.S();
+            this.a(this.bp, this.bq, this.br);
+            if (this.by && var10 > 0.2D) {
+                if (!this.bi.I) {
+                    this.T();
 
                     int var29;
 
@@ -254,26 +254,26 @@ public class OEntityBoat extends OEntity {
                     }
 
                     for (var29 = 0; var29 < 2; ++var29) {
-                        this.a(OItem.C.bM, 1, 0.0F);
+                        this.a(OItem.C.bN, 1, 0.0F);
                     }
                 }
             } else {
-                this.bm *= 0.9900000095367432D;
-                this.bn *= 0.949999988079071D;
-                this.bo *= 0.9900000095367432D;
+                this.bp *= 0.9900000095367432D;
+                this.bq *= 0.949999988079071D;
+                this.br *= 0.9900000095367432D;
             }
 
-            this.bq = 0.0F;
-            var14 = (double) this.bp;
-            var25 = this.bg - this.bj;
-            var27 = this.bi - this.bl;
+            this.bt = 0.0F;
+            var14 = (double) this.bs;
+            var25 = this.bj - this.bm;
+            var27 = this.bl - this.bo;
             if (var25 * var25 + var27 * var27 > 0.001D) {
                 var14 = (double) ((float) (Math.atan2(var27, var25) * 180.0D / 3.141592653589793D));
             }
 
             double var30;
 
-            for (var30 = var14 - (double) this.bp; var30 >= 180.0D; var30 -= 360.0D) {
+            for (var30 = var14 - (double) this.bs; var30 >= 180.0D; var30 -= 360.0D) {
                 ;
             }
 
@@ -289,50 +289,50 @@ public class OEntityBoat extends OEntity {
                 var30 = -20.0D;
             }
 
-            this.bp = (float) ((double) this.bp + var30);
-            this.c(this.bp, this.bq);
+            this.bs = (float) ((double) this.bs + var30);
+            this.c(this.bs, this.bt);
          
             // CanaryMod: Change of the boat
             if ((int) bj != (int) prevX || (int) bk != (int) prevY || (int) bl != (int) prevZ) {
                 manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, boat, (int) bj, (int) bk, (int) bl);
             }
             
-            List var32 = this.bf.b((OEntity) this, this.bt.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+            List var32 = this.bi.b((OEntity) this, this.bw.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
             int var33;
 
             if (var32 != null && var32.size() > 0) {
                 for (var33 = 0; var33 < var32.size(); ++var33) {
                     OEntity var34 = (OEntity) var32.get(var33);
 
-                    if (var34 != this.bd && var34.f_() && var34 instanceof OEntityBoat) {
+                    if (var34 != this.bg && var34.f_() && var34 instanceof OEntityBoat) {
                         var34.j(this);
                     }
                 }
             }
 
             for (var33 = 0; var33 < 4; ++var33) {
-                int var37 = OMathHelper.b(this.bj + ((double) (var33 % 2) - 0.5D) * 0.8D);
-                int var35 = OMathHelper.b(this.bk);
-                int var36 = OMathHelper.b(this.bl + ((double) (var33 / 2) - 0.5D) * 0.8D);
+                int var37 = OMathHelper.b(this.bm + ((double) (var33 % 2) - 0.5D) * 0.8D);
+                int var35 = OMathHelper.b(this.bn);
+                int var36 = OMathHelper.b(this.bo + ((double) (var33 / 2) - 0.5D) * 0.8D);
 
-                if (this.bf.a(var37, var35, var36) == OBlock.aU.bO) {
-                    this.bf.e(var37, var35, var36, 0);
+                if (this.bi.a(var37, var35, var36) == OBlock.aU.bO) {
+                    this.bi.e(var37, var35, var36, 0);
                 }
             }
 
-            if (this.bd != null && this.bd.bB) {
-                this.bd = null;
+            if (this.bg != null && this.bg.bE) {
+                this.bg = null;
             }
 
         }
     }
 
     public void i() {
-        if (this.bd != null) {
-            double var1 = Math.cos((double) this.bp * 3.141592653589793D / 180.0D) * 0.4D;
-            double var3 = Math.sin((double) this.bp * 3.141592653589793D / 180.0D) * 0.4D;
+        if (this.bg != null) {
+            double var1 = Math.cos((double) this.bs * 3.141592653589793D / 180.0D) * 0.4D;
+            double var3 = Math.sin((double) this.bs * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.bd.c(this.bj + var1, this.bk + this.q() + this.bd.R(), this.bl + var3);
+            this.bg.c(this.bm + var1, this.bn + this.q() + this.bg.S(), this.bo + var3);
         }
     }
 
@@ -344,10 +344,10 @@ public class OEntityBoat extends OEntity {
         // CanaryMod: Entering the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, boat, var1.entity);
 
-        if (this.bd != null && this.bd instanceof OEntityPlayer && this.bd != var1) {
+        if (this.bg != null && this.bg instanceof OEntityPlayer && this.bg != var1) {
             return true;
         } else {
-            if (!this.bf.I) {
+            if (!this.bi.I) {
                 var1.b((OEntity) this);
             }
 
@@ -356,26 +356,26 @@ public class OEntityBoat extends OEntity {
     }
 
     public void b(int var1) {
-        this.bV.b(19, Integer.valueOf(var1));
+        this.bY.b(19, Integer.valueOf(var1));
     }
 
     public int j() {
-        return this.bV.c(19);
+        return this.bY.c(19);
     }
 
     public void c(int var1) {
-        this.bV.b(17, Integer.valueOf(var1));
+        this.bY.b(17, Integer.valueOf(var1));
     }
 
     public int k() {
-        return this.bV.c(17);
+        return this.bY.c(17);
     }
 
     public void d(int var1) {
-        this.bV.b(18, Integer.valueOf(var1));
+        this.bY.b(18, Integer.valueOf(var1));
     }
 
     public int l() {
-        return this.bV.c(18);
+        return this.bY.c(18);
     }
 }

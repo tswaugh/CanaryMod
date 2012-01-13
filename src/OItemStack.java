@@ -25,15 +25,15 @@ public final class OItemStack {
     }
 
     public OItemStack(OItem var1) {
-        this(var1.bM, 1, 0);
+        this(var1.bN, 1, 0);
     }
 
     public OItemStack(OItem var1, int var2) {
-        this(var1.bM, var2, 0);
+        this(var1.bN, var2, 0);
     }
 
     public OItemStack(OItem var1, int var2, int var3) {
-        this(var1.bM, var2, var3);
+        this(var1.bN, var2, var3);
     }
 
     public OItemStack(int var1, int var2, int var3) {
@@ -155,7 +155,7 @@ public final class OItemStack {
             if (var1 > 0 && var2 instanceof OEntityPlayer) {
                 int var3 = OEnchantmentHelper.c(((OEntityPlayer) var2).k);
 
-                if (var3 > 0 && var2.bf.w.nextInt(var3 + 1) > 0) {
+                if (var3 > 0 && var2.bi.w.nextInt(var3 + 1) > 0) {
                     return;
                 }
             }
@@ -224,6 +224,10 @@ public final class OItemStack {
     }
 
     public static boolean a(OItemStack var0, OItemStack var1) {
+        return var0 == null && var1 == null ? true : (var0 != null && var1 != null ? (var0.d == null && var1.d != null ? false : var0.d == null || var0.d.equals(var1.d)) : false);
+    }
+
+    public static boolean b(OItemStack var0, OItemStack var1) {
         return var0 == null && var1 == null ? true : (var0 != null && var1 != null ? var0.d(var1) : false);
     }
 
@@ -289,15 +293,11 @@ public final class OItemStack {
     }
 
     public void d(ONBTTagCompound var1) {
-        if (OItem.d[this.c].d() != 1) {
-            throw new IllegalArgumentException("Cannot add tag data to a stackable item");
-        } else {
             this.d = var1;
         }
-    }
 
     public boolean q() {
-        return !this.a().e(this) ? false : !this.r();
+        return !this.a().f(this) ? false : !this.r();
     }
 
     public void a(OEnchantment var1, int var2) {
@@ -312,7 +312,7 @@ public final class OItemStack {
         ONBTTagList var3 = (ONBTTagList) this.d.b("ench");
         ONBTTagCompound var4 = new ONBTTagCompound();
 
-        var4.a("id", (short) var1.t); // CanaryMod: fix jarjar
+        var4.a("id", (short) var1.x); // CanaryMod: fix jarjar
         var4.a("lvl", (short) ((byte) var2));
         var3.a((ONBTBase) var4);
     }

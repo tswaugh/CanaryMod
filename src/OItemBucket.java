@@ -5,15 +5,15 @@ public class OItemBucket extends OItem {
 
     public OItemBucket(int var1, int var2) {
         super(var1);
-        this.bN = 1;
+        this.bO = 1;
         this.a = var2;
     }
 
     public OItemStack a(OItemStack var1, OWorld var2, OEntityPlayer var3) {
         float var4 = 1.0F;
-        double var5 = var3.bg + (var3.bj - var3.bg) * (double) var4;
-        double var7 = var3.bh + (var3.bk - var3.bh) * (double) var4 + 1.62D - (double) var3.bC;
-        double var9 = var3.bi + (var3.bl - var3.bi) * (double) var4;
+        double var5 = var3.bj + (var3.bm - var3.bj) * (double) var4;
+        double var7 = var3.bk + (var3.bn - var3.bk) * (double) var4 + 1.62D - (double) var3.bF;
+        double var9 = var3.bl + (var3.bo - var3.bl) * (double) var4;
         boolean var11 = this.a == 0;
         OMovingObjectPosition var12 = this.a(var2, var3, var11);
 
@@ -90,7 +90,7 @@ public class OItemBucket extends OItem {
                     }
 
                     if (var2.f(var13, var14, var15) || !var2.d(var13, var14, var15).a()) {
-                        if (var2.y.d && this.a == OBlock.C.bO) {
+                        if (var2.y.e && this.a == OBlock.C.bO) {
                             var2.a(var5 + 0.5D, var7 + 0.5D, var9 + 0.5D, "random.fizz", 0.5F, 2.6F + (var2.w.nextFloat() - var2.w.nextFloat()) * 0.8F);
 
                             for (int var16 = 0; var16 < 8; ++var16) {

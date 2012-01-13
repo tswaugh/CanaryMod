@@ -3,7 +3,7 @@ public class OItemHoe extends OItem {
 
     public OItemHoe(int var1, OEnumToolMaterial var2) {
         super(var1);
-        this.bN = 1;
+        this.bO = 1;
         this.f(var2.a());
     }
 

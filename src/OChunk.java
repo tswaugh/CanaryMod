@@ -105,7 +105,7 @@ public class OChunk {
                     var1 = var4;
                 }
 
-                if (!this.f.y.e) {
+                if (!this.f.y.f) {
                     int var6 = 15;
                     int var7 = this.f.c - 1;
 
@@ -239,7 +239,7 @@ public class OChunk {
             var8 = this.m * 16 + var3;
             int var10;
 
-            if (!this.f.y.e) {
+            if (!this.f.y.f) {
                 if (var5 < var4) {
                     for (var9 = var5; var9 < var4; ++var9) {
                         this.h.a(var1, var9, var3, 15);
@@ -274,7 +274,7 @@ public class OChunk {
                 var11 = var4;
             }
 
-            if (!this.f.y.e) {
+            if (!this.f.y.f) {
                 this.d(var7 - 1, var8, var10, var11);
                 this.d(var7 + 1, var8, var10, var11);
                 this.d(var7, var8 - 1, var10, var11);
@@ -388,13 +388,13 @@ public class OChunk {
             if (var9 != 0) {
                 if (!this.f.I) {
                     OBlock.m[var9].d(this.f, var10, var2, var11);
-                } else if (OBlock.m[var9] instanceof OBlockContainer) {
+                } else if (OBlock.m[var9] instanceof OBlockContainer && var9 != var4) {
                     this.f.n(var10, var2, var11);
                 }
             }
 
             this.g.a(var1, var2, var3, var5);
-            if (!this.f.y.e) {
+            if (!this.f.y.f) {
                 if (OBlock.q[var6 & 255] != 0) {
                     if (var2 >= var8) {
                         this.g(var1, var2 + 1, var3);
@@ -420,7 +420,7 @@ public class OChunk {
                     var12 = this.d(var1, var2, var3);
                     if (var12 == null) {
                         var12 = ((OBlockContainer) OBlock.m[var4]).a_();
-                        this.f.a(var1, var2, var3, var12);
+                        this.f.a(var10, var2, var11, var12);
                     }
 
                     if (var12 != null) {
@@ -561,7 +561,7 @@ public class OChunk {
                     var11 = this.d(var1, var2, var3);
                     if (var11 == null) {
                         var11 = ((OBlockContainer) OBlock.m[var4]).a_();
-                        this.f.a(var1, var2, var3, var11);
+                        this.f.a(var9, var2, var10, var11);
                     }
 
                     if (var11 != null) {
@@ -614,7 +614,7 @@ public class OChunk {
     public void a(OEnumSkyBlock var1, int var2, int var3, int var4, int var5) {
         this.q = true;
         if (var1 == OEnumSkyBlock.a) {
-            if (!this.f.y.e) {
+            if (!this.f.y.f) {
                 this.h.a(var2, var3, var4, var5);
             }
         } else {
@@ -628,7 +628,7 @@ public class OChunk {
     }
 
     public int c(int var1, int var2, int var3, int var4) {
-        int var5 = this.f.y.e ? 0 : this.h.a(var1, var2, var3);
+        int var5 = this.f.y.f ? 0 : this.h.a(var1, var2, var3);
 
         if (var5 > 0) {
             a = true;
@@ -646,15 +646,15 @@ public class OChunk {
 
     public void a(OEntity var1) {
         this.s = true;
-        int var2 = OMathHelper.b(var1.bj / 16.0D);
-        int var3 = OMathHelper.b(var1.bl / 16.0D);
+        int var2 = OMathHelper.b(var1.bm / 16.0D);
+        int var3 = OMathHelper.b(var1.bo / 16.0D);
 
         if (var2 != this.l || var3 != this.m) {
             System.out.println("Wrong location! " + var1);
             Thread.dumpStack();
         }
 
-        int var4 = OMathHelper.b(var1.bk / 16.0D);
+        int var4 = OMathHelper.b(var1.bn / 16.0D);
 
         if (var4 < 0) {
             var4 = 0;
@@ -664,15 +664,15 @@ public class OChunk {
             var4 = this.o.length - 1;
         }
 
-        var1.bW = true;
-        var1.bX = this.l;
-        var1.bY = var4;
-        var1.bZ = this.m;
+        var1.bZ = true;
+        var1.ca = this.l;
+        var1.cb = var4;
+        var1.cc = this.m;
         this.o[var4].add(var1);
     }
 
     public void b(OEntity var1) {
-        this.a(var1, var1.bY);
+        this.a(var1, var1.cb);
     }
 
     public void a(OEntity var1, int var2) {
@@ -804,14 +804,14 @@ public class OChunk {
             for (int var8 = 0; var8 < var7.size(); ++var8) {
                 OEntity var9 = (OEntity) var7.get(var8);
 
-                if (var9 != var1 && var9.bt.a(var2)) {
+                if (var9 != var1 && var9.bw.a(var2)) {
                     var3.add(var9);
-                    OEntity[] var10 = var9.aG();
+                    OEntity[] var10 = var9.aR();
 
                     if (var10 != null) {
                         for (int var11 = 0; var11 < var10.length; ++var11) {
                             var9 = var10[var11];
-                            if (var9 != var1 && var9.bt.a(var2)) {
+                            if (var9 != var1 && var9.bw.a(var2)) {
                                 var3.add(var9);
                             }
                         }
@@ -844,7 +844,7 @@ public class OChunk {
             for (int var8 = 0; var8 < var7.size(); ++var8) {
                 OEntity var9 = (OEntity) var7.get(var8);
 
-                if (var1.isAssignableFrom(var9.getClass()) && var9.bt.a(var2)) {
+                if (var1.isAssignableFrom(var9.getClass()) && var9.bw.a(var2)) {
                     var3.add(var9);
                 }
             }
@@ -1075,7 +1075,7 @@ public class OChunk {
     }
 
     public void i() {
-        if (this.v && !this.f.y.e) {
+        if (this.v && !this.f.y.f) {
             this.k();
         }
 

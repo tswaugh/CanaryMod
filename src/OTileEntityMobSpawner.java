@@ -70,7 +70,7 @@ public class OTileEntityMobSpawner extends OTileEntity {
                             var9.spawner = (MobSpawner) k.world.getComplexBlock(l, m, n);
                             this.k.b((OEntity) var9);
                             this.k.f(2004, this.l, this.m, this.n, 0);
-                            var9.ah();
+                            var9.ao();
                             this.e();
                         }
                     }

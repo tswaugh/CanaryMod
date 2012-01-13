@@ -36,6 +36,15 @@ public class OPlayerManager {
         }
 
         this.c.clear();
+        if (this.a.isEmpty()) {
+            OWorldServer var3 = this.d.a(this.e);
+            OWorldProvider var2 = var3.y;
+
+            if (!var2.c()) {
+                var3.J.c();
+            }
+        }
+
     }
 
     private OPlayerInstance a(int var1, int var2, boolean var3) {
@@ -62,11 +71,11 @@ public class OPlayerManager {
     }
 
     public void a(OEntityPlayerMP var1) {
-        int var2 = (int) var1.bj >> 4;
-        int var3 = (int) var1.bl >> 4;
+        int var2 = (int) var1.bm >> 4;
+        int var3 = (int) var1.bo >> 4;
 
-        var1.d = var1.bj;
-        var1.e = var1.bl;
+        var1.d = var1.bm;
+        var1.e = var1.bo;
         int var4 = 0;
         int var5 = this.f;
         int var6 = 0;
@@ -124,10 +133,10 @@ public class OPlayerManager {
     }
 
     public void c(OEntityPlayerMP var1) {
-        int var2 = (int) var1.bj >> 4;
-        int var3 = (int) var1.bl >> 4;
-        double var4 = var1.d - var1.bj;
-        double var6 = var1.e - var1.bl;
+        int var2 = (int) var1.bm >> 4;
+        int var3 = (int) var1.bo >> 4;
+        double var4 = var1.d - var1.bm;
+        double var6 = var1.e - var1.bo;
         double var8 = var4 * var4 + var6 * var6;
 
         if (var8 >= 64.0D) {
@@ -160,8 +169,8 @@ public class OPlayerManager {
                     }
                 }
 
-                var1.d = var1.bj;
-                var1.e = var1.bl;
+                var1.d = var1.bm;
+                var1.e = var1.bo;
             }
         }
     }

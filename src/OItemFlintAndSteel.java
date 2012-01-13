@@ -3,7 +3,7 @@ public class OItemFlintAndSteel extends OItem {
 
     public OItemFlintAndSteel(int var1) {
         super(var1);
-        this.bN = 1;
+        this.bO = 1;
         this.f(64);
     }
 

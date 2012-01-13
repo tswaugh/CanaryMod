@@ -113,15 +113,15 @@ public class OExplosion {
             double var33 = var32.f(this.b, this.c, this.d) / (double) this.f;
 
             if (var33 <= 1.0D) {
-                var15 = var32.bj - this.b;
-                var17 = var32.bk - this.c;
-                var19 = var32.bl - this.d;
+                var15 = var32.bm - this.b;
+                var17 = var32.bn - this.c;
+                var19 = var32.bo - this.d;
                 double var35 = (double) OMathHelper.a(var15 * var15 + var17 * var17 + var19 * var19);
 
                 var15 /= var35;
                 var17 /= var35;
                 var19 /= var35;
-                double var37 = (double) this.i.a(var30, var32.bt);
+                double var37 = (double) this.i.a(var30, var32.bw);
                 double var39 = (1.0D - var33) * var37;
                 
                 // CanaryMod Damage hook: Explosions
@@ -129,12 +129,12 @@ public class OExplosion {
                 PluginLoader.DamageType dmgType = (e instanceof OEntityCreeper) ? PluginLoader.DamageType.CREEPER_EXPLOSION : PluginLoader.DamageType.EXPLOSION;
 
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, null, var32.entity, damage)) {
-                    var32.a(ODamageSource.k, (int) ((var39 * var39 + var39) / 2.0D * 8.0D * (double) this.f + 1.0D));
+                    var32.a(ODamageSource.l, (int) ((var39 * var39 + var39) / 2.0D * 8.0D * (double) this.f + 1.0D));
                 }
 
-                var32.bm += var15 * var39;
-                var32.bn += var17 * var39;
-                var32.bo += var19 * var39;
+                var32.bp += var15 * var39;
+                var32.bq += var17 * var39;
+                var32.br += var19 * var39;
             }
         }
 

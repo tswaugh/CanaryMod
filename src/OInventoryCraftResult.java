@@ -40,7 +40,7 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
         return 64;
     }
 
-    public void x_() {}
+    public void z_() {}
 
     public boolean a(OEntityPlayer var1) {
         return true;

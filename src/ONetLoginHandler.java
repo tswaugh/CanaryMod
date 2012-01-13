@@ -63,8 +63,8 @@ public class ONetLoginHandler extends ONetHandler {
 
     public void a(OPacket1Login var1) {
         this.g = var1.b;
-        if (var1.a != 22) {
-            if (var1.a > 22) {
+        if (var1.a != 23) {
+            if (var1.a > 23) {
                 this.a("Outdated server!");
             } else {
                 this.a("Outdated client!");
@@ -86,8 +86,8 @@ public class ONetLoginHandler extends ONetHandler {
         if (var2 != null) {
             this.e.h.b(var2);
             var2.a((OWorld) this.e.a(var2.w));
-            var2.c.a((OWorldServer) var2.bf);
-            a.info(this.b() + " logged in with entity id " + var2.ba + " at (" + var2.bj + ", " + var2.bk + ", " + var2.bl + ")");
+            var2.c.a((OWorldServer) var2.bi);
+            a.info(this.b() + " logged in with entity id " + var2.bd + " at (" + var2.bm + ", " + var2.bn + ", " + var2.bo + ")");
             OWorldServer var3 = this.e.a(var2.w);
             OChunkCoordinates var4 = var3.o();
 
@@ -95,7 +95,7 @@ public class ONetLoginHandler extends ONetHandler {
             ONetServerHandler var5 = new ONetServerHandler(this.e, this.b, var2);
 
             // CanaryMod - if seed is hidden send 0 instead.
-            var5.b((OPacket) (new OPacket1Login("", var2.ba, etc.getInstance().getHideSeed() == true ? 0 : var3.m(), var2.c.a(), (byte) var3.y.g, (byte) var3.v, (byte) var3.c, (byte) this.e.h.k())));
+            var5.b((OPacket) (new OPacket1Login("", var2.bd, etc.getInstance().getHideSeed() == true ? 0 : var3.m(), var3.r().q(), var2.c.a(), (byte) var3.y.h, (byte) var3.v, (byte) var3.c, (byte) this.e.h.k())));
             var5.b((OPacket) (new OPacket6SpawnPosition(var4.a, var4.b, var4.c)));
             this.e.h.a(var2, var3);
             // CanaryMod - onPlayerConnect Hook
@@ -110,22 +110,22 @@ public class ONetLoginHandler extends ONetHandler {
             var2.getPlayer().refreshCreativeMode();
             
             this.e.h.c(var2);
-            var5.a(var2.bj, var2.bk, var2.bl, var2.bp, var2.bq);
+            var5.a(var2.bm, var2.bn, var2.bo, var2.bs, var2.bt);
             this.e.c.a(var5);
             var5.b((OPacket) (new OPacket4UpdateTime(var3.n())));
 
             // CanaryMod - enable/disable potion effects on login
             if (hookResult.applyPotionsEffects()) {
-                Iterator var6 = var2.as().iterator();
+                Iterator var6 = var2.aD().iterator();
 
                 while (var6.hasNext()) {
                     OPotionEffect var7 = (OPotionEffect) var6.next();
 
-                    var5.b((OPacket) (new OPacket41EntityEffect(var2.ba, var7)));
+                    var5.b((OPacket) (new OPacket41EntityEffect(var2.bd, var7)));
                 }
             }
 
-            var2.u();
+            var2.v();
         }
 
         this.c = true;
@@ -141,7 +141,7 @@ public class ONetLoginHandler extends ONetHandler {
             return;
         } // CanaryMod - Fix if we don't have a socket, don't do anything
         try {
-            String var2 = this.e.r + "\u00a7" + this.e.h.j() + "\u00a7" + this.e.h.k();
+            String var2 = this.e.s + "\u00a7" + this.e.h.j() + "\u00a7" + this.e.h.k();
 
             this.b.a((OPacket) (new OPacket255KickDisconnect(var2)));
             // CanaryMod swapped lines below. The network connection should be terminated AFTER removing the socket from the connection list.

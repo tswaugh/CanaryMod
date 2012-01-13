@@ -35,7 +35,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
     private int d(OItemStack var1) {
         for (int var2 = 0; var2 < this.a.length; ++var2) {
-            if (this.a[var2] != null && this.a[var2].c == var1.c && this.a[var2].c() && this.a[var2].a < this.a[var2].b() && this.a[var2].a < this.a() && (!this.a[var2].e() || this.a[var2].h() == var1.h())) {
+            if (this.a[var2] != null && this.a[var2].c == var1.c && this.a[var2].c() && this.a[var2].a < this.a[var2].b() && this.a[var2].a < this.a() && (!this.a[var2].e() || this.a[var2].h() == var1.h()) && OItemStack.a(this.a[var2], var1)) {
                 return var2;
             }
         }
@@ -80,6 +80,9 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
             } else {
                 if (this.a[var4] == null) {
                     this.a[var4] = new OItemStack(var2, 0, var1.h());
+                    if (var1.n()) {
+                        this.a[var4].d((ONBTTagCompound) var1.o().b());
+                    }
                 }
 
                 int var5 = var3;
@@ -107,7 +110,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     public void i() {
         for (int var1 = 0; var1 < this.a.length; ++var1) {
             if (this.a[var1] != null) {
-                this.a[var1].a(this.d.bf, this.d, var1, this.c == var1);
+                this.a[var1].a(this.d.bi, this.d, var1, this.c == var1);
             }
         }
 
@@ -387,7 +390,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
     }
 
-    public void x_() {
+    public void z_() {
         this.e = true;
     }
 
@@ -401,7 +404,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     }
 
     public boolean a(OEntityPlayer var1) {
-        return this.d.bB ? false : var1.i(this.d) <= 64.0D;
+        return this.d.bE ? false : var1.i(this.d) <= 64.0D;
     }
 
     public boolean c(OItemStack var1) {

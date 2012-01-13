@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -43,6 +44,17 @@ public class OChunkProviderServer implements OIChunkProvider {
             }
         } else {
             this.b.add(Long.valueOf(OChunkCoordIntPair.a(var1, var2)));
+        }
+
+    }
+
+    public void c() {
+        Iterator var1 = this.g.iterator();
+
+        while (var1.hasNext()) {
+            OChunk var2 = (OChunk) var1.next();
+
+            this.d(var2.l, var2.m);
         }
 
     }
@@ -225,6 +237,10 @@ public class OChunkProviderServer implements OIChunkProvider {
 
     public boolean b() {
         return !this.h.L;
+    }
+
+    public String d() {
+        return "ServerChunkCache: " + this.f.a() + " Drop: " + this.b.size();
     }
 
     public List a(OEnumCreatureType var1, int var2, int var3, int var4) {

@@ -229,10 +229,12 @@ public class ONetworkManager {
     }
 
     public void d() {
+        if (!this.q) {
         this.a();
         this.q = true;
         this.s.interrupt();
         (new OThreadMonitorConnection(this)).start();
+    }
     }
 
     public int e() {

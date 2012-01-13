@@ -33,11 +33,11 @@ public class OFoodStats {
     }
 
     public void a(OItemFood var1) {
-        this.a(var1.n(), var1.o());
+        this.a(var1.o(), var1.p());
     }
 
     public void a(OEntityPlayer var1) {
-        int var2 = var1.bf.v;
+        int var2 = var1.bi.v;
 
         this.e = this.a;
         if (this.c > 4.0F) {
@@ -70,10 +70,10 @@ public class OFoodStats {
         } else if (this.a <= 0) {
             ++this.d;
             if (this.d >= 80) {
-                if (var1.ai() > 10 || var2 >= 3 || var1.ai() > 1 && var2 >= 2) {
+                if (var1.ap() > 10 || var2 >= 3 || var1.ap() > 1 && var2 >= 2) {
                     // CanaryMod: DAMAGE From starvation
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.STARVATION, null, ((OEntityPlayerMP) var1).getPlayer(), 1)) {
-                        var1.a(ODamageSource.f, 1);
+                        var1.a(ODamageSource.g, 1);
                     }
                 }
 

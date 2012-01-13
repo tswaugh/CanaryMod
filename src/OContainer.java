@@ -49,7 +49,7 @@ public abstract class OContainer {
       for(int var1 = 0; var1 < this.e.size(); ++var1) {
          OItemStack var2 = ((OSlot)this.e.get(var1)).b();
          OItemStack var3 = (OItemStack)this.d.get(var1);
-         if(!OItemStack.a(var3, var2)) {
+         if(!OItemStack.b(var3, var2)) {
             var3 = var2 == null?null:var2.j();
             this.d.set(var1, var3);
 
@@ -153,7 +153,7 @@ public abstract class OContainer {
 
                      var12.b(var6.l());
                   } else if(var12.a(var14)) {
-                     if(var13.c == var14.c && (!var13.e() || var13.h() == var14.h())) {
+                     if(var13.c == var14.c && (!var13.e() || var13.h() == var14.h()) && OItemStack.a(var13, var14)) {
                         var10 = var2 == 0?var14.a:1;
                         if(var10 > var12.a() - var13.a) {
                            var10 = var12.a() - var13.a;
@@ -162,6 +162,7 @@ public abstract class OContainer {
                         if(var10 > var14.b() - var13.a) {
                            var10 = var14.b() - var13.a;
                         }
+
 
                         var14.a(var10);
                         if(var14.a == 0) {
@@ -173,7 +174,7 @@ public abstract class OContainer {
                         var12.c(var14);
                         var6.b(var13);
                      }
-                  } else if(var13.c == var14.c && var14.b() > 1 && (!var13.e() || var13.h() == var14.h())) {
+                  } else if(var13.c == var14.c && var14.b() > 1 && (!var13.e() || var13.h() == var14.h()) && OItemStack.a(var13, var14)) {
                      var10 = var13.a;
                      if(var10 > 0 && var10 + var14.a <= var14.b()) {
                         var14.a += var10;
@@ -247,7 +248,7 @@ public abstract class OContainer {
          while(var1.a > 0 && (!var4 && var6 < var3 || var4 && var6 >= var2)) {
             var7 = (OSlot)this.e.get(var6);
             var8 = var7.b();
-            if(var8 != null && var8.c == var1.c && (!var1.e() || var1.h() == var8.h())) {
+            if(var8 != null && var8.c == var1.c && (!var1.e() || var1.h() == var8.h()) && OItemStack.a(var1, var8)) {
                int var9 = var8.a + var1.a;
                if(var9 <= var1.b()) {
                   var1.a = 0;

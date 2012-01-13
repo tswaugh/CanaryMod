@@ -9,29 +9,29 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     
     public OEntityMob(OWorld var1) {
         super(var1);
-        this.az = 5;
+        this.aA = 5;
     }
 
     public void d() {
         float var1 = this.a(1.0F);
 
         if (var1 > 0.5F) {
-            this.aS += 2;
+            this.aV += 2;
         }
 
         super.d();
     }
 
-    public void w_() {
-        super.w_();
-        if (!this.bf.I && this.bf.v == 0) {
-            this.S();
+    public void y_() {
+        super.y_();
+        if (!this.bi.I && this.bi.v == 0) {
+            this.T();
         }
 
     }
 
     protected OEntity k() {
-        OEntityPlayer var1 = this.bf.b(this, 16.0D);
+        OEntityPlayer var1 = this.bi.b(this, 16.0D);
 
         return var1 != null && this.g(var1) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity) ? null : var1; // CanaryMod: MOB_TARGET hook
     }
@@ -40,11 +40,12 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         if (super.a(var1, var2)) {
             OEntity var3 = var1.a();
 
-            if (this.bd != var3 && this.be != var3) {
+            if (this.bg != var3 && this.bh != var3) {
                 if (var3 != this) {
                     // CanaryMod start - MOB_TARGET hook
                     if (var3 instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), entity)) {
                         this.d = var3;
+                        this.aI = var3 instanceof OEntityLiving ? (OEntityLiving) var3 : null;
                     }
                     // CanaryMod end
                 }
@@ -58,7 +59,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         }
     }
 
-    protected boolean d(OEntity var1) {
+    public boolean d(OEntity var1) {
         int var2 = this.c;
 
         if (this.a(OPotion.g)) {
@@ -73,15 +74,15 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     }
 
     protected void a(OEntity var1, float var2) {
-        if (this.av <= 0 && var2 < 2.0F && var1.bt.e > this.bt.b && var1.bt.b < this.bt.e) {
-            this.av = 20;
+        if (this.aw <= 0 && var2 < 2.0F && var1.bw.e > this.bw.b && var1.bw.b < this.bw.e) {
+            this.aw = 20;
             this.d(var1);
         }
 
     }
 
-    protected float a(int var1, int var2, int var3) {
-        return 0.5F - this.bf.m(var1, var2, var3);
+    public float a(int var1, int var2, int var3) {
+        return 0.5F - this.bi.m(var1, var2, var3);
     }
 
     public void b(ONBTTagCompound var1) {
@@ -92,29 +93,29 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         super.a(var1);
     }
 
-    protected boolean y() {
-        int var1 = OMathHelper.b(this.bj);
-        int var2 = OMathHelper.b(this.bt.b);
-        int var3 = OMathHelper.b(this.bl);
+    protected boolean z() {
+        int var1 = OMathHelper.b(this.bm);
+        int var2 = OMathHelper.b(this.bw.b);
+        int var3 = OMathHelper.b(this.bo);
 
-        if (this.bf.a(OEnumSkyBlock.a, var1, var2, var3) > this.bP.nextInt(32)) {
+        if (this.bi.a(OEnumSkyBlock.a, var1, var2, var3) > this.bS.nextInt(32)) {
             return false;
         } else {
-            int var4 = this.bf.l(var1, var2, var3);
+            int var4 = this.bi.l(var1, var2, var3);
 
-            if (this.bf.v()) {
-                int var5 = this.bf.k;
+            if (this.bi.v()) {
+                int var5 = this.bi.k;
 
-                this.bf.k = 10;
-                var4 = this.bf.l(var1, var2, var3);
-                this.bf.k = var5;
+                this.bi.k = 10;
+                var4 = this.bi.l(var1, var2, var3);
+                this.bi.k = var5;
             }
 
-            return var4 <= this.bP.nextInt(8);
+            return var4 <= this.bS.nextInt(8);
         }
     }
 
     public boolean g() {
-        return this.y() && super.g();
+        return this.z() && super.g();
     }
 }

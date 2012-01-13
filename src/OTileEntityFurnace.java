@@ -141,7 +141,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
 
         if (var2) {
-            this.x_();
+            this.z_();
         }
 
     }
@@ -150,7 +150,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (this.d[0] == null) {
             return false;
         } else {
-            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bM);
+            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bN);
 
             return var1 == null ? false : (this.d[2] == null ? true : (!this.d[2].a(var1) ? false : (this.d[2].a < this.a() && this.d[2].a < this.d[2].b() ? true : this.d[2].a < var1.b())));
         }
@@ -158,7 +158,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     public void n() {
         if (this.o()) {
-            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bM);
+            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bN);
 
             if (this.d[2] == null) {
                 this.d[2] = var1.j();
@@ -178,9 +178,9 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (var1 == null) {
             return 0;
         } else {
-            int var2 = var1.a().bM;
+            int var2 = var1.a().bN;
 
-            return var2 < 256 && OBlock.m[var2].cb == OMaterial.d ? 300 : (var2 == OItem.C.bM ? 100 : (var2 == OItem.l.bM ? 1600 : (var2 == OItem.ax.bM ? 20000 : (var2 == OBlock.A.bO ? 100 : (var2 == OItem.bn.bM ? 2400 : 0)))));
+            return var2 < 256 && OBlock.m[var2].cb == OMaterial.d ? 300 : (var2 == OItem.C.bN ? 100 : (var2 == OItem.l.bN ? 1600 : (var2 == OItem.ax.bN ? 20000 : (var2 == OBlock.A.bO ? 100 : (var2 == OItem.bn.bN ? 2400 : 0)))));
         }
     }
 

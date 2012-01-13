@@ -91,8 +91,8 @@ public class OBlockStairs extends OBlock {
         this.a.a(var1, var2, var3, var4, var5, var6);
     }
 
-    public boolean v_() {
-        return this.a.v_();
+    public boolean x_() {
+        return this.a.x_();
     }
 
     public boolean a(int var1, boolean var2) {
@@ -129,7 +129,7 @@ public class OBlockStairs extends OBlock {
     }
 
     public void a(OWorld var1, int var2, int var3, int var4, OEntityLiving var5) {
-        int var6 = OMathHelper.b((double) (var5.bp * 4.0F / 360.0F) + 0.5D) & 3;
+        int var6 = OMathHelper.b((double) (var5.bs * 4.0F / 360.0F) + 0.5D) & 3;
 
         if (var6 == 0) {
             var1.c(var2, var3, var4, 2);

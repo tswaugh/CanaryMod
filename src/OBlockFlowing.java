@@ -27,7 +27,7 @@ public class OBlockFlowing extends OBlockFluid {
         int var6 = this.g(var1, var2, var3, var4);
         byte var7 = 1;
 
-        if (this.cb == OMaterial.h && !var1.y.d) {
+        if (this.cb == OMaterial.h && !var1.y.e) {
             var7 = 2;
         }
 

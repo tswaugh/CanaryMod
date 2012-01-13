@@ -15,13 +15,13 @@ public class OEntityItem extends OEntity {
     public OEntityItem(OWorld var1, double var2, double var4, double var6, OItemStack var8) {
         super(var1);
         this.b(0.25F, 0.25F);
-        this.bC = this.bE / 2.0F;
+        this.bF = this.bH / 2.0F;
         this.c(var2, var4, var6);
         this.a = var8;
-        this.bp = (float) (Math.random() * 360.0D);
-        this.bm = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
-        this.bn = 0.20000000298023224D;
-        this.bo = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
+        this.bs = (float) (Math.random() * 360.0D);
+        this.bp = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
+        this.bq = 0.20000000298023224D;
+        this.br = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
     }
 
     protected boolean g_() {
@@ -31,46 +31,46 @@ public class OEntityItem extends OEntity {
     public OEntityItem(OWorld var1) {
         super(var1);
         this.b(0.25F, 0.25F);
-        this.bC = this.bE / 2.0F;
+        this.bF = this.bH / 2.0F;
     }
 
     protected void b() {}
 
-    public void w_() {
-        super.w_();
+    public void y_() {
+        super.y_();
         if (this.c > 0) {
             --this.c;
         }
 
-        this.bg = this.bj;
-        this.bh = this.bk;
-        this.bi = this.bl;
-        this.bn -= 0.03999999910593033D;
-        if (this.bf.d(OMathHelper.b(this.bj), OMathHelper.b(this.bk), OMathHelper.b(this.bl)) == OMaterial.h) {
-            this.bn = 0.20000000298023224D;
-            this.bm = (double) ((this.bP.nextFloat() - this.bP.nextFloat()) * 0.2F);
-            this.bo = (double) ((this.bP.nextFloat() - this.bP.nextFloat()) * 0.2F);
-            this.bf.a(this, "random.fizz", 0.4F, 2.0F + this.bP.nextFloat() * 0.4F);
+        this.bj = this.bm;
+        this.bk = this.bn;
+        this.bl = this.bo;
+        this.bq -= 0.03999999910593033D;
+        if (this.bi.d(OMathHelper.b(this.bm), OMathHelper.b(this.bn), OMathHelper.b(this.bo)) == OMaterial.h) {
+            this.bq = 0.20000000298023224D;
+            this.bp = (double) ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F);
+            this.br = (double) ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F);
+            this.bi.a(this, "random.fizz", 0.4F, 2.0F + this.bS.nextFloat() * 0.4F);
         }
 
-        this.g(this.bj, (this.bt.b + this.bt.e) / 2.0D, this.bl);
-        this.a(this.bm, this.bn, this.bo);
+        this.g(this.bm, (this.bw.b + this.bw.e) / 2.0D, this.bo);
+        this.a(this.bp, this.bq, this.br);
         float var1 = 0.98F;
 
-        if (this.bu) {
+        if (this.bx) {
             var1 = 0.58800006F;
-            int var2 = this.bf.a(OMathHelper.b(this.bj), OMathHelper.b(this.bt.b) - 1, OMathHelper.b(this.bl));
+            int var2 = this.bi.a(OMathHelper.b(this.bm), OMathHelper.b(this.bw.b) - 1, OMathHelper.b(this.bo));
 
             if (var2 > 0) {
                 var1 = OBlock.m[var2].cc * 0.98F;
             }
         }
 
-        this.bm *= (double) var1;
-        this.bn *= 0.9800000190734863D;
-        this.bo *= (double) var1;
-        if (this.bu) {
-            this.bn *= -0.5D;
+        this.bp *= (double) var1;
+        this.bq *= 0.9800000190734863D;
+        this.br *= (double) var1;
+        if (this.bx) {
+            this.bq *= -0.5D;
         }
 
         ++this.e;
@@ -78,7 +78,7 @@ public class OEntityItem extends OEntity {
         if (this.b >= 6000) {
             // CanaryMod onEntityDespawn
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENTITY_DESPAWN, item)) {
-                this.S();
+                this.T();
             } else {
                 this.b = 0;
             }
@@ -87,18 +87,18 @@ public class OEntityItem extends OEntity {
     }
 
     public boolean i_() {
-        return this.bf.a(this.bt, OMaterial.g, this);
+        return this.bi.a(this.bw, OMaterial.g, this);
     }
 
     protected void a(int var1) {
-        this.a(ODamageSource.a, var1);
+        this.a(ODamageSource.b, var1);
     }
 
     public boolean a(ODamageSource var1, int var2) {
-        this.aB();
+        this.aM();
         this.f -= var2;
         if (this.f <= 0) {
-            this.S();
+            this.T();
         }
 
         return false;
@@ -117,13 +117,13 @@ public class OEntityItem extends OEntity {
 
         this.a = OItemStack.a(var2);
         if (this.a == null) {
-            this.S();
+            this.T();
         }
 
     }
 
     public void a_(OEntityPlayer var1) {
-        if (!this.bf.I) {
+        if (!this.bi.I) {
             int var2 = this.a.a;
 
             // CanaryMod: First simulate the pickup and call the hooks
@@ -132,24 +132,23 @@ public class OEntityItem extends OEntity {
                     if (this.a.c == OBlock.L.bO) {
                         var1.a((OStatBase) OAchievementList.g);
                     }
-	
-                    if (this.a.c == OItem.aE.bM) {
+
+                    if (this.a.c == OItem.aE.bN) {
                         var1.a((OStatBase) OAchievementList.t);
                     }
-	
-                    if (this.a.c == OItem.m.bM) {
+
+                    if (this.a.c == OItem.m.bN) {
                         var1.a((OStatBase) OAchievementList.w);
                     }
-	
-                    if (this.a.c == OItem.bn.bM) {
+
+                    if (this.a.c == OItem.bn.bN) {
                         var1.a((OStatBase) OAchievementList.z);
                     }
 
-                    this.bf.a(this, "random.pop", 0.2F, ((this.bP.nextFloat() - this.bP.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    this.bi.a(this, "random.pop", 0.2F, ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     var1.a((OEntity) this, var2);
-                    if (this.a.a <= 0) {
-                        this.S();
-                    }
+                    if (this.a.a <= 0)
+                        this.T();
                 }
             }
         }

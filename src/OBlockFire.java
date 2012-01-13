@@ -188,7 +188,7 @@ public class OBlockFire extends OBlock {
         }
     }
 
-    public boolean v_() {
+    public boolean x_() {
         return false;
     }
 
@@ -213,7 +213,7 @@ public class OBlockFire extends OBlock {
     }
 
     public void a(OWorld var1, int var2, int var3, int var4) {
-        if (var1.y.g > 0 || var1.a(var2, var3 - 1, var4) != OBlock.ar.bO || !OBlock.bg.b_(var1, var2, var3, var4)) {
+        if (var1.y.h > 0 || var1.a(var2, var3 - 1, var4) != OBlock.ar.bO || !OBlock.bg.b_(var1, var2, var3, var4)) {
             if (!var1.e(var2, var3 - 1, var4) && !this.g(var1, var2, var3, var4)) {
                 var1.e(var2, var3, var4, 0);
             } else {
