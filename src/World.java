@@ -74,7 +74,7 @@ public class World {
      * @return the dimension type
      */
     public Type getType() {
-        return Type.fromId(world.y.g);
+        return Type.fromId(world.y.h);
     }
 
     /**
