@@ -96,6 +96,11 @@ public class OEntityList {
     public static Class<?> getEntity(String name) {
         return (Class<?>) a.get(name);
     }
+    
+    // CanaryMod: Let us do a class->name lookup for mob spawning
+    public static String getName(Class<? extends OEntity> clazz) {
+        return (String) c.get(clazz);
+    }
 
     static {
         a(OEntityItem.class, "Item", 1);

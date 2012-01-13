@@ -5,9 +5,10 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -66,11 +67,7 @@ public class etc {
     private String[]                      monsters = new String[] {};
     private String[]                      waterAnimals = new String[] {};
     private int                           mobSpawnRate = 100;
-    private boolean                       spawnWolves = true;
-    private boolean                       spawnMooshrooms = true;
     public boolean                        deathMessages = true;
-    private boolean                       mobReload = false;
-    private List<OSpawnListEntry>         animalsList, monsterList, waterAnimalsList;
     private boolean                       crow = false;
     private boolean                       allowNether = true;
     //CanaryMod: Allow End
@@ -167,8 +164,6 @@ public class etc {
                 animals = new String[] {};
             }
             validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf" });
-            spawnWolves = properties.getBoolean("spawn-wolves", true);
-            spawnMooshrooms = properties.getBoolean("spawn-mooshrooms", true);
 
             monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish").split(",");
             if (monsters.length == 1 && (monsters[0].equals(" ") || monsters[0].equals(""))) {
@@ -181,8 +176,6 @@ public class etc {
                 waterAnimals = new String[] {};
             }
             validateMobGroup(waterAnimals, "natural-wateranimals", new String[] { "Squid" });
-
-            mobReload = true;
 
             mobSpawnRate = properties.getInt("natural-spawn-rate", mobSpawnRate);
 
@@ -1115,86 +1108,43 @@ public class etc {
         return monsters;
     }
 
-    public List getMonstersClass(OBiomeGenBase biomeSpawner) {
-        if (mobReload) {
-            reloadMonsterClass();
-        }
-
-        ArrayList toRet = new ArrayList(monsterList);
-
-        if (biomeSpawner instanceof OBiomeGenHell) {
-            toRet.clear();
-            toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityGhast.class));
-            toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityPigZombie.class));
-            toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityBlaze.class));
-            toRet.add(OSpawnListEntry.getSpawnListEntry(OEntityLavaSlime.class));
-        }
+    public List getMonstersClass(OBiomeGenBase biomeGen) {
+        List<OSpawnListEntry> toRet = biomeGen.H;
+        List<String> allowed = Arrays.asList(getMonsters());
         
-        // Fixing ender entities
-        if (biomeSpawner instanceof OBiomeGenSky) {
-            OSpawnListEntry endermanEntry = OSpawnListEntry.getSpawnListEntry(OEntityEnderman.class);
-
-            if (!toRet.contains(endermanEntry)) {
-                toRet.clear();
-            }
-            toRet.add(endermanEntry);
+        Iterator<OSpawnListEntry> it = toRet.iterator();
+        for (OSpawnListEntry en = it.next(); it.hasNext(); en = it.next()) {
+            if (!allowed.contains(OEntityList.getName(en.a)))
+                it.remove();
         }
         
         return toRet;
     }
 
     public List getAnimalsClass(OBiomeGenBase biomeGen) {
-        if (mobReload) {
-            reloadMonsterClass();
-        }
-
-        // Wolfies also like to spawn
-        ArrayList toRet = new ArrayList(animalsList); // Create a copy.
-
-        if (spawnWolves && ((biomeGen instanceof OBiomeGenTaiga) || (biomeGen instanceof OBiomeGenForest))) {
-            OSpawnListEntry wolfEntry = OSpawnListEntry.getSpawnListEntry(OEntityWolf.class);
-
-            if (!toRet.contains(wolfEntry)) {
-                toRet.add(wolfEntry);
-            }
+        List<OSpawnListEntry> toRet = biomeGen.I;
+        List<String> allowed = Arrays.asList(getAnimals());
+        
+        Iterator<OSpawnListEntry> it = toRet.iterator();
+        for (OSpawnListEntry en = it.next(); it.hasNext(); en = it.next()) {
+            if (!allowed.contains(OEntityList.getName(en.a)))
+                it.remove();
         }
         
-        // Mooshrooms also like to spawn
-        if (spawnMooshrooms && (biomeGen instanceof OBiomeGenMushroomIsland)) {
-            OSpawnListEntry mooshroomEntry = OSpawnListEntry.getSpawnListEntry(OEntityMushroomCow.class);
-
-            if (!toRet.contains(mooshroomEntry)) {
-                toRet.clear();
-            }
-            toRet.add(mooshroomEntry);
-        }
-
         return toRet;
     }
 
-    public List getWaterAnimalsClass(OBiomeGenBase biomeSpawner) {
-        if (mobReload) {
-            reloadMonsterClass();
+    public List getWaterAnimalsClass(OBiomeGenBase biomeGen) {
+        List<OSpawnListEntry> toRet = biomeGen.J;
+        List<String> allowed = Arrays.asList(getWaterAnimals());
+        
+        Iterator<OSpawnListEntry> it = toRet.iterator();
+        for (OSpawnListEntry en = it.next(); it.hasNext(); en = it.next()) {
+            if (!allowed.contains(OEntityList.getName(en.a)))
+                it.remove();
         }
-        return waterAnimalsList;
-    }
-
-    private void reloadMonsterClass() {
-        monsterList = new ArrayList(getMonsters().length);
-        animalsList = new ArrayList(getAnimals().length);
-        waterAnimalsList = new ArrayList(getWaterAnimals().length);
-
-        for (String monster : getMonsters()) {
-            monsterList.add(OSpawnListEntry.getSpawnListEntry(OEntityList.getEntity(monster)));
-        }
-        for (String animal : getAnimals()) {
-            animalsList.add(OSpawnListEntry.getSpawnListEntry(OEntityList.getEntity(animal)));
-        }
-        for (String waterAnimal : getWaterAnimals()) {
-            waterAnimalsList.add(OSpawnListEntry.getSpawnListEntry(OEntityList.getEntity(waterAnimal)));
-        }
-
-        mobReload = false;
+        
+        return toRet;
     }
 
     /**
