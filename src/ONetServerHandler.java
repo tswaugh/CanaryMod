@@ -347,7 +347,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 }
             }
 
-            OChunkCoordinates var16 = var2.d();
+            OChunkCoordinates var16 = var2.o();
             int var17 = OMathHelper.a(var5 - var16.a);
             int var18 = OMathHelper.a(var7 - var16.c);
 
@@ -491,8 +491,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             int var6 = var1.b;
             int var7 = var1.c;
             int var8 = var1.d;
-            OChunkCoordinates var9 = var2.d();
-         
+            OChunkCoordinates var9 = var2.o();
             // CanaryMod : Fix stupid buggy spawn protection. (2 times)
             int var10 = (int) OMathHelper.e((var8 == 4 ? var5 - 1 : (var8 == 5 ? (var5 + 1) : var5)) - var9.a);
             int var11 = (int) OMathHelper.e((var8 == 2 ? var7 - 1 : (var8 == 3 ? (var7 + 1) : var7)) - var9.c);
@@ -671,7 +670,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         // CanaryMod: onPlayerRespawn
         OChunkCoordinates defaultSpawnCoords = e.X();
         if (defaultSpawnCoords == null) {
-            defaultSpawnCoords = etc.getServer().getWorld(0).getWorld().d();
+            defaultSpawnCoords = etc.getServer().getWorld(0).getWorld().o();
         }
         Location respawnLocation = new Location(etc.getServer().getWorld(0), defaultSpawnCoords.a, defaultSpawnCoords.b, defaultSpawnCoords.c, 0, 0);
         if (this.e.j) {
