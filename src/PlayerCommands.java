@@ -679,7 +679,7 @@ public class PlayerCommands {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
-            etc.getMCServer().h.b(parameters[1]);
+            etc.getMCServer().h.d(parameters[1]);
             caller.notify("Unbanned " + parameters[1]);
         }
     };
