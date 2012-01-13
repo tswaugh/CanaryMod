@@ -109,6 +109,34 @@ public class Item {
         CakeBlock(92), //
         RedstoneRepeaterOff(93), //
         RedstoneRepeaterOn(94), //
+        LockedChest(95), //
+        Trapdoor(96), //
+        SilverBlock(97), //
+        StoneBrick(98), //
+        HugeBrownMushroom(99), //
+        HugeRedMushroom(100), //
+        IronBars(101), //
+        GlassPane(102), //
+        MelonBlock(103), //
+        PumpkinStem(104), //
+        MelonStem(105), //
+        Vine(106), //
+        FenceGate(107), //
+        BrickStair(108), //
+        StonebrickStair(109), //
+        Mycelium(110), //
+        LilyPad(111), //
+        NetherBrick(112), //
+        NetherBrickFence(113), //
+        NetherBrickStair(114), //
+        NetherWartBlock(115), //
+        EnchantmentTable(116), //
+        BrewingStandBlock(117), //
+        CauldronBlock(118), //
+        EndPortal(119), //
+        EndPortalFrame(120), //
+        EndStone(121), //
+        EnderDragonEgg(122), //
         IronSpade(256), //
         IronPickaxe(257), //
         IronAxe(258), //
@@ -236,6 +264,7 @@ public class Item {
         Cauldron(380), //
         EyeofEnder(381), //
         GlisteringMelon(382), //
+        SpawnEgg(383), //
         GoldRecord(2256), //
         GreenRecord(2257), //
         BlocksRecord(2258), //
@@ -247,6 +276,7 @@ public class Item {
         StradRecord(2264), //
         WardRecord(2265), //
         ElevenRecord(2266); //
+
         private int id;
         private static Map<Integer, Type> map;
 

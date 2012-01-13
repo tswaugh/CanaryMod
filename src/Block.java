@@ -121,7 +121,20 @@ public class Block {
         Vine(106), //
         FenceGate(107), //
         BrickStair(108), //
-        StonebrickStair(109);
+        StonebrickStair(109), //
+        Mycelium(110), //
+        LilyPad(111), //
+        NetherBrick(112), //
+        NetherBrickFence(113), //
+        NetherBrickStair(114), //
+        NetherWart(115), //
+        EnchantmentTable(116), //
+        BrewingStand(117), //
+        Cauldron(118), //
+        EndPortal(119), //
+        EndPortalFrame(120), //
+        EndStone(121), //
+        EnderDragonEgg(122);
 
         private int                       id;
         private static Map<Integer, Type> map;

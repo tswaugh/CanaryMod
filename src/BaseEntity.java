@@ -27,7 +27,7 @@ public class BaseEntity {
      * @return id
      */
     public int getId() {
-        return entity.ba;
+        return entity.bd;
     }
 
     /**
@@ -69,7 +69,7 @@ public class BaseEntity {
      * @return x
      */
     public double getX() {
-        return entity.bj;
+        return entity.bm;
     }
 
     /**
@@ -88,7 +88,7 @@ public class BaseEntity {
      * @return y
      */
     public double getY() {
-        return entity.bk;
+        return entity.bn;
     }
 
     /**
@@ -107,7 +107,7 @@ public class BaseEntity {
      * @return z
      */
     public double getZ() {
-        return entity.bl;
+        return entity.bo;
     }
 
     /**
@@ -126,7 +126,7 @@ public class BaseEntity {
      * @return pitch
      */
     public float getPitch() {
-        return entity.bq;
+        return entity.bt;
     }
 
     /**
@@ -145,7 +145,7 @@ public class BaseEntity {
      * @return rotation
      */
     public float getRotation() {
-        return entity.bp;
+        return entity.bs;
     }
 
     /**
@@ -280,7 +280,7 @@ public class BaseEntity {
      * @return
      */
     public int getNoDamageTicks() {
-        return getEntity().bT;
+        return getEntity().bW;
     }
 
     /**
@@ -293,7 +293,7 @@ public class BaseEntity {
      * @param ticks
      */
     public void setNoDamageTicks(int ticks) {
-        getEntity().bT = ticks;
+        getEntity().bW = ticks;
     }
 
     /**
@@ -305,7 +305,7 @@ public class BaseEntity {
      * @return
      */
     public int getAirTicks() {
-        return getEntity().aF();
+        return getEntity().aQ();
     }
 
     /**
@@ -349,7 +349,7 @@ public class BaseEntity {
      * @return the World this entity is in
      */
     public World getWorld() {
-        return getEntity().bf.world;
+        return getEntity().bi.world;
     }
 
     /**
@@ -358,7 +358,7 @@ public class BaseEntity {
      * @return x-motion
      */
     public double getMotionX() {
-        return entity.bm;
+        return entity.bp;
     }
 
     /**
@@ -367,7 +367,7 @@ public class BaseEntity {
      * @return y-motion
      */
     public double getMotionY() {
-        return entity.bn;
+        return entity.bq;
     }
 
     /**
@@ -376,7 +376,7 @@ public class BaseEntity {
      * @return z-motion
      */
     public double getMotionZ() {
-        return entity.bo;
+        return entity.br;
     }
 
     /**
@@ -399,8 +399,8 @@ public class BaseEntity {
      * motion to set
      */
     public void setMotionX(double motion) {
-        entity.bm = motion;
-        entity.by = true;
+        entity.bp = motion;
+        entity.bA = true;
     }
 
     /**
@@ -410,8 +410,8 @@ public class BaseEntity {
      * motion to set
      */
     public void setMotionY(double motion) {
-        entity.bn = motion;
-        entity.by = true;
+        entity.bq = motion;
+        entity.bA = true;
     }
 
     /**
@@ -421,15 +421,15 @@ public class BaseEntity {
      * motion to set
      */
     public void setMotionZ(double motion) {
-        entity.bo = motion;
-        entity.by = true;
+        entity.br = motion;
+        entity.bA = true;
     }
 
     /**
      * Destroys this entity
      */
     public void destroy() {
-        entity.S();
+        entity.T();
     }
 
     /**
@@ -446,7 +446,7 @@ public class BaseEntity {
      * @return the sprinting state
      */
     public boolean getSprinting() {
-        return entity.aE();
+        return entity.aP();
     }
 
     /**
@@ -455,7 +455,7 @@ public class BaseEntity {
      * @param sprinting 
      */
     public void setSprinting(boolean sprinting) {
-        entity.f(sprinting);
+        entity.g(sprinting);
     }
 
 }

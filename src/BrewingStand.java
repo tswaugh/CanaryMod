@@ -1,6 +1,6 @@
 /**
  * Interface to brewing stands.
- * TODO: add hooks
+ * TODO: add hooks (e.g. getBrewTime)
  * @author willem
  */
 public class BrewingStand extends BaseContainerBlock<OTileEntityBrewingStand> implements ComplexBlock {
