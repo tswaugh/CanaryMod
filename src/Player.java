@@ -759,8 +759,8 @@ public class Player extends HumanEntity implements MessageReceiver {
         OEntityPlayerMP player = getEntity();
 
         // If player is in vehicle - eject them before they are teleported.
-        if (player.be != null) {
-            player.a(player.be);
+        if (player.bh != null) {
+            player.a(player.bh);
         }
         player.a.a(x, y, z, rotation, pitch);
     }
@@ -837,7 +837,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().aD();
+        return getEntity().aP();
     }
 
     /**
@@ -878,8 +878,8 @@ public class Player extends HumanEntity implements MessageReceiver {
             return;
         }
         // Dismount first or get buggy
-        if (ent.be != null) {
-            ent.c(ent.be);
+        if (ent.bh != null) {
+            ent.c(ent.bh);
         }
         
         if (getWorld().getType().getId() == 0) {
@@ -911,8 +911,8 @@ public class Player extends HumanEntity implements MessageReceiver {
             return;
         }
         // Dismount first or get buggy
-        if (ent.be != null) {
-            ent.c(ent.be);
+        if (ent.bh != null) {
+            ent.c(ent.bh);
         }
 
         ent.a((OStatBase) OAchievementList.B);
@@ -1181,9 +1181,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param effect The potion effect to remove
      */
     public void removePotionEffect(PotionEffect effect) {     
-        OPotionEffect var3 = (OPotionEffect) getEntity().aJ.get(effect.getType().getId());
+        OPotionEffect var3 = (OPotionEffect) getEntity().aL.get(effect.getType().getId());
 
-        getEntity().aJ.remove(Integer.valueOf(effect.getType().getId()));
+        getEntity().aL.remove(Integer.valueOf(effect.getType().getId()));
         getEntity().c(var3);
     }
 
@@ -1193,7 +1193,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return List of potion effects 
      */
     public List<PotionEffect> getPotionEffects() {
-        Collection ay = getEntity().as();
+        Collection ay = getEntity().aD();
         ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
 
         for (Iterator<OPotionEffect> iterator = ay.iterator(); iterator.hasNext();) {
