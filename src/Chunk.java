@@ -37,6 +37,17 @@ public class Chunk {
     public static Chunk getNewChunk(OWorld world, byte[] blocks, int x, int z) {
         return new OChunk(world, blocks, x, z).chunk;
     }
+    
+    /**
+     * Regenerates the world according to the world seed.
+     * @param world
+     * @param x
+     * @param z
+     * @return new chunk
+     */
+    public static Chunk regenerateChunk(OWorld world, int x, int z) {
+        return ((OWorldServer)world).J.regenerateChunk(x, z).chunk;
+    }
 
     /**
      * Returns whether this chunk is loaded

@@ -234,6 +234,45 @@ public class OChunkProviderServer implements OIChunkProvider {
 
         return this.d.a();
     }
+    
+    public OChunk regenerateChunk(int chunkX, int chunkZ)
+    {
+        Long chunkCoordIntPair = OChunkCoordIntPair.a(chunkX, chunkZ);
+        
+        // Unloading the chunk
+        OChunk unloadedChunk = (OChunk)f.a(chunkCoordIntPair.longValue());
+        if (unloadedChunk != null)
+        {
+            unloadedChunk.e();
+            b(unloadedChunk);
+            a(unloadedChunk);
+            b.remove(chunkCoordIntPair);
+            f.d(chunkCoordIntPair.longValue());
+            g.remove(unloadedChunk);
+        }
+        
+        // Generating the new chunk
+        OChunk newChunk = d.b(chunkX, chunkZ);
+        f.a(chunkCoordIntPair, newChunk);
+        g.add(newChunk);
+        if(newChunk != null)
+        {
+            newChunk.c();
+            newChunk.d();
+        }
+        newChunk.a(this, this, chunkX, chunkZ);
+        
+        // Save the new chunk, overriding the old one
+        a(newChunk);
+        b(newChunk);
+        newChunk.q = false;
+        if(e != null)
+        {
+            e.b();
+        }
+        
+        return newChunk;
+    }
 
     public boolean b() {
         return !this.h.L;
