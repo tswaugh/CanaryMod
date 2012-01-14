@@ -434,7 +434,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         
-        this.aH();
+        this.aS();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 4, name, 9)));
         this.m = container;
         this.m.f = this.cl;
@@ -465,7 +465,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
        
-        this.aH();
+        this.aS();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 0, name, var1.c())));
         // CanaryMod: Check if openend the chest in silence mode.
         this.m = new OContainerChest(this.k, var1, (openInventoryParameters == null) ? false : openInventoryParameters.isSilenced());
@@ -488,7 +488,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         
-        this.aH();
+        this.aS();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 2, name, var1.c())));
         this.m = new OContainerFurnace(this.k, var1);
         //CanaryMod: Set the inventory for the GUI
@@ -510,7 +510,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         
-        this.aH();
+        this.aS();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 3, name, var1.c())));
         this.m = new OContainerDispenser(this.k, var1);
         //CanaryMod: Set the inventory for the GUI
@@ -532,7 +532,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         
-        this.aH();
+        this.aS();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 5, name, var1.c())));
         this.m = new OContainerBrewingStand(this.k, var1);
         //CanaryMod: Set the inventory for the GUI
