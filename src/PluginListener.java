@@ -1101,4 +1101,15 @@ public class PluginListener {
     public boolean onBlockUpdate(Block block) {
         return false;
     }
+    
+    /**
+     * Called when player enchants an item
+     * 
+     * @param enchantParameters The HookParametersEnchant object used to modify enchantment result
+     * @return modified enchantParameters
+     */
+
+    public Object onEnchant(HookParametersEnchant enchantParameters) {
+        return enchantParameters;
+    }
 }

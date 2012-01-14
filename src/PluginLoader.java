@@ -332,6 +332,10 @@ public class PluginLoader {
          *///
         BLOCK_UPDATE, //
         /**
+         * Calls {@Link PluginListener#onEnchant(HookParametersEnchant) }
+         */
+        ENCHANT, //
+        /**
          * For internal use only.
          *///
         NUM_HOOKS;
@@ -707,6 +711,10 @@ public class PluginLoader {
             toRet = null;
             break;
 
+        case ENCHANT:
+            toRet = parameters[0];
+            break;
+            
         case REDSTONE_CHANGE:
         case FOODLEVEL_CHANGE:
         case FOODEXHAUSTION_CHANGE:
@@ -1134,6 +1142,9 @@ public class PluginLoader {
                             if (listener.onMobTarget((Player) parameters[0], (LivingEntity) parameters[1])) {
                                 toRet = true;
                             }
+                            break;
+                        case ENCHANT:
+                            toRet = listener.onEnchant((HookParametersEnchant) parameters[0]);
                             break;
                         }
                     } catch (UnsupportedOperationException ex) {}
