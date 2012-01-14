@@ -37,11 +37,7 @@ public class OServerConfigurationManager {
         etc.getInstance().loadData();
         a.info("Note: your current classpath is: " + System.getProperty("java.class.path", "*UNKNOWN*"));
         if (!etc.getInstance().getTainted()) {
-            if (etc.getInstance().isCrow()) {
-                a.info("Crow Test Build " + etc.getInstance().getVersionStr());
-            } else {
-                a.info("CanaryMod Build " + etc.getInstance().getVersionStr());
-            }
+        	a.info((etc.getInstance().isCrow() ? "Crow Test" : "CanaryMod") + " Build " + etc.getInstance().getVersionStr());
         } else {
             a.info("Tainted Build Information: " + etc.getInstance().getVersionStr());
         }

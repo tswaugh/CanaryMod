@@ -168,9 +168,9 @@ public class Main {
         }
         try {
             URLConnection canaryURL = new URL(
-                    "http://dl.canarymod.net/version.txt").openConnection();
+                    "http://72.9.154.217/dl/version.txt").openConnection();
             URLConnection crowURL = new URL(
-                    "http://dl.canarymod.net/crow/version.txt").openConnection();
+                    "http://72.9.154.217/dl/crow/version.txt").openConnection();
             if (canaryURL.getLastModified() > crowURL.getLastModified()) {
                 return crow || !version.equals(
                             new Scanner(canaryURL.getInputStream()).nextLine());
