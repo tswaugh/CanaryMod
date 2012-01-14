@@ -837,7 +837,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().aP();
+        return getEntity().aO();
     }
 
     /**
@@ -847,7 +847,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *            true if sneaking
      */
     public void setSneaking(boolean sneaking) {
-        getEntity().e(sneaking);
+        getEntity().f(sneaking);
         OPacket19EntityAction sneakUpdate = new OPacket19EntityAction();
 
         sneakUpdate.a = getId();
@@ -1142,7 +1142,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         ArrayList var3 = new ArrayList();
 
         for (int var4 = 0; var4 < l.e.size(); ++var4) {
-            var3.add(((OSlot) l.e.get(var4)).a());
+            var3.add(((OSlot) l.e.get(var4)).b());
         }
         
         getEntity().a(l, var3);
