@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Enchantment - a class used to access all enchantment related stuff
@@ -21,7 +22,8 @@ public class Enchantment {
         FeatherFalling(2),
         BlastProtection(3),
         ProjectileProtection(4),
-        Respiration(5), AquaAffinity(6),
+        Respiration(5),
+        AquaAffinity(6),
         Sharpness(16),
         Smite(17),
         BaneOfArthropods(18),
@@ -31,7 +33,11 @@ public class Enchantment {
         Efficiency(32),
         SilkTouch(33),
         Unbreaking(34),
-        Fortune(35);
+        Fortune(35),
+        ArrowDamage(48),
+        ArrowKnockback(49),
+        ArrowFire(50),
+        ArrowInfinite(51);
 
         private int                       id;
         private static Map<Integer, Type> map;
