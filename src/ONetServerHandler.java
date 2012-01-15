@@ -94,20 +94,20 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             // CanaryMod: Notice player movement
             Player player = getPlayer();
 
-            if (etc.floor(m) != etc.floor(player.getX()) || etc.floor(n) != etc.floor(player.getY()) || etc.floor(o) != etc.floor(player.getZ())) {
+            if (etc.floor(n) != etc.floor(player.getX()) || etc.floor(o) != etc.floor(player.getY()) || etc.floor(p) != etc.floor(player.getZ())) {
                 Location from = new Location();
 
-                from.x = etc.floor(m);
-                from.y = etc.floor(n);
-                from.z = etc.floor(o);
+                from.x = etc.floor(n);
+                from.y = etc.floor(o);
+                from.z = etc.floor(p);
                 from.rotX = player.getRotation();
                 from.rotY = player.getPitch();
 
                 Location to = new Location();
 
-                to.x = etc.floor(e.bj);
-                to.y = etc.floor(e.bk);
-                to.z = etc.floor(e.bl);
+                to.x = etc.floor(e.bm);
+                to.y = etc.floor(e.bn);
+                to.z = etc.floor(e.bo);
                 to.rotX = player.getRotation();
                 to.rotY = player.getPitch();
 
