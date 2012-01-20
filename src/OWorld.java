@@ -301,14 +301,18 @@ public class OWorld implements OIBlockAccess {
             } else if (var2 >= this.c) {
                 return false;
             } else {
-            	if(!(Boolean)OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block)){
+                        boolean var6 = false;
 	                OChunk var5 = this.c(var1 >> 4, var3 >> 4);
-	                boolean var6 = var5.a(var1 & 15, var2, var3 & 15, var4);
-	
-	                this.s(var1, var2, var3);
+                        //CanaryMod ignore if new block is air
+                        if(var4 == 0){
+                        var6 = var5.a(var1 & 15, var2, var3 & 15, var4);   
+                        }
+                        //CanaryMod BLOCK_UPDATE hook
+                        else if(!(Boolean)OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block, var4)){
+	                var6 = var5.a(var1 & 15, var2, var3 & 15, var4);
+                        }
+                        this.s(var1, var2, var3);
 	                return var6;
-            	}
-            	return false;
             }
         } else {
             return false;

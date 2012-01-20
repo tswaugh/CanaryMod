@@ -1091,15 +1091,27 @@ public class PluginListener {
     }
     
     /**
-     * Called when a Block udpates
+     * Called when a Block updates
      * 
      * @param Block
      * @return false to allow the update, true to cancel it.
      * NOTE: Only farmland right now
      */
-
+    @Deprecated
     public boolean onBlockUpdate(Block block) {
         return false;
+    }
+    
+    /**
+     * Called when a Block updates
+     * 
+     * @param Block
+     * @param int
+     * @return false to allow the update, true to cancel it.
+     * NOTE: Only farmland right now
+     */
+    public boolean onBlockUpdate(Block blockold, int blocknewid){
+        return onBlockUpdate(blockold);
     }
     
     /**

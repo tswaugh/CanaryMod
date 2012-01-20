@@ -1143,6 +1143,14 @@ public class PluginLoader {
                                 toRet = true;
                             }
                             break;
+                            
+                        case BLOCK_UPDATE:
+                            if(listener.onBlockUpdate((Block) parameters[0], (Integer) parameters[1])){
+                                toRet = true;
+                            }
+                            
+                            break;
+                            
                         case ENCHANT:
                             toRet = listener.onEnchant((HookParametersEnchant) parameters[0]);
                             break;
