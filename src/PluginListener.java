@@ -1110,7 +1110,7 @@ public class PluginListener {
      * @return false to allow the update, true to cancel it.
      * NOTE: Only farmland right now
      */
-    public boolean onBlockUpdate(Block blockold, int blocknewid){
+    public boolean onBlockUpdate(Block blockold, int blocknewid){ 
         return onBlockUpdate(blockold);
     }
     

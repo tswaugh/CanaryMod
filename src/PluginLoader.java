@@ -1148,7 +1148,6 @@ public class PluginLoader {
                             if(listener.onBlockUpdate((Block) parameters[0], (Integer) parameters[1])){
                                 toRet = true;
                             }
-                            
                             break;
                             
                         case ENCHANT:

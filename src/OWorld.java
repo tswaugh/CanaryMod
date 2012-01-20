@@ -300,7 +300,7 @@ public class OWorld implements OIBlockAccess {
                 return false;
             } else if (var2 >= this.c) {
                 return false;
-            } else {
+            } else { 
                         boolean var6 = false;
 	                OChunk var5 = this.c(var1 >> 4, var3 >> 4);
                         //CanaryMod ignore if new block is air
