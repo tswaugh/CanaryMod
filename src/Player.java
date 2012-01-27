@@ -1172,7 +1172,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param effect the effect to add.
      */
     public void addPotionEffect(PotionEffect effect) {
-        getEntity().d(effect.potionEffect);
+        getEntity().e(effect.potionEffect);
     }
     
     /**
@@ -1184,7 +1184,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         OPotionEffect var3 = (OPotionEffect) getEntity().aL.get(effect.getType().getId());
 
         getEntity().aL.remove(Integer.valueOf(effect.getType().getId()));
-        getEntity().c(var3);
+        getEntity().d(var3);
     }
 
     /**
