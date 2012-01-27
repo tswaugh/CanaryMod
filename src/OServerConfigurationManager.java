@@ -37,7 +37,11 @@ public class OServerConfigurationManager {
         etc.getInstance().loadData();
         a.info("Note: your current classpath is: " + System.getProperty("java.class.path", "*UNKNOWN*"));
         if (!etc.getInstance().getTainted()) {
-        	a.info((etc.getInstance().isCrow() ? "Crow Test" : "CanaryMod") + " Build " + etc.getInstance().getVersionStr());
+            if (etc.getInstance().isCrow()) {
+                a.info("Crow Test Build " + etc.getInstance().getVersionStr());
+            } else {
+                a.info("CanaryMod Build " + etc.getInstance().getVersionStr());
+            }
         } else {
             a.info("Tainted Build Information: " + etc.getInstance().getVersionStr());
         }
@@ -253,7 +257,14 @@ public class OServerConfigurationManager {
         return var5;
     }
 
+    // CanaryMod alias to normally create portals when players are switching worlds.
     public void a(OEntityPlayerMP var1, int var2) {
+        sendPlayerToOtherDimension(var1, var2, true);
+    }
+    
+    // CanaryMod used to be a(OEntityPlayerMP var1, int var2) to teleport player to other dimensions.
+    // Added createPortal option to cancel portal creation if not needed.
+    public void sendPlayerToOtherDimension(OEntityPlayerMP var1, int var2, boolean createPortal) {
         int var3 = var1.w;
         OWorldServer var4 = this.c.a(var1.w);
 
@@ -297,9 +308,12 @@ public class OServerConfigurationManager {
             var5.b(var1);
             var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
             var5.a(var1, false);
-            var5.J.a = true;
-            (new OTeleporter()).a(var5, var1);
-            var5.J.a = false;
+            // CanaryMod - don't create portal if we are not using a portal to teleport.
+            if (createPortal) {
+                var5.J.a = true;
+                (new OTeleporter()).a(var5, var1);
+                var5.J.a = false;
+            }
         }
 
         this.a(var1);

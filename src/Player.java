@@ -922,7 +922,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             ent.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F);
         }
 
-        mcServer.h.a(ent, world);
+        mcServer.h.sendPlayerToOtherDimension(ent, world, false);
         
         refreshCreativeMode();
     }
