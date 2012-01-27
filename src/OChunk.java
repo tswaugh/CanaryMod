@@ -1087,14 +1087,60 @@ public class OChunk {
     
     // CanaryMod function: Used to determine if a block should be hidden in the chunk.
     public boolean isHidden(int x, int y, int z) {
+        // If attempting to hide a chest, we should also if its a double chest, in which case it should return true only if BOTH parts of the chest are hidden.
+        return isHidden(x, y, z, this.b[x << 11 | z << 7 | y] == Block.Type.Chest.getType());
+    }
+    
+    // CanaryMod function: Used to determine if a block should be hidden in the chunk.
+    public boolean isHidden(int x, int y, int z, boolean checkNeighborChest) {
+        boolean result;
         // If not all neighbor blocks are opaque we need to check for lightings.
         if (isBlockedByNeighbors(x, y, z) == false) {
             if (etc.getInstance().isAntiXRayLightingEnabled()) {
-                return !isLit(x, y, z);
+                result = !isLit(x, y, z);
             }
-            return false;
+            else
+            {
+                result = false;
+            }
         }
-        return true;
+        else
+        {
+            result = true;
+        }
+        
+        // If attempting to hide a chest, we need to check for double chest.
+        // This code will not run if we are checking the SECOND part of the chest to prevent a chest checking its neighbor in an endless loop.
+        if (result && checkNeighborChest) {
+            if ((x < 15 && this.b[(x + 1) << 11 | z << 7 | y] == Block.Type.Chest.getType())) {
+                return isHidden(x + 1, y, z, false);
+            }
+            else if (x == 15 && this.f.A.a(l + 1, m) && this.f.a(l * 16 + x + 1, y, m * 16 + z) == Block.Type.Chest.getType()) {
+                return this.f.c(l + 1, m).isHidden(0, y, z, false);
+            }
+            
+            if ((x > 0 && this.b[(x - 1) << 11 | z << 7 | y] == Block.Type.Chest.getType())) {
+                return isHidden(x - 1, y, z, false);
+            }
+            else if (x == 0 && this.f.A.a(l - 1, m) && this.f.a(l * 16 + x - 1, y, m * 16 + z) == Block.Type.Chest.getType()) {
+                return this.f.c(l - 1, m).isHidden(15, y, z, false);
+            }
+            
+            if ((z < 15 && this.b[x << 11 | (z + 1) << 7 | y] == Block.Type.Chest.getType())) {
+                return isHidden(x, y, z + 1, false);
+            }
+            else if (z == 15 && this.f.A.a(l, m + 1) && this.f.a(l * 16 + x, y, m * 16 + z + 1) == Block.Type.Chest.getType()) {
+                return this.f.c(l, m + 1).isHidden(x, y, 0, false);
+            }
+            
+            if ((z > 0 && this.b[x << 11 | (z - 1) << 7 | y] == Block.Type.Chest.getType())) {
+                return isHidden(x, y, z - 1, false);
+            }
+            else if (z == 0 && this.f.A.a(l, m - 1) && this.f.a(l * 16 + x, y, m * 16 + z - 1) == Block.Type.Chest.getType()) {
+                return this.f.c(l, m - 1).isHidden(x, y, 15, false);
+            }
+        }
+        return result;
     }
     
     // CanaryMod function: Used to check for opaque blocks around a single block safely.
