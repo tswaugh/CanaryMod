@@ -976,9 +976,9 @@ public class Player extends HumanEntity implements MessageReceiver {
         getEntity().c.a(i);
         getEntity().a.b((OPacket) (new OPacket70Bed(3, i)));
         if (i == 1 && !getPlayer().getMode()) {
-            modes.add(getPlayer());
+            modes.add(this);
         } else {
-            modes.remove(getPlayer());
+            modes.remove(this);
         }
     }
 
@@ -1003,7 +1003,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *          <tt>null</tt> otherwise.
      */
     public boolean getMode() {
-        if (modes.contains(this)) {
+        if (modes.contains(this) && getEntity().c.b()) {
             return true;
         } else {
             return false;
