@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
 
@@ -948,5 +949,11 @@ public class MySQLSource extends DataSource {
                 }
             } catch (SQLException ex) {}
         }
+    }
+    
+    //Grouplist
+    @Override
+    public List getGroupList(){
+        return this.groups;
     }
 }

@@ -483,6 +483,13 @@ public abstract class DataSource {
     abstract public boolean isUserOnReserveList(String user);
     
     /**
+     * Returns the group list
+     * 
+     * @return group list
+     */
+    abstract public List getGroupList();
+    
+    /**
      * Retrieves the list of blocks the anti xray will hide
      * 
      * @return the list of anti xray blocks
