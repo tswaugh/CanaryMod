@@ -200,7 +200,7 @@ public class PlayerCommands {
                 }
 
                 player.sendMessage("(MSG) " + (caller instanceof Player ? ((Player) caller).getColor() : "") + "<" + caller.getName() + "> " + Colors.White + etc.combineSplit(2, split, " "));
-                caller.notify(Colors.White + "(MSG) " + (caller instanceof Player ? ((Player) caller).getColor() : "") + "<" + caller.getName() + "> " + Colors.White + etc.combineSplit(2, split, " "));
+                caller.notify(Colors.White + "(MSG) " +  "<" + (caller instanceof Player ? ((Player) caller).getColor() : "") +  caller.getName() + Colors.White + "> " + Colors.White + etc.combineSplit(2, split, " "));
             } else {
                 caller.notify("Couldn't find player " + split[1]);
             }
