@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import net.minecraft.server.MinecraftServer;
 
@@ -123,10 +122,8 @@ public class OWorldServer extends OWorld {
       OExplosion var10 = new OExplosion(this, var1, var2, var4, var6, var8);
       var10.a = var9;
       var10.a();
-      if(!var10.getRet()){
       var10.a(false);
-      }
-      this.M.h.a(var2, var4, var6, 64.0D, this.y.h, new OPacket60Explosion(var2, var4, var6, var8, new HashSet()));
+      this.M.h.a(var2, var4, var6, 64.0D, this.y.h, new OPacket60Explosion(var2, var4, var6, var8, var10.g));
       return var10;
    }
 
