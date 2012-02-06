@@ -336,6 +336,10 @@ public class PluginLoader {
          */
         ENCHANT, //
         /**
+         * Calls{@Link PluginListener#onDispense(Block,Item) }
+         */
+        DISPENSE, //
+        /**
          * For internal use only.
          *///
         NUM_HOOKS;
@@ -1153,8 +1157,12 @@ public class PluginLoader {
                         case ENCHANT:
                             toRet = listener.onEnchant((HookParametersEnchant) parameters[0]);
                             break;
+                            
+                        case DISPENSE:
+                            toRet = listener.onDispense((Block) parameters[0], (Item) parameters[1]);
+                            break;
                         }
-                    } catch (UnsupportedOperationException ex) {}
+                       } catch (UnsupportedOperationException ex) {}
                 }
             } catch (Exception ex) {
                 String listenerString = listener == null ? "null(unknown listener)" : listener.getClass().toString();

@@ -1124,4 +1124,16 @@ public class PluginListener {
     public Object onEnchant(HookParametersEnchant enchantParameters) {
         return enchantParameters;
     }
+    
+    /**
+     * Called when a dispenser is activated with an item in it.
+     * 
+     * @param dispenser - Block the dispenser is located at.
+     * @param tobedispensed - Item that is to be dispensed. If no item is to be
+     *                        dispensed, the ID will be 0.
+     * @return false to allow the dispense, true to cancel it.
+     */
+    public boolean onDispense(Block dispenser, Item tobedispensed){
+        return false;
+    }
 }

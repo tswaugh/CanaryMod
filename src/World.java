@@ -892,5 +892,42 @@ public class World {
     public long getRandomSeed() {
         return world.m();
     }
+    
+    /**
+     * Sets a new light level with the specified level at the given location.
+     * @param x
+     * @param y
+     * @param z
+     * @param newlevel The light level.
+     */
+    public void setLightLevel(int x, int y, int z, int newlevel){
+      this.getWorld().a(OEnumSkyBlock.b, x, y, z, newlevel);
+    }
+   
+    /**
+     * Gets the light level of the given location.
+     * @param x
+     * @param y
+     * @param z
+     * @return Light level of the location.
+     */
+    public float getLightLevel(int x, int y, int z){
+        return this.getWorld().m(x, y, z);
+    }
+    /**
+     * Updates the light around the given location.
+     * @param x
+     * @param y
+     * @param z 
+     */
+    public void updateLight(int x, int y, int z){
+        for(int x2 = x-2; x2 <= x+2; x2++){
+			for(int y2 = y-2; y2 <= y+2; y2++){
+				for(int z2 = z-2; z2 <= z+2; z2++){
+				this.getWorld().b(x2,y2,z2,this.getWorld().a(x2,y2,z2),this.getWorld().c(x2,y2,z2));	
+				}
+			}
+		}
+    }
 
 }
