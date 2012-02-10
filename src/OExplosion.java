@@ -33,7 +33,15 @@ public class OExplosion {
     public void a() {
          // CanaryMod: allow explosion
         Block block = new Block(i.world, i.a((int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d)), (int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d));
-        
+        if(this.e == null){
+            block.setStatus(1);
+        }
+        else if(this.e instanceof OEntityCreeper){
+            block.setStatus(2);
+        }
+        else if(this.e instanceof OEntityFireball){
+            block.setStatus(3);
+        }
         float var1 = this.f;
         byte var2 = 16;
 
