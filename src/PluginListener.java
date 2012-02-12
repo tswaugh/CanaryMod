@@ -1129,11 +1129,11 @@ public class PluginListener {
      * Called when a dispenser is activated with an item in it.
      * 
      * @param dispenser - Block the dispenser is located at.
-     * @param tobedispensed - Item that is to be dispensed. If no item is to be
-     *                        dispensed, the ID will be 0.
+     * @param tobedispensed - BaseEntity that is to be dispensed. If no entity
+     *                        is to be dispensed, this parameter will be null.
      * @return false to allow the dispense, true to cancel it.
      */
-    public boolean onDispense(Block dispenser, Item tobedispensed){
+    public boolean onDispense(Dispenser dispenser, BaseEntity tobedispensed){
         return false;
     }
 }

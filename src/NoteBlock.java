@@ -2,7 +2,7 @@
  * Class used for interfacing with note blocks.
  * @author 14mRh4X0r
  */
-class NoteBlock implements ComplexBlock {
+public class NoteBlock implements ComplexBlock {
 
     OTileEntityNote note;
 
@@ -10,26 +10,32 @@ class NoteBlock implements ComplexBlock {
         this.note = note;
     }
 
+    @Override
     public int getX() {
         return note.l;
     }
 
+    @Override
     public int getY() {
         return note.m;
     }
 
+    @Override
     public int getZ() {
         return note.n;
     }
 
+    @Override
     public void update() {
         note.l_();
     }
 
+    @Override
     public Block getBlock() {
         return getWorld().getBlockAt(getX(), getY(), getZ());
     }
 
+    @Override
     public World getWorld() {
         return note.k.world;
     }

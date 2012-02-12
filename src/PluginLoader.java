@@ -419,7 +419,40 @@ public class PluginLoader {
         /**
          * Damage caused by poison (1) (Potions, Poison)
          *///
-         POTION
+         POTION;
+         
+         public static DamageType fromDamageSource(ODamageSource source) {
+             if (source == ODamageSource.b)
+                 return FIRE; // Can also be lightning
+             else if (source == ODamageSource.c)
+                 return FIRE_TICK;
+             else if (source == ODamageSource.d)
+                 return LAVA;
+             else if (source == ODamageSource.e)
+                 return SUFFOCATION;
+             else if (source == ODamageSource.f)
+                 return WATER;
+             else if (source == ODamageSource.g)
+                 return STARVATION;
+             else if (source == ODamageSource.h)
+                 return CACTUS;
+             else if (source == ODamageSource.i)
+                 return FALL;
+             else if (source == ODamageSource.j)
+                 return FALL; // Out of world
+             else if (source == ODamageSource.k)
+                 return null; // Vanilla's /kill, we don't have this.
+             else if (source == ODamageSource.l)
+                 return EXPLOSION; // Can also be a creeper.
+             else if (source == ODamageSource.m)
+                 return POTION;
+             else if (source instanceof OEntityDamageSource)
+                 return ENTITY;
+             else if (source instanceof OEntityDamageSourceIndirect)
+                 return ENTITY; // Still an entity, albeit indirect.
+             else
+                 return null; // Not a valid ODamageSource
+         }
     }
 
     private static final Logger log = Logger.getLogger("Minecraft");
@@ -1159,7 +1192,7 @@ public class PluginLoader {
                             break;
                             
                         case DISPENSE:
-                            toRet = listener.onDispense((Block) parameters[0], (Item) parameters[1]);
+                            toRet = listener.onDispense((Dispenser) parameters[0], (BaseEntity) parameters[1]);
                             break;
                         }
                        } catch (UnsupportedOperationException ex) {}
