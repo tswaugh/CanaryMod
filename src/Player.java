@@ -141,8 +141,6 @@ public class Player extends HumanEntity implements MessageReceiver {
     /**
      * Makes player use command.
      * 
-     * TODO: redo this in the same way as the server commands.
-     * 
      * @param command
      * 
      */

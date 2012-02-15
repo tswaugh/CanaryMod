@@ -1,6 +1,5 @@
 /**
  * An interface class to Enchantment Tables.
- * TODO: add hooks.
  * @author willem
  */
 public class EnchantmentTable extends ItemArray<OInventoryBasic> implements Inventory {
