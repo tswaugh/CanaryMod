@@ -32,8 +32,6 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     private double p;
     private boolean q = true;
     private OIntHashMap r = new OIntHashMap();
-    private HashMap<Player,Long> chattime = new HashMap();
-    private HashMap<Player,Integer> threshold = new HashMap();
 
     public ONetServerHandler(MinecraftServer var1, ONetworkManager var2, OEntityPlayerMP var3) {
         super();
@@ -488,7 +486,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 return;
             }
 
-            ((Digging) this.e.c).a(this.e, var2, var3, blockPlaced, blockClicked);
+            this.e.c.itemUsed(this.e, var2, var3, blockPlaced, blockClicked);
         } else {
             int var5 = var1.a;
             int var6 = var1.b;
@@ -607,9 +605,11 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     public void a(OPacket3Chat var1) {
         String var2 = var1.a;
         
-        if(spam()){
-            return;
+        this.m += 20;
+        if (this.m > 200) {
+            this.a("disconnect.spam");
         }
+            
         // CanaryMod: redirect chathandling to player class
         getPlayer().chat(var2);
     }
@@ -882,40 +882,4 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         }
     }
 
-    public boolean spam(){
-        Player p = this.getPlayer();
-        Long sys = System.currentTimeMillis();
-        Long diff;
-        boolean spam;
-        int thresh;
-        
-        if(this.chattime.containsKey(p)){
-        diff = sys - this.chattime.get(p);
-        this.chattime.remove(p);
-        this.chattime.put(p, sys);
-        if(diff < 400L){
-            if(this.threshold.containsKey(p) && !p.canIgnoreRestrictions()){
-             thresh = this.threshold.get(p) + 1;
-             this.threshold.remove(p);
-             this.threshold.put(p, thresh);
-             if(thresh == 1)
-                 return true;
-             if(thresh >= 2)
-                 this.a.warning("Player " + this.e.v + " was kicked for reaching the chat spam threshold.");
-                 threshold.remove(p);
-                 chattime.remove(p);
-                 this.a("Kicked for spamming!");
-                 return true;
-            }
-            else
-                threshold.put(p,1);
-        }else{
-            threshold.remove(p);
-          }
-        }
-        else{
-           this.chattime.put(p,sys) ;
-        }
-        return false;
-    }
 }
