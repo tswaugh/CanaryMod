@@ -32,7 +32,6 @@ public class Player extends HumanEntity implements MessageReceiver {
     private PlayerInventory inventory;
     private List<String> onlyOneUseKits = new ArrayList<String>();
     private Pattern badChatPattern = Pattern.compile("[\u00a7\u2302\u00D7\u00AA\u00BA\u00AE\u00AC\u00BD\u00BC\u00A1\u00AB\u00BB]");
-    public ArrayList<Player> modes = new ArrayList<Player>();
     private String offlineName = ""; // Allows modify command to work on offline players
     
     /**
@@ -971,13 +970,11 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param i
      */
     public void setCreativeMode(int i) {
-        getEntity().c.a(i);
-        getEntity().a.b((OPacket) (new OPacket70Bed(3, i)));
-        if (i == 1 && !getPlayer().getMode()) {
-            modes.add(this);
-        } else {
-            modes.remove(this);
-        }
+    	i = OWorldSettings.a(i);
+    	if (getEntity().c.a() != i) {
+    		getEntity().c.a(i);
+    		getEntity().a.b((OPacket) (new OPacket70Bed(3, i)));
+    	}
     }
 
     /**
@@ -987,7 +984,6 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public int getCreativeMode() {
         int i = 0;
-
         if (getEntity().c.a() != 0) {
             i = getEntity().c.a();
         }
@@ -1001,7 +997,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *          <tt>null</tt> otherwise.
      */
     public boolean getMode() {
-        if (modes.contains(this) && getEntity().c.b()) {
+        if (getEntity().c.a() == 1) {
             return true;
         } else {
             return false;

@@ -48,9 +48,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.v = var3;
         this.bF = 0.0F;
       
-        // CanaryMod: So we don't conflict with runecraft
-        c = new Digging((OWorldServer) var2, this);
-
         // CanaryMod: Store player
         player = etc.getDataSource().getPlayer(var3);
         player.setUser(this);
@@ -71,8 +68,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(OWorld var1) {
         super.a(var1);
-        // CanaryMod: New world, new manager.
-        this.c = new Digging((OWorldServer) var1, this);
     }
 
     public void b(int var1) {

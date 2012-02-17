@@ -603,7 +603,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
     }
 
     protected void a(OEntityLiving var1, boolean var2) {
-        if (!(var1 instanceof OEntityCreeper) && !(var1 instanceof OEntityGhast)) {
+        if (!(var1 instanceof OEntityCreeper) && !(var1 instanceof OEntityGhast) && !etc.getMCServer().q) {
             if (var1 instanceof OEntityWolf) {
                 OEntityWolf var3 = (OEntityWolf) var1;
 

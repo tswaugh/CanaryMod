@@ -775,9 +775,14 @@ public class PlayerCommands {
                 caller.notify("Could not find player.");
                 return;
             }
-            if (player.getWorld().getType() != World.Type.NORMAL) {
-                caller.notify("You cannot set a home in the Nether, mortal.");
-                return;
+            World.Type worldType = player.getWorld().getType();
+            if (worldType != World.Type.NORMAL) {
+                if (player.canIgnoreRestrictions()) {
+                    player.switchWorlds(World.Type.NORMAL.getId());
+                } else {
+                    player.notify("You cannot set a home in the " + worldType + ", mortal.");
+                    return;
+                }
             }
 
             Warp home = new Warp();
