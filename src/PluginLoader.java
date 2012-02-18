@@ -791,7 +791,7 @@ public class PluginLoader {
                     try {
                         switch (h) {
                         case LOGINCHECK:
-                            String result = listener.onLoginChecks((String) parameters[0]);
+                            String result = listener.onLoginChecks((String) parameters[0], (String) parameters[1]);
 
                             if (result != null) {
                                 toRet = result;
