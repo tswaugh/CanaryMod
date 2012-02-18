@@ -807,9 +807,7 @@ public class PluginLoader {
                             break;
 
                         case CHAT:
-                            if (listener.onChat((Player) parameters[0], (StringBuilder) parameters[1])) {
-                                toRet = true;
-                            }
+                        	toRet = listener.onChat((HookParametersChat) parameters[0]);
                             break;
 
                         case COMMAND:
