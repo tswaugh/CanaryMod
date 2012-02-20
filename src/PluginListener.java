@@ -64,8 +64,9 @@ public class PluginListener {
      * @param user
      * @return kick reason. null if you don't want to kick the player.
      * 
-     * @deprecated use onLoginChecks(String user, String IP)
+     * @deprecated use {@link #onLoginChecks(java.lang.String, java.lang.String) } instead.
      */
+    @Deprecated
     public String onLoginChecks(String user) {
         return null;
     }
@@ -107,6 +108,7 @@ public class PluginListener {
      * 
      * @deprecated use onChat(Player, StringBuilder) to get the information
      */
+    @Deprecated
     public boolean onChat(Player player, String message) {
         return false;
     }
@@ -120,6 +122,7 @@ public class PluginListener {
      * 
      * @deprecated use HookParameters onChat(HookParametersChat) to get the information
      */
+    @Deprecated
     public boolean onChat(Player player, StringBuilder sbMessage) {
         return onChat(player, sbMessage.toString());
     }
@@ -1075,7 +1078,6 @@ public class PluginListener {
      * @param hookParametersConnect
      * @return modified hookParametersConnect
      */
-
     public Object onPlayerConnect(Player player, HookParametersConnect hookParametersConnect) {
         return hookParametersConnect;
     }
@@ -1083,11 +1085,10 @@ public class PluginListener {
     /**
      * Called when player connects to the server
      * 
-     * @param player
-     * @param hookParametersConnect
+     * @param player Player that is disconnecting.
+     * @param hookParametersDisconnect Object holding parameters for this hook
      * @return modified hookParametersConnect
      */
-
     public Object onPlayerDisconnect(Player player, HookParametersDisconnect hookParametersDisconnect) {
         return hookParametersDisconnect;
     }
@@ -1123,9 +1124,10 @@ public class PluginListener {
     /**
      * Called when a Block updates
      * 
-     * @param Block
+     * @param block The block that's being updated
      * @return false to allow the update, true to cancel it.
      * NOTE: Only farmland right now
+     * @deprecated Use {@link #onBlockUpdate(Block, int) } instead.
      */
     @Deprecated
     public boolean onBlockUpdate(Block block) {
@@ -1135,13 +1137,13 @@ public class PluginListener {
     /**
      * Called when a Block updates
      * 
-     * @param Block
-     * @param int
+     * @param oldBlock The Block that's being modified
+     * @param newBlockId  The block ID of the new block
      * @return false to allow the update, true to cancel it.
      * NOTE: Only farmland right now
      */
-    public boolean onBlockUpdate(Block blockold, int blocknewid){ 
-        return onBlockUpdate(blockold);
+    public boolean onBlockUpdate(Block oldBlock, int newBlockId){ 
+        return onBlockUpdate(oldBlock);
     }
     
     /**

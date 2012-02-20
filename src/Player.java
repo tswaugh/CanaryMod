@@ -76,6 +76,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      * @param message
      */
+    @Override
     public void notify(String message) {
         if (message.length() > 0) {
             sendMessage(Colors.Rose + message);
@@ -114,7 +115,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         message = message.trim();
         Matcher m = badChatPattern.matcher(message);
         String out = message;
-        if (m.find() && !this.canIgnoreRestrictions()) {    
+        if (m.find() && !this.canIgnoreRestrictions()) {
             out = message.replaceAll(m.group(), "");
         }
         message = out;
@@ -125,31 +126,30 @@ public class Player extends HumanEntity implements MessageReceiver {
                 sendMessage(Colors.Rose + "You are currently muted.");
                 return;
             }
-            
-        	List<Player> receivers = etc.getServer().getPlayerList();
-        	StringBuilder prefix = new StringBuilder("<" + getColor() + getName() + Colors.White + ">");
+
+            List<Player> receivers = etc.getServer().getPlayerList();
+            StringBuilder prefix = new StringBuilder("<" + getColor() + getName() + Colors.White + ">");
             StringBuilder sbMessage = new StringBuilder(message);
-            HookParametersChat parametersChat = (HookParametersChat) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[] { new HookParametersChat(this, prefix, sbMessage, receivers)});
-            	
-            if ((parametersChat.isCanceled()) ) {
+            HookParametersChat parametersChat = (HookParametersChat) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[]{new HookParametersChat(this, prefix, sbMessage, receivers)});
+
+            if ((parametersChat.isCanceled())) {
                 return;
             }
-            
+
             receivers = parametersChat.getReceivers();
             prefix = parametersChat.getPrefix();
             sbMessage = parametersChat.getMessage();
 
-            String chat = prefix.toString() +" "+ sbMessage.toString();
+            String chat = prefix.toString() + " " + sbMessage.toString();
 
             log.log(Level.INFO, "<" + getName() + "> " + sbMessage.toString());
-            
+
             //etc.getServer().messageAll(chat);
-            for(Player player : receivers){
-                if(prefix.length()+message.length() >= 119){
+            for (Player player : receivers) {
+                if (prefix.length() + message.length() >= 119) {
                     player.sendMessage(prefix.toString());
                     player.sendMessage(sbMessage.toString());
-                }
-                else{
+                } else {
                     player.sendMessage(chat);
                 }
             }

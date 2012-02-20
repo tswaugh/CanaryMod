@@ -36,7 +36,7 @@ public class PluginLoader {
          *///
         LOGIN, //
         /**
-         * Calls {@link PluginListener#onChat(HookParametersChat parametersChat) }
+         * Calls {@link PluginListener#onChat(HookParametersChat) }
          *///
         CHAT, //
         /**

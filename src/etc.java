@@ -1196,11 +1196,7 @@ public class etc {
         mobSpawnRate = rate;
     }
 
-    /**
-     * Get y mysql connection without pooling it.
-     * @return Connection 
-     * @deprecated
-     */
+    @Deprecated
     private Connection _getSQLConnection() {
         try {
             return DriverManager.getConnection(db + "?autoReconnect=true&user=" + username + "&password=" + password);
@@ -1211,26 +1207,27 @@ public class etc {
     }
     
     private CanaryConnection _getConnection() throws SQLException {
-    	return cs.getConnection();
+        return cs.getConnection();
     }
 
     /**
      * Returns a SQL connection
      * 
      * @return sql connection
-     * @deprecated
+     * @deprecated Use {@link #getConnection() } instead.
      */
+    @Deprecated
     public static Connection getSQLConnection() {
         return getInstance()._getSQLConnection();
     }
     
     /**
      * Return a connection from the connection pool
-     * @return
+     * @return A {@link CanaryConnection}
      * @throws SQLException
      */
     public static CanaryConnection getConnection() throws SQLException {
-    	return etc.getInstance()._getConnection();
+        return etc.getInstance()._getConnection();
     }
 
     public static int floor(float paramFloat) {
