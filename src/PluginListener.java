@@ -79,7 +79,7 @@ public class PluginListener {
      *
      */
     public String onLoginChecks(String user, String IP){
-    	return onLoginChecks(user);
+        return onLoginChecks(user);
     }
 
     /**
@@ -132,10 +132,10 @@ public class PluginListener {
      * @return parametersChat   use parametersChat.setCanceled(true) to stop the message
      */
     public HookParametersChat onChat(HookParametersChat parametersChat){
-    	if(onChat(parametersChat.getPlayer(), parametersChat.getMessage())){
-    		parametersChat.setCanceled(true);
-    	}
-    	return parametersChat;
+        if(onChat(parametersChat.getPlayer(), parametersChat.getMessage())){
+            parametersChat.setCanceled(true);
+        }
+        return parametersChat;
     }
 
     /**

@@ -808,7 +808,7 @@ public class PluginLoader {
                             break;
 
                         case CHAT:
-                        	toRet = listener.onChat((HookParametersChat) parameters[0]);
+                            toRet = listener.onChat((HookParametersChat) parameters[0]);
                             break;
 
                         case COMMAND:

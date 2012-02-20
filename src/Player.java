@@ -126,11 +126,11 @@ public class Player extends HumanEntity implements MessageReceiver {
                 return;
             }
             
-            List<Player> receivers = etc.getServer().getPlayerList();
-            StringBuilder prefix = new StringBuilder("<" + getColor() + getName() + Colors.White + ">");
+        	List<Player> receivers = etc.getServer().getPlayerList();
+        	StringBuilder prefix = new StringBuilder("<" + getColor() + getName() + Colors.White + ">");
             StringBuilder sbMessage = new StringBuilder(message);
             HookParametersChat parametersChat = (HookParametersChat) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[] { new HookParametersChat(this, prefix, sbMessage, receivers)});
-            		
+            	
             if ((parametersChat.isCanceled()) ) {
                 return;
             }
@@ -142,16 +142,16 @@ public class Player extends HumanEntity implements MessageReceiver {
             String chat = prefix.toString() +" "+ sbMessage.toString();
 
             log.log(Level.INFO, "<" + getName() + "> " + sbMessage.toString());
-         
+            
             //etc.getServer().messageAll(chat);
             for(Player player : receivers){
-            	if(prefix.length()+message.length() >= 119){
-                	player.sendMessage(prefix.toString());
-                	player.sendMessage(sbMessage.toString());
+                if(prefix.length()+message.length() >= 119){
+                    player.sendMessage(prefix.toString());
+                    player.sendMessage(sbMessage.toString());
                 }
-            	else{
-            		player.sendMessage(chat);
-            	}
+                else{
+                    player.sendMessage(chat);
+                }
             }
         }
     }
