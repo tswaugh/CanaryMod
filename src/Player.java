@@ -1,14 +1,11 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import net.minecraft.server.MinecraftServer;
 
 
@@ -33,6 +30,8 @@ public class Player extends HumanEntity implements MessageReceiver {
     private List<String> onlyOneUseKits = new ArrayList<String>();
     private Pattern badChatPattern = Pattern.compile("[\u00a7\u2302\u00D7\u00AA\u00BA\u00AE\u00AC\u00BD\u00BC\u00A1\u00AB\u00BB]");
     private String offlineName = ""; // Allows modify command to work on offline players
+    private long lastMessage;
+    private int spamTicker;
     
     /**
      * Creates an empty player. Add the player by calling {@link #setUser(OEntityPlayerMP)}
@@ -119,6 +118,13 @@ public class Player extends HumanEntity implements MessageReceiver {
             out = message.replaceAll(m.group(), "");
         }
         message = out;
+        
+        PluginLoader.HookResult protectFromSpam = etc.getInstance().getProtectFromSpam();
+        
+        if (protectFromSpam == PluginLoader.HookResult.ALLOW_ACTION
+                && this.checkSpam())
+            this.kick("Spamming.");
+        
         if (message.startsWith("/")) {
             command(message);
         } else {
@@ -126,6 +132,10 @@ public class Player extends HumanEntity implements MessageReceiver {
                 sendMessage(Colors.Rose + "You are currently muted.");
                 return;
             }
+            
+            if (protectFromSpam == PluginLoader.HookResult.DEFAULT_ACTION
+                    && this.checkSpam())
+                this.kick("Spamming.");
 
             List<Player> receivers = etc.getServer().getPlayerList();
             StringBuilder prefix = new StringBuilder("<" + getColor() + getName() + Colors.White + ">");
@@ -1296,5 +1306,23 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public static boolean isOp(String playerName) {
         return etc.getMCServer().h.h(playerName);
+    }
+
+    private boolean checkSpam() {
+        long diff = System.currentTimeMillis() - this.lastMessage;
+        
+        if (this.spamTicker >= diff / 50)
+            this.spamTicker = 0;
+        else
+            this.spamTicker -= diff / 50;
+        
+        this.spamTicker += 20;
+        if (this.spamTicker > 200) {
+            this.kick("Spamming.");
+        }
+        
+        this.lastMessage = System.currentTimeMillis();
+
+        return false;
     }
 }
