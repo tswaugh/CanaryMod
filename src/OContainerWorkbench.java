@@ -1,6 +1,5 @@
 
 public class OContainerWorkbench extends OContainer {
-
     public OInventoryCrafting a = new OInventoryCrafting(this, 3, 3);
     public OIInventory b = new OInventoryCraftResult();
     private OWorld c;
@@ -42,13 +41,25 @@ public class OContainerWorkbench extends OContainer {
     public void a(OIInventory var1) {
         OItemStack craftresult = OCraftingManager.a().a(this.a);
 
+        // Canarymod - CRAFT_ITEM
+        if (craftresult != null) {
+            if (!(super.g.size() < 1)) {
+                Player player = ((OEntityPlayerMP) super.g.get(0)).getPlayer();
+                Item item = new Item(craftresult);
+                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.CRAFT, new Object[] { player, item })) {
+                    return;
+                }
+            }
+        }
+        // End Canarymod - CRAFT_ITEM
+
         this.b.a(0, craftresult);
         if (super.g.size() < 1) {
             return;
         }
-        OEntityPlayerMP player = (OEntityPlayerMP) super.g.get(0); 
+        OEntityPlayerMP entityplayer = (OEntityPlayerMP) super.g.get(0);
 
-        player.a.b(new OPacket103SetSlot(player.l.f, 0, craftresult));       
+        entityplayer.a.b(new OPacket103SetSlot(entityplayer.l.f, 0, craftresult));
     }
 
     public void a(OEntityPlayer var1) {

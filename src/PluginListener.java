@@ -1168,4 +1168,17 @@ public class PluginListener {
     public boolean onDispense(Dispenser dispenser, BaseEntity tobedispensed){
         return false;
     }
+
+    /**
+     * Called when a player crafts an item.
+     * 
+     * @param player
+     *            - Player doing the crafting.
+     * @param item
+     *            - Result of the craft.
+     * @return false to allow the craft, true to cancel it.
+     */
+    public boolean onCraft(Player player, Item item) {
+        return false;
+    }
 }
