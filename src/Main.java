@@ -73,6 +73,7 @@ public class Main {
             log("===============");
             log("New " + (newIsCrow ? "Canary" : "Crow") + " version found.");
             log("You can download it at http://www.canarymod.net/download");
+            log("Be sure to replace version.txt!");
             log("===============");
         }
         // derp.

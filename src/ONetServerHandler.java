@@ -435,18 +435,6 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             blockClicked = new Block(var2.world, var2.world.getBlockIdAt(var1.a, var1.b, var1.c), var1.a, var1.b, var1.c);
             blockClicked.setFaceClicked(Block.Face.fromId(var1.d));
             
-            // Air place protection
-            Block.Type blockType = blockClicked.blockType;
-            switch (blockType) {
-                case Air:
-                case Water:
-                case StationaryWater:
-                case Lava:
-                case StationaryLava:
-                    this.a("You cannot place blocks against air, you hacker!");
-                    return;
-            }
-            
             lastRightClicked = blockClicked;
         }
 
