@@ -166,12 +166,17 @@ public class Main {
         if (e.getTainted()) {
             log("=== Not checking for updates, tainted version detected (check "
                     + "version.txt) ===");
+            return false;
         }
         try {
             URLConnection canaryURL = new URL(
                     "http://72.9.154.217/dl/version.txt").openConnection();
             URLConnection crowURL = new URL(
                     "http://72.9.154.217/dl/crow/version.txt").openConnection();
+            canaryURL.setConnectTimeout(500);
+            canaryURL.setReadTimeout(500);
+            crowURL.setConnectTimeout(500);
+            crowURL.setReadTimeout(500);
             if (canaryURL.getLastModified() > crowURL.getLastModified()) {
                 return crow || !version.equals(
                             new Scanner(canaryURL.getInputStream()).nextLine());
@@ -182,7 +187,6 @@ public class Main {
             }
         } catch (Exception ex) {
             log("=== Checking for updates failed: " + ex.getMessage() + " ===");
-            ex.printStackTrace();
             return false;
         }
     }
