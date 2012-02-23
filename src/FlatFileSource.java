@@ -667,6 +667,8 @@ public class FlatFileSource extends DataSource {
                 writer.write("brewingstand:379\r\n");
                 writer.write("eyeofender:381\r\n");
                 writer.write("glisteringmelon:382\r\n");
+                writer.write("spawnegg:383\r\n");
+                writer.write("monsterplacer:383\r\n");
                 writer.write("goldrecord:2256\r\n");
                 writer.write("greenrecord:2257\r\n");
                 writer.write("blocksrecord:2258\r\n");
