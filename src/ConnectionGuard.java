@@ -22,13 +22,11 @@ public class ConnectionGuard implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            try {
-                cp.clearConnections();
-            } catch (SQLException e) {
-                // oh shit
-                log.log(Level.SEVERE, "Error in ConnectionGuard", e);
-            }
+        try {
+            cp.clearConnections();
+        } catch (SQLException e) {
+            // oh shit
+            log.log(Level.SEVERE, "Error in ConnectionGuard", e);
         }
     }
 }
