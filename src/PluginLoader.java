@@ -340,10 +340,6 @@ public class PluginLoader {
          */
         DISPENSE, //
         /**
-         * Calls{@Link PluginListener#onCraft(Player,Item) }
-         */
-        CRAFT, //
-        /**
          * For internal use only.
          *///
         NUM_HOOKS;
@@ -1197,11 +1193,6 @@ public class PluginLoader {
                         case DISPENSE:
                             toRet = listener.onDispense((Dispenser) parameters[0], (BaseEntity) parameters[1]);
                             break;
-
-                        case CRAFT:
-                            toRet = listener.onCraft((Player) parameters[0], (Item) parameters[1]);
-                            break;
-
                         }
                        } catch (UnsupportedOperationException ex) {}
                 }
