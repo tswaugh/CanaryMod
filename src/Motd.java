@@ -92,7 +92,7 @@ public class Motd {
             text = text.replaceAll("%player%", p.getName());
         }
         if (text.contains("%group%")) {
-            text = text.replaceAll("%group%", p.getGroups()[0]);
+            text = text.replaceAll("%group%", (p.getGroups().length > 0 ? p.getGroups()[0] : etc.getDataSource().getDefaultGroup().Name));
         }
         if (text.contains("%onlineplayers%")) {
             text = text.replaceAll("%onlineplayers%", Integer.toString(etc.getServer().getPlayerList().size()));
