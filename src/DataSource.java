@@ -457,7 +457,7 @@ public abstract class DataSource {
      * @param ban
      *            Ban to add or modify
      */
-    abstract public void modifyBan(Ban ban);
+    abstract public void addBan(Ban ban);
 
     /**
      * Checks to see if this player or IP is on the ban list
@@ -471,7 +471,11 @@ public abstract class DataSource {
     public boolean isOnBanList(String player, String ip) {
         synchronized (banLock) {
             for (Ban ban : bans) {
-                if (ban.getName().equalsIgnoreCase(player) || ban.getIp().equalsIgnoreCase(ip)) {
+                if (ban.getName().equalsIgnoreCase(player)
+                        || ban.getIp().equalsIgnoreCase(ip)
+                        || ban.getTimestamp() == -1
+                        || ban.getTimestamp()
+                                > (int) (System.currentTimeMillis() / 1000)) {
                     return true;
                 }
             }
@@ -491,7 +495,11 @@ public abstract class DataSource {
     public Ban getBan(String player, String ip) {
         synchronized (banLock) {
             for (Ban ban : bans) {
-                if (ban.getName().equalsIgnoreCase(player) || ban.getIp().equalsIgnoreCase(ip)) {
+                if (ban.getName().equalsIgnoreCase(player)
+                        || ban.getIp().equalsIgnoreCase(ip)
+                        || ban.getTimestamp() == -1
+                        || ban.getTimestamp()
+                                > (int) (System.currentTimeMillis() / 1000)) {
                     return ban;
                 }
             }

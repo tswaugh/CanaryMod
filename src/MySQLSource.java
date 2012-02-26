@@ -807,11 +807,18 @@ public class MySQLSource extends DataSource {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Ban ban = new Ban();
-
-                    ban.setName(rs.getString("name"));
-                    ban.setIp(rs.getString("ip"));
-                    ban.setReason(rs.getString("reason"));
-                    ban.setTimestamp(rs.getInt("length"));
+                    
+                    String nameOrIp = rs.getString("user");
+                    if (nameOrIp.contains("."))
+                        ban.setIp(nameOrIp);
+                    else
+                        ban.setName(nameOrIp);
+                    
+                    String reason = rs.getString("reason");
+                    if (!reason.matches("\\s*"))
+                        ban.setReason(reason);
+                        
+                    ban.setTimestamp(rs.getInt("timestamp"));
                     bans.add(ban);
                 }
             } catch (SQLException ex) {
@@ -868,8 +875,28 @@ public class MySQLSource extends DataSource {
     }
 
     @Override
-    public void modifyBan(Ban ban) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void addBan(Ban ban) {
+        String user = ban.getIp().isEmpty() ? ban.getName() : ban.getIp();
+        CanaryConnection conn = null;
+        PreparedStatement ps = null;
+        
+        try {
+            conn = etc.getConnection();
+            ps = conn.prepareStatement("INSERT INTO " + table_bans + " (user, reason, timestamp) VALUES (?, ?, ?)");
+            ps.setString(1, user);
+            ps.setString(2, ban.getReason());
+            ps.setInt(3, ban.getTimestamp());
+            ps.executeQuery();
+        } catch (SQLException ex) {
+            log.log(Level.SEVERE, "Unable to add the ban", ex);
+        } finally {
+            try {
+                if (ps != null)
+                    ps.close();
+                if (conn != null)
+                    conn.release();
+            } catch (SQLException ex) {}
+        }
     }
 
     @Override

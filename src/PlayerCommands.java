@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
 import net.minecraft.server.MinecraftServer;
 
 
@@ -585,108 +584,6 @@ public class PlayerCommands {
             } else {
                 caller.notify("Correct usage is: " + parameters[0] + " [color] [amount] <player> (Optional)");
             }
-        }
-    };
-    @Command
-    public static final BaseCommand banlist = new BaseCommand("<IP or bans> - Gives a list of bans") {
-
-        @Override
-        void execute(MessageReceiver caller, String[] split) {
-            boolean ips = false;
-
-            if (split.length == 2 && split[1].equalsIgnoreCase("ips")) {
-                ips = true;
-            }
-
-            if (!ips) {
-                caller.notify(Colors.Blue + "Ban list:" + Colors.White + " " + etc.getMCServer().h.getBans());
-            } else {
-                caller.notify(Colors.Blue + "IP Ban list:" + Colors.White + " " + etc.getMCServer().h.getIpBans());
-            }
-        }
-    };
-    @Command
-    public static final BaseCommand banip = new BaseCommand("[Player] <Reason> - Bans the player's IP", "Correct usage is: /banip [player] <reason> (optional) NOTE: this permabans IPs.", 2) {
-
-        @Override
-        void execute(MessageReceiver caller, String[] split) {
-            Player player = etc.getServer().matchPlayer(split[1]);
-
-            if (player != null) {
-                if (caller instanceof Player && !((Player) caller).hasControlOver(player)) {
-                    caller.notify("You can't ban that user.");
-                    return;
-                }
-
-                // adds player to ban list
-                etc.getMCServer().h.c(player.getIP());
-                etc.getLoader().callHook(PluginLoader.Hook.IPBAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
-
-                log.info("IP Banning " + player.getName() + " (IP: " + player.getIP() + ")");
-                caller.notify("IP Banning " + player.getName() + " (IP: " + player.getIP() + ")");
-
-                if (split.length > 2) {
-                    player.kick("IP Banned by " + caller.getName() + ": " + etc.combineSplit(2, split, " "));
-                } else {
-                    player.kick("IP Banned by " + caller.getName() + ".");
-                }
-            } else {
-                caller.notify("Can't find user " + split[1] + ".");
-            }
-        }
-    };
-    @Command
-    public static final BaseCommand ban = new BaseCommand("[Player] <Reason> - Bans the player", "Correct usage is: /ban [player] <reason> (optional)", 2) {
-
-        @Override
-        void execute(MessageReceiver caller, String[] split) {
-            Player player = etc.getServer().matchPlayer(split[1]);
-
-            if (player != null) {
-                if (caller instanceof Player && !((Player) caller).hasControlOver(player)) {
-                    caller.notify("You can't ban that user.");
-                    return;
-                }
-
-                // adds player to ban list
-                etc.getServer().ban(player.getName());
-
-                etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
-
-                if (split.length > 2) {
-                    player.kick("Banned by " + caller.getName() + ": " + etc.combineSplit(2, split, " "));
-                } else {
-                    player.kick("Banned by " + caller.getName() + ".");
-                }
-                log.info("Banning " + player.getName());
-                caller.notify("Banning " + player.getName());
-            } else {
-                if (!etc.getMCServer().h.isBanned(split[1])) {
-                    etc.getServer().ban(split[1]);
-                    log.info("Banning " + split[1]);
-                    caller.notify("Banning " + split[1]);
-                } else {
-                    caller.notify(String.format("%s is already banned from this server", split[1]));
-                }
-            }
-        }
-    };
-    @Command
-    public static final BaseCommand unban = new BaseCommand("[Player] - Unbans the player", "Correct usage is: /unban [player]", 2, 2) {
-
-        @Override
-        void execute(MessageReceiver caller, String[] split) {
-            etc.getServer().unban(split[1]);
-            caller.notify("Unbanned " + split[1]);
-        }
-    };
-    @Command
-    public static final BaseCommand unbanip = new BaseCommand("[IP] - Unbans the IP", "Correct usage is: /unbanip [ip]", 2, 2) {
-
-        @Override
-        void execute(MessageReceiver caller, String[] parameters) {
-            etc.getMCServer().h.d(parameters[1]);
-            caller.notify("Unbanned " + parameters[1]);
         }
     };
     @Command

@@ -22,9 +22,20 @@ public class etc {
     private static final etc              instance = new etc();
     private static MinecraftServer        server;
     private String                        configDir = "config/";
-    private String                        usersLoc = "config/users.txt", kitsLoc = "config/kits.txt", homeLoc = "config/homes.txt", warpLoc = "config/warps.txt", itemLoc = "config/items.txt", groupLoc = "config/groups.txt", enderBlocksLoc = "config/endermanblocks.txt", muteListLoc = "config/muted-players.txt";
-    private String                        whitelistLoc = "config/whitelist.txt", reservelistLoc = "config/reservelist.txt", antiXRayBlocksLoc = "config/antixray.txt";
-    private String                        whitelistMessage = "Not on whitelist.";
+    private String                        usersLoc = "config/users.txt",
+                                          kitsLoc = "config/kits.txt",
+                                          homeLoc = "config/homes.txt",
+                                          warpLoc = "config/warps.txt",
+                                          itemLoc = "config/items.txt",
+                                          groupLoc = "config/groups.txt",
+                                          enderBlocksLoc = "config/endermanblocks.txt",
+                                          muteListLoc = "config/muted-players.txt",
+                                          banListLoc = "config/bans.txt",
+                                          whitelistLoc = "config/whitelist.txt",
+                                          reservelistLoc = "config/reservelist.txt",
+                                          antiXRayBlocksLoc = "config/antixray.txt";
+    private String                        whitelistMessage = "Not on whitelist.",
+                                          defaultBanMessage = "You are banned from this server!";
 
     private Set<Integer>                  allowedItems = new HashSet<Integer>();
     private Set<Integer>                  disallowedItems = new HashSet<Integer>();
@@ -125,6 +136,8 @@ public class etc {
             whitelistEnabled = properties.getBoolean("whitelist", false);
             properties.removeKey("white-list"); // delete Notchian white-list properties entry
             whitelistMessage = properties.getString("whitelist-message", "Not on whitelist.");
+            defaultBanMessage = properties.getString("default-ban-message", "You are banned from this server!");
+            BanSystem.setDefaultReason(defaultBanMessage);
             configDir = properties.getString("config-directory", "config/");
             motdLoc = properties.getString("motdtxtlocation", "config/motd.txt");
             reservelistEnabled = properties.getBoolean("reservelist", false);
@@ -139,6 +152,7 @@ public class etc {
                 reservelistLoc = properties.getString("reservelist-txt-location", "config/reservelist.txt");
                 antiXRayBlocksLoc = properties.getString("antixray-txt-location", "config/antixray.txt");
                 muteListLoc = properties.getString("muted-players-location", "config/muted-players.txt");
+                banListLoc = properties.getString("muted-players-location", "config/bans.txt");
             } else {
                 PropertiesFile sql = new PropertiesFile("mysql.properties");
 
@@ -279,6 +293,7 @@ public class etc {
         }
 
         dataSource.initialize();
+        BanSystem.setDataSource(dataSource);
     }
 
     public String getDataSourceType() {
@@ -751,8 +766,22 @@ public class etc {
         return antiXRayBlocksLoc;
     }
     
+    /**
+     * Returns the location of muted-players.txt
+     * 
+     * @return
+     */
     public String getMuteListLocation() {
         return muteListLoc;
+    }
+
+    /**
+     * Returns the location of bans.txt
+     * 
+     * @return
+     */
+    public String getBanListLoc() {
+        return banListLoc;
     }
 
     /**
@@ -840,6 +869,14 @@ public class etc {
      */
     public String getWhitelistMessage() {
         return whitelistMessage;
+    }
+
+    /**
+     * Returns the default message to show when a banned player tries to connect.
+     * @return The default ban message
+     */
+    public String getDefaultBanMessage() {
+        return defaultBanMessage;
     }
 
     /**

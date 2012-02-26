@@ -5,7 +5,7 @@
  */
 public class Ban {
 
-    private String name = "N/A", ip = "", reason = "N/A";
+    private String name = "", ip = "", reason = etc.getInstance().getDefaultBanMessage();
     private int    id = -1, timestamp = -1;
 
     /**
