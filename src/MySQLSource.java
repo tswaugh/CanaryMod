@@ -808,6 +808,8 @@ public class MySQLSource extends DataSource {
                 while (rs.next()) {
                     Ban ban = new Ban();
                     
+                    ban.setId(rs.getInt("id"));
+                    
                     String nameOrIp = rs.getString("user");
                     if (nameOrIp.contains("."))
                         ban.setIp(nameOrIp);
@@ -879,6 +881,7 @@ public class MySQLSource extends DataSource {
         String user = ban.getIp().isEmpty() ? ban.getName() : ban.getIp();
         CanaryConnection conn = null;
         PreparedStatement ps = null;
+        ResultSet rs = null;
         
         try {
             conn = etc.getConnection();
@@ -886,16 +889,26 @@ public class MySQLSource extends DataSource {
             ps.setString(1, user);
             ps.setString(2, ban.getReason());
             ps.setInt(3, ban.getTimestamp());
-            ps.executeQuery();
+            ps.executeUpdate();
+            
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                ban.setId(rs.getInt(1));
+            }
         } catch (SQLException ex) {
             log.log(Level.SEVERE, "Unable to add the ban", ex);
         } finally {
             try {
+                if (rs != null)
+                    rs.close();
                 if (ps != null)
                     ps.close();
                 if (conn != null)
                     conn.release();
             } catch (SQLException ex) {}
+        }
+        synchronized (banLock) {
+            bans.add(ban);
         }
     }
 
@@ -1088,6 +1101,44 @@ public class MySQLSource extends DataSource {
                     //conn.close();
                     conn.release();
                 }
+            } catch (SQLException ex) {}
+        }
+    }
+
+    @Override
+    public void expireBan(Ban ban) {
+        int now = (int) (System.currentTimeMillis() / 1000);
+        
+        boolean found = false;
+        synchronized (banLock) {
+            for (Ban b: bans)
+                if (b.equals(ban)) {
+                    found = true;
+                    b.setTimestamp(now);
+                    ban = b;
+                }
+        }
+        
+        if (!found)
+            return;
+        
+        CanaryConnection conn = null;
+        PreparedStatement ps = null;
+        
+        try {
+            conn = etc.getConnection();
+            ps = conn.prepareStatement("UPDATE " + table_bans + " SET timeout=? WHERE id=?");
+            ps.setInt(1, now);
+            ps.setInt(2, ban.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            log.log(Level.SEVERE, "Could not expire ban", e);
+        } finally {
+            try {
+                if (ps != null)
+                    ps.close();
+                if (conn != null)
+                    conn.release();
             } catch (SQLException ex) {}
         }
     }

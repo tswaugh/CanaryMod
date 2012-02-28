@@ -42,10 +42,11 @@ public class Server {
      * 
      * @param player
      *            Name of the player to ban
-     * 
+     * @deprecated Use one of the methods in {@link BanSystem} instead.
      */
+    @Deprecated
     public void ban(String player) {
-        server.h.a(player);
+        etc.getDataSource().addBan(new Ban(player));
     }
 
     /**
@@ -57,6 +58,7 @@ public class Server {
      */
     public void unban(String player) {
         server.h.b(player);
+        etc.getDataSource().expireBan(new Ban(player));
     }
 
     /**

@@ -1511,7 +1511,10 @@ public class FlatFileSource extends DataSource {
             writer.write(toWrite.toString());
             writer.close();
         } catch (Exception ex) {
-            log.log(Level.SEVERE, String.format("Exception while editing user in %s", loc), ex);
+            log.log(Level.SEVERE, String.format("Exception while adding ban in %s", loc), ex);
+        }
+        synchronized (banLock) {
+            bans.add(ban);
         }
     }
 
@@ -1676,5 +1679,47 @@ public class FlatFileSource extends DataSource {
             log.warning("Unable to write to " + location);
         }
 
+    }
+
+    @Override
+    public void expireBan(Ban ban) {
+        int now = (int) (System.currentTimeMillis() / 1000);
+        synchronized (banLock) {
+            for (Ban b: bans)
+                if (b.equals(ban))
+                    b.setTimestamp(now);
+        }
+        String loc = etc.getInstance().getBanListLoc();
+        
+        try {
+            // Now to save...
+            BufferedReader reader = new BufferedReader(new FileReader(new File(loc)));
+            StringBuilder toWrite = new StringBuilder();
+            String line = "";
+            String user = ban.getIp().isEmpty() ? ban.getName() : ban.getIp();
+        
+            while ((line = reader.readLine()) != null) {
+                if (!line.split(":")[0].equalsIgnoreCase(user)) {
+                    toWrite.append(line).append(LINE_SEP);
+                } else {
+
+                    toWrite.append(line.split(":")[0])
+                           .append(":")
+                           .append(ban.getReason())
+                           .append(":")
+                           .append(now)
+                           .append(":")
+                           .append(LINE_SEP);
+                }
+            }
+            reader.close();
+
+            FileWriter writer = new FileWriter(loc);
+
+            writer.write(toWrite.toString());
+            writer.close();
+        } catch (Exception ex) {
+            log.log(Level.SEVERE, String.format("Exception while editing ban in %s", loc), ex);
+        }
     }
 }

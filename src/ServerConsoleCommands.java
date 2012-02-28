@@ -361,7 +361,12 @@ public class ServerConsoleCommands {
                 }
 
                 // adds player to ban list
-                etc.getMCServer().h.c(player.getIP());
+                if (split.length > 2) {
+                    BanSystem.fileIpBan(player, etc.combineSplit(2, split, " "));
+                } else {
+                    BanSystem.fileIpBan(player);
+                }
+
                 etc.getLoader().callHook(PluginLoader.Hook.IPBAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
 
                 log.info("IP Banning " + player.getName() + " (IP: " + player.getIP() + ")");
@@ -392,7 +397,11 @@ public class ServerConsoleCommands {
                 }
 
                 // adds player to ban list
-                etc.getServer().ban(player.getName());
+                if (split.length > 2) {
+                    BanSystem.fileBan(player, etc.combineSplit(2, split, " "));
+                } else {
+                    BanSystem.fileBan(player);
+                }
 
                 etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
 
@@ -404,8 +413,8 @@ public class ServerConsoleCommands {
                 log.info("Banning " + player.getName());
                 caller.notify("Banning " + player.getName());
             } else {
-                if (!etc.getMCServer().h.isBanned(split[1])) {
-                    etc.getServer().ban(split[1]);
+                if (!etc.getDataSource().isOnBanList(split[1], "")) {
+                    etc.getDataSource().addBan(new Ban(split[1]));
                     log.info("Banning " + split[1]);
                     caller.notify("Banning " + split[1]);
                 } else {
@@ -430,8 +439,22 @@ public class ServerConsoleCommands {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
+            caller.notify("This command is going to be phased out.");
+            caller.notify("For new bans, you can just use /unban to unban IPs.");
+            etc.getDataSource().expireBan(new Ban(parameters[1]));
             etc.getMCServer().h.d(parameters[1]);
             caller.notify("Unbanned " + parameters[1]);
+        }
+    };
+    
+    // TODO: add a way to ban by IP, either a new command or an option for /tempban
+    
+    @Command
+    public static final BaseCommand tempban = new BaseCommand("[player] [time] <reason> - Bans the player for the specified time", "Correct usage is: /tempban [player] [time]. e.g. /tempban Notch 1d3h20m", 3) {
+
+        @Override
+        void execute(MessageReceiver caller, String[] parameters) {
+            // TODO: add logic
         }
     };
 }

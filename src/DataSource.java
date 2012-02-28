@@ -546,4 +546,10 @@ public abstract class DataSource {
             return antiXRayBlocks;
         }
     }
+
+    /**
+     * Expires the specified ban. This will just set the timestamp to now.
+     * @param ban The ban to expire.
+     */
+    abstract public void expireBan(Ban ban);
 }
