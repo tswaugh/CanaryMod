@@ -11,9 +11,22 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `muted_players` (
-  `name` varchar(16) NOT NULL,
+  `name` varchar(32) NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Structure for table `bans`
+--
+
+CREATE TABLE IF NOT EXISTS `bans` (
+  `id` int(16) auto_increment NOT NULL,
+  `user` varchar(32) NOT NULL,
+  `reason` varchar(64) NOT NULL,
+  `timestamp` int(32) NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

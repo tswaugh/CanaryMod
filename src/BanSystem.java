@@ -5,9 +5,8 @@
  * @author James
  */
 public class BanSystem {
-    private static String defaultReason = etc.getInstance()
-                                             .getDefaultBanMessage();
-    private static DataSource dataSource = etc.getDataSource();
+    private static String defaultReason;
+    private static DataSource dataSource;
     private static final int FOREVER = -1;
 
     /**
