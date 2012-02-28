@@ -450,11 +450,61 @@ public class ServerConsoleCommands {
     // TODO: add a way to ban by IP, either a new command or an option for /tempban
     
     @Command
-    public static final BaseCommand tempban = new BaseCommand("[player] [time] <reason> - Bans the player for the specified time", "Correct usage is: /tempban [player] [time]. e.g. /tempban Notch 1d3h20m", 3) {
+    public static final BaseCommand tempban = new BaseCommand("[player] [time] <reason> - Bans the player for the specified time", "Overridden because multiline", 3) {
 
         @Override
-        void execute(MessageReceiver caller, String[] parameters) {
-            // TODO: add logic
+        void execute(MessageReceiver caller, String[] split) {
+            Player player = etc.getServer().matchPlayer(split[1]);
+
+            if (player != null) {
+                if (caller instanceof Player && !((Player) caller).hasControlOver(player)) {
+                    caller.notify("You can't ban that user.");
+                    return;
+                }
+
+                split[2] = split[2].toLowerCase();
+                if (!split[2].matches("\\d+[dmh]")){
+                    caller.notify("Invalid time format.");
+                    return;
+                }
+                    
+                char unit = split[2].charAt(split[2].length() - 1);
+                
+                if (split.length > 3) {
+                    switch (unit) {
+                        case 'd':
+                            BanSystem.fileTempBan(player, etc.combineSplit(3, split, " "), 0, 0, Integer.parseInt(split[2].substring(0, split[2].length() - 2)));
+                            break;
+                    
+                    }
+                    
+                }
+
+                etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
+
+                if (split.length > 3) {
+                    player.kick("Banned by " + caller.getName() + ": " + etc.combineSplit(3, split, " "));
+                } else {
+                    player.kick("Banned by " + caller.getName() + ".");
+                }
+                log.info("Banning " + player.getName());
+                caller.notify("Banning " + player.getName());
+            } else {
+                if (!etc.getDataSource().isOnBanList(split[1], "")) {
+                    etc.getDataSource().addBan(new Ban(split[1]));
+                    log.info("Banning " + split[1]);
+                    caller.notify("Banning " + split[1]);
+                } else {
+                    caller.notify(String.format("%s is already banned from this server", split[1]));
+                }
+            }
+        }
+
+        @Override
+        public void onBadSyntax(MessageReceiver caller, String[] parameters) {
+            caller.notify("Correct usage: /tempban [player] [time] <reason> (optional)");
+            caller.notify("Time consists of a number followed by d for days, h for hours");
+            caller.notify("  and m for minutes.");
         }
     };
 }
