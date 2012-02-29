@@ -1422,16 +1422,4 @@ public class PlayerCommands {
             }
         }
     };
-    
-    @Command
-    public static final BaseCommand version = new BaseCommand("Displays the version") {
-
-        @Override
-        void execute(MessageReceiver caller, String[] split) {
-        	if (!(caller instanceof Player)) {
-                return;
-            }
-       		((Player) caller).sendMessage("§6"+(etc.getInstance().isCrow()?"CanaryMod Crow":"CanaryMod")+" Build " + etc.getInstance().getVersionStr());
-        }
-    };
 }

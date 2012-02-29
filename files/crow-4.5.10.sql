@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `bans` (
   `user` varchar(32) NOT NULL,
   `reason` varchar(64) NOT NULL,
   `timestamp` int(32) NOT NULL,
-  PRIMARY KEY (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
