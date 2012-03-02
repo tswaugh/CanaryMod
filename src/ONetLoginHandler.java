@@ -27,11 +27,6 @@ public class ONetLoginHandler extends ONetHandler {
 
     public void a() {
         if (this.h != null) {
-            //CM
-            if(h.b.matches(h.pattern)) {
-                return;
-            }
-            //END
             this.b(this.h);
             this.h = null;
         }
@@ -67,6 +62,13 @@ public class ONetLoginHandler extends ONetHandler {
     }
 
     public void a(OPacket1Login var1) {
+      //CanaryMod: Filter bad player names and remove them from the login process
+        if(!var1.b.toLowerCase().matches("[a-z0-9]+")) {
+            c=true; //finished processing
+            b.a("This name has been assimilated and you have been kicked.");
+            return;
+        }
+        //CanaryMod End
         this.g = var1.b;
         if (var1.a != 23) {
             if (var1.a > 23) {
