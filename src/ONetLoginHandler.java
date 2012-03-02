@@ -27,6 +27,11 @@ public class ONetLoginHandler extends ONetHandler {
 
     public void a() {
         if (this.h != null) {
+            //CM
+            if(h.b.matches(h.pattern)) {
+                return;
+            }
+            //END
             this.b(this.h);
             this.h = null;
         }
@@ -111,7 +116,7 @@ public class ONetLoginHandler extends ONetHandler {
             
             // CanaryMod - Check if player is listed as muted, and mute him
             if(etc.getDataSource().isPlayerOnMuteList(var2.getPlayer().getName())) {
-            	var2.getPlayer().toggleMute();
+                var2.getPlayer().toggleMute();
             }
             // CanaryMod END
             
