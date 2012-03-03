@@ -109,7 +109,7 @@ public class BanSystem {
         fileBan(player, reason, timestamp, true);
     }
     
-    private static void fileBan(Player player, String reason, int timestamp, boolean byIp) {
+    protected static void fileBan(Player player, String reason, int timestamp, boolean byIp) {
         Ban ban = new Ban();
         
         if (byIp)

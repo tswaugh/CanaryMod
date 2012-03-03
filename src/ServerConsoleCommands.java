@@ -1,10 +1,13 @@
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
-
 public class ServerConsoleCommands {
-    private static final Logger                      log = Logger.getLogger("Minecraft");
-    private static ServerConsoleCommands             instance;
+
+    private static final Logger log = Logger.getLogger("Minecraft");
+    private static ServerConsoleCommands instance;
     private final LinkedHashMap<String, BaseCommand> commands = new LinkedHashMap<String, BaseCommand>();
 
     private ServerConsoleCommands() {
@@ -18,11 +21,19 @@ public class ServerConsoleCommands {
         add("reservelist", reservelist);
         add("whitelist", whitelist);
         add("version", version);
+        add("banlist", banlist);
+        add("ban", ban);
+        add("banip", banip);
+        add("unban", unban);
+        add("unbanip", unbanip);
+        add("tempban", tempban);
+        add("kick", kick);
+        add("kickall", kickall);
     }
 
     /**
      * Add a command to the server list.
-     * 
+     *
      * @param name
      * @param cmd
      */
@@ -37,7 +48,7 @@ public class ServerConsoleCommands {
 
     /**
      * Remove a command from the server list.
-     * 
+     *
      * @param name
      */
     public void remove(String name) {
@@ -50,7 +61,7 @@ public class ServerConsoleCommands {
     /**
      * Performs a lookup for a command of the given name and executes it if
      * found. Returns false if command not found.
-     * 
+     *
      * @param command
      * @param caller
      * @param args
@@ -74,8 +85,8 @@ public class ServerConsoleCommands {
     public BaseCommand getCommand(String command) {
         return commands.get(command);
     }
-
     public static final BaseCommand reload = new BaseCommand("- Reloads CanaryMod") {
+
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
             etc.getInstance().load();
@@ -87,7 +98,6 @@ public class ServerConsoleCommands {
             caller.notify("Successfully reloaded config");
         }
     };
-
     public static final BaseCommand modify = new BaseCommand("[player] [key] [value] - Type /modify for more info", "Overriden onBadSyntax", 3) {
 
         @Override
@@ -99,19 +109,19 @@ public class ServerConsoleCommands {
                         return;
                     }
                 }
-                                                              
+
                 Player player = etc.getServer().matchPlayer(parameters[1]);
 
                 if (player == null) {
                     if (!etc.getDataSource().doesPlayerExist(parameters[1])) {
                         caller.notify("Player does not exist.");
-                        return; 
+                        return;
                     } else {
                         player = etc.getDataSource().getPlayer(parameters[1]);
                         player.setOfflineName(parameters[1]);
                     }
-                } 
-                                                               
+                }
+
                 for (int i = 2; i < parameters.length; i++) {
                     if (parameters[i].split(":").length != 2) {
                         caller.notify("This key:value pair is deformed... " + parameters[i]);
@@ -130,7 +140,7 @@ public class ServerConsoleCommands {
                         newUser = true;
                         player.setCanModifyWorld(true);
                     }
-                                                                  
+
                     boolean skip = false;
 
                     if ((key.equalsIgnoreCase("groups") || key.equalsIgnoreCase("g"))) {
@@ -140,13 +150,13 @@ public class ServerConsoleCommands {
                                 skip = true;
                             }
                         }
-                    } 
-                                                                  
+                    }
+
                     if (!skip) {
-                        updatePlayerValues(player, key, value);                                                                  
+                        updatePlayerValues(player, key, value);
                         saveChanges(player, newUser);
                     }
-                                                                  
+
                     log.info("Modifed user " + player.getOfflineName() + ". " + key + " => " + value + " by " + caller.getName());
                 }
                 caller.notify("Modified user.");
@@ -155,18 +165,18 @@ public class ServerConsoleCommands {
                     onBadSyntax(caller, null);
                     return;
                 }
-                                                              
+
                 Player player = etc.getServer().matchPlayer(parameters[1]);
 
                 if (player == null) {
                     if (!etc.getDataSource().doesPlayerExist(parameters[1])) {
                         caller.notify("Player does not exist.");
-                        return; 
+                        return;
                     } else {
                         player = etc.getDataSource().getPlayer(parameters[1]);
                         player.setOfflineName(parameters[1]);
                     }
-                } 
+                }
 
                 String key = parameters[2];
                 String value = parameters[3];
@@ -180,7 +190,7 @@ public class ServerConsoleCommands {
                     caller.notify("Adding new user.");
                     newUser = true;
                 }
-                                                              
+
                 if ((key.equalsIgnoreCase("groups") || key.equalsIgnoreCase("g"))) {
                     for (String groupname : value.split(",")) {
                         if (!etc.getDataSource().doesGroupExist(groupname)) {
@@ -188,7 +198,7 @@ public class ServerConsoleCommands {
                             return;
                         }
                     }
-                } 
+                }
 
                 updatePlayerValues(player, key, value);
                 saveChanges(player, newUser);
@@ -238,8 +248,8 @@ public class ServerConsoleCommands {
             caller.notify("modworld: true or false");
         }
     };
-
     public final static BaseCommand whitelist = new BaseCommand("[operation (add or remove)] [player]", "whitelist [operation (toggle, add or remove)] <player>", 2) {
+
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
             if (parameters[1].equalsIgnoreCase("toggle")) {
@@ -259,7 +269,6 @@ public class ServerConsoleCommands {
             }
         }
     };
-
     public final static BaseCommand reservelist = new BaseCommand("[operation (add or remove)] [player]", "reservelist [operation (add or remove)] [player]", 3, 3) {
 
         @Override
@@ -275,15 +284,15 @@ public class ServerConsoleCommands {
             }
         }
     };
-
     public final static BaseCommand listplugins = new BaseCommand("- Lists all plugins") {
+
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
             caller.notify("Plugins" + Colors.White + ": " + etc.getLoader().getPluginList());
         }
     };
-
     public final static BaseCommand reloadplugin = new BaseCommand("[plugin] - Reloads plugin", "Correct usage is: /reloadplugin [plugin]", 2) {
+
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
             if (etc.getLoader().reloadPlugin(parameters[1])) {
@@ -293,8 +302,8 @@ public class ServerConsoleCommands {
             }
         }
     };
-
     public final static BaseCommand enableplugin = new BaseCommand("[plugin] - Enables plugin", "Correct usage is: /enableplugin [plugin]", 2) {
+
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
             if (etc.getLoader().enablePlugin(parameters[1])) {
@@ -304,16 +313,16 @@ public class ServerConsoleCommands {
             }
         }
     };
-
     public final static BaseCommand disableplugin = new BaseCommand("[plugin] - Disables plugin", "Correct usage is: /disableplugin [plugin]", 2) {
+
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
             etc.getLoader().disablePlugin(parameters[1]);
             caller.notify("Plugin disabled.");
         }
     };
-
     public final static BaseCommand version = new BaseCommand("- Displays the server version") {
+
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
             if (!etc.getInstance().getTainted()) {
@@ -327,8 +336,6 @@ public class ServerConsoleCommands {
             }
         }
     };
-    
-    @Command
     public static final BaseCommand banlist = new BaseCommand("<IP or bans> - Gives a list of bans") {
 
         @Override
@@ -346,8 +353,6 @@ public class ServerConsoleCommands {
             }
         }
     };
-    
-    @Command
     public static final BaseCommand banip = new BaseCommand("[Player] <Reason> - Bans the player's IP", "Correct usage is: /banip [player] <reason> (optional) NOTE: this permabans IPs.", 2) {
 
         @Override
@@ -367,7 +372,7 @@ public class ServerConsoleCommands {
                     BanSystem.fileIpBan(player);
                 }
 
-                etc.getLoader().callHook(PluginLoader.Hook.IPBAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
+                etc.getLoader().callHook(PluginLoader.Hook.IPBAN, new Object[]{(caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : ""});
 
                 log.info("IP Banning " + player.getName() + " (IP: " + player.getIP() + ")");
                 caller.notify("IP Banning " + player.getName() + " (IP: " + player.getIP() + ")");
@@ -382,8 +387,6 @@ public class ServerConsoleCommands {
             }
         }
     };
-    
-    @Command
     public static final BaseCommand ban = new BaseCommand("[Player] <Reason> - Bans the player", "Correct usage is: /ban [player] <reason> (optional)", 2) {
 
         @Override
@@ -403,19 +406,19 @@ public class ServerConsoleCommands {
                     BanSystem.fileBan(player);
                 }
 
-                etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
+                etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[]{(caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : ""});
 
                 if (split.length > 2) {
                     player.kick("Banned by " + caller.getName() + ": " + etc.combineSplit(2, split, " "));
                 } else {
                     player.kick("Banned by " + caller.getName() + ".");
                 }
-                log.info("Banning " + player.getName());
+                log.info(caller.getName() + ": banning " + player.getName());
                 caller.notify("Banning " + player.getName());
             } else {
                 if (!etc.getDataSource().isOnBanList(split[1], "")) {
                     etc.getDataSource().addBan(new Ban(split[1]));
-                    log.info("Banning " + split[1]);
+                    log.info(caller.getName() + ": banning " + split[1]);
                     caller.notify("Banning " + split[1]);
                 } else {
                     caller.notify(String.format("%s is already banned from this server", split[1]));
@@ -423,8 +426,6 @@ public class ServerConsoleCommands {
             }
         }
     };
-    
-    @Command
     public static final BaseCommand unban = new BaseCommand("[Player] - Unbans the player", "Correct usage is: /unban [player]", 2, 2) {
 
         @Override
@@ -433,8 +434,6 @@ public class ServerConsoleCommands {
             caller.notify("Unbanned " + split[1]);
         }
     };
-    
-    @Command
     public static final BaseCommand unbanip = new BaseCommand("[IP] - Unbans the IP", "Correct usage is: /unbanip [ip]", 2, 2) {
 
         @Override
@@ -446,14 +445,15 @@ public class ServerConsoleCommands {
             caller.notify("Unbanned " + parameters[1]);
         }
     };
-    
     // TODO: add a way to ban by IP, either a new command or an option for /tempban
-    
-    @Command
-    public static final BaseCommand tempban = new BaseCommand("[player] [time] <reason> - Bans the player for the specified time", "Overridden because multiline", 3) {
+    public static final BaseCommand tempban = new BaseCommand("<'ip'> [player] [time] <reason> - Bans the player for the specified time", "Overridden because multiline", 3) {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
+            boolean byIp = split[1].equalsIgnoreCase("ip");
+            if (byIp)
+                split = (split[0] + " " + etc.combineSplit(2, split, " ")).split(" ");
+            
             Player player = etc.getServer().matchPlayer(split[1]);
 
             if (player != null) {
@@ -462,49 +462,129 @@ public class ServerConsoleCommands {
                     return;
                 }
 
-                split[2] = split[2].toLowerCase();
-                if (!split[2].matches("\\d+[dmh]")){
-                    caller.notify("Invalid time format.");
-                    return;
-                }
-                    
-                char unit = split[2].charAt(split[2].length() - 1);
-                
                 if (split.length > 3) {
-                    switch (unit) {
-                        case 'd':
-                            BanSystem.fileTempBan(player, etc.combineSplit(3, split, " "), 0, 0, Integer.parseInt(split[2].substring(0, split[2].length() - 2)));
-                            break;
-                    
-                    }
-                    
+                    BanSystem.fileBan(player, etc.combineSplit(3, split, " "),
+                            (int) (matchFutureDate(split[2]) / 1000), byIp);
+                } else {
+                    BanSystem.fileBan(player, etc.getInstance().getDefaultBanMessage(),
+                            (int) (matchFutureDate(split[2]) / 1000), byIp);
                 }
 
-                etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[] { (caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "" });
+                etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[]{(caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : ""});
 
                 if (split.length > 3) {
                     player.kick("Banned by " + caller.getName() + ": " + etc.combineSplit(3, split, " "));
                 } else {
                     player.kick("Banned by " + caller.getName() + ".");
                 }
-                log.info("Banning " + player.getName());
+                log.info(caller.getName() + ": banning " + player.getName());
                 caller.notify("Banning " + player.getName());
+            } else if (byIp) {
+                if (!etc.getDataSource().isOnBanList("", split[1])) {
+                    Ban b = new Ban();
+                    b.setIp(split[1]);
+                    b.setTimestamp((int) (matchFutureDate(split[2]) / 1000));
+                    etc.getDataSource().addBan(new Ban(split[1]));
+                    log.info(caller.getName() + ": banning " + split[1]);
+                    caller.notify("Banning " + split[1]);
+                }
             } else {
                 if (!etc.getDataSource().isOnBanList(split[1], "")) {
                     etc.getDataSource().addBan(new Ban(split[1]));
-                    log.info("Banning " + split[1]);
+                    log.info(caller.getName() + ": banning " + split[1]);
                     caller.notify("Banning " + split[1]);
                 } else {
                     caller.notify(String.format("%s is already banned from this server", split[1]));
                 }
             }
         }
+        
+        // Thanks to sk89q's CommandBook for this parser
+        public long matchFutureDate(String filter) throws IllegalArgumentException {
+            if (filter.equalsIgnoreCase("now")) return System.currentTimeMillis();
+            String[] groupings = filter.split("-");
+            if (groupings.length == 0) throw new IllegalArgumentException("Invalid date specified");
+            Calendar cal = new GregorianCalendar();
+            cal.setTimeInMillis(System.currentTimeMillis());
+            for (String str : groupings) {
+                int type;
+                switch (str.charAt(str.length() - 1)) {
+                    case 'm':
+                        type = Calendar.MINUTE;
+                        break;
+                    case 'h':
+                        type = Calendar.HOUR;
+                        break;
+                    case 'd':
+                        type = Calendar.DATE;
+                        break;
+                    case 'w':
+                        type = Calendar.WEEK_OF_YEAR;
+                        break;
+                    case 'y':
+                        type = Calendar.YEAR;
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unknown date value specified");
+                }
+                cal.add(type, Integer.valueOf(str.substring(0, str.length() -1)));
+            }
+            return cal.getTimeInMillis();
+        }
 
         @Override
         public void onBadSyntax(MessageReceiver caller, String[] parameters) {
-            caller.notify("Correct usage: /tempban [player] [time] <reason> (optional)");
-            caller.notify("Time consists of a number followed by d for days, h for hours");
-            caller.notify("  and m for minutes.");
+            caller.notify("Correct usage: /tempban <'ip'> [player] [time] <reason> (optional)");
+            caller.notify("Time is given as a series of [number][m|h|d|w|y] split by -.");
+            caller.notify("The characters m, h, d, w, y stand for minutes, hours, days, weeks");
+            caller.notify("  and years, respectively");
+        }
+    };
+    public static final BaseCommand kick = new BaseCommand("[Player] <Reason> - Kicks player", "Correct usage is: /kick [player] <reason> (optional)", 2) {
+
+        @Override
+        void execute(MessageReceiver caller, String[] split) {
+            Player player = etc.getServer().matchPlayer(split[1]);
+
+            if (player != null) {
+                if ((caller instanceof Player) && !((Player) caller).hasControlOver(player)) {
+                    caller.notify("You can't kick that user.");
+                    return;
+                }
+
+                etc.getLoader().callHook(PluginLoader.Hook.KICK, new Object[]{(caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : ""});
+
+                if (split.length > 2) {
+                    player.kick("Kicked by " + caller.getName() + ": " + etc.combineSplit(2, split, " "));
+                } else {
+                    player.kick("Kicked by " + caller.getName() + ".");
+                }
+                log.info("Kicking " + player.getName());
+                caller.notify("Kicking " + player.getName());
+            } else {
+                caller.notify("Can't find user " + split[1] + ".");
+            }
+        }
+    };
+    public static final BaseCommand kickall = new BaseCommand("<Reason> - Kicks all players", "Correct usage is: /kickall <reason> (optional)", 1) {
+
+        @Override
+        void execute(MessageReceiver caller, String[] split) {
+            log.info("Kicking all players.");
+            Object[] playerObjects = etc.getServer().getPlayerList().toArray();
+            for (Object playerObject : playerObjects) {
+                Player player = (Player) playerObject;
+                if (player != null && player.isConnected()) {
+                    etc.getLoader().callHook(PluginLoader.Hook.KICK, new Object[]{(caller instanceof Player) ? (Player) caller : null, player, split.length >= 2 ? etc.combineSplit(1, split, " ") : ""});
+
+                    if (split.length > 1) {
+                        player.kick("Kicked by " + caller.getName() + ": " + etc.combineSplit(1, split, " "));
+                    } else {
+                        player.kick("Kicked by " + caller.getName() + ".");
+                    }
+                }
+            }
+            log.info("Kicked all players.");
         }
     };
 }

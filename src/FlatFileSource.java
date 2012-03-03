@@ -30,7 +30,7 @@ public class FlatFileSource extends DataSource {
         loadEnderBlocks();
         loadAntiXRayBlocks();
         loadMutedPlayers();
-        // loadBanList();
+        loadBanList();
 
         String location = etc.getInstance().getUsersLocation();
 
@@ -739,11 +739,39 @@ public class FlatFileSource extends DataSource {
 
     @Override
     public void loadBanList() {
+        String location = etc.getInstance().getBanListLoc();
+        
+        if (!new File(location).exists()) {
+            FileWriter writer = null;
+
+            try {
+                writer = new FileWriter(location);
+                writer.write("# Add your bans here (When adding your entry DO NOT include #!)" + LINE_SEP);
+                writer.write("# The format is:" + LINE_SEP);
+                writer.write("# NAME/IP:REASON:TIMESTAMP" + LINE_SEP);
+                writer.write("# Timestamp is a UNIX timestamp, i.e. seconds since 01-01-1970 00:00" + LINE_SEP);
+                writer.write("# Reason and timestamp are optional." + LINE_SEP);
+                writer.write("# Examples:" + LINE_SEP);
+                writer.write("#N0tch:Impersonating Notch" + LINE_SEP);
+                writer.write("#UnwantedUser1337" + LINE_SEP);
+                writer.write("#BobTheBuilder:No building until April Fools.:1333238400" + LINE_SEP);
+            } catch (Exception e) {
+                log.log(Level.SEVERE, String.format("Exception while creating %s", location), e);
+            } finally {
+                try {
+                    if (writer != null) {
+                        writer.close();
+                    }
+                } catch (IOException e) {
+                    log.log(Level.SEVERE, String.format("Exception while closing writer for %s", location), e);
+                }
+            }
+        }
         synchronized (banLock) {
             bans = new ArrayList<Ban>();
 
             try {
-                Scanner scanner = new Scanner(new File("banned-players.txt"));
+                Scanner scanner = new Scanner(new File(location));
 
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
@@ -754,56 +782,23 @@ public class FlatFileSource extends DataSource {
                     String[] split = line.split(":");
                     Ban ban = new Ban();
 
-                    if (split.length >= 1) {
-                        if (split[0].contains("."))
-                            ban.setIp(split[0]);
-                        else
-                            ban.setName(split[0]);
-                        if (split.length >= 2) {
-                            ban.setReason(split[1]);
-                            if (split.length >= 3)
-                                ban.setTimestamp(Integer.parseInt(split[2]));
-                        }
-                    } else {
-                        if (line.contains("."))
-                            ban.setIp(line);
-                        else
-                            ban.setName(line);
-                        ban.setReason(etc.getInstance().getDefaultBanMessage());
-                    }
-                    bans.add(ban);
-                }
-                scanner.close();
-            } catch (Exception e) {
-                log.log(Level.SEVERE, "Exception while reading banned-players.txt", e);
-            }
 
-            try {
-                Scanner scanner = new Scanner(new File("banned-ips.txt"));
-
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-
-                    if (line.startsWith("#") || line.equals("")) {
-                        continue;
-                    }
-                    String[] split = line.split(":");
-
-                    Ban ban = new Ban();
-
-                    if (split.length >= 1) {
+                    if (split[0].contains("."))
                         ban.setIp(split[0]);
-                    }
-                    if (split.length == 4) {
-                        ban.setName(split[1]);
-                        ban.setReason(split[2]);
-                        ban.setTimestamp(Integer.parseInt(split[3]));
-                    }
+                    else
+                        ban.setName(split[0]);
+                    if (split.length >= 2) {
+                        ban.setReason(split[1]);
+                        if (split.length >= 3)
+                            ban.setTimestamp(Integer.parseInt(split[2]));
+                    } else
+                        ban.setReason(etc.getInstance().getDefaultBanMessage());
+                    
                     bans.add(ban);
                 }
                 scanner.close();
             } catch (Exception e) {
-                log.log(Level.SEVERE, "Exception while reading banned-ips.txt", e);
+                log.log(Level.SEVERE, String.format("Exception while reading %s", location), e);
             }
         }
     }
@@ -1686,8 +1681,10 @@ public class FlatFileSource extends DataSource {
         int now = (int) (System.currentTimeMillis() / 1000);
         synchronized (banLock) {
             for (Ban b: bans)
-                if (b.equals(ban))
-                    b.setTimestamp(now);
+                if (b.equals(ban)) {
+                    ban = b;
+                    ban.setTimestamp(now);
+                }
         }
         String loc = etc.getInstance().getBanListLoc();
         
@@ -1695,7 +1692,7 @@ public class FlatFileSource extends DataSource {
             // Now to save...
             BufferedReader reader = new BufferedReader(new FileReader(new File(loc)));
             StringBuilder toWrite = new StringBuilder();
-            String line = "";
+            String line;
             String user = ban.getIp().isEmpty() ? ban.getName() : ban.getIp();
         
             while ((line = reader.readLine()) != null) {
@@ -1708,7 +1705,6 @@ public class FlatFileSource extends DataSource {
                            .append(ban.getReason())
                            .append(":")
                            .append(now)
-                           .append(":")
                            .append(LINE_SEP);
                 }
             }

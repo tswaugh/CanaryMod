@@ -471,11 +471,11 @@ public abstract class DataSource {
     public boolean isOnBanList(String player, String ip) {
         synchronized (banLock) {
             for (Ban ban : bans) {
-                if (ban.getName().equalsIgnoreCase(player)
-                        || ban.getIp().equalsIgnoreCase(ip)
-                        || ban.getTimestamp() == -1
+                if ((ban.getName().equalsIgnoreCase(player)
+                        || ban.getIp().equalsIgnoreCase(ip))
+                        && (ban.getTimestamp() == -1
                         || ban.getTimestamp()
-                                > (int) (System.currentTimeMillis() / 1000)) {
+                                > (int) (System.currentTimeMillis() / 1000))) {
                     return true;
                 }
             }
@@ -495,11 +495,11 @@ public abstract class DataSource {
     public Ban getBan(String player, String ip) {
         synchronized (banLock) {
             for (Ban ban : bans) {
-                if (ban.getName().equalsIgnoreCase(player)
-                        || ban.getIp().equalsIgnoreCase(ip)
-                        || ban.getTimestamp() == -1
+                if ((ban.getName().equalsIgnoreCase(player)
+                        || ban.getIp().equalsIgnoreCase(ip))
+                        && (ban.getTimestamp() == -1
                         || ban.getTimestamp()
-                                > (int) (System.currentTimeMillis() / 1000)) {
+                                > (int) (System.currentTimeMillis() / 1000))) {
                     return ban;
                 }
             }

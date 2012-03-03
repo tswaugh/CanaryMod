@@ -156,6 +156,7 @@ public class OServerConfigurationManager {
         if (etc.getDataSource().isOnBanList(var2, ip)) {
             Ban ban = etc.getDataSource().getBan(var2, ip);
             var1.a(ban.getReason());
+            return null;
         } else if (this.f.contains(var2.trim().toLowerCase())) {
             var1.a("You are banned from this server!");
             return null;

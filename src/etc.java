@@ -152,7 +152,7 @@ public class etc {
                 reservelistLoc = properties.getString("reservelist-txt-location", "config/reservelist.txt");
                 antiXRayBlocksLoc = properties.getString("antixray-txt-location", "config/antixray.txt");
                 muteListLoc = properties.getString("muted-players-location", "config/muted-players.txt");
-                banListLoc = properties.getString("muted-players-location", "config/bans.txt");
+                banListLoc = properties.getString("banned-players-location", "config/bans.txt");
             } else {
                 PropertiesFile sql = new PropertiesFile("mysql.properties");
 
