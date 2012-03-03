@@ -1,6 +1,7 @@
 build/*
 files/*
 jarjar/*
+!jarjar/rules.rules
 bin/*
 build/*
 servero/*
