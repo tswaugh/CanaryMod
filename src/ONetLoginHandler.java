@@ -63,7 +63,7 @@ public class ONetLoginHandler extends ONetHandler {
 
     public void a(OPacket1Login var1) {
       //CanaryMod: Filter bad player names and remove them from the login process
-        if(!var1.b.toLowerCase().matches("[a-z0-9]+")) {
+        if(!var1.b.toLowerCase().matches("[a-zA-Z0-9-_]+")) {
             c=true; //finished processing
             b.a("This name has been assimilated and you have been kicked.");
             return;
