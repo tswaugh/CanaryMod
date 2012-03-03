@@ -4,12 +4,12 @@ import java.util.Random;
 public class OBlockCactus extends OBlock {
 
     protected OBlockCactus(int var1, int var2) {
-        super(var1, var2, OMaterial.w);
+        super(var1, var2, OMaterial.x);
         this.a(true);
     }
 
     public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
-        if (var1.f(var2, var3 + 1, var4)) {
+        if (var1.g(var2, var3 + 1, var4)) {
             int var6;
 
             for (var6 = 1; var1.a(var2, var3 - var6, var4) == this.bO; ++var6) {
@@ -76,12 +76,12 @@ public class OBlockCactus extends OBlock {
         } else {
             int var5 = var1.a(var2, var3 - 1, var4);
 
-            return var5 == OBlock.aX.bO || var5 == OBlock.G.bO;
+            return var5 == OBlock.aV.bO || var5 == OBlock.E.bO;
         }
     }
 
     public void a(OWorld var1, int var2, int var3, int var4, OEntity var5) {
-        // CanaryMod Damage hook: Cactus
+		// CanaryMod Damage hook: Cactus
         if (var5 instanceof OEntityLiving && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.CACTUS, null, new LivingEntity((OEntityLiving) var5), 1)) {
             return;
         }

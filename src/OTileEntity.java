@@ -46,7 +46,7 @@ public class OTileEntity {
         }
     }
 
-    public void l_() {}
+    public void q_() {}
 
     public static OTileEntity c(ONBTTagCompound var0) {
         OTileEntity var1 = null;
@@ -70,7 +70,7 @@ public class OTileEntity {
         return var1;
     }
 
-    public int j() {
+    public int k() {
         if (this.p == -1) {
             this.p = this.k.c(this.l, this.m, this.n);
         }
@@ -78,7 +78,7 @@ public class OTileEntity {
         return this.p;
     }
 
-    public void z_() {
+    public void H_() {
         if (this.k != null) {
             this.p = this.k.c(this.l, this.m, this.n);
             this.k.b(this.l, this.m, this.n, this);
@@ -86,7 +86,7 @@ public class OTileEntity {
 
     }
 
-    public OPacket k() {
+    public OPacket d() {
         return null;
     }
 
@@ -94,7 +94,7 @@ public class OTileEntity {
         return this.o;
     }
 
-    public void i() {
+    public void j() {
         this.o = true;
     }
 
@@ -104,7 +104,7 @@ public class OTileEntity {
 
     public void b(int var1, int var2) {}
 
-    public void d() {
+    public void h() {
         this.q = null;
         this.p = -1;
     }
