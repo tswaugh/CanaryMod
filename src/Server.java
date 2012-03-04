@@ -249,7 +249,7 @@ public class Server {
     public List<Mob> getMobList() {
         List<Mob> toRet = new ArrayList<Mob>();
 
-        for (Object o : server.a(0).c) {
+        for (Object o : server.a(0).b) {
             if (o instanceof OEntityMob || o instanceof OEntityGhast) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
@@ -267,7 +267,7 @@ public class Server {
     public List<Mob> getAnimalList() {
         List<Mob> toRet = new ArrayList<Mob>();
 
-        for (Object o : server.a(0).c) {
+        for (Object o : server.a(0).b) {
             if (o instanceof OEntityAnimal) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
@@ -285,7 +285,7 @@ public class Server {
     public List<Minecart> getMinecartList() {
         List<Minecart> toRet = new ArrayList<Minecart>();
 
-        for (Object o : server.a(0).c) {
+        for (Object o : server.a(0).b) {
             if (o instanceof OEntityMinecart) {
                 toRet.add(((OEntityMinecart) o).cart);
             }
@@ -303,7 +303,7 @@ public class Server {
     public List<Boat> getBoatList() {
         List<Boat> toRet = new ArrayList<Boat>();
 
-        for (Object o : server.a(0).c) {
+        for (Object o : server.a(0).b) {
             if (o instanceof OEntityBoat) {
                 toRet.add(((OEntityBoat) o).boat);
             }
@@ -321,7 +321,7 @@ public class Server {
     public List<BaseEntity> getEntityList() {
         List<BaseEntity> toRet = new ArrayList<BaseEntity>();
 
-        for (Object o : server.a(0).c) {
+        for (Object o : server.a(0).b) {
             if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal) {
                 toRet.add(new Mob((OEntityLiving) o));
             } else if (o instanceof OEntityMinecart) {
@@ -346,7 +346,7 @@ public class Server {
     public List<LivingEntity> getLivingEntityList() {
         List<LivingEntity> toRet = new ArrayList<LivingEntity>();
 
-        for (Object o : server.a(0).c) {
+        for (Object o : server.a(0).b) {
             if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal) {
                 toRet.add(new Mob((OEntityLiving) o));
             } else if (o instanceof OEntityPlayerMP) {
@@ -366,7 +366,7 @@ public class Server {
     public List<BaseVehicle> getVehicleEntityList() {
         List<BaseVehicle> toRet = new ArrayList<BaseVehicle>();
 
-        for (Object o : server.a(0).c) {
+        for (Object o : server.a(0).b) {
             if (o instanceof OEntityMinecart) {
                 toRet.add(((OEntityMinecart) o).cart);
             } else if (o instanceof OEntityBoat) {
