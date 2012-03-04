@@ -12,11 +12,11 @@ public class OPacket52MultiBlockChange extends OPacket {
     public int f;
 
     public OPacket52MultiBlockChange() {
-        this.l = true;
+        this.p = true;
     }
 
     public OPacket52MultiBlockChange(int paramInt1, int paramInt2, short[] paramArrayOfShort, int paramInt3, OWorld paramOWorld) {
-        this.l = true;
+        this.p = true;
         this.a = paramInt1;
         this.b = paramInt2;
         this.f = paramInt3;

@@ -38,10 +38,10 @@ public class OPlayerManager {
         this.c.clear();
         if (this.a.isEmpty()) {
             OWorldServer var3 = this.d.a(this.e);
-            OWorldProvider var2 = var3.y;
+            OWorldProvider var2 = var3.t;
 
             if (!var2.c()) {
-                var3.J.c();
+                var3.x.c();
             }
         }
 

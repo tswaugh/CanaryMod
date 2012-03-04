@@ -11,18 +11,18 @@ public class OPacket53BlockChange extends OPacket {
     public int e;
 
     public OPacket53BlockChange() {
-        this.l = true;
+        this.p = true;
     }
 
     public OPacket53BlockChange(int paramInt1, int paramInt2, int paramInt3, OWorld paramOWorld) {
-        this.l = true;
+        this.p = true;
         this.a = paramInt1;
         this.b = paramInt2;
         this.c = paramInt3;
     
         // CanaryMod start
         if (etc.getInstance().isAntiXRayEnabled()) {
-            OChunk activeChunk = paramOWorld.b(a, c);
+            OChunk activeChunk = paramOWorld.c(a, c);
         
             int blockID = paramOWorld.a(paramInt1, paramInt2, paramInt3);
 

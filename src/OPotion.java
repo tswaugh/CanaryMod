@@ -67,7 +67,7 @@ public class OPotion {
 
     public void a(OEntityLiving var1, int var2) {
         if (this.H == l.H) {
-            if (var1.ap() < var1.c()) {
+            if (var1.ap() < var1.d()) {
                 var1.d(1);
             }
         } else if (this.H == u.H) {
