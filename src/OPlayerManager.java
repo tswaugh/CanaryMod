@@ -41,7 +41,7 @@ public class OPlayerManager {
             OWorldProvider var2 = var3.t;
 
             if (!var2.c()) {
-                var3.x.c();
+                var3.G.c();
             }
         }
 
