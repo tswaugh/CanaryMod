@@ -30,7 +30,7 @@ public class OPacket53BlockChange extends OPacket {
             if (etc.getDataSource().getAntiXRayBlocks().contains(new Integer(blockID))) {
                 Integer index = new Integer((paramInt1 & 0xf) << 11 | (paramInt3 & 0xf) << 7 | paramInt2);
 
-                // If the block is supposed to be hidden
+                /* If the block is supposed to be hidden
                 if (activeChunk.antiXRayBlocks.containsKey(index)) {
                     if (activeChunk.isHidden(paramInt1 & 0xf, paramInt2, paramInt3 & 0xf)) {
                         // Send it as a stone.
@@ -53,7 +53,7 @@ public class OPacket53BlockChange extends OPacket {
                         this.d = blockID;
                         this.e = paramOWorld.c(paramInt1, paramInt2, paramInt3);
                     }
-                }
+                }*/
             } else {
                 this.d = blockID;
                 this.e = paramOWorld.c(paramInt1, paramInt2, paramInt3);

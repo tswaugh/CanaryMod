@@ -35,7 +35,7 @@ public class OPacket52MultiBlockChange extends OPacket {
             if (etc.getInstance().isAntiXRayEnabled()) {
                 int blockID = localOChunk.a(j, m, k);
 
-                // If we are attemting to send a hidden block
+                /* If we are attemting to send a hidden block
                 if (etc.getDataSource().getAntiXRayBlocks().contains(new Integer(blockID))) {
                     Integer index = new Integer(j << 11 | k << 7 | m);
 
@@ -62,10 +62,10 @@ public class OPacket52MultiBlockChange extends OPacket {
                             this.e[i] = (byte) localOChunk.b(j, m, k);
                         }
                     }
-                } else {
+                } else {*/
                     this.d[i] = (byte) blockID;
                     this.e[i] = (byte) localOChunk.b(j, m, k);
-                }
+                //}
             } else {
                 this.d[i] = (byte) localOChunk.a(j, m, k);
                 this.e[i] = (byte) localOChunk.b(j, m, k);

@@ -69,7 +69,7 @@ public class ONetworkManager {
 
             synchronized (this.g) {
                 this.x += var1.a() + 1;
-                if (var1.l) {
+                if (var1.p) {
                     this.o.add(var1);
                 } else {
                     this.n.add(var1);
@@ -143,7 +143,10 @@ public class ONetworkManager {
                 int var10001 = var2.b();
 
                 var10000[var10001] += var2.a() + 1;
-                this.m.add(var2);
+                if (!this.q) {
+                    this.m.add(var2);
+                }
+
                 var1 = true;
             } else {
                 this.a("disconnect.endOfStream", new Object[0]);
@@ -230,11 +233,11 @@ public class ONetworkManager {
 
     public void d() {
         if (!this.q) {
-        this.a();
-        this.q = true;
-        this.s.interrupt();
-        (new OThreadMonitorConnection(this)).start();
-    }
+            this.a();
+            this.q = true;
+            this.s.interrupt();
+            (new OThreadMonitorConnection(this)).start();
+        }
     }
 
     public int e() {
