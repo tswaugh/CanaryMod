@@ -173,17 +173,17 @@ public class etc {
             enableAntiXRayLighting = properties.getBoolean("enable-antixray-lighting", false);
             deathMessages = properties.getBoolean("death-message", true);
 
-            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow").split(",");
+            animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,Wolf,MushroomCow,Ozelot").split(",");
             if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals(""))) {
                 animals = new String[] {};
             }
-            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf" });
+            validateMobGroup(animals, "natural-animals", new String[] { "Sheep", "Pig", "Chicken", "Cow", "Wolf", "MushroomCow", "Ozelot" });
 
-            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish").split(",");
+            monsters = properties.getString("natural-monsters", "Spider,Zombie,Skeleton,Creeper,Slime,Enderman,CaveSpider,Silverfish,PigZombie,Ghast,Blaze,LavaSlime,EnderDragon").split(",");
             if (monsters.length == 1 && (monsters[0].equals(" ") || monsters[0].equals(""))) {
                 monsters = new String[] {};
             }
-            validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish" });
+            validateMobGroup(monsters, "natural-monsters", new String[] { "PigZombie", "Ghast", "Blaze", "LavaSlime", "Slime", "Giant", "Spider", "Zombie", "Skeleton", "Creeper", "Enderman", "CaveSpider", "Silverfish", "EnderDragon" });
 
             waterAnimals = properties.getString("natural-wateranimals", "Squid").split(",");
             if (waterAnimals.length == 1 && (waterAnimals[0].equals(" ") || waterAnimals[0].equals(""))) {
@@ -1176,7 +1176,7 @@ public class etc {
     }
 
     public List getAnimalsClass(OBiomeGenBase biomeGen) {
-        List<OSpawnListEntry> toRet = biomeGen.J;
+        List<OSpawnListEntry> toRet = biomeGen.K;
         List<String> allowed = Arrays.asList(getAnimals());
         
         Iterator<OSpawnListEntry> it = toRet.iterator();
@@ -1191,7 +1191,7 @@ public class etc {
     }
 
     public List getWaterAnimalsClass(OBiomeGenBase biomeGen) {
-        List<OSpawnListEntry> toRet = biomeGen.J;
+        List<OSpawnListEntry> toRet = biomeGen.L;
         List<String> allowed = Arrays.asList(getWaterAnimals());
         
         Iterator<OSpawnListEntry> it = toRet.iterator();
