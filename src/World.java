@@ -83,7 +83,7 @@ public class World {
      * @return time server time
      */
     public long getTime() {
-        return world.n();
+        return world.o();
     }
 
     /**
