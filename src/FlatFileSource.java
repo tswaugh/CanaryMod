@@ -527,7 +527,7 @@ public class FlatFileSource extends DataSource {
                 writer.write("endstone:121" + LINE_SEP);
                 writer.write("dragonegg:122" + LINE_SEP);
                 writer.write("redstonelampoff:123" + LINE_SEP);
-                writer.write("redstonelampon:123" + LINE_SEP);
+                writer.write("redstonelampon:124" + LINE_SEP);
                 writer.write("ironshovel:256" + LINE_SEP);
                 writer.write("ironspade:256" + LINE_SEP);
                 writer.write("ironpickaxe:257" + LINE_SEP);
