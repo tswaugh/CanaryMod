@@ -957,7 +957,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().aO();
+        return getEntity().g_();
     }
 
     /**
@@ -1298,9 +1298,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param effect The potion effect to remove
      */
     public void removePotionEffect(PotionEffect effect) {     
-        OPotionEffect var3 = (OPotionEffect) getEntity().aL.get(effect.getType().getId());
+        OPotionEffect var3 = (OPotionEffect) getEntity().aK.get(effect.getType().getId());
 
-        getEntity().aL.remove(Integer.valueOf(effect.getType().getId()));
+        getEntity().aK.remove(Integer.valueOf(effect.getType().getId()));
         getEntity().d(var3);
     }
 
@@ -1310,7 +1310,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return List of potion effects 
      */
     public List<PotionEffect> getPotionEffects() {
-        Collection ay = getEntity().aD();
+        Collection ay = getEntity().aL();
         ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
 
         for (Iterator<OPotionEffect> iterator = ay.iterator(); iterator.hasNext();) {

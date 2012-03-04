@@ -708,12 +708,12 @@ public class PlayerCommands {
             }
 
             if ((player.getWorld().getType().getId()) != 0) {
-                caller.notify("You cannot set the spawn point in the Nether, mortal.");
+                caller.notify("You cannot set the spawn point outside of the Overworld, mortal.");
                 return;
             }
 
             for (World.Type type: World.Type.values()) {
-                etc.getMCServer().a(type.getId()).r().a((int) player.getX(), (int) player.getY(), (int) player.getZ());
+                etc.getMCServer().a(type.getId()).s().a((int) player.getX(), (int) player.getY(), (int) player.getZ());
             }
 
             log.info("Spawn position changed.");
