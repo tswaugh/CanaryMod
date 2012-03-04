@@ -6,7 +6,7 @@ public class OEntityItem extends OEntity {
     public int c;
     private int e = 5;
     public float d = (float) (Math.random() * 3.141592653589793D * 2.0D);
-	// CanaryMod Start
+    // CanaryMod Start
     ItemEntity item = new ItemEntity(this);
 
     // CanaryMod End
@@ -74,12 +74,12 @@ public class OEntityItem extends OEntity {
 
         ++this.b;
         if (this.b >= 6000) {
-			// CanaryMod onEntityDespawn
+            // CanaryMod onEntityDespawn
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENTITY_DESPAWN, item)) {
-				this.W();
-			} else {
-				this.b = 0;
-			}
+                this.W();
+            } else {
+                this.b = 0;
+            }
         }
 
     }
@@ -128,31 +128,31 @@ public class OEntityItem extends OEntity {
         if (!this.bi.F) {
             int var2 = this.a.a;
 
-			// CanaryMod: First simulate the pickup and call the hooks
+            // CanaryMod: First simulate the pickup and call the hooks
             if (this.c == 0 && var1.k.canPickup(this)) {
-				if (var1.k.a(this.a)) {
-					if (this.a.c == OBlock.J.bO) {
-						var1.a((OStatBase) OAchievementList.g);
-					}
+                if (var1.k.a(this.a)) {
+                    if (this.a.c == OBlock.J.bO) {
+                        var1.a((OStatBase) OAchievementList.g);
+                    }
 
-					if (this.a.c == OItem.aE.bP) {
-						var1.a((OStatBase) OAchievementList.t);
-					}
+                    if (this.a.c == OItem.aE.bP) {
+                        var1.a((OStatBase) OAchievementList.t);
+                    }
 
-					if (this.a.c == OItem.m.bP) {
-						var1.a((OStatBase) OAchievementList.w);
-					}
+                    if (this.a.c == OItem.m.bP) {
+                        var1.a((OStatBase) OAchievementList.w);
+                    }
 
-					if (this.a.c == OItem.bn.bP) {
-						var1.a((OStatBase) OAchievementList.z);
-					}
+                    if (this.a.c == OItem.bn.bP) {
+                        var1.a((OStatBase) OAchievementList.z);
+                    }
 
-					this.bi.a(this, "random.pop", 0.2F, ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-					var1.a((OEntity) this, var2);
-					if (this.a.a <= 0) {
-						this.W();
-					}
-				}
+                    this.bi.a(this, "random.pop", 0.2F, ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    var1.a((OEntity) this, var2);
+                    if (this.a.a <= 0) {
+                        this.W();
+                    }
+                }
             }
 
         }

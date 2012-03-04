@@ -9,7 +9,7 @@ public class OEntityBoat extends OEntity {
     private double d;
     private double e;
     private double f;
-	// CanaryMod Start
+    // CanaryMod Start
     Boat boat = new Boat(this);
 
     // CanaryMod end
@@ -52,8 +52,8 @@ public class OEntityBoat extends OEntity {
         this.bj = var2;
         this.bk = var4;
         this.bl = var6;
-		
-		// CanaryMod: Creation of the boat
+        
+        // CanaryMod: Creation of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_CREATE, boat);
     }
 
@@ -62,16 +62,16 @@ public class OEntityBoat extends OEntity {
     }
 
     public boolean a(ODamageSource var1, int var2) {
-		// CanaryMod: Attack of the boat
+        // CanaryMod: Attack of the boat
         BaseEntity entity = null;
-		
-		if (var1 != null && var1.a() != null) {
+        
+        if (var1 != null && var1.a() != null) {
             entity = new BaseEntity(var1.a());
         }
         if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, boat, entity, var2)) {
             return true;
         }
-		
+        
         if (!this.bi.F && !this.bE) {
             this.d(-this.m());
             this.c(10);
@@ -107,13 +107,13 @@ public class OEntityBoat extends OEntity {
 
     public void G_() {
         super.G_();
-		// CanaryMod: Update of the boat
+        // CanaryMod: Update of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, boat);
-		
-		double prevX = bj;
+        
+        double prevX = bj;
         double prevY = bk;
         double prevZ = bl;
-		
+        
         if (this.l() > 0) {
             this.c(this.l() - 1);
         }
@@ -291,12 +291,12 @@ public class OEntityBoat extends OEntity {
 
             this.bs = (float) ((double) this.bs + var30);
             this.c(this.bs, this.bt);
-			
-			// CanaryMod: Change of the boat
+            
+            // CanaryMod: Change of the boat
             if ((int) bj != (int) prevX || (int) bk != (int) prevY || (int) bl != (int) prevZ) {
                 manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, boat, (int) bj, (int) bk, (int) bl);
             }
-			
+            
             List var32 = this.bi.b((OEntity) this, this.bw.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
             int var33;
 
@@ -341,9 +341,9 @@ public class OEntityBoat extends OEntity {
     protected void a(ONBTTagCompound var1) {}
 
     public boolean b(OEntityPlayer var1) {
-		// CanaryMod: Entering the boat
+        // CanaryMod: Entering the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, boat, var1.entity);
-		
+        
         if (this.bg != null && this.bg instanceof OEntityPlayer && this.bg != var1) {
             return true;
         } else {

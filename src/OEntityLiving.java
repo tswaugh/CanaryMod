@@ -88,8 +88,8 @@ public abstract class OEntityLiving extends OEntity {
     private int q = 0;
     private OEntity r;
     protected int bc = 0;
-	
-	// CanaryMod Start
+    
+    // CanaryMod Start
     LivingEntity entity = new LivingEntity(this);
     protected MobSpawner spawner = null;
     // CanaryMod end
@@ -263,10 +263,10 @@ public abstract class OEntityLiving extends OEntity {
         }
 
         if (this.aD() && this.X()) {
-			// CanaryMod Damage hook: Suffocation
+            // CanaryMod Damage hook: Suffocation
             if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.SUFFOCATION, null, entity, 1)) {
-				this.a(ODamageSource.e, 1);
-			}
+                this.a(ODamageSource.e, 1);
+            }
         }
 
         if (this.aR() || this.bi.F) {
@@ -277,18 +277,18 @@ public abstract class OEntityLiving extends OEntity {
             this.k(this.b_(this.aZ()));
             if (this.aZ() == -20) {
                 this.k(0);
-				// CanaryMod Damage hook: Drowning
+                // CanaryMod Damage hook: Drowning
                 if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.WATER, null, entity, 2)) {
-					for (int var1 = 0; var1 < 8; ++var1) {
-						float var2 = this.bS.nextFloat() - this.bS.nextFloat();
-						float var3 = this.bS.nextFloat() - this.bS.nextFloat();
-						float var4 = this.bS.nextFloat() - this.bS.nextFloat();
+                    for (int var1 = 0; var1 < 8; ++var1) {
+                        float var2 = this.bS.nextFloat() - this.bS.nextFloat();
+                        float var3 = this.bS.nextFloat() - this.bS.nextFloat();
+                        float var4 = this.bS.nextFloat() - this.bS.nextFloat();
 
-						this.bi.a("bubble", this.bm + (double) var2, this.bn + (double) var3, this.bo + (double) var4, this.bp, this.bq, this.br);
-					}
+                        this.bi.a("bubble", this.bm + (double) var2, this.bn + (double) var3, this.bo + (double) var4, this.bp, this.bq, this.br);
+                    }
 
-					this.a(ODamageSource.f, 2);
-				}
+                    this.a(ODamageSource.f, 2);
+                }
             }
 
             this.aQ();
@@ -561,8 +561,8 @@ public abstract class OEntityLiving extends OEntity {
                 return false;
             } else {
                 this.aE = 1.5F;
-				
-				// CanaryMod damage entities.
+                
+                // CanaryMod damage entities.
                 LivingEntity attacker = null;
 
                 if (var1 != null && var1 instanceof OEntityDamageSource && ((OEntityDamageSource) var1).a() instanceof OEntityLiving) {
@@ -584,8 +584,8 @@ public abstract class OEntityLiving extends OEntity {
                     if (var2 <= this.aU) {
                         return false;
                     }
-					
-					// CanaryMod: partial damage
+                    
+                    // CanaryMod: partial damage
                     if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENTITY, attacker, entity, var2 - bW)) {
                         return false;
                     }
@@ -594,11 +594,11 @@ public abstract class OEntityLiving extends OEntity {
                     this.aU = var2;
                     var3 = false;
                 } else {
-					// CanaryMod: full damage
+                    // CanaryMod: full damage
                     if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENTITY, attacker, entity, var2)) {
                         return false;
                     }
-					
+                    
                     this.aU = var2;
                     this.aq = this.ap;
                     this.bW = this.S;
@@ -798,16 +798,16 @@ public abstract class OEntityLiving extends OEntity {
         int var2 = (int) Math.ceil((double) (var1 - 3.0F));
 
         if (var2 > 0) {
-			// CanaryMod Damage hook: Falling
+            // CanaryMod Damage hook: Falling
             if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FALL, null, entity, var2)) {
-				if (var2 > 4) {
-					this.bi.a(this, "damage.fallbig", 1.0F, 1.0F);
-				} else {
-					this.bi.a(this, "damage.fallsmall", 1.0F, 1.0F);
-				}
+                if (var2 > 4) {
+                    this.bi.a(this, "damage.fallbig", 1.0F, 1.0F);
+                } else {
+                    this.bi.a(this, "damage.fallsmall", 1.0F, 1.0F);
+                }
 
-				this.a(ODamageSource.i, var2);
-			}
+                this.a(ODamageSource.i, var2);
+            }
             int var3 = this.bi.a(OMathHelper.b(this.bm), OMathHelper.b(this.bn - 0.20000000298023224D - (double) this.bF), OMathHelper.b(this.bo));
 
             if (var3 > 0) {
@@ -1159,23 +1159,23 @@ public abstract class OEntityLiving extends OEntity {
             double var8 = var2 * var2 + var4 * var4 + var6 * var6;
 
             if (this.n() && var8 > 16384.0D) {
-				// CanaryMod hook onEntityDespawn
+                // CanaryMod hook onEntityDespawn
                 if (!(Boolean) OEntityLiving.manager.callHook(PluginLoader.Hook.ENTITY_DESPAWN, this.entity)) {
-					this.W();
-				}
+                    this.W();
+                }
             }
 
             if (this.aV > 600 && this.bS.nextInt(800) == 0 && this.n()) {
-				if(var8 < 1024.0D) {
-					this.aV = 0;
-				} else {
-					// CanaryMod hook onEntityDespawn
+                if(var8 < 1024.0D) {
+                    this.aV = 0;
+                } else {
+                    // CanaryMod hook onEntityDespawn
                     if (!(Boolean) OEntityLiving.manager.callHook(PluginLoader.Hook.ENTITY_DESPAWN, this.entity)) {
-						this.W();
-					} else {
-						this.aV = 0;
-					}
-				}
+                        this.W();
+                    } else {
+                        this.aV = 0;
+                    }
+                }
             }
         }
 
@@ -1414,7 +1414,7 @@ public abstract class OEntityLiving extends OEntity {
     }
 
     public void e(OPotionEffect var1) {
-		// CanaryMod - POTION_EFFECT HOOK
+        // CanaryMod - POTION_EFFECT HOOK
         PotionEffect pe = (PotionEffect) etc.getLoader().callHook(PluginLoader.Hook.POTION_EFFECT, this.entity, var1.potionEffect);
 
         if (pe == null) {

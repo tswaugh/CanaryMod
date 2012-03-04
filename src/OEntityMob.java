@@ -2,8 +2,8 @@
 public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
     protected int c = 2;
-	
-	// CanaryMod start
+    
+    // CanaryMod start
     protected LivingEntity entity = new LivingEntity(this);
     // CanaryMod end
 
@@ -42,7 +42,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
             if (this.bg != var3 && this.bh != var3) {
                 if (var3 != this) {
-					// CanaryMod start - MOB_TARGET hook
+                    // CanaryMod start - MOB_TARGET hook
                     if (var3 instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), entity)) {
                         this.d = var3;
                     }

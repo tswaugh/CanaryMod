@@ -19,7 +19,7 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
             int var10 = OMathHelper.b(var6);
 
             if (var1.a(var8, var9, var10) == 0 && OBlock.ar.c(var1, var8, var9, var10)) {
-				// CanaryMod: Ignite hook
+                // CanaryMod: Ignite hook
                 Block block = this.bi.world.getBlockAt(var8, var9, var10);
 
                 block.setStatus(5); // lightning
@@ -34,7 +34,7 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
                 int var11 = OMathHelper.b(var6) + this.bS.nextInt(3) - 1;
 
                 if (var1.a(var9, var10, var11) == 0 && OBlock.ar.c(var1, var9, var10, var11)) {
-					// CanaryMod: Ignite hook
+                    // CanaryMod: Ignite hook
                     Block block = this.bi.world.getBlockAt(var9, var10, var11);
 
                     block.setStatus(5); // lightning
@@ -68,7 +68,7 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
                     int var3 = OMathHelper.b(this.bo);
 
                     if (this.bi.a(var1, var2, var3) == 0 && OBlock.ar.c(this.bi, var1, var2, var3)) {
-						// CanaryMod: Ignite hook
+                        // CanaryMod: Ignite hook
                         Block block = this.bi.world.getBlockAt(var1, var2, var3);
 
                         block.setStatus(5); // lightning

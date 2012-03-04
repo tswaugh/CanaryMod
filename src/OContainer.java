@@ -138,7 +138,7 @@ public abstract class OContainer {
                                     var10 = var12.a();
                                 }
 
-                                var12.c(var14.a(var10));
+                                var12.d(var14.a(var10));
                                 if (var14.a == 0) {
                                     var6.b((OItemStack) null);
                                 }
@@ -148,10 +148,10 @@ public abstract class OContainer {
                             OItemStack var11 = var12.a(var10);
                             var6.b(var11);
                             if (var13.a == 0) {
-                                var12.c((OItemStack) null);
+                                var12.d((OItemStack) null);
                             }
 
-                            var12.b(var6.l());
+                            var12.c(var6.l());
                         } else if (var12.a(var14)) {
                             if (var13.c == var14.c && (!var13.e() || var13.h() == var14.h()) && OItemStack.a(var13, var14)) {
                                 var10 = var2 == 0 ? var14.a : 1;
@@ -171,7 +171,7 @@ public abstract class OContainer {
 
                                 var13.a += var10;
                             } else if (var14.a <= var12.a()) {
-                                var12.c(var14);
+                                var12.d(var14);
                                 var6.b(var13);
                             }
                         } else if (var13.c == var14.c && var14.b() > 1 && (!var13.e() || var13.h() == var14.h()) && OItemStack.a(var13, var14)) {
@@ -180,10 +180,10 @@ public abstract class OContainer {
                                 var14.a += var10;
                                 var13.a(var10);
                                 if (var13.a == 0) {
-                                    var12.c((OItemStack) null);
+                                    var12.d((OItemStack) null);
                                 }
 
-                                var12.b(var6.l());
+                                var12.c(var6.l());
                             }
                         }
                     }
@@ -217,7 +217,7 @@ public abstract class OContainer {
     }
 
     public void a(int var1, OItemStack var2) {
-        this.b(var1).c(var2);
+        this.b(var1).d(var2);
     }
 
     public boolean c(OEntityPlayer var1) {
@@ -282,7 +282,7 @@ public abstract class OContainer {
                 var7 = (OSlot) this.e.get(var6);
                 var8 = var7.b();
                 if (var8 == null) {
-                    var7.c(var1.j());
+                    var7.d(var1.j());
                     var7.d();
                     var1.a = 0;
                     var5 = true;

@@ -5,7 +5,7 @@ public class OEntityEnderman extends OEntityMob {
     public boolean a = false;
     private int g = 0;
     private int h = 0;
-	// CanaryMod Start
+    // CanaryMod Start
     Enderman entity = new Enderman(this);
 
     // CanaryMod End
@@ -100,12 +100,12 @@ public class OEntityEnderman extends OEntityMob {
                     var3 = OMathHelper.b(this.bo - 2.0D + this.bS.nextDouble() * 4.0D);
                     var4 = this.bi.a(var1, var2, var3);
                     if (b[var4]) {
-						// CanaryMod onEndermanPickup
+                        // CanaryMod onEndermanPickup
                         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_PICKUP, entity, new Block(var4, var1, var2, var3, this.bi.a(var1, var2, var3)))) {
-							this.c(this.bi.a(var1, var2, var3));
-							this.e(this.bi.c(var1, var2, var3));
-							this.bi.e(var1, var2, var3, 0);
-						}
+                            this.c(this.bi.a(var1, var2, var3));
+                            this.e(this.bi.c(var1, var2, var3));
+                            this.bi.e(var1, var2, var3, 0);
+                        }
                     }
                 }
             } else if (this.bS.nextInt(2000) == 0) {
@@ -116,11 +116,11 @@ public class OEntityEnderman extends OEntityMob {
                 int var5 = this.bi.a(var1, var2 - 1, var3);
 
                 if (var4 == 0 && var5 > 0 && OBlock.m[var5].b()) {
-					// CanaryMod onEndermanDrop
+                    // CanaryMod onEndermanDrop
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_DROP, entity, new Block(var5, var1, var2, var3, this.bi.a(var1, var2, var3)))) {
-						this.bi.b(var1, var2, var3, this.A(), this.J());
-						this.c(0);
-					}
+                        this.bi.b(var1, var2, var3, this.A(), this.J());
+                        this.c(0);
+                    }
                 }
             }
         }
@@ -306,8 +306,8 @@ public class OEntityEnderman extends OEntityMob {
             return super.a(var1, var2);
         }
     }
-	
-	// CanaryMod start
+    
+    // CanaryMod start
     public static boolean canHoldItem(int blockID) {
         return b[blockID];
     }

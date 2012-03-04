@@ -64,7 +64,7 @@ public abstract class OEntity {
     public int cc;
     public boolean cd;
     public boolean ce;
-	// CanaryMod Start
+    // CanaryMod Start
     BaseEntity entity = new BaseEntity(this);
     public static PluginLoader manager = etc.getLoader();
 
@@ -222,10 +222,10 @@ public abstract class OEntity {
                 }
             } else {
                 if (this.c % 20 == 0) {
-					// CanaryMod Damage hook: Periodic burn damage
+                    // CanaryMod Damage hook: Periodic burn damage
                     if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE_TICK, null, entity, 1)) {
-						this.a(ODamageSource.c, 1);
-					}
+                        this.a(ODamageSource.c, 1);
+                    }
                 }
 
                 --this.c;
@@ -252,7 +252,7 @@ public abstract class OEntity {
 
     protected void aP() {
         if (!this.bX) {
-			// CanaryMod Damage hook: Lava
+            // CanaryMod Damage hook: Lava
             if (this instanceof OEntityLiving) {
                 if ((Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.LAVA, null, entity, 4)) {
                     return;
@@ -595,10 +595,10 @@ public abstract class OEntity {
 
     protected void a(int var1) {
         if (!this.bX) {
-			// CanaryMod Damage Hook: Fire
+            // CanaryMod Damage Hook: Fire
             if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE, null, entity, var1)) {
-				this.a(ODamageSource.b, var1);
-			}
+                this.a(ODamageSource.b, var1);
+            }
         }
 
     }
@@ -1103,7 +1103,7 @@ public abstract class OEntity {
     }
 
     public void a(OEntityLightningBolt var1) {
-		// CanaryMod Damage Hook: Lightning
+        // CanaryMod Damage Hook: Lightning
         if ((Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.LIGHTNING, null, entity, 5)) {
             return;
         }

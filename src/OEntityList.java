@@ -99,8 +99,8 @@ public class OEntityList {
 
         return var1 == null ? 90 : var1.intValue();
     }
-	
-	// CanaryMod: Let us do a name->class lookup for mob spawning
+    
+    // CanaryMod: Let us do a name->class lookup for mob spawning
     public static Class<?> getEntity(String name) {
         return (Class<?>) b.get(name);
     }

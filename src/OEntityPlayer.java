@@ -43,7 +43,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
     protected float P = 0.1F;
     protected float Q = 0.02F;
     public OEntityFishHook R = null;
-	// CanaryMod start
+    // CanaryMod start
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     HumanEntity entity = new HumanEntity(this);
 
@@ -286,15 +286,15 @@ public abstract class OEntityPlayer extends OEntityLiving {
         if (this.o > 0) {
             --this.o;
         }
-		
-		// CanaryMod: adjust 'healing over time' independent of monster-spawn=true/false (nice notchup!)
+        
+        // CanaryMod: adjust 'healing over time' independent of monster-spawn=true/false (nice notchup!)
         PluginLoader.HookResult autoHeal = etc.getInstance().autoHeal();
 
         if (this.bi.q == 0 && autoHeal == PluginLoader.HookResult.DEFAULT_ACTION || autoHeal == PluginLoader.HookResult.ALLOW_ACTION) {
-			if (this.bi.q == 0 && this.aC() < this.d() && this.bT % 20 * 12 == 0) {
-				this.d(1);
-			}
-		}
+            if (this.bi.q == 0 && this.aC() < this.d() && this.bT % 20 * 12 == 0) {
+                this.d(1);
+            }
+        }
 
         this.k.i();
         this.r = this.s;
@@ -429,8 +429,8 @@ public abstract class OEntityPlayer extends OEntityLiving {
                 this.a(OStatList.v, 1);
                 // return the item to the inventory.
             } else {
-				return var3;
-			}
+                return var3;
+            }
             return null;
         }
     }
@@ -664,23 +664,23 @@ public abstract class OEntityPlayer extends OEntityLiving {
     public void e(OEntity var1) {
         if (!var1.b(this)) {
             OItemStack var2 = this.T();
-			PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.ENTITY_RIGHTCLICKED, ((OEntityPlayerMP) this).getPlayer(), var1.entity, (var2 == null) ? null : new Item(var2));
+            PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.ENTITY_RIGHTCLICKED, ((OEntityPlayerMP) this).getPlayer(), var1.entity, (var2 == null) ? null : new Item(var2));
 
-			if (res != PluginLoader.HookResult.PREVENT_ACTION) {
-				// Normally when interact action is not defined on the interacted entity, false is returned, and the item stack is not used.
-				// For example sheep can interact by shearing and cows by milking, and the item stack changes from this interaction if it returns true.
-				// Players on the other hand won't interact normally, but if we want to update the item stack anyways, we will ALLOW the action.
-				if (!var1.b(this) || res == PluginLoader.HookResult.ALLOW_ACTION) {
+            if (res != PluginLoader.HookResult.PREVENT_ACTION) {
+                // Normally when interact action is not defined on the interacted entity, false is returned, and the item stack is not used.
+                // For example sheep can interact by shearing and cows by milking, and the item stack changes from this interaction if it returns true.
+                // Players on the other hand won't interact normally, but if we want to update the item stack anyways, we will ALLOW the action.
+                if (!var1.b(this) || res == PluginLoader.HookResult.ALLOW_ACTION) {
 
-					if (var2 != null && var1 instanceof OEntityLiving) {
-						var2.a((OEntityLiving) var1);
-						if (var2.a <= 0) {
-							var2.a(this);
-							this.U();
-						}
-					}
-				}
-			}
+                    if (var2 != null && var1 instanceof OEntityLiving) {
+                        var2.a((OEntityLiving) var1);
+                        if (var2.a <= 0) {
+                            var2.a(this);
+                            this.U();
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -1103,16 +1103,16 @@ public abstract class OEntityPlayer extends OEntityLiving {
     public void g(int var1) {
         addXP(var1);
     }
-	
-	public void addXP(int var1) {
-        this.q += var1;
+    
+    public void addXP(int var1) {
         int var2 = Integer.MAX_VALUE - this.N;
-
         if (var1 > var2) {
             var1 = var2;
         }
-
+        
+        this.q += var1;
         this.O += (float) var1 / (float) this.ad();
+        this.N += var1;
         levelUp();
     }
 
