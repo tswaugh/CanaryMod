@@ -957,7 +957,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().g_();
+        return getEntity().aX();
     }
 
     /**

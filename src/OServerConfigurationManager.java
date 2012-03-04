@@ -57,11 +57,11 @@ public class OServerConfigurationManager {
         this.l();
         this.n();
         this.p();
-        this.r();
+        // this.r();
         this.m();
         this.o();
         this.q();
-        this.s();
+        // this.s();
     }
 
     public void a(OWorldServer[] var1) {
@@ -331,13 +331,7 @@ public class OServerConfigurationManager {
 			}
             this.p = etc.getInstance().getPlayerList_ticks();
         }
-
-        if (this.p < this.b.size()) {
-            OEntityPlayerMP var1 = (OEntityPlayerMP) this.b.get(this.p);
-
-            this.a((OPacket) (new OPacket201PlayerInfo(var1.v, true, var1.i)));
-        }
-
+        
         for (int var2 = 0; var2 < this.d.length; ++var2) {
             this.d[var2].b();
         }
