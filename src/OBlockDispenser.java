@@ -87,7 +87,7 @@ public class OBlockDispenser extends OBlockContainer {
         OTileEntityDispenser var9 = (OTileEntityDispenser) var1.b(var2, var3, var4);
 
         if (var9 != null) {
-            OItemStack var10 = var9.k_();
+            OItemStack var10 = var9.p_();
             double var11 = (double) var2 + (double) var7 * 0.6D + 0.5D;
             double var13 = (double) var3 + 0.5D;
             double var15 = (double) var4 + (double) var8 * 0.6D + 0.5D;

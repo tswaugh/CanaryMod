@@ -45,7 +45,7 @@ public class MobSpawner implements ComplexBlock {
 
     @Override
     public void update() {
-        spawner.l_();
+        spawner.q_();
     }
 
     /**

@@ -106,7 +106,7 @@ public class Minecart extends BaseVehicle {
      *            over 40 and you "kill" the mineentity
      */
     public void setDamage(int damage) {
-        getEntity().b(damage);
+        getEntity().e(damage);
     }
 
     /**
@@ -115,7 +115,7 @@ public class Minecart extends BaseVehicle {
      * @return returns current damage
      */
     public int getDamage() {
-        return getEntity().k();
+        return getEntity().n();
     }
 
     /**
