@@ -7,7 +7,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
     public int a = 0;
     public int b = 0;
     public int c = 0;
-    private String name = "Furnace";
+    private String name = "Furnace"; // CanaryMod
 
     public OTileEntityFurnace() {
         super();
@@ -17,7 +17,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         return this.d.length;
     }
 
-    public OItemStack c_(int var1) {
+    public OItemStack g_(int var1) {
         return this.d[var1];
     }
 
@@ -42,6 +42,18 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
     }
 
+    public OItemStack b(int var1) {
+        if (this.d[var1] != null) {
+            OItemStack var2 = this.d[var1];
+
+            this.d[var1] = null;
+            return var2;
+        }
+        else {
+            return null;
+        }
+    }
+
     public void a(int var1, OItemStack var2) {
         this.d[var1] = var2;
         if (var2 != null && var2.a > this.a()) {
@@ -51,12 +63,12 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
     }
 
     public String e() {
-        return "Furnace";
+        return name;
     }
 
     public void a(ONBTTagCompound var1) {
         super.a(var1);
-        ONBTTagList var2 = var1.m("Items");
+        ONBTTagList var2 = var1.n("Items");
 
         this.d = new OItemStack[this.c()];
 
@@ -97,11 +109,11 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         return 64;
     }
 
-    public boolean h() {
+    public boolean i() {
         return this.a > 0;
     }
 
-    public void l_() {
+    public void q_() {
         boolean var1 = this.a > 0;
         boolean var2 = false;
 
@@ -109,7 +121,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
             --this.a;
         }
 
-        if (!this.k.I) {
+        if (!this.k.F) {
             if (this.a == 0 && this.o()) {
                 this.b = this.a = this.a(this.d[1]);
                 if (this.a > 0) {
@@ -123,7 +135,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
                 }
             }
 
-            if (this.h() && this.o()) {
+            if (this.i() && this.o()) {
                 ++this.c;
                 if (this.c == 200) {
                     this.c = 0;
@@ -141,7 +153,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
 
         if (var2) {
-            this.z_();
+            this.H_();
         }
 
     }
@@ -150,7 +162,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (this.d[0] == null) {
             return false;
         } else {
-            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bN);
+            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bP);
 
             return var1 == null ? false : (this.d[2] == null ? true : (!this.d[2].a(var1) ? false : (this.d[2].a < this.a() && this.d[2].a < this.d[2].b() ? true : this.d[2].a < var1.b())));
         }
@@ -158,7 +170,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     public void n() {
         if (this.o()) {
-            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bN);
+            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bP);
 
             if (this.d[2] == null) {
                 this.d[2] = var1.j();
@@ -178,9 +190,9 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (var1 == null) {
             return 0;
         } else {
-            int var2 = var1.a().bN;
+            int var2 = var1.a().bP;
 
-            return var2 < 256 && OBlock.m[var2].cb == OMaterial.d ? 300 : (var2 == OItem.C.bN ? 100 : (var2 == OItem.l.bN ? 1600 : (var2 == OItem.ax.bN ? 20000 : (var2 == OBlock.A.bO ? 100 : (var2 == OItem.bn.bN ? 2400 : 0)))));
+            return var2 < 256 && OBlock.m[var2].cd == OMaterial.d ? 300 : (var2 == OItem.C.bP ? 100 : (var2 == OItem.l.bP ? 1600 : (var2 == OItem.ax.bP ? 20000 : (var2 == OBlock.y.bO ? 100 : (var2 == OItem.bn.bP ? 2400 : 0)))));
         }
     }
 
@@ -204,7 +216,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     @Override
     public OItemStack getContentsAt(int index) {
-        return c_(index);
+        return g_(index);
     }
 
     @Override

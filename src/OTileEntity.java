@@ -46,7 +46,8 @@ public class OTileEntity {
         }
     }
 
-    public void q_() {}
+    public void q_() {
+    }
 
     public static OTileEntity c(ONBTTagCompound var0) {
         OTileEntity var1 = null;

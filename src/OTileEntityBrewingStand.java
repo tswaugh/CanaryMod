@@ -23,18 +23,18 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         return this.a.length;
     }
 
-    public void l_() {
+    public void q_() {
         if (this.b > 0) {
             --this.b;
             if (this.b == 0) {
                 this.p();
-                this.z_();
+                this.H_();
             } else if (!this.o()) {
                 this.b = 0;
-                this.z_();
+                this.H_();
             } else if (this.d != this.a[3].c) {
                 this.b = 0;
-                this.z_();
+                this.H_();
             }
         } else if (this.o()) {
             this.b = 400;
@@ -48,10 +48,10 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
             this.k.c(this.l, this.m, this.n, var1);
         }
 
-        super.l_();
+        super.q_();
     }
 
-    public int h() {
+    public int i() {
         return this.b;
     }
 
@@ -65,7 +65,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
                 boolean var2 = false;
 
                 for (int var3 = 0; var3 < 3; ++var3) {
-                    if (this.a[var3] != null && this.a[var3].c == OItem.br.bN) {
+                    if (this.a[var3] != null && this.a[var3].c == OItem.br.bP) {
                         int var4 = this.a[var3].h();
                         int var5 = this.b(var4, var1);
 
@@ -96,7 +96,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
             OItemStack var1 = this.a[3];
 
             for (int var2 = 0; var2 < 3; ++var2) {
-                if (this.a[var2] != null && this.a[var2].c == OItem.br.bN) {
+                if (this.a[var2] != null && this.a[var2].c == OItem.br.bP) {
                     int var3 = this.a[var2].h();
                     int var4 = this.b(var3, var1);
                     List var5 = OItem.br.b(var3);
@@ -130,7 +130,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
 
     public void a(ONBTTagCompound var1) {
         super.a(var1);
-        ONBTTagList var2 = var1.m("Items");
+        ONBTTagList var2 = var1.n("Items");
 
         this.a = new OItemStack[this.c()];
 
@@ -164,7 +164,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         var1.a("Items", (ONBTBase) var2);
     }
 
-    public OItemStack c_(int var1) {
+    public OItemStack g_(int var1) {
         return var1 >= 0 && var1 < this.a.length ? this.a[var1] : null;
     }
 
@@ -175,6 +175,18 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
             this.a[var1] = null;
             return var3;
         } else {
+            return null;
+        }
+    }
+
+    public OItemStack b(int var1) {
+        if (var1 >= 0 && var1 < this.a.length) {
+            OItemStack var2 = this.a[var1];
+
+            this.a[var1] = null;
+            return var2;
+        }
+        else {
             return null;
         }
     }
@@ -222,7 +234,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
 
     @Override
     public OItemStack getContentsAt(int index) {
-        return c_(index);
+        return g_(index);
     }
 
     @Override
