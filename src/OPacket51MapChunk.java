@@ -136,65 +136,65 @@ public class OPacket51MapChunk extends OPacket {
     }
 
     public void a(DataInputStream var1) {
-    	try {
-	        this.a = var1.readInt();
-	        this.b = var1.readInt();
-	        this.f = var1.readBoolean();
-	        this.c = var1.readShort();
-	        this.d = var1.readShort();
-	        this.g = var1.readInt();
-	        this.h = var1.readInt();
-	        if (i.length < this.g) {
-	            i = new byte[this.g];
-	        }
-	        var1.readFully(i, 0, this.g);
-	
-	        int var2 = 0;
-	
-	        int var3;
-	
-	        for (var3 = 0; var3 < 16; ++var3) {
-	            var2 += this.c >> var3 & 1;
-	        }
-	
-	        var3 = 12288 * var2;
-	        if (this.f) {
-	            var3 += 256;
-	        }
-	
-	        this.e = new byte[var3];
-	        Inflater var4 = new Inflater();
-	
-	        var4.setInput(i, 0, this.g);
-	        boolean var9 = false;
-	
-	        try {
-	            var9 = true;
-	            var4.inflate(this.e);
-	            var9 = false;
-	        } catch (DataFormatException var10) {
-	            throw new IOException("Bad compressed data format");
-	        } finally {
-	            if (var9) {
-	                var4.end();
-	            }
-	        }
-	
-	        var4.end();
-    	} catch (IOException ioexception) {}
+        try {
+            this.a = var1.readInt();
+            this.b = var1.readInt();
+            this.f = var1.readBoolean();
+            this.c = var1.readShort();
+            this.d = var1.readShort();
+            this.g = var1.readInt();
+            this.h = var1.readInt();
+            if (i.length < this.g) {
+                i = new byte[this.g];
+            }
+            var1.readFully(i, 0, this.g);
+    
+            int var2 = 0;
+    
+            int var3;
+    
+            for (var3 = 0; var3 < 16; ++var3) {
+                var2 += this.c >> var3 & 1;
+            }
+    
+            var3 = 12288 * var2;
+            if (this.f) {
+                var3 += 256;
+            }
+    
+            this.e = new byte[var3];
+            Inflater var4 = new Inflater();
+    
+            var4.setInput(i, 0, this.g);
+            boolean var9 = false;
+    
+            try {
+                var9 = true;
+                var4.inflate(this.e);
+                var9 = false;
+            } catch (DataFormatException var10) {
+                throw new IOException("Bad compressed data format");
+            } finally {
+                if (var9) {
+                    var4.end();
+                }
+            }
+    
+            var4.end();
+        } catch (IOException ioexception) {}
     }
 
     public void a(DataOutputStream var1) {
-    	try {
-	        var1.writeInt(this.a);
-	        var1.writeInt(this.b);
-	        var1.writeBoolean(this.f);
-	        var1.writeShort((short) (this.c & '\uffff'));
-	        var1.writeShort((short) (this.d & '\uffff'));
-	        var1.writeInt(this.g);
-	        var1.writeInt(this.h);
-	        var1.write(this.e, 0, this.g);
-    	} catch (IOException ioexception){}
+        try {
+            var1.writeInt(this.a);
+            var1.writeInt(this.b);
+            var1.writeBoolean(this.f);
+            var1.writeShort((short) (this.c & '\uffff'));
+            var1.writeShort((short) (this.d & '\uffff'));
+            var1.writeInt(this.g);
+            var1.writeInt(this.h);
+            var1.write(this.e, 0, this.g);
+        } catch (IOException ioexception){}
     }
 
     public void a(ONetHandler var1) {

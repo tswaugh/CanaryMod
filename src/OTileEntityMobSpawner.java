@@ -2,7 +2,7 @@
 public class OTileEntityMobSpawner extends OTileEntity {
 
     public int a = -1;
-    public String d = "Pig";
+    protected String d = "Pig"; // CanaryMod: private -> protected
     public double b;
     public double c = 0.0D;
 
@@ -70,7 +70,7 @@ public class OTileEntityMobSpawner extends OTileEntity {
                             var9.spawner = (MobSpawner) k.world.getComplexBlock(l, m, n);
                             this.k.b((OEntity) var9);
                             this.k.f(2004, this.l, this.m, this.n, 0);
-                            var9.ao();
+                            var9.aB();
                             this.e();
                         }
                     }

@@ -50,7 +50,7 @@ public abstract class OEntity {
     protected Random bS;
     public int bT;
     public int bU;
-    public int c;
+    protected int c; // CanaryMod: private -> protected
     protected boolean bV;
     public int bW;
     private boolean d;

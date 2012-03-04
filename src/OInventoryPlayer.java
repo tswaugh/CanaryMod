@@ -7,7 +7,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     public OEntityPlayer d;
     private OItemStack f;
     public boolean e = false;
-	// CanaryMod
+    // CanaryMod
     private String name = "Inventory";
 
     public OInventoryPlayer(OEntityPlayer var1) {
@@ -135,11 +135,11 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
         return var2 >= 0;
     }
-	
-	// CanaryMod: Simulate Pickup (Its the same as a(OItemStack) but without
+    
+    // CanaryMod: Simulate Pickup (Its the same as a(OItemStack) but without
     // altering the inventory
-	public boolean canPickup(OEntityItem entityItem) {
-		OItemStack var1 = entityItem.a;
+    public boolean canPickup(OEntityItem entityItem) {
+        OItemStack var1 = entityItem.a;
         int var2;
 
         if (var1.f()) {
@@ -152,20 +152,20 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 return false;
             }
         } else {
-			int slot = 0;
-			int left = var1.a;
-			
+            int slot = 0;
+            int left = var1.a;
+            
             do {
-				OItemStack oitemstack = this.a[slot];
-				int delta = 0;
-				
-				if (oitemstack == null) {
-					delta = Math.min(64, left);
-				} else if (oitemstack.a < 64 && oitemstack.c == var1.c && oitemstack.d() == var1.d()) {
-					delta = Math.min(64 - oitemstack.a, left);
-				}
-				left -= delta;
-				slot++;
+                OItemStack oitemstack = this.a[slot];
+                int delta = 0;
+                
+                if (oitemstack == null) {
+                    delta = Math.min(64, left);
+                } else if (oitemstack.a < 64 && oitemstack.c == var1.c && oitemstack.d() == var1.d()) {
+                    delta = Math.min(64 - oitemstack.a, left);
+                }
+                left -= delta;
+                slot++;
             } while (left > 0 && slot < 36);
             if (var1.a - left > 0) {
                 return !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP) d).getPlayer(), entityItem.item);
@@ -448,8 +448,8 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     public void f() {}
 
     public void g() {}
-	
-	@Override
+    
+    @Override
     public OItemStack[] getContents() {
         return a;
     }

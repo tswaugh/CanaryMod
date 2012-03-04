@@ -131,6 +131,9 @@ public class ORegionFile {
                         if (var6 > 4096 * var5) {
                             this.b("READ", var1, var2, "invalid length: " + var6 + " > 4096 * " + var5);
                             return null;
+                        } else if (var6 <= 0) {
+                            this.b("READ", var1, var2, "invalid length: " + var6 + " < 1");
+                            return null;
                         } else {
                             byte var7 = this.c.readByte();
                             byte[] var8;

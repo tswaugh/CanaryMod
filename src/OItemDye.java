@@ -78,22 +78,22 @@ public class OItemDye extends OItem {
                             }
 
                             if (var3.a(var10, var11, var12) == 0) {
-								if(c.nextInt(10) != 0) {
-									// CanaryMod disable bonemeal from generating stuff where it shouldnt (notch, y u no check)
-									if (OBlock.X.f(var3, var10, var11, var12)) {
-										var3.b(var10, var11, var12, OBlock.X.bO, 1);
-									}
-								} else if(c.nextInt(3) != 0) {
-									// CanaryMod disable bonemeal from generating stuff where it shouldnt (notch, y u no check)
-									if (OBlock.ad.f(var3, var10, var11, var12)) { 
-										var3.e(var10, var11, var12, OBlock.ad.bO);
-									}
-								} else {
-									// CanaryMod disable bonemeal from generating stuff where it shouldnt (notch, y u no check)
-									if (OBlock.ae.f(var3, var10, var11, var12)) {
-										var3.e(var10, var11, var12, OBlock.ae.bO);
-									}
-								}
+                                if(c.nextInt(10) != 0) {
+                                    // CanaryMod disable bonemeal from generating stuff where it shouldnt (notch, y u no check)
+                                    if (OBlock.X.f(var3, var10, var11, var12)) {
+                                        var3.b(var10, var11, var12, OBlock.X.bO, 1);
+                                    }
+                                } else if(c.nextInt(3) != 0) {
+                                    // CanaryMod disable bonemeal from generating stuff where it shouldnt (notch, y u no check)
+                                    if (OBlock.ad.f(var3, var10, var11, var12)) { 
+                                        var3.e(var10, var11, var12, OBlock.ad.bO);
+                                    }
+                                } else {
+                                    // CanaryMod disable bonemeal from generating stuff where it shouldnt (notch, y u no check)
+                                    if (OBlock.ae.f(var3, var10, var11, var12)) {
+                                        var3.e(var10, var11, var12, OBlock.ae.bO);
+                                    }
+                                }
                             }
                         }
                     }

@@ -67,11 +67,11 @@ public class OPotion {
 
     public void a(OEntityLiving var1, int var2) {
         if (this.H == l.H) {
-            if (var1.ap() < var1.d()) {
+            if (var1.aC() < var1.d()) {
                 var1.d(1);
             }
         } else if (this.H == u.H) {
-            if (var1.ap() > 1) {
+            if (var1.aC() > 1) {
                 // Canarymod: DAMAGE From Poison
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, var1.entity, 1)) {
                     var1.a(ODamageSource.m, 1);
@@ -79,8 +79,8 @@ public class OPotion {
             }
         } else if (this.H == s.H && var1 instanceof OEntityPlayer) {
             ((OEntityPlayer) var1).c(0.025F * (float) (var2 + 1));
-        } else if ((this.H != h.H || var1.aE()) && (this.H != i.H || !var1.aE())) {
-            if (this.H == i.H && !var1.aE() || this.H == h.H && var1.aE()) {
+        } else if ((this.H != h.H || var1.aM()) && (this.H != i.H || !var1.aM())) {
+            if (this.H == i.H && !var1.aM() || this.H == h.H && var1.aM()) {
                 // Canarymod: call to DAMAGE on 1.9?
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, var1.entity, 4 << var2)) {
                     var1.a(ODamageSource.m, 6 << var2);
@@ -95,8 +95,8 @@ public class OPotion {
     public void a(OEntityLiving var1, OEntityLiving var2, int var3, double var4) {
         int var6;
 
-        if ((this.H != h.H || var2.aE()) && (this.H != i.H || !var2.aE())) {
-            if (this.H == i.H && !var2.aE() || this.H == h.H && var2.aE()) {
+        if ((this.H != h.H || var2.aM()) && (this.H != i.H || !var2.aM())) {
+            if (this.H == i.H && !var2.aM() || this.H == h.H && var2.aM()) {
                 var6 = (int) (var4 * (double) (6 << var3) + 0.5D);
                 if (var1 == null) {
                     var2.a(ODamageSource.m, var6);

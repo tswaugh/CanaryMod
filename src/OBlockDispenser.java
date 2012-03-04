@@ -146,7 +146,7 @@ public class OBlockDispenser extends OBlockContainer {
                     OEntitySmallFireball var25 = new OEntitySmallFireball(var1, var11 + (double) var7 * 0.3D, var13, var15 + (double) var8 * 0.3D, (double) var7 + var5.nextGaussian() * 0.05D, var5.nextGaussian() * 0.05D, (double) var8 + var5.nextGaussian() * 0.05D);
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser(var9), new BaseEntity(var25))) {
                         var1.b((OEntity) var25);
-                        var1.f(1002, var2, var3, var4, 0);
+                        var1.f(1009, var2, var3, var4, 0);
                     } else
                         var25.W();
                 } else {

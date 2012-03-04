@@ -138,7 +138,7 @@ public class OItemInWorldManager {
     }
 
     public boolean c(int var1, int var2, int var3) {
-    	// CanaryMod start - portal destroy
+        // CanaryMod start - portal destroy
         Block block = ((OEntityPlayerMP) b).getPlayer().getWorld().getBlockAt(var1, var2, var3); //
 
         if (block.getType() == Block.Type.Obsidian.getType()) {
@@ -180,7 +180,7 @@ public class OItemInWorldManager {
             return true;
         }
         // CanaryMod end
-    	
+        
         int var4 = this.a.a(var1, var2, var3);
         int var5 = this.a.c(var1, var2, var3);
 
@@ -209,7 +209,7 @@ public class OItemInWorldManager {
         return var6;
     }
 
-    public boolean a(OEntityPlayer var1, OWorld var2, OItemStack var3) {		
+    public boolean a(OEntityPlayer var1, OWorld var2, OItemStack var3) {        
         int var4 = var3.a;
         int var5 = var3.h();
         OItemStack var6 = var3.a(var2, var1);
@@ -230,8 +230,8 @@ public class OItemInWorldManager {
             return true;
         }
     }
-	
-	/**
+    
+    /**
      * Called when a player right-click air with an item in hand. We intercept
      * it.
      * 
@@ -277,8 +277,8 @@ public class OItemInWorldManager {
     public void a(OWorldServer var1) {
         this.a = var1;
     }
-	
-	// CanaryMod start - getPortalBlocks
+    
+    // CanaryMod start - getPortalBlocks
     private Block[][] getPortalBlocks(World world, int x, int y, int z) {
         int portalId = Block.Type.Portal.getType();
 

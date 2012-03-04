@@ -1,28 +1,28 @@
 
 public class OFoodStats {
 
-	// CanaryMod: made fields public
+    // CanaryMod: made fields public
     public int a = 20;
     public float b = 5.0F;
     public float c;
     public int d = 0;
     private int e = 20;
-	// CanaryMod: enitity
+    // CanaryMod: enitity
     private OEntityPlayer entity;
 
     public OFoodStats() {}
-	
-	public OFoodStats(OEntityPlayer oEntityPlayer) {
+    
+    public OFoodStats(OEntityPlayer oEntityPlayer) {
         this.entity = oEntityPlayer;
     }
 
     public void a(int var1, float var2) {
-		// CanaryMod: Calls onFoodLevelChange
+        // CanaryMod: Calls onFoodLevelChange
         int newLevel = Math.min(var1 + this.a, 20);
         int oldLevel = this.a;
-		
-		this.a = ((Integer) etc.getLoader().callHook(PluginLoader.Hook.FOODLEVEL_CHANGE, new Object[] { ((OEntityPlayerMP) this.entity).getPlayer(), Integer.valueOf(oldLevel), Integer.valueOf(newLevel) })).intValue();
-		
+        
+        this.a = ((Integer) etc.getLoader().callHook(PluginLoader.Hook.FOODLEVEL_CHANGE, new Object[] { ((OEntityPlayerMP) this.entity).getPlayer(), Integer.valueOf(oldLevel), Integer.valueOf(newLevel) })).intValue();
+        
         // CanaryMod: Calls onFoodSaturationChange
         float newSLevel = Math.min(this.b + (float) var1 * var2 * 2.0F, (float) this.a);
         float oldSLevel = this.b;

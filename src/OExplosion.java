@@ -16,7 +16,7 @@ public class OExplosion {
     public OEntity e;
     public float f;
     public Set g = new HashSet();
-	protected boolean toRet;
+    protected boolean toRet;
 
     public OExplosion(OWorld var1, OEntity var2, double var3, double var5, double var7, float var9) {
         super();
@@ -26,11 +26,11 @@ public class OExplosion {
         this.b = var3;
         this.c = var5;
         this.d = var7;
-		this.toRet = false;
+        this.toRet = false;
     }
 
     public void a() {
-		// CanaryMod: allow explosion
+        // CanaryMod: allow explosion
         Block block = new Block(i.world, i.a((int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d)), (int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d));
         if(this.e == null){
             block.setStatus(1);
@@ -41,7 +41,7 @@ public class OExplosion {
         else if(this.e instanceof OEntityFireball){
             block.setStatus(3);
         }
-		
+        
         float var1 = this.f;
         byte var2 = 16;
 
@@ -92,8 +92,8 @@ public class OExplosion {
                 }
             }
         }
-		
-		this.toRet = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g);
+        
+        this.toRet = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g);
 
         this.f *= 2.0F;
         var3 = OMathHelper.b(this.b - (double) this.f - 1.0D);
@@ -120,12 +120,12 @@ public class OExplosion {
                 var19 /= var35;
                 double var37 = (double) this.i.a(var30, var32.bw);
                 double var39 = (1.0D - var33) * var37;
-				
-				// CanaryMod Damage hook: Explosions
+                
+                // CanaryMod Damage hook: Explosions
                 int damage = (int) ((var39 * var39 + var39) / 2.0D * 8.0D * f + 1.0D);
                 PluginLoader.DamageType dmgType = (e instanceof OEntityCreeper) ? PluginLoader.DamageType.CREEPER_EXPLOSION : PluginLoader.DamageType.EXPLOSION;
 
-				if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, null, var32.entity, damage) && !toRet) {
+                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, null, var32.entity, damage) && !toRet) {
                     var32.a(ODamageSource.l, (int) ((var39 * var39 + var39) / 2.0D * 8.0D * (double) this.f + 1.0D));
                 }
                 
@@ -206,8 +206,8 @@ public class OExplosion {
         }
 
     }
-	
-	public boolean getRet(){
+    
+    public boolean getRet(){
         return this.toRet;
     }
 }

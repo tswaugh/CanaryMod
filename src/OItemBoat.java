@@ -59,8 +59,8 @@ public class OItemBoat extends OItem {
                         if (var2.a(var33, var34, var35) == OBlock.aS.bO) {
                             --var34;
                         }
-						
-						// CanaryMod: placing of a boat
+                        
+                        // CanaryMod: placing of a boat
                         Block blockClicked = new Block(var2.world, var2.a(var33, var34, var35), var33, var34, var35);
 
                         blockClicked.setFaceClicked(Block.Face.fromId(var24.e));

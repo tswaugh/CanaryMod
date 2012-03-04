@@ -32,8 +32,7 @@ public class OPacket52MultiBlockChange extends OPacket {
                 if (e.length < var6) {
                     e = new byte[var6];
                 }
-            }
-            else {
+            } else {
                 ByteArrayOutputStream var8 = new ByteArrayOutputStream(var6);
                 DataOutputStream var9 = new DataOutputStream(var8);
 
@@ -51,8 +50,7 @@ public class OPacket52MultiBlockChange extends OPacket {
                     throw new RuntimeException("Expected length " + var6 + " doesn\'t match received length " + this.c.length);
                 }
             }
-        }
-        catch (IOException var14) {
+        } catch (IOException var14) {
             System.err.println(var14.getMessage());
             this.c = null;
         }
@@ -70,8 +68,7 @@ public class OPacket52MultiBlockChange extends OPacket {
                 this.c = new byte[var2];
                 var1.readFully(this.c);
             }
-        }
-        catch (IOException IOE) {
+        } catch (IOException IOE) {
         }
 
     }
@@ -84,12 +81,10 @@ public class OPacket52MultiBlockChange extends OPacket {
             if (this.c != null) {
                 var1.writeInt(this.c.length);
                 var1.write(this.c);
-            }
-            else {
+            } else {
                 var1.writeInt(0);
             }
-        }
-        catch (IOException IOE) {
+        } catch (IOException IOE) {
         }
 
     }

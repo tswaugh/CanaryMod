@@ -22,11 +22,11 @@ public class OItemSlab extends OItemBlock {
     }
 
     public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-		if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
+        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
                 ((OEntityPlayerMP) var2).getPlayer(), this.getBlockInfo(var3, var4, var5, var6, var7),
                 null, new Item(var1)))
             return true;
-			
+            
         if (var1.a == 0) {
             return false;
         } else if (!var2.d(var4, var5, var6)) {

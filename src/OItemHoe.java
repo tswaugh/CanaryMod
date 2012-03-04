@@ -17,7 +17,7 @@ public class OItemHoe extends OItem {
             if ((var7 == 0 || var9 != 0 || var8 != OBlock.u.bO) && var8 != OBlock.v.bO) {
                 return false;
             } else {
-				// CanaryMod: Hoes
+                // CanaryMod: Hoes
                 Block blockClicked = new Block(var3.world, var8, var4, var5, var6);
 
                 blockClicked.setFaceClicked(Block.Face.fromId(var7));
@@ -31,7 +31,7 @@ public class OItemHoe extends OItem {
                         return false;
                     }
                 }
-				
+                
                 OBlock var10 = OBlock.aA;
 
                 var3.a((double) ((float) var4 + 0.5F), (double) ((float) var5 + 0.5F), (double) ((float) var6 + 0.5F), var10.cb.c(), (var10.cb.a() + 1.0F) / 2.0F, var10.cb.b() * 0.8F);

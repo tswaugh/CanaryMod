@@ -26,7 +26,7 @@ public class OItemDoor extends OItem {
                 if (!var8.c(var3, var4, var5, var6)) {
                     return false;
                 } else {
-					// CanaryMod hook: onItemUse
+                    // CanaryMod hook: onItemUse
                     Block blockClicked = new Block(var3.world, var3.world.getBlockIdAt(var4, var5, var6), var4, var5, var6);
 
                     blockClicked.setFaceClicked(Block.Face.fromId(var7));
@@ -40,7 +40,7 @@ public class OItemDoor extends OItem {
                             return false;
                         }
                     }
-					
+                    
                     int var9 = OMathHelper.b((double) ((var2.bs + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
 
                     a(var3, var4, var5, var6, var9, var8);

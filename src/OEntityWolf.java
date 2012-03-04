@@ -188,9 +188,9 @@ public class OEntityWolf extends OEntityTamable {
                 }
 
                 if (!this.bi.F) {
-					// CanaryMod hook: onTame
+                    // CanaryMod hook: onTame
                     // randomize the tame result. if its 0 - tame success.
-					int tameResult = this.bS.nextInt(3);
+                    int tameResult = this.bS.nextInt(3);
                     // Call hook
                     PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.TAME, manager.getServer().getPlayer(var1.v), new Mob(this), tameResult == 0);
 

@@ -12,8 +12,8 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
     public float f;
     public float g;
     public int h;
-    public int j;
-    private String name = "Chest"; // CanaryMod
+    private int j;
+    private String name = "container.chest"; // CanaryMod
 
     public OTileEntityChest() {
         super();
@@ -56,8 +56,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
 
             this.i[var1] = null;
             return var2;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -166,7 +165,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
 
     public void q_() {
         super.q_();
-        this.h();
+        this.i();
         if (++this.j % 20 * 4 == 0) {
             this.k.e(this.l, this.m, this.n, 1, this.h);
         }
@@ -245,8 +244,8 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
     }
 
     public void j() {
-        this.d();
         this.h();
+        this.i();
         super.j();
     }
    

@@ -127,32 +127,32 @@ public class OEntityTracker {
     }
 
     public void a() {
-		try {
-			ArrayList var1 = new ArrayList();
-			Iterator var2 = this.a.iterator();
+        try {
+            ArrayList var1 = new ArrayList();
+            Iterator var2 = this.a.iterator();
 
-			while (var2.hasNext()) {
-				OEntityTrackerEntry var3 = (OEntityTrackerEntry) var2.next();
+            while (var2.hasNext()) {
+                OEntityTrackerEntry var3 = (OEntityTrackerEntry) var2.next();
 
-				var3.a(this.c.a(this.e).d);
-				if (var3.n && var3.a instanceof OEntityPlayerMP) {
-					var1.add((OEntityPlayerMP) var3.a);
-				}
-			}
+                var3.a(this.c.a(this.e).d);
+                if (var3.n && var3.a instanceof OEntityPlayerMP) {
+                    var1.add((OEntityPlayerMP) var3.a);
+                }
+            }
 
-			for (int var6 = 0; var6 < var1.size(); ++var6) {
-				OEntityPlayerMP var7 = (OEntityPlayerMP) var1.get(var6);
-				Iterator var4 = this.a.iterator();
+            for (int var6 = 0; var6 < var1.size(); ++var6) {
+                OEntityPlayerMP var7 = (OEntityPlayerMP) var1.get(var6);
+                Iterator var4 = this.a.iterator();
 
-				while (var4.hasNext()) {
-					OEntityTrackerEntry var5 = (OEntityTrackerEntry) var4.next();
+                while (var4.hasNext()) {
+                    OEntityTrackerEntry var5 = (OEntityTrackerEntry) var4.next();
 
-					if (var5.a != var7) {
-						var5.b(var7);
-					}
-				}
-			}
-		} catch (ConcurrentModificationException ex) {
+                    if (var5.a != var7) {
+                        var5.b(var7);
+                    }
+                }
+            }
+        } catch (ConcurrentModificationException ex) {
             // people seem to get this exception often, lets just catch so it doesn't crash the server.
             MinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", ex);   
         }
@@ -162,8 +162,8 @@ public class OEntityTracker {
             task.run();
         }
     }
-	
-	// CanaryMod: Allow adding of tasks to the queue
+    
+    // CanaryMod: Allow adding of tasks to the queue
 
     public static void add(Runnable task, long delayMillis) {
         // j.u.concurent.* classes are thread safe

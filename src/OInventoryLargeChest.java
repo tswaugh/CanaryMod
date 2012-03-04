@@ -71,8 +71,8 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         this.b.g();
         this.c.g();
     }
-	
-	public OItemStack[] getContents() {
+    
+    public OItemStack[] getContents() {
         int size = getContentsSize();
         OItemStack[] result = new OItemStack[size];
 

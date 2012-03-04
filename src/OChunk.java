@@ -356,13 +356,11 @@ public class OChunk {
         if (var8 == var4 && this.c(var1, var2, var3) == var5) {
             return false;
         } else {
-			int var10 = this.g * 16 + var1;
-            int var11 = this.h * 16 + var3;
+            int portalPointX = this.g * 16 + var1;
+            int portalPointZ = this.h * 16 + var3;
 
             if (checkPortal == true) {
-                int portalPointX = var10;
                 int portalPointY = var2;
-                int portalPointZ = var11;
                 // CanaryMod check if removed block is portal block
                 int portalId = Block.Type.Portal.getType();
 
@@ -409,7 +407,7 @@ public class OChunk {
             }
 		
             OExtendedBlockStorage var9 = this.p[var2 >> 4];
-            boolean var14 = false;
+            boolean var10 = false;
 
             if (var9 == null) {
                 if (var4 == 0) {
@@ -417,23 +415,23 @@ public class OChunk {
                 }
 
                 var9 = this.p[var2 >> 4] = new OExtendedBlockStorage(var2 >> 4 << 4);
-                var14 = var2 >= var7;
+                var10 = var2 >= var7;
             }
 
             var9.a(var1, var2 & 15, var3, var4);
-            int var15 = this.g * 16 + var1;
+            int var11 = this.g * 16 + var1;
             int var12 = this.h * 16 + var3;
 
             if (var8 != 0) {
                 if (!this.e.F) {
-                    OBlock.m[var8].d(this.e, var15, var2, var12);
+                    OBlock.m[var8].d(this.e, var11, var2, var12);
                 } else if (OBlock.m[var8] instanceof OBlockContainer && var8 != var4) {
-                    this.e.q(var15, var2, var12);
+                    this.e.q(var11, var2, var12);
                 }
             }
 
             var9.b(var1, var2 & 15, var3, var5);
-            if (var14) {
+            if (var10) {
                 this.a();
             } else {
                 if (OBlock.o[var4 & 4095] > 0) {
@@ -451,14 +449,14 @@ public class OChunk {
 
             if (var4 != 0) {
                 if (!this.e.F) {
-                    OBlock.m[var4].a(this.e, var15, var2, var12);
+                    OBlock.m[var4].a(this.e, var11, var2, var12);
                 }
 
                 if (OBlock.m[var4] instanceof OBlockContainer) {
                     var13 = this.e(var1, var2, var3);
                     if (var13 == null) {
                         var13 = ((OBlockContainer) OBlock.m[var4]).a_();
-                        this.e.a(var15, var2, var12, var13);
+                        this.e.a(var11, var2, var12, var13);
                     }
 
                     if (var13 != null) {

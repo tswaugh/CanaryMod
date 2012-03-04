@@ -55,8 +55,8 @@ public class OWorld implements OIBlockAccess {
     int[] E;
     private List S;
     public boolean F;
-	
-	// CanaryMod
+    
+    // CanaryMod
     public final World world = new World((OWorldServer) this);
     boolean loadedpreload = false;
 
@@ -120,14 +120,14 @@ public class OWorld implements OIBlockAccess {
     }
 
     protected void c() {
-		// CanaryMod: load preload plugins once!
+        // CanaryMod: load preload plugins once!
         if (!loadedpreload) {
             etc.getLoader().loadPreloadPlugins();
             loadedpreload = true;
         }
         // CanaryMod onSpawnpointCreate hook
         Location point = (Location) etc.getLoader().callHook(PluginLoader.Hook.SPAWNPOINT_CREATE, world);
-	
+    
         if (!this.t.c()) {
             this.x.a(0, this.t.f(), 0);
         } else {
@@ -258,23 +258,23 @@ public class OWorld implements OIBlockAccess {
     }
 
     public boolean a(int var1, int var2, int var3, int var4, int var5) {
-		// CanaryMod: Get Block Info
+        // CanaryMod: Get Block Info
         Block block = this.world.getBlockAt(var1, var2, var3);
-		
+        
         if (var1 >= -30000000 && var3 >= -30000000 && var1 < 30000000 && var3 < 30000000) {
             if (var2 < 0) {
                 return false;
             } else if (var2 >= 256) {
                 return false;
             } else {
-				boolean var7 = false;
+                boolean var7 = false;
                 OChunk var6 = this.d(var1 >> 4, var3 >> 4);
-				//CanaryMod ignore if new block is air
-				if(var4 == 0){
-					var7 = var6.a(var1 & 15, var2, var3 & 15, var4, var5);
-				} else if(!(Boolean)OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block, var4)){
-					var7 = var6.a(var1 & 15, var2, var3 & 15, var4, var5);
-				}
+                //CanaryMod ignore if new block is air
+                if(var4 == 0){
+                    var7 = var6.a(var1 & 15, var2, var3 & 15, var4, var5);
+                } else if(!(Boolean)OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block, var4)){
+                    var7 = var6.a(var1 & 15, var2, var3 & 15, var4, var5);
+                }
                 OProfiler.a("checkLight");
                 this.v(var1, var2, var3);
                 OProfiler.a();
@@ -786,13 +786,13 @@ public class OWorld implements OIBlockAccess {
     }
 
     public boolean b(OEntity var1) {
-		// CanaryMod: mob spawn hook
+        // CanaryMod: mob spawn hook
         if (var1 instanceof OEntityLiving && !(var1 instanceof OEntityPlayer)) {
             if ((etc.getInstance().getMobSpawnRate() < 100 && etc.getInstance().getMobSpawnRate() > 0 && etc.getInstance().getMobSpawnRate() <= r.nextInt(101)) || etc.getInstance().getMobSpawnRate() <= 0 || (Boolean) (etc.getLoader().callHook(PluginLoader.Hook.MOB_SPAWN, new Mob((OEntityLiving) var1)))) {
                 return false;
             }
         }
-		
+        
         int var2 = OMathHelper.b(var1.bm / 16.0D);
         int var3 = OMathHelper.b(var1.bo / 16.0D);
         boolean var4 = false;
@@ -1641,8 +1641,8 @@ public class OWorld implements OIBlockAccess {
             OProfiler.b("save");
             this.a(false, (OIProgressUpdate) null);
         }
-		
-		// CanaryMod: Time hook
+        
+        // CanaryMod: Time hook
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, var2)) {
             this.x.a(var2);
         }
@@ -1685,7 +1685,7 @@ public class OWorld implements OIBlockAccess {
                 --var1;
                 this.x.b(var1);
                 if (var1 <= 0) {
-					// CanaryMod: Thunder hook
+                    // CanaryMod: Thunder hook
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, world, !this.x.i())) {
                         this.x.a(!this.x.i());
                     }
@@ -1704,7 +1704,7 @@ public class OWorld implements OIBlockAccess {
                 --var2;
                 this.x.c(var2);
                 if (var2 <= 0) {
-					// CanaryMod: Thunder hook
+                    // CanaryMod: Thunder hook
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, world, !this.x.k())) {
                         this.x.b(!this.x.k());
                     }
@@ -1745,14 +1745,14 @@ public class OWorld implements OIBlockAccess {
     }
 
     private void C() {
-		// CanaryMod: Weather hook
+        // CanaryMod: Weather hook
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, world, !this.x.k())) {
             this.x.c(0);
-			this.x.b(false);
+            this.x.b(false);
         }
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, world, !this.x.i())) {
             this.x.b(0);
-			this.x.a(false);
+            this.x.a(false);
         }
     }
 

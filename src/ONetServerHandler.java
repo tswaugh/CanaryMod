@@ -19,7 +19,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     private long j;
     private static Random k = new Random();
     private long l;
-	// private int m = 0; CanaryMod - disable native spam protection
+    // private int m = 0; CanaryMod - disable native spam protection
     private int n = 0;
     private double o;
     private double p;
@@ -65,14 +65,14 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             this.b((OPacket) (new OPacket255KickDisconnect(var1)));
             this.b.d();
             
-			// CanaryMod - onPlayerDisconnect Hook
+            // CanaryMod - onPlayerDisconnect Hook
             HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.e.v), var1);
 
             hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult);
             if (!hookResult.isHidden()) { 
                     this.d.h.a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
             }
-			
+            
             this.d.h.e(this.e);
             this.c = true;
         }
@@ -91,8 +91,8 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     this.r = true;
                 }
             }
-			
-			// CanaryMod: Notice player movement
+            
+            // CanaryMod: Notice player movement
             Player player = getPlayer();
 
             if (etc.floor(n) != etc.floor(player.getX()) || etc.floor(o) != etc.floor(player.getY()) || etc.floor(p) != etc.floor(player.getZ())) {
@@ -292,7 +292,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(double var1, double var3, double var5, float var7, float var8) {
-		// CanaryMod: Teleportation hook
+        // CanaryMod: Teleportation hook
         Location from = new Location();
 
         from.x = var1;
@@ -305,17 +305,17 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.TELEPORT, player, player.getLocation(), from)) {
             return;
         }
-		
+        
         this.r = false;
         this.o = var1;
         this.p = var3;
         this.q = var5;
         this.e.b(var1, var3, var5, var7, var8);
         this.e.a.b((OPacket) (new OPacket13PlayerLookMove(var1, var3 + 1.6200000047683716D, var3, var5, var7, var8, false)));
-		player.refreshCreativeMode();
+        player.refreshCreativeMode();
     }
-	
-	// CanaryMod: Store x/y/z
+    
+    // CanaryMod: Store x/y/z
     int x, y, z, type;
 
     public void a(OPacket14BlockDig var1) {
@@ -326,7 +326,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         } else if (var1.e == 5) {
             this.e.M();
         } else {
-			// CanaryMod: We allow admins and ops to dig!
+            // CanaryMod: We allow admins and ops to dig!
             boolean var3 = var2.H = var2.t.g != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
             boolean var4 = false;
 
@@ -364,12 +364,12 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             if (var17 > var18) {
                 var18 = var17;
             }
-			
-			// CanaryMod: the player
+            
+            // CanaryMod: the player
             Player player = getPlayer();
 
             if (var1.e == 0) {
-				// CanaryMod: Start digging
+                // CanaryMod: Start digging
                 // No buildrights
                 if (!getPlayer().canBuild()) {
                     return;
@@ -393,23 +393,23 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     }
                 }
             } else if (var1.e == 2) {
-				// CanaryMod: Break block
+                // CanaryMod: Break block
                 Block block = var2.world.getBlockAt(var5, var6, var7);
 
                 block.setStatus(2); // Block broken
                 OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
-				
+                
                 this.e.c.a(var5, var6, var7);
                 if (var2.a(var5, var6, var7) != 0) {
                     this.e.a.b((OPacket) (new OPacket53BlockChange(var5, var6, var7, var2)));
                 }
             } else if (var1.e == 3) {
-				// CanaryMod: Send block update
+                // CanaryMod: Send block update
                 Block block = new Block(var2.world, type, x, y, z);
 
                 block.setStatus(3); // Send update for block
                 OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
-				
+                
                 double var19 = this.e.bm - ((double) var5 + 0.5D);
                 double var21 = this.e.bn - ((double) var6 + 0.5D);
                 double var23 = this.e.bo - ((double) var7 + 0.5D);
@@ -423,29 +423,29 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             var2.H = false;
         }
     }
-	
-	// CanaryMod: Store the blocks between blockPlaced packets
+    
+    // CanaryMod: Store the blocks between blockPlaced packets
     Block lastRightClicked;
 
     public void a(OPacket15Place var1) {
         OWorldServer var2 = this.d.a(this.e.w);
         OItemStack var3 = this.e.k.d();
-		
-		// CanaryMod: Store block data to call hooks
+        
+        // CanaryMod: Store block data to call hooks
         // CanaryMod START
         Block blockClicked;
         Block blockPlaced = null;
 
         // We allow admins and ops to build!
-		boolean var9 = var2.H = var2.t.g != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
-		
+        boolean var9 = var2.H = var2.t.g != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
+        
         boolean var4 = false;
         int var5 = var1.a;
         int var6 = var1.b;
         int var7 = var1.c;
         int var8 = var1.d;
-		
-		if (var1.d == 255) {
+        
+        if (var1.d == 255) {
             // ITEM_USE -- if we have a lastRightClicked then it could be a
             // usable location
             blockClicked = lastRightClicked;
@@ -492,12 +492,12 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         // CanaryMod: END
 
         if (var1.d == 255) {
-			// CanaryMod: call our version with extra blockClicked/blockPlaced
+            // CanaryMod: call our version with extra blockClicked/blockPlaced
             if (blockPlaced != null) {
                 // Set the type of block to what it currently is
                 blockPlaced.setType(var2.world.getBlockIdAt(blockPlaced.getX(), blockPlaced.getY(), blockPlaced.getZ()));
             }
-			
+            
             if (var3 == null) {
                 return;
             }
@@ -508,15 +508,15 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             var4 = true;
         } else {
             OChunkCoordinates var10 = var2.p();
-			// CanaryMod : Fix stupid buggy spawn protection. (2 times)
+            // CanaryMod : Fix stupid buggy spawn protection. (2 times)
             int var11 = (int) OMathHelper.e((var8 == 4 ? var5 - 1 : (var8 == 5 ? (var5 + 1) : var5)) - var10.a);
             int var12 = (int) OMathHelper.e((var8 == 2 ? var7 - 1 : (var8 == 3 ? (var7 + 1) : var7)) - var10.c);
 
             if (var11 > var12) {
                 var12 = var11;
             }
-			
-			// CanaryMod: call BLOCK_RIGHTCLICKED
+            
+            // CanaryMod: call BLOCK_RIGHTCLICKED
             Item item = (var3 != null) ? new Item(var3) : new Item(Item.Type.Air);
             Player player = getPlayer();
             boolean cancelled = (Boolean) OEntity.manager.callHook(PluginLoader.Hook.BLOCK_RIGHTCLICKED, player, blockClicked, item);
@@ -597,7 +597,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
         hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult);
         if (!hookResult.isHidden()) { 
-        	this.d.h.a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
+            this.d.h.a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
         }
 
         this.d.h.e(this.e);
@@ -635,7 +635,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
     public void a(OPacket18Animation var1) {
         if (var1.b == 1) {
-			// CanaryMod: Swing the arm!
+            // CanaryMod: Swing the arm!
             OEntity.manager.callHook(PluginLoader.Hook.ARM_SWING, getPlayer());
             this.e.D();
         }
@@ -708,7 +708,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
             this.e = this.d.h.a(this.e, respawnLocation.dimension, true, respawnLocation);
         } else {
-            if (this.e.ap() > 0) {
+            if (this.e.aC() > 0) {
                 return;
             }
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
@@ -739,10 +739,10 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 for (int var4 = 0; var4 < this.e.m.e.size(); ++var4) {
                     var3.add(((OSlot) this.e.m.e.get(var4)).b());
                 }
-				// if we shiftclicked on slot 0 -> resend all inventory to player
-				if (var1.b == 0 && var1.f) {
-					this.e.a(this.e.m, var3);
-				}
+                // if we shiftclicked on slot 0 -> resend all inventory to player
+                if (var1.b == 0 && var1.f) {
+                    this.e.a(this.e.m, var3);
+                }
             }
         }
 
@@ -814,15 +814,15 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             for (var9 = 0; var9 < 4; ++var9) {
                 boolean var5 = true;
 
-				// CanaryMod: Remove the char limit, for plugins.
+                // CanaryMod: Remove the char limit, for plugins.
                 //if (var1.d[var9].length() > 15) {
                 //    var5 = false;
                 //} else {
-				for (var6 = 0; var6 < var1.d[var9].length(); ++var6) {
-					if (OChatAllowedCharacters.a.indexOf(var1.d[var9].charAt(var6)) < 0) {
-						var5 = false;
-					}
-				}
+                for (var6 = 0; var6 < var1.d[var9].length(); ++var6) {
+                    if (OChatAllowedCharacters.a.indexOf(var1.d[var9].charAt(var6)) < 0) {
+                        var5 = false;
+                    }
+                }
                 //}
 
                 if (!var5) {
@@ -836,15 +836,15 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
                 var6 = var1.c;
                 OTileEntitySign var7 = (OTileEntitySign) var3;
-				
-				// CanaryMod: Copy the old line text
+                
+                // CanaryMod: Copy the old line text
                 String[] old = Arrays.copyOf(var7.a, var7.a.length);
 
                 for (int var8 = 0; var8 < 4; ++var8) {
                     var7.a[var8] = var1.d[var8];
                 }
-				
-				// CanaryMod: Check if we can change it
+                
+                // CanaryMod: Check if we can change it
                 Sign sign = new Sign(var7);
 
                 if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.SIGN_CHANGE, getPlayer(), sign)) {
@@ -870,8 +870,8 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     public boolean c() {
         return true;
     }
-	
-	/**
+    
+    /**
      * Returns the item in player's hand
      * 
      * @return item

@@ -2,7 +2,7 @@
 public class OInventoryCraftResult implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] a = new OItemStack[1];
-	// CanaryMod
+    // CanaryMod
     private String name = "Result";
 
     public OInventoryCraftResult() {
@@ -60,8 +60,8 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
     public void f() {}
 
     public void g() {}
-	
-	@Override
+    
+    @Override
     public OItemStack[] getContents() {
         int size = getContentsSize();
         OItemStack[] result = new OItemStack[size];

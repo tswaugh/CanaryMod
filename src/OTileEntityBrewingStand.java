@@ -9,7 +9,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
     private int c;
     private int d;
     
-    private String name = "Brewing Stand"; // CanaryMod
+    private String name = "container.brewing"; // CanaryMod
 
     public OTileEntityBrewingStand() {
         super();
@@ -185,8 +185,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
 
             this.a[var1] = null;
             return var2;
-        }
-        else {
+        } else {
             return null;
         }
     }

@@ -26,7 +26,7 @@ public class OServerConfigurationManager {
     private File j;
     private File k;
     private File l;
-	// private File m; //CanaryMod: disable Notchian whitelist
+    // private File m; //CanaryMod: disable Notchian whitelist
     private OIPlayerFileData n;
     private boolean o;
     private int p = 0;
@@ -41,7 +41,7 @@ public class OServerConfigurationManager {
         } else {
             a.info("Tainted Build Information: " + etc.getInstance().getVersionStr());
         }
-		
+        
         this.c = var1;
         this.j = var1.a("banned-players.txt");
         this.k = var1.a("banned-ips.txt");
@@ -114,7 +114,7 @@ public class OServerConfigurationManager {
             var1.a.b(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
         }
 
-		// CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
+        // CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
         if (var1.getPlayer().getMode()) {
             var1.getPlayer().setCreativeMode(1);
         }
@@ -145,7 +145,7 @@ public class OServerConfigurationManager {
         if (!etc.getLoader().isLoaded()) {
             var1.a("The server is not finished loading yet!");
         }
-			
+            
         // CanaryMod: whole section below is modified to handle whitelists etc
         OEntityPlayerMP temp = new OEntityPlayerMP(c, c.a(0), var2, new OItemInWorldManager(c.a(0)));
         Player player = temp.getPlayer();
@@ -181,7 +181,7 @@ public class OServerConfigurationManager {
                 // return new OEntityPlayerMP(this.c, this.c.a(0), var2, new OItemInWorldManager(this.c.a(0)));
             }
         }
-		Object obj = etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, var2, ip);
+        Object obj = etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, var2, ip);
 
         if (obj instanceof String) {
             String result = (String) obj;
@@ -193,10 +193,10 @@ public class OServerConfigurationManager {
         }
         return temp;
     }
-	
-	// CanaryMod alias to set location when respawning.
+    
+    // CanaryMod alias to set location when respawning.
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3) {
-    	return a(var1, var2, var3, null);
+        return a(var1, var2, var3, null);
     }
 
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3, Location spawnLocation) {
@@ -230,11 +230,11 @@ public class OServerConfigurationManager {
                 var5.a.b((OPacket) (new OPacket70Bed(0, 0)));
             }
         }
-		
-		// CanaryMod set player location and angle if a spawn location is defined
+        
+        // CanaryMod set player location and angle if a spawn location is defined
         if (spawnLocation != null)
         {
-        	var5.c((double) spawnLocation.x, (double) spawnLocation.y, (double)spawnLocation.z, 0.0F, 0.0F);
+            var5.c((double) spawnLocation.x, (double) spawnLocation.y, (double)spawnLocation.z, 0.0F, 0.0F);
         }
 
         var6.G.c((int) var5.bm >> 4, (int) var5.bo >> 4);
@@ -253,13 +253,13 @@ public class OServerConfigurationManager {
         var5.E();
         return var5;
     }
-	
-	// CanaryMod alias to normally create portals when players are switching worlds.
+    
+    // CanaryMod alias to normally create portals when players are switching worlds.
     public void a(OEntityPlayerMP var1, int var2) {
         sendPlayerToOtherDimension(var1, var2, true);
     }
 
-	// CanaryMod used to be a(OEntityPlayerMP var1, int var2) to teleport player to other dimensions.
+    // CanaryMod used to be a(OEntityPlayerMP var1, int var2) to teleport player to other dimensions.
     // Added createPortal option to cancel portal creation if not needed.
     public void sendPlayerToOtherDimension(OEntityPlayerMP var1, int var2, boolean createPortal) {
         int var3 = var1.w;
@@ -305,11 +305,11 @@ public class OServerConfigurationManager {
             var5.b(var1);
             var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
             var5.a(var1, false);
-			// CanaryMod - don't create portal if we are not using a portal to teleport.
+            // CanaryMod - don't create portal if we are not using a portal to teleport.
             if (createPortal) {
                 var5.G.a = true;
-				(new OTeleporter()).a(var5, var1);
-				var5.G.a = false;
+                (new OTeleporter()).a(var5, var1);
+                var5.G.a = false;
             }
         }
 
@@ -323,12 +323,12 @@ public class OServerConfigurationManager {
 
     public void b() {
         if ((etc.getInstance().isPlayerList_autoupdate()) && (this.p-- <= 0)) {
-			for (int var1 = 0; var1 < this.b.size(); var1++) {
-				OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
-				PlayerlistEntry entry = var2.getPlayer().getPlayerlistEntry(true);
+            for (int var1 = 0; var1 < this.b.size(); var1++) {
+                OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
+                PlayerlistEntry entry = var2.getPlayer().getPlayerlistEntry(true);
 
                 a(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
-			}
+            }
             this.p = etc.getInstance().getPlayerList_ticks();
         }
         
@@ -530,7 +530,7 @@ public class OServerConfigurationManager {
     }
 
     private void r() {
-    	// CanaryMod: Disable Notchian Whitelist
+        // CanaryMod: Disable Notchian Whitelist
         /*try {
             this.i.clear();
             BufferedReader var1 = new BufferedReader(new FileReader(this.m));
@@ -548,7 +548,7 @@ public class OServerConfigurationManager {
     }
 
     private void s() {
-    	// CanaryMod: Disable Notchian Whitelist
+        // CanaryMod: Disable Notchian Whitelist
         /*try {
             PrintWriter var1 = new PrintWriter(new FileWriter(this.m, false));
             Iterator var2 = this.i.iterator();
@@ -664,7 +664,8 @@ public class OServerConfigurationManager {
         return this.i;
     }
 
-    public void i() {// this.r(); CanaryMod - Disable Notchian whitelist
+    public void i() {
+        // this.r(); CanaryMod - Disable Notchian whitelist
     }
 
     public void a(OEntityPlayerMP var1, OWorldServer var2) {
@@ -687,8 +688,8 @@ public class OServerConfigurationManager {
     public int k() {
         return this.e;
     }
-	
-	/**
+    
+    /**
      * Returns the list of bans
      * 
      * @return bans

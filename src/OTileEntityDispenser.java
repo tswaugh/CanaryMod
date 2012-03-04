@@ -6,7 +6,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
 
     private OItemStack[] a = new OItemStack[9];
     private Random b = new Random();
-    private String name = "Trap";
+    private String name = "container.dispenser";
 
     public OTileEntityDispenser() {
         super();
@@ -49,8 +49,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
 
             this.a[var1] = null;
             return var2;
-        }
-        else {
+        } else {
             return null;
         }
     }

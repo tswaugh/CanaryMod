@@ -7,7 +7,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
     public int a = 0;
     public int b = 0;
     public int c = 0;
-    private String name = "Furnace"; // CanaryMod
+    private String name = "container.furnace"; // CanaryMod
 
     public OTileEntityFurnace() {
         super();
@@ -48,8 +48,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
             this.d[var1] = null;
             return var2;
-        }
-        else {
+        } else {
             return null;
         }
     }

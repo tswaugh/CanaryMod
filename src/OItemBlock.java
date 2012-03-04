@@ -14,14 +14,14 @@ public class OItemBlock extends OItem {
     }
 
     public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-		// CanaryMod: Bail if we have nothing of the items in hand
+        // CanaryMod: Bail if we have nothing of the items in hand
         if (var1.a == 0) {
             return false;
         }
         // CanaryMod: Store blockInfo of the one we clicked
         int blockClickedId = var3.a(var4, var5, var6);
         Block blockClicked = new Block(var3.world, blockClickedId, var4, var5, var6);
-		
+        
         int var8 = var3.a(var4, var5, var6);
 
         if (var8 == OBlock.aS.bO) {
@@ -51,8 +51,8 @@ public class OItemBlock extends OItem {
                 ++var4;
             }
         }
-		
-		// CanaryMod: Store faceClicked (must be here to have the 'snow' special case).
+        
+        // CanaryMod: Store faceClicked (must be here to have the 'snow' special case).
         blockClicked.setFaceClicked(Block.Face.fromId(var7));
         // CanaryMod: And the block we're about to place
         Block blockPlaced = new Block(var3.world, a, var4, var5, var6);
@@ -64,7 +64,7 @@ public class OItemBlock extends OItem {
         } else if (var5 == 255 && OBlock.m[this.a].cd.a()) {
             return false;
         } else if (var3.a(this.a, var4, var5, var6, false, var7)
-				// CanaryMod: prevent unwanted blocks from getting placed.
+                // CanaryMod: prevent unwanted blocks from getting placed.
                 && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PLACE, ((OEntityPlayerMP) var2).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
             OBlock var9 = OBlock.m[this.a];
 

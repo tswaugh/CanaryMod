@@ -30,9 +30,13 @@ public class OBlockPressurePlate extends OBlock {
     public boolean b() {
         return false;
     }
+    
+    public boolean b(OIBlockAccess var1, int var2, int var3, int var4) {
+        return true;
+    }
 
     public boolean c(OWorld var1, int var2, int var3, int var4) {
-        return var1.e(var2, var3 - 1, var4) || var1.a(var2, var3 - 1, var4) == OBlock.bb.bO;
+        return var1.e(var2, var3 - 1, var4) || var1.a(var2, var3 - 1, var4) == OBlock.aZ.bO;
     }
 
     public void a(OWorld var1, int var2, int var3, int var4) {}
@@ -40,7 +44,7 @@ public class OBlockPressurePlate extends OBlock {
     public void a(OWorld var1, int var2, int var3, int var4, int var5) {
         boolean var6 = false;
 
-        if (!var1.e(var2, var3 - 1, var4) && var1.a(var2, var3 - 1, var4) != OBlock.bb.bO) {
+        if (!var1.e(var2, var3 - 1, var4) && var1.a(var2, var3 - 1, var4) != OBlock.aZ.bO) {
             var6 = true;
         }
 

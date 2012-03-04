@@ -14,7 +14,7 @@ public class OItemMinecart extends OItem {
 
         if (OBlockRail.d(var8)) {
             if (!var3.F) {
-				// CanaryMod: placing of a mine cart
+                // CanaryMod: placing of a mine cart
                 Block block = new Block(var3.world, var8, var4, var5, var6);
                 Player player = ((OEntityPlayerMP) var2).getPlayer();
 
