@@ -1,114 +1,105 @@
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 
 public class OPacket52MultiBlockChange extends OPacket {
+
     public int a;
     public int b;
-    public short[] c;
-    public byte[] d;
-    public byte[] e;
-    public int f;
+    public byte[] c;
+    public int d;
+    private static byte[] e = new byte[0];
 
     public OPacket52MultiBlockChange() {
+        super();
         this.p = true;
     }
 
-    public OPacket52MultiBlockChange(int paramInt1, int paramInt2, short[] paramArrayOfShort, int paramInt3, OWorld paramOWorld) {
+    public OPacket52MultiBlockChange(int var1, int var2, short[] var3, int var4, OWorld var5) {
+        super();
         this.p = true;
-        this.a = paramInt1;
-        this.b = paramInt2;
-        this.f = paramInt3;
-        this.c = new short[paramInt3];
-        this.d = new byte[paramInt3];
-        this.e = new byte[paramInt3];
-        OChunk localOChunk = paramOWorld.c(paramInt1, paramInt2);
-    
-        for (int i = 0; i < paramInt3; i++) {
-            int j = paramArrayOfShort[i] >> 12 & 0xF;
-            int k = paramArrayOfShort[i] >> 8 & 0xF;
-            int m = paramArrayOfShort[i] & 0xFF;
+        this.a = var1;
+        this.b = var2;
+        this.d = var4;
+        int var6 = 4 * var4;
+        OChunk var7 = var5.d(var1, var2);
 
-            this.c[i] = paramArrayOfShort[i];
-            // CanaryMod start
-            if (etc.getInstance().isAntiXRayEnabled()) {
-                int blockID = localOChunk.a(j, m, k);
-
-                /* If we are attemting to send a hidden block
-                if (etc.getDataSource().getAntiXRayBlocks().contains(new Integer(blockID))) {
-                    Integer index = new Integer(j << 11 | k << 7 | m);
-
-                    // If the block is supposed to be hidden
-                    if (localOChunk.antiXRayBlocks.containsKey(index)) {
-                        if (localOChunk.isHidden(j, m, k)) {
-                            // Send it as a stone.
-                            this.d[i] = 1;
-                            this.e[i] = 0;
-                        } else {
-                            this.d[i] = (byte) blockID;
-                            this.e[i] = (byte) localOChunk.b(j, m, k);
-                        }
-                    } else {
-                        // This should never happen. It means the cache is not complete!
-                        synchronized (localOChunk.antiXRayBlocksLock) {
-                            localOChunk.antiXRayBlocks.put(index, new Integer(blockID));
-                        }
-                        if (localOChunk.isHidden(j, m, k)) {
-                            this.d[i] = 1;
-                            this.e[i] = 0;
-                        } else {
-                            this.d[i] = (byte) blockID;
-                            this.e[i] = (byte) localOChunk.b(j, m, k);
-                        }
-                    }
-                } else {*/
-                    this.d[i] = (byte) blockID;
-                    this.e[i] = (byte) localOChunk.b(j, m, k);
-                //}
-            } else {
-                this.d[i] = (byte) localOChunk.a(j, m, k);
-                this.e[i] = (byte) localOChunk.b(j, m, k);
+        try {
+            if (var4 >= 64) {
+                System.out.println("ChunkTilesUpdatePacket compress " + var4);
+                if (e.length < var6) {
+                    e = new byte[var6];
+                }
             }
-            // CanaryMod end
+            else {
+                ByteArrayOutputStream var8 = new ByteArrayOutputStream(var6);
+                DataOutputStream var9 = new DataOutputStream(var8);
+
+                for (int var10 = 0; var10 < var4; ++var10) {
+                    int var11 = var3[var10] >> 12 & 15;
+                    int var12 = var3[var10] >> 8 & 15;
+                    int var13 = var3[var10] & 255;
+
+                    var9.writeShort(var3[var10]);
+                    var9.writeShort((short) ((var7.a(var11, var13, var12) & 4095) << 4 | var7.c(var11, var13, var12) & 15));
+                }
+
+                this.c = var8.toByteArray();
+                if (this.c.length != var6) {
+                    throw new RuntimeException("Expected length " + var6 + " doesn\'t match received length " + this.c.length);
+                }
+            }
         }
+        catch (IOException var14) {
+            System.err.println(var14.getMessage());
+            this.c = null;
+        }
+
     }
 
-    public void a(DataInputStream paramDataInputStream) {
+    public void a(DataInputStream var1) {
         try {
-            this.a = paramDataInputStream.readInt();
-            this.b = paramDataInputStream.readInt();
-	
-            this.f = (paramDataInputStream.readShort() & 0xFFFF);
-            this.c = new short[this.f];
-            this.d = new byte[this.f];
-            this.e = new byte[this.f];
-            for (int i = 0; i < this.f; i++) {
-                this.c[i] = paramDataInputStream.readShort();
+            this.a = var1.readInt();
+            this.b = var1.readInt();
+            this.d = var1.readShort() & '\uffff';
+            int var2 = var1.readInt();
+
+            if (var2 > 0) {
+                this.c = new byte[var2];
+                var1.readFully(this.c);
             }
-            paramDataInputStream.readFully(this.d);
-            paramDataInputStream.readFully(this.e);
-        } catch (IOException e) {}
+        }
+        catch (IOException IOE) {
+        }
+
     }
 
-    public void a(DataOutputStream paramDataOutputStream) {
+    public void a(DataOutputStream var1) {
         try {
-            paramDataOutputStream.writeInt(this.a);
-            paramDataOutputStream.writeInt(this.b);
-            paramDataOutputStream.writeShort((short) this.f);
-            for (int i = 0; i < this.f; i++) {
-                paramDataOutputStream.writeShort(this.c[i]);
+            var1.writeInt(this.a);
+            var1.writeInt(this.b);
+            var1.writeShort((short) this.d);
+            if (this.c != null) {
+                var1.writeInt(this.c.length);
+                var1.write(this.c);
             }
-            paramDataOutputStream.write(this.d);
-            paramDataOutputStream.write(this.e);
-        } catch (IOException e) {}
+            else {
+                var1.writeInt(0);
+            }
+        }
+        catch (IOException IOE) {
+        }
+
     }
 
-    public void a(ONetHandler paramONetHandler) {
-        paramONetHandler.a(this);
+    public void a(ONetHandler var1) {
+        var1.a(this);
     }
 
     public int a() {
-        return 10 + this.f * 4;
+        return 10 + this.d * 4;
     }
+
 }
