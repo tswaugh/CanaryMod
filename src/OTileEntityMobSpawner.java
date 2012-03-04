@@ -19,12 +19,12 @@ public class OTileEntityMobSpawner extends OTileEntity {
         return this.k.a((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D, 16.0D) != null;
     }
 
-    public void l_() {
+    public void q_() {
         this.c = this.b;
         if (this.c()) {
-            double var1 = (double) ((float) this.l + this.k.w.nextFloat());
-            double var3 = (double) ((float) this.m + this.k.w.nextFloat());
-            double var5 = (double) ((float) this.n + this.k.w.nextFloat());
+            double var1 = (double) ((float) this.l + this.k.r.nextFloat());
+            double var3 = (double) ((float) this.m + this.k.r.nextFloat());
+            double var5 = (double) ((float) this.n + this.k.r.nextFloat());
 
             this.k.a("smoke", var1, var3, var5, 0.0D, 0.0D, 0.0D);
             this.k.a("flame", var1, var3, var5, 0.0D, 0.0D, 0.0D);
@@ -33,7 +33,7 @@ public class OTileEntityMobSpawner extends OTileEntity {
                 this.b -= 360.0D;
             }
 
-            if (!this.k.I) {
+            if (!this.k.F) {
                 if (this.a == -1) {
                     this.e();
                 }
@@ -60,12 +60,12 @@ public class OTileEntityMobSpawner extends OTileEntity {
                     }
 
                     if (var9 != null) {
-                        double var11 = (double) this.l + (this.k.w.nextDouble() - this.k.w.nextDouble()) * 4.0D;
-                        double var13 = (double) (this.m + this.k.w.nextInt(3) - 1);
-                        double var15 = (double) this.n + (this.k.w.nextDouble() - this.k.w.nextDouble()) * 4.0D;
+                        double var11 = (double) this.l + (this.k.r.nextDouble() - this.k.r.nextDouble()) * 4.0D;
+                        double var13 = (double) (this.m + this.k.r.nextInt(3) - 1);
+                        double var15 = (double) this.n + (this.k.r.nextDouble() - this.k.r.nextDouble()) * 4.0D;
 
-                        var9.c(var11, var13, var15, this.k.w.nextFloat() * 360.0F, 0.0F);
-                        if (var9.g()) {
+                        var9.c(var11, var13, var15, this.k.r.nextFloat() * 360.0F, 0.0F);
+                        if (var9.l()) {
                             // CanaryMod - set spawner block for spawned entity
                             var9.spawner = (MobSpawner) k.world.getComplexBlock(l, m, n);
                             this.k.b((OEntity) var9);
@@ -77,12 +77,12 @@ public class OTileEntityMobSpawner extends OTileEntity {
                 }
             }
 
-            super.l_();
+            super.q_();
         }
     }
 
     private void e() {
-        this.a = 200 + this.k.w.nextInt(600);
+        this.a = 200 + this.k.r.nextInt(600);
     }
 
     public void a(ONBTTagCompound var1) {
@@ -102,5 +102,11 @@ public class OTileEntityMobSpawner extends OTileEntity {
         super.b(var1);
         var1.a("EntityId", this.d);
         var1.a("Delay", (short) this.a);
+    }
+
+    public OPacket d() {
+        int var1 = OEntityList.a(this.d);
+
+        return new OPacket132UpdateTileEntity(this.l, this.m, this.n, 1, var1);
     }
 }

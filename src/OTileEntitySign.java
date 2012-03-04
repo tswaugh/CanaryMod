@@ -30,7 +30,7 @@ public class OTileEntitySign extends OTileEntity {
 
     }
 
-    public OPacket k() {
+    public OPacket d() {
         String[] var1 = new String[4];
 
         for (int var2 = 0; var2 < 4; ++var2) {

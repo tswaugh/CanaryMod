@@ -16,7 +16,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         return 9;
     }
 
-    public OItemStack c_(int var1) {
+    public OItemStack g_(int var1) {
         return this.a[var1];
     }
 
@@ -27,7 +27,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
             if (this.a[var1].a <= var2) {
                 var3 = this.a[var1];
                 this.a[var1] = null;
-                this.z_();
+                this.H_();
                 return var3;
             } else {
                 var3 = this.a[var1].a(var2);
@@ -35,7 +35,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
                     this.a[var1] = null;
                 }
 
-                this.z_();
+                this.H_();
                 return var3;
             }
         } else {
@@ -43,7 +43,19 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         }
     }
 
-    public OItemStack k_() {
+    public OItemStack b(int var1) {
+        if (this.a[var1] != null) {
+            OItemStack var2 = this.a[var1];
+
+            this.a[var1] = null;
+            return var2;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public OItemStack p_() {
         int var1 = -1;
         int var2 = 1;
 
@@ -66,7 +78,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
             var2.a = this.a();
         }
 
-        this.z_();
+        this.H_();
     }
 
     public String e() {
@@ -75,7 +87,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
 
     public void a(ONBTTagCompound var1) {
         super.a(var1);
-        ONBTTagList var2 = var1.m("Items");
+        ONBTTagList var2 = var1.n("Items");
 
         this.a = new OItemStack[this.c()];
 
@@ -131,7 +143,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
 
     @Override
     public OItemStack getContentsAt(int index) {
-        return c_(index);
+        return g_(index);
     }
 
     @Override
