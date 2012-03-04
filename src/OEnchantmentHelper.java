@@ -158,7 +158,22 @@ public class OEnchantmentHelper {
         }
     }
 
-    public static List a(Random var0, OItemStack var1, int var2) {
+    public static void a(Random var0, OItemStack var1, int var2) {
+        List var3 = b(var0, var1, var2);
+
+        if (var3 != null) {
+            Iterator var4 = var3.iterator();
+
+            while (var4.hasNext()) {
+                OEnchantmentData var5 = (OEnchantmentData) var4.next();
+
+                var1.a(var5.a, var5.b);
+            }
+        }
+
+    }
+
+    public static List b(Random var0, OItemStack var1, int var2) {
         OItem var3 = var1.a();
         int var4 = var3.c();
 

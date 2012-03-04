@@ -44,7 +44,7 @@ public class OItem {
     public static OItem O = (new OItemHoe(36, OEnumToolMaterial.c)).a(2, 8).a("hoeIron");
     public static OItem P = (new OItemHoe(37, OEnumToolMaterial.d)).a(3, 8).a("hoeDiamond");
     public static OItem Q = (new OItemHoe(38, OEnumToolMaterial.e)).a(4, 8).a("hoeGold");
-    public static OItem R = (new OItemSeeds(39, OBlock.aB.bO, OBlock.aC.bO)).a(9, 0).a("seeds");
+    public static OItem R = (new OItemSeeds(39, OBlock.az.bO, OBlock.aA.bO)).a(9, 0).a("seeds");
     public static OItem S = (new OItem(40)).a(9, 1).a("wheat");
     public static OItem T = (new OItemFood(41, 5, 0.6F, false)).a(9, 2).a("bread");
     public static OItem U = (new OItemArmor(42, OEnumArmorMaterial.a, 0, 0)).a(0, 0).a("helmetCloth");
@@ -75,8 +75,8 @@ public class OItem {
     public static OItem at = (new OItemSign(67)).a(10, 2).a("sign");
     public static OItem au = (new OItemDoor(68, OMaterial.d)).a(11, 2).a("doorWood");
     public static OItem av = (new OItemBucket(69, 0)).a(10, 4).a("bucket");
-    public static OItem aw = (new OItemBucket(70, OBlock.C.bO)).a(11, 4).a("bucketWater").a(av);
-    public static OItem ax = (new OItemBucket(71, OBlock.E.bO)).a(12, 4).a("bucketLava").a(av);
+    public static OItem aw = (new OItemBucket(70, OBlock.A.bO)).a(11, 4).a("bucketWater").a(av);
+    public static OItem ax = (new OItemBucket(71, OBlock.C.bO)).a(12, 4).a("bucketLava").a(av);
     public static OItem ay = (new OItemMinecart(72, 0)).a(7, 8).a("minecart");
     public static OItem az = (new OItemSaddle(73)).a(8, 6).a("saddle");
     public static OItem aA = (new OItemDoor(74, OMaterial.f)).a(12, 2).a("doorIron");
@@ -87,7 +87,7 @@ public class OItem {
     public static OItem aF = (new OItemBucketMilk(79)).a(13, 4).a("milk").a(av);
     public static OItem aG = (new OItem(80)).a(6, 1).a("brick");
     public static OItem aH = (new OItem(81)).a(9, 3).a("clay");
-    public static OItem aI = (new OItemReed(82, OBlock.aZ)).a(11, 1).a("reeds");
+    public static OItem aI = (new OItemReed(82, OBlock.aX)).a(11, 1).a("reeds");
     public static OItem aJ = (new OItem(83)).a(10, 3).a("paper");
     public static OItem aK = (new OItem(84)).a(11, 3).a("book");
     public static OItem aL = (new OItem(85)).a(14, 1).a("slimeball");
@@ -103,15 +103,15 @@ public class OItem {
     public static OItem aV = (new OItemDye(95)).a(14, 4).a("dyePowder");
     public static OItem aW = (new OItem(96)).a(12, 1).a("bone").h();
     public static OItem aX = (new OItem(97)).a(13, 0).a("sugar").b(OPotionHelper.b);
-    public static OItem aY = (new OItemReed(98, OBlock.bi)).e(1).a(13, 1).a("cake");
+    public static OItem aY = (new OItemReed(98, OBlock.bg)).e(1).a(13, 1).a("cake");
     public static OItem aZ = (new OItemBed(99)).e(1).a(13, 2).a("bed");
-    public static OItem ba = (new OItemReed(100, OBlock.bj)).a(6, 5).a("diode");
+    public static OItem ba = (new OItemReed(100, OBlock.bh)).a(6, 5).a("diode");
     public static OItem bb = (new OItemFood(101, 1, 0.1F, false)).a(12, 5).a("cookie");
     public static OItemMap bc = (OItemMap) (new OItemMap(102)).a(12, 3).a("map");
     public static OItemShears bd = (OItemShears) (new OItemShears(103)).a(13, 5).a("shears");
     public static OItem be = (new OItemFood(104, 2, 0.3F, false)).a(13, 6).a("melon");
-    public static OItem bf = (new OItemSeeds(105, OBlock.bu.bO, OBlock.aC.bO)).a(13, 3).a("seeds_pumpkin");
-    public static OItem bg = (new OItemSeeds(106, OBlock.bv.bO, OBlock.aC.bO)).a(14, 3).a("seeds_melon");
+    public static OItem bf = (new OItemSeeds(105, OBlock.bs.bO, OBlock.aA.bO)).a(13, 3).a("seeds_pumpkin");
+    public static OItem bg = (new OItemSeeds(106, OBlock.bt.bO, OBlock.aA.bO)).a(14, 3).a("seeds_melon");
     public static OItem bh = (new OItemFood(107, 3, 0.3F, true)).a(9, 6).a("beefRaw");
     public static OItem bi = (new OItemFood(108, 8, 0.8F, true)).a(10, 6).a("beefCooked");
     public static OItem bj = (new OItemFood(109, 2, 0.3F, true)).a(OPotion.s.H, 30, 0, 0.3F).a(9, 7).a("chickenRaw");
@@ -121,42 +121,44 @@ public class OItem {
     public static OItem bn = (new OItem(113)).a(12, 6).a("blazeRod");
     public static OItem bo = (new OItem(114)).a(11, 7).a("ghastTear").b(OPotionHelper.c);
     public static OItem bp = (new OItem(115)).a(12, 7).a("goldNugget");
-    public static OItem bq = (new OItemSeeds(116, OBlock.bF.bO, OBlock.be.bO)).a(13, 7).a("netherStalkSeeds").b("+4");
+    public static OItem bq = (new OItemSeeds(116, OBlock.bD.bO, OBlock.bc.bO)).a(13, 7).a("netherStalkSeeds").b("+4");
     public static OItemPotion br = (OItemPotion) (new OItemPotion(117)).a(13, 8).a("potion");
     public static OItem bs = (new OItemGlassBottle(118)).a(12, 8).a("glassBottle");
     public static OItem bt = (new OItemFood(119, 2, 0.8F, false)).a(OPotion.u.H, 5, 0, 1.0F).a(11, 8).a("spiderEye").b(OPotionHelper.d);
     public static OItem bu = (new OItem(120)).a(10, 8).a("fermentedSpiderEye").b(OPotionHelper.e);
     public static OItem bv = (new OItem(121)).a(13, 9).a("blazePowder").b(OPotionHelper.g);
     public static OItem bw = (new OItem(122)).a(13, 10).a("magmaCream").b(OPotionHelper.h);
-    public static OItem bx = (new OItemReed(123, OBlock.bH)).a(12, 10).a("brewingStand");
-    public static OItem by = (new OItemReed(124, OBlock.bI)).a(12, 9).a("cauldron");
+    public static OItem bx = (new OItemReed(123, OBlock.bF)).a(12, 10).a("brewingStand");
+    public static OItem by = (new OItemReed(124, OBlock.bG)).a(12, 9).a("cauldron");
     public static OItem bz = (new OItemEnderEye(125)).a(11, 9).a("eyeOfEnder");
     public static OItem bA = (new OItem(126)).a(9, 8).a("speckledMelon").b(OPotionHelper.f);
     public static OItem bB = (new OItemMonsterPlacer(127)).a(9, 9).a("monsterPlacer");
-    public static OItem bC = (new OItemRecord(2000, "13")).a(0, 15).a("record");
-    public static OItem bD = (new OItemRecord(2001, "cat")).a(1, 15).a("record");
-    public static OItem bE = (new OItemRecord(2002, "blocks")).a(2, 15).a("record");
-    public static OItem bF = (new OItemRecord(2003, "chirp")).a(3, 15).a("record");
-    public static OItem bG = (new OItemRecord(2004, "far")).a(4, 15).a("record");
-    public static OItem bH = (new OItemRecord(2005, "mall")).a(5, 15).a("record");
-    public static OItem bI = (new OItemRecord(2006, "mellohi")).a(6, 15).a("record");
-    public static OItem bJ = (new OItemRecord(2007, "stal")).a(7, 15).a("record");
-    public static OItem bK = (new OItemRecord(2008, "strad")).a(8, 15).a("record");
-    public static OItem bL = (new OItemRecord(2009, "ward")).a(9, 15).a("record");
-    public static OItem bM = (new OItemRecord(2010, "11")).a(10, 15).a("record");
-    public final int bN;
-    protected int bO = 64;
+    public static OItem bC = (new OItemExpBottle(128)).a(11, 10).a("expBottle");
+    public static OItem bD = (new OItemFireball(129)).a(14, 2).a("fireball");
+    public static OItem bE = (new OItemRecord(2000, "13")).a(0, 15).a("record");
+    public static OItem bF = (new OItemRecord(2001, "cat")).a(1, 15).a("record");
+    public static OItem bG = (new OItemRecord(2002, "blocks")).a(2, 15).a("record");
+    public static OItem bH = (new OItemRecord(2003, "chirp")).a(3, 15).a("record");
+    public static OItem bI = (new OItemRecord(2004, "far")).a(4, 15).a("record");
+    public static OItem bJ = (new OItemRecord(2005, "mall")).a(5, 15).a("record");
+    public static OItem bK = (new OItemRecord(2006, "mellohi")).a(6, 15).a("record");
+    public static OItem bL = (new OItemRecord(2007, "stal")).a(7, 15).a("record");
+    public static OItem bM = (new OItemRecord(2008, "strad")).a(8, 15).a("record");
+    public static OItem bN = (new OItemRecord(2009, "ward")).a(9, 15).a("record");
+    public static OItem bO = (new OItemRecord(2010, "11")).a(10, 15).a("record");
+    public final int bP;
+    protected int bQ = 64;
     private int a = 0;
-    protected int bP;
-    protected boolean bQ = false;
-    protected boolean bR = false;
+    protected int bR;
+    protected boolean bS = false;
+    protected boolean bT = false;
     private OItem b = null;
-    private String bS = null;
-    private String bT;
+    private String bU = null;
+    private String bV;
 
     protected OItem(int var1) {
         super();
-        this.bN = 256 + var1;
+        this.bP = 256 + var1;
         if (d[256 + var1] != null) {
             System.out.println("CONFLICT @ " + var1);
         }
@@ -165,17 +167,17 @@ public class OItem {
     }
 
     public OItem d(int var1) {
-        this.bP = var1;
+        this.bR = var1;
         return this;
     }
 
     public OItem e(int var1) {
-        this.bO = var1;
+        this.bQ = var1;
         return this;
     }
 
     public OItem a(int var1, int var2) {
-        this.bP = var1 + var2 * 16;
+        this.bR = var1 + var2 * 16;
         return this;
     }
 
@@ -198,7 +200,7 @@ public class OItem {
     }
 
     public int d() {
-        return this.bO;
+        return this.bQ;
     }
 
     public int a(int var1) {
@@ -206,11 +208,11 @@ public class OItem {
     }
 
     public boolean e() {
-        return this.bR;
+        return this.bT;
     }
 
     protected OItem a(boolean var1) {
-        this.bR = var1;
+        this.bT = var1;
         return this;
     }
 
@@ -224,7 +226,7 @@ public class OItem {
     }
 
     public boolean g() {
-        return this.a > 0 && !this.bR;
+        return this.a > 0 && !this.bT;
     }
 
     public boolean a(OItemStack var1, OEntityLiving var2, OEntityLiving var3) {
@@ -246,21 +248,21 @@ public class OItem {
     public void a(OItemStack var1, OEntityLiving var2) {}
 
     public OItem h() {
-        this.bQ = true;
+        this.bS = true;
         return this;
     }
 
     public OItem a(String var1) {
-        this.bT = "item." + var1;
+        this.bV = "item." + var1;
         return this;
     }
 
     public String b() {
-        return this.bT;
+        return this.bV;
     }
 
     public String a(OItemStack var1) {
-        return this.bT;
+        return this.bV;
     }
 
     public OItem a(OItem var1) {
@@ -292,7 +294,7 @@ public class OItem {
 
     public void d(OItemStack var1, OWorld var2, OEntityPlayer var3) {}
 
-    public boolean n_() {
+    public boolean t_() {
         return false;
     }
 
@@ -307,16 +309,16 @@ public class OItem {
     public void a(OItemStack var1, OWorld var2, OEntityPlayer var3, int var4) {}
 
     protected OItem b(String var1) {
-        this.bS = var1;
+        this.bU = var1;
         return this;
     }
 
     public String m() {
-        return this.bS;
+        return this.bU;
     }
 
     public boolean n() {
-        return this.bS != null;
+        return this.bU != null;
     }
 
     public boolean f(OItemStack var1) {
@@ -351,9 +353,8 @@ public class OItem {
     static {
         OStatList.c();
     }
-    
-    // CanaryMod start - Add convenience method to get block clicked.
-    @SuppressWarnings("LocalVariableHidesMemberVariable")
+	
+	// CanaryMod start - Add convenience method to get block clicked.
     protected Block getBlockInfo(OWorld var3, int var4, int var5, int var6, int var7) {
         Block b = var3.world.getBlockAt(var4, var5, var6);
         b.setFaceClicked(Block.Face.fromId(var7));

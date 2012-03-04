@@ -8,6 +8,7 @@ public class OEntityList {
     private static Map c = new HashMap();
     private static Map d = new HashMap();
     private static Map e = new HashMap();
+    private static Map f = new HashMap();
     public static HashMap a = new HashMap();
 
     public OEntityList() {
@@ -19,6 +20,7 @@ public class OEntityList {
         c.put(var0, var1);
         d.put(Integer.valueOf(var2), var0);
         e.put(var0, Integer.valueOf(var2));
+        f.put(var1, Integer.valueOf(var2));
     }
 
     private static void a(Class var0, String var1, int var2, int var3, int var4) {
@@ -91,8 +93,14 @@ public class OEntityList {
     public static String b(OEntity var0) {
         return (String) c.get(var0.getClass());
     }
-   
-    // CanaryMod: Let us do a name->class lookup for mob spawning
+
+    public static int a(String var0) {
+        Integer var1 = (Integer) f.get(var0);
+
+        return var1 == null ? 90 : var1.intValue();
+    }
+	
+	// CanaryMod: Let us do a name->class lookup for mob spawning
     public static Class<?> getEntity(String name) {
         return (Class<?>) b.get(name);
     }
@@ -112,6 +120,8 @@ public class OEntityList {
         a(OEntitySmallFireball.class, "SmallFireball", 13);
         a(OEntityThrownEnderpearl.class, "ThrownEnderpearl", 14);
         a(OEntityEnderEye.class, "EyeOfEnderSignal", 15);
+        a(OEntityPotion.class, "ThrownPotion", 16);
+        a(OEntityExpBottle.class, "ThrownExpBottle", 17);
         a(OEntityTNTPrimed.class, "PrimedTnt", 20);
         a(OEntityFallingSand.class, "FallingSand", 21);
         a(OEntityMinecart.class, "Minecart", 40);
@@ -140,6 +150,8 @@ public class OEntityList {
         a(OEntityWolf.class, "Wolf", 95, 14144467, 13545366);
         a(OEntityMushroomCow.class, "MushroomCow", 96, 10489616, 12040119);
         a(OEntitySnowMan.class, "SnowMan", 97);
+        a(OEntityOzelot.class, "Ozelot", 98, 15720061, 5653556);
+        a(OEntityIronGolem.class, "VillagerGolem", 99);
         a(OEntityVillager.class, "Villager", 120, 5651507, 12422002);
         a(OEntityEnderCrystal.class, "EnderCrystal", 200);
     }

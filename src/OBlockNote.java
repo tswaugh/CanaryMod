@@ -11,7 +11,7 @@ public class OBlockNote extends OBlockContainer {
 
     public void a(OWorld var1, int var2, int var3, int var4, int var5) {
         if (var5 > 0) {
-            boolean var6 = var1.u(var2, var3, var4);
+            boolean var6 = var1.x(var2, var3, var4);
             OTileEntityNote var7 = (OTileEntityNote) var1.b(var2, var3, var4);
 
             if (var7 != null && var7.b != var6) {
@@ -26,7 +26,7 @@ public class OBlockNote extends OBlockContainer {
     }
 
     public boolean a(OWorld var1, int var2, int var3, int var4, OEntityPlayer var5) {
-        if (var1.I) {
+        if (var1.F) {
             return true;
         } else {
             OTileEntityNote var6 = (OTileEntityNote) var1.b(var2, var3, var4);
@@ -41,7 +41,7 @@ public class OBlockNote extends OBlockContainer {
     }
 
     public void b(OWorld var1, int var2, int var3, int var4, OEntityPlayer var5) {
-        if (!var1.I) {
+        if (!var1.F) {
             OTileEntityNote var6 = (OTileEntityNote) var1.b(var2, var3, var4);
 
             if (var6 != null) {

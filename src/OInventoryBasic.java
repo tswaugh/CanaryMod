@@ -1,4 +1,3 @@
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         this.c = new OItemStack[var2];
     }
 
-    public OItemStack c_(int var1) {
+    public OItemStack g_(int var1) {
         return this.c[var1];
     }
 
@@ -28,7 +27,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
             if (this.c[var1].a <= var2) {
                 var3 = this.c[var1];
                 this.c[var1] = null;
-                this.z_();
+                this.H_();
                 return var3;
             } else {
                 var3 = this.c[var1].a(var2);
@@ -36,9 +35,20 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
                     this.c[var1] = null;
                 }
 
-                this.z_();
+                this.H_();
                 return var3;
             }
+        } else {
+            return null;
+        }
+    }
+
+    public OItemStack b(int var1) {
+        if (this.c[var1] != null) {
+            OItemStack var2 = this.c[var1];
+
+            this.c[var1] = null;
+            return var2;
         } else {
             return null;
         }
@@ -50,7 +60,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
             var2.a = this.a();
         }
 
-        this.z_();
+        this.H_();
     }
 
     public int c() {
@@ -65,7 +75,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         return 64;
     }
 
-    public void z_() {
+    public void H_() {
         if (this.d != null) {
             for (int var1 = 0; var1 < this.d.size(); ++var1) {
                 ((OIInvBasic) this.d.get(var1)).a(this);
@@ -81,8 +91,8 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
     public void f() {}
 
     public void g() {}
-
-    @Override
+	
+	@Override
     public OItemStack[] getContents() {
         return Arrays.copyOf(this.c, getContentsSize());
     }
@@ -94,7 +104,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
 
     @Override
     public OItemStack getContentsAt(int index) {
-        return this.c_(index);
+        return this.g_(index);
     }
 
     @Override

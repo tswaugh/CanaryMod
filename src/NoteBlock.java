@@ -27,7 +27,7 @@ public class NoteBlock implements ComplexBlock {
 
     @Override
     public void update() {
-        note.l_();
+        note.q_();
     }
 
     @Override

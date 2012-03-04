@@ -7,12 +7,12 @@ public class OBlockStairs extends OBlock {
     private OBlock a;
 
     protected OBlockStairs(int var1, OBlock var2) {
-        super(var1, var2.bN, var2.cb);
+        super(var1, var2.bN, var2.cd);
         this.a = var2;
         this.c(var2.bP);
         this.b(var2.bQ / 3.0F);
-        this.a(var2.bZ);
-        this.g(255);
+        this.a(var2.cb);
+        this.f(255);
     }
 
     public void a(OIBlockAccess var1, int var2, int var3, int var4) {
@@ -37,26 +37,32 @@ public class OBlockStairs extends OBlock {
 
     public void a(OWorld var1, int var2, int var3, int var4, OAxisAlignedBB var5, ArrayList var6) {
         int var7 = var1.c(var2, var3, var4);
+        int var8 = var7 & 3;
+        float var9 = 0.0F;
+        float var10 = 0.5F;
+        float var11 = 0.5F;
+        float var12 = 1.0F;
 
-        if (var7 == 0) {
-            this.a(0.0F, 0.0F, 0.0F, 0.5F, 0.5F, 1.0F);
+        if ((var7 & 4) != 0) {
+            var9 = 0.5F;
+            var10 = 1.0F;
+            var11 = 0.0F;
+            var12 = 0.5F;
+        }
+
+        this.a(0.0F, var9, 0.0F, 1.0F, var10, 1.0F);
+        super.a(var1, var2, var3, var4, var5, var6);
+        if (var8 == 0) {
+            this.a(0.5F, var11, 0.0F, 1.0F, var12, 1.0F);
             super.a(var1, var2, var3, var4, var5, var6);
-            this.a(0.5F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        } else if (var8 == 1) {
+            this.a(0.0F, var11, 0.0F, 0.5F, var12, 1.0F);
             super.a(var1, var2, var3, var4, var5, var6);
-        } else if (var7 == 1) {
-            this.a(0.0F, 0.0F, 0.0F, 0.5F, 1.0F, 1.0F);
+        } else if (var8 == 2) {
+            this.a(0.0F, var11, 0.5F, 1.0F, var12, 1.0F);
             super.a(var1, var2, var3, var4, var5, var6);
-            this.a(0.5F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-            super.a(var1, var2, var3, var4, var5, var6);
-        } else if (var7 == 2) {
-            this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 0.5F);
-            super.a(var1, var2, var3, var4, var5, var6);
-            this.a(0.0F, 0.0F, 0.5F, 1.0F, 1.0F, 1.0F);
-            super.a(var1, var2, var3, var4, var5, var6);
-        } else if (var7 == 3) {
-            this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.5F);
-            super.a(var1, var2, var3, var4, var5, var6);
-            this.a(0.0F, 0.0F, 0.5F, 1.0F, 0.5F, 1.0F);
+        } else if (var8 == 3) {
+            this.a(0.0F, var11, 0.0F, 1.0F, var12, 0.5F);
             super.a(var1, var2, var3, var4, var5, var6);
         }
 
@@ -91,8 +97,8 @@ public class OBlockStairs extends OBlock {
         this.a.a(var1, var2, var3, var4, var5, var6);
     }
 
-    public boolean x_() {
-        return this.a.x_();
+    public boolean F_() {
+        return this.a.F_();
     }
 
     public boolean a(int var1, boolean var2) {
@@ -130,21 +136,31 @@ public class OBlockStairs extends OBlock {
 
     public void a(OWorld var1, int var2, int var3, int var4, OEntityLiving var5) {
         int var6 = OMathHelper.b((double) (var5.bs * 4.0F / 360.0F) + 0.5D) & 3;
+        int var7 = var1.c(var2, var3, var4) & 4;
 
         if (var6 == 0) {
-            var1.c(var2, var3, var4, 2);
+            var1.c(var2, var3, var4, 2 | var7);
         }
 
         if (var6 == 1) {
-            var1.c(var2, var3, var4, 1);
+            var1.c(var2, var3, var4, 1 | var7);
         }
 
         if (var6 == 2) {
-            var1.c(var2, var3, var4, 3);
+            var1.c(var2, var3, var4, 3 | var7);
         }
 
         if (var6 == 3) {
-            var1.c(var2, var3, var4, 0);
+            var1.c(var2, var3, var4, 0 | var7);
+        }
+
+    }
+
+    public void e(OWorld var1, int var2, int var3, int var4, int var5) {
+        if (var5 == 0) {
+            int var6 = var1.c(var2, var3, var4);
+
+            var1.c(var2, var3, var4, var6 | 4);
         }
 
     }

@@ -4,7 +4,7 @@ import java.util.Random;
 public class OBlockPortal extends OBlockBreakable {
 
     public OBlockPortal(int var1, int var2) {
-        super(var1, var2, OMaterial.A, false);
+        super(var1, var2, OMaterial.B, false);
     }
 
     public OAxisAlignedBB e(OWorld var1, int var2, int var3, int var4) {
@@ -39,11 +39,11 @@ public class OBlockPortal extends OBlockBreakable {
         byte var5 = 0;
         byte var6 = 0;
 
-        if (var1.a(var2 - 1, var3, var4) == OBlock.ar.bO || var1.a(var2 + 1, var3, var4) == OBlock.ar.bO) {
+        if (var1.a(var2 - 1, var3, var4) == OBlock.ap.bO || var1.a(var2 + 1, var3, var4) == OBlock.ap.bO) {
             var5 = 1;
         }
 
-        if (var1.a(var2, var3, var4 - 1) == OBlock.ar.bO || var1.a(var2, var3, var4 + 1) == OBlock.ar.bO) {
+        if (var1.a(var2, var3, var4 - 1) == OBlock.ap.bO || var1.a(var2, var3, var4 + 1) == OBlock.ap.bO) {
             var6 = 1;
         }
 
@@ -66,17 +66,17 @@ public class OBlockPortal extends OBlockBreakable {
                         int var10 = var1.a(var2 + var5 * var7, var3 + var8, var4 + var6 * var7);
 
                         if (var9) {
-                            if (var10 != OBlock.ar.bO) {
+                            if (var10 != OBlock.ap.bO) {
                                 return false;
                             }
-                        } else if (var10 != 0 && var10 != OBlock.at.bO) {
+                        } else if (var10 != 0 && var10 != OBlock.ar.bO) {
                             return false;
                         }
                     }
                 }
             }
 
-            // CanaryMod hook onPortalCreate
+			// CanaryMod hook onPortalCreate
             Block[][] portalBlocks = new Block[3][2];
 
             for (var8 = 0; var8 < 3; ++var8) {
@@ -85,16 +85,18 @@ public class OBlockPortal extends OBlockBreakable {
                 }
             }
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_CREATE, (Object) portalBlocks)) {
-                var1.t = true;
-                for (var7 = 0; var7 < 2; ++var7) {
-                    for (var8 = 0; var8 < 3; ++var8) {
-                        var1.e(var2 + var5 * var7, var3 + var8, var4 + var6 * var7, OBlock.bg.bO);
-                    }
-                }
-                var1.t = false;
-                return true;
-            }    
-            return false;
+				var1.o = true;
+
+				for (var7 = 0; var7 < 2; ++var7) {
+					for (var8 = 0; var8 < 3; ++var8) {
+						var1.e(var2 + var5 * var7, var3 + var8, var4 + var6 * var7, OBlock.be.bO);
+					}
+				}
+
+				var1.o = false;
+				return true;
+			}
+			return false;
         }
     }
 
@@ -113,7 +115,7 @@ public class OBlockPortal extends OBlockBreakable {
             ;
         }
 
-        if (var1.a(var2, var8 - 1, var4) != OBlock.ar.bO) {
+        if (var1.a(var2, var8 - 1, var4) != OBlock.ap.bO) {
             var1.e(var2, var3, var4, 0);
         } else {
             int var9;
@@ -122,13 +124,13 @@ public class OBlockPortal extends OBlockBreakable {
                 ;
             }
 
-            if (var9 == 3 && var1.a(var2, var8 + var9, var4) == OBlock.ar.bO) {
+            if (var9 == 3 && var1.a(var2, var8 + var9, var4) == OBlock.ap.bO) {
                 boolean var10 = var1.a(var2 - 1, var3, var4) == this.bO || var1.a(var2 + 1, var3, var4) == this.bO;
                 boolean var11 = var1.a(var2, var3, var4 - 1) == this.bO || var1.a(var2, var3, var4 + 1) == this.bO;
 
                 if (var10 && var11) {
                     var1.e(var2, var3, var4, 0);
-                } else if ((var1.a(var2 + var6, var3, var4 + var7) != OBlock.ar.bO || var1.a(var2 - var6, var3, var4 - var7) != this.bO) && (var1.a(var2 - var6, var3, var4 - var7) != OBlock.ar.bO || var1.a(var2 + var6, var3, var4 + var7) != this.bO)) {
+                } else if ((var1.a(var2 + var6, var3, var4 + var7) != OBlock.ap.bO || var1.a(var2 - var6, var3, var4 - var7) != this.bO) && (var1.a(var2 - var6, var3, var4 - var7) != OBlock.ap.bO || var1.a(var2 + var6, var3, var4 + var7) != this.bO)) {
                     var1.e(var2, var3, var4, 0);
                 }
             } else {
@@ -143,7 +145,7 @@ public class OBlockPortal extends OBlockBreakable {
 
     public void a(OWorld var1, int var2, int var3, int var4, OEntity var5) {
         if (var5.bh == null && var5.bg == null) {
-            var5.Y();
+            var5.ac();
         }
 
     }

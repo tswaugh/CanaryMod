@@ -2,12 +2,11 @@
 public class OEntityItem extends OEntity {
 
     public OItemStack a;
-    private int e;
     public int b = 0;
     public int c;
-    private int f = 5;
+    private int e = 5;
     public float d = (float) (Math.random() * 3.141592653589793D * 2.0D);
-    // CanaryMod Start
+	// CanaryMod Start
     ItemEntity item = new ItemEntity(this);
 
     // CanaryMod End
@@ -36,8 +35,8 @@ public class OEntityItem extends OEntity {
 
     protected void b() {}
 
-    public void y_() {
-        super.y_();
+    public void G_() {
+        super.G_();
         if (this.c > 0) {
             --this.c;
         }
@@ -62,7 +61,7 @@ public class OEntityItem extends OEntity {
             int var2 = this.bi.a(OMathHelper.b(this.bm), OMathHelper.b(this.bw.b) - 1, OMathHelper.b(this.bo));
 
             if (var2 > 0) {
-                var1 = OBlock.m[var2].cc * 0.98F;
+                var1 = OBlock.m[var2].ce * 0.98F;
             }
         }
 
@@ -73,20 +72,23 @@ public class OEntityItem extends OEntity {
             this.bq *= -0.5D;
         }
 
-        ++this.e;
         ++this.b;
         if (this.b >= 6000) {
-            // CanaryMod onEntityDespawn
+			// CanaryMod onEntityDespawn
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENTITY_DESPAWN, item)) {
-                this.T();
-            } else {
-                this.b = 0;
-            }
+				this.W();
+			} else {
+				this.b = 0;
+			}
         }
 
     }
 
-    public boolean i_() {
+    public void k() {
+        this.b = 4800;
+    }
+
+    public boolean h_() {
         return this.bi.a(this.bw, OMaterial.g, this);
     }
 
@@ -95,66 +97,72 @@ public class OEntityItem extends OEntity {
     }
 
     public boolean a(ODamageSource var1, int var2) {
-        this.aM();
-        this.f -= var2;
-        if (this.f <= 0) {
-            this.T();
+        this.aV();
+        this.e -= var2;
+        if (this.e <= 0) {
+            this.W();
         }
 
         return false;
     }
 
     public void b(ONBTTagCompound var1) {
-        var1.a("Health", (short) ((byte) this.f));
+        var1.a("Health", (short) ((byte) this.e));
         var1.a("Age", (short) this.b);
         var1.a("Item", this.a.b(new ONBTTagCompound()));
     }
 
     public void a(ONBTTagCompound var1) {
-        this.f = var1.e("Health") & 255;
+        this.e = var1.e("Health") & 255;
         this.b = var1.e("Age");
-        ONBTTagCompound var2 = var1.l("Item");
+        ONBTTagCompound var2 = var1.m("Item");
 
         this.a = OItemStack.a(var2);
         if (this.a == null) {
-            this.T();
+            this.W();
         }
 
     }
 
     public void a_(OEntityPlayer var1) {
-        if (!this.bi.I) {
+        if (!this.bi.F) {
             int var2 = this.a.a;
 
-            // CanaryMod: First simulate the pickup and call the hooks
+			// CanaryMod: First simulate the pickup and call the hooks
             if (this.c == 0 && var1.k.canPickup(this)) {
-                if (var1.k.a(this.a)) {
-                    if (this.a.c == OBlock.L.bO) {
-                        var1.a((OStatBase) OAchievementList.g);
-                    }
+				if (var1.k.a(this.a)) {
+					if (this.a.c == OBlock.J.bO) {
+						var1.a((OStatBase) OAchievementList.g);
+					}
 
-                    if (this.a.c == OItem.aE.bN) {
-                        var1.a((OStatBase) OAchievementList.t);
-                    }
+					if (this.a.c == OItem.aE.bP) {
+						var1.a((OStatBase) OAchievementList.t);
+					}
 
-                    if (this.a.c == OItem.m.bN) {
-                        var1.a((OStatBase) OAchievementList.w);
-                    }
+					if (this.a.c == OItem.m.bP) {
+						var1.a((OStatBase) OAchievementList.w);
+					}
 
-                    if (this.a.c == OItem.bn.bN) {
-                        var1.a((OStatBase) OAchievementList.z);
-                    }
+					if (this.a.c == OItem.bn.bP) {
+						var1.a((OStatBase) OAchievementList.z);
+					}
 
-                    this.bi.a(this, "random.pop", 0.2F, ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                    var1.a((OEntity) this, var2);
-                    if (this.a.a <= 0)
-                        this.T();
-                }
+					this.bi.a(this, "random.pop", 0.2F, ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+					var1.a((OEntity) this, var2);
+					if (this.a.a <= 0) {
+						this.W();
+					}
+				}
             }
+
         }
     }
 
-    public String ad() {
+    public String s() {
         return OStatCollector.a("item." + this.a.k());
+    }
+
+    public boolean k_() {
+        return false;
     }
 }

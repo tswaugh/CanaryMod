@@ -1,15 +1,10 @@
 
 public final class OItemStack {
 
-    // stack size
     public int a;
-    // animations
     public int b;
-    // item id
     public int c;
-   
     public ONBTTagCompound d;
-    // damage
     private int e;
 
     public OItemStack(OBlock var1) {
@@ -25,15 +20,15 @@ public final class OItemStack {
     }
 
     public OItemStack(OItem var1) {
-        this(var1.bN, 1, 0);
+        this(var1.bP, 1, 0);
     }
 
     public OItemStack(OItem var1, int var2) {
-        this(var1.bN, var2, 0);
+        this(var1.bP, var2, 0);
     }
 
     public OItemStack(OItem var1, int var2, int var3) {
-        this(var1.bN, var2, var3);
+        this(var1.bP, var2, var3);
     }
 
     public OItemStack(int var1, int var2, int var3) {
@@ -109,7 +104,7 @@ public final class OItemStack {
         this.a = var1.d("Count");
         this.e = var1.e("Damage");
         if (var1.c("tag")) {
-            this.d = var1.l("tag");
+            this.d = var1.m("tag");
         }
 
     }
@@ -155,7 +150,7 @@ public final class OItemStack {
             if (var1 > 0 && var2 instanceof OEntityPlayer) {
                 int var3 = OEnchantmentHelper.c(((OEntityPlayer) var2).k);
 
-                if (var3 > 0 && var2.bi.w.nextInt(var3 + 1) > 0) {
+                if (var3 > 0 && var2.bi.r.nextInt(var3 + 1) > 0) {
                     return;
                 }
             }
@@ -259,8 +254,8 @@ public final class OItemStack {
         OItem.d[this.c].a(this, var1, var2, var3, var4);
     }
 
-    public void c(OWorld var1, OEntityPlayer var2) {
-        var2.a(OStatList.D[this.c], this.a);
+    public void a(OWorld var1, OEntityPlayer var2, int var3) {
+        var2.a(OStatList.D[this.c], var3);
         OItem.d[this.c].d(this, var1, var2);
     }
 
@@ -276,7 +271,7 @@ public final class OItemStack {
         return this.a().d(this);
     }
 
-    public void a(OWorld var1, OEntityPlayer var2, int var3) {
+    public void b(OWorld var1, OEntityPlayer var2, int var3) {
         this.a().a(this, var1, var2, var3);
     }
 
@@ -293,8 +288,8 @@ public final class OItemStack {
     }
 
     public void d(ONBTTagCompound var1) {
-            this.d = var1;
-        }
+        this.d = var1;
+    }
 
     public boolean q() {
         return !this.a().f(this) ? false : !this.r();

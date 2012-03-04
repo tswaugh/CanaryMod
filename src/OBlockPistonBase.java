@@ -5,12 +5,12 @@ public class OBlockPistonBase extends OBlock {
 
     private boolean a;
     private static boolean b;
-    // CanaryMod member.
+	// CanaryMod member.
     // Used to signal wether to retract the block attached to the stick piston.
     private boolean attemptRetractBlock;
 
     public OBlockPistonBase(int var1, int var2, boolean var3) {
-        super(var1, var2, OMaterial.D);
+        super(var1, var2, OMaterial.E);
         this.a = var3;
         this.a(h);
         this.c(0.5F);
@@ -19,7 +19,7 @@ public class OBlockPistonBase extends OBlock {
     public int a(int var1, int var2) {
         int var3 = d(var2);
 
-        return var3 > 5 ? this.bN : (var1 == var3 ? (!e(var2) && this.bT <= 0.0D && this.bU <= 0.0D && this.bV <= 0.0D && this.bW >= 1.0D && this.bX >= 1.0D && this.bY >= 1.0D ? this.bN : 110) : (var1 == OFacing.a[var3] ? 109 : 108));
+        return var3 > 5 ? this.bN : (var1 == var3 ? (!e(var2) && this.bV <= 0.0D && this.bW <= 0.0D && this.bX <= 0.0D && this.bY >= 1.0D && this.bZ >= 1.0D && this.ca >= 1.0D ? this.bN : 110) : (var1 == OFacing.a[var3] ? 109 : 108));
     }
 
     public int c() {
@@ -38,21 +38,21 @@ public class OBlockPistonBase extends OBlock {
         int var6 = c(var1, var2, var3, var4, (OEntityPlayer) var5);
 
         var1.c(var2, var3, var4, var6);
-        if (!var1.I && !b) {
+        if (!var1.F && !b) {
             this.g(var1, var2, var3, var4);
         }
 
     }
 
     public void a(OWorld var1, int var2, int var3, int var4, int var5) {
-        if (!var1.I && !b) {
+        if (!var1.F && !b) {
             this.g(var1, var2, var3, var4);
         }
 
     }
 
     public void a(OWorld var1, int var2, int var3, int var4) {
-        if (!var1.I && var1.b(var2, var3, var4) == null && !b) {
+        if (!var1.F && var1.b(var2, var3, var4) == null && !b) {
             this.g(var1, var2, var3, var4);
         }
 
@@ -66,13 +66,13 @@ public class OBlockPistonBase extends OBlock {
         if (var5 != 7) {
             if (var7 && !e(var5)) {
                 if (g(var1, var2, var3, var4, var6)) {
-                    // CanaryMod hook onPistonExtend
+					// CanaryMod hook onPistonExtend
                     boolean allowExtension = !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PISTON_EXTEND, new Block(var1.world, (this.a) ? Block.Type.StickyPiston.getType() : Block.Type.Piston.getType(), var2, var3, var4, var5));
 
                     if (allowExtension) {
-                        var1.d(var2, var3, var4, var6 | 8);
-                        var1.e(var2, var3, var4, 0, var6);
-                    }
+						var1.d(var2, var3, var4, var6 | 8);
+						var1.e(var2, var3, var4, 0, var6);
+					}
                 }
             } else if (!var7 && e(var5)) {
                 // CanaryMod hook onPistonRetract
@@ -95,7 +95,7 @@ public class OBlockPistonBase extends OBlock {
         if (var5 == 0) {
             if (this.h(var1, var2, var3, var4, var6)) {
                 var1.c(var2, var3, var4, var6 | 8);
-                var1.a((double) var2 + 0.5D, (double) var3 + 0.5D, (double) var4 + 0.5D, "tile.piston.out", 0.5F, var1.w.nextFloat() * 0.25F + 0.6F);
+                var1.a((double) var2 + 0.5D, (double) var3 + 0.5D, (double) var4 + 0.5D, "tile.piston.out", 0.5F, var1.r.nextFloat() * 0.25F + 0.6F);
             } else {
                 var1.d(var2, var3, var4, var6);
             }
@@ -106,7 +106,7 @@ public class OBlockPistonBase extends OBlock {
                 ((OTileEntityPiston) var8).g();
             }
 
-            var1.a(var2, var3, var4, OBlock.ae.bO, var6);
+            var1.a(var2, var3, var4, OBlock.ac.bO, var6);
             var1.a(var2, var3, var4, OBlockPistonMoving.a(this.bO, var6, var6, false, true));
             if (this.a) {
                 int var9 = var2 + OFacing.b[var6] * 2;
@@ -116,7 +116,7 @@ public class OBlockPistonBase extends OBlock {
                 int var13 = var1.c(var9, var10, var11);
                 boolean var14 = false;
 
-                if (var12 == OBlock.ae.bO) {
+                if (var12 == OBlock.ac.bO) {
                     OTileEntity var15 = var1.b(var9, var10, var11);
 
                     if (var15 != null && var15 instanceof OTileEntityPiston) {
@@ -125,17 +125,17 @@ public class OBlockPistonBase extends OBlock {
                         if (var16.f() == var6 && var16.e()) {
                             var16.g();
                             var12 = var16.c();
-                            var13 = var16.j();
+                            var13 = var16.k();
                             var14 = true;
                         }
                     }
                 }
 
-                if (this.attemptRetractBlock && !var14 && var12 > 0 && a(var12, var1, var9, var10, var11, false) && (OBlock.m[var12].g() == 0 || var12 == OBlock.ab.bO || var12 == OBlock.X.bO)) {
+                if (this.attemptRetractBlock && !var14 && var12 > 0 && a(var12, var1, var9, var10, var11, false) && (OBlock.m[var12].g() == 0 || var12 == OBlock.Z.bO || var12 == OBlock.V.bO)) {
                     var2 += OFacing.b[var6];
                     var3 += OFacing.c[var6];
                     var4 += OFacing.d[var6];
-                    var1.a(var2, var3, var4, OBlock.ae.bO, var13);
+                    var1.a(var2, var3, var4, OBlock.ac.bO, var13);
                     var1.a(var2, var3, var4, OBlockPistonMoving.a(var12, var13, var6, false, false));
                     b = false;
                     var1.e(var9, var10, var11, 0);
@@ -152,7 +152,7 @@ public class OBlockPistonBase extends OBlock {
                 b = true;
             }
 
-            var1.a((double) var2 + 0.5D, (double) var3 + 0.5D, (double) var4 + 0.5D, "tile.piston.in", 0.5F, var1.w.nextFloat() * 0.15F + 0.6F);
+            var1.a((double) var2 + 0.5D, (double) var3 + 0.5D, (double) var4 + 0.5D, "tile.piston.in", 0.5F, var1.r.nextFloat() * 0.15F + 0.6F);
         }
 
         b = false;
@@ -163,28 +163,28 @@ public class OBlockPistonBase extends OBlock {
 
         if (e(var5)) {
             switch (d(var5)) {
-                case 0:
-                    this.a(0.0F, 0.25F, 0.0F, 1.0F, 1.0F, 1.0F);
-                    break;
+            case 0:
+                this.a(0.0F, 0.25F, 0.0F, 1.0F, 1.0F, 1.0F);
+                break;
 
-                case 1:
-                    this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
-                    break;
+            case 1:
+                this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
+                break;
 
-                case 2:
-                    this.a(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 1.0F);
-                    break;
+            case 2:
+                this.a(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 1.0F);
+                break;
 
-                case 3:
-                    this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.75F);
-                    break;
+            case 3:
+                this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.75F);
+                break;
 
-                case 4:
-                    this.a(0.25F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-                    break;
+            case 4:
+                this.a(0.25F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+                break;
 
-                case 5:
-                    this.a(0.0F, 0.0F, 0.0F, 0.75F, 1.0F, 1.0F);
+            case 5:
+                this.a(0.0F, 0.0F, 0.0F, 0.75F, 1.0F, 1.0F);
             }
         } else {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -199,6 +199,11 @@ public class OBlockPistonBase extends OBlock {
     public void a(OWorld var1, int var2, int var3, int var4, OAxisAlignedBB var5, ArrayList var6) {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         super.a(var1, var2, var3, var4, var5, var6);
+    }
+
+    public OAxisAlignedBB e(OWorld var1, int var2, int var3, int var4) {
+        this.a((OIBlockAccess) var1, var2, var3, var4);
+        return super.e(var1, var2, var3, var4);
     }
 
     public boolean b() {
@@ -232,10 +237,10 @@ public class OBlockPistonBase extends OBlock {
     }
 
     private static boolean a(int var0, OWorld var1, int var2, int var3, int var4, boolean var5) {
-        if (var0 == OBlock.ar.bO) {
+        if (var0 == OBlock.ap.bO) {
             return false;
         } else {
-            if (var0 != OBlock.ab.bO && var0 != OBlock.X.bO) {
+            if (var0 != OBlock.Z.bO && var0 != OBlock.V.bO) {
                 if (OBlock.m[var0].l() == -1.0F) {
                     return false;
                 }
@@ -263,7 +268,7 @@ public class OBlockPistonBase extends OBlock {
 
         while (true) {
             if (var8 < 13) {
-                if (var6 <= 0 || var6 >= var0.c - 1) {
+                if (var6 <= 0 || var6 >= 255) {
                     return false;
                 }
 
@@ -302,7 +307,7 @@ public class OBlockPistonBase extends OBlock {
             int var10;
 
             if (var9 < 13) {
-                if (var7 <= 0 || var7 >= var1.c - 1) {
+                if (var7 <= 0 || var7 >= 255) {
                     return false;
                 }
 
@@ -337,10 +342,10 @@ public class OBlockPistonBase extends OBlock {
                 int var13 = var1.c(var9, var10, var11);
 
                 if (var12 == this.bO && var9 == var2 && var10 == var3 && var11 == var4) {
-                    var1.a(var6, var7, var8, OBlock.ae.bO, var5 | (this.a ? 8 : 0));
-                    var1.a(var6, var7, var8, OBlockPistonMoving.a(OBlock.ac.bO, var5 | (this.a ? 8 : 0), var5, true, false));
+                    var1.a(var6, var7, var8, OBlock.ac.bO, var5 | (this.a ? 8 : 0));
+                    var1.a(var6, var7, var8, OBlockPistonMoving.a(OBlock.aa.bO, var5 | (this.a ? 8 : 0), var5, true, false));
                 } else {
-                    var1.a(var6, var7, var8, OBlock.ae.bO, var13);
+                    var1.a(var6, var7, var8, OBlock.ac.bO, var13);
                     var1.a(var6, var7, var8, OBlockPistonMoving.a(var12, var13, var5, true, false));
                 }
 

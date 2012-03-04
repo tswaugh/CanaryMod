@@ -47,14 +47,14 @@ public class OConsoleCommandHandler {
 
                     for (var6 = 0; var6 < this.b.e.length; ++var6) {
                         var7 = this.b.e[var6];
-                        var7.L = true;
+                        var7.I = true;
                     }
                 } else if (var2.toLowerCase().startsWith("save-on")) {
                     this.a(var4, "Enabling level saving..");
 
                     for (var6 = 0; var6 < this.b.e.length; ++var6) {
                         var7 = this.b.e[var6];
-                        var7.L = false;
+                        var7.I = false;
                     }
                 } else {
                     String var16;
@@ -194,7 +194,7 @@ public class OConsoleCommandHandler {
                                                 var19 = Integer.parseInt(var21[2]);
                                                 var19 = var19 > 5000 ? 5000 : var19;
                                                 this.a(var4, "Giving " + var19 + " orbs to " + var18.v);
-                                                var18.h(var19);
+                                                var18.g(var19);
                                             } catch (NumberFormatException var13) {
                                                 var3.b("Invalid orb count: " + var21[2]);
                                             }
@@ -241,7 +241,7 @@ public class OConsoleCommandHandler {
                                             if ("add".equalsIgnoreCase(var20)) {
                                                 for (var19 = 0; var19 < this.b.e.length; ++var19) {
                                                     var22 = this.b.e[var19];
-                                                    var22.b(var22.n() + (long) var8);
+                                                    var22.b(var22.o() + (long) var8);
                                                 }
 
                                                 this.a(var4, "Added " + var8 + " to time");
@@ -309,7 +309,7 @@ public class OConsoleCommandHandler {
         if (var4.length >= 2) {
             String var5 = var4[1].toLowerCase();
 
-            if ("on".equals(var5)) {
+            if ("OStringTranslate".equals(var5)) {
                 this.a(var1, "Turned on white-listing");
                 this.b.d.b("white-list", true);
             } else if ("off".equals(var5)) {

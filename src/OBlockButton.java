@@ -204,7 +204,7 @@ public class OBlockButton extends OBlock {
     }
 
     public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
-        if (!var1.I) {
+        if (!var1.F) {
             int var6 = var1.c(var2, var3, var4);
 
             if ((var6 & 8) != 0) {

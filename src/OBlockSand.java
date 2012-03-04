@@ -10,17 +10,17 @@ public class OBlockSand extends OBlock {
     }
 
     public void a(OWorld var1, int var2, int var3, int var4) {
-        // CanaryMod: Physics
+		// CanaryMod: Physics
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(var1.world, bO, var2, var3, var4), true)) {
-            var1.c(var2, var3, var4, this.bO, this.d());
-        }
+			var1.c(var2, var3, var4, this.bO, this.d());
+		}
     }
 
     public void a(OWorld var1, int var2, int var3, int var4, int var5) {
-        // CanaryMod: Physics
+		// CanaryMod: Physics
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(var1.world, bO, var2, var3, var4), true)) {
-            var1.c(var2, var3, var4, this.bO, this.d());
-        }
+			var1.c(var2, var3, var4, this.bO, this.d());
+		}
     }
 
     public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
@@ -32,7 +32,7 @@ public class OBlockSand extends OBlock {
             byte var8 = 32;
 
             if (!a && var1.a(var2 - var8, var3 - var8, var4 - var8, var2 + var8, var3 + var8, var4 + var8)) {
-                if (!var1.I) {
+                if (!var1.F) {
                     OEntityFallingSand var9 = new OEntityFallingSand(var1, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), this.bO);
 
                     var1.b((OEntity) var9);
@@ -61,10 +61,10 @@ public class OBlockSand extends OBlock {
 
         if (var4 == 0) {
             return true;
-        } else if (var4 == OBlock.at.bO) {
+        } else if (var4 == OBlock.ar.bO) {
             return true;
         } else {
-            OMaterial var5 = OBlock.m[var4].cb;
+            OMaterial var5 = OBlock.m[var4].cd;
 
             return var5 == OMaterial.g ? true : var5 == OMaterial.h;
         }

@@ -36,7 +36,7 @@ public class OBlockLever extends OBlock {
         var6 &= 7;
         var6 = -1;
         if (var5 == 1 && var1.e(var2, var3 - 1, var4)) {
-            var6 = 5 + var1.w.nextInt(2);
+            var6 = 5 + var1.r.nextInt(2);
         }
 
         if (var5 == 2 && var1.e(var2, var3, var4 + 1)) {
@@ -134,18 +134,18 @@ public class OBlockLever extends OBlock {
     }
 
     public boolean a(OWorld var1, int var2, int var3, int var4, OEntityPlayer var5) {
-        if (var1.I) {
+        if (var1.F) {
             return true;
         } else {
             int var6 = var1.c(var2, var3, var4);
             int var7 = var6 & 7;
             int var8 = 8 - (var6 & 8);
-            // CanaryMod: Allow the lever to change the current first 3 bits are for postion 4th bit is for power. (on / off)
+			// CanaryMod: Allow the lever to change the current first 3 bits are for postion 4th bit is for power. (on / off)
             int old = (var8 != 8) ? 1 : 0;
             int current = (var8 == 8) ? 1 : 0;
 
             current = ((Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(var1.world, bO, var2, var3, var4), old, current)).intValue();
-            var8 = (current > 0) ? 8 : 0;
+			var8 = (current > 0) ? 8 : 0;
 
             var1.c(var2, var3, var4, var7 + var8);
             var1.b(var2, var3, var4, var2, var3, var4);

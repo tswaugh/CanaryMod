@@ -46,7 +46,7 @@ public class Chunk {
      * @return new chunk
      */
     public static Chunk regenerateChunk(OWorld world, int x, int z) {
-        return ((OWorldServer)world).J.regenerateChunk(x, z).chunk;
+        return ((OWorldServer)world).G.regenerateChunk(x, z).chunk;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Chunk {
      * @return true if chunk is loaded
      */
     public boolean isLoaded() {
-        return chunk.e;
+        return chunk.d;
     }
 
     /**
@@ -62,7 +62,7 @@ public class Chunk {
      * @return world
      */
     public World getWorld() {
-        return chunk.f.world;
+        return chunk.e.world;
     }
 
     /**
@@ -70,7 +70,7 @@ public class Chunk {
      * @return x
      */
     public int getX() {
-        return chunk.l;
+        return chunk.g;
     }
 
     /**
@@ -78,7 +78,7 @@ public class Chunk {
      * @return z
      */
     public int getZ() {
-        return chunk.m;
+        return chunk.h;
     }
 
     /**

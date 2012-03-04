@@ -626,6 +626,7 @@ rule vv OBlockPistonMoving
 rule vw OBlock
 rule vx OEntitySlime
 rule vy OItemBucketMilk
+rule vz ONibbleArrayReader
 rule w OEntitySnowMan
 rule wa OItemInWorldManager
 rule wb OPacket40EntityMetadata
@@ -656,10 +657,12 @@ rule wz OMapGenStrongholdStart
 rule x OBiomeGenHell
 rule xa OBlockFarmland
 rule xb OBlockTorch
+rule xc OEntityAgeable
 rule xd ORailLogic
 rule xe OMapGenStrongholdCrossing
 rule xf OBlockMushroomCap
-rule xg OSlotFurnace
+rule xg OEntityAIRestrictSun
+rule xh OSlotFurnace
 rule xi OINpc
 rule xj OEntityRespiration
 rule xk ORConThreadBase

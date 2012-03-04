@@ -53,9 +53,9 @@ public class OContainerWorkbench extends OContainer {
 
     public void a(OEntityPlayer var1) {
         super.a(var1);
-        if (!this.c.I) {
+        if (!this.c.F) {
             for (int var2 = 0; var2 < 9; ++var2) {
-                OItemStack var3 = this.a.c_(var2);
+                OItemStack var3 = this.a.b(var2);
 
                 if (var3 != null) {
                     var1.b(var3);
@@ -66,7 +66,7 @@ public class OContainerWorkbench extends OContainer {
     }
 
     public boolean b(OEntityPlayer var1) {
-        return this.c.a(this.h, this.i, this.j) != OBlock.aA.bO ? false : var1.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
+        return this.c.a(this.h, this.i, this.j) != OBlock.ay.bO ? false : var1.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 
     public OItemStack a(int var1) {
@@ -81,6 +81,8 @@ public class OContainerWorkbench extends OContainer {
                 if (!this.a(var4, 10, 46, true)) {
                     return null;
                 }
+
+                var3.a(var4, var2);
             } else if (var1 >= 10 && var1 < 37) {
                 if (!this.a(var4, 37, 46, false)) {
                     return null;
@@ -94,7 +96,7 @@ public class OContainerWorkbench extends OContainer {
             }
 
             if (var4.a == 0) {
-                var3.c((OItemStack) null);
+                var3.d((OItemStack) null);
             } else {
                 var3.d();
             }
@@ -103,7 +105,7 @@ public class OContainerWorkbench extends OContainer {
                 return null;
             }
 
-            var3.b(var4);
+            var3.c(var4);
         }
 
         return var2;

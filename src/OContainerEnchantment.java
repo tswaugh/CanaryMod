@@ -3,6 +3,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+
 public class OContainerEnchantment extends OContainer {
 
     public OIInventory a = new OSlotEnchantmentTable(this, "Enchant", 1);
@@ -58,41 +59,41 @@ public class OContainerEnchantment extends OContainer {
 
     public void a(OIInventory var1) {
         if (var1 == this.a) {
-            OItemStack var2 = var1.c_(0);
+            OItemStack var2 = var1.g_(0);
             int var3;
 
             if (var2 != null && var2.q()) {
                 this.b = this.l.nextLong();
-                if (!this.h.I) {
+                if (!this.h.F) {
                     var3 = 0;
 
                     int var4;
 
                     for (var4 = -1; var4 <= 1; ++var4) {
                         for (int var5 = -1; var5 <= 1; ++var5) {
-                            if ((var4 != 0 || var5 != 0) && this.h.f(this.i + var5, this.j, this.k + var4) && this.h.f(this.i + var5, this.j + 1, this.k + var4)) {
-                                if (this.h.a(this.i + var5 * 2, this.j, this.k + var4 * 2) == OBlock.ap.bO) {
+                            if ((var4 != 0 || var5 != 0) && this.h.g(this.i + var5, this.j, this.k + var4) && this.h.g(this.i + var5, this.j + 1, this.k + var4)) {
+                                if (this.h.a(this.i + var5 * 2, this.j, this.k + var4 * 2) == OBlock.an.bO) {
                                     ++var3;
                                 }
 
-                                if (this.h.a(this.i + var5 * 2, this.j + 1, this.k + var4 * 2) == OBlock.ap.bO) {
+                                if (this.h.a(this.i + var5 * 2, this.j + 1, this.k + var4 * 2) == OBlock.an.bO) {
                                     ++var3;
                                 }
 
                                 if (var5 != 0 && var4 != 0) {
-                                    if (this.h.a(this.i + var5 * 2, this.j, this.k + var4) == OBlock.ap.bO) {
+                                    if (this.h.a(this.i + var5 * 2, this.j, this.k + var4) == OBlock.an.bO) {
                                         ++var3;
                                     }
 
-                                    if (this.h.a(this.i + var5 * 2, this.j + 1, this.k + var4) == OBlock.ap.bO) {
+                                    if (this.h.a(this.i + var5 * 2, this.j + 1, this.k + var4) == OBlock.an.bO) {
                                         ++var3;
                                     }
 
-                                    if (this.h.a(this.i + var5, this.j, this.k + var4 * 2) == OBlock.ap.bO) {
+                                    if (this.h.a(this.i + var5, this.j, this.k + var4 * 2) == OBlock.an.bO) {
                                         ++var3;
                                     }
 
-                                    if (this.h.a(this.i + var5, this.j + 1, this.k + var4 * 2) == OBlock.ap.bO) {
+                                    if (this.h.a(this.i + var5, this.j + 1, this.k + var4 * 2) == OBlock.an.bO) {
                                         ++var3;
                                     }
                                 }
@@ -116,14 +117,14 @@ public class OContainerEnchantment extends OContainer {
     }
 
     public boolean a(OEntityPlayer var1, int var2) {
-        OItemStack var3 = this.a.c_(0);
+        OItemStack var3 = this.a.g_(0);
 
-        if (this.c[var2] > 0 && var3 != null && var1.M >= this.c[var2]) {
-            if (!this.h.I) {
-                List var4 = OEnchantmentHelper.a(this.l, var3, this.c[var2]);
+        if (this.c[var2] > 0 && var3 != null && (var1.M >= this.c[var2] || var1.L.d)) {
+            if (!this.h.F) {
+                List var4 = OEnchantmentHelper.b(this.l, var3, this.c[var2]);
 
                 if (var4 != null) {
-                    // CanaryMod hook: onEnchant
+					// CanaryMod hook: onEnchant
                     HookParametersEnchant enchantParameters = (HookParametersEnchant)etc.getLoader().callHook(PluginLoader.Hook.ENCHANT, new HookParametersEnchant(((OEntityPlayerMP)var1).getPlayer(), var3.c, var4));
                     if (!enchantParameters.isCanceled() && enchantParameters.isValid(false))
                     {
@@ -133,18 +134,18 @@ public class OContainerEnchantment extends OContainer {
                         {
                             var4.add(new OEnchantmentData(enchantment.getEnchantment(), enchantment.getLevel()));
                         }
-                        
-                        var1.b(this.c[var2]);
-                        Iterator var5 = var4.iterator();
-      
-                        while (var5.hasNext()) {
-                            OEnchantmentData var6 = (OEnchantmentData) var5.next();
-      
-                            var3.a(var6.a, var6.b);
-                        }
-      
-                        this.a(this.a);
-                    }
+						
+						var1.e_(this.c[var2]);
+						Iterator var5 = var4.iterator();
+
+						while (var5.hasNext()) {
+							OEnchantmentData var6 = (OEnchantmentData) var5.next();
+	
+							var3.a(var6.a, var6.b);
+						}
+						
+						this.a(this.a);
+					}
                 }
             }
 
@@ -156,8 +157,8 @@ public class OContainerEnchantment extends OContainer {
 
     public void a(OEntityPlayer var1) {
         super.a(var1);
-        if (!this.h.I) {
-            OItemStack var2 = this.a.c_(0);
+        if (!this.h.F) {
+            OItemStack var2 = this.a.b(0);
 
             if (var2 != null) {
                 var1.b(var2);
@@ -167,7 +168,7 @@ public class OContainerEnchantment extends OContainer {
     }
 
     public boolean b(OEntityPlayer var1) {
-        return this.h.a(this.i, this.j, this.k) != OBlock.bG.bO ? false : var1.e((double) this.i + 0.5D, (double) this.j + 0.5D, (double) this.k + 0.5D) <= 64.0D;
+        return this.h.a(this.i, this.j, this.k) != OBlock.bE.bO ? false : var1.e((double) this.i + 0.5D, (double) this.j + 0.5D, (double) this.k + 0.5D) <= 64.0D;
     }
 
     public OItemStack a(int var1) {
@@ -187,7 +188,7 @@ public class OContainerEnchantment extends OContainer {
             }
 
             if (var4.a == 0) {
-                var3.c((OItemStack) null);
+                var3.d((OItemStack) null);
             } else {
                 var3.d();
             }
@@ -196,7 +197,7 @@ public class OContainerEnchantment extends OContainer {
                 return null;
             }
 
-            var3.b(var4);
+            var3.c(var4);
         }
 
         return var2;

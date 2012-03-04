@@ -290,7 +290,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
 		// CanaryMod: adjust 'healing over time' independent of monster-spawn=true/false (nice notchup!)
         PluginLoader.HookResult autoHeal = etc.getInstance().autoHeal();
 
-        if (this.bi.v == 0 && autoHeal == PluginLoader.HookResult.DEFAULT_ACTION || autoHeal == PluginLoader.HookResult.ALLOW_ACTION) {
+        if (this.bi.q == 0 && autoHeal == PluginLoader.HookResult.DEFAULT_ACTION || autoHeal == PluginLoader.HookResult.ALLOW_ACTION) {
 			if (this.bi.q == 0 && this.aC() < this.d() && this.bT % 20 * 12 == 0) {
 				this.d(1);
 			}
@@ -431,6 +431,7 @@ public abstract class OEntityPlayer extends OEntityLiving {
             } else {
 				return var3;
 			}
+            return null;
         }
     }
 
@@ -1117,20 +1118,20 @@ public abstract class OEntityPlayer extends OEntityLiving {
 
     public void removeXP(int var1) {
         this.q -= var1;
-        this.O -= (float) var1 / (float) this.Z();
+        this.O -= (float) var1 / (float) this.ad();
         this.N -= var1;
         levelUp();
     }
 
     public void setXP(int var1) {
         this.q = var1;
-        this.O = (float) var1 / (float) this.Z();
+        this.O = (float) var1 / (float) this.ad();
         this.N = var1;
         levelUp();
     }
     
     public void levelUp() {
-        for (this.N += var1; this.O >= 1.0F; this.O /= (float) this.ad()) {
+        for (; this.O >= 1.0F; this.O /= (float) this.ad()) {
             this.O = (this.O - 1.0F) * (float) this.ad();
             this.H();
             

@@ -43,7 +43,7 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
     }
 
     public void update() {
-        container.l_();
+        container.q_();
     }
 
     public String getName() {

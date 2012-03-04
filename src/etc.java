@@ -1161,7 +1161,7 @@ public class etc {
     }
 
     public List getMonstersClass(OBiomeGenBase biomeGen) {
-        List<OSpawnListEntry> toRet = biomeGen.H;
+        List<OSpawnListEntry> toRet = biomeGen.J;
         List<String> allowed = Arrays.asList(getMonsters());
         
         Iterator<OSpawnListEntry> it = toRet.iterator();
@@ -1176,7 +1176,7 @@ public class etc {
     }
 
     public List getAnimalsClass(OBiomeGenBase biomeGen) {
-        List<OSpawnListEntry> toRet = biomeGen.I;
+        List<OSpawnListEntry> toRet = biomeGen.J;
         List<String> allowed = Arrays.asList(getAnimals());
         
         Iterator<OSpawnListEntry> it = toRet.iterator();

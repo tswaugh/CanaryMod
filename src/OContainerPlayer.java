@@ -55,19 +55,19 @@ public class OContainerPlayer extends OContainer {
 
         player.a.b(new OPacket103SetSlot(player.l.f, 0, craftresult));
     }
-   
+
     public void a(OEntityPlayer var1) {
         super.a(var1);
 
         for (int var2 = 0; var2 < 4; ++var2) {
-            OItemStack var3 = this.a.c_(var2);
+            OItemStack var3 = this.a.b(var2);
 
             if (var3 != null) {
                 var1.b(var3);
-                this.a.a(var2, (OItemStack) null);
             }
         }
 
+        this.b.a(0, (OItemStack) null);
     }
 
     public boolean b(OEntityPlayer var1) {
@@ -86,6 +86,8 @@ public class OContainerPlayer extends OContainer {
                 if (!this.a(var4, 9, 45, true)) {
                     return null;
                 }
+
+                var3.a(var4, var2);
             } else if (var1 >= 9 && var1 < 36) {
                 if (!this.a(var4, 36, 45, false)) {
                     return null;
@@ -99,7 +101,7 @@ public class OContainerPlayer extends OContainer {
             }
 
             if (var4.a == 0) {
-                var3.c((OItemStack) null);
+                var3.d((OItemStack) null);
             } else {
                 var3.d();
             }
@@ -108,7 +110,7 @@ public class OContainerPlayer extends OContainer {
                 return null;
             }
 
-            var3.b(var4);
+            var3.c(var4);
         }
 
         return var2;

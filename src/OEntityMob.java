@@ -2,38 +2,38 @@
 public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
     protected int c = 2;
-    
-    // CanaryMod start
+	
+	// CanaryMod start
     protected LivingEntity entity = new LivingEntity(this);
     // CanaryMod end
-    
+
     public OEntityMob(OWorld var1) {
         super(var1);
         this.aA = 5;
     }
 
-    public void d() {
-        float var1 = this.a(1.0F);
+    public void e() {
+        float var1 = this.b(1.0F);
 
         if (var1 > 0.5F) {
             this.aV += 2;
         }
 
-        super.d();
+        super.e();
     }
 
-    public void y_() {
-        super.y_();
-        if (!this.bi.I && this.bi.v == 0) {
-            this.T();
+    public void G_() {
+        super.G_();
+        if (!this.bi.F && this.bi.q == 0) {
+            this.W();
         }
 
     }
 
-    protected OEntity k() {
+    protected OEntity o() {
         OEntityPlayer var1 = this.bi.b(this, 16.0D);
 
-        return var1 != null && this.g(var1) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity) ? var1 : null; // CanaryMod: MOB_TARGET hook
+        return var1 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity) ? var1 : null; // CanaryMod: MOB_TARGET hook;
     }
 
     public boolean a(ODamageSource var1, int var2) {
@@ -42,10 +42,9 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
             if (this.bg != var3 && this.bh != var3) {
                 if (var3 != this) {
-                    // CanaryMod start - MOB_TARGET hook
+					// CanaryMod start - MOB_TARGET hook
                     if (var3 instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), entity)) {
                         this.d = var3;
-                        this.aI = var3 instanceof OEntityLiving ? (OEntityLiving) var3 : null;
                     }
                     // CanaryMod end
                 }
@@ -59,7 +58,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         }
     }
 
-    public boolean d(OEntity var1) {
+    public boolean a(OEntity var1) {
         int var2 = this.c;
 
         if (this.a(OPotion.g)) {
@@ -76,13 +75,13 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     protected void a(OEntity var1, float var2) {
         if (this.aw <= 0 && var2 < 2.0F && var1.bw.e > this.bw.b && var1.bw.b < this.bw.e) {
             this.aw = 20;
-            this.d(var1);
+            this.a(var1);
         }
 
     }
 
     public float a(int var1, int var2, int var3) {
-        return 0.5F - this.bi.m(var1, var2, var3);
+        return 0.5F - this.bi.p(var1, var2, var3);
     }
 
     public void b(ONBTTagCompound var1) {
@@ -93,7 +92,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         super.a(var1);
     }
 
-    protected boolean z() {
+    protected boolean D() {
         int var1 = OMathHelper.b(this.bm);
         int var2 = OMathHelper.b(this.bw.b);
         int var3 = OMathHelper.b(this.bo);
@@ -101,21 +100,21 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         if (this.bi.a(OEnumSkyBlock.a, var1, var2, var3) > this.bS.nextInt(32)) {
             return false;
         } else {
-            int var4 = this.bi.l(var1, var2, var3);
+            int var4 = this.bi.n(var1, var2, var3);
 
-            if (this.bi.v()) {
-                int var5 = this.bi.k;
+            if (this.bi.w()) {
+                int var5 = this.bi.f;
 
-                this.bi.k = 10;
-                var4 = this.bi.l(var1, var2, var3);
-                this.bi.k = var5;
+                this.bi.f = 10;
+                var4 = this.bi.n(var1, var2, var3);
+                this.bi.f = var5;
             }
 
             return var4 <= this.bS.nextInt(8);
         }
     }
 
-    public boolean g() {
-        return this.z() && super.g();
+    public boolean l() {
+        return this.D() && super.l();
     }
 }

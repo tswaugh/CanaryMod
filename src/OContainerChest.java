@@ -58,7 +58,7 @@ public class OContainerChest extends OContainer {
          }
 
          if(var4.a == 0) {
-            var3.c((OItemStack)null);
+            var3.d((OItemStack)null);
          } else {
             var3.d();
          }

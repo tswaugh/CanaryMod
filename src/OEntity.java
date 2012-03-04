@@ -50,7 +50,7 @@ public abstract class OEntity {
     protected Random bS;
     public int bT;
     public int bU;
-    private int c;
+    public int c;
     protected boolean bV;
     public int bW;
     private boolean d;

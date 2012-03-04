@@ -305,7 +305,7 @@ public class BaseEntity {
      * @return
      */
     public int getAirTicks() {
-        return getEntity().aQ();
+        return getEntity().aZ();
     }
 
     /**
@@ -317,7 +317,7 @@ public class BaseEntity {
      * @param ticks the number of ticks you have air
      */
     public void setAirTicks(int ticks) {
-        getEntity().l(ticks);
+        getEntity().k(ticks);
     }
 
     /**
@@ -429,7 +429,7 @@ public class BaseEntity {
      * Destroys this entity
      */
     public void destroy() {
-        entity.T();
+        entity.W();
     }
 
     /**
@@ -446,7 +446,7 @@ public class BaseEntity {
      * @return the sprinting state
      */
     public boolean getSprinting() {
-        return entity.aP();
+        return entity.aY();
     }
 
     /**

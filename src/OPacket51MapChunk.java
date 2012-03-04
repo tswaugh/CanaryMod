@@ -1,98 +1,208 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.logging.Logger;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 
 public class OPacket51MapChunk extends OPacket {
+
     public int a;
     public int b;
     public int c;
     public int d;
-    public int e;
-    public int f;
-    public byte[] g;
+    public byte[] e;
+    public boolean f;
+    private int g;
     private int h;
+    private static byte[] i = new byte[0];
 
     public OPacket51MapChunk() {
-        this.l = true;
+        super();
+        this.p = true;
     }
 
-    public OPacket51MapChunk(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5, int paramInt6, OWorld paramOWorld) {
-        this.l = true;
-        this.a = paramInt1;
-        this.b = paramInt2;
-        this.c = paramInt3;
-        this.d = paramInt4;
-        this.e = paramInt5;
-        this.f = paramInt6;
-
-        // CanaryMod if anti xray is enabled we should modify the outgoing packet to hide the blocks.
-        byte[] arrayOfByte = paramOWorld.c(paramInt1, paramInt2, paramInt3, paramInt4, paramInt5, paramInt6, etc.getInstance().isAntiXRayEnabled());
-    
-        Deflater localDeflater = new Deflater(-1);
-
-        try {
-            localDeflater.setInput(arrayOfByte);
-            localDeflater.finish();
-            this.g = new byte[paramInt4 * paramInt5 * paramInt6 * 5 / 2];
-            this.h = localDeflater.deflate(this.g);
-        } finally {
-            localDeflater.end();
+    public OPacket51MapChunk(OChunk var1, boolean var2, int var3) {
+        super();
+        this.p = true;
+        this.a = var1.g;
+        this.b = var1.h;
+        this.f = var2;
+        if (var2) {
+            var3 = '\uffff';
         }
-    }
 
-    public void a(DataInputStream paramDataInputStream) {
-        try {
-            this.a = paramDataInputStream.readInt();
-            this.b = paramDataInputStream.readShort();
-            this.c = paramDataInputStream.readInt();
-            this.d = (paramDataInputStream.read() + 1);
-            this.e = (paramDataInputStream.read() + 1);
-            this.f = (paramDataInputStream.read() + 1);
+        OExtendedBlockStorage[] var4 = var1.h();
+        int var5 = 0;
+        int var6 = 0;
 
-            this.h = paramDataInputStream.readInt();
-            byte[] arrayOfByte = new byte[this.h];
+        int var7;
 
-            paramDataInputStream.readFully(arrayOfByte);
-
-            this.g = new byte[this.d * this.e * this.f * 5 / 2];
-
-            Inflater localInflater = new Inflater();
-
-            localInflater.setInput(arrayOfByte);
-            try {
-                localInflater.inflate(this.g);
-            } catch (DataFormatException localDataFormatException) {
-                throw new IOException("Bad compressed data format");
-            } finally {
-                localInflater.end();
+        for (var7 = 0; var7 < var4.length; ++var7) {
+            if (var4[var7] != null && (!var2 || !var4[var7].a()) && (var3 & 1 << var7) != 0) {
+                this.c |= 1 << var7;
+                ++var5;
+                if (var4[var7].h() != null) {
+                    this.d |= 1 << var7;
+                    ++var6;
+                }
             }
-        } catch (IOException e) {}
-    }
+        }
 
-    public void a(DataOutputStream paramDataOutputStream) {
+        var7 = 2048 * (5 * var5 + var6);
+        if (var2) {
+            var7 += 256;
+        }
+
+        if (i.length < var7) {
+            i = new byte[var7];
+        }
+
+        byte[] var8 = i;
+        int var9 = 0;
+
+        int var10;
+
+        for (var10 = 0; var10 < var4.length; ++var10) {
+            if (var4[var10] != null && (!var2 || !var4[var10].a()) && (var3 & 1 << var10) != 0) {
+                byte[] var11 = var4[var10].g();
+
+                System.arraycopy(var11, 0, var8, var9, var11.length);
+                var9 += var11.length;
+            }
+        }
+
+        ONibbleArray var16;
+
+        for (var10 = 0; var10 < var4.length; ++var10) {
+            if (var4[var10] != null && (!var2 || !var4[var10].a()) && (var3 & 1 << var10) != 0) {
+                var16 = var4[var10].i();
+                System.arraycopy(var16.a, 0, var8, var9, var16.a.length);
+                var9 += var16.a.length;
+            }
+        }
+
+        for (var10 = 0; var10 < var4.length; ++var10) {
+            if (var4[var10] != null && (!var2 || !var4[var10].a()) && (var3 & 1 << var10) != 0) {
+                var16 = var4[var10].j();
+                System.arraycopy(var16.a, 0, var8, var9, var16.a.length);
+                var9 += var16.a.length;
+            }
+        }
+
+        for (var10 = 0; var10 < var4.length; ++var10) {
+            if (var4[var10] != null && (!var2 || !var4[var10].a()) && (var3 & 1 << var10) != 0) {
+                var16 = var4[var10].k();
+                System.arraycopy(var16.a, 0, var8, var9, var16.a.length);
+                var9 += var16.a.length;
+            }
+        }
+
+        if (var6 > 0) {
+            for (var10 = 0; var10 < var4.length; ++var10) {
+                if (var4[var10] != null && (!var2 || !var4[var10].a()) && var4[var10].h() != null && (var3 & 1 << var10) != 0) {
+                    var16 = var4[var10].h();
+                    System.arraycopy(var16.a, 0, var8, var9, var16.a.length);
+                    var9 += var16.a.length;
+                }
+            }
+        }
+
+        if (var2) {
+            byte[] var18 = var1.l();
+
+            System.arraycopy(var18, 0, var8, var9, var18.length);
+            var9 += var18.length;
+        }
+
+        Deflater var17 = new Deflater(-1);
+        boolean var14 = false;
+
         try {
-            paramDataOutputStream.writeInt(this.a);
-            paramDataOutputStream.writeShort(this.b);
-            paramDataOutputStream.writeInt(this.c);
-            paramDataOutputStream.write(this.d - 1);
-            paramDataOutputStream.write(this.e - 1);
-            paramDataOutputStream.write(this.f - 1);
+            var14 = true;
+            var17.setInput(var8, 0, var9);
+            var17.finish();
+            this.e = new byte[var9];
+            this.g = var17.deflate(this.e);
+            var14 = false;
+        } finally {
+            if (var14) {
+                var17.end();
+            }
+        }
 
-            paramDataOutputStream.writeInt(this.h);
-            paramDataOutputStream.write(this.g, 0, this.h);
-        } catch (IOException e) {}
+        var17.end();
     }
 
-    public void a(ONetHandler paramONetHandler) {
-        paramONetHandler.a(this);
+    public void a(DataInputStream var1) {
+    	try {
+	        this.a = var1.readInt();
+	        this.b = var1.readInt();
+	        this.f = var1.readBoolean();
+	        this.c = var1.readShort();
+	        this.d = var1.readShort();
+	        this.g = var1.readInt();
+	        this.h = var1.readInt();
+	        if (i.length < this.g) {
+	            i = new byte[this.g];
+	        }
+	        var1.readFully(i, 0, this.g);
+	
+	        int var2 = 0;
+	
+	        int var3;
+	
+	        for (var3 = 0; var3 < 16; ++var3) {
+	            var2 += this.c >> var3 & 1;
+	        }
+	
+	        var3 = 12288 * var2;
+	        if (this.f) {
+	            var3 += 256;
+	        }
+	
+	        this.e = new byte[var3];
+	        Inflater var4 = new Inflater();
+	
+	        var4.setInput(i, 0, this.g);
+	        boolean var9 = false;
+	
+	        try {
+	            var9 = true;
+	            var4.inflate(this.e);
+	            var9 = false;
+	        } catch (DataFormatException var10) {
+	            throw new IOException("Bad compressed data format");
+	        } finally {
+	            if (var9) {
+	                var4.end();
+	            }
+	        }
+	
+	        var4.end();
+    	} catch (IOException ioexception) {}
+    }
+
+    public void a(DataOutputStream var1) {
+    	try {
+	        var1.writeInt(this.a);
+	        var1.writeInt(this.b);
+	        var1.writeBoolean(this.f);
+	        var1.writeShort((short) (this.c & '\uffff'));
+	        var1.writeShort((short) (this.d & '\uffff'));
+	        var1.writeInt(this.g);
+	        var1.writeInt(this.h);
+	        var1.write(this.e, 0, this.g);
+    	} catch (IOException ioexception){}
+    }
+
+    public void a(ONetHandler var1) {
+        var1.a(this);
     }
 
     public int a() {
-        return 17 + this.h;
+        return 17 + this.g;
     }
+
 }
