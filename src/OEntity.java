@@ -811,7 +811,7 @@ public abstract class OEntity {
         String var2 = this.aW();
 
         if (!this.bE && var2 != null) {
-            var1.a("OEnchantmentArrowFire", var2);
+            var1.a("id", var2);
             this.d(var1);
             return true;
         } else {

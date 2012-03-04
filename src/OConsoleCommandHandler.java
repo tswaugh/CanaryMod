@@ -309,7 +309,7 @@ public class OConsoleCommandHandler {
         if (var4.length >= 2) {
             String var5 = var4[1].toLowerCase();
 
-            if ("OStringTranslate".equals(var5)) {
+            if ("on".equals(var5)) {
                 this.a(var1, "Turned on white-listing");
                 this.b.d.b("white-list", true);
             } else if ("off".equals(var5)) {
