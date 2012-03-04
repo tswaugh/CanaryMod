@@ -526,6 +526,8 @@ public class FlatFileSource extends DataSource {
                 writer.write("endportalframe:120" + LINE_SEP);
                 writer.write("endstone:121" + LINE_SEP);
                 writer.write("dragonegg:122" + LINE_SEP);
+                writer.write("redstonelampoff:123" + LINE_SEP);
+                writer.write("redstonelampon:123" + LINE_SEP);
                 writer.write("ironshovel:256" + LINE_SEP);
                 writer.write("ironspade:256" + LINE_SEP);
                 writer.write("ironpickaxe:257" + LINE_SEP);
@@ -672,6 +674,8 @@ public class FlatFileSource extends DataSource {
                 writer.write("glisteringmelon:382" + LINE_SEP);
                 writer.write("spawnegg:383" + LINE_SEP);
                 writer.write("monsterplacer:383" + LINE_SEP);
+                writer.write("bottleoenchanting:384" + LINE_SEP);
+                writer.write("firecharge:385" + LINE_SEP);
                 writer.write("goldrecord:2256" + LINE_SEP);
                 writer.write("greenrecord:2257" + LINE_SEP);
                 writer.write("blocksrecord:2258" + LINE_SEP);

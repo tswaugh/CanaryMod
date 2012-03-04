@@ -137,6 +137,8 @@ public class Item {
         EndPortalFrame(120), //
         EndStone(121), //
         EnderDragonEgg(122), //
+        RedstoneLampOff(123), //
+        RedstoneLampOn(124), //
         IronSpade(256), //
         IronPickaxe(257), //
         IronAxe(258), //
@@ -265,6 +267,8 @@ public class Item {
         EyeofEnder(381), //
         GlisteringMelon(382), //
         SpawnEgg(383), //
+        BottleOEnchanting(384), //
+        FireCharge(385), //
         GoldRecord(2256), //
         GreenRecord(2257), //
         BlocksRecord(2258), //

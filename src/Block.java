@@ -134,7 +134,9 @@ public class Block {
         EndPortal(119), //
         EndPortalFrame(120), //
         EndStone(121), //
-        EnderDragonEgg(122);
+        EnderDragonEgg(122), //
+        RedstoneLampOff(123), //
+        RedstoneLampOn(124); //
 
         private int                       id;
         private static Map<Integer, Type> map;
