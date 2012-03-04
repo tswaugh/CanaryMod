@@ -5,7 +5,7 @@ public class OItemBucket extends OItem {
 
     public OItemBucket(int var1, int var2) {
         super(var1);
-        this.bO = 1;
+        this.bQ = 1;
         this.a = var2;
     }
 
@@ -28,6 +28,7 @@ public class OItemBucket extends OItem {
                 if (!var2.a(var3, var13, var14, var15)) {
                     return var1;
                 }
+                
                 // CanaryMod: Click == placed when handling an empty bucket!
                 Block blockClicked = new Block(var2.world, var2.a(var13, var14, var15), var13, var14, var15);
 
@@ -38,18 +39,20 @@ public class OItemBucket extends OItem {
                     if (!var3.d(var13, var14, var15)) {
                         return var1;
                     }
-
+					
                     if (var2.d(var13, var14, var15) == OMaterial.g && var2.c(var13, var14, var15) == 0) {
-                        // Filling a bucket with water!
+						// Filling a bucket with water!
                         if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1)) && var3.L.d) {
                             return var1;
                         }
-                        var2.e(var13, var14, var15, 0);
+						
+						var2.e(var13, var14, var15, 0);
+
                         return new OItemStack(OItem.aw);
                     }
 
                     if (var2.d(var13, var14, var15) == OMaterial.h && var2.c(var13, var14, var15) == 0) {
-                        // Filling a bucket with water!
+						// Filling a bucket with water!
                         if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1)) && var3.L.d) {
                             return var1;
                         }
@@ -89,15 +92,15 @@ public class OItemBucket extends OItem {
                         return var1;
                     }
 
-                    if (var2.f(var13, var14, var15) || !var2.d(var13, var14, var15).a()) {
-                        if (var2.y.e && this.a == OBlock.C.bO) {
-                            var2.a(var5 + 0.5D, var7 + 0.5D, var9 + 0.5D, "random.fizz", 0.5F, 2.6F + (var2.w.nextFloat() - var2.w.nextFloat()) * 0.8F);
+                    if (var2.g(var13, var14, var15) || !var2.d(var13, var14, var15).a()) {
+                        if (var2.t.d && this.a == OBlock.A.bO) {
+                            var2.a(var5 + 0.5D, var7 + 0.5D, var9 + 0.5D, "random.fizz", 0.5F, 2.6F + (var2.r.nextFloat() - var2.r.nextFloat()) * 0.8F);
 
                             for (int var16 = 0; var16 < 8; ++var16) {
                                 var2.a("largesmoke", (double) var13 + Math.random(), (double) var14 + Math.random(), (double) var15 + Math.random(), 0.0D, 0.0D, 0.0D);
                             }
                         } else {
-                            // CanaryMod: bucket empty
+							// CanaryMod: bucket empty
                             blockPlaced = new Block(var2.world, a, var13, var14, var15);
                             if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
                                 return var1;

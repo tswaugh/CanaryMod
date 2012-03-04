@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 
@@ -77,10 +76,13 @@ public class OItemInWorldManager {
     }
 
     public void a(int var1, int var2, int var3, int var4) {
-        this.a.a((OEntityPlayer) null, var1, var2, var3, var4);
         if (this.b()) {
-            this.c(var1, var2, var3);
+            if (!this.a.a((OEntityPlayer) null, var1, var2, var3, var4)) {
+                this.c(var1, var2, var3);
+            }
+
         } else {
+            this.a.a((OEntityPlayer) null, var1, var2, var3, var4);
             this.e = this.i;
             int var5 = this.a.a(var1, var2, var3);
 
@@ -136,7 +138,7 @@ public class OItemInWorldManager {
     }
 
     public boolean c(int var1, int var2, int var3) {
-        // CanaryMod start - portal destroy
+    	// CanaryMod start - portal destroy
         Block block = ((OEntityPlayerMP) b).getPlayer().getWorld().getBlockAt(var1, var2, var3); //
 
         if (block.getType() == Block.Type.Obsidian.getType()) {
@@ -160,7 +162,7 @@ public class OItemInWorldManager {
                     } else {
                         for (int j = 0; j < 3; j += 1) {
                             for (int k = 0; k < 2; k += 1) {
-                                block.getWorld().getWorld().c(blocks[j][k].getX() >> 4, blocks[j][k].getZ() >> 4).a(blocks[j][k].getX() & 15, blocks[j][k].getY(), blocks[j][k].getZ() & 15, 0, false);
+                                block.getWorld().getWorld().c(blocks[j][k].getX() >> 4, blocks[j][k].getZ() >> 4).a(blocks[j][k].getX() & 15, blocks[j][k].getY(), blocks[j][k].getZ() & 15, 0, 0, false);
                                 for (Player player : updatedPlayers) {
                                     player.getUser().a.b(new OPacket53BlockChange(blocks[j][k].getX(), blocks[j][k].getY(), blocks[j][k].getZ(), block.getWorld().getWorld()));
                                 }
@@ -178,24 +180,24 @@ public class OItemInWorldManager {
             return true;
         }
         // CanaryMod end
-        
+    	
         int var4 = this.a.a(var1, var2, var3);
         int var5 = this.a.c(var1, var2, var3);
 
-        this.a.a(this.b, 2001, var1, var2, var3, var4 + this.a.c(var1, var2, var3) * 256);
+        this.a.a(this.b, 2001, var1, var2, var3, var4 + (this.a.c(var1, var2, var3) << 12));
         boolean var6 = this.b(var1, var2, var3);
 
         if (this.b()) {
             ((OEntityPlayerMP) this.b).a.b((OPacket) (new OPacket53BlockChange(var1, var2, var3, this.a)));
         } else {
-            OItemStack var7 = this.b.Q();
+            OItemStack var7 = this.b.T();
             boolean var8 = this.b.b(OBlock.m[var4]);
 
             if (var7 != null) {
                 var7.a(var4, var1, var2, var3, this.b);
                 if (var7.a == 0) {
                     var7.a(this.b);
-                    this.b.R();
+                    this.b.U();
                 }
             }
 
@@ -206,8 +208,30 @@ public class OItemInWorldManager {
 
         return var6;
     }
-    
-    /**
+
+    public boolean a(OEntityPlayer var1, OWorld var2, OItemStack var3) {		
+        int var4 = var3.a;
+        int var5 = var3.h();
+        OItemStack var6 = var3.a(var2, var1);
+
+        if (var6 == var3 && (var6 == null || var6.a == var4) && (var6 == null || var6.l() <= 0)) {
+            return false;
+        } else {
+            var1.k.a[var1.k.c] = var6;
+            if (this.b()) {
+                var6.a = var4;
+                var6.b(var5);
+            }
+
+            if (var6.a == 0) {
+                var1.k.a[var1.k.c] = null;
+            }
+
+            return true;
+        }
+    }
+	
+	/**
      * Called when a player right-click air with an item in hand. We intercept
      * it.
      * 
@@ -228,28 +252,6 @@ public class OItemInWorldManager {
             }
         }
         return this.a(player, world, item);
-    }
-
-    public boolean a(OEntityPlayer var1, OWorld var2, OItemStack var3) {
-        int var4 = var3.a;
-        int var5 = var3.h();
-        OItemStack var6 = var3.a(var2, var1);
-
-        if (var6 == var3 && (var6 == null || var6.a == var4) && (var6 == null || var6.l() <= 0)) {
-            return false;
-        } else {
-            var1.k.a[var1.k.c] = var6;
-            if (this.b()) {
-                var6.a = var4;
-                var6.b(var5);
-            }
-
-            if (var6.a == 0) {
-                var1.k.a[var1.k.c] = null;
-            }
-
-            return true;
-        }
     }
 
     public boolean a(OEntityPlayer var1, OWorld var2, OItemStack var3, int var4, int var5, int var6, int var7) {
@@ -275,8 +277,8 @@ public class OItemInWorldManager {
     public void a(OWorldServer var1) {
         this.a = var1;
     }
-    
-    // CanaryMod start - getPortalBlocks
+	
+	// CanaryMod start - getPortalBlocks
     private Block[][] getPortalBlocks(World world, int x, int y, int z) {
         int portalId = Block.Type.Portal.getType();
 

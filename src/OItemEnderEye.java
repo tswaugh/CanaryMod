@@ -8,14 +8,14 @@ public class OItemEnderEye extends OItem {
     public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
         int var8 = var3.a(var4, var5, var6);
         int var9 = var3.c(var4, var5, var6);
-        
-        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
+		
+		if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
                 ((OEntityPlayerMP) var2).getPlayer(),
                 this.getBlockInfo(var3, var4, var5, var6, var7), null, new Item(var1)))
             return true;
 
-        if (var2.d(var4, var5, var6) && var8 == OBlock.bK.bO && !OBlockEndPortalFrame.d(var9)) {
-            if (var3.I) {
+        if (var2.d(var4, var5, var6) && var8 == OBlock.bI.bO && !OBlockEndPortalFrame.d(var9)) {
+            if (var3.F) {
                 return true;
             } else {
                 var3.c(var4, var5, var6, var9 + 4);
@@ -51,7 +51,7 @@ public class OItemEnderEye extends OItem {
                     var29 = var4 + ODirection.a[var27] * var28;
                     var30 = var6 + ODirection.b[var27] * var28;
                     var31 = var3.a(var29, var5, var30);
-                    if (var31 == OBlock.bK.bO) {
+                    if (var31 == OBlock.bI.bO) {
                         var32 = var3.c(var29, var5, var30);
                         if (!OBlockEndPortalFrame.d(var32)) {
                             var26 = false;
@@ -76,7 +76,7 @@ public class OItemEnderEye extends OItem {
                         var30 += ODirection.b[var10] * 4;
                         var31 = var3.a(var29, var5, var30);
                         var32 = var3.c(var29, var5, var30);
-                        if (var31 != OBlock.bK.bO || !OBlockEndPortalFrame.d(var32)) {
+                        if (var31 != OBlock.bI.bO || !OBlockEndPortalFrame.d(var32)) {
                             var26 = false;
                             break;
                         }
@@ -91,7 +91,7 @@ public class OItemEnderEye extends OItem {
                             var32 = var3.a(var30, var5, var31);
                             int var33 = var3.c(var30, var5, var31);
 
-                            if (var32 != OBlock.bK.bO || !OBlockEndPortalFrame.d(var33)) {
+                            if (var32 != OBlock.bI.bO || !OBlockEndPortalFrame.d(var33)) {
                                 var26 = false;
                                 break;
                             }
@@ -105,7 +105,7 @@ public class OItemEnderEye extends OItem {
                                 var31 = var6 + ODirection.b[var27] * var28;
                                 var30 += ODirection.a[var10] * var29;
                                 var31 += ODirection.b[var10] * var29;
-                                var3.e(var30, var5, var31, OBlock.bJ.bO);
+                                var3.e(var30, var5, var31, OBlock.bH.bO);
                             }
                         }
                     }
@@ -124,12 +124,12 @@ public class OItemEnderEye extends OItem {
         if (var4 != null && var4.a == OEnumMovingObjectType.a) {
             int var5 = var2.a(var4.b, var4.c, var4.d);
 
-            if (var5 == OBlock.bK.bO) {
+            if (var5 == OBlock.bI.bO) {
                 return var1;
             }
         }
 
-        if (!var2.I) {
+        if (!var2.F) {
             OChunkPosition var7 = var2.b("Stronghold", (int) var3.bm, (int) var3.bn, (int) var3.bo);
 
             if (var7 != null) {

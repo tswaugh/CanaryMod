@@ -6,7 +6,7 @@ public class OItemDoor extends OItem {
     public OItemDoor(int var1, OMaterial var2) {
         super(var1);
         this.a = var2;
-        this.bO = 1;
+        this.bQ = 1;
     }
 
     public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
@@ -17,16 +17,16 @@ public class OItemDoor extends OItem {
             OBlock var8;
 
             if (this.a == OMaterial.d) {
-                var8 = OBlock.aG;
+                var8 = OBlock.aE;
             } else {
-                var8 = OBlock.aN;
+                var8 = OBlock.aL;
             }
 
             if (var2.d(var4, var5, var6) && var2.d(var4, var5 + 1, var6)) {
                 if (!var8.c(var3, var4, var5, var6)) {
                     return false;
                 } else {
-                    // CanaryMod hook: onItemUse
+					// CanaryMod hook: onItemUse
                     Block blockClicked = new Block(var3.world, var3.world.getBlockIdAt(var4, var5, var6), var4, var5, var6);
 
                     blockClicked.setFaceClicked(Block.Face.fromId(var7));
@@ -40,7 +40,7 @@ public class OItemDoor extends OItem {
                             return false;
                         }
                     }
-
+					
                     int var9 = OMathHelper.b((double) ((var2.bs + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
 
                     a(var3, var4, var5, var6, var9, var8);
@@ -85,15 +85,10 @@ public class OItemDoor extends OItem {
             var12 = true;
         }
 
-        if (var12) {
-            var4 = var4 - 1 & 3;
-            var4 += 4;
-        }
-
-        var0.t = true;
+        var0.o = true;
         var0.b(var1, var2, var3, var5.bO, var4);
-        var0.b(var1, var2 + 1, var3, var5.bO, var4 + 8);
-        var0.t = false;
+        var0.b(var1, var2 + 1, var3, var5.bO, 8 | (var12 ? 1 : 0));
+        var0.o = false;
         var0.h(var1, var2, var3, var5.bO);
         var0.h(var1, var2 + 1, var3, var5.bO);
     }

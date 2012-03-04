@@ -16,8 +16,8 @@ public class OItemSeeds extends OItem {
         } else if (var2.d(var4, var5, var6) && var2.d(var4, var5 + 1, var6)) {
             int var8 = var3.a(var4, var5, var6);
 
-            if (var8 == this.b && var3.f(var4, var5 + 1, var6)) {
-                // CanaryMod: Seeds
+            if (var8 == this.b && var3.g(var4, var5 + 1, var6)) {
+				// CanaryMod: Seeds
                 Block blockClicked = new Block(var3.world, var8, var4, var5, var6);
 
                 blockClicked.setFaceClicked(Block.Face.fromId(var7));
@@ -29,7 +29,7 @@ public class OItemSeeds extends OItem {
                 if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(var1))) {
                     return false;
                 }
-
+				
                 var3.e(var4, var5 + 1, var6, this.a);
                 --var1.a;
                 return true;

@@ -31,7 +31,7 @@ public class OItemPotion extends OItem {
 
     public OItemStack b(OItemStack var1, OWorld var2, OEntityPlayer var3) {
         --var1.a;
-        if (!var2.I) {
+        if (!var2.F) {
             List var4 = this.b(var1);
 
             if (var4 != null) {
@@ -65,7 +65,7 @@ public class OItemPotion extends OItem {
         if (c(var1.h())) {
             --var1.a;
             var2.a(var3, "random.bow", 0.5F, 0.4F / (c.nextFloat() * 0.4F + 0.8F));
-            if (!var2.I) {
+            if (!var2.F) {
                 var2.b((OEntity) (new OEntityPotion(var2, var3, var1.h())));
             }
 
