@@ -2,7 +2,7 @@
 public class OInventoryCraftResult implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] a = new OItemStack[1];
-    // CanaryMod
+	// CanaryMod
     private String name = "Result";
 
     public OInventoryCraftResult() {
@@ -13,12 +13,12 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
         return 1;
     }
 
-    public OItemStack c_(int var1) {
+    public OItemStack g_(int var1) {
         return this.a[var1];
     }
 
     public String e() {
-        return this.name;
+        return name;
     }
 
     public OItemStack a(int var1, int var2) {
@@ -32,6 +32,17 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
         }
     }
 
+    public OItemStack b(int var1) {
+        if (this.a[var1] != null) {
+            OItemStack var2 = this.a[var1];
+
+            this.a[var1] = null;
+            return var2;
+        } else {
+            return null;
+        }
+    }
+
     public void a(int var1, OItemStack var2) {
         this.a[var1] = var2;
     }
@@ -40,7 +51,7 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
         return 64;
     }
 
-    public void z_() {}
+    public void H_() {}
 
     public boolean a(OEntityPlayer var1) {
         return true;
@@ -49,8 +60,8 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
     public void f() {}
 
     public void g() {}
-
-    @Override
+	
+	@Override
     public OItemStack[] getContents() {
         int size = getContentsSize();
         OItemStack[] result = new OItemStack[size];
@@ -72,7 +83,7 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
 
     @Override
     public OItemStack getContentsAt(int index) {
-        return this.c_(index);
+        return this.g_(index);
     }
 
     @Override

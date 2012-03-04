@@ -13,23 +13,23 @@ public class OEntitySpider extends OEntityMob {
         this.bY.a(16, new Byte((byte) 0));
     }
 
-    public void d() {
-        super.d();
+    public void e() {
+        super.e();
     }
 
-    public void y_() {
-        super.y_();
-        if (!this.bi.I) {
+    public void G_() {
+        super.G_();
+        if (!this.bi.F) {
             this.a(this.by);
         }
 
     }
 
-    public int c() {
+    public int d() {
         return 16;
     }
 
-    public double q() {
+    public double x_() {
         return (double) this.bH * 0.75D - 0.5D;
     }
 
@@ -37,33 +37,33 @@ public class OEntitySpider extends OEntityMob {
         return false;
     }
 
-    protected OEntity k() {
-        float var1 = this.a(1.0F);
+    protected OEntity o() {
+        float var1 = this.b(1.0F);
+
         double var2 = 16.0D;
         OEntityPlayer var3 = this.bi.b(this, var2);
 
         if (var1 < 0.5F && var3 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), entity)) {
-      
             return var3;
         } else {
             return null;
         }
     }
 
-    protected String c_() {
+    protected String i() {
         return "mob.spider";
     }
 
-    protected String m() {
+    protected String j() {
         return "mob.spider";
     }
 
-    protected String n() {
+    protected String k() {
         return "mob.spiderdeath";
     }
 
     protected void a(OEntity var1, float var2) {
-        float var3 = this.a(1.0F);
+        float var3 = this.b(1.0F);
 
         if (var3 > 0.5F && this.bS.nextInt(100) == 0) {
             this.d = null;
@@ -93,25 +93,25 @@ public class OEntitySpider extends OEntityMob {
         super.a(var1);
     }
 
-    protected int e() {
-        return OItem.J.bN;
+    protected int f() {
+        return OItem.J.bP;
     }
 
     protected void a(boolean var1, int var2) {
         super.a(var1, var2);
         if (var1 && (this.bS.nextInt(3) == 0 || this.bS.nextInt(1 + var2) > 0)) {
-            this.b(OItem.bt.bN, 1);
+            this.b(OItem.bt.bP, 1);
         }
 
     }
 
-    public boolean r() {
-        return this.u();
+    public boolean t() {
+        return this.w();
     }
 
-    public void s() {}
+    public void u() {}
 
-    public OEnumCreatureAttribute t() {
+    public OEnumCreatureAttribute v() {
         return OEnumCreatureAttribute.c;
     }
 
@@ -119,7 +119,7 @@ public class OEntitySpider extends OEntityMob {
         return var1.a() == OPotion.u.H ? false : super.a(var1);
     }
 
-    public boolean u() {
+    public boolean w() {
         return (this.bY.a(16) & 1) != 0;
     }
 

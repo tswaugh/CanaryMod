@@ -57,6 +57,8 @@ public class OEntityTracker {
             this.a(var1, 64, 10, true);
         } else if (var1 instanceof OEntityPotion) {
             this.a(var1, 64, 10, true);
+        } else if (var1 instanceof OEntityExpBottle) {
+            this.a(var1, 64, 10, true);
         } else if (var1 instanceof OEntityItem) {
             this.a(var1, 64, 20, true);
         } else if (var1 instanceof OEntityMinecart) {
@@ -99,7 +101,7 @@ public class OEntityTracker {
 
             this.a.add(var5);
             this.b.a(var1.bd, var5);
-            var5.b(this.c.a(this.e).i);
+            var5.b(this.c.a(this.e).d);
         }
     }
 
@@ -125,32 +127,32 @@ public class OEntityTracker {
     }
 
     public void a() {
-        try {
-            ArrayList var1 = new ArrayList();
-            Iterator var2 = this.a.iterator();
-		
-            while (var2.hasNext()) {
-                OEntityTrackerEntry var3 = (OEntityTrackerEntry) var2.next();
+		try {
+			ArrayList var1 = new ArrayList();
+			Iterator var2 = this.a.iterator();
 
-                var3.a(this.c.a(this.e).i);
-                if (var3.m && var3.a instanceof OEntityPlayerMP) {
-                    var1.add((OEntityPlayerMP) var3.a);
-                }
-            }
-		
-            for (int var6 = 0; var6 < var1.size(); ++var6) {
-                OEntityPlayerMP var7 = (OEntityPlayerMP) var1.get(var6);
-                Iterator var4 = this.a.iterator();
-		
-                while (var4.hasNext()) {
-                    OEntityTrackerEntry var5 = (OEntityTrackerEntry) var4.next();
+			while (var2.hasNext()) {
+				OEntityTrackerEntry var3 = (OEntityTrackerEntry) var2.next();
 
-                    if (var5.a != var7) {
-                        var5.b(var7);
-                    }
-                }
-            }
-        } catch (ConcurrentModificationException ex) {
+				var3.a(this.c.a(this.e).d);
+				if (var3.n && var3.a instanceof OEntityPlayerMP) {
+					var1.add((OEntityPlayerMP) var3.a);
+				}
+			}
+
+			for (int var6 = 0; var6 < var1.size(); ++var6) {
+				OEntityPlayerMP var7 = (OEntityPlayerMP) var1.get(var6);
+				Iterator var4 = this.a.iterator();
+
+				while (var4.hasNext()) {
+					OEntityTrackerEntry var5 = (OEntityTrackerEntry) var4.next();
+
+					if (var5.a != var7) {
+						var5.b(var7);
+					}
+				}
+			}
+		} catch (ConcurrentModificationException ex) {
             // people seem to get this exception often, lets just catch so it doesn't crash the server.
             MinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", ex);   
         }
@@ -160,8 +162,8 @@ public class OEntityTracker {
             task.run();
         }
     }
-   
-    // CanaryMod: Allow adding of tasks to the queue
+	
+	// CanaryMod: Allow adding of tasks to the queue
 
     public static void add(Runnable task, long delayMillis) {
         // j.u.concurent.* classes are thread safe

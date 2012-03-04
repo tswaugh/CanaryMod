@@ -1,28 +1,28 @@
 
 public class OFoodStats {
 
-    // CanaryMod: made fields public
+	// CanaryMod: made fields public
     public int a = 20;
     public float b = 5.0F;
     public float c;
     public int d = 0;
     private int e = 20;
-    // CanaryMod: enitity
+	// CanaryMod: enitity
     private OEntityPlayer entity;
 
     public OFoodStats() {}
-
-    public OFoodStats(OEntityPlayer oEntityPlayer) {
+	
+	public OFoodStats(OEntityPlayer oEntityPlayer) {
         this.entity = oEntityPlayer;
     }
-   
+
     public void a(int var1, float var2) {
-        // CanaryMod: Calls onFoodLevelChange
+		// CanaryMod: Calls onFoodLevelChange
         int newLevel = Math.min(var1 + this.a, 20);
         int oldLevel = this.a;
-
-        this.a = ((Integer) etc.getLoader().callHook(PluginLoader.Hook.FOODLEVEL_CHANGE, new Object[] { ((OEntityPlayerMP) this.entity).getPlayer(), Integer.valueOf(oldLevel), Integer.valueOf(newLevel) })).intValue();
-
+		
+		this.a = ((Integer) etc.getLoader().callHook(PluginLoader.Hook.FOODLEVEL_CHANGE, new Object[] { ((OEntityPlayerMP) this.entity).getPlayer(), Integer.valueOf(oldLevel), Integer.valueOf(newLevel) })).intValue();
+		
         // CanaryMod: Calls onFoodSaturationChange
         float newSLevel = Math.min(this.b + (float) var1 * var2 * 2.0F, (float) this.a);
         float oldSLevel = this.b;
@@ -37,7 +37,7 @@ public class OFoodStats {
     }
 
     public void a(OEntityPlayer var1) {
-        int var2 = var1.bi.v;
+        int var2 = var1.bi.q;
 
         this.e = this.a;
         if (this.c > 4.0F) {
@@ -61,7 +61,7 @@ public class OFoodStats {
             }
         }
 
-        if (this.a >= 18 && var1.ab()) {
+        if (this.a >= 18 && var1.af()) {
             ++this.d;
             if (this.d >= 80) {
                 var1.d(1);
@@ -70,7 +70,7 @@ public class OFoodStats {
         } else if (this.a <= 0) {
             ++this.d;
             if (this.d >= 80) {
-                if (var1.ap() > 10 || var2 >= 3 || var1.ap() > 1 && var2 >= 2) {
+                if (var1.aC() > 10 || var2 >= 3 || var1.aC() > 1 && var2 >= 2) {
                     // CanaryMod: DAMAGE From starvation
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.STARVATION, null, ((OEntityPlayerMP) var1).getPlayer(), 1)) {
                         var1.a(ODamageSource.g, 1);

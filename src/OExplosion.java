@@ -15,8 +15,8 @@ public class OExplosion {
     public double d;
     public OEntity e;
     public float f;
-    public Set g;
-    protected boolean toRet;
+    public Set g = new HashSet();
+	protected boolean toRet;
 
     public OExplosion(OWorld var1, OEntity var2, double var3, double var5, double var7, float var9) {
         super();
@@ -26,12 +26,11 @@ public class OExplosion {
         this.b = var3;
         this.c = var5;
         this.d = var7;
-        this.g = new HashSet();
-        this.toRet = false;
+		this.toRet = false;
     }
 
     public void a() {
-         // CanaryMod: allow explosion
+		// CanaryMod: allow explosion
         Block block = new Block(i.world, i.a((int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d)), (int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d));
         if(this.e == null){
             block.setStatus(1);
@@ -42,6 +41,7 @@ public class OExplosion {
         else if(this.e instanceof OEntityFireball){
             block.setStatus(3);
         }
+		
         float var1 = this.f;
         byte var2 = 16;
 
@@ -64,7 +64,7 @@ public class OExplosion {
                         var6 /= var12;
                         var8 /= var12;
                         var10 /= var12;
-                        float var14 = this.f * (0.7F + this.i.w.nextFloat() * 0.6F);
+                        float var14 = this.f * (0.7F + this.i.r.nextFloat() * 0.6F);
 
                         var15 = this.b;
                         var17 = this.c;
@@ -92,9 +92,9 @@ public class OExplosion {
                 }
             }
         }
-        
-        this.toRet = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g);
-        
+		
+		this.toRet = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g);
+
         this.f *= 2.0F;
         var3 = OMathHelper.b(this.b - (double) this.f - 1.0D);
         var4 = OMathHelper.b(this.b + (double) this.f + 1.0D);
@@ -120,15 +120,15 @@ public class OExplosion {
                 var19 /= var35;
                 double var37 = (double) this.i.a(var30, var32.bw);
                 double var39 = (1.0D - var33) * var37;
-                
-                // CanaryMod Damage hook: Explosions
+				
+				// CanaryMod Damage hook: Explosions
                 int damage = (int) ((var39 * var39 + var39) / 2.0D * 8.0D * f + 1.0D);
                 PluginLoader.DamageType dmgType = (e instanceof OEntityCreeper) ? PluginLoader.DamageType.CREEPER_EXPLOSION : PluginLoader.DamageType.EXPLOSION;
 
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, null, var32.entity, damage) && !toRet) {
+				if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, null, var32.entity, damage) && !toRet) {
                     var32.a(ODamageSource.l, (int) ((var39 * var39 + var39) / 2.0D * 8.0D * (double) this.f + 1.0D));
                 }
-
+                
                 var32.bp += var15 * var39;
                 var32.bq += var17 * var39;
                 var32.br += var19 * var39;
@@ -142,15 +142,12 @@ public class OExplosion {
     }
 
     public void a(boolean var1) {
-        this.i.a(this.b, this.c, this.d, "random.explode", 4.0F, (1.0F + (this.i.w.nextFloat() - this.i.w.nextFloat()) * 0.2F) * 0.7F);
+        this.i.a(this.b, this.c, this.d, "random.explode", 4.0F, (1.0F + (this.i.r.nextFloat() - this.i.r.nextFloat()) * 0.2F) * 0.7F);
         this.i.a("hugeexplosion", this.b, this.c, this.d, 0.0D, 0.0D, 0.0D);
         ArrayList var2 = new ArrayList();
 
         var2.addAll(this.g);
-        if(this.toRet){
-            this.g = new HashSet();
-            return;
-        }
+
         int var3;
         OChunkPosition var4;
         int var5;
@@ -165,9 +162,9 @@ public class OExplosion {
             var7 = var4.c;
             var8 = this.i.a(var5, var6, var7);
             if (var1) {
-                double var9 = (double) ((float) var5 + this.i.w.nextFloat());
-                double var11 = (double) ((float) var6 + this.i.w.nextFloat());
-                double var13 = (double) ((float) var7 + this.i.w.nextFloat());
+                double var9 = (double) ((float) var5 + this.i.r.nextFloat());
+                double var11 = (double) ((float) var6 + this.i.r.nextFloat());
+                double var13 = (double) ((float) var7 + this.i.r.nextFloat());
                 double var15 = var9 - this.b;
                 double var17 = var11 - this.c;
                 double var19 = var13 - this.d;
@@ -178,7 +175,7 @@ public class OExplosion {
                 var19 /= var21;
                 double var23 = 0.5D / (var21 / (double) this.f + 0.1D);
 
-                var23 *= (double) (this.i.w.nextFloat() * this.i.w.nextFloat() + 0.3F);
+                var23 *= (double) (this.i.r.nextFloat() * this.i.r.nextFloat() + 0.3F);
                 var15 *= var23;
                 var17 *= var23;
                 var19 *= var23;
@@ -202,15 +199,15 @@ public class OExplosion {
                 var8 = this.i.a(var5, var6, var7);
                 int var25 = this.i.a(var5, var6 - 1, var7);
 
-                if (var8 == 0 && OBlock.o[var25] && this.h.nextInt(3) == 0) {
-                    this.i.e(var5, var6, var7, OBlock.at.bO);
+                if (var8 == 0 && OBlock.n[var25] && this.h.nextInt(3) == 0) {
+                    this.i.e(var5, var6, var7, OBlock.ar.bO);
                 }
             }
         }
 
     }
-    
-    public boolean getRet(){
+	
+	public boolean getRet(){
         return this.toRet;
     }
 }

@@ -28,12 +28,16 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         return this.a;
     }
 
-    public OItemStack c_(int var1) {
-        return var1 >= this.b.c() ? this.c.c_(var1 - this.b.c()) : this.b.c_(var1);
+    public OItemStack g_(int var1) {
+        return var1 >= this.b.c() ? this.c.g_(var1 - this.b.c()) : this.b.g_(var1);
     }
 
     public OItemStack a(int var1, int var2) {
         return var1 >= this.b.c() ? this.c.a(var1 - this.b.c(), var2) : this.b.a(var1, var2);
+    }
+
+    public OItemStack b(int var1) {
+        return var1 >= this.b.c() ? this.c.b(var1 - this.b.c()) : this.b.b(var1);
     }
 
     public void a(int var1, OItemStack var2) {
@@ -49,9 +53,9 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         return this.b.a();
     }
 
-    public void z_() {
-        this.b.z_();
-        this.c.z_();
+    public void H_() {
+        this.b.H_();
+        this.c.H_();
     }
 
     public boolean a(OEntityPlayer var1) {
@@ -67,8 +71,8 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         this.b.g();
         this.c.g();
     }
-   
-    public OItemStack[] getContents() {
+	
+	public OItemStack[] getContents() {
         int size = getContentsSize();
         OItemStack[] result = new OItemStack[size];
 
@@ -87,7 +91,7 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
     }
 
     public OItemStack getContentsAt(int index) {
-        return c_(index);
+        return g_(index);
     }
 
     public void setContentsAt(int index, OItemStack value) {

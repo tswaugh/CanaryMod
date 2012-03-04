@@ -5,7 +5,7 @@ public class OItemBoat extends OItem {
 
     public OItemBoat(int var1) {
         super(var1);
-        this.bO = 1;
+        this.bQ = 1;
     }
 
     public OItemStack a(OItemStack var1, OWorld var2, OEntityPlayer var3) {
@@ -29,7 +29,7 @@ public class OItemBoat extends OItem {
         if (var24 == null) {
             return var1;
         } else {
-            OVec3D var25 = var3.e(var4);
+            OVec3D var25 = var3.f(var4);
             boolean var26 = false;
             float var27 = 1.0F;
             List var28 = var2.b((OEntity) var3, var3.bw.a(var25.a * var21, var25.b * var21, var25.c * var21).b((double) var27, (double) var27, (double) var27));
@@ -37,7 +37,7 @@ public class OItemBoat extends OItem {
             for (int var29 = 0; var29 < var28.size(); ++var29) {
                 OEntity var30 = (OEntity) var28.get(var29);
 
-                if (var30.e_()) {
+                if (var30.o_()) {
                     float var31 = var30.j_();
                     OAxisAlignedBB var32 = var30.bw.b((double) var31, (double) var31, (double) var31);
 
@@ -55,12 +55,12 @@ public class OItemBoat extends OItem {
                     int var34 = var24.c;
                     int var35 = var24.d;
 
-                    if (!var2.I) {
-                        if (var2.a(var33, var34, var35) == OBlock.aU.bO) {
+                    if (!var2.F) {
+                        if (var2.a(var33, var34, var35) == OBlock.aS.bO) {
                             --var34;
                         }
-                  
-                        // CanaryMod: placing of a boat
+						
+						// CanaryMod: placing of a boat
                         Block blockClicked = new Block(var2.world, var2.a(var33, var34, var35), var33, var34, var35);
 
                         blockClicked.setFaceClicked(Block.Face.fromId(var24.e));
