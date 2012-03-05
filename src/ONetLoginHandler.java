@@ -3,6 +3,7 @@ import java.net.Socket;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Logger;
+
 import net.minecraft.server.MinecraftServer;
 
 
@@ -123,7 +124,7 @@ public class ONetLoginHandler extends ONetHandler {
             // CanaryMod END
 
             this.e.h.a(var2, var3);
-            this.e.h.a((OPacket) (new OPacket3Chat("\u00a7e" + var2.v + " joined the game.")));
+            //this.e.h.a((OPacket) (new OPacket3Chat("\u00a7e" + var2.v + " joined the game.")));
             this.e.h.c(var2);
             var5.a(var2.bm, var2.bn, var2.bo, var2.bs, var2.bt);
             this.e.c.a(var5);
