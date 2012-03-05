@@ -1,3 +1,4 @@
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +9,6 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import net.minecraft.server.MinecraftServer;
-
 
 public class PlayerCommands {
 
@@ -22,7 +22,8 @@ public class PlayerCommands {
                 for (String command : field.getAnnotation(Command.class).value()) {
                     try {
                         add(command.equals("") ? field.getName() : command, (BaseCommand) field.get(null));
-                    } catch (IllegalAccessException e) {}
+                    } catch (IllegalAccessException e) {
+                    }
                 }
             }
         } // impossible
@@ -30,7 +31,7 @@ public class PlayerCommands {
 
     /**
      * Add a command to the player list.
-     * 
+     *
      * @param name
      * @param cmd
      */
@@ -45,7 +46,7 @@ public class PlayerCommands {
 
     /**
      * Remove a command from the player list.
-     * 
+     *
      * @param name
      */
     public void remove(String name) {
@@ -56,14 +57,13 @@ public class PlayerCommands {
     }
 
     /**
-     * Performs a lookup for a command of the given name and executes it if found. Returns false if command not found.
-     * 
-     * @param command
-     *            The command to run
-     * @param caller
-     *            The {@link MessageReceiver} to send messages back to (assumed to be the caller)
-     * @param args
-     *            The arguments to {@code command}
+     * Performs a lookup for a command of the given name and executes it if
+     * found. Returns false if command not found.
+     *
+     * @param command The command to run
+     * @param caller The {@link MessageReceiver} to send messages back to
+     * (assumed to be the caller)
+     * @param args The arguments to {@code command}
      * @return true if {@code command} was found, false otherwise
      */
     public static boolean parsePlayerCommand(MessageReceiver caller, String command, String[] args) {
@@ -82,16 +82,15 @@ public class PlayerCommands {
     }
 
     /**
-     * Searches for and returns {@code command} if found, {@code null} otherwise.
-     * 
-     * @param command
-     *            The command to search for
+     * Searches for and returns {@code command} if found, {@code null}
+     * otherwise.
+     *
+     * @param command The command to search for
      * @return {@code command} if found, {@code null} otherwise
      */
     public BaseCommand getCommand(String command) {
         return commands.get(command);
     }
-
     @Command
     public static final BaseCommand help = new BaseCommand("<Page|Pattern> - Shows a list of commands. 7 per page.") {
 
@@ -113,7 +112,7 @@ public class PlayerCommands {
                 }
             }
 
-            caller.notify(Colors.Blue + "Available commands (" + (args.length > 1 ? (args[1].matches("\\d+") ? "Page " + args[1] + " of " + (int) ((double) availableCommands.size() / (double) 7 + 1) : "Matching " + etc.combineSplit(1, args, " ")) : "Page 1 of " + (int) ((double) availableCommands.size() / (double) 7 + 1)) + ") [] = required <> = optional:");
+            caller.notify(Colors.Blue + "Available commands (" + (args.length > 1 ? (args[1].matches("\\d+") ? "Page " + args[1] + " of " + (int) ((double) availableCommands.size() / (double) 7 + 1) : "Matching " + etc.combineSplit(1, args, " ")) : "Page 1 of " + (int) ((double) availableCommands.size() / (double) 7 + 1)) + ") <> = required [] = optional:");
             if (args.length > 1) {
                 if (args[1].matches("\\d+")) {
                     try {
@@ -172,12 +171,12 @@ public class PlayerCommands {
 
             if (player != null) {
                 if (player.toggleMute()) {
-                	//df: adding to mutelist
-                	etc.getDataSource().setPlayerToMuteList(player.getName());
+                    //df: adding to mutelist
+                    etc.getDataSource().setPlayerToMuteList(player.getName());
                     caller.notify("Player was muted");
                 } else {
-                	//df: removing from mute list
-                	etc.getDataSource().removePlayerFromMuteList(player.getName());
+                    //df: removing from mute list
+                    etc.getDataSource().removePlayerFromMuteList(player.getName());
                     caller.notify("Player was unmuted");
                 }
             } else {
@@ -185,7 +184,7 @@ public class PlayerCommands {
             }
         }
     };
-    @Command({ "tell", "msg", "m" })
+    @Command({"tell", "msg", "m"})
     public static final BaseCommand tell = new BaseCommand("<Player> <Message> - Sends a message to player", "Correct usage is: /msg <player> <message>", 3) {
 
         @Override
@@ -238,7 +237,8 @@ public class PlayerCommands {
                         caller.notify("You can only get this kit once per login.");
                     } else if (MinecraftServer.b.containsKey(caller.getName() + " " + kit.Name)) {
                         caller.notify("You can't get this kit again for a while.");
-                    } else { {
+                    } else {
+                        {
                             if (!((Player) caller).canIgnoreRestrictions()) {
                                 if (kit.Delay >= 0) {
                                     MinecraftServer.b.put(caller.getName() + " " + kit.Name, kit.Delay);
@@ -310,7 +310,7 @@ public class PlayerCommands {
             ((Player) caller).teleportTo(player);
         }
     };
-    @Command({ "tphere", "s" })
+    @Command({"tphere", "s"})
     public static final BaseCommand tphere = new BaseCommand("<Player> - Teleports the player to you", "Correct usage is: /tphere <player>", 2) {
 
         @Override
@@ -338,7 +338,7 @@ public class PlayerCommands {
             player.teleportTo((Player) caller);
         }
     };
-    @Command({ "playerlist", "who" })
+    @Command({"playerlist", "who"})
     public static final BaseCommand playerlist = new BaseCommand("- Shows a list of players") {
 
         @Override
@@ -346,7 +346,7 @@ public class PlayerCommands {
             caller.notify("Player list (" + etc.getServer().getPlayerList().size() + "/" + etc.getInstance().getPlayerLimit() + "): " + Colors.White + etc.getServer().getPlayerNames());
         }
     };
-    @Command({ "item", "i", "give" })
+    @Command({"item", "i", "give"})
     public static final BaseCommand item = new BaseCommand("<ID> [Amount] [Damage] [Player] - Gives items", "Correct usage is: /item <itemid> [amount] [damage] [player]", 2, 5) {
 
         @Override
@@ -388,15 +388,16 @@ public class PlayerCommands {
                         toGive = etc.getServer().matchPlayer(args[3]);
                     }
                     if (temp > -1 && temp < 201) {
-                    	damage = temp;
+                        damage = temp;
                     }
                 } else if (args.length == 5) {
                     damage = Integer.parseInt(args[3]);
-                    if (itemId == 383)
-                    	System.out.println("ItemID: "+itemId);
-                   	if (damage < 0 || damage > 200) {
-                   		damage = 0;
-                   	}
+                    if (itemId == 383) {
+                        System.out.println("ItemID: " + itemId);
+                    }
+                    if (damage < 0 || damage > 200) {
+                        damage = 0;
+                    }
                     if (player.canIgnoreRestrictions()) {
                         toGive = etc.getServer().matchPlayer(args[4]);
                     }
@@ -471,8 +472,8 @@ public class PlayerCommands {
             }
         }
     };
-    @Command({ "cloth", "dye" })
-    public static final BaseCommand clothdye = new BaseCommand("<Color> <Amount> - Gives you the specified dye/cloth", "Overridden", 2) {
+    @Command({"cloth", "dye"})
+    public static final BaseCommand clothdye = new BaseCommand("<Color> [Amount] - Gives you the specified dye/cloth", "Overridden", 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] args) {
@@ -581,14 +582,13 @@ public class PlayerCommands {
         @Override
         public void onBadSyntax(MessageReceiver caller, String[] args) {
             if (caller instanceof Player && !((Player) caller).canIgnoreRestrictions()) {
-                caller.notify("Correct usage is: " + args[0] + " <color> <amount>");
+                caller.notify("Correct usage is: " + args[0] + " <color> [amount]");
             } else {
-                caller.notify("Correct usage is: " + args[0] + " <color> <amount> [player]");
+                caller.notify("Correct usage is: " + args[0] + " <color> [amount] [player]");
             }
         }
     };
-    
-    @Command({ "me", "emote" })
+    @Command({"me", "emote"})
     public static final BaseCommand me = new BaseCommand("<Message> - * hey0 says hi!") {
 
         @Override
@@ -713,7 +713,7 @@ public class PlayerCommands {
                 return;
             }
 
-            for (World.Type type: World.Type.values()) {
+            for (World.Type type : World.Type.values()) {
                 etc.getMCServer().a(type.getId()).s().a((int) player.getX(), (int) player.getY(), (int) player.getZ());
             }
 
@@ -774,7 +774,8 @@ public class PlayerCommands {
             if (args.length == 3) {
                 if (!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions()) {
                     toWarp = etc.getServer().matchPlayer(args[2]);
-                } else { {
+                } else {
+                    {
                         onBadSyntax(caller, args);
                         return;
                     }
@@ -878,7 +879,7 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand time = new BaseCommand("<day|night|check|raw> (rawtime) - Changes or checks the time", "Correct usage is: /time <day|night|check|raw> (rawtime)", 2, 3) {
+    public static final BaseCommand time = new BaseCommand("<time|'day'|'night'|'check'|'raw'rawtime> - Changes or checks the time", "Correct usage is: /time <day|night|check|raw> (rawtime)", 2, 3) {
 
         @Override
         void execute(MessageReceiver caller, String[] args) {
@@ -1051,7 +1052,8 @@ public class PlayerCommands {
                 } else if (!Mob.isValid(args[2])) {
                     caller.notify("Invalid mob name or number of mobs.");
                     caller.notify("Mob names have to start with a capital like so: Pig");
-                } else { {
+                } else {
+                    {
                         Mob mob = new Mob(args[1], loc);
 
                         mob.spawn(new Mob(args[2]));
@@ -1138,7 +1140,7 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand weather = new BaseCommand("<on|off>", "Usage: /weather <on|off>", 1, 2) {
+    public static final BaseCommand weather = new BaseCommand("[on|off] (optional) - Set weather to the specified value (default: toggle)", "Usage: /weather [on|off]", 1, 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] args) {
@@ -1164,7 +1166,7 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand thunder = new BaseCommand("<on|off>", "Usage: /thunder <on|off>", 1, 2) {
+    public static final BaseCommand thunder = new BaseCommand("[on|off] (optional) - Set thunder to the specified value (default: toggle)", "Usage: /thunder [on|off]", 1, 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] args) {
@@ -1187,10 +1189,9 @@ public class PlayerCommands {
                 onBadSyntax(caller, args);
             }
         }
-
     };
     @Command
-    public static final BaseCommand xp = new BaseCommand("<level|total|add|remove> [Player] <value> - XP status", "Usage: /xp <level|total|add|remove> [Player] <value>", 2, 4) {
+    public static final BaseCommand xp = new BaseCommand("<level|total|add|remove> [Player] [value] - XP status", "Usage: /xp <level|total|add|remove> [Player] <value>", 2, 4) {
 
         @Override
         void execute(MessageReceiver caller, String[] args) {
@@ -1221,13 +1222,11 @@ public class PlayerCommands {
                         if (args[1].equalsIgnoreCase("add")) {
                             player.addXP(xp);
                             player.notify("XP added!");
-                        }
- else if (args[1].equalsIgnoreCase("remove")) {
+                        } else if (args[1].equalsIgnoreCase("remove")) {
                             player.removeXP(xp);
                             player.notify("XP removed!");
                         }
-                    }
-                    catch (NumberFormatException nfe) {
+                    } catch (NumberFormatException nfe) {
                         caller.notify("Please enter numbers, not letters.");
                     }
                 }
@@ -1243,13 +1242,11 @@ public class PlayerCommands {
                         if (args[1].equalsIgnoreCase("add")) {
                             p.addXP(xp);
                             player.notify("XP added to " + p.getName());
-                        }
- else if (args[1].equalsIgnoreCase("remove")) {
+                        } else if (args[1].equalsIgnoreCase("remove")) {
                             p.removeXP(xp);
                             player.notify("XP removed from " + p.getName());
                         }
-                    }
-                    catch (NumberFormatException nfe) {
+                    } catch (NumberFormatException nfe) {
                         caller.notify("Please enter numbers, not letters.");
                     }
                 }
@@ -1262,9 +1259,9 @@ public class PlayerCommands {
             }
         }
     };
-    
     @Command
-    public static final BaseCommand foodlevel = new BaseCommand("<add|remove|set> [Player] <value> - Sets player food level", "Correct usage is: /foodlevel <add|remove|set> [player] <value>", 2, 4) {
+    public static final BaseCommand foodlevel = new BaseCommand("<add|remove|set> [Player] [value] - Sets player food level", "Correct usage is: /foodlevel <add|remove|set> [player] <value>", 2, 4) {
+
         @Override
         void execute(MessageReceiver caller, String[] args) {
             Player subject = (Player) caller;
@@ -1286,7 +1283,7 @@ public class PlayerCommands {
                 caller.notify("Error on /foodlevel command");
                 return;
             }
-            
+
             if (command.equalsIgnoreCase("add")) {
                 foodLevel = Math.min(20, subject.getFoodLevel() + foodLevel);
             } else if (command.equalsIgnoreCase("remove")) {
@@ -1303,9 +1300,9 @@ public class PlayerCommands {
             }
         }
     };
-    
     @Command
     public static final BaseCommand god = new BaseCommand("<Player> - Makes player invulnerable", "Correct usage is: /god <player>", 1, 2) {
+
         @Override
         void execute(MessageReceiver caller, String[] args) {
             Player subject = (Player) caller;
@@ -1314,7 +1311,7 @@ public class PlayerCommands {
             if (args.length == 2) {
                 subject = etc.getServer().matchPlayer(args[1]);
                 info = String.format("%s%s is", Colors.Yellow, subject.getName());
-            }                       
+            }
             if (subject != null) {
                 if (subject.getMode()) {
                     caller.notify("Can't apply /god to players in creative mode");
@@ -1333,34 +1330,32 @@ public class PlayerCommands {
     };
     @Command
     public static final BaseCommand kill = new BaseCommand("<Player> - Kill the specified player", "Correct usage is: /kill <player>", 1, 2) {
+
         @Override
         void execute(MessageReceiver caller, String[] args) {
             Player killer = (Player) caller;
             if (args.length == 2) {
                 Player victim = etc.getServer().matchPlayer(args[1]);
-                if(victim == null) {
+                if (victim == null) {
                     killer.notify(args[1] + " could not be found (and therefore he has not been killed)");
                     return;
                 }
-                if(killer.hasControlOver(victim)) {
+                if (killer.hasControlOver(victim)) {
                     victim.dropInventory();
                     victim.setHealth(0);
                     killer.notify(victim.getName() + " has been killed!");
-                }
-                else {
+                } else {
                     killer.notify("You cannot kill " + victim.getName());
                 }
-                
-            }
-            else {
+
+            } else {
                 killer.dropInventory();
                 killer.setHealth(0);
                 killer.notify("You suicided.");
             }
-            
+
         }
     };
-    
     @Command
     public static final BaseCommand playerinfo = new BaseCommand("<Player> Shows player data", "Correct usage is: /playerinfo <player>", 1, 2) {
 
@@ -1381,7 +1376,7 @@ public class PlayerCommands {
                 subject = (Player) caller;
             }
             if (subject != null) {
-                
+
                 caller.notify(Colors.Green + subject.getName() + "'s info:");
                 sendData(caller, "Prefix: ", subject.getColor());
                 sendData(caller, "IP address : ", subject.getIP());

@@ -178,7 +178,7 @@ public abstract class OContainer {
                             var10 = var13.a;
                             if (var10 > 0 && var10 + var14.a <= var14.b()) {
                                 var14.a += var10;
-                                var13.a(var10);
+                                var13 = var12.a(var10);
                                 if (var13.a == 0) {
                                     var12.d((OItemStack) null);
                                 }

@@ -98,7 +98,7 @@ public class ServerConsoleCommands {
             caller.notify("Successfully reloaded config");
         }
     };
-    public static final BaseCommand modify = new BaseCommand("[player] [key] [value] - Type /modify for more info", "Overriden onBadSyntax", 3) {
+    public static final BaseCommand modify = new BaseCommand("<player> <key> <value> - Type /modify for more info", "Overriden onBadSyntax", 3) {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
@@ -238,7 +238,7 @@ public class ServerConsoleCommands {
 
         @Override
         public void onBadSyntax(MessageReceiver caller, String[] params) {
-            caller.notify("Usage is: /modify [player] [key] [value]");
+            caller.notify("Usage is: /modify <player> <key> <value>");
             caller.notify("Keys:");
             caller.notify("prefix: only the letter the color represents");
             caller.notify("commands: list seperated by comma");
@@ -248,7 +248,7 @@ public class ServerConsoleCommands {
             caller.notify("modworld: true or false");
         }
     };
-    public final static BaseCommand whitelist = new BaseCommand("[operation (add or remove)] [player]", "whitelist [operation (toggle, add or remove)] <player>", 2) {
+    public final static BaseCommand whitelist = new BaseCommand("<toggle|add|remove> [player]", "whitelist <toggle|add|remove>", 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
@@ -269,7 +269,7 @@ public class ServerConsoleCommands {
             }
         }
     };
-    public final static BaseCommand reservelist = new BaseCommand("[operation (add or remove)] [player]", "reservelist [operation (add or remove)] [player]", 3, 3) {
+    public final static BaseCommand reservelist = new BaseCommand("<add|remove> <player>", "reservelist <add|remove> <player>", 3, 3) {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
@@ -291,7 +291,7 @@ public class ServerConsoleCommands {
             caller.notify("Plugins" + Colors.White + ": " + etc.getLoader().getPluginList());
         }
     };
-    public final static BaseCommand reloadplugin = new BaseCommand("[plugin] - Reloads plugin", "Correct usage is: /reloadplugin [plugin]", 2) {
+    public final static BaseCommand reloadplugin = new BaseCommand("<plugin> - Reloads plugin", "Correct usage is: /reloadplugin [plugin]", 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
@@ -302,7 +302,7 @@ public class ServerConsoleCommands {
             }
         }
     };
-    public final static BaseCommand enableplugin = new BaseCommand("[plugin] - Enables plugin", "Correct usage is: /enableplugin [plugin]", 2) {
+    public final static BaseCommand enableplugin = new BaseCommand("<plugin> - Enables plugin", "Correct usage is: /enableplugin [plugin]", 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
@@ -313,7 +313,7 @@ public class ServerConsoleCommands {
             }
         }
     };
-    public final static BaseCommand disableplugin = new BaseCommand("[plugin] - Disables plugin", "Correct usage is: /disableplugin [plugin]", 2) {
+    public final static BaseCommand disableplugin = new BaseCommand("<plugin> - Disables plugin", "Correct usage is: /disableplugin [plugin]", 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
@@ -336,7 +336,7 @@ public class ServerConsoleCommands {
             }
         }
     };
-    public static final BaseCommand banlist = new BaseCommand("<IP or bans> - Gives a list of bans") {
+    public static final BaseCommand banlist = new BaseCommand("['IPs'] - Gives a list of (IP) bans") {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
@@ -353,7 +353,7 @@ public class ServerConsoleCommands {
             }
         }
     };
-    public static final BaseCommand banip = new BaseCommand("[Player] <Reason> - Bans the player's IP", "Correct usage is: /banip [player] <reason> (optional) NOTE: this permabans IPs.", 2) {
+    public static final BaseCommand banip = new BaseCommand("<Player> [Reason] - Bans the player's IP", "Correct usage is: /banip [player] <reason> (optional) NOTE: this permabans IPs.", 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
@@ -387,7 +387,7 @@ public class ServerConsoleCommands {
             }
         }
     };
-    public static final BaseCommand ban = new BaseCommand("[Player] <Reason> - Bans the player", "Correct usage is: /ban [player] <reason> (optional)", 2) {
+    public static final BaseCommand ban = new BaseCommand("<Player> [Reason] - Bans the player", "Correct usage is: /ban [player] <reason> (optional)", 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
@@ -426,7 +426,7 @@ public class ServerConsoleCommands {
             }
         }
     };
-    public static final BaseCommand unban = new BaseCommand("[Player] - Unbans the player", "Correct usage is: /unban [player]", 2, 2) {
+    public static final BaseCommand unban = new BaseCommand("<Player> - Unbans the player", "Correct usage is: /unban [player]", 2, 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
@@ -434,7 +434,7 @@ public class ServerConsoleCommands {
             caller.notify("Unbanned " + split[1]);
         }
     };
-    public static final BaseCommand unbanip = new BaseCommand("[IP] - Unbans the IP", "Correct usage is: /unbanip [ip]", 2, 2) {
+    public static final BaseCommand unbanip = new BaseCommand("<IP> - Unbans the IP", "Correct usage is: /unbanip [ip]", 2, 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] parameters) {
@@ -446,14 +446,15 @@ public class ServerConsoleCommands {
         }
     };
     // TODO: add a way to ban by IP, either a new command or an option for /tempban
-    public static final BaseCommand tempban = new BaseCommand("<'ip'> [player] [time] <reason> - Bans the player for the specified time", "Overridden because multiline", 3) {
+    public static final BaseCommand tempban = new BaseCommand("['ip'] <player> <time> [reason] - Bans the player for the specified time", "Overridden because multiline", 3) {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
             boolean byIp = split[1].equalsIgnoreCase("ip");
-            if (byIp)
+            if (byIp) {
                 split = (split[0] + " " + etc.combineSplit(2, split, " ")).split(" ");
-            
+            }
+
             Player player = etc.getServer().matchPlayer(split[1]);
 
             if (player != null) {
@@ -498,12 +499,16 @@ public class ServerConsoleCommands {
                 }
             }
         }
-        
+
         // Thanks to sk89q's CommandBook for this parser
         public long matchFutureDate(String filter) throws IllegalArgumentException {
-            if (filter.equalsIgnoreCase("now")) return System.currentTimeMillis();
+            if (filter.equalsIgnoreCase("now")) {
+                return System.currentTimeMillis();
+            }
             String[] groupings = filter.split("-");
-            if (groupings.length == 0) throw new IllegalArgumentException("Invalid date specified");
+            if (groupings.length == 0) {
+                throw new IllegalArgumentException("Invalid date specified");
+            }
             Calendar cal = new GregorianCalendar();
             cal.setTimeInMillis(System.currentTimeMillis());
             for (String str : groupings) {
@@ -527,20 +532,20 @@ public class ServerConsoleCommands {
                     default:
                         throw new IllegalArgumentException("Unknown date value specified");
                 }
-                cal.add(type, Integer.valueOf(str.substring(0, str.length() -1)));
+                cal.add(type, Integer.valueOf(str.substring(0, str.length() - 1)));
             }
             return cal.getTimeInMillis();
         }
 
         @Override
         public void onBadSyntax(MessageReceiver caller, String[] parameters) {
-            caller.notify("Correct usage: /tempban <'ip'> [player] [time] <reason> (optional)");
+            caller.notify("Correct usage: /tempban ['ip'] <player> <time> [reason] (optional)");
             caller.notify("Time is given as a series of [number][m|h|d|w|y] split by -.");
             caller.notify("The characters m, h, d, w, y stand for minutes, hours, days, weeks");
             caller.notify("  and years, respectively");
         }
     };
-    public static final BaseCommand kick = new BaseCommand("[Player] <Reason> - Kicks player", "Correct usage is: /kick [player] <reason> (optional)", 2) {
+    public static final BaseCommand kick = new BaseCommand("<Player> [Reason] - Kicks player", "Correct usage is: /kick [player] <reason> (optional)", 2) {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
@@ -566,7 +571,7 @@ public class ServerConsoleCommands {
             }
         }
     };
-    public static final BaseCommand kickall = new BaseCommand("<Reason> - Kicks all players", "Correct usage is: /kickall <reason> (optional)", 1) {
+    public static final BaseCommand kickall = new BaseCommand("[Reason] - Kicks all players", "Correct usage is: /kickall <reason> (optional)", 1) {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
