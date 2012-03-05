@@ -19,10 +19,7 @@
 -- Table structure for table `groups`
 --
 
-DROP TABLE IF EXISTS `groups`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `groups` (
+CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `prefix` varchar(16) NOT NULL,
@@ -54,10 +51,7 @@ UNLOCK TABLES;
 -- Table structure for table `homes`
 --
 
-DROP TABLE IF EXISTS `homes`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `homes` (
+CREATE TABLE IF NOT EXISTS `homes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `x` double NOT NULL,
@@ -83,10 +77,7 @@ UNLOCK TABLES;
 -- Table structure for table `items`
 --
 
-DROP TABLE IF EXISTS `items`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `items` (
+CREATE TABLE IF NOT EXISTS `items` (
   `name` varchar(64) NOT NULL,
   `itemid` int(10) unsigned NOT NULL,
   PRIMARY KEY (`name`)
@@ -180,10 +171,7 @@ UNLOCK TABLES;
 -- Table structure for table `kits`
 --
 
-DROP TABLE IF EXISTS `kits`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `kits` (
+CREATE TABLE IF NOT EXISTS `kits` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `items` varchar(512) NOT NULL,
@@ -206,10 +194,7 @@ UNLOCK TABLES;
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `groups` varchar(64) NOT NULL,
@@ -227,10 +212,7 @@ SET character_set_client = @saved_cs_client;
 -- Table structure for table `warps`
 --
 
-DROP TABLE IF EXISTS `warps`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `warps` (
+CREATE TABLE IF NOT EXISTS `warps` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `x` double NOT NULL,
@@ -264,11 +246,11 @@ UNLOCK TABLES;
 
 -- Dump completed on 2010-08-27 17:58:30
 
-CREATE TABLE  `whitelist` (
+CREATE TABLE IF NOT EXISTS `whitelist` (
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-CREATE TABLE  `reservelist` (
+CREATE TABLE IF NOT EXISTS `reservelist` (
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -277,24 +259,57 @@ CREATE TABLE  `reservelist` (
 -- Table structure for table `antixrayblocks`
 --
 
-DROP TABLE IF EXISTS `antixrayblocks`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `antixrayblocks` (
+CREATE TABLE IF NOT EXISTS `antixrayblocks` (
   `antixrayblocks` int(10) unsigned NOT NULL,
   PRIMARY KEY (`antixrayblocks`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
 
+LOCK TABLES `antixrayblocks` WRITE;
+/*!40000 ALTER TABLE `antixrayblocks` DISABLE KEYS */;
+INSERT INTO `blockid` VALUES 
+(14),(15),(16),(21),(56),(73);
+/*!40000 ALTER TABLE `antixrayblocks` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `enderblocks`
 --
 
-DROP TABLE IF EXISTS `enderblocks`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `enderblocks` (
+CREATE TABLE IF NOT EXISTS `enderblocks` (
   `enderblocks` int(10) unsigned NOT NULL,
   PRIMARY KEY (`enderblocks`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
+
+LOCK TABLES `enderblocks` WRITE;
+/*!40000 ALTER TABLE `enderblocks` DISABLE KEYS */;
+INSERT INTO `blockid` VALUES 
+(1),(2),(3),(4),(5),(12),(13),(14),(15),(16),(17),
+(18),(19),(20),(21),(22),(24),(35),(37),(38),(39),
+(40),(41),(42),(45),(46),(47),(48),(56),(57),(58),
+(73),(74),(79),(81),(82),(86),(87),(88),(89),(91),
+(98),(99),(100),(103);
+/*!40000 ALTER TABLE `enderblocks` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `muted_players`
+--
+
+CREATE TABLE IF NOT EXISTS `muted_players` (
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `bans`
+--
+
+CREATE TABLE IF NOT EXISTS `bans` (
+  `id` int(16) auto_increment NOT NULL,
+  `user` varchar(32) NOT NULL,
+  `reason` varchar(64) NOT NULL,
+  `timestamp` int(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
