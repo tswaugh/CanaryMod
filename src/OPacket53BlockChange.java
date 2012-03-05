@@ -72,7 +72,9 @@ public class OPacket53BlockChange extends OPacket {
             this.c = paramDataInputStream.readInt();
             this.d = paramDataInputStream.read();
             this.e = paramDataInputStream.read();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void a(DataOutputStream paramDataOutputStream) {
@@ -82,7 +84,9 @@ public class OPacket53BlockChange extends OPacket {
             paramDataOutputStream.writeInt(this.c);
             paramDataOutputStream.write(this.d);
             paramDataOutputStream.write(this.e);
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void a(ONetHandler paramONetHandler) {

@@ -78,6 +78,11 @@ public class ConnectionService {
         }
     }
 
+    /**
+     * Get a new CanaryConnection COnnection wrapper
+     * @return
+     * @throws SQLException
+     */
     public synchronized CanaryConnection getConnection() throws SQLException {
         CanaryConnection c;
         Iterator<CanaryConnection> v = connectionPool.iterator();
@@ -105,8 +110,8 @@ public class ConnectionService {
 
         while (v.hasNext()) {
             CanaryConnection c = v.next();
-            if ((c.isLeased()) || (idle > c.getLastUsage())) {
-                //connection exists for too long
+            //connection exists for too long
+            if ((idle > c.getLastUsage())) {
                 if (!c.isClosed()) {
                     c.close();
                 }
