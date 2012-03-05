@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Logger;
+
 import net.minecraft.server.MinecraftServer;
 
 
@@ -95,12 +96,12 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             // CanaryMod: Notice player movement
             Player player = getPlayer();
 
-            if (etc.floor(n) != etc.floor(player.getX()) || etc.floor(o) != etc.floor(player.getY()) || etc.floor(p) != etc.floor(player.getZ())) {
+            if (etc.floor(o) != etc.floor(player.getX()) || etc.floor(p) != etc.floor(player.getY()) || etc.floor(q) != etc.floor(player.getZ())) {
                 Location from = new Location();
 
-                from.x = etc.floor(n);
-                from.y = etc.floor(o);
-                from.z = etc.floor(p);
+                from.x = etc.floor(o);
+                from.y = etc.floor(p);
+                from.z = etc.floor(q);
                 from.rotX = player.getRotation();
                 from.rotY = player.getPitch();
 
