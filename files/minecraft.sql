@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `ignoresrestrictions` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+
 
 --
 -- Dumping data for table `groups`
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `homes` (
   `group` VARCHAR(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+
 
 --
 -- Dumping data for table `homes`
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `itemid` int(10) unsigned NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+
 
 --
 -- Dumping data for table `items`
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `kits` (
   `group` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+
 
 --
 -- Dumping data for table `kits`
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `ip` VARCHAR(128) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+
 
 --
 -- Table structure for table `warps`
@@ -224,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `warps` (
   `group` VARCHAR(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+
 
 --
 -- Dumping data for table `warps`
@@ -260,14 +260,14 @@ CREATE TABLE IF NOT EXISTS `reservelist` (
 --
 
 CREATE TABLE IF NOT EXISTS `antixrayblocks` (
-  `antixrayblocks` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`antixrayblocks`)
+  `blockid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`blockid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+
 
 LOCK TABLES `antixrayblocks` WRITE;
 /*!40000 ALTER TABLE `antixrayblocks` DISABLE KEYS */;
-INSERT INTO `blockid` VALUES 
+INSERT INTO `antixrayblocks` VALUES 
 (14),(15),(16),(21),(56),(73);
 /*!40000 ALTER TABLE `antixrayblocks` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -277,14 +277,14 @@ UNLOCK TABLES;
 --
 
 CREATE TABLE IF NOT EXISTS `enderblocks` (
-  `enderblocks` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`enderblocks`)
+  `blockid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`blockid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+
 
 LOCK TABLES `enderblocks` WRITE;
 /*!40000 ALTER TABLE `enderblocks` DISABLE KEYS */;
-INSERT INTO `blockid` VALUES 
+INSERT INTO `enderblocks` VALUES 
 (1),(2),(3),(4),(5),(12),(13),(14),(15),(16),(17),
 (18),(19),(20),(21),(22),(24),(35),(37),(38),(39),
 (40),(41),(42),(45),(46),(47),(48),(56),(57),(58),
