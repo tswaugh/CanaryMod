@@ -1,9 +1,9 @@
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
 
 public class OExplosion {
 
@@ -26,23 +26,21 @@ public class OExplosion {
         this.b = var3;
         this.c = var5;
         this.d = var7;
-		this.g = new HashSet();
+        this.g = new HashSet();
         this.toRet = false;
     }
 
     public void a() {
         // CanaryMod: allow explosion
         Block block = new Block(i.world, i.a((int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d)), (int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d));
-        if(this.e == null){
+        if (this.e == null) {
             block.setStatus(1);
-        }
-        else if(this.e instanceof OEntityCreeper){
+        } else if (this.e instanceof OEntityCreeper) {
             block.setStatus(2);
-        }
-        else if(this.e instanceof OEntityFireball){
+        } else if (this.e instanceof OEntityFireball) {
             block.setStatus(3);
         }
-		
+
         float var1 = this.f;
         byte var2 = 16;
 
@@ -93,7 +91,7 @@ public class OExplosion {
                 }
             }
         }
-        
+
         this.toRet = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g);
         this.f *= 2.0F;
         var3 = OMathHelper.b(this.b - (double) this.f - 1.0D);
@@ -120,7 +118,7 @@ public class OExplosion {
                 var19 /= var35;
                 double var37 = (double) this.i.a(var30, var32.bw);
                 double var39 = (1.0D - var33) * var37;
-                
+
                 // CanaryMod Damage hook: Explosions
                 int damage = (int) ((var39 * var39 + var39) / 2.0D * 8.0D * f + 1.0D);
                 PluginLoader.DamageType dmgType = (e instanceof OEntityCreeper) ? PluginLoader.DamageType.CREEPER_EXPLOSION : PluginLoader.DamageType.EXPLOSION;
@@ -146,11 +144,11 @@ public class OExplosion {
         ArrayList var2 = new ArrayList();
 
         var2.addAll(this.g);
-		if(this.toRet){
+        if (this.toRet) {
             this.g = new HashSet();
             return;
         }
-		
+
         int var3;
         OChunkPosition var4;
         int var5;
@@ -209,8 +207,8 @@ public class OExplosion {
         }
 
     }
-    
-    public boolean getRet(){
+
+    public boolean getRet() {
         return this.toRet;
     }
 }
