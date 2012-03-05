@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
 import net.minecraft.server.MinecraftServer;
 
 
@@ -92,10 +93,10 @@ public class PlayerCommands {
     }
 
     @Command
-    public static final BaseCommand help = new BaseCommand("[Page|Pattern] - Shows a list of commands. 7 per page.") {
+    public static final BaseCommand help = new BaseCommand("<Page|Pattern> - Shows a list of commands. 7 per page.") {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             // Meh, not the greatest way, but not the worst either.
             List<String> availableCommands = new ArrayList<String>();
 
@@ -112,11 +113,11 @@ public class PlayerCommands {
                 }
             }
 
-            caller.notify(Colors.Blue + "Available commands (" + (split.length > 1 ? (split[1].matches("\\d+") ? "Page " + split[1] + " of " + (int) ((double) availableCommands.size() / (double) 7 + 1) : "Matching " + etc.combineSplit(1, split, " ")) : "Page 1 of " + (int) ((double) availableCommands.size() / (double) 7 + 1)) + ") [] = required <> = optional:");
-            if (split.length > 1) {
-                if (split[1].matches("\\d+")) {
+            caller.notify(Colors.Blue + "Available commands (" + (args.length > 1 ? (args[1].matches("\\d+") ? "Page " + args[1] + " of " + (int) ((double) availableCommands.size() / (double) 7 + 1) : "Matching " + etc.combineSplit(1, args, " ")) : "Page 1 of " + (int) ((double) availableCommands.size() / (double) 7 + 1)) + ") [] = required <> = optional:");
+            if (args.length > 1) {
+                if (args[1].matches("\\d+")) {
                     try {
-                        int amount = Integer.parseInt(split[1]);
+                        int amount = Integer.parseInt(args[1]);
 
                         if (amount > 0) {
                             amount = (amount - 1) * 7;
@@ -135,7 +136,7 @@ public class PlayerCommands {
                 } else {
                     try {
                         int count = 0;
-                        Pattern p = Pattern.compile(etc.combineSplit(1, split, " "));
+                        Pattern p = Pattern.compile(etc.combineSplit(1, args, " "));
 
                         for (String command : availableCommands) {
                             if (p.matcher(command).find()) {
@@ -163,11 +164,11 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand mute = new BaseCommand("[Player] - Mutes the player", "Correct usage is: /mute [player]", 2, 2) {
+    public static final BaseCommand mute = new BaseCommand("<Player> - Mutes the player", "Correct usage is: /mute <player>", 2, 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
-            Player player = etc.getServer().matchPlayer(split[1]);
+        void execute(MessageReceiver caller, String[] args) {
+            Player player = etc.getServer().matchPlayer(args[1]);
 
             if (player != null) {
                 if (player.toggleMute()) {
@@ -180,21 +181,21 @@ public class PlayerCommands {
                     caller.notify("Player was unmuted");
                 }
             } else {
-                caller.notify("Can't find player " + split[1]);
+                caller.notify("Can't find player " + args[1]);
             }
         }
     };
     @Command({ "tell", "msg", "m" })
-    public static final BaseCommand tell = new BaseCommand("[Player] [Message] - Sends a message to player", "Correct usage is: /msg [player] [message]", 3) {
+    public static final BaseCommand tell = new BaseCommand("<Player> <Message> - Sends a message to player", "Correct usage is: /msg <player> <message>", 3) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if ((caller instanceof Player) && ((Player) caller).isMuted()) {
                 caller.notify("You are currently muted.");
                 return;
             }
 
-            Player player = etc.getServer().matchPlayer(split[1]);
+            Player player = etc.getServer().matchPlayer(args[1]);
 
             if (player != null) {
                 if (player.getName().equals(caller.getName())) {
@@ -202,32 +203,32 @@ public class PlayerCommands {
                     return;
                 }
 
-                player.sendMessage("(MSG) " + (caller instanceof Player ? ((Player) caller).getColor() : "") + "<" + caller.getName() + "> " + Colors.White + etc.combineSplit(2, split, " "));
-                caller.notify(Colors.White + "(MSG) " +  "<" + (caller instanceof Player ? ((Player) caller).getColor() : "") +  caller.getName() + Colors.White + "> " + Colors.White + etc.combineSplit(2, split, " "));
+                player.sendMessage("(MSG) " + (caller instanceof Player ? ((Player) caller).getColor() : "") + "<" + caller.getName() + "> " + Colors.White + etc.combineSplit(2, args, " "));
+                caller.notify(Colors.White + "(MSG) " + "<" + (caller instanceof Player ? ((Player) caller).getColor() : "") + caller.getName() + Colors.White + "> " + Colors.White + etc.combineSplit(2, args, " "));
             } else {
-                caller.notify("Couldn't find player " + split[1]);
+                caller.notify("Couldn't find player " + args[1]);
             }
         }
     };
     @Command
-    public static final BaseCommand kit = new BaseCommand("[Kit] - Gives a kit. To get a list of kits type /kit", "Available kits (overridden)", 2, 3) {
+    public static final BaseCommand kit = new BaseCommand("<Kit> - Gives a kit. To get a list of kits type /kit", "Available kits (overridden)", 2, 3) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
             Player toGive = (Player) caller;
 
-            if (split.length > 2) {
+            if (args.length > 2) {
                 if (caller instanceof Player && !((Player) caller).canIgnoreRestrictions()) {
-                    onBadSyntax(caller, split);
+                    onBadSyntax(caller, args);
                 } else {
-                    toGive = etc.getServer().matchPlayer(split[2]);
+                    toGive = etc.getServer().matchPlayer(args[2]);
                 }
             }
 
-            Kit kit = etc.getDataSource().getKit(split[1]);
+            Kit kit = etc.getDataSource().getKit(args[1]);
 
             if (toGive != null) {
                 if (kit != null) {
@@ -275,25 +276,25 @@ public class PlayerCommands {
         }
 
         @Override
-        public void onBadSyntax(MessageReceiver caller, String[] parameters) {
+        public void onBadSyntax(MessageReceiver caller, String[] args) {
             if (caller instanceof Player) {
                 caller.notify("Available kits" + Colors.White + ": " + etc.getDataSource().getKitNames((Player) caller));
             }
         }
     };
     @Command
-    public static final BaseCommand tp = new BaseCommand("[Player] - Teleports to player.", "Correct usage is: /tp [player]", 2) {
+    public static final BaseCommand tp = new BaseCommand("<Player> - Teleports to player.", "Correct usage is: /tp <player>", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
 
-            Player player = etc.getServer().matchPlayer(split[1]);
+            Player player = etc.getServer().matchPlayer(args[1]);
 
             if (player == null) {
-                caller.notify("Can't find user " + split[1] + ".");
+                caller.notify("Can't find user " + args[1] + ".");
                 return;
             }
             if (player.getWorld().getType() != ((Player) caller).getWorld().getType() && !((Player) caller).canIgnoreRestrictions()) {
@@ -310,18 +311,18 @@ public class PlayerCommands {
         }
     };
     @Command({ "tphere", "s" })
-    public static final BaseCommand tphere = new BaseCommand("[Player] - Teleports the player to you", "Correct usage is: /tphere [player]", 2) {
+    public static final BaseCommand tphere = new BaseCommand("<Player> - Teleports the player to you", "Correct usage is: /tphere <player>", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
 
-            Player player = etc.getServer().matchPlayer(split[1]);
+            Player player = etc.getServer().matchPlayer(args[1]);
 
             if (player == null) {
-                caller.notify("Can't find user " + split[1] + ".");
+                caller.notify("Can't find user " + args[1] + ".");
                 return;
             }
 
@@ -341,15 +342,15 @@ public class PlayerCommands {
     public static final BaseCommand playerlist = new BaseCommand("- Shows a list of players") {
 
         @Override
-        void execute(MessageReceiver caller, String[] parameters) {
+        void execute(MessageReceiver caller, String[] args) {
             caller.notify("Player list (" + etc.getServer().getPlayerList().size() + "/" + etc.getInstance().getPlayerLimit() + "): " + Colors.White + etc.getServer().getPlayerNames());
         }
     };
     @Command({ "item", "i", "give" })
-    public static final BaseCommand item = new BaseCommand("[ID] <Amount> <Damage> <Player> - Gives items", "Correct usage is: /item [itemid] <amount> <damage> <player>", 2, 5) {
+    public static final BaseCommand item = new BaseCommand("<ID> [Amount] [Damage] [Player] - Gives items", "Correct usage is: /item <itemid> [amount] [damage] [player]", 2, 5) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -358,15 +359,15 @@ public class PlayerCommands {
             int itemId = 0, amount = 1, damage = 0;
 
             try {
-                if (split.length > 1) {
-                    if (split[1].matches("\\d+")) {
-                        itemId = Integer.parseInt(split[1]);
+                if (args.length > 1) {
+                    if (args[1].matches("\\d+")) {
+                        itemId = Integer.parseInt(args[1]);
                     } else {
-                        itemId = etc.getDataSource().getItem(split[1]);
+                        itemId = etc.getDataSource().getItem(args[1]);
                     }
                 }
-                if (split.length > 2) {
-                    amount = Integer.parseInt(split[2]);
+                if (args.length > 2) {
+                    amount = Integer.parseInt(args[2]);
                     if (amount <= 0 && !player.isAdmin()) {
                         amount = 1;
                     }
@@ -378,26 +379,26 @@ public class PlayerCommands {
                         amount = 1024;
                     }
                 }
-                if (split.length == 4) {
+                if (args.length == 4) {
                     int temp = -1;
 
-                    if (split[3].matches("\\d+")) {
-                        temp = Integer.parseInt(split[3]);
+                    if (args[3].matches("\\d+")) {
+                        temp = Integer.parseInt(args[3]);
                     } else if (player.canIgnoreRestrictions()) {
-                        toGive = etc.getServer().matchPlayer(split[3]);
+                        toGive = etc.getServer().matchPlayer(args[3]);
                     }
                     if (temp > -1 && temp < 201) {
                     	damage = temp;
                     }
-                } else if (split.length == 5) {
-                    damage = Integer.parseInt(split[3]);
+                } else if (args.length == 5) {
+                    damage = Integer.parseInt(args[3]);
                     if (itemId == 383)
                     	System.out.println("ItemID: "+itemId);
                    	if (damage < 0 || damage > 200) {
                    		damage = 0;
                    	}
                     if (player.canIgnoreRestrictions()) {
-                        toGive = etc.getServer().matchPlayer(split[4]);
+                        toGive = etc.getServer().matchPlayer(args[4]);
                     }
                 }
 
@@ -462,27 +463,27 @@ public class PlayerCommands {
                         caller.notify("You are not allowed to spawn that item.");
                     }
                 } else {
-                    caller.notify("No item with ID " + split[1]);
+                    caller.notify("No item with ID " + args[1]);
                 }
 
             } else {
-                caller.notify("Can't find user " + split[3]);
+                caller.notify("Can't find user " + args[3]);
             }
         }
     };
     @Command({ "cloth", "dye" })
-    public static final BaseCommand clothdye = new BaseCommand("[Color] [Amount] - Gives you the specified dye/cloth", "Overridden", 2) {
+    public static final BaseCommand clothdye = new BaseCommand("<Color> <Amount> - Gives you the specified dye/cloth", "Overridden", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             try {
-                String color = split[1];
+                String color = args[1];
 
                 int amountIndex = 2;
 
-                if (split.length > 2 && !split[2].matches("\\d+")) {
+                if (args.length > 2 && !args[2].matches("\\d+")) {
                     amountIndex = 3;
-                    color += " " + split[2];
+                    color += " " + args[2];
                 }
 
                 Cloth.Color c = Cloth.Color.getColor(color);
@@ -495,8 +496,8 @@ public class PlayerCommands {
 
                 int amount = 1;
 
-                if (split.length > amountIndex) {
-                    amount = Integer.parseInt(split[amountIndex]);
+                if (args.length > amountIndex) {
+                    amount = Integer.parseInt(args[amountIndex]);
                     if (amount <= 0 && ((caller instanceof Player) && !((Player) caller).isAdmin())) {
                         amount = 1;
                     }
@@ -511,14 +512,14 @@ public class PlayerCommands {
 
                 // If caller is not a Player and no player specified, bail (We
                 // can't go giving items to non-players, can we?)
-                if (!(caller instanceof Player) && split.length < amountIndex + 2) {
+                if (!(caller instanceof Player) && args.length < amountIndex + 2) {
                     return;
                 }
 
                 Player toGive = (Player) caller;
 
-                if ((!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions()) && split.length > amountIndex + 2) {
-                    toGive = etc.getServer().matchPlayer(split[amountIndex + 1]);
+                if ((!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions()) && args.length > amountIndex + 2) {
+                    toGive = etc.getServer().matchPlayer(args[amountIndex + 1]);
                 }
 
                 if (toGive == null) {
@@ -526,7 +527,7 @@ public class PlayerCommands {
                     return;
                 }
 
-                if (split[0].equalsIgnoreCase("/dye")) {
+                if (args[0].equalsIgnoreCase("/dye")) {
                     i.setType(Item.Type.InkSack);
                     // some1 had fun inverting this i guess .....
                     i.setDamage(15 - i.getDamage());
@@ -578,17 +579,17 @@ public class PlayerCommands {
         }
 
         @Override
-        public void onBadSyntax(MessageReceiver caller, String[] parameters) {
+        public void onBadSyntax(MessageReceiver caller, String[] args) {
             if (caller instanceof Player && !((Player) caller).canIgnoreRestrictions()) {
-                caller.notify("Correct usage is: " + parameters[0] + " [color] [amount]");
+                caller.notify("Correct usage is: " + args[0] + " <color> <amount>");
             } else {
-                caller.notify("Correct usage is: " + parameters[0] + " [color] [amount] <player> (Optional)");
+                caller.notify("Correct usage is: " + args[0] + " <color> <amount> [player]");
             }
         }
     };
     
     @Command({ "me", "emote" })
-    public static final BaseCommand me = new BaseCommand("[Message] - * hey0 says hi!") {
+    public static final BaseCommand me = new BaseCommand("<Message> - * hey0 says hi!") {
 
         @Override
         void execute(MessageReceiver caller, String[] split) {
@@ -609,15 +610,15 @@ public class PlayerCommands {
     public static final BaseCommand sethome = new BaseCommand("- Sets your home") {
 
         @Override
-        void execute(MessageReceiver caller, String[] parameters) {
-            if (!(caller instanceof Player) && parameters.length < 2) {
+        void execute(MessageReceiver caller, String[] args) {
+            if (!(caller instanceof Player) && args.length < 2) {
                 return;
             }
 
             Player player;
 
-            if (parameters.length == 2 && (!(caller instanceof Player) || ((Player) caller).isAdmin())) {
-                player = etc.getServer().matchPlayer(parameters[1]);
+            if (args.length == 2 && (!(caller instanceof Player) || ((Player) caller).isAdmin())) {
+                player = etc.getServer().matchPlayer(args[1]);
             } else {
                 player = (Player) caller;
             }
@@ -654,15 +655,15 @@ public class PlayerCommands {
     public static final BaseCommand spawn = new BaseCommand("- Teleports you to spawn") {
 
         @Override
-        void execute(MessageReceiver caller, String[] parameters) {
-            if (!(caller instanceof Player) && parameters.length < 2) {
+        void execute(MessageReceiver caller, String[] args) {
+            if (!(caller instanceof Player) && args.length < 2) {
                 return;
             }
 
             Player toMove;
 
-            if (parameters.length == 2 && (!(caller instanceof Player) || ((Player) caller).isAdmin())) {
-                toMove = etc.getServer().matchPlayer(parameters[1]);
+            if (args.length == 2 && (!(caller instanceof Player) || ((Player) caller).isAdmin())) {
+                toMove = etc.getServer().matchPlayer(args[1]);
             } else {
                 toMove = (Player) caller;
             }
@@ -689,15 +690,15 @@ public class PlayerCommands {
     public static final BaseCommand setspawn = new BaseCommand("- Sets the spawn point to your position.") {
 
         @Override
-        void execute(MessageReceiver caller, String[] parameters) {
-            if (!(caller instanceof Player) && parameters.length < 2) {
+        void execute(MessageReceiver caller, String[] args) {
+            if (!(caller instanceof Player) && args.length < 2) {
                 return;
             }
 
             Player player;
 
-            if (parameters.length == 2 && (!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions())) {
-                player = etc.getServer().matchPlayer(parameters[1]);
+            if (args.length == 2 && (!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions())) {
+                player = etc.getServer().matchPlayer(args[1]);
             } else {
                 player = (Player) caller;
             }
@@ -728,7 +729,7 @@ public class PlayerCommands {
     public static final BaseCommand home = new BaseCommand("- Teleports you home") {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -736,8 +737,8 @@ public class PlayerCommands {
 
             Warp home;
 
-            if (split.length > 1 && ((Player) caller).isAdmin()) {
-                home = etc.getDataSource().getHome(split[1]);
+            if (args.length > 1 && ((Player) caller).isAdmin()) {
+                home = etc.getDataSource().getHome(args[1]);
             } else {
                 home = etc.getDataSource().getHome(caller.getName());
             }
@@ -754,7 +755,7 @@ public class PlayerCommands {
 
             if (home != null) {
                 player.teleportTo(home.Location);
-            } else if (split.length > 1 && player.isAdmin()) {
+            } else if (args.length > 1 && player.isAdmin()) {
                 caller.notify("That player home does not exist");
             } else {
                 player.teleportTo(player.getWorld().getSpawnLocation());
@@ -763,18 +764,18 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand warp = new BaseCommand("[Warp] - Warps to the specified warp.", "Correct usage is: /warp [warpname]", 2, 3) {
+    public static final BaseCommand warp = new BaseCommand("<Warp> - Warps to the specified warp.", "Correct usage is: /warp <warpname>", 2, 3) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             Player toWarp;
-            Warp warp = etc.getDataSource().getWarp(split[1]);
+            Warp warp = etc.getDataSource().getWarp(args[1]);
 
-            if (split.length == 3) {
+            if (args.length == 3) {
                 if (!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions()) {
-                    toWarp = etc.getServer().matchPlayer(split[2]);
+                    toWarp = etc.getServer().matchPlayer(args[2]);
                 } else { {
-                        onBadSyntax(caller, split);
+                        onBadSyntax(caller, args);
                         return;
                     }
                 }
@@ -814,7 +815,7 @@ public class PlayerCommands {
     public static final BaseCommand listwarps = new BaseCommand("- Gives a list of available warps") {
 
         @Override
-        void execute(MessageReceiver caller, String[] parameters) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -831,42 +832,42 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand setwarp = new BaseCommand("[Warp] - Sets the warp to your current position.", "Overridden", 2) {
+    public static final BaseCommand setwarp = new BaseCommand("<Warp> - Sets the warp to your current position.", "Overridden", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
 
             Warp warp = new Warp();
 
-            warp.Name = split[1];
+            warp.Name = args[1];
             warp.Location = ((Player) caller).getLocation();
-            if (split.length == 3) {
-                warp.Group = split[2];
+            if (args.length == 3) {
+                warp.Group = args[2];
             } else {
                 warp.Group = "";
             }
             etc.getInstance().setWarp(warp);
-            caller.notify("Created warp point " + split[1] + ".");
+            caller.notify("Created warp point " + args[1] + ".");
         }
 
         @Override
-        public void onBadSyntax(MessageReceiver caller, String[] parameters) {
+        public void onBadSyntax(MessageReceiver caller, String[] args) {
             if (caller instanceof Player && ((Player) caller).canIgnoreRestrictions()) {
-                caller.notify("Correct usage is: /setwarp [warpname] [group]");
+                caller.notify("Correct usage is: /setwarp <warpname> [group]");
             } else {
-                caller.notify("Correct usage is: /setwarp [warpname]");
+                caller.notify("Correct usage is: /setwarp <warpname>");
             }
         }
     };
     @Command
-    public static final BaseCommand removewarp = new BaseCommand("[Warp] - Removes the specified warp.", "Correct usage is: /removewarp [warpname]", 2) {
+    public static final BaseCommand removewarp = new BaseCommand("<Warp> - Removes the specified warp.", "Correct usage is: /removewarp <warpname>", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
-            Warp warp = etc.getDataSource().getWarp(split[1]);
+        void execute(MessageReceiver caller, String[] args) {
+            Warp warp = etc.getDataSource().getWarp(args[1]);
 
             if (warp != null) {
                 etc.getDataSource().removeWarp(warp);
@@ -877,10 +878,10 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand time = new BaseCommand("[time|'day|night|check|raw'] (rawtime) - Changes or checks the time", "Correct usage is: /time [time|'day|night|check|raw'] (rawtime)", 2, 3) {
+    public static final BaseCommand time = new BaseCommand("<day|night|check|raw> (rawtime) - Changes or checks the time", "Correct usage is: /time <day|night|check|raw> (rawtime)", 2, 3) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             World world;
 
             if (caller instanceof Player) {
@@ -889,21 +890,21 @@ public class PlayerCommands {
                 world = etc.getServer().getDefaultWorld();
             }
 
-            if (split.length == 2) {
-                if (split[1].equalsIgnoreCase("day")) {
+            if (args.length == 2) {
+                if (args[1].equalsIgnoreCase("day")) {
                     world.setRelativeTime(0);
-                } else if (split[1].equalsIgnoreCase("night")) {
+                } else if (args[1].equalsIgnoreCase("night")) {
                     world.setRelativeTime(13000);
-                } else if (split[1].equalsIgnoreCase("check")) {
+                } else if (args[1].equalsIgnoreCase("check")) {
                     caller.notify("The time is " + world.getRelativeTime() + "! (RAW: " + world.getTime() + ")");
-                } else if (split[1].matches("\\d+")) {
-                    world.setRelativeTime(Long.parseLong(split[1]));
+                } else if (args[1].matches("\\d+")) {
+                    world.setRelativeTime(Long.parseLong(args[1]));
                 } else {
                     caller.notify("Please enter numbers, not letters.");
                 }
-            } else if (split[1].equalsIgnoreCase("raw")) {
-                if (split[2].matches("\\d+")) {
-                    world.setTime(Long.parseLong(split[2]));
+            } else if (args[1].equalsIgnoreCase("raw")) {
+                if (args[2].matches("\\d+")) {
+                    world.setTime(Long.parseLong(args[2]));
                 } else {
                     caller.notify("Please enter numbers, not letters.");
                 }
@@ -914,19 +915,19 @@ public class PlayerCommands {
     public static final BaseCommand mode = new BaseCommand("- Changes your gamemode") {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
-            if (split.length == 3 && ((Player) caller).isAdmin()) {
-                Player player = etc.getServer().matchPlayer(split[2]);
+            if (args.length == 3 && ((Player) caller).isAdmin()) {
+                Player player = etc.getServer().matchPlayer(args[2]);
 
                 if (player == null) {
-                    caller.notify("Can't find user " + split[2] + ".");
+                    caller.notify("Can't find user " + args[2] + ".");
                     return;
                 } else {
                     try {
-                        int mode = Integer.parseInt(split[1]);
+                        int mode = Integer.parseInt(args[1]);
 
                         mode = OWorldSettings.a(mode);
                         if (player.getCreativeMode() != mode && !player.getMode()) {
@@ -936,14 +937,14 @@ public class PlayerCommands {
                             caller.notify(player.getName() + " already has game mode " + mode);
                         }
                     } catch (NumberFormatException var11) {
-                        caller.notify("There\'s no game mode with id " + split[1]);
+                        caller.notify("There\'s no game mode with id " + args[1]);
                     }
                 }
-            } else if (split.length == 2) {
+            } else if (args.length == 2) {
                 if (caller instanceof Player) {
                     try {
                         Player player = ((Player) caller);
-                        int mode = Integer.parseInt(split[1]);
+                        int mode = Integer.parseInt(args[1]);
 
                         mode = OWorldSettings.a(mode);
                         if (player.getCreativeMode() != mode) {
@@ -953,7 +954,7 @@ public class PlayerCommands {
                             caller.notify("Your game mode is already " + mode);
                         }
                     } catch (NumberFormatException var11) {
-                        caller.notify("There\'s no game mode with id " + split[1]);
+                        caller.notify("There\'s no game mode with id " + args[1]);
                     }
                 }
             } else {
@@ -967,7 +968,7 @@ public class PlayerCommands {
     public static final BaseCommand getpos = new BaseCommand("- Displays your current position.") {
 
         @Override
-        void execute(MessageReceiver caller, String[] parameters) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -988,7 +989,7 @@ public class PlayerCommands {
     public static final BaseCommand compass = new BaseCommand("- Gives you a compass reading.") {
 
         @Override
-        void execute(MessageReceiver caller, String[] parameters) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -1006,21 +1007,21 @@ public class PlayerCommands {
     public static final BaseCommand motd = new BaseCommand("- Displays the MOTD") {
 
         @Override
-        void execute(MessageReceiver caller, String[] parameters) {
+        void execute(MessageReceiver caller, String[] args) {
             etc.getInstance().getMotd(caller);
         }
     };
     @Command
-    public static final BaseCommand spawnmob = new BaseCommand("[Name] <Amount> - Spawns a mob at the looked-at position", "Correct usage is: /spawnmob [name] <amount>", 2) {
+    public static final BaseCommand spawnmob = new BaseCommand("<Name> [Amount] - Spawns a mob at the looked-at position", "Correct usage is: /spawnmob <name> [amount]", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
             Player p = (Player) caller;
 
-            if (!Mob.isValid(split[1])) {
+            if (!Mob.isValid(args[1])) {
                 caller.notify("Invalid mob. Name has to start with a capital like so: Pig");
                 return;
             }
@@ -1034,39 +1035,39 @@ public class PlayerCommands {
                 loc = new Location(t.getX() + .5D, t.getY() + 1.5D, t.getZ() + .5D);
             }
 
-            if (split.length == 2) {
-                Mob mob = new Mob(split[1], loc);
+            if (args.length == 2) {
+                Mob mob = new Mob(args[1], loc);
 
                 mob.spawn();
-            } else if (split.length == 3) {
-                if (split[2].matches("\\d+")) {
-                    int mobnumber = Integer.parseInt(split[2]);
+            } else if (args.length == 3) {
+                if (args[2].matches("\\d+")) {
+                    int mobnumber = Integer.parseInt(args[2]);
 
                     for (int i = 0; i < mobnumber; i++) {
-                        Mob mob = new Mob(split[1], loc);
+                        Mob mob = new Mob(args[1], loc);
 
                         mob.spawn();
                     }
-                } else if (!Mob.isValid(split[2])) {
+                } else if (!Mob.isValid(args[2])) {
                     caller.notify("Invalid mob name or number of mobs.");
                     caller.notify("Mob names have to start with a capital like so: Pig");
                 } else { {
-                        Mob mob = new Mob(split[1], loc);
+                        Mob mob = new Mob(args[1], loc);
 
-                        mob.spawn(new Mob(split[2]));
+                        mob.spawn(new Mob(args[2]));
                     }
                 }
-            } else if (split.length == 4) {
+            } else if (args.length == 4) {
                 try {
-                    int mobnumber = Integer.parseInt(split[3]);
+                    int mobnumber = Integer.parseInt(args[3]);
 
-                    if (!Mob.isValid(split[2])) {
+                    if (!Mob.isValid(args[2])) {
                         caller.notify("Invalid rider. Name has to start with a capital like so: Pig");
                     } else {
                         for (int i = 0; i < mobnumber; i++) {
-                            Mob mob = new Mob(split[1], loc);
+                            Mob mob = new Mob(args[1], loc);
 
-                            mob.spawn(new Mob(split[2]));
+                            mob.spawn(new Mob(args[2]));
                         }
                     }
                 } catch (NumberFormatException nfe) {
@@ -1079,13 +1080,13 @@ public class PlayerCommands {
     public static final BaseCommand clearinventory = new BaseCommand("- Clears your inventory") {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
 
             Player target;
 
-            if (split.length >= 2) {
+            if (args.length >= 2) {
                 if (!(caller instanceof Player) || ((Player) caller).isAdmin()) {
-                    target = etc.getServer().matchPlayer(split[1]);
+                    target = etc.getServer().matchPlayer(args[1]);
                 } else {
                     return;
                 }
@@ -1104,9 +1105,9 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand mspawn = new BaseCommand("[Mob] - Change the looked at mob spawner's mob", "Correct usage is: /mspawn <name>.", 1, 2) {
+    public static final BaseCommand mspawn = new BaseCommand("<Mob> - Change the looked at mob spawner's mob", "Correct usage is: /mspawn <name>.", 1, 2) {
 
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -1118,14 +1119,15 @@ public class PlayerCommands {
                 MobSpawner ms = (MobSpawner) ((Player) caller).getWorld().getComplexBlock(block.getX(), block.getY(), block.getZ());
 
                 if (ms != null) {
-                    if (split.length == 1) {
+                    if (args.length == 1) {
                         caller.notify(String.format("You are targeting a mob spawner of: %s", ms.getSpawn()));
                     } else {
-                        if (!Mob.isValid(split[1])) {
-                            caller.notify(String.format("%s is not a valid mob name.", split[1]));
+                        if (!Mob.isValid(args[1])) {
+                            caller.notify(String.format("%s is not a valid mob name.", args[1]));
                             return;
                         } else {
-                            ms.setSpawn(split[1]);
+                            ms.setSpawn(args[1]);
+                            caller.notify("Mob spawner set to " + args[1]);
                         }
                     }
                 }
@@ -1139,24 +1141,24 @@ public class PlayerCommands {
     public static final BaseCommand weather = new BaseCommand("<on|off>", "Usage: /weather <on|off>", 1, 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
             Player player = (Player) caller;
             World world = player.getWorld();
 
-            if (split.length == 1) {
+            if (args.length == 1) {
                 world.setRaining(!world.isRaining());
                 caller.notify("Weather toggled.");
-            } else if (split[1].equalsIgnoreCase("on")) {
+            } else if (args[1].equalsIgnoreCase("on")) {
                 world.setRaining(true);
                 caller.notify(Colors.Yellow + "Weather turned on.");
-            } else if (split[1].equalsIgnoreCase("off")) {
+            } else if (args[1].equalsIgnoreCase("off")) {
                 world.setRaining(false);
                 caller.notify(Colors.Yellow + "Weather turned off.");
             } else {
-                onBadSyntax(caller, split);
+                onBadSyntax(caller, args);
             }
 
         }
@@ -1165,57 +1167,96 @@ public class PlayerCommands {
     public static final BaseCommand thunder = new BaseCommand("<on|off>", "Usage: /thunder <on|off>", 1, 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
             Player player = (Player) caller;
             World world = player.getWorld();
 
-            if (split.length == 1) {
+            if (args.length == 1) {
                 world.setThundering(!world.isThundering());
                 caller.notify("Thunder toggled.");
-            } else if (split[1].equalsIgnoreCase("on")) {
+            } else if (args[1].equalsIgnoreCase("on")) {
                 world.setThundering(true);
                 caller.notify(Colors.Yellow + "Thunder turned on.");
-            } else if (split[1].equalsIgnoreCase("off")) {
+            } else if (args[1].equalsIgnoreCase("off")) {
                 world.setThundering(false);
                 caller.notify(Colors.Yellow + "Thunder turned off.");
             } else {
-                onBadSyntax(caller, split);
+                onBadSyntax(caller, args);
             }
         }
 
     };
     @Command
-    public static final BaseCommand xp = new BaseCommand("[level|total] - XP status", "Usage: /xp level|total", 2, 3) {
+    public static final BaseCommand xp = new BaseCommand("<level|total|add|remove> [Player] <value> - XP status", "Usage: /xp <level|total|add|remove> [Player] <value>", 2, 4) {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
 
             Player player = (Player) caller;
 
-            if (split.length == 3) {
-                Player p = etc.getServer().matchPlayer(split[2]);
+            if (args.length == 3) {
+                if (!args[1].toLowerCase().matches("add|remove")) {
+                    Player p = etc.getServer().matchPlayer(args[2]);
 
-                if (p == null) {
-                    player.notify(split[2] + " does not exist!");
-                    return;
-                } else {
-                    if (split[1].equalsIgnoreCase("level")) {
-                        player.sendMessage(p.getName() + " is level " + Colors.Yellow + p.getLevel());
+                    if (p == null) {
+                        player.notify(args[2] + " does not exist!");
+                        return;
+                    } else {
+                        if (args[1].equalsIgnoreCase("level")) {
+                            player.sendMessage(p.getName() + " is level " + Colors.Yellow + p.getLevel());
+                        }
+                        if (args[1].equalsIgnoreCase("total")) {
+                            player.sendMessage(p.getName() + " has " + Colors.Yellow + p.getXP() + Colors.White + " Total EXP");
+                        }
                     }
-                    if (split[1].equalsIgnoreCase("total")) {
-                        player.sendMessage(p.getName() + " has " + Colors.Yellow + p.getXP() + Colors.White + " Total EXP");
+                } else {
+                    try {
+                        int xp = Integer.parseInt(args[2]);
+                        if (args[1].equalsIgnoreCase("add")) {
+                            player.addXP(xp);
+                            player.notify("XP added!");
+                        }
+ else if (args[1].equalsIgnoreCase("remove")) {
+                            player.removeXP(xp);
+                            player.notify("XP removed!");
+                        }
+                    }
+                    catch (NumberFormatException nfe) {
+                        caller.notify("Please enter numbers, not letters.");
                     }
                 }
-            } else if (split.length == 2) {
-                if (split[1].equalsIgnoreCase("level")) {
+            } else if (args.length == 4) {
+                Player p = etc.getServer().matchPlayer(args[2]);
+
+                if (p == null) {
+                    player.notify(args[2] + " does not exist!");
+                    return;
+                } else {
+                    try {
+                        int xp = Integer.parseInt(args[3]);
+                        if (args[1].equalsIgnoreCase("add")) {
+                            p.addXP(xp);
+                            player.notify("XP added to " + p.getName());
+                        }
+ else if (args[1].equalsIgnoreCase("remove")) {
+                            p.removeXP(xp);
+                            player.notify("XP removed from " + p.getName());
+                        }
+                    }
+                    catch (NumberFormatException nfe) {
+                        caller.notify("Please enter numbers, not letters.");
+                    }
+                }
+            } else if (args.length == 2) {
+                if (args[1].equalsIgnoreCase("level")) {
                     player.sendMessage("You are level " + Colors.Yellow + player.getLevel());
-                } else if (split[1].equalsIgnoreCase("total")) {
+                } else if (args[1].equalsIgnoreCase("total")) {
                     player.sendMessage("You have " + Colors.Yellow + player.getXP() + Colors.White + " Total EXP");
                 }
             }
@@ -1223,24 +1264,24 @@ public class PlayerCommands {
     };
     
     @Command
-    public static final BaseCommand foodlevel = new BaseCommand("[add|remove|set] <Player> <value> - Sets player food level", "Correct usage is: /foodlevel [add|remove|set] <player> <value>", 2, 4) {
+    public static final BaseCommand foodlevel = new BaseCommand("<add|remove|set> [Player] <value> - Sets player food level", "Correct usage is: /foodlevel <add|remove|set> [player] <value>", 2, 4) {
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             Player subject = (Player) caller;
             String command = "add";
             int foodLevel = 20;
 
             try {
-                if (split.length == 4) {
-                    command = split[1];
-                    subject = etc.getServer().matchPlayer(split[2]);
-                    foodLevel = Integer.parseInt(split[3]);
-                } else if (split.length == 3) {
-                    command = split[1];
-                    foodLevel = Integer.parseInt(split[2]);
+                if (args.length == 4) {
+                    command = args[1];
+                    subject = etc.getServer().matchPlayer(args[2]);
+                    foodLevel = Integer.parseInt(args[3]);
+                } else if (args.length == 3) {
+                    command = args[1];
+                    foodLevel = Integer.parseInt(args[2]);
                 }
             } catch (NumberFormatException e) {
-                caller.notify((split.length == 4 ? split[3] : split[2]) + " is not a valid number.");
+                caller.notify((args.length == 4 ? args[3] : args[2]) + " is not a valid number.");
             } catch (Exception e) {
                 caller.notify("Error on /foodlevel command");
                 return;
@@ -1258,7 +1299,7 @@ public class PlayerCommands {
                 subject.setFoodLevel(foodLevel);
                 subject.setFoodExhaustionLevel(1);
             } else {
-                caller.notify("Can't find player " + split[1]);
+                caller.notify("Can't find player " + args[1]);
             }
         }
     };
@@ -1266,12 +1307,12 @@ public class PlayerCommands {
     @Command
     public static final BaseCommand god = new BaseCommand("<Player> - Makes player invulnerable", "Correct usage is: /god <player>", 1, 2) {
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             Player subject = (Player) caller;
             String info = Colors.Yellow + "You are";
 
-            if (split.length == 2) {
-                subject = etc.getServer().matchPlayer(split[1]);
+            if (args.length == 2) {
+                subject = etc.getServer().matchPlayer(args[1]);
                 info = String.format("%s%s is", Colors.Yellow, subject.getName());
             }                       
             if (subject != null) {
@@ -1286,19 +1327,19 @@ public class PlayerCommands {
                     caller.notify(info + " no longer invincible.");
                 }
             } else {
-                caller.notify("Can't find player " + split[1]);
+                caller.notify("Can't find player " + args[1]);
             }
         }
     };
     @Command
-    public static final BaseCommand kill = new BaseCommand("<Player> - Kill the specified player", "Correct usage is: /kill [player]", 1, 2) {
+    public static final BaseCommand kill = new BaseCommand("<Player> - Kill the specified player", "Correct usage is: /kill <player>", 1, 2) {
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             Player killer = (Player) caller;
-            if(split.length == 2) {
-                Player victim = etc.getServer().matchPlayer(split[1]);
+            if (args.length == 2) {
+                Player victim = etc.getServer().matchPlayer(args[1]);
                 if(victim == null) {
-                    killer.notify(split[1] + " could not be found (and therefore he has not been killed)");
+                    killer.notify(args[1] + " could not be found (and therefore he has not been killed)");
                     return;
                 }
                 if(killer.hasControlOver(victim)) {
@@ -1332,10 +1373,10 @@ public class PlayerCommands {
         }
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        void execute(MessageReceiver caller, String[] args) {
             Player subject = null;
-            if (split.length == 2) {
-                subject = etc.getServer().matchPlayer(split[1]);
+            if (args.length == 2) {
+                subject = etc.getServer().matchPlayer(args[1]);
             } else if (caller instanceof Player) {
                 subject = (Player) caller;
             }
@@ -1365,8 +1406,8 @@ public class PlayerCommands {
                 } else {
                     sendData(caller, "Home: ", "Not set");
                 }
-            } else if (split.length == 2) {
-                caller.notify(Colors.Yellow + "Can't find player " + split[1]);
+            } else if (args.length == 2) {
+                caller.notify(Colors.Yellow + "Can't find player " + args[1]);
             }
         }
     };
