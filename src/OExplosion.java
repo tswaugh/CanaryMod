@@ -15,7 +15,7 @@ public class OExplosion {
     public double d;
     public OEntity e;
     public float f;
-    public Set g = new HashSet();
+    public Set g;
     protected boolean toRet;
 
     public OExplosion(OWorld var1, OEntity var2, double var3, double var5, double var7, float var9) {
@@ -26,6 +26,7 @@ public class OExplosion {
         this.b = var3;
         this.c = var5;
         this.d = var7;
+		this.g = new HashSet();
         this.toRet = false;
     }
 
@@ -41,7 +42,7 @@ public class OExplosion {
         else if(this.e instanceof OEntityFireball){
             block.setStatus(3);
         }
-        
+		
         float var1 = this.f;
         byte var2 = 16;
 
@@ -94,7 +95,6 @@ public class OExplosion {
         }
         
         this.toRet = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g);
-
         this.f *= 2.0F;
         var3 = OMathHelper.b(this.b - (double) this.f - 1.0D);
         var4 = OMathHelper.b(this.b + (double) this.f + 1.0D);
@@ -128,7 +128,6 @@ public class OExplosion {
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, null, var32.entity, damage) && !toRet) {
                     var32.a(ODamageSource.l, (int) ((var39 * var39 + var39) / 2.0D * 8.0D * (double) this.f + 1.0D));
                 }
-                
                 var32.bp += var15 * var39;
                 var32.bq += var17 * var39;
                 var32.br += var19 * var39;
@@ -147,7 +146,11 @@ public class OExplosion {
         ArrayList var2 = new ArrayList();
 
         var2.addAll(this.g);
-
+		if(this.toRet){
+            this.g = new HashSet();
+            return;
+        }
+		
         int var3;
         OChunkPosition var4;
         int var5;
