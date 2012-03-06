@@ -41,7 +41,7 @@ public class MySQLSource extends DataSource {
         loadEnderBlocks();
         loadAntiXRayBlocks();
         loadMutedPlayers();
-        // loadBanList();
+        loadBanList();
     }
 
     @Override
@@ -1127,7 +1127,7 @@ public class MySQLSource extends DataSource {
         
         try {
             conn = etc.getConnection();
-            ps = conn.prepareStatement("UPDATE " + table_bans + " SET timeout=? WHERE id=?");
+            ps = conn.prepareStatement("UPDATE " + table_bans + " SET timestamp=? WHERE id=?");
             ps.setInt(1, now);
             ps.setInt(2, ban.getId());
             ps.executeUpdate();
