@@ -503,7 +503,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 return;
             }
 
-            this.e.c.a(this.e, var2, var3);
+            this.e.c.itemUsed(this.e, var2, var3, blockPlaced, blockClicked);
         } else if (var1.b >= this.d.t - 1 && (var1.d == 1 || var1.b >= this.d.t)) {
             this.e.a.b((OPacket) (new OPacket3Chat("\u00a77Height limit for building is " + this.d.t)));
             var4 = true;
@@ -637,7 +637,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     public void a(OPacket18Animation var1) {
         if (var1.b == 1) {
             // CanaryMod: Swing the arm!
-            OEntity.manager.callHook(PluginLoader.Hook.ARM_SWING, getPlayer());
+            if (!this.e.t) { //Only call hook once per actual swing
+                OEntity.manager.callHook(PluginLoader.Hook.ARM_SWING, getPlayer());
+            }
             this.e.D();
         }
 

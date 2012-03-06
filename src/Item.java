@@ -349,6 +349,7 @@ public class Item {
         this.amount = amount;
         damage = 0;
         itemType = Type.fromId(itemId);
+        itemStack = new OItemStack(itemId, amount, damage);
     }
 
     /**
@@ -363,6 +364,7 @@ public class Item {
         this.amount = amount;
         this.slot = slot;
         itemType = Type.fromId(itemId);
+        itemStack = new OItemStack(itemId, amount, damage);
     }
 
     /**
@@ -379,6 +381,7 @@ public class Item {
         this.slot = slot;
         this.damage = damage;
         itemType = Type.fromId(itemId);
+        itemStack = new OItemStack(itemId, amount, damage);
     }
 
     /**
@@ -594,6 +597,53 @@ public class Item {
             return new OItemStack(itemId, amount, damage);
         } else {
             return this.itemStack;
+        }
+    }
+
+    /**
+     * Sets an enchantment on the item
+     * 
+     * @param id
+     * @param lvl
+     */
+    public void addEnchantment(int id, int level) {
+        Enchantment enchantment = new Enchantment(Enchantment.Type.fromId(id), level);
+        if (enchantment.getEnchantment() != null && itemStack != null) {
+            itemStack.a(enchantment.getEnchantment(), enchantment.getLevel());
+        }
+    }
+
+    /**
+     * Sets an enchantment on the item
+     * 
+     * @param type
+     *            the enchantment type
+     * @param level
+     */
+    public void addEnchantment(Enchantment.Type type, int level) {
+        Enchantment enchantment = new Enchantment(type, level);
+        if (enchantment.getEnchantment() != null && itemStack != null) {
+            itemStack.a(enchantment.getEnchantment(), enchantment.getLevel());
+        }
+    }
+
+    /**
+     * Sets an enchantment on the item
+     * 
+     * @param enchantment
+     */
+    public void addEnchantment(Enchantment enchantment) {
+        if (enchantment.getEnchantment() != null && itemStack != null) {
+            itemStack.a(enchantment.getEnchantment(), enchantment.getLevel());
+        }
+    }
+
+    /**
+     * Removes item enchantments
+     */
+    public void removeEnchantment() {
+        if (itemStack != null) {
+            itemStack.d = null;
         }
     }
 
