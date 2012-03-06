@@ -88,10 +88,11 @@ public abstract class OEntityLiving extends OEntity {
     private int q = 0;
     private OEntity r;
     protected int bc = 0;
-    
+
     // CanaryMod Start
     LivingEntity entity = new LivingEntity(this);
     protected MobSpawner spawner = null;
+
     // CanaryMod end
 
     public OEntityLiving(OWorld var1) {
@@ -561,7 +562,7 @@ public abstract class OEntityLiving extends OEntity {
                 return false;
             } else {
                 this.aE = 1.5F;
-                
+
                 // CanaryMod damage entities.
                 LivingEntity attacker = null;
 
@@ -584,7 +585,7 @@ public abstract class OEntityLiving extends OEntity {
                     if (var2 <= this.aU) {
                         return false;
                     }
-                    
+
                     // CanaryMod: partial damage
                     if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENTITY, attacker, entity, var2 - bW)) {
                         return false;
@@ -598,7 +599,7 @@ public abstract class OEntityLiving extends OEntity {
                     if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENTITY, attacker, entity, var2)) {
                         return false;
                     }
-                    
+
                     this.aU = var2;
                     this.aq = this.ap;
                     this.bW = this.S;
@@ -1165,17 +1166,15 @@ public abstract class OEntityLiving extends OEntity {
                 }
             }
 
-            if (this.aV > 600 && this.bS.nextInt(800) == 0 && this.n()) {
-                if(var8 < 1024.0D) {
-                    this.aV = 0;
+            if (this.aV > 600 && this.bS.nextInt(800) == 0 && var8 > 1024.0D && this.n()) {
+                // CanaryMod hook onEntityDespawn
+                if (!(Boolean) OEntityLiving.manager.callHook(PluginLoader.Hook.ENTITY_DESPAWN, this.entity)) {
+                    this.W();
                 } else {
-                    // CanaryMod hook onEntityDespawn
-                    if (!(Boolean) OEntityLiving.manager.callHook(PluginLoader.Hook.ENTITY_DESPAWN, this.entity)) {
-                        this.W();
-                    } else {
-                        this.aV = 0;
-                    }
+                    this.aV = 0;
                 }
+            } else if (var8 < 1024.0D) {
+                this.aV = 0;
             }
         }
 
