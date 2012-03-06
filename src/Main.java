@@ -80,7 +80,7 @@ public class Main {
 
         // This mod works with GUI now :D
         try {
-            net.minecraft.server.MinecraftServer.main(args);
+            OMinecraftServer.main(args);
         } catch (Throwable t) {
             log.log(Level.SEVERE, null, t);
         }

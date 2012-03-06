@@ -2,13 +2,12 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import net.minecraft.server.MinecraftServer;
 
 
 public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public ONetServerHandler a;
-    public MinecraftServer b;
+    public OMinecraftServer b;
     public OItemInWorldManager c;
     public double d;
     public double e;
@@ -27,7 +26,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     // CanaryMod: Player storage
     private Player player;
 
-    public OEntityPlayerMP(MinecraftServer var1, OWorld var2, String var3, OItemInWorldManager var4) {
+    public OEntityPlayerMP(OMinecraftServer var1, OWorld var2, String var3, OItemInWorldManager var4) {
         super(var2);
         var4.b = this;
         this.c = var4;

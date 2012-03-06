@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.minecraft.server.MinecraftServer;
 
 
 /**
@@ -990,7 +989,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     @Deprecated
     public void switchWorlds() {
-        MinecraftServer mcServer = etc.getMCServer();
+        OMinecraftServer mcServer = etc.getMCServer();
         OEntityPlayerMP ent = getEntity();
 
         // Nether is not allowed, so shush
@@ -1019,7 +1018,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param world The id of the world to swith to.
      */
     public void switchWorlds(int world) {
-        MinecraftServer mcServer = etc.getMCServer();
+        OMinecraftServer mcServer = etc.getMCServer();
         OEntityPlayerMP ent = getEntity();
         
         // Nether is not allowed, so shush

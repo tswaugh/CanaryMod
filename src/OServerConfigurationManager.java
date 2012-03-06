@@ -9,14 +9,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-import net.minecraft.server.MinecraftServer;
 
 
 public class OServerConfigurationManager {
 
     public static Logger a = Logger.getLogger("Minecraft");
     public List b = new ArrayList();
-    private MinecraftServer c;
+    private OMinecraftServer c;
     private OPlayerManager[] d = new OPlayerManager[3];
     private int e;
     private Set f = new HashSet();
@@ -31,7 +30,7 @@ public class OServerConfigurationManager {
     private boolean o;
     private int p = 0;
 
-    public OServerConfigurationManager(MinecraftServer var1) {
+    public OServerConfigurationManager(OMinecraftServer var1) {
         // CanaryMod: initialize
         etc.setServer(var1);
         etc.getInstance().loadData();

@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Logger;
 
-import net.minecraft.server.MinecraftServer;
 
 
 public class ONetLoginHandler extends ONetHandler {
@@ -13,13 +12,13 @@ public class ONetLoginHandler extends ONetHandler {
     private static Random d = new Random();
     public ONetworkManager b;
     public boolean c = false;
-    private MinecraftServer e;
+    private OMinecraftServer e;
     private int f = 0;
     private String g = null;
     private OPacket1Login h = null;
     private String i = "";
 
-    public ONetLoginHandler(MinecraftServer var1, Socket var2, String var3) throws IOException {
+    public ONetLoginHandler(OMinecraftServer var1, Socket var2, String var3) throws IOException {
         super();
         this.e = var1;
         this.b = new ONetworkManager(var2, var3, this);

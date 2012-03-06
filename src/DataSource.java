@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.minecraft.server.MinecraftServer;
 
 
 /**
@@ -22,11 +21,11 @@ public abstract class DataSource {
     protected List<Warp>           homes = new ArrayList<Warp>();
     protected List<Warp>           warps = new ArrayList<Warp>();
     protected List<Ban>            bans = new ArrayList<Ban>();
-    protected List<String>			mutedPlayers = new ArrayList<String>();
+    protected List<String>         mutedPlayers = new ArrayList<String>();
     protected Map<String, Integer> items = new HashMap<String, Integer>();
     protected List<Integer>        enderBlocks = new ArrayList<Integer>();
     protected List<Integer>        antiXRayBlocks = new ArrayList<Integer>();
-    protected MinecraftServer      server;
+    protected OMinecraftServer     server;
     protected final Object         groupLock = new Object(), kitLock = new Object(), banLock = new Object(), homeLock = new Object();
     protected final Object         warpLock = new Object(), itemLock = new Object(), enderBlocksLock = new Object(), antiXRayBlocksLock = new Object();
 

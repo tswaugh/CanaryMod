@@ -1,15 +1,14 @@
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
-import net.minecraft.server.MinecraftServer;
 
 
 public class OConsoleCommandHandler {
 
     private static Logger a = Logger.getLogger("Minecraft");
-    private MinecraftServer b;
+    private OMinecraftServer b;
 
-    public OConsoleCommandHandler(MinecraftServer var1) {
+    public OConsoleCommandHandler(OMinecraftServer var1) {
         super();
         this.b = var1;
     }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.minecraft.server.MinecraftServer;
 
 
 public class ONetworkListenThread {
@@ -18,10 +17,10 @@ public class ONetworkListenThread {
     private int f = 0;
     private ArrayList g = new ArrayList();
     private ArrayList h = new ArrayList();
-    public MinecraftServer c;
+    public OMinecraftServer c;
     private HashMap i = new HashMap();
 
-    public ONetworkListenThread(MinecraftServer var1, InetAddress var2, int var3) throws IOException {
+    public ONetworkListenThread(OMinecraftServer var1, InetAddress var2, int var3) throws IOException {
         super();
         this.c = var1;
         this.d = new ServerSocket(var3, 0, var2);
