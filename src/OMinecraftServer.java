@@ -2,12 +2,7 @@ import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,9 +15,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     private int z;
     public ONetworkListenThread c;
     public OPropertyManager d;
-    public OWorldServer[] e;
     public long[] f = new long[100];
-    public long[][] g;
     public OServerConfigurationManager h;
     private OConsoleCommandHandler A;
     private boolean B = true;
@@ -50,6 +43,11 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     public long[] x = new long[100];
     private ORConThreadQuery I;
     private ORConThreadMain J;
+    
+    // CanaryMod start: Multiworld \o/
+    public Map<String, OWorldServer[]> worlds;
+    public Map<String, long[][]> worldTickNanos;
+    // CanaryMod end
 
     public OMinecraftServer() {
         super();
@@ -158,9 +156,15 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
             a.info("Converting map!");
             var1.a(var2, new OConvertProgressUpdater(this));
         }
+        
 
-        this.e = new OWorldServer[3];
-        this.g = new long[this.e.length][100];
+        this.worlds = new HashMap<String, OWorldServer[]>(1);
+        OWorldServer[] toLoad = new OWorldServer[3];
+        this.worlds.put(var2, toLoad);
+        
+        this.worldTickNanos = new HashMap<String, long[][]>(1);
+        this.worldTickNanos.put(var2, new long[toLoad.length][100]);
+
         int var6 = this.d.a("gamemode", 0);
 
         var6 = OWorldSettings.a(var6);
@@ -169,7 +173,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         OWorldSettings var8 = new OWorldSettings(var3, var6, var7, false, var5);
         OAnvilSaveHandler var9 = new OAnvilSaveHandler(new File("."), var2, true);
 
-        for (int var10 = 0; var10 < this.e.length; ++var10) {
+        for (int var10 = 0; var10 < toLoad.length; ++var10) {
             byte var11 = 0;
 
             if (var10 == 1) {
@@ -181,16 +185,16 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
             }
 
             if (var10 == 0) {
-                this.e[var10] = new OWorldServer(this, var9, var2, var11, var8);
+                toLoad[var10] = new OWorldServer(this, var9, var2, var11, var8);
             } else {
-                this.e[var10] = new OWorldServerMulti(this, var9, var2, var11, var8, this.e[0]);
+                toLoad[var10] = new OWorldServerMulti(this, var9, var2, var11, var8, toLoad[0]);
             }
 
-            this.e[var10].a(new OWorldManager(this, this.e[var10]));
-            this.e[var10].q = this.d.a("difficulty", 1);
-            this.e[var10].a(this.d.a("spawn-monsters", true), this.o);
-            this.e[var10].s().d(var6);
-            this.h.a(this.e);
+            toLoad[var10].a(new OWorldManager(this, toLoad[var10]));
+            toLoad[var10].q = this.d.a("difficulty", 1);
+            toLoad[var10].a(this.d.a("spawn-monsters", true), this.o);
+            toLoad[var10].s().d(var6);
+            this.h.a(toLoad);
         }
 
         short var23 = 196;
@@ -198,7 +202,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
 
         for (int var14 = 0; var14 < 1; ++var14) {
             a.info("Preparing start region for level " + var14);
-            OWorldServer var15 = this.e[var14];
+            OWorldServer var15 = toLoad[var14];
             OChunkCoordinates var16 = var15.p();
 
             for (int var17 = -var23; var17 <= var23 && this.B; var17 += 16) {
@@ -240,16 +244,11 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         this.l = 0;
     }
 
-    private void u() {
-        a.info("Saving chunks");
+    private void u(OWorldServer var2) {
+        a.info("Saving chunks for level " + var2.t.g);
 
-        for (int var1 = 0; var1 < this.e.length; ++var1) {
-            OWorldServer var2 = this.e[var1];
-
-            var2.a(true, (OIProgressUpdate) null);
-            var2.A();
-        }
-
+        var2.a(true, (OIProgressUpdate) null);
+        var2.A();
     }
 
     private void v() {
@@ -257,12 +256,16 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         if (this.h != null) {
             this.h.g();
         }
+        
+        for (Map.Entry<String, OWorldServer[]> entrySet : worlds.entrySet()) {
+            a.info("Saving chunks for world " + entrySet.getKey());
+            OWorldServer[] level = entrySet.getValue();
+            for (int var1 = 0; var1 < level.length; ++var1) {
+                OWorldServer var2 = level[var1];
 
-        for (int var1 = 0; var1 < this.e.length; ++var1) {
-            OWorldServer var2 = this.e[var1];
-
-            if (var2 != null) {
-                this.u();
+                if (var2 != null) {
+                    this.u(var2);
+                }
             }
         }
 
@@ -297,7 +300,14 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
 
                         var3 += var7;
                         var1 = var5;
-                        if (this.e[0].v()) {
+                        
+                        // CanaryMod start: multiworld sleeping
+                        boolean allSleeping = true;
+                        for (OWorldServer[] level : this.worlds.values())
+                            allSleeping &= level[0].v();
+                        // CanaryMod end
+                        
+                        if (allSleeping) { // CanaryMod: multiworld sleeping
                             this.w();
                             var3 = 0L;
                         } else {
@@ -449,27 +459,30 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         OVec3D.a();
         ++this.j;
 
-        for (var11 = 0; var11 < this.e.length; ++var11) {
-            long var7 = System.nanoTime();
+        for (Map.Entry<String, OWorldServer[]> entry : this.worlds.entrySet()) {
+            OWorldServer[] level = entry.getValue();
+            for (var11 = 0; var11 < level.length; ++var11) {
+                long var7 = System.nanoTime();
 
-            if (var11 == 0 || this.d.a("allow-nether", true)) {
-                OWorldServer var9 = this.e[var11];
+                if (var11 == 0 || this.d.a("allow-nether", true)) {
+                    OWorldServer var9 = level[var11];
 
-                if (this.j % 20 == 0) {
-                    this.h.a((OPacket) (new OPacket4UpdateTime(var9.o())), var9.t.g);
-                }
+                    if (this.j % 20 == 0) {
+                        this.h.a((OPacket) (new OPacket4UpdateTime(var9.o())), var9.t.g);
+                    }
 
-                var9.h();
+                    var9.h();
 
-                while (true) {
-                    if (!var9.z()) {
-                        var9.f();
-                        break;
+                    while (true) {
+                        if (!var9.z()) {
+                            var9.f();
+                            break;
+                        }
                     }
                 }
-            }
 
-            this.g[var11][this.j % 100] = System.nanoTime() - var7;
+                this.worldTickNanos.get(entry.getKey())[var11][this.j % 100] = System.nanoTime() - var7;
+            }
         }
 
         this.c.a();
@@ -551,7 +564,12 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     }
 
     public OWorldServer a(int var1) {
-        return var1 == -1 ? this.e[1] : (var1 == 1 ? this.e[2] : this.e[0]);
+        return this.getWorld(this.m(), var1);
+    }
+    
+    public OWorldServer getWorld(String levelName, int dimension) {
+        int index = dimension == 0 ? 0 : dimension == -1 ? 1 : 2;
+        return this.worlds.get(levelName)[index];
     }
 
     public OEntityTracker b(int var1) {

@@ -34,27 +34,30 @@ public class OConsoleCommandHandler {
                     if (var5 != null) {
                         var5.g();
                     }
-
-                    for (var6 = 0; var6 < this.b.e.length; ++var6) {
-                        var7 = this.b.e[var6];
-                        var7.a(true, (OIProgressUpdate) null);
-                    }
+                    
+                    for (OWorldServer[] level : this.b.worlds.values()) // CanaryMod: multiworld
+                        for (var6 = 0; var6 < level.length; ++var6) {
+                            var7 = level[var6];
+                            var7.a(true, (OIProgressUpdate) null);
+                        }
 
                     this.a(var4, "Save complete.");
                 } else if (var2.toLowerCase().startsWith("save-off")) {
                     this.a(var4, "Disabling level saving..");
 
-                    for (var6 = 0; var6 < this.b.e.length; ++var6) {
-                        var7 = this.b.e[var6];
-                        var7.I = true;
-                    }
+                    for (OWorldServer[] level : this.b.worlds.values()) // CanaryMod: multiworld
+                        for (var6 = 0; var6 < level.length; ++var6) {
+                            var7 = level[var6];
+                            var7.I = true;
+                        }
                 } else if (var2.toLowerCase().startsWith("save-on")) {
                     this.a(var4, "Enabling level saving..");
 
-                    for (var6 = 0; var6 < this.b.e.length; ++var6) {
-                        var7 = this.b.e[var6];
-                        var7.I = false;
-                    }
+                    for (OWorldServer[] level : this.b.worlds.values()) // CanaryMod: multiworld
+                        for (var6 = 0; var6 < level.length; ++var6) {
+                            var7 = level[var6];
+                            var7.I = false;
+                        }
                 } else {
                     String var16;
 
@@ -237,6 +240,7 @@ public class OConsoleCommandHandler {
                                             var8 = Integer.parseInt(var21[2]);
                                             OWorldServer var22;
 
+                                            /* CanaryMod: we use our own time command
                                             if ("add".equalsIgnoreCase(var20)) {
                                                 for (var19 = 0; var19 < this.b.e.length; ++var19) {
                                                     var22 = this.b.e[var19];
@@ -254,6 +258,7 @@ public class OConsoleCommandHandler {
                                             } else {
                                                 var3.b("Unknown method, use either \"add\" or \"set\"");
                                             }
+                                            */
                                         } catch (NumberFormatException var15) {
                                             var3.b("Unable to convert time value, " + var21[2]);
                                         }
@@ -275,9 +280,11 @@ public class OConsoleCommandHandler {
                                         }
                                     } else if (var2.toLowerCase().startsWith("whitelist ")) {
                                         this.a(var4, var2, var3);
+                                    /* CanaryMod: use our own weather command
                                     } else if (var2.toLowerCase().startsWith("toggledownfall")) {
                                         this.b.e[0].j();
                                         var3.b("Toggling rain and snow, hold on...");
+                                    */
                                     } else if (var2.toLowerCase().startsWith("banlist")) {
                                         var21 = var2.split(" ");
                                         if (var21.length == 2) {

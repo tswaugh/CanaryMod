@@ -111,7 +111,7 @@ public class Server {
      */
     @Deprecated
     public long getTime() {
-        return server.e[0].o();
+        return server.a(0).o();
     }
 
     /**
