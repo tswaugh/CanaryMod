@@ -2,6 +2,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
 import net.minecraft.server.MinecraftServer;
 
 
@@ -264,29 +265,29 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cf, ap)) {
                 ap = cf;
             }
+        }
         
-            if (this.aC() != this.cf || this.cg != this.n.a() || this.n.c() == 0.0F != this.ch) {
-                this.a.b((OPacket) (new OPacket8UpdateHealth(this.aC(), this.n.a(), this.n.c())));
-                this.cf = this.aC();
-                this.cg = this.n.a();
-                this.ch = this.n.c() == 0.0F;
-            }
+        if (this.aC() != this.cf || this.cg != this.n.a() || this.n.c() == 0.0F != this.ch) {
+            this.a.b((OPacket) (new OPacket8UpdateHealth(this.aC(), this.n.a(), this.n.c())));
+            this.cf = this.aC();
+            this.cg = this.n.a();
+            this.ch = this.n.c() == 0.0F;
+        }
             
-            // CanaryMod: Update experience
-            if (this.N != this.ci) {
-                // updates your experience when it is changed.
-                if (!etc.getInstance().isExpEnabled()) {
-                    N = 0;
-                    M = 0;
-                } else if ((Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, getPlayer(), ci, N)) {
-                    N = ci;
-                }
+        // CanaryMod: Update experience
+        if (this.N != this.ci) {
+            // updates your experience when it is changed.
+            if (!etc.getInstance().isExpEnabled()) {
+                N = 0;
+                M = 0;
+            } else if ((Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, getPlayer(), ci, N)) {
+                N = ci;
             }
+        }
     
-            if (this.N != this.ci) {
-                this.ci = this.N;
-                this.a.b((OPacket) (new OPacket43Experience(this.O, this.N, this.M)));
-            }
+        if (this.N != this.ci) {
+            this.ci = this.N;
+            this.a.b((OPacket) (new OPacket43Experience(this.O, this.N, this.M)));
         }
 
     }

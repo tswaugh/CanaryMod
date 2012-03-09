@@ -526,7 +526,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_CREATED, player, blockPlaced, blockClicked, item.getItemId());
             // CanaryMod: If we were building inside spawn, bail! (unless ops/admin)
 
-            if (this.r && this.e.e((double) var5 + 0.5D, (double) var6 + 0.5D, (double) var7 + 0.5D) < 64.0D  && (var12 > etc.getInstance().getSpawnProtectionSize() || var4) && player.canBuild() && !cancelled) {
+            if (this.r && this.e.e((double) var5 + 0.5D, (double) var6 + 0.5D, (double) var7 + 0.5D) < 64.0D  && (var12 > etc.getInstance().getSpawnProtectionSize() || var9) && player.canBuild() && !cancelled) {
                 this.e.c.a(this.e, var2, var3, var5, var6, var7, var8);
             } else {
                 // CanaryMod: No point sending the client to update the blocks, you weren't allowed to place!

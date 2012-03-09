@@ -48,7 +48,7 @@ public class OContainerWorkbench extends OContainer {
         }
         OEntityPlayerMP player = (OEntityPlayerMP) super.g.get(0); 
 
-        player.a.b(new OPacket103SetSlot(player.l.f, 0, craftresult));       
+        player.a.b(new OPacket103SetSlot(this.f, 0, craftresult));
     }
 
     public void a(OEntityPlayer var1) {
