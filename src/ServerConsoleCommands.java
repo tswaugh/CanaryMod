@@ -416,7 +416,7 @@ public class ServerConsoleCommands {
                 log.info(caller.getName() + ": banning " + player.getName());
                 caller.notify("Banning " + player.getName());
             } else {
-                if (!etc.getDataSource().isOnBanList(split[1], "")) {
+                if (!etc.getDataSource().isOnBanList(split[1], null)) {
                     etc.getDataSource().addBan(new Ban(split[1]));
                     log.info(caller.getName() + ": banning " + split[1]);
                     caller.notify("Banning " + split[1]);
@@ -481,7 +481,7 @@ public class ServerConsoleCommands {
                 log.info(caller.getName() + ": banning " + player.getName());
                 caller.notify("Banning " + player.getName());
             } else if (byIp) {
-                if (!etc.getDataSource().isOnBanList("", split[1])) {
+                if (!etc.getDataSource().isOnBanList(null, split[1])) {
                     Ban b = new Ban();
                     b.setIp(split[1]);
                     b.setTimestamp((int) (matchFutureDate(split[2]) / 1000));
@@ -490,7 +490,7 @@ public class ServerConsoleCommands {
                     caller.notify("Banning " + split[1]);
                 }
             } else {
-                if (!etc.getDataSource().isOnBanList(split[1], "")) {
+                if (!etc.getDataSource().isOnBanList(split[1], null)) {
                     etc.getDataSource().addBan(new Ban(split[1]));
                     log.info(caller.getName() + ": banning " + split[1]);
                     caller.notify("Banning " + split[1]);
