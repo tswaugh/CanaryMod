@@ -485,7 +485,7 @@ public class ServerConsoleCommands {
                     Ban b = new Ban();
                     b.setIp(split[1]);
                     b.setTimestamp((int) (matchFutureDate(split[2]) / 1000));
-                    etc.getDataSource().addBan(new Ban(split[1]));
+                    etc.getDataSource().addBan(b);
                     log.info(caller.getName() + ": banning " + split[1]);
                     caller.notify("Banning " + split[1]);
                 }
