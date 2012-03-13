@@ -931,7 +931,7 @@ public class PlayerCommands {
                         int mode = Integer.parseInt(args[1]);
 
                         mode = OWorldSettings.a(mode);
-                        if (player.getCreativeMode() != mode && !player.getMode()) {
+                        if (player.getCreativeMode() != mode) {
                             caller.notify(Colors.Yellow + "Setting " + player.getName() + " to game mode " + mode);
                             player.setCreativeMode(mode);
                         } else {
