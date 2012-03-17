@@ -157,7 +157,7 @@ public class OServerConfigurationManager {
             var1.a(ban.getReason());
             return null;
         } else if (this.f.contains(var2.trim().toLowerCase())) {
-            var1.a("You are banned from this server!");
+            var1.a(etc.getInstance().getDefaultBanMessage());
             return null;
         } else if ((etc.getInstance().isWhitelistEnabled() && !(etc.getDataSource().isUserOnWhitelist(var2) || player.isAdmin()))) {
             var1.a(etc.getInstance().getWhitelistMessage());

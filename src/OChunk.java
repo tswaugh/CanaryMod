@@ -268,6 +268,14 @@ public class OChunk {
                     }
                 } else {
                     for (var8 = var4; var8 < var5; ++var8) {
+                        // CanaryMod start: Catch corrupt index info
+                        if (var8 >> 4 < 0 || var8 >> 4 >= 16) {
+                            ONetServerHandler.a.warning("Invalid chunk info array index: " + (var8 >> 4));
+                            ONetServerHandler.a.warning("var4: " + var4 + ", var5: " + var5);
+                            ONetServerHandler.a.warning("Chunk location: " + var6 + ", " + var7);
+                            var8 = 0;
+                        }
+                        // CanaryMod end
                         var9 = this.p[var8 >> 4];
                         if (var9 != null) {
                             var9.c(var1, var8 & 15, var3, 0);
@@ -430,6 +438,7 @@ public class OChunk {
                 }
             }
 
+            if (var9.a(var1, var2 & 15, var3) != var4) return false; // CanaryMod: fix block transmutation
             var9.b(var1, var2 & 15, var3, var5);
             if (var10) {
                 this.a();
