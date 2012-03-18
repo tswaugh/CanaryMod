@@ -332,12 +332,14 @@ public class OChunk {
     }
 
     public int a(int var1, int var2, int var3) {
+        if (var2 >> 4 >= p.length) return 0;
         OExtendedBlockStorage var4 = this.p[var2 >> 4];
 
         return var4 != null ? var4.a(var1, var2 & 15, var3) : 0;
     }
 
     public int c(int var1, int var2, int var3) {
+        if (var2 >> 4 >= p.length) return 0;
         OExtendedBlockStorage var4 = this.p[var2 >> 4];
 
         return var4 != null ? var4.b(var1, var2 & 15, var3) : 0;
