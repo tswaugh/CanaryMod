@@ -641,10 +641,58 @@ public class Item {
     /**
      * Removes item enchantments
      */
-    public void removeEnchantment() {
+    public void removeEnchantments() {
         if (itemStack != null) {
-            itemStack.d = null;
+            itemStack.d(null);
         }
     }
 
+    /**
+     * Gets a list of enchantments
+     * 
+     * @return Enchantment[]
+     */
+    public Enchantment[] getEnchantments() {
+        Enchantment[] enchantments = null;
+        if (itemStack != null && itemStack.r()) {
+            int size = itemStack.p().d();
+            enchantments = new Enchantment[size];
+            for (int i = 0; i < size; i++) {
+                ONBTTagCompound tag = (ONBTTagCompound) itemStack.p().a(i);
+                enchantments[i] = new Enchantment(Enchantment.Type.fromId(tag.e("id")), tag.e("lvl"));
+            }
+        }
+        return enchantments;
+    }
+
+    /**
+     * Gets the items enchantment at specified index
+     * 
+     * @param index
+     * @return enchantment
+     */
+    public Enchantment getEnchantment(int index) {
+        if (itemStack != null && itemStack.r()) {
+            int size = itemStack.p().d();
+            if (index >= size) {
+                index = 0;
+            }
+            ONBTTagCompound tag = (ONBTTagCompound) itemStack.p().a(index);
+            return new Enchantment(Enchantment.Type.fromId(tag.e("id")), tag.e("lvl"));
+        }
+        return null;
+    }
+
+    /**
+     * Gets the items first enchantment
+     * 
+     * @return enchantment
+     */
+    public Enchantment getEnchantment() {
+        if (itemStack != null && itemStack.r()) {
+            ONBTTagCompound tag = (ONBTTagCompound) itemStack.p().a(0);
+            return new Enchantment(Enchantment.Type.fromId(tag.e("id")), tag.e("lvl"));
+        }
+        return null;
+    }
 }

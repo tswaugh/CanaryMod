@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+
 import net.minecraft.server.MinecraftServer;
 
 
@@ -166,7 +167,7 @@ public class OServerConfigurationManager {
             if (this.g.contains(ip)) {
                 var1.a("Your IP address is banned from this server!");
                 return null;
-            } else if (this.b.size() >= this.e) {
+            } else if (this.b.size() >= this.e && !etc.getDataSource().isUserOnReserveList(var2)) {
                 var1.a("The server is full!");
                 return null;
             } else {
@@ -174,7 +175,12 @@ public class OServerConfigurationManager {
                     OEntityPlayerMP var5 = (OEntityPlayerMP) this.b.get(var4);
 
                     if (var5.v.equalsIgnoreCase(var2)) {
-                        var5.a.a("You logged in from another location");
+                        if (etc.getInstance().isAltLocLoginAllowed()) {
+                            var5.a.a("You logged in from another location");
+                        } else {
+                            var1.a("You are already logged in from another location");
+                            return null;
+                        }
                     }
                 }
 

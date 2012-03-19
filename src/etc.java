@@ -5,9 +5,16 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import net.minecraft.server.MinecraftServer;
 
 
@@ -73,6 +80,7 @@ public class etc {
     private String[]                      waterAnimals = new String[] {};
     private int                           mobSpawnRate = 100;
     public boolean                        deathMessages = true;
+    private boolean                       AltLocLoginAllowed     = true;
     private boolean                       crow = false;
     private boolean                       allowNether = true;
     //CanaryMod: Allow End
@@ -172,6 +180,7 @@ public class etc {
             enableAntiXRay = properties.getBoolean("enable-antixray", false);
             enableAntiXRayLighting = properties.getBoolean("enable-antixray-lighting", false);
             deathMessages = properties.getBoolean("death-message", true);
+            AltLocLoginAllowed = properties.getBoolean("allow-altlocationlogin", true);
 
             animals = properties.getString("natural-animals", "Sheep,Pig,Chicken,Cow,Wolf,MushroomCow,Ozelot").split(",");
             if (animals.length == 1 && (animals[0].equals(" ") || animals[0].equals(""))) {
@@ -1379,5 +1388,14 @@ public class etc {
      */
     public void setProtectFromSpam(PluginLoader.HookResult protectFromSpam) {
         this.protectFromSpam = protectFromSpam;
+    }
+
+    /**
+     * Returns if Alternate Location Login is alowed
+     * 
+     * @return boolean
+     */
+    public boolean isAltLocLoginAllowed() {
+        return AltLocLoginAllowed;
     }
 }
