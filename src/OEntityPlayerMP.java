@@ -92,7 +92,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         return 1.62F;
     }
 
-    public void G_() {
+    public void F_() {
         this.c.c();
         --this.cj;
         this.m.a();
@@ -143,7 +143,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         }
     }
 
-    protected boolean C_() {
+    protected boolean C() {
         return this.b.q;
     }
 
@@ -152,7 +152,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(boolean var1) {
-        super.G_();
+        super.F_();
 
         for (int var2 = 0; var2 < this.k.c(); ++var2) {
             OItemStack var3 = this.k.g_(var2);
@@ -267,9 +267,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             }
         }
         
-        if (this.aC() != this.cf || this.cg != this.n.a() || this.n.c() == 0.0F != this.ch) {
-            this.a.b((OPacket) (new OPacket8UpdateHealth(this.aC(), this.n.a(), this.n.c())));
-            this.cf = this.aC();
+        if (this.aD() != this.cf || this.cg != this.n.a() || this.n.c() == 0.0F != this.ch) {
+            this.a.b((OPacket) (new OPacket8UpdateHealth(this.aD(), this.n.a(), this.n.c())));
+            this.cf = this.aD();
             this.cg = this.n.a();
             this.ch = this.n.c() == 0.0F;
         }
@@ -352,7 +352,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.m.a();
     }
 
-    public void D() {
+    public void C_() {
         if (!this.t) {
             this.u = -1;
             this.t = true;
@@ -381,7 +381,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(boolean var1, boolean var2, boolean var3) {
-        if (this.Y()) {
+        if (this.Z()) {
             OEntityTracker var4 = this.b.b(this.w);
 
             var4.b(this, new OPacket18Animation(this, 3));
@@ -406,7 +406,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         super.a(var1, var3);
     }
 
-    private void bb() {
+    private void bc() {
         this.cl = this.cl % 100 + 1;
     }
 
@@ -425,7 +425,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
     
-        this.bb();
+        this.bc();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 1, name, 9)));
         this.m = new OContainerWorkbench(this.k, this.bi, var1, var2, var3);
         this.m.f = this.cl;
@@ -447,7 +447,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         
-        this.bb();
+        this.bc();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 4, name, 9)));
         this.m = new OContainerEnchantment(this.k, this.bi, var1, var2, var3);
         this.m.f = this.cl;
@@ -478,7 +478,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         
-        this.bb();
+        this.bc();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 0, var1.e(), var1.c())));
         // CanaryMod: Check if openend the chest in silence mode.
         this.m = new OContainerChest(this.k, var1, (openInventoryParameters == null) ? false : openInventoryParameters.isSilenced());
@@ -501,7 +501,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         
-        this.bb();
+        this.bc();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 2, name, var1.c())));
         this.m = new OContainerFurnace(this.k, var1);
         //CanaryMod: Set the inventory for the GUI
@@ -523,7 +523,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         
-        this.bb();
+        this.bc();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 3, name, var1.c())));
         this.m = new OContainerDispenser(this.k, var1);
         //CanaryMod: Set the inventory for the GUI
@@ -545,7 +545,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         
-        this.bb();
+        this.bc();
         this.a.b((OPacket) (new OPacket100OpenWindow(this.cl, 5, name, var1.c())));
         this.m = new OContainerBrewingStand(this.k, var1);
         //CanaryMod: Set the inventory for the GUI
@@ -622,7 +622,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     }
 
-    public void J() {
+    public void D_() {
         this.cf = -99999999;
     }
 
@@ -687,6 +687,12 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         OEntityTracker var2 = this.b.b(this.w);
 
         var2.b(this, new OPacket18Animation(var1, 7));
+    }
+    
+    public void L() {
+        if (this.a != null) {
+            this.a.b((OPacket) (new OPacket202PlayerAbilities(this.L)));
+        }
     }
     
     public Player getPlayer() {

@@ -190,14 +190,14 @@ public class OItemInWorldManager {
         if (this.b()) {
             ((OEntityPlayerMP) this.b).a.b((OPacket) (new OPacket53BlockChange(var1, var2, var3, this.a)));
         } else {
-            OItemStack var7 = this.b.T();
+            OItemStack var7 = this.b.U();
             boolean var8 = this.b.b(OBlock.m[var4]);
 
             if (var7 != null) {
                 var7.a(var4, var1, var2, var3, this.b);
                 if (var7.a == 0) {
                     var7.a(this.b);
-                    this.b.U();
+                    this.b.V();
                 }
             }
 

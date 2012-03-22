@@ -957,7 +957,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().aX();
+        return getEntity().aY();
     }
 
     /**
@@ -1310,7 +1310,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return List of potion effects 
      */
     public List<PotionEffect> getPotionEffects() {
-        Collection ay = getEntity().aL();
+        Collection ay = getEntity().aM();
         ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
 
         for (Iterator<OPotionEffect> iterator = ay.iterator(); iterator.hasNext();) {

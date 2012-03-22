@@ -211,7 +211,7 @@ public class OServerConfigurationManager {
         this.a(var1.w).b(var1);
         this.b.remove(var1);
         this.c.a(var1.w).f(var1);
-        OChunkCoordinates var4 = var1.aa();
+        OChunkCoordinates var4 = var1.ab();
 
         var1.w = var2;
         OEntityPlayerMP var5 = new OEntityPlayerMP(this.c, this.c.a(var1.w), var1.v, new OItemInWorldManager(this.c.a(var1.w)));
@@ -285,14 +285,14 @@ public class OServerConfigurationManager {
             var6 /= var10;
             var8 /= var10;
             var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
-            if (var1.aD()) {
+            if (var1.aE()) {
                 var4.a(var1, false);
             }
         } else if (var1.w == 0) {
             var6 *= var10;
             var8 *= var10;
             var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
-            if (var1.aD()) {
+            if (var1.aE()) {
                 var4.a(var1, false);
             }
         } else {
@@ -302,12 +302,12 @@ public class OServerConfigurationManager {
             var1.bn = (double) var12.b;
             var8 = (double) var12.c;
             var1.c(var6, var1.bn, var8, 90.0F, 0.0F);
-            if (var1.aD()) {
+            if (var1.aE()) {
                 var4.a(var1, false);
             }
         }
 
-        if (var3 != 1 && var1.aD()) {
+        if (var3 != 1 && var1.aE()) {
             var5.b(var1);
             var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
             var5.a(var1, false);

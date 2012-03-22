@@ -40,7 +40,7 @@ public class OItemMonsterPlacer extends OItem {
             if (var8 != null) {
                 var8.c(var2, var4, var6, var0.r.nextFloat() * 360.0F, 0.0F);
                 var0.b(var8);
-                ((OEntityLiving) var8).ay();
+                ((OEntityLiving) var8).az();
             }
 
             return var8 != null;

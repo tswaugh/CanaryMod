@@ -152,7 +152,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
 
         if (var2) {
-            this.H_();
+            this.G_();
         }
 
     }

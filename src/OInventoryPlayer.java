@@ -410,7 +410,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
     }
 
-    public void H_() {
+    public void G_() {
         this.e = true;
     }
 

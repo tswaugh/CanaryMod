@@ -27,7 +27,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
             if (this.a[var1].a <= var2) {
                 var3 = this.a[var1];
                 this.a[var1] = null;
-                this.H_();
+                this.G_();
                 return var3;
             } else {
                 var3 = this.a[var1].a(var2);
@@ -35,7 +35,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
                     this.a[var1] = null;
                 }
 
-                this.H_();
+                this.G_();
                 return var3;
             }
         } else {
@@ -77,7 +77,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
             var2.a = this.a();
         }
 
-        this.H_();
+        this.G_();
     }
 
     public String e() {

@@ -29,7 +29,7 @@ public class OEntityThrownEnderpearl extends OEntityThrowable {
                 this.c.a(ODamageSource.i, 5);
             }
 
-            this.W();
+            this.X();
         }
 
     }

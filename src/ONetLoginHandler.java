@@ -71,8 +71,8 @@ public class ONetLoginHandler extends ONetHandler {
         }
         //CanaryMod End
         this.g = var1.b;
-        if (var1.a != 28) {
-            if (var1.a > 28) {
+        if (var1.a != 29) {
+            if (var1.a > 29) {
                 this.a("Outdated server!");
             } else {
                 this.a("Outdated client!");
@@ -132,7 +132,7 @@ public class ONetLoginHandler extends ONetHandler {
 
             // CanaryMod - enable/disable potion effects on login
             if (hookResult.applyPotionsEffects()) {
-                Iterator var6 = var2.aL().iterator();
+                Iterator var6 = var2.aM().iterator();
 
                 while (var6.hasNext()) {
                     OPotionEffect var7 = (OPotionEffect) var6.next();

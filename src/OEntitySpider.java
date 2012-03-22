@@ -17,8 +17,8 @@ public class OEntitySpider extends OEntityMob {
         super.e();
     }
 
-    public void G_() {
-        super.G_();
+    public void F_() {
+        super.F_();
         if (!this.bi.F) {
             this.a(this.by);
         }

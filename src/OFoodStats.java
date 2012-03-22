@@ -61,7 +61,7 @@ public class OFoodStats {
             }
         }
 
-        if (this.a >= 18 && var1.af()) {
+        if (this.a >= 18 && var1.ag()) {
             ++this.d;
             if (this.d >= 80) {
                 var1.d(1);
@@ -70,7 +70,7 @@ public class OFoodStats {
         } else if (this.a <= 0) {
             ++this.d;
             if (this.d >= 80) {
-                if (var1.aC() > 10 || var2 >= 3 || var1.aC() > 1 && var2 >= 2) {
+                if (var1.aD() > 10 || var2 >= 3 || var1.aD() > 1 && var2 >= 2) {
                     // CanaryMod: DAMAGE From starvation
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.STARVATION, null, ((OEntityPlayerMP) var1).getPlayer(), 1)) {
                         var1.a(ODamageSource.g, 1);

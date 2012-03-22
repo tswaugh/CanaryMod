@@ -171,7 +171,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     return;
                 }
 
-                if (this.e.Y()) {
+                if (this.e.Z()) {
                     this.e.a(true);
                     this.e.b(this.o, this.p, this.q, this.e.bs, this.e.bt);
                     var2.g(this.e);
@@ -197,7 +197,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     var9 = var1.b;
                     var11 = var1.c;
                     var15 = var1.d - var1.b;
-                    if (!this.e.Y() && (var15 > 1.65D || var15 < 0.1D)) {
+                    if (!this.e.Z() && (var15 > 1.65D || var15 < 0.1D)) {
                         this.a("Illegal stance");
                         a.warning(this.e.v + " had an illegal stance: " + var15);
                         return;
@@ -254,7 +254,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 var23 = var15 * var15 + var19 * var19 + var21 * var21;
                 boolean var29 = false;
 
-                if (var23 > 0.0625D && !this.e.Y() && !this.e.c.b()) {
+                if (var23 > 0.0625D && !this.e.Z() && !this.e.c.b()) {
                     var29 = true;
                     a.warning(this.e.v + " moved wrongly!");
                     System.out.println("Got position " + var7 + ", " + var9 + ", " + var11);
@@ -264,7 +264,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                 this.e.b(var7, var9, var11, var17, var18);
                 boolean var30 = var2.a(this.e, this.e.bw.b().e((double) var25, (double) var25, (double) var25)).size() == 0;
 
-                if (var26 && (var29 || !var30) && !this.e.Y()) {
+                if (var26 && (var29 || !var30) && !this.e.Z()) {
                     this.a(this.o, this.p, this.q, var17, var18);
                     return;
                 }
@@ -323,9 +323,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         OWorldServer var2 = this.d.a(this.e.w);
 
         if (var1.e == 4) {
-            this.e.R();
+            this.e.S();
         } else if (var1.e == 5) {
-            this.e.M();
+            this.e.N();
         } else {
             // CanaryMod: We allow admins and ops to dig!
             boolean var3 = var2.H = var2.t.g != 0 || this.d.h.h(this.e.v) || getPlayer().isAdmin();
@@ -640,7 +640,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             if (!this.e.t) { //Only call hook once per actual swing
                 OEntity.manager.callHook(PluginLoader.Hook.ARM_SWING, getPlayer());
             }
-            this.e.D();
+            this.e.C();
         }
 
     }
@@ -702,7 +702,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
     public void a(OPacket9Respawn var1) {
         // CanaryMod: onPlayerRespawn
-        OChunkCoordinates defaultSpawnCoords = e.aa();
+        OChunkCoordinates defaultSpawnCoords = e.ab();
         if (defaultSpawnCoords == null) {
             defaultSpawnCoords = etc.getServer().getWorld(0).getWorld().p();
         }
@@ -711,7 +711,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
             this.e = this.d.h.a(this.e, respawnLocation.dimension, true, respawnLocation);
         } else {
-            if (this.e.aC() > 0) {
+            if (this.e.aD() > 0) {
                 return;
             }
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
@@ -854,7 +854,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
                     var7.a = Arrays.copyOf(old, old.length);
                 }
 
-                var7.H_();
+                var7.G_();
                 var2.j(var9, var10, var6);
             }
         }

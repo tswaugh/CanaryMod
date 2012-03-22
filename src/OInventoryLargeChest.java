@@ -53,9 +53,9 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         return this.b.a();
     }
 
-    public void H_() {
-        this.b.H_();
-        this.c.H_();
+    public void G_() {
+        this.b.G_();
+        this.c.G_();
     }
 
     public boolean a(OEntityPlayer var1) {

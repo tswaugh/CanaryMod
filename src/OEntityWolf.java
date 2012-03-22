@@ -14,7 +14,7 @@ public class OEntityWolf extends OEntityTamable {
         this.ae = "/mob/wolf.png";
         this.b(0.6F, 0.8F);
         this.bb = 0.3F;
-        this.ak().a(true);
+        this.al().a(true);
         this.aL.a(1, new OEntityAISwimming(this));
         this.aL.a(2, this.a);
         this.aL.a(3, new OEntityAILeapAtTarget(this, 0.4F));
@@ -44,7 +44,7 @@ public class OEntityWolf extends OEntityTamable {
     }
 
     protected void g() {
-        this.bY.b(18, Integer.valueOf(this.aC()));
+        this.bY.b(18, Integer.valueOf(this.aD()));
     }
 
     public int d() {
@@ -53,7 +53,7 @@ public class OEntityWolf extends OEntityTamable {
 
     protected void b() {
         super.b();
-        this.bY.a(18, new Integer(this.aC()));
+        this.bY.a(18, new Integer(this.aD()));
     }
 
     protected boolean g_() {
@@ -62,7 +62,7 @@ public class OEntityWolf extends OEntityTamable {
 
     public void b(ONBTTagCompound var1) {
         super.b(var1);
-        var1.a("Angry", this.D());
+        var1.a("Angry", this.E());
     }
 
     public void a(ONBTTagCompound var1) {
@@ -71,11 +71,11 @@ public class OEntityWolf extends OEntityTamable {
     }
 
     protected boolean n() {
-        return this.D();
+        return this.E();
     }
 
     protected String i() {
-        return this.D() ? "mob.wolf.growl" : (this.bS.nextInt(3) == 0 ? (this.u_() && this.bY.c(18) < 10 ? "mob.wolf.whine" : "mob.wolf.panting") : "mob.wolf.bark");
+        return this.E() ? "mob.wolf.growl" : (this.bS.nextInt(3) == 0 ? (this.u_() && this.bY.c(18) < 10 ? "mob.wolf.whine" : "mob.wolf.panting") : "mob.wolf.bark");
     }
 
     protected String j() {
@@ -96,7 +96,7 @@ public class OEntityWolf extends OEntityTamable {
 
     public void e() {
         super.e();
-        if (!this.bi.F && this.h && !this.i && !this.G() && this.bx) {
+        if (!this.bi.F && this.h && !this.i && !this.H() && this.bx) {
             this.i = true;
             this.j = 0.0F;
             this.k = 0.0F;
@@ -105,8 +105,8 @@ public class OEntityWolf extends OEntityTamable {
 
     }
 
-    public void G_() {
-        super.G_();
+    public void F_() {
+        super.F_();
         this.g = this.c;
         if (this.b) {
             this.c += (1.0F - this.c) * 0.4F;
@@ -118,7 +118,7 @@ public class OEntityWolf extends OEntityTamable {
             this.bc = 10;
         }
 
-        if (this.aS()) {
+        if (this.aT()) {
             this.h = true;
             this.i = false;
             this.j = 0.0F;
@@ -156,8 +156,8 @@ public class OEntityWolf extends OEntityTamable {
         return this.bH * 0.8F;
     }
 
-    public int C() {
-        return this.v_() ? 20 : super.C();
+    public int D() {
+        return this.v_() ? 20 : super.D();
     }
 
     public boolean a(ODamageSource var1, int var2) {
@@ -181,7 +181,7 @@ public class OEntityWolf extends OEntityTamable {
         OItemStack var2 = var1.k.d();
 
         if (!this.u_()) {
-            if (var2 != null && var2.c == OItem.aW.bP && !this.D()) {
+            if (var2 != null && var2.c == OItem.aW.bP && !this.E()) {
                 --var2.a;
                 if (var2.a <= 0) {
                     var1.k.a(var1.k.c, (OItemStack) null);
@@ -245,7 +245,7 @@ public class OEntityWolf extends OEntityTamable {
         return 8;
     }
 
-    public boolean D() {
+    public boolean E() {
         return (this.bY.a(16) & 2) != 0;
     }
 

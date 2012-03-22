@@ -79,7 +79,7 @@ public class OTileEntity {
         return this.p;
     }
 
-    public void H_() {
+    public void G_() {
         if (this.k != null) {
             this.p = this.k.c(this.l, this.m, this.n);
             this.k.b(this.l, this.m, this.n, this);

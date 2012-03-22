@@ -28,13 +28,13 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
             --this.b;
             if (this.b == 0) {
                 this.p();
-                this.H_();
+                this.G_();
             } else if (!this.o()) {
                 this.b = 0;
-                this.H_();
+                this.G_();
             } else if (this.d != this.a[3].c) {
                 this.b = 0;
-                this.H_();
+                this.G_();
             }
         } else if (this.o()) {
             this.b = 400;

@@ -85,10 +85,10 @@ public class OItemBlock extends OItem {
     }
 
     public String a(OItemStack var1) {
-        return OBlock.m[this.a].p();
+        return OBlock.m[this.a].q();
     }
 
     public String b() {
-        return OBlock.m[this.a].p();
+        return OBlock.m[this.a].q();
     }
 }
