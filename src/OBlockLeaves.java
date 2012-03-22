@@ -158,7 +158,7 @@ public class OBlockLeaves extends OBlockLeavesBase {
     }
 
     public void a(OWorld var1, OEntityPlayer var2, int var3, int var4, int var5, int var6) {
-        if (!var1.F && var2.T() != null && var2.T().c == OItem.bd.bP) {
+        if (!var1.F && var2.U() != null && var2.U().c == OItem.bd.bP) {
             var2.a(OStatList.C[this.bO], 1);
             this.a(var1, var3, var4, var5, new OItemStack(OBlock.K.bO, 1, var6 & 3));
         } else {

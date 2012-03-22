@@ -874,6 +874,10 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         return true;
     }
     
+    public void a(OPacket202PlayerAbilities var1) {
+        this.e.L.b = var1.b && this.e.L.c;
+    }
+    
     /**
      * Returns the item in player's hand
      * 

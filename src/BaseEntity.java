@@ -305,7 +305,7 @@ public class BaseEntity {
      * @return
      */
     public int getAirTicks() {
-        return getEntity().aZ();
+        return getEntity().ba();
     }
 
     /**
