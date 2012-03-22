@@ -5,7 +5,7 @@ public class OEntityCow extends OEntityAnimal {
         super(var1);
         this.ae = "/mob/cow.png";
         this.b(0.9F, 1.3F);
-        this.ak().a(true);
+        this.al().a(true);
         this.aL.a(0, new OEntityAISwimming(this));
         this.aL.a(1, new OEntityAIPanic(this, 0.38F));
         this.aL.a(2, new OEntityAIMate(this, 0.2F));

@@ -10,7 +10,7 @@ public abstract class OEntityCreature extends OEntityLiving {
         super(var1);
     }
 
-    protected boolean E() {
+    protected boolean F() {
         return false;
     }
 
@@ -20,7 +20,7 @@ public abstract class OEntityCreature extends OEntityLiving {
             --this.f;
         }
 
-        this.e = this.E();
+        this.e = this.F();
         float var1 = 16.0F;
 
         if (this.d == null) {
@@ -28,7 +28,7 @@ public abstract class OEntityCreature extends OEntityLiving {
             if (this.d != null) {
                 this.a = this.bi.a(this, this.d, var1, true, false, false, true);
             }
-        } else if (!this.d.aD()) {
+        } else if (!this.d.aE()) {
             this.d = null;
         } else {
             float var2 = this.d.i(this);
@@ -44,12 +44,12 @@ public abstract class OEntityCreature extends OEntityLiving {
         if (!this.e && this.d != null && (this.a == null || this.bS.nextInt(20) == 0)) {
             this.a = this.bi.a(this, this.d, var1, true, false, false, true);
         } else if (!this.e && (this.a == null && this.bS.nextInt(180) == 0 || this.bS.nextInt(120) == 0 || this.f > 0) && this.aV < 100) {
-            this.F();
+            this.G();
         }
 
         int var21 = OMathHelper.b(this.bw.b + 0.5D);
-        boolean var3 = this.aT();
-        boolean var4 = this.aU();
+        boolean var3 = this.aU();
+        boolean var4 = this.aV();
 
         this.bt = 0.0F;
         if (this.a != null && this.bS.nextInt(100) != 0) {
@@ -112,7 +112,7 @@ public abstract class OEntityCreature extends OEntityLiving {
                 this.a(this.d, 30.0F, 30.0F);
             }
 
-            if (this.by && !this.G()) {
+            if (this.by && !this.H()) {
                 this.aZ = true;
             }
 
@@ -127,7 +127,7 @@ public abstract class OEntityCreature extends OEntityLiving {
         }
     }
 
-    protected void F() {
+    protected void G() {
         OProfiler.a("stroll");
         boolean var1 = false;
         int var2 = -1;
@@ -177,7 +177,7 @@ public abstract class OEntityCreature extends OEntityLiving {
         return super.l() && this.a(var1, var2, var3) >= 0.0F;
     }
 
-    public boolean G() {
+    public boolean H() {
         return this.a != null;
     }
 
@@ -185,7 +185,7 @@ public abstract class OEntityCreature extends OEntityLiving {
         this.a = var1;
     }
 
-    public OEntity H() {
+    public OEntity I() {
         return this.d;
     }
 
@@ -193,11 +193,11 @@ public abstract class OEntityCreature extends OEntityLiving {
         this.d = var1;
     }
 
-    protected float D_() {
+    protected float J() {
         if (this.c_()) {
             return 1.0F;
         } else {
-            float var1 = super.D_();
+            float var1 = super.J();
 
             if (this.f > 0) {
                 var1 *= 2.0F;

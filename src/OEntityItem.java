@@ -35,8 +35,8 @@ public class OEntityItem extends OEntity {
 
     protected void b() {}
 
-    public void G_() {
-        super.G_();
+    public void F_() {
+        super.F_();
         if (this.c > 0) {
             --this.c;
         }
@@ -76,7 +76,7 @@ public class OEntityItem extends OEntity {
         if (this.b >= 6000) {
             // CanaryMod onEntityDespawn
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENTITY_DESPAWN, item)) {
-                this.W();
+                this.X();
             } else {
                 this.b = 0;
             }
@@ -97,10 +97,10 @@ public class OEntityItem extends OEntity {
     }
 
     public boolean a(ODamageSource var1, int var2) {
-        this.aV();
+        this.aW();
         this.e -= var2;
         if (this.e <= 0) {
-            this.W();
+            this.X();
         }
 
         return false;
@@ -119,7 +119,7 @@ public class OEntityItem extends OEntity {
 
         this.a = OItemStack.a(var2);
         if (this.a == null) {
-            this.W();
+            this.X();
         }
 
     }
@@ -150,7 +150,7 @@ public class OEntityItem extends OEntity {
                     this.bi.a(this, "random.pop", 0.2F, ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     var1.a((OEntity) this, var2);
                     if (this.a.a <= 0) {
-                        this.W();
+                        this.X();
                     }
                 }
             }

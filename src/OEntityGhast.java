@@ -37,8 +37,8 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         return 10;
     }
 
-    public void G_() {
-        super.G_();
+    public void F_() {
+        super.F_();
         byte var1 = this.bY.a(16);
 
         this.ae = var1 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
@@ -46,10 +46,10 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
 
     protected void d_() {
         if (!this.bi.F && this.bi.q == 0) {
-            this.W();
+            this.X();
         }
 
-        this.aF();
+        this.aG();
         this.e = this.f;
         double var1 = this.b - this.bm;
         double var3 = this.c - this.bn;

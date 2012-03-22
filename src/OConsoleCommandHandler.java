@@ -38,7 +38,11 @@ public class OConsoleCommandHandler {
 
                     for (var6 = 0; var6 < this.b.e.length; ++var6) {
                         var7 = this.b.e[var6];
+                        boolean var8 = var7.I;
+
+                        var7.I = false;
                         var7.a(true, (OIProgressUpdate) null);
+                        var7.I = var8;
                     }
 
                     this.a(var4, "Save complete.");
@@ -93,14 +97,14 @@ public class OConsoleCommandHandler {
                             var5.b(var16);
                             this.a(var4, "Pardoning " + var16);
                         } else {
-                            int var8;
+                            int var18;
 
                             if (var2.toLowerCase().startsWith("kick ")) {
                                 var16 = var2.substring(var2.indexOf(" ")).trim();
                                 var17 = null;
 
-                                for (var8 = 0; var8 < var5.b.size(); ++var8) {
-                                    OEntityPlayerMP var9 = (OEntityPlayerMP) var5.b.get(var8);
+                                for (var18 = 0; var18 < var5.b.size(); ++var18) {
+                                    OEntityPlayerMP var9 = (OEntityPlayerMP) var5.b.get(var18);
 
                                     if (var9.v.equalsIgnoreCase(var16)) {
                                         var17 = var9;
@@ -114,23 +118,32 @@ public class OConsoleCommandHandler {
                                     var3.b("Can\'t find user " + var16 + ". No kick.");
                                 }
                             } else {
-                                OEntityPlayerMP var18;
-                                String[] var21;
+                                OEntityPlayerMP var21;
+                                String[] var22;
+
+
 
                                 if (var2.toLowerCase().startsWith("tp ")) {
-                                    var21 = var2.split(" ");
-                                    if (var21.length == 3) {
-                                        var17 = var5.i(var21[1]);
-                                        var18 = var5.i(var21[2]);
+                                    var22 = var2.split(" ");
+                                    if (var22.length == 3) {
+                                        var17 = var5.i(var22[1]);
+                                        var21 = var5.i(var22[2]);
+
+
+
+
                                         if (var17 == null) {
-                                            var3.b("Can\'t find user " + var21[1] + ". No tp.");
-                                        } else if (var18 == null) {
-                                            var3.b("Can\'t find user " + var21[2] + ". No tp.");
-                                        } else if (var17.w != var18.w) {
-                                            var3.b("User " + var21[1] + " and " + var21[2] + " are in different dimensions. No tp.");
+                                            var3.b("Can\'t find user " + var22[1] + ". No tp.");
+                                        } else if (var21 == null) {
+
+                                            var3.b("Can\'t find user " + var22[2] + ". No tp.");
+                                        } else if (var17.w != var21.w) {
+
+                                            var3.b("User " + var22[1] + " and " + var22[2] + " are in different dimensions. No tp.");
                                         } else {
-                                            var17.a.a(var18.bm, var18.bn, var18.bo, var18.bs, var18.bt);
-                                            this.a(var4, "Teleporting " + var21[1] + " to " + var21[2] + ".");
+                                            var17.a.a(var21.bm, var21.bn, var21.bo, var21.bs, var21.bt);
+
+                                            this.a(var4, "Teleporting " + var22[1] + " to " + var22[2] + ".");
                                         }
                                     } else {
                                         var3.b("Syntax error, please provice a source and a target.");
@@ -140,27 +153,35 @@ public class OConsoleCommandHandler {
                                     String var20;
 
                                     if (var2.toLowerCase().startsWith("give ")) {
-                                        var21 = var2.split(" ");
-                                        if (var21.length != 3 && var21.length != 4 && var21.length != 5) {
+                                        var22 = var2.split(" ");
+
+                                        if (var22.length != 3 && var22.length != 4 && var22.length != 5) {
                                             return;
                                         }
 
-                                        var20 = var21[1];
-                                        var18 = var5.i(var20);
-                                        if (var18 != null) {
+                                        var20 = var22[1];
+                                        var21 = var5.i(var20);
+                                        if (var21 != null) {
+
+
+
                                             try {
-                                                var19 = Integer.parseInt(var21[2]);
+                                                var19 = Integer.parseInt(var22[2]);
                                                 if (OItem.d[var19] != null) {
-                                                    this.a(var4, "Giving " + var18.v + " some " + var19);
+                                                    this.a(var4, "Giving " + var21.v + " some " + var19);
                                                     int var10 = 1;
                                                     int var11 = 0;
 
-                                                    if (var21.length > 3) {
-                                                        var10 = this.a(var21[3], 1);
+                                                    if (var22.length > 3) {
+                                                        var10 = this.a(var22[3], 1);
+
+
                                                     }
 
-                                                    if (var21.length > 4) {
-                                                        var11 = this.a(var21[4], 1);
+                                                    if (var22.length > 4) {
+                                                        var11 = this.a(var22[4], 1);
+
+
                                                     }
 
                                                     if (var10 < 1) {
@@ -171,106 +192,129 @@ public class OConsoleCommandHandler {
                                                         var10 = 64;
                                                     }
 
-                                                    var18.b(new OItemStack(var19, var10, var11));
+                                                    var21.b(new OItemStack(var19, var10, var11));
                                                 } else {
                                                     var3.b("There\'s no item with id " + var19);
                                                 }
                                             } catch (NumberFormatException var14) {
-                                                var3.b("There\'s no item with id " + var21[2]);
+                                                var3.b("There\'s no item with id " + var22[2]);
                                             }
                                         } else {
                                             var3.b("Can\'t find user " + var20);
                                         }
-                                    } else if (var2.toLowerCase().startsWith("xp")) {
-                                        var21 = var2.split(" ");
-                                        if (var21.length != 3) {
+                                    } else if (var2.toLowerCase().startsWith("OEntityAITaskEntry")) {
+                                        var22 = var2.split(" ");
+                                        if (var22.length != 3) {
+
+
                                             return;
                                         }
 
-                                        var20 = var21[1];
-                                        var18 = var5.i(var20);
-                                        if (var18 != null) {
+                                        var20 = var22[1];
+                                        var21 = var5.i(var20);
+                                        if (var21 != null) {
+
+
+
                                             try {
-                                                var19 = Integer.parseInt(var21[2]);
+                                                var19 = Integer.parseInt(var22[2]);
                                                 var19 = var19 > 5000 ? 5000 : var19;
-                                                this.a(var4, "Giving " + var19 + " orbs to " + var18.v);
-                                                var18.g(var19);
+                                                this.a(var4, "Giving " + var19 + " orbs to " + var21.v);
+                                                var21.g(var19);
+
                                             } catch (NumberFormatException var13) {
-                                                var3.b("Invalid orb count: " + var21[2]);
+                                                var3.b("Invalid orb count: " + var22[2]);
                                             }
                                         } else {
                                             var3.b("Can\'t find user " + var20);
                                         }
                                     } else if (var2.toLowerCase().startsWith("gamemode ")) {
-                                        var21 = var2.split(" ");
-                                        if (var21.length != 3) {
+                                        var22 = var2.split(" ");
+                                        if (var22.length != 3) {
+
+
                                             return;
                                         }
 
-                                        var20 = var21[1];
-                                        var18 = var5.i(var20);
-                                        if (var18 != null) {
+                                        var20 = var22[1];
+                                        var21 = var5.i(var20);
+                                        if (var21 != null) {
+
+
+
                                             try {
-                                                var19 = Integer.parseInt(var21[2]);
+                                                var19 = Integer.parseInt(var22[2]);
                                                 var19 = OWorldSettings.a(var19);
-                                                if (var18.c.a() != var19) {
-                                                    this.a(var4, "Setting " + var18.v + " to game mode " + var19);
-                                                    var18.c.a(var19);
-                                                    var18.a.b((OPacket) (new OPacket70Bed(3, var19)));
+                                                if (var21.c.a() != var19) {
+
+                                                    this.a(var4, "Setting " + var21.v + " to game mode " + var19);
+                                                    var21.c.a(var19);
+
+                                                    var21.a.b((OPacket) (new OPacket70Bed(3, var19)));
                                                 } else {
-                                                    this.a(var4, var18.v + " already has game mode " + var19);
+                                                    this.a(var4, var21.v + " already has game mode " + var19);
                                                 }
                                             } catch (NumberFormatException var12) {
-                                                var3.b("There\'s no game mode with id " + var21[2]);
+                                                var3.b("There\'s no game mode with id " + var22[2]);
                                             }
                                         } else {
                                             var3.b("Can\'t find user " + var20);
                                         }
                                     } else if (var2.toLowerCase().startsWith("time ")) {
-                                        var21 = var2.split(" ");
-                                        if (var21.length != 3) {
+                                        var22 = var2.split(" ");
+                                        if (var22.length != 3) {
+
+
                                             return;
                                         }
 
-                                        var20 = var21[1];
+                                        var20 = var22[1];
+
 
                                         try {
-                                            var8 = Integer.parseInt(var21[2]);
-                                            OWorldServer var22;
+                                            var18 = Integer.parseInt(var22[2]);
+                                            OWorldServer var23;
+
 
                                             if ("add".equalsIgnoreCase(var20)) {
                                                 for (var19 = 0; var19 < this.b.e.length; ++var19) {
-                                                    var22 = this.b.e[var19];
-                                                    var22.b(var22.o() + (long) var8);
+                                                    var23 = this.b.e[var19];
+                                                    var23.b(var23.o() + (long) var18);
+
+
                                                 }
 
-                                                this.a(var4, "Added " + var8 + " to time");
+                                                this.a(var4, "Added " + var18 + " to time");
                                             } else if ("set".equalsIgnoreCase(var20)) {
                                                 for (var19 = 0; var19 < this.b.e.length; ++var19) {
-                                                    var22 = this.b.e[var19];
-                                                    var22.b((long) var8);
+                                                    var23 = this.b.e[var19];
+                                                    var23.b((long) var18);
+
+
                                                 }
 
-                                                this.a(var4, "Set time to " + var8);
+                                                this.a(var4, "Set time to " + var18);
                                             } else {
                                                 var3.b("Unknown method, use either \"add\" or \"set\"");
                                             }
                                         } catch (NumberFormatException var15) {
-                                            var3.b("Unable to convert time value, " + var21[2]);
+                                            var3.b("Unable to convert time value, " + var22[2]);
                                         }
                                     } else if (var2.toLowerCase().startsWith("say ")) {
                                         var2 = var2.substring(var2.indexOf(" ")).trim();
                                         a.info("[" + var4 + "] " + var2);
                                         var5.a((OPacket) (new OPacket3Chat("\u00a7d[Server] " + var2)));
                                     } else if (var2.toLowerCase().startsWith("tell ")) {
-                                        var21 = var2.split(" ");
-                                        if (var21.length >= 3) {
+                                        var22 = var2.split(" ");
+                                        if (var22.length >= 3) {
+
+
                                             var2 = var2.substring(var2.indexOf(" ")).trim();
                                             var2 = var2.substring(var2.indexOf(" ")).trim();
-                                            a.info("[" + var4 + "->" + var21[1] + "] " + var2);
+                                            a.info("[" + var4 + "->" + var22[1] + "] " + var2);
                                             var2 = "\u00a77" + var4 + " whispers " + var2;
                                             a.info(var2);
-                                            if (!var5.a(var21[1], (OPacket) (new OPacket3Chat(var2)))) {
+                                            if (!var5.a(var22[1], (OPacket) (new OPacket3Chat(var2)))) {
                                                 var3.b("There\'s no player by that name online.");
                                             }
                                         }
@@ -280,9 +324,12 @@ public class OConsoleCommandHandler {
                                         this.b.e[0].j();
                                         var3.b("Toggling rain and snow, hold on...");
                                     } else if (var2.toLowerCase().startsWith("banlist")) {
-                                        var21 = var2.split(" ");
-                                        if (var21.length == 2) {
-                                            if (var21[1].equals("ips")) {
+                                        var22 = var2.split(" ");
+                                        if (var22.length == 2) {
+                                            if (var22[1].equals("ips")) {
+
+
+
                                                 var3.b("IP Ban list:" + this.a(this.b.q(), ", "));
                                             }
                                         } else {

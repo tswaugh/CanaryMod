@@ -10,8 +10,8 @@ import java.util.Random;
 public class OChunk {
 
     public static boolean a;
-    private OExtendedBlockStorage[] p;
-    private byte[] q;
+    private OExtendedBlockStorage[] q;
+    private byte[] r;
     public int[] b;
     public boolean[] c;
     public boolean d;
@@ -19,33 +19,34 @@ public class OChunk {
     public int[] f;
     public final int g;
     public final int h;
-    private boolean r;
+    private boolean s;
     public Map i;
     public List[] j;
     public boolean k;
     public boolean l;
     public boolean m;
     public long n;
-    private int s;
-    boolean o;
-	
+    public boolean o;
+    private int t;
+    boolean p;
 	// CanaryMod
     public final Chunk chunk = new Chunk(this);
 
     public OChunk(OWorld var1, int var2, int var3) {
         super();
-        this.p = new OExtendedBlockStorage[16];
-        this.q = new byte[256];
+        this.q = new OExtendedBlockStorage[16];
+        this.r = new byte[256];
         this.b = new int[256];
         this.c = new boolean[256];
-        this.r = false;
+        this.s = false;
         this.i = new HashMap();
         this.k = false;
         this.l = false;
         this.m = false;
         this.n = 0L;
-        this.s = 4096;
         this.o = false;
+        this.t = 4096;
+        this.p = false;
         this.j = new List[16];
         this.e = var1;
         this.g = var2;
@@ -57,7 +58,7 @@ public class OChunk {
         }
 
         Arrays.fill(this.b, -999);
-        Arrays.fill(this.q, (byte) -1);
+        Arrays.fill(this.r, (byte) -1);
     }
 
     public OChunk(OWorld var1, byte[] var2, int var3, int var4) {
@@ -72,11 +73,11 @@ public class OChunk {
                     if (var9 != 0) {
                         int var10 = var8 >> 4;
 
-                        if (this.p[var10] == null) {
-                            this.p[var10] = new OExtendedBlockStorage(var10 << 4);
+                        if (this.q[var10] == null) {
+                            this.q[var10] = new OExtendedBlockStorage(var10 << 4);
                         }
 
-                        this.p[var10].a(var6, var8 & 15, var7, var9);
+                        this.q[var10].a(var6, var8 & 15, var7, var9);
                     }
                 }
             }
@@ -93,9 +94,9 @@ public class OChunk {
     }
 
     public int g() {
-        for (int var1 = this.p.length - 1; var1 >= 0; --var1) {
-            if (this.p[var1] != null) {
-                return this.p[var1].c();
+        for (int var1 = this.q.length - 1; var1 >= 0; --var1) {
+            if (this.q[var1] != null) {
+                return this.q[var1].c();
             }
         }
 
@@ -103,7 +104,7 @@ public class OChunk {
     }
 
     public OExtendedBlockStorage[] h() {
-        return this.p;
+        return this.q;
     }
 
     public void a() {
@@ -136,7 +137,7 @@ public class OChunk {
                         do {
                             var4 -= this.b(var2, var5, var3);
                             if (var4 > 0) {
-                                OExtendedBlockStorage var6 = this.p[var5 >> 4];
+                                OExtendedBlockStorage var6 = this.q[var5 >> 4];
 
                                 if (var6 != null) {
                                     var6.c(var2, var5 & 15, var3, var4);
@@ -168,7 +169,7 @@ public class OChunk {
 
     private void e(int var1, int var2) {
         this.c[var1 + var2 * 16] = true;
-        this.r = true;
+        this.s = true;
     }
 
     private void o() {
@@ -207,7 +208,7 @@ public class OChunk {
                 }
             }
 
-            this.r = false;
+            this.s = false;
         }
 
         OProfiler.a();
@@ -236,7 +237,7 @@ public class OChunk {
     }
 
     private void h(int var1, int var2, int var3) {
-        int var4 = this.f[var3 << 4 | var1];
+        int var4 = this.f[var3 << 4 | var1] & 255;
         int var5 = var4;
 
         if (var2 > var4) {
@@ -260,7 +261,7 @@ public class OChunk {
 
                 if (var5 < var4) {
                     for (var8 = var5; var8 < var4; ++var8) {
-                        var9 = this.p[var8 >> 4];
+                        var9 = this.q[var8 >> 4];
                         if (var9 != null) {
                             var9.c(var1, var8 & 15, var3, 15);
                             this.e.o((this.g << 4) + var1, var8, (this.h << 4) + var3);
@@ -276,7 +277,7 @@ public class OChunk {
                             var8 = 0;
                         }
                         // CanaryMod end
-                        var9 = this.p[var8 >> 4];
+                        var9 = this.q[var8 >> 4];
                         if (var9 != null) {
                             var9.c(var1, var8 & 15, var3, 0);
                             this.e.o((this.g << 4) + var1, var8, (this.h << 4) + var3);
@@ -298,7 +299,7 @@ public class OChunk {
                         var8 = 0;
                     }
 
-                    OExtendedBlockStorage var10 = this.p[var5 >> 4];
+                    OExtendedBlockStorage var10 = this.q[var5 >> 4];
 
                     if (var10 != null) {
                         var10.c(var1, var5 & 15, var3, var8);
@@ -332,17 +333,23 @@ public class OChunk {
     }
 
     public int a(int var1, int var2, int var3) {
-        if (var2 >> 4 >= p.length) return 0;
-        OExtendedBlockStorage var4 = this.p[var2 >> 4];
+        if (var2 >> 4 >= this.q.length) {
+            return 0;
+        } else {
+            OExtendedBlockStorage var4 = this.q[var2 >> 4];
 
-        return var4 != null ? var4.a(var1, var2 & 15, var3) : 0;
+            return var4 != null ? var4.a(var1, var2 & 15, var3) : 0;
+        }
     }
 
     public int c(int var1, int var2, int var3) {
-        if (var2 >> 4 >= p.length) return 0;
-        OExtendedBlockStorage var4 = this.p[var2 >> 4];
+        if (var2 >> 4 >= this.q.length) {
+            return 0;
+        } else {
+            OExtendedBlockStorage var4 = this.q[var2 >> 4];
 
-        return var4 != null ? var4.b(var1, var2 & 15, var3) : 0;
+            return var4 != null ? var4.b(var1, var2 & 15, var3) : 0;
+        }
     }
 
     public boolean a(int var1, int var2, int var3, int var4) {
@@ -416,7 +423,7 @@ public class OChunk {
                 }
             }
 		
-            OExtendedBlockStorage var9 = this.p[var2 >> 4];
+            OExtendedBlockStorage var9 = this.q[var2 >> 4];
             boolean var10 = false;
 
             if (var9 == null) {
@@ -424,7 +431,7 @@ public class OChunk {
                     return false;
                 }
 
-                var9 = this.p[var2 >> 4] = new OExtendedBlockStorage(var2 >> 4 << 4);
+                var9 = this.q[var2 >> 4] = new OExtendedBlockStorage(var2 >> 4 << 4);
                 var10 = var2 >= var7;
             }
 
@@ -441,57 +448,68 @@ public class OChunk {
             }
 
             if (var9.a(var1, var2 & 15, var3) != var4) return false; // CanaryMod: fix block transmutation
+
             var9.b(var1, var2 & 15, var3, var5);
             if (var10) {
                 this.a();
+                return false;
             } else {
-                if (OBlock.o[var4 & 4095] > 0) {
-                    if (var2 > var7) {
-                        this.h(var1, var2 + 1, var3);
+                var9.b(var1, var2 & 15, var3, var5);
+                if (var10) {
+                    this.a();
+                } else {
+                    if (OBlock.o[var4 & 4095] > 0) {
+                        if (var2 >= var7) {
+                            this.h(var1, var2 + 1, var3);
+                        }
+                    } else if (var2 == var7 - 1) {
+                        this.h(var1, var2, var3);
                     }
-                } else if (var2 == var7 - 1) {
-                    this.h(var1, var2, var3);
+
+                    this.e(var1, var3);
                 }
 
-                this.e(var1, var3);
-            }
+                OTileEntity var13;
 
-            OTileEntity var13;
+                if (var4 != 0) {
+                    if (!this.e.F) {
+                        OBlock.m[var4].a(this.e, var11, var2, var12);
+                    }
 
-            if (var4 != 0) {
-                if (!this.e.F) {
-                    OBlock.m[var4].a(this.e, var11, var2, var12);
-                }
+                    if (OBlock.m[var4] instanceof OBlockContainer) {
+                        var13 = this.e(var1, var2, var3);
+                        if (var13 == null) {
+                            var13 = ((OBlockContainer) OBlock.m[var4]).a_();
+                            this.e.a(var11, var2, var12, var13);
+                        }
 
-                if (OBlock.m[var4] instanceof OBlockContainer) {
+                        if (var13 != null) {
+                            var13.h();
+                        }
+                    }
+                } else if (var8 > 0 && OBlock.m[var8] instanceof OBlockContainer) {
                     var13 = this.e(var1, var2, var3);
-                    if (var13 == null) {
-                        var13 = ((OBlockContainer) OBlock.m[var4]).a_();
-                        this.e.a(var11, var2, var12, var13);
-                    }
+
+
+
 
                     if (var13 != null) {
                         var13.h();
                     }
                 }
-            } else if (var8 > 0 && OBlock.m[var8] instanceof OBlockContainer) {
-                var13 = this.e(var1, var2, var3);
-                if (var13 != null) {
-                    var13.h();
-                }
-            }
 
-            this.l = true;
-            return true;
+                this.l = true;
+                return true;
+            }
         }
     }
-	
-	public boolean b(int var1, int var2, int var3, int var4) {
-        return b(var1, var2, var3, var4, true);
+
+    public boolean b(int var1, int var2, int var3, int var4) {
+	        return b(var1, var2, var3, var4, true);
     }
    
     public boolean b(int var1, int var2, int var3, int var4, boolean checkPortal) {
-        OExtendedBlockStorage var5 = this.p[var2 >> 4];
+        OExtendedBlockStorage var5 = this.q[var2 >> 4];
 
         if (var5 == null) {
             return false;
@@ -572,16 +590,16 @@ public class OChunk {
     }
 
     public int a(OEnumSkyBlock var1, int var2, int var3, int var4) {
-        OExtendedBlockStorage var5 = this.p[var3 >> 4];
+        OExtendedBlockStorage var5 = this.q[var3 >> 4];
 
         return var5 == null ? var1.c : (var1 == OEnumSkyBlock.a ? var5.c(var2, var3 & 15, var4) : (var1 == OEnumSkyBlock.b ? var5.d(var2, var3 & 15, var4) : var1.c));
     }
 
     public void a(OEnumSkyBlock var1, int var2, int var3, int var4, int var5) {
-        OExtendedBlockStorage var6 = this.p[var3 >> 4];
+        OExtendedBlockStorage var6 = this.q[var3 >> 4];
 
         if (var6 == null) {
-            var6 = this.p[var3 >> 4] = new OExtendedBlockStorage(var3 >> 4 << 4);
+            var6 = this.q[var3 >> 4] = new OExtendedBlockStorage(var3 >> 4 << 4);
             this.a();
         }
 
@@ -601,7 +619,7 @@ public class OChunk {
     }
 
     public int c(int var1, int var2, int var3, int var4) {
-        OExtendedBlockStorage var5 = this.p[var2 >> 4];
+        OExtendedBlockStorage var5 = this.q[var2 >> 4];
 
         if (var5 == null) {
             return !this.e.t.e && var4 < OEnumSkyBlock.a.c ? OEnumSkyBlock.a.c - var4 : 0;
@@ -677,7 +695,7 @@ public class OChunk {
         if (var5 == null) {
             int var6 = this.a(var1, var2, var3);
 
-            if (var6 <= 0 || !OBlock.m[var6].n()) {
+            if (var6 <= 0 || !OBlock.m[var6].o()) {
                 return null;
             }
 
@@ -785,7 +803,7 @@ public class OChunk {
 
                 if (var9 != var1 && var9.bw.a(var2)) {
                     var3.add(var9);
-                    OEntity[] var10 = var9.ba();
+                    OEntity[] var10 = var9.bb();
 
                     if (var10 != null) {
                         for (int var11 = 0; var11 < var10.length; ++var11) {
@@ -852,7 +870,7 @@ public class OChunk {
     }
 
     public void i() {
-        OExtendedBlockStorage[] var1 = this.p;
+        OExtendedBlockStorage[] var1 = this.q;
         int var2 = var1.length;
 
         for (int var3 = 0; var3 < var2; ++var3) {
@@ -911,7 +929,7 @@ public class OChunk {
     }
 
     public void j() {
-        if (this.r && !this.e.t.e) {
+        if (this.s && !this.e.t.e) {
             this.o();
         }
 
@@ -931,7 +949,7 @@ public class OChunk {
         }
 
         for (int var3 = var1; var3 <= var2; var3 += 16) {
-            OExtendedBlockStorage var4 = this.p[var3 >> 4];
+            OExtendedBlockStorage var4 = this.q[var3 >> 4];
 
             if (var4 != null && !var4.a()) {
                 return false;
@@ -942,52 +960,52 @@ public class OChunk {
     }
 
     public void a(OExtendedBlockStorage[] var1) {
-        this.p = var1;
+        this.q = var1;
     }
 
     public OBiomeGenBase a(int var1, int var2, OWorldChunkManager var3) {
-        int var4 = this.q[var2 << 4 | var1] & 255;
+        int var4 = this.r[var2 << 4 | var1] & 255;
 
         if (var4 == 255) {
             OBiomeGenBase var5 = var3.a((this.g << 4) + var1, (this.h << 4) + var2);
 
             var4 = var5.M;
-            this.q[var2 << 4 | var1] = (byte) (var4 & 255);
+            this.r[var2 << 4 | var1] = (byte) (var4 & 255);
         }
 
         return OBiomeGenBase.a[var4] == null ? OBiomeGenBase.c : OBiomeGenBase.a[var4];
     }
 
     public byte[] l() {
-        return this.q;
+        return this.r;
     }
 
     public void a(byte[] var1) {
-        this.q = var1;
+        this.r = var1;
     }
 
     public void m() {
-        this.s = 0;
+        this.t = 0;
     }
 
     public void n() {
         for (int var1 = 0; var1 < 8; ++var1) {
-            if (this.s >= 4096) {
+            if (this.t >= 4096) {
                 return;
             }
 
-            int var2 = this.s % 16;
-            int var3 = this.s / 16 % 16;
-            int var4 = this.s / 256;
+            int var2 = this.t % 16;
+            int var3 = this.t / 16 % 16;
+            int var4 = this.t / 256;
 
-            ++this.s;
+            ++this.t;
             int var5 = (this.g << 4) + var3;
             int var6 = (this.h << 4) + var4;
 
             for (int var7 = 0; var7 < 16; ++var7) {
                 int var8 = (var2 << 4) + var7;
 
-                if (this.p[var2] == null && (var7 == 0 || var7 == 15 || var3 == 0 || var3 == 15 || var4 == 0 || var4 == 15) || this.p[var2] != null && this.p[var2].a(var3, var7, var4) == 0) {
+                if (this.q[var2] == null && (var7 == 0 || var7 == 15 || var3 == 0 || var3 == 15 || var4 == 0 || var4 == 15) || this.q[var2] != null && this.q[var2].a(var3, var7, var4) == 0) {
                     if (OBlock.q[this.e.a(var5, var8 - 1, var6)] > 0) {
                         this.e.v(var5, var8 - 1, var6);
                     }

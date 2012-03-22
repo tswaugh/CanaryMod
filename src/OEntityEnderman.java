@@ -32,7 +32,7 @@ public class OEntityEnderman extends OEntityMob {
     public void b(ONBTTagCompound var1) {
         super.b(var1);
         var1.a("carried", (short) this.A());
-        var1.a("carriedData", (short) this.J());
+        var1.a("carriedData", (short) this.E());
     }
 
     public void a(ONBTTagCompound var1) {
@@ -80,7 +80,7 @@ public class OEntityEnderman extends OEntityMob {
     }
 
     public void e() {
-        if (this.aS()) {
+        if (this.aT()) {
             this.a(ODamageSource.f, 1);
         }
 
@@ -102,10 +102,10 @@ public class OEntityEnderman extends OEntityMob {
                     if (b[var4]) {
                         // CanaryMod onEndermanPickup
                         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_PICKUP, entity, new Block(var4, var1, var2, var3, this.bi.a(var1, var2, var3)))) {
-                            this.c(this.bi.a(var1, var2, var3));
-                            this.e(this.bi.c(var1, var2, var3));
-                            this.bi.e(var1, var2, var3, 0);
-                        }
+							this.c(this.bi.a(var1, var2, var3));
+							this.e(this.bi.c(var1, var2, var3));
+							this.bi.e(var1, var2, var3, 0);
+						}
                     }
                 }
             } else if (this.bS.nextInt(2000) == 0) {
@@ -118,9 +118,9 @@ public class OEntityEnderman extends OEntityMob {
                 if (var4 == 0 && var5 > 0 && OBlock.m[var5].b()) {
                     // CanaryMod onEndermanDrop
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_DROP, entity, new Block(var5, var1, var2, var3, this.bi.a(var1, var2, var3)))) {
-                        this.bi.b(var1, var2, var3, this.A(), this.J());
-                        this.c(0);
-                    }
+						this.bi.b(var1, var2, var3, this.A(), this.E());
+						this.c(0);
+					}
                 }
             }
         }
@@ -138,7 +138,7 @@ public class OEntityEnderman extends OEntityMob {
             }
         }
 
-        if (this.aS()) {
+        if (this.aT()) {
             this.d = null;
             this.x();
         }
@@ -148,7 +148,7 @@ public class OEntityEnderman extends OEntityMob {
             this.a(this.d, 100.0F, 100.0F);
         }
 
-        if (!this.bi.F && this.aD()) {
+        if (!this.bi.F && this.aE()) {
             if (this.d != null) {
                 if (this.d instanceof OEntityPlayer && this.c((OEntityPlayer) this.d)) {
                     this.aW = this.aX = 0.0F;
@@ -289,7 +289,7 @@ public class OEntityEnderman extends OEntityMob {
         this.bY.b(17, Byte.valueOf((byte) (var1 & 255)));
     }
 
-    public int J() {
+    public int E() {
         return this.bY.a(17);
     }
 

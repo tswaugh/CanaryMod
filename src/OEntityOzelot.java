@@ -7,17 +7,18 @@ public class OEntityOzelot extends OEntityTamable {
         super(var1);
         this.ae = "/mob/ozelot.png";
         this.b(0.6F, 0.8F);
-        this.ak().a(true);
+        this.al().a(true);
         this.aL.a(1, new OEntityAISwimming(this));
         this.aL.a(2, this.a);
         this.aL.a(3, this.b = new OEntityAITempt(this, 0.18F, OItem.aT.bP, true));
         this.aL.a(4, new OEntityAIAvoidEntity(this, OEntityPlayer.class, 16.0F, 0.23F, 0.4F));
-        this.aL.a(5, new OEntityAIFollowOwner(this, 0.3F, 10.0F, 5.0F));
-        this.aL.a(6, new OEntityAILeapAtTarget(this, 0.3F));
-        this.aL.a(7, new OEntityAIOcelotAttack(this));
-        this.aL.a(8, new OEntityAIMate(this, 0.23F));
-        this.aL.a(9, new OEntityAIWander(this, 0.23F));
-        this.aL.a(10, new OEntityAIWatchClosest(this, OEntityPlayer.class, 10.0F));
+        this.aL.a(5, new OEntityAICatBehavior(this, 0.4F));
+        this.aL.a(6, new OEntityAIFollowOwner(this, 0.3F, 10.0F, 5.0F));
+        this.aL.a(7, new OEntityAILeapAtTarget(this, 0.3F));
+        this.aL.a(8, new OEntityAIOcelotAttack(this));
+        this.aL.a(9, new OEntityAIMate(this, 0.23F));
+        this.aL.a(10, new OEntityAIWander(this, 0.23F));
+        this.aL.a(11, new OEntityAIWatchClosest(this, OEntityPlayer.class, 10.0F));
         this.aM.a(1, new OEntityAITargetNonTamed(this, OEntityChicken.class, 14.0F, 750, false));
     }
 
@@ -27,11 +28,11 @@ public class OEntityOzelot extends OEntityTamable {
     }
 
     public void g() {
-        if (!this.ai().a()) {
+        if (!this.aj().a()) {
             this.g(false);
             this.h(false);
         } else {
-            float var1 = this.ai().b();
+            float var1 = this.aj().b();
 
             if (var1 == 0.18F) {
                 this.g(true);

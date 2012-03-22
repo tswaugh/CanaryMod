@@ -241,7 +241,7 @@ public class OBlockPistonBase extends OBlock {
             return false;
         } else {
             if (var0 != OBlock.Z.bO && var0 != OBlock.V.bO) {
-                if (OBlock.m[var0].l() == -1.0F) {
+                if (OBlock.m[var0].m() == -1.0F) {
                     return false;
                 }
 

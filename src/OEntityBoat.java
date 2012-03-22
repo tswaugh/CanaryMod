@@ -76,7 +76,7 @@ public class OEntityBoat extends OEntity {
             this.d(-this.m());
             this.c(10);
             this.b(this.k() + var2 * 10);
-            this.aV();
+            this.aW();
             if (this.k() > 40) {
                 if (this.bg != null) {
                     this.bg.b((OEntity) this);
@@ -92,7 +92,7 @@ public class OEntityBoat extends OEntity {
                     this.a(OItem.C.bP, 1, 0.0F);
                 }
 
-                this.W();
+                this.X();
             }
 
             return true;
@@ -105,8 +105,8 @@ public class OEntityBoat extends OEntity {
         return !this.bE;
     }
 
-    public void G_() {
-        super.G_();
+    public void F_() {
+        super.F_();
         // CanaryMod: Update of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, boat);
         
@@ -245,7 +245,7 @@ public class OEntityBoat extends OEntity {
             this.a(this.bp, this.bq, this.br);
             if (this.by && var10 > 0.2D) {
                 if (!this.bi.F) {
-                    this.W();
+                    this.X();
 
                     int var29;
 
@@ -332,7 +332,7 @@ public class OEntityBoat extends OEntity {
             double var1 = Math.cos((double) this.bs * 3.141592653589793D / 180.0D) * 0.4D;
             double var3 = Math.sin((double) this.bs * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.bg.c(this.bm + var1, this.bn + this.x_() + this.bg.V(), this.bo + var3);
+            this.bg.c(this.bm + var1, this.bn + this.x_() + this.bg.W(), this.bo + var3);
         }
     }
 

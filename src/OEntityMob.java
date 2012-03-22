@@ -22,10 +22,10 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         super.e();
     }
 
-    public void G_() {
-        super.G_();
+    public void F_() {
+        super.F_();
         if (!this.bi.F && this.bi.q == 0) {
-            this.W();
+            this.X();
         }
 
     }
@@ -92,7 +92,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         super.a(var1);
     }
 
-    protected boolean D() {
+    protected boolean C() {
         int var1 = OMathHelper.b(this.bm);
         int var2 = OMathHelper.b(this.bw.b);
         int var3 = OMathHelper.b(this.bo);
@@ -115,6 +115,6 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     }
 
     public boolean l() {
-        return this.D() && super.l();
+        return this.C() && super.l();
     }
 }

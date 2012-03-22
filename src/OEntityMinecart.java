@@ -87,14 +87,14 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         if (!this.bi.F && !this.bE) {
             this.e(-this.n());
             this.d(10);
-            this.aV();
+            this.aW();
             this.c(this.l() + var2 * 10);
             if (this.l() > 40) {
                 if (this.bg != null) {
                     this.bg.b((OEntity) this);
                 }
 
-                this.W();
+                this.X();
                 this.a(OItem.ay.bP, 1, 0.0F);
                 if (this.a == 1) {
                     OEntityMinecart var3 = this;
@@ -142,7 +142,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         return !this.bE;
     }
 
-    public void W() {
+    public void X() {
         // CanaryMod: Destruction of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_DESTROYED, cart);
         for (int var1 = 0; var1 < this.c(); ++var1) {
@@ -172,10 +172,10 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             }
         }
 
-        super.W();
+        super.X();
     }
 
-    public void G_() {
+    public void F_() {
         // CanaryMod: Update of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, cart);
         
@@ -256,7 +256,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                     var20 = !var19;
                 }
 
-                if (((OBlockRail) OBlock.m[var16]).h()) {
+                if (((OBlockRail) OBlock.m[var16]).i()) {
                     var18 &= 7;
                 }
 
@@ -576,7 +576,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             int var11 = this.bi.c(var7, var8, var9);
 
             var3 = (double) var8;
-            if (((OBlockRail) OBlock.m[var10]).h()) {
+            if (((OBlockRail) OBlock.m[var10]).i()) {
                 var11 &= 7;
             }
 
@@ -810,7 +810,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         return 64;
     }
 
-    public void H_() {}
+    public void G_() {}
 
     public boolean b(OEntityPlayer var1) {
         // CanaryMod: Entering the cart

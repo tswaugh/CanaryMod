@@ -47,8 +47,8 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
 
     }
 
-    public void G_() {
-        super.G_();
+    public void F_() {
+        super.F_();
         if (this.b == 2) {
             this.bi.a(this.bm, this.bn, this.bo, "ambient.weather.thunder", 10000.0F, 0.8F + this.bS.nextFloat() * 0.2F);
             this.bi.a(this.bm, this.bn, this.bo, "random.explode", 2.0F, 0.5F + this.bS.nextFloat() * 0.2F);
@@ -57,7 +57,7 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
         --this.b;
         if (this.b < 0) {
             if (this.c == 0) {
-                this.W();
+                this.X();
             } else if (this.b < -this.bS.nextInt(10)) {
                 --this.c;
                 this.b = 1;
