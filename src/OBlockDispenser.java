@@ -108,17 +108,17 @@ public class OBlockDispenser extends OBlockContainer {
                 } else if (var10.c == OItem.aO.bP) {
                     OEntityEgg var22 = new OEntityEgg(var1, var11, var13, var15);
                     var22.a((double) var7, 0.10000000149011612D, (double) var8, 1.1F, 6.0F);
-                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser(var9), new BaseEntity(var22))) {
-                        var1.b((OEntity) var22);
-                        var1.f(1002, var2, var3, var4, 0);
+					if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser(var9), new BaseEntity(var22))) {
+						var1.b((OEntity) var22);
+						var1.f(1002, var2, var3, var4, 0);
                     } else
                         var22.W();
                 } else if (var10.c == OItem.aC.bP) {
                     OEntitySnowball var21 = new OEntitySnowball(var1, var11, var13, var15);
                     var21.a((double) var7, 0.10000000149011612D, (double) var8, 1.1F, 6.0F);
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser(var9), new BaseEntity(var21))) {
-                        var1.b((OEntity) var21);
-                        var1.f(1002, var2, var3, var4, 0);
+						var1.b((OEntity) var21);
+						var1.f(1002, var2, var3, var4, 0);
                     } else
                         var21.W();
                 } else if (var10.c == OItem.br.bP && OItemPotion.c(var10.h())) {
@@ -236,6 +236,11 @@ public class OBlockDispenser extends OBlockContainer {
 
                         var7.a -= var11;
                         OEntityItem var12 = new OEntityItem(var1, (double) ((float) var2 + var8), (double) ((float) var3 + var9), (double) ((float) var4 + var10), new OItemStack(var7.c, var11, var7.h()));
+
+                        if (var7.n()) {
+                            var12.a.d((ONBTTagCompound) var7.o().b());
+                        }
+
                         float var13 = 0.05F;
 
                         var12.bp = (double) ((float) this.a.nextGaussian() * var13);

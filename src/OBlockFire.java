@@ -11,7 +11,7 @@ public class OBlockFire extends OBlock {
         this.a(true);
     }
 
-    public void j() {
+    public void k() {
         this.a(OBlock.x.bO, 5, 20);
         this.a(OBlock.aZ.bO, 5, 20);
         this.a(OBlock.at.bO, 5, 20);
@@ -122,7 +122,7 @@ public class OBlockFire extends OBlock {
                                             var16 = 15;
                                         }
 
-										                                        // CanaryMod: dynamic spreading of fire.
+                                        // CanaryMod: dynamic spreading of fire.
                                         // avg call amount per placed block of fire ~ 4
                                         Block block = new Block(var1.world, var1.a(var10, var12, var11), var10, var12, var11);
 
@@ -130,6 +130,7 @@ public class OBlockFire extends OBlock {
                                         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
 											var1.b(var10, var12, var11, this.bO, var16);
 										}
+
                                     }
                                 }
                             }
@@ -199,7 +200,7 @@ public class OBlockFire extends OBlock {
         }
     }
 
-    public boolean F_() {
+    public boolean E_() {
         return false;
     }
 
