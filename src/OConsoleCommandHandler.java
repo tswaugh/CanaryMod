@@ -202,7 +202,7 @@ public class OConsoleCommandHandler {
                                         } else {
                                             var3.b("Can\'t find user " + var20);
                                         }
-                                    } else if (var2.toLowerCase().startsWith("OEntityAITaskEntry")) {
+                                    } else if (var2.toLowerCase().startsWith("xp")) {
                                         var22 = var2.split(" ");
                                         if (var22.length != 3) {
 
