@@ -897,24 +897,24 @@ public class OWorld implements OIBlockAccess {
         double var13 = 0.25D;
         List var17 = this.b(var1, var2.b(var13, var13, var13));
 
-		// CanaryMod: Implemented fix via M4411K4 VEHICLE_COLLISION hook
+        // CanaryMod: Implemented fix via M4411K4 VEHICLE_COLLISION hook
         Minecart minecart = null;
         if(var1 instanceof OEntityMinecart)
         {
-      	  minecart = ((OEntityMinecart)var1).cart;
+            minecart = ((OEntityMinecart)var1).cart;
         }
         
         for (int var16 = 0; var16 < var17.size(); ++var16) {
-        	OEntity oentity = (OEntity)var17.get(var16);
-        	
-        	OAxisAlignedBB var15 = oentity.h();
+            OEntity oentity = (OEntity)var17.get(var16);
+            
+            OAxisAlignedBB var15 = oentity.h();
 
             if (var15 != null && var15.a(var2)) {
 
-            	//this collided with a boat
-            	if(minecart != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, minecart, oentity.entity)) //Canary
-               	   continue; //Canary
-            	
+                //this collided with a boat
+                if(minecart != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, minecart, oentity.entity)) //Canary
+                      continue; //Canary
+                
                 this.P.add(var15);
             }
 
@@ -922,14 +922,14 @@ public class OWorld implements OIBlockAccess {
             var15 = var1.b_(oentity); //originally: var15 = var1.b_((OEntity) var17.get(var16));
             if (var15 != null && var15.a(var2)) {
 
-            	//this collided with entity
-            	if(minecart != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, minecart, oentity.entity)) //Canary
-             	   continue; //Canary
-            	
+                //this collided with entity
+                if(minecart != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, minecart, oentity.entity)) //Canary
+                    continue; //Canary
+                
                 this.P.add(var15);
             }
         }
-		// CanaryMod: End
+        // CanaryMod: End
     }
 
     public int a(float var1) {
