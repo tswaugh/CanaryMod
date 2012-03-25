@@ -930,6 +930,8 @@ public class OWorld implements OIBlockAccess {
             }
         }
         // CanaryMod: End
+        
+        return this.P;
     }
 
     public int a(float var1) {
