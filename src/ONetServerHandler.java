@@ -640,7 +640,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             if (!this.e.t) { //Only call hook once per actual swing
                 OEntity.manager.callHook(PluginLoader.Hook.ARM_SWING, getPlayer());
             }
-            this.e.C();
+            this.e.C_();
         }
 
     }
