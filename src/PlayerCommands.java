@@ -173,14 +173,16 @@ public class PlayerCommands {
                 if (player.toggleMute()) {
                     //df: adding to mutelist
                     etc.getDataSource().setPlayerToMuteList(player.getName());
-                    caller.notify("Player was muted");
+                    caller.notify("Player "+Colors.Yellow+player.getName()+Colors.Rose+" was muted");
+                    player.notify("You have been temporarily muted");
                 } else {
                     //df: removing from mute list
                     etc.getDataSource().removePlayerFromMuteList(player.getName());
-                    caller.notify("Player was unmuted");
+                    caller.notify("Player "+Colors.Yellow+player.getName()+Colors.Rose+" was unmuted");
+                    player.notify("You have been unmuted");
                 }
             } else {
-                caller.notify("Can't find player " + args[1]);
+                caller.notify("Can't find player "+Colors.Yellow+args[1]);
             }
         }
     };
@@ -1389,6 +1391,7 @@ public class PlayerCommands {
                 sendData(caller, "Food Saturation: ", String.format("%.2f", subject.getFoodSaturationLevel()));
                 sendData(caller, "Experience: ", subject.getXP());
                 sendData(caller, "Level: ", subject.getLevel());
+                sendData(caller, "Mode: ", subject.getEntity().c.a());
                 Location l = subject.getLocation();
 
                 sendData(caller, "Position: ", String.format("X: %.2f Y: %.2f Z: %.2f Pitch: %.2f Yawn: %.2f", l.x, l.y, l.z, l.rotX, l.rotY));

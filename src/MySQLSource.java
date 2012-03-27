@@ -1085,7 +1085,7 @@ public class MySQLSource extends DataSource {
 
         try {
             conn = etc.getConnection();
-            ps = conn.prepareStatement("DELETE FROM " + table_muted_players + "WHERE name = ?");
+            ps = conn.prepareStatement("DELETE FROM " + table_muted_players + " WHERE name = ?");
             ps.setString(1, name);
             ps.executeUpdate();
             this.mutedPlayers.remove(name);
