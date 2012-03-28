@@ -447,11 +447,7 @@ public class OChunk {
                 }
             }
 
-            if (var9.a(var1, var2 & 15, var3) != var4) return false; // CanaryMod: fix block transmutation
-
-            var9.b(var1, var2 & 15, var3, var5);
-            if (var10) {
-                this.a();
+            if (var9.a(var1, var2 & 15, var3) != var4) {
                 return false;
             } else {
                 var9.b(var1, var2 & 15, var3, var5);

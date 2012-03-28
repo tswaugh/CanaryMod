@@ -15,8 +15,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.minecraft.server.MinecraftServer;
-
 
 /**
  * etc.java - My catch-all class for a bunch of shit. If there's something you
@@ -27,7 +25,7 @@ import net.minecraft.server.MinecraftServer;
 public class etc {
     private static final Logger           log = Logger.getLogger("Minecraft");
     private static final etc              instance = new etc();
-    private static MinecraftServer        server;
+    private static OMinecraftServer       server;
     private String                        configDir = "config/";
     private String                        usersLoc = "config/users.txt",
                                           kitsLoc = "config/kits.txt",
@@ -323,7 +321,7 @@ public class etc {
      * 
      * @param s
      */
-    public static void setServer(MinecraftServer s) {
+    public static void setServer(OMinecraftServer s) {
         server = s;
     }
 
@@ -332,7 +330,7 @@ public class etc {
      * 
      * @return
      */
-    public static MinecraftServer getMCServer() {
+    public static OMinecraftServer getMCServer() {
         return server;
     }
 
@@ -551,7 +549,7 @@ public class etc {
      * @param server
      * @return
      */
-    public boolean parseConsoleCommand(String command, MinecraftServer server) {
+    public boolean parseConsoleCommand(String command, OMinecraftServer server) {
         if (getMCServer() == null) {
             setServer(server);
         }

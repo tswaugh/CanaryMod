@@ -1,15 +1,14 @@
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
-import net.minecraft.server.MinecraftServer;
 
 
 public class OConsoleCommandHandler {
 
     private static Logger a = Logger.getLogger("Minecraft");
-    private MinecraftServer b;
+    private OMinecraftServer b;
 
-    public OConsoleCommandHandler(MinecraftServer var1) {
+    public OConsoleCommandHandler(OMinecraftServer var1) {
         super();
         this.b = var1;
     }
@@ -35,31 +34,34 @@ public class OConsoleCommandHandler {
                     if (var5 != null) {
                         var5.g();
                     }
+                    
+                    for (OWorldServer[] level : this.b.worlds.values()) // CanaryMod: multiworld
+                        for (var6 = 0; var6 < level.length; ++var6) {
+                            var7 = level[var6];
+                            boolean var8 = var7.I;
 
-                    for (var6 = 0; var6 < this.b.e.length; ++var6) {
-                        var7 = this.b.e[var6];
-                        boolean var8 = var7.I;
-
-                        var7.I = false;
-                        var7.a(true, (OIProgressUpdate) null);
-                        var7.I = var8;
-                    }
+                            var7.I = false;
+                            var7.a(true, (OIProgressUpdate) null);
+                            var7.I = var8;
+                        }
 
                     this.a(var4, "Save complete.");
                 } else if (var2.toLowerCase().startsWith("save-off")) {
                     this.a(var4, "Disabling level saving..");
 
-                    for (var6 = 0; var6 < this.b.e.length; ++var6) {
-                        var7 = this.b.e[var6];
-                        var7.I = true;
-                    }
+                    for (OWorldServer[] level : this.b.worlds.values()) // CanaryMod: multiworld
+                        for (var6 = 0; var6 < level.length; ++var6) {
+                            var7 = level[var6];
+                            var7.I = true;
+                        }
                 } else if (var2.toLowerCase().startsWith("save-on")) {
                     this.a(var4, "Enabling level saving..");
 
-                    for (var6 = 0; var6 < this.b.e.length; ++var6) {
-                        var7 = this.b.e[var6];
-                        var7.I = false;
-                    }
+                    for (OWorldServer[] level : this.b.worlds.values()) // CanaryMod: multiworld
+                        for (var6 = 0; var6 < level.length; ++var6) {
+                            var7 = level[var6];
+                            var7.I = false;
+                        }
                 } else {
                     String var16;
 
@@ -276,6 +278,7 @@ public class OConsoleCommandHandler {
                                             OWorldServer var23;
 
 
+                                            /* CanaryMod: we use our own time command
                                             if ("add".equalsIgnoreCase(var20)) {
                                                 for (var19 = 0; var19 < this.b.e.length; ++var19) {
                                                     var23 = this.b.e[var19];
@@ -297,6 +300,7 @@ public class OConsoleCommandHandler {
                                             } else {
                                                 var3.b("Unknown method, use either \"add\" or \"set\"");
                                             }
+                                            */
                                         } catch (NumberFormatException var15) {
                                             var3.b("Unable to convert time value, " + var22[2]);
                                         }
@@ -320,9 +324,11 @@ public class OConsoleCommandHandler {
                                         }
                                     } else if (var2.toLowerCase().startsWith("whitelist ")) {
                                         this.a(var4, var2, var3);
+                                    /* CanaryMod: use our own weather command
                                     } else if (var2.toLowerCase().startsWith("toggledownfall")) {
                                         this.b.e[0].j();
                                         var3.b("Toggling rain and snow, hold on...");
+                                    */
                                     } else if (var2.toLowerCase().startsWith("banlist")) {
                                         var22 = var2.split(" ");
                                         if (var22.length == 2) {
