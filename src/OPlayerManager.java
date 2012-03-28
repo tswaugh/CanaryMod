@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.server.MinecraftServer;
 
 
 public class OPlayerManager {
@@ -8,12 +7,12 @@ public class OPlayerManager {
     public List a = new ArrayList();
     private OLongHashMap b = new OLongHashMap();
     private List c = new ArrayList();
-    private MinecraftServer d;
+    private OMinecraftServer d;
     private int e;
     private int f;
     private final int[][] g = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
 
-    public OPlayerManager(MinecraftServer var1, int var2, int var3) {
+    public OPlayerManager(OMinecraftServer var1, int var2, int var3) {
         super();
         if (var3 > 15) {
             throw new IllegalArgumentException("Too big view radius!");

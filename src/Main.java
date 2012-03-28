@@ -17,12 +17,12 @@ import java.util.zip.CheckedInputStream;
 
 public class Main {
 
-    public static final long   minecraft_server = 0x416CB6CBL;
+    public static final long   minecraft_server = 0x416cb6cbL;
 
-    public static final long   minecraft_servero = 0x496FE2BCL;
+    public static final long   minecraft_servero = 0xcd12ebd8L;
 
     public static final long   mysql = 0xb2e59524L;
-    public static final long   jarjar = 0x0de915d3L;
+    public static final long   jarjar = 0x1b1ecc01L;
     public static final long   rules = 0xAC13A09EL;
 
     public static final Logger log = Logger.getLogger("Minecraft");
@@ -48,6 +48,7 @@ public class Main {
 
                 log("Finished downloading minecraft_server.jar, start converting minecraft_server.jar to minecraft_servero.jar...");
             } else {
+                checkCRC32("minecraft_server.jar", minecraft_server);
                 log("Missing minecraft_servero.jar, start converting minecraft_server.jar to minecraft_servero.jar...");
             }
 
@@ -80,7 +81,7 @@ public class Main {
 
         // This mod works with GUI now :D
         try {
-            net.minecraft.server.MinecraftServer.main(args);
+            OMinecraftServer.main(args);
         } catch (Throwable t) {
             log.log(Level.SEVERE, null, t);
         }
@@ -101,7 +102,7 @@ public class Main {
         if (checksum != crc) {
             log("-----------------------------");
             log(fileName + " does not match checksum! Checksum found: " + Long.toHexString(checksum) + ", required checksum: " + Long.toHexString(crc) + ".");
-            log("This means some of your files are either corrupted,outdated or to new(minecraft got updated?).");
+            log("This means some of your files are either corrupted, outdated or too new. (minecraft got updated?)");
             log("If you still want to run the server, delete version.txt to run the server in tainted mode.");
             log("-----------------------------");
             System.exit(0);
@@ -161,13 +162,13 @@ public class Main {
 
     public static boolean checkForUpdate() {
         etc e = etc.getInstance();
-        boolean crow = e.isCrow();
-        String version = e.getVersionStr();
         if (e.getTainted()) {
             log("=== Not checking for updates, tainted version detected (check "
                     + "version.txt) ===");
             return false;
         }
+        boolean crow = e.isCrow();
+        String version = e.getVersionStr();
         try {
             URLConnection canaryURL = new URL(
                     "http://72.9.154.217/dl/version.txt").openConnection();

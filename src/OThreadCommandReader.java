@@ -1,15 +1,14 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import net.minecraft.server.MinecraftServer;
 
 
 public class OThreadCommandReader extends Thread {
 
     // $FF: synthetic field
-    final MinecraftServer a;
+    final OMinecraftServer a;
 
-    public OThreadCommandReader(MinecraftServer var1) {
+    public OThreadCommandReader(OMinecraftServer var1) {
         super();
         this.a = var1;
     }

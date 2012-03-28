@@ -162,6 +162,11 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
 
                     var2.a -= var6;
                     OEntityItem var7 = new OEntityItem(this.bi, this.bm + (double) var3, this.bn + (double) var4, this.bo + (double) var5, new OItemStack(var2.c, var6, var2.h()));
+                    
+                    if (var2.n()) {
+                        var7.a.d((ONBTTagCompound) var2.o().b());
+                    }
+                    
                     float var8 = 0.05F;
 
                     var7.bp = (double) ((float) this.bS.nextGaussian() * var8);
@@ -189,6 +194,10 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
 
         if (this.l() > 0) {
             this.c(this.l() - 1);
+        }
+        
+        if (this.bn < -64.0D) {
+            this.aI();
         }
 
         if (this.k() && this.bS.nextInt(4) == 0) {

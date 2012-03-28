@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.concurrent.DelayQueue;
 import java.util.logging.Level;
 
-import net.minecraft.server.MinecraftServer;
 
 
 public class OEntityTracker {
@@ -15,11 +14,11 @@ public class OEntityTracker {
 
     private Set a = new HashSet();
     private OIntHashMap b = new OIntHashMap();
-    private MinecraftServer c;
+    private OMinecraftServer c;
     private int d;
     private int e;
 
-    public OEntityTracker(MinecraftServer var1, int var2) {
+    public OEntityTracker(OMinecraftServer var1, int var2) {
         super();
         this.c = var1;
         this.e = var2;
@@ -154,7 +153,7 @@ public class OEntityTracker {
             }
         } catch (ConcurrentModificationException ex) {
             // people seem to get this exception often, lets just catch so it doesn't crash the server.
-            MinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", ex);   
+           OMinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", ex);   
         }
         // CanaryMod: Execute runnables contained in eventQueue.
         for (DelayedTask task = delayQueue.poll(); task != null; task = delayQueue.poll()) {
