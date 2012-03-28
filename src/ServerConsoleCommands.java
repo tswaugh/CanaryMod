@@ -1,7 +1,5 @@
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class ServerConsoleCommands {
@@ -590,6 +588,96 @@ public class ServerConsoleCommands {
                 }
             }
             log.info("Kicked all players.");
+        }
+    };
+    public static final BaseCommand time = new BaseCommand("[world] <time|'day'|'night'|'check'|'raw'rawtime> - Changes or checks the time", "Correct usage is: /time <day|night|check|raw> (rawtime)", 2, 3) {
+
+        @Override
+        void execute(MessageReceiver caller, String[] args) {
+            World world;
+
+            if (caller instanceof Player) {
+                world = ((Player) caller).getWorld();
+            } else {
+                if (args.length > 2 && !args[1].equalsIgnoreCase("raw")) {
+                    world = etc.getServer().getWorld(args[1])[0];
+                    if (world == null) {
+                        caller.notify(String.format("The world %s doesn't exist.", args[1]));
+                        return;
+                    }
+                    args = (args[0] + " " + etc.combineSplit(2, args, " ")).split(" ");
+                }
+                world = etc.getServer().getDefaultWorld();
+            }
+
+            if (args.length == 2) {
+                if (args[1].equalsIgnoreCase("day")) {
+                    world.setRelativeTime(0);
+                } else if (args[1].equalsIgnoreCase("night")) {
+                    world.setRelativeTime(13000);
+                } else if (args[1].equalsIgnoreCase("check")) {
+                    caller.notify("The time is " + world.getRelativeTime() + "! (RAW: " + world.getTime() + ")");
+                } else if (args[1].matches("\\d+")) {
+                    world.setRelativeTime(Long.parseLong(args[1]));
+                } else {
+                    this.onBadSyntax(caller, args);
+                }
+            } else if (args[1].equalsIgnoreCase("raw")) {
+                if (args[2].matches("\\d+")) {
+                    world.setTime(Long.parseLong(args[2]));
+                } else {
+                    caller.notify("Please enter numbers, not letters.");
+                }
+            }
+        }
+    };
+    public static final BaseCommand weather = new BaseCommand("[on|off] (optional) - Set weather to the specified value (default: toggle)", "Usage: /weather [on|off]", 1, 2) {
+
+        @Override
+        void execute(MessageReceiver caller, String[] args) {
+            if (!(caller instanceof Player)) {
+                return;
+            }
+            Player player = (Player) caller;
+            World world = player.getWorld();
+
+            if (args.length == 1) {
+                world.setRaining(!world.isRaining());
+                caller.notify("Weather toggled.");
+            } else if (args[1].equalsIgnoreCase("on")) {
+                world.setRaining(true);
+                caller.notify(Colors.Yellow + "Weather turned on.");
+            } else if (args[1].equalsIgnoreCase("off")) {
+                world.setRaining(false);
+                caller.notify(Colors.Yellow + "Weather turned off.");
+            } else {
+                onBadSyntax(caller, args);
+            }
+
+        }
+    };
+    public static final BaseCommand thunder = new BaseCommand("[on|off] (optional) - Set thunder to the specified value (default: toggle)", "Usage: /thunder [on|off]", 1, 2) {
+
+        @Override
+        void execute(MessageReceiver caller, String[] args) {
+            if (!(caller instanceof Player)) {
+                return;
+            }
+            Player player = (Player) caller;
+            World world = player.getWorld();
+
+            if (args.length == 1) {
+                world.setThundering(!world.isThundering());
+                caller.notify("Thunder toggled.");
+            } else if (args[1].equalsIgnoreCase("on")) {
+                world.setThundering(true);
+                caller.notify(Colors.Yellow + "Thunder turned on.");
+            } else if (args[1].equalsIgnoreCase("off")) {
+                world.setThundering(false);
+                caller.notify(Colors.Yellow + "Thunder turned off.");
+            } else {
+                onBadSyntax(caller, args);
+            }
         }
     };
 }

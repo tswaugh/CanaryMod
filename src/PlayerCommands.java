@@ -627,10 +627,10 @@ public class PlayerCommands {
                 caller.notify("Could not find player.");
                 return;
             }
-            World.Type worldType = player.getWorld().getType();
-            if (worldType != World.Type.NORMAL) {
+            World.Dimension worldType = player.getWorld().getType();
+            if (worldType != World.Dimension.NORMAL) {
                 if (player.canIgnoreRestrictions()) {
-                    player.switchWorlds(World.Type.NORMAL.getId());
+                    player.switchWorlds(World.Dimension.NORMAL.getId());
                 } else {
                     player.notify("You cannot set a home in the " + worldType + ", mortal.");
                     return;
@@ -672,10 +672,10 @@ public class PlayerCommands {
                 caller.notify("Could not find player.");
                 return;
             }
-            World.Type worldType = toMove.getWorld().getType();
-            if (worldType != World.Type.NORMAL) {
+            World.Dimension worldType = toMove.getWorld().getType();
+            if (worldType != World.Dimension.NORMAL) {
                 if (toMove != caller || toMove.canIgnoreRestrictions()) {
-                    toMove.switchWorlds(World.Type.NORMAL.getId());
+                    toMove.switchWorlds(World.Dimension.NORMAL.getId());
                 } else {
                     toMove.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + worldType + "...");
                     return;
@@ -713,7 +713,7 @@ public class PlayerCommands {
                 return;
             }
 
-            for (World.Type type : World.Type.values()) {
+            for (World.Dimension type : World.Dimension.values()) {
                 etc.getMCServer().a(type.getId()).s().a((int) player.getX(), (int) player.getY(), (int) player.getZ());
             }
 
@@ -743,10 +743,10 @@ public class PlayerCommands {
                 home = etc.getDataSource().getHome(caller.getName());
             }
 
-            World.Type worldType = player.getWorld().getType();
-            if (worldType != World.Type.NORMAL) {
+            World.Dimension worldType = player.getWorld().getType();
+            if (worldType != World.Dimension.NORMAL) {
                 if (player.canIgnoreRestrictions()) {
-                    player.switchWorlds(World.Type.NORMAL.getId());
+                    player.switchWorlds(World.Dimension.NORMAL.getId());
                 } else {
                     player.notify("The veil between the worlds keeps you in the " + worldType + "...");
                     return;
@@ -791,10 +791,10 @@ public class PlayerCommands {
                     if ((caller instanceof Player) && !((Player) caller).isInGroup(warp.Group) && !warp.Group.equals("")) {
                         caller.notify("Warp not found.");
                     } else {
-                        World.Type worldType = toWarp.getWorld().getType();
-                        if (worldType != World.Type.NORMAL) {
+                        World.Dimension worldType = toWarp.getWorld().getType();
+                        if (worldType != World.Dimension.NORMAL) {
                             if (toWarp != caller || toWarp.canIgnoreRestrictions()) {
-                                toWarp.switchWorlds(World.Type.NORMAL.getId());
+                                toWarp.switchWorlds(World.Dimension.NORMAL.getId());
                             } else {
                                 toWarp.sendMessage(Colors.Rose + "The veil between the worlds keeps you in the " + worldType + "...");
                                 return;
@@ -879,53 +879,15 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand time = new BaseCommand("<time|'day'|'night'|'check'|'raw'rawtime> - Changes or checks the time", "Correct usage is: /time <day|night|check|raw> (rawtime)", 2, 3) {
-
-        @Override
-        void execute(MessageReceiver caller, String[] args) {
-            World world;
-
-            if (caller instanceof Player) {
-                world = ((Player) caller).getWorld();
-            } else {
-                world = etc.getServer().getDefaultWorld();
-            }
-
-            if (args.length == 2) {
-                if (args[1].equalsIgnoreCase("day")) {
-                    world.setRelativeTime(0);
-                } else if (args[1].equalsIgnoreCase("night")) {
-                    world.setRelativeTime(13000);
-                } else if (args[1].equalsIgnoreCase("check")) {
-                    caller.notify("The time is " + world.getRelativeTime() + "! (RAW: " + world.getTime() + ")");
-                } else if (args[1].matches("\\d+")) {
-                    world.setRelativeTime(Long.parseLong(args[1]));
-                } else {
-                    caller.notify("Please enter numbers, not letters.");
-                }
-            } else if (args[1].equalsIgnoreCase("raw")) {
-                if (args[2].matches("\\d+")) {
-                    world.setTime(Long.parseLong(args[2]));
-                } else {
-                    caller.notify("Please enter numbers, not letters.");
-                }
-            }
-        }
-    };
-    @Command
     public static final BaseCommand mode = new BaseCommand("- Changes your gamemode") {
 
         @Override
         void execute(MessageReceiver caller, String[] args) {
-            if (!(caller instanceof Player)) {
-                return;
-            }
-            if (args.length == 3 && ((Player) caller).isAdmin()) {
+            if (args.length == 3 && (!(caller instanceof Player) || ((Player) caller).isAdmin())) {
                 Player player = etc.getServer().matchPlayer(args[2]);
 
                 if (player == null) {
                     caller.notify("Can't find user " + args[2] + ".");
-                    return;
                 } else {
                     try {
                         int mode = Integer.parseInt(args[1]);
@@ -942,7 +904,7 @@ public class PlayerCommands {
                     }
                 }
             } else if (args.length == 2) {
-                if (caller instanceof Player) {
+                if ((caller instanceof Player) && args[1].matches("-?\\d+"))
                     try {
                         Player player = ((Player) caller);
                         int mode = Integer.parseInt(args[1]);
@@ -957,11 +919,19 @@ public class PlayerCommands {
                     } catch (NumberFormatException var11) {
                         caller.notify("There\'s no game mode with id " + args[1]);
                     }
+                else if (!(caller instanceof Player) || ((Player) caller).isAdmin()) {
+                    Player player = etc.getServer().matchPlayer(args[1]);
+                    if (player != null)
+                        caller.notify(String.format("%s's current gamemode is: %d", player.getName(), player.getCreativeMode()));
+                    else
+                        caller.notify("Can't find user " + args[1] + ".");
                 }
-            } else {
+            } else if (caller instanceof Player) {
                 Player player = ((Player) caller);
 
                 caller.notify(String.format("Your current gamemode is: %d", player.getCreativeMode()));
+            } else {
+                caller.notify("Usage: mode [newmode] <player>");
             }
         }
     };
@@ -1136,57 +1106,6 @@ public class PlayerCommands {
 
             } else {
                 caller.notify("You are not targeting a mob spawner.");
-            }
-        }
-    };
-    @Command
-    public static final BaseCommand weather = new BaseCommand("[on|off] (optional) - Set weather to the specified value (default: toggle)", "Usage: /weather [on|off]", 1, 2) {
-
-        @Override
-        void execute(MessageReceiver caller, String[] args) {
-            if (!(caller instanceof Player)) {
-                return;
-            }
-            Player player = (Player) caller;
-            World world = player.getWorld();
-
-            if (args.length == 1) {
-                world.setRaining(!world.isRaining());
-                caller.notify("Weather toggled.");
-            } else if (args[1].equalsIgnoreCase("on")) {
-                world.setRaining(true);
-                caller.notify(Colors.Yellow + "Weather turned on.");
-            } else if (args[1].equalsIgnoreCase("off")) {
-                world.setRaining(false);
-                caller.notify(Colors.Yellow + "Weather turned off.");
-            } else {
-                onBadSyntax(caller, args);
-            }
-
-        }
-    };
-    @Command
-    public static final BaseCommand thunder = new BaseCommand("[on|off] (optional) - Set thunder to the specified value (default: toggle)", "Usage: /thunder [on|off]", 1, 2) {
-
-        @Override
-        void execute(MessageReceiver caller, String[] args) {
-            if (!(caller instanceof Player)) {
-                return;
-            }
-            Player player = (Player) caller;
-            World world = player.getWorld();
-
-            if (args.length == 1) {
-                world.setThundering(!world.isThundering());
-                caller.notify("Thunder toggled.");
-            } else if (args[1].equalsIgnoreCase("on")) {
-                world.setThundering(true);
-                caller.notify(Colors.Yellow + "Thunder turned on.");
-            } else if (args[1].equalsIgnoreCase("off")) {
-                world.setThundering(false);
-                caller.notify(Colors.Yellow + "Thunder turned off.");
-            } else {
-                onBadSyntax(caller, args);
             }
         }
     };

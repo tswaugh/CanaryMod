@@ -150,6 +150,10 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
 
         return true;
     }
+    
+    protected void loadWorld(String name, long seed, World.Type worldType) {
+        this.a(new OSaveConverterAnvil(new File(".")), name, seed, worldType.getNative());
+    }
 
     private void a(OISaveFormat var1, String var2, long var3, OEnumWorldType var5) {
         if (var1.a(var2)) {
