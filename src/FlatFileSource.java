@@ -1487,7 +1487,6 @@ public class FlatFileSource extends DataSource {
     public void addBan(Ban ban) {
         String loc = etc.getInstance().getBanListLoc();
         boolean byIp = !ban.getIp().isEmpty();
-        boolean found = false;
 
         try {
             // Now to save...

@@ -1,15 +1,15 @@
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 
 /**
- * Server.java - Interface to server stuff
- * Crow build 3.1.9
+ * Server.java - Interface to server stuff Crow build 3.1.9.
  *
  * As of Canary b8, a lot of methods have been deprecated because they were
- * dimension-related. Please use the appropriate {@link World} functions instead.
- * 
+ * dimension-related. Please use the appropriate {@link World} functions
+ * instead.
+ *
  * @author James
  */
 public class Server {
@@ -18,7 +18,7 @@ public class Server {
 
     /**
      * Creates a server
-     * 
+     *
      * @param server
      */
     public Server(OMinecraftServer server) {
@@ -27,9 +27,8 @@ public class Server {
 
     /**
      * Sends a message to all users
-     * 
-     * @param msg
-     *            Message text to send
+     *
+     * @param msg Message text to send
      */
     public void messageAll(String msg) {
         server.h.a(new OPacket3Chat(msg));
@@ -37,9 +36,8 @@ public class Server {
 
     /**
      * Bans specified player
-     * 
-     * @param player
-     *            Name of the player to ban
+     *
+     * @param player Name of the player to ban
      * @deprecated Use one of the methods in {@link BanSystem} instead.
      */
     @Deprecated
@@ -49,10 +47,9 @@ public class Server {
 
     /**
      * Unbans specified user
-     * 
-     * @param player
-     *            Player name to unban
-     * 
+     *
+     * @param player Player name to unban
+     *
      */
     public void unban(String player) {
         server.h.b(player);
@@ -61,7 +58,7 @@ public class Server {
 
     /**
      * Uses the specified console command
-     * 
+     *
      * @param command
      */
     public void useConsoleCommand(String command) {
@@ -70,11 +67,9 @@ public class Server {
 
     /**
      * Uses the specified console command
-     * 
-     * @param command
-     *            command to use
-     * @param player
-     *            player to use command as
+     *
+     * @param command command to use
+     * @param player player to use command as
      */
     public void useConsoleCommand(String command, Player player) {
         server.a(command, player.getUser().a);
@@ -82,11 +77,9 @@ public class Server {
 
     /**
      * Starts a timer using the built-in timer system.
-     * 
-     * @param uniqueString
-     *            must be unique identifier for this timer
-     * @param time
-     *            time till it expires (6000 roughly equals 5 minutes)
+     *
+     * @param uniqueString must be unique identifier for this timer
+     * @param time time till it expires (6000 roughly equals 5 minutes)
      */
     public void setTimer(String uniqueString, int time) {
         OMinecraftServer.b.put(uniqueString, time);
@@ -94,9 +87,8 @@ public class Server {
 
     /**
      * Check to see if your timer has expired yet.
-     * 
-     * @param uniqueString
-     *            unique identifier
+     *
+     * @param uniqueString unique identifier
      * @return false if timer has expired
      */
     public boolean isTimerExpired(String uniqueString) {
@@ -135,8 +127,7 @@ public class Server {
      * Sets the actual server time
      *
      * @deprecated Use {@link World#setTime(long)} instead.
-     * @param time
-     *            time (-2^63 to 2^63-1)
+     * @param time time (-2^63 to 2^63-1)
      */
     @Deprecated
     public void setTime(long time) {
@@ -147,8 +138,7 @@ public class Server {
      * Sets the current server time
      *
      * @deprecated Use {@link World#setRelativeTime(long) } instead.
-     * @param time
-     *            time (0-24000)
+     * @param time time (0-24000)
      */
     @Deprecated
     public void setRelativeTime(long time) {
@@ -163,7 +153,7 @@ public class Server {
 
     /**
      * Returns the actual Minecraft Server
-     * 
+     *
      * @return
      */
     public OMinecraftServer getMCServer() {
@@ -172,7 +162,7 @@ public class Server {
 
     /**
      * Tries to match a character's name.
-     * 
+     *
      * @param name
      * @return
      */
@@ -204,7 +194,7 @@ public class Server {
 
     /**
      * Returns specified player
-     * 
+     *
      * @param name
      * @return
      */
@@ -216,7 +206,7 @@ public class Server {
 
     /**
      * Returns the player list.
-     * 
+     *
      * @return list of players
      */
     public List<Player> getPlayerList() {
@@ -424,12 +414,9 @@ public class Server {
      * Returns the block data at the specified coordinates
      *
      * @deprecated Use {@link World#getBlockData(int, int, int)} instead.
-     * @param x
-     *            x
-     * @param y
-     *            y
-     * @param z
-     *            z
+     * @param x x
+     * @param y y
+     * @param z z
      * @return block data
      */
     @Deprecated
@@ -441,14 +428,10 @@ public class Server {
      * Sets the block data at the specified coordinates
      *
      * @deprecated Use {@link World#setBlockData(int, int, int, int) } instead.
-     * @param x
-     *            x
-     * @param y
-     *            y
-     * @param z
-     *            z
-     * @param data
-     *            data
+     * @param x x
+     * @param y y
+     * @param z z
+     * @param data data
      * @return true if it was successful
      */
     @Deprecated
@@ -526,12 +509,9 @@ public class Server {
      * spaces, such as double chests.
      *
      * @deprecated Use {@link World#getComplexBlock(int, int, int) } instead.
-     * @param x
-     *            x
-     * @param y
-     *            y
-     * @param z
-     *            z
+     * @param x x
+     * @param y y
+     * @param z z
      * @return complex block
      */
     @Deprecated
@@ -573,12 +553,9 @@ public class Server {
      * complex block there.
      *
      * @deprecated Use {@link World#getOnlyComplexBlock(int, int, int)} instead.
-     * @param x
-     *            x
-     * @param y
-     *            y
-     * @param z
-     *            z
+     * @param x x
+     * @param y y
+     * @param z z
      * @return complex block
      */
     @Deprecated
@@ -622,7 +599,7 @@ public class Server {
      * @param y
      * @param z
      * @param itemId
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     @Deprecated
@@ -637,7 +614,7 @@ public class Server {
      * @param loc
      * @param itemId
      * @param quantity
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     @Deprecated
@@ -655,7 +632,7 @@ public class Server {
      * @param z
      * @param itemId
      * @param quantity
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     @Deprecated
@@ -676,8 +653,7 @@ public class Server {
      * Forces the server to update the physics for blocks around the given block
      *
      * @deprecated Use {@link World#updateBlockPhysics(Block) } instead.
-     * @param block
-     *            the block that changed
+     * @param block the block that changed
      */
     @Deprecated
     public void updateBlockPhysics(Block block) {
@@ -689,14 +665,10 @@ public class Server {
      *
      * @deprecated Use {@link World#updateBlockPhysics(int, int, int, int) }
      * instead.
-     * @param x
-     *            the X coordinate of the block
-     * @param y
-     *            the Y coordinate of the block
-     * @param z
-     *            the Z coordinate of the block
-     * @param data
-     *            the new data for the block
+     * @param x the X coordinate of the block
+     * @param y the Y coordinate of the block
+     * @param z the Z coordinate of the block
+     * @param data the new data for the block
      */
     @Deprecated
     public void updateBlockPhysics(int x, int y, int z, int data) {
@@ -706,9 +678,8 @@ public class Server {
     /**
      * Adds a runnable to the Server Queue, so that it will be executed in the
      * Server Thread.
-     * 
-     * @param r
-     *            - the runnable
+     *
+     * @param r - the runnable
      */
     public void addToServerQueue(Runnable r) {
         addToServerQueue(r, 0L);
@@ -716,11 +687,9 @@ public class Server {
 
     /**
      * Executes a runnable in the server thread after a specified delay.
-     * 
-     * @param r
-     *            - the runnable
-     * @param delayMillis
-     *            - the delay in milliseconds
+     *
+     * @param r - the runnable
+     * @param delayMillis - the delay in milliseconds
      */
     public void addToServerQueue(Runnable r, long delayMillis) {
         OEntityTracker.add(r, delayMillis);
@@ -738,8 +707,7 @@ public class Server {
      * loaded into memory.
      *
      * @deprecated Use {@link World#isChunkLoaded(Block) } instead.
-     * @param block
-     *            the Block to check
+     * @param block the Block to check
      * @return true if the chunk is loaded
      */
     @Deprecated
@@ -752,12 +720,9 @@ public class Server {
      * coordinates is loaded into memory.
      *
      * @deprecated Use {@link World#isChunkLoaded(int, int, int) } instead.
-     * @param x
-     *            a block x-coordinate
-     * @param y
-     *            a block y-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param y a block y-coordinate
+     * @param z a block z-coordinate
      * @return true if the chunk is loaded
      */
     @Deprecated
@@ -770,8 +735,7 @@ public class Server {
      * it will be generated.
      *
      * @deprecated Use {@link World#loadChunk(Block) } instead.
-     * @param block
-     *            the Block to check
+     * @param block the Block to check
      */
     @Deprecated
     public void loadChunk(Block block) {
@@ -783,12 +747,9 @@ public class Server {
      * not exist, it will be generated.
      *
      * @deprecated Use {@link World#loadChunk(int, int, int) } instead.
-     * @param x
-     *            a block x-coordinate
-     * @param y
-     *            a block y-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param y a block y-coordinate
+     * @param z a block z-coordinate
      */
     @Deprecated
     public void loadChunk(int x, int y, int z) {
@@ -800,10 +761,8 @@ public class Server {
      * not exist, it will be generated.
      *
      * @deprecated Use {@link World#loadChunk(int, int) } instead.
-     * @param x
-     *            a chunk x-coordinate
-     * @param z
-     *            a chunk z-coordinate
+     * @param x a chunk x-coordinate
+     * @param z a chunk z-coordinate
      */
     @Deprecated
     public void loadChunk(int x, int z) {
@@ -814,8 +773,7 @@ public class Server {
      * Checks if the provided block is being powered through redstone
      *
      * @deprecated Use {@link World#isBlockPowered(Block) } instead.
-     * @param block
-     *            Block to check
+     * @param block Block to check
      * @return true if the block is being powered
      */
     @Deprecated
@@ -827,12 +785,9 @@ public class Server {
      * Checks if the provided block is being powered through redstone
      *
      * @deprecated Use {@link World#isBlockPowered(int, int, int) } instead.
-     * @param x
-     *            a block x-coordinate
-     * @param y
-     *            a block y-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param y a block y-coordinate
+     * @param z a block z-coordinate
      * @return true if the block is being powered
      */
     @Deprecated
@@ -844,8 +799,7 @@ public class Server {
      * Checks if the provided block is being indirectly powered through redstone
      *
      * @deprecated Use {@link World#isBlockIndirectlyPowered(Block) } instead.
-     * @param block
-     *            Block to check
+     * @param block Block to check
      * @return true if the block is being indirectly powered
      */
     @Deprecated
@@ -858,12 +812,9 @@ public class Server {
      *
      * @deprecated Use {@link World#isBlockIndirectlyPowered(int, int, int) }
      * instead.
-     * @param x
-     *            a block x-coordinate
-     * @param y
-     *            a block y-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param y a block y-coordinate
+     * @param z a block z-coordinate
      * @return true if the block is being indirectly powered
      */
     @Deprecated
@@ -987,6 +938,7 @@ public class Server {
 
     /**
      * Returns the dimension new users spawn in
+     *
      * @return the default dimension
      */
     public World getDefaultWorld() {
@@ -994,9 +946,10 @@ public class Server {
     }
 
     /**
-     * Returns the dimension at the given dimension.
-     * Due to the way the server works, this returns the Nether's {@link World}
-     * if {@code dimension} is -1, the normal dimension's {@link World} otherwise.
+     * Returns the dimension at the given dimension. Due to the way the server
+     * works, this returns the Nether's {@link World} if {@code dimension} is
+     * -1, the normal dimension's {@link World} otherwise.
+     *
      * @param dimension The dimension to return the World for
      * @return {@code dimension}'s World
      */
@@ -1005,9 +958,10 @@ public class Server {
     }
 
     /**
-     * Adds a recipe to the crafting manager.
-     * Due to deadlines, this documentation isn't written yet, you may want to
-     * refer to MCP in the meantime.
+     * Adds a recipe to the crafting manager. Due to deadlines, this
+     * documentation isn't written yet, you may want to refer to MCP in the
+     * meantime.
+     *
      * @param item The item to return
      * @param recipe The recipe to return the item for
      */
@@ -1023,9 +977,10 @@ public class Server {
     }
 
     /**
-     * Adds a shapeless recipe to the crafting manager.
-     * Due to deadlines, this documentation isn't written yet, you may want to
-     * refer to MCP in the meantime.
+     * Adds a shapeless recipe to the crafting manager. Due to deadlines, this
+     * documentation isn't written yet, you may want to refer to MCP in the
+     * meantime.
+     *
      * @param item The item to return
      * @param recipe The recipes to return the item for.
      */
@@ -1039,27 +994,101 @@ public class Server {
         }
         OCraftingManager.a().b(item.getBaseItem(), recipe);
     }
-    
+
     /**
      * Adds a smelting recipe to the furnace recipes.
-     * {@code from} is the item that is put into the furnace, and should have 
+     * {@code from} is the item that is put into the furnace, and should have
      * amount 1. {@code to} is the result after smelting.
+     *
      * @param from The inserted item
      * @param to The resulting item
      * @throws IllegalArgumentException if the amount of {@code from} doesn't
-     *          equal 1.
+     * equal 1.
      */
     public void addSmeltingRecipe(Item from, Item to) {
-        if (from.getAmount() != 1)
+        if (from.getAmount() != 1) {
             throw new IllegalArgumentException("The 'from' amount should be 1");
+        }
         OFurnaceRecipes.a().a(from.getItemId(), to.getBaseItem());
     }
 
     /**
      * Returns the list with recipes, as kept by the crafting manager.
+     *
      * @return a list containing {@code OIRecipe} instances.
      */
     public List getRecipeList() {
         return OCraftingManager.a().b();
+    }
+
+    /**
+     * Loads the world with the specified name using defaults and returns it. If
+     * the world already is loaded, just return the world.
+     *
+     * @param name The name of the world to load.
+     * @return A {@link World}-array containing the 3 dimensions of the
+     * specified <tt>World</tt>.
+     * @see World.Dimension#toIndex()
+     */
+    public World[] loadWorld(String name) {
+        return loadWorld(name, World.Type.DEFAULT);
+    }
+
+    /**
+     * Loads the world with the specified name and type and returns it. If the
+     * world already is loaded, just return the world.
+     *
+     * @param name The name of the world to load.
+     * @param type The type of the world to load. If a world with the specified
+     * name already exists, this argument is ignored.
+     * @return A {@link World}-array containing the 3 dimensions of the
+     * specified <tt>World</tt>.
+     * @see World.Dimension#toIndex()
+     */
+    public World[] loadWorld(String name, World.Type type) {
+        return loadWorld(name, type, new Random().nextLong());
+    }
+
+    /**
+     * Loads the world with the specified name, type and seed and returns it. If
+     * the world already is loaded, just return the world.
+     *
+     * @param name The name of the world to load.
+     * @param type The type of the world to load. If a world with the specified
+     * name already exists, this argument is ignored.
+     * @param seed The seed of the world to load. If a world with the specified
+     * name already exists, this argument is ignored.
+     * @return A {@link World}-array containing the 3 dimensions of the
+     * specified <tt>World</tt>.
+     * @see World.Dimension#toIndex()
+     */
+    public World[] loadWorld(String name, World.Type type, long seed) {
+        if (!server.worlds.containsKey(name)) {
+            server.loadWorld(name, seed, type);
+        }
+
+        OWorldServer[] nativeWorlds = server.worlds.get(name);
+        return new World[]{nativeWorlds[0].world, nativeWorlds[1].world, nativeWorlds[2].world};
+    }
+
+    /**
+     * Checks whether the world with the given name is loaded.
+     *
+     * @param name The name of the world to check for.
+     * @return <tt>true</tt> if the world is loaded, <tt>false</tt> otherwise.
+     */
+    public boolean isWorldLoaded(String name) {
+        return server.worlds.containsKey(name);
+    }
+
+    /**
+     * Gives the world with the specified name.
+     *
+     * @param name The name of the world to get.
+     * @return a {@link World}-array containing the 3 dimensions of the
+     * specified world if it exists, <tt>null</tt> otherwise.
+     */
+    public World[] getWorld(String name) {
+        return this.isWorldLoaded(name) ? this.loadWorld(name) : null;
     }
 }

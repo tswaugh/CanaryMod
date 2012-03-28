@@ -4,32 +4,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * World.java - Interface to worlds.
- * Most of the stuff in Server.java was moved here.
+ * World.java - Interface to worlds. Most of the stuff in Server.java was moved
+ * here.
  *
  * @author 14mRh4X0r
  */
 public class World {
+
     private final OWorldServer world;
 
-    public enum Type {
+    public enum Dimension {
+
         NETHER(-1), //
         NORMAL(0), //
         END(1);
-        
         private int id;
-        private static Map<Integer, Type> map;
+        private static Map<Integer, Dimension> map;
 
-        private Type(int id) {
+        private Dimension(int id) {
             this.id = id;
             add(id, this);
         }
 
-        private static void add(int type, Type name) {
+        private static void add(int type, Dimension name) {
             if (map == null) {
-                map = new HashMap<Integer, Type>();
+                map = new HashMap<Integer, Dimension>();
             }
 
             map.put(type, name);
@@ -39,20 +39,40 @@ public class World {
             return id;
         }
 
-        public static Type fromId(final int type) {
+        public static Dimension fromId(final int type) {
             return map.get(type);
         }
-        
+
+        public int toIndex() {
+            return id == 0 ? 0 : id == -1 ? 1 : 2;
+        }
+
         @Override
         public String toString() {
             String name = this.name();
             return name.substring(0, 1).toUpperCase() + name.substring(1);
         }
+    }
 
+    public enum Type {
+
+        DEFAULT(OEnumWorldType.b),
+        FLAT(OEnumWorldType.c),
+        DEFAULT_1_1(OEnumWorldType.d);
+        private OEnumWorldType nativeType;
+
+        private Type(OEnumWorldType nativeType) {
+            this.nativeType = nativeType;
+        }
+
+        public OEnumWorldType getNative() {
+            return nativeType;
+        }
     }
 
     /**
-     * Instantiates this wrapper around {@code world}
+     * Instantiates this wrapper around {@code world}.
+     *
      * @param world the OWorldServer to wrap
      */
     public World(OWorldServer world) {
@@ -60,7 +80,8 @@ public class World {
     }
 
     /**
-     * Returns the OWorldServer this class wraps around
+     * Returns the OWorldServer this class wraps around.
+     *
      * @return the managed worldserver
      */
     public OWorldServer getWorld() {
@@ -68,17 +89,16 @@ public class World {
     }
 
     /**
-     * Returns this dimension's type.
-     * Currently Nether, End and Normal
-     * 
+     * Returns this dimension's type. Currently Nether, End and Normal.
+     *
      * @return the dimension type
      */
-    public Type getType() {
-        return Type.fromId(world.t.g);
+    public Dimension getType() {
+        return Dimension.fromId(world.t.g);
     }
 
     /**
-     * Returns actual server time (-2^63 to 2^63-1)
+     * Returns actual server time (-2^63 to 2^63-1).
      *
      * @return time server time
      */
@@ -87,7 +107,7 @@ public class World {
     }
 
     /**
-     * Returns current server time (0-24000)
+     * Returns current server time (0-24000).
      *
      * @return time server time
      */
@@ -102,10 +122,9 @@ public class World {
     }
 
     /**
-     * Sets the actual server time
+     * Sets the actual server time.
      *
-     * @param time
-     *            time (-2^63 to 2^63-1)
+     * @param time time (-2^63 to 2^63-1)
      */
     public void setTime(long time) {
         etc.getServer().getWorld(-1).getWorld().a(time);
@@ -114,10 +133,9 @@ public class World {
     }
 
     /**
-     * Sets the current server time
+     * Sets the current server time.
      *
-     * @param time
-     *            time (0-24000)
+     * @param time time (0-24000)
      */
     public void setRelativeTime(long time) {
         long margin = (time - getTime()) % 24000;
@@ -160,7 +178,7 @@ public class World {
         }
         return toRet;
     }
-    
+
     /**
      * Returns the list of minecarts in all open chunks.
      *
@@ -216,7 +234,7 @@ public class World {
         }
         return toRet;
     }
-	
+
     /**
      * Returns the list of items in all open chunks.
      *
@@ -313,12 +331,9 @@ public class World {
     /**
      * Returns the block data at the specified coordinates
      *
-     * @param x
-     *            x
-     * @param y
-     *            y
-     * @param z
-     *            z
+     * @param x x
+     * @param y y
+     * @param z z
      * @return block data
      */
     public int getBlockData(int x, int y, int z) {
@@ -328,14 +343,10 @@ public class World {
     /**
      * Sets the block data at the specified coordinates
      *
-     * @param x
-     *            x
-     * @param y
-     *            y
-     * @param z
-     *            z
-     * @param data
-     *            data
+     * @param x x
+     * @param y y
+     * @param z z
+     * @param data data
      * @return true if it was successful
      */
     public boolean setBlockData(int x, int y, int z, int data) {
@@ -403,12 +414,9 @@ public class World {
      * complex block there. This will also find complex-blocks spanning multiple
      * spaces, such as double chests.
      *
-     * @param x
-     *            x
-     * @param y
-     *            y
-     * @param z
-     *            z
+     * @param x x
+     * @param y y
+     * @param z z
      * @return complex block
      */
     public ComplexBlock getComplexBlock(int x, int y, int z) {
@@ -446,12 +454,9 @@ public class World {
      * Returns the complex block at the specified location. Null if there's no
      * complex block there.
      *
-     * @param x
-     *            x
-     * @param y
-     *            y
-     * @param z
-     *            z
+     * @param x x
+     * @param y y
+     * @param z z
      * @return complex block
      */
     public ComplexBlock getOnlyComplexBlock(int x, int y, int z) {
@@ -482,7 +487,7 @@ public class World {
      *
      * @param loc
      * @param itemId
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(Location loc, int itemId) {
@@ -511,7 +516,7 @@ public class World {
      * @param z
      * @param itemId
      * @param quantity
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity) {
@@ -524,7 +529,7 @@ public class World {
      * @param loc
      * @param itemId
      * @param quantity
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(Location loc, int itemId, int quantity) {
@@ -532,13 +537,14 @@ public class World {
     }
 
     /**
-     * Drops an item with damage data and desired quantity at the specified location
+     * Drops an item with damage data and desired quantity at the specified
+     * location
      *
      * @param loc
      * @param itemId
      * @param quantity
      * @param damage
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(Location loc, int itemId, int quantity, int damage) {
@@ -546,14 +552,15 @@ public class World {
     }
 
     /**
-     * Drops an item with desired quantity and damage value at the specified location
+     * Drops an item with desired quantity and damage value at the specified
+     * location
      *
      * @param x
      * @param y
      * @param z
      * @param itemId
      * @param quantity
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity, int damage) {
@@ -571,8 +578,7 @@ public class World {
     /**
      * Forces the server to update the physics for blocks around the given block
      *
-     * @param block
-     *            the block that changed
+     * @param block the block that changed
      */
     public void updateBlockPhysics(Block block) {
         updateBlockPhysics(block.getX(), block.getY(), block.getZ(), block.getData());
@@ -581,14 +587,10 @@ public class World {
     /**
      * Forces the server to update the physics for blocks around the given block
      *
-     * @param x
-     *            the X coordinate of the block
-     * @param y
-     *            the Y coordinate of the block
-     * @param z
-     *            the Z coordinate of the block
-     * @param data
-     *            the new data for the block
+     * @param x the X coordinate of the block
+     * @param y the Y coordinate of the block
+     * @param z the Z coordinate of the block
+     * @param data the new data for the block
      */
     public void updateBlockPhysics(int x, int y, int z, int data) {
         world.c(x, y, z, data);
@@ -598,8 +600,7 @@ public class World {
      * Checks to see whether or not the chunk containing the given block is
      * loaded into memory.
      *
-     * @param block
-     *            the Block to check
+     * @param block the Block to check
      * @return true if the chunk is loaded
      */
     public boolean isChunkLoaded(Block block) {
@@ -610,26 +611,21 @@ public class World {
      * Checks to see whether or not the chunk containing the given block
      * coordinates is loaded into memory.
      *
-     * @param x
-     *            a block x-coordinate
-     * @param y
-     *            a block y-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param y a block y-coordinate
+     * @param z a block z-coordinate
      * @return true if the chunk is loaded
      */
     public boolean isChunkLoaded(int x, int y, int z) {
         return isChunkLoaded(x >> 4, z >> 4);
     }
-    
+
     /**
      * Checks to see whether or not the chunk containing the given chunk
      * coordinates is loaded into memory.
      *
-     * @param x
-     *            a block x-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param z a block z-coordinate
      * @return true if the chunk is loaded
      */
     public boolean isChunkLoaded(int x, int z) {
@@ -640,8 +636,7 @@ public class World {
      * Loads the chunk containing the given block. If the chunk does not exist,
      * it will be generated.
      *
-     * @param block
-     *            the Block to check
+     * @param block the Block to check
      * @return chunk
      */
     public Chunk loadChunk(Block block) {
@@ -652,12 +647,9 @@ public class World {
      * Loads the chunk containing the given block coordinates. If the chunk does
      * not exist, it will be generated.
      *
-     * @param x
-     *            a block x-coordinate
-     * @param y
-     *            a block y-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param y a block y-coordinate
+     * @param z a block z-coordinate
      * @return chunk
      */
     public Chunk loadChunk(int x, int y, int z) {
@@ -668,10 +660,8 @@ public class World {
      * Loads the chunk containing the given chunk coordinates. If the chunk does
      * not exist, it will be generated.
      *
-     * @param x
-     *            a chunk x-coordinate
-     * @param z
-     *            a chunk z-coordinate
+     * @param x a chunk x-coordinate
+     * @param z a chunk z-coordinate
      * @return chunk
      */
     public Chunk loadChunk(int x, int z) {
@@ -682,8 +672,7 @@ public class World {
      * Gets the chunk containing the given block. If the chunk is not loaded,
      * the result will be null.
      *
-     * @param block
-     *            the Block to check
+     * @param block the Block to check
      * @return chunk
      */
     public Chunk getChunk(Block block) {
@@ -691,15 +680,12 @@ public class World {
     }
 
     /**
-     * Gets the chunk containing the given block coordinates. If the chunk is not loaded,
-     * the result will be null.
+     * Gets the chunk containing the given block coordinates. If the chunk is
+     * not loaded, the result will be null.
      *
-     * @param x
-     *            a block x-coordinate
-     * @param y
-     *            a block y-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param y a block y-coordinate
+     * @param z a block z-coordinate
      * @return chunk
      */
     public Chunk getChunk(int x, int y, int z) {
@@ -707,13 +693,11 @@ public class World {
     }
 
     /**
-     * Gets the chunk containing the given chunk coordinates. If the chunk is not loaded,
-     * the result will be null.
+     * Gets the chunk containing the given chunk coordinates. If the chunk is
+     * not loaded, the result will be null.
      *
-     * @param x
-     *            a chunk x-coordinate
-     * @param z
-     *            a chunk z-coordinate
+     * @param x a chunk x-coordinate
+     * @param z a chunk z-coordinate
      * @return chunk
      */
     public Chunk getChunk(int x, int z) {
@@ -727,8 +711,7 @@ public class World {
     /**
      * Checks if the provided block is being powered through redstone
      *
-     * @param block
-     *            Block to check
+     * @param block Block to check
      * @return true if the block is being powered
      */
     public boolean isBlockPowered(Block block) {
@@ -738,12 +721,9 @@ public class World {
     /**
      * Checks if the provided block is being powered through redstone
      *
-     * @param x
-     *            a block x-coordinate
-     * @param y
-     *            a block y-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param y a block y-coordinate
+     * @param z a block z-coordinate
      * @return true if the block is being powered
      */
     public boolean isBlockPowered(int x, int y, int z) {
@@ -753,8 +733,7 @@ public class World {
     /**
      * Checks if the provided block is being indirectly powered through redstone
      *
-     * @param block
-     *            Block to check
+     * @param block Block to check
      * @return true if the block is being indirectly powered
      */
     public boolean isBlockIndirectlyPowered(Block block) {
@@ -764,12 +743,9 @@ public class World {
     /**
      * Checks if the provided block is being indirectly powered through redstone
      *
-     * @param x
-     *            a block x-coordinate
-     * @param y
-     *            a block y-coordinate
-     * @param z
-     *            a block z-coordinate
+     * @param x a block x-coordinate
+     * @param y a block y-coordinate
+     * @param z a block z-coordinate
      * @return true if the block is being indirectly powered
      */
     public boolean isBlockIndirectlyPowered(int x, int y, int z) {
@@ -778,6 +754,7 @@ public class World {
 
     /**
      * Set the thunder state
+     *
      * @param thundering whether it should thunder
      */
     public void setThundering(boolean thundering) {
@@ -796,6 +773,7 @@ public class World {
 
     /**
      * Set the thunder ticks.
+     *
      * @param ticks ticks of thunder
      */
     public void setThunderTime(int ticks) {
@@ -804,6 +782,7 @@ public class World {
 
     /**
      * Sets the rain state.
+     *
      * @param raining whether it should rain
      */
     public void setRaining(boolean raining) {
@@ -822,6 +801,7 @@ public class World {
 
     /**
      * Sets the rain ticks.
+     *
      * @param ticks ticks of rain
      */
     public void setRainTime(int ticks) {
@@ -830,6 +810,7 @@ public class World {
 
     /**
      * Returns whether it's thundering
+     *
      * @return whether it's thundering
      */
     public boolean isThundering() {
@@ -838,6 +819,7 @@ public class World {
 
     /**
      * Returns the number of ticks to go till the end of the thunder
+     *
      * @return the thunder ticks
      */
     public int getThunderTime() {
@@ -846,6 +828,7 @@ public class World {
 
     /**
      * Returns whether it's raining
+     *
      * @return whether it's raining
      */
     public boolean isRaining() {
@@ -854,6 +837,7 @@ public class World {
 
     /**
      * Returns the number of ticks to go till the end of the rain
+     *
      * @return the rain ticks
      */
     public int getRainTime() {
@@ -875,6 +859,7 @@ public class World {
 
     /**
      * Creates an explosion with the specified power at the given location.
+     *
      * @param exploder The entity causing the explosion.
      * @param x
      * @param y
@@ -884,50 +869,55 @@ public class World {
     public void explode(BaseEntity exploder, double x, double y, double z, float power) {
         world.a(exploder.entity, x, y, z, power);
     }
-    
+
     /**
      * Gets the random seed of the world.
+     *
      * @return seed of the world
      */
     public long getRandomSeed() {
         return world.n();
     }
-    
+
     /**
      * Sets a new light level with the specified level at the given location.
+     *
      * @param x
      * @param y
      * @param z
      * @param newlevel The light level.
      */
-    public void setLightLevel(int x, int y, int z, int newlevel){
-      this.getWorld().a(OEnumSkyBlock.b, x, y, z, newlevel);
+    public void setLightLevel(int x, int y, int z, int newlevel) {
+        this.getWorld().a(OEnumSkyBlock.b, x, y, z, newlevel);
     }
-   
+
     /**
      * Gets the light level of the given location.
+     *
      * @param x
      * @param y
      * @param z
      * @return Light level of the location.
      */
-    public float getLightLevel(int x, int y, int z){
+    public float getLightLevel(int x, int y, int z) {
         return this.getWorld().m(x, y, z);
     }
+
     /**
      * Updates the light around the given location.
+     *
      * @param x
      * @param y
-     * @param z 
+     * @param z
      */
-    public void updateLight(int x, int y, int z){
-        for(int x2 = x-2; x2 <= x+2; x2++){
-			for(int y2 = y-2; y2 <= y+2; y2++){
-				for(int z2 = z-2; z2 <= z+2; z2++){
-				this.getWorld().b(x2,y2,z2,this.getWorld().a(x2,y2,z2),this.getWorld().c(x2,y2,z2));	
-				}
-			}
-		}
+    public void updateLight(int x, int y, int z) {
+        for (int x2 = x - 2; x2 <= x + 2; x2++) {
+            for (int y2 = y - 2; y2 <= y + 2; y2++) {
+                for (int z2 = z - 2; z2 <= z + 2; z2++) {
+                    this.getWorld().b(x2, y2, z2, this.getWorld().a(x2, y2, z2),
+                            this.getWorld().c(x2, y2, z2));
+                }
+            }
+        }
     }
-
 }
