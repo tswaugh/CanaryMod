@@ -55,7 +55,7 @@ public class Mob extends LivingEntity {
      * Spawns this mob
      */
     public void spawn() {
-        spawn(null);
+        spawn((LivingEntity) null);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Mob extends LivingEntity {
      * Backwards compat.
      */
     public void spawn(Mob rider) {
-        this.spawn(rider);
+        this.spawn((LivingEntity) rider);
     }
 
     /**

@@ -27,6 +27,9 @@ public class ServerConsoleCommands {
         add("tempban", tempban);
         add("kick", kick);
         add("kickall", kickall);
+        add("time", time);
+        add("weather", weather);
+        add("thunder", thunder);
     }
 
     /**
