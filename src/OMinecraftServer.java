@@ -45,8 +45,8 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     private ORConThreadMain J;
     
     // CanaryMod start: Multiworld \o/
-    public Map<String, OWorldServer[]> worlds;
-    public Map<String, long[][]> worldTickNanos;
+    public Map<String, OWorldServer[]> worlds = new HashMap<String, OWorldServer[]>(1);
+    public Map<String, long[][]> worldTickNanos = new HashMap<String, long[][]>(1);
     // CanaryMod end
 
     public OMinecraftServer() {
@@ -162,11 +162,8 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         }
         
 
-        this.worlds = new HashMap<String, OWorldServer[]>(1);
         OWorldServer[] toLoad = new OWorldServer[3];
         this.worlds.put(var2, toLoad);
-        
-        this.worldTickNanos = new HashMap<String, long[][]>(1);
         this.worldTickNanos.put(var2, new long[toLoad.length][100]);
 
         int var6 = this.d.a("gamemode", 0);

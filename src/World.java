@@ -560,7 +560,7 @@ public class World {
      * @param z
      * @param itemId
      * @param quantity
-     *
+     * @param damage 
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity, int damage) {
@@ -919,5 +919,13 @@ public class World {
                 }
             }
         }
+    }
+    
+    /**
+     * Gets this world's name.
+     * @return This world's name.
+     */
+    public String getName() {
+        return world.name;
     }
 }

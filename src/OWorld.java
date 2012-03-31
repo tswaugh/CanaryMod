@@ -59,6 +59,7 @@ public class OWorld implements OIBlockAccess {
     // CanaryMod
     public final World world = new World((OWorldServer) this);
     boolean loadedpreload = false;
+    public final String name;
 
     public OBiomeGenBase a(int var1, int var2) {
         if (this.i(var1, 0, var2)) {
@@ -111,6 +112,8 @@ public class OWorld implements OIBlockAccess {
 
         this.g();
         this.B();
+        
+        this.name = var2; // CanaryMod: store world name in an accessible place.
     }
 
     protected OIChunkProvider b() {
