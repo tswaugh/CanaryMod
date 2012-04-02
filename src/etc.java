@@ -37,8 +37,8 @@ public class etc {
                                           muteListLoc = "config/muted-players.txt",
                                           banListLoc = "config/bans.txt",
                                           whitelistLoc = "config/whitelist.txt",
-                                          reservelistLoc = "config/reservelist.txt",
-                                          antiXRayBlocksLoc = "config/antixray.txt";
+                                          reservelistLoc = "config/reservelist.txt";
+                                          //antiXRayBlocksLoc = "config/antixray.txt";
     private String                        whitelistMessage = "Not on whitelist.",
                                           defaultBanMessage = "You are banned from this server!";
 
@@ -62,9 +62,9 @@ public class etc {
     private boolean                       logging = false;
     private boolean                       enableHealth = true;
     private boolean                       enableExperience = false;
-    private boolean                       enableAntiXRay = false;
-    private boolean                       enableAntiXRayLighting = false;
-    private int[]                         opaqueAntiXRayBlocks = new int[] { 1, 2, 3, 4, 5, 7, 12, 13, 14, 15, 16, 17, 19, 21, 22, 23, 24, 25, 29, 33, 35, 36, 41, 42, 43, 45, 46, 47, 48, 49, 54, 56, 57, 58, 60, 61, 62, 73, 74, 80, 82, 84, 86, 87, 88, 89, 91, 95, 97, 98, 99, 100, 103, 110, 112, 120, 121};
+    //private boolean                       enableAntiXRay = false;
+    //private boolean                       enableAntiXRayLighting = false;
+    //private int[]                         opaqueAntiXRayBlocks = new int[] { 1, 2, 3, 4, 5, 7, 12, 13, 14, 15, 16, 17, 19, 21, 22, 23, 24, 25, 29, 33, 35, 36, 41, 42, 43, 45, 46, 47, 48, 49, 54, 56, 57, 58, 60, 61, 62, 73, 74, 80, 82, 84, 86, 87, 88, 89, 91, 95, 97, 98, 99, 100, 103, 110, 112, 120, 121};
     private PluginLoader.HookResult       autoHeal = PluginLoader.HookResult.DEFAULT_ACTION;
     private PluginLoader.HookResult       protectFromSpam = PluginLoader.HookResult.DEFAULT_ACTION;
     private boolean                       showUnknownCommand = true;
@@ -156,7 +156,7 @@ public class etc {
                 groupLoc = properties.getString("group-txt-location", "config/groups.txt");
                 whitelistLoc = properties.getString("whitelist-txt-location", "config/whitelist.txt");
                 reservelistLoc = properties.getString("reservelist-txt-location", "config/reservelist.txt");
-                antiXRayBlocksLoc = properties.getString("antixray-txt-location", "config/antixray.txt");
+                //antiXRayBlocksLoc = properties.getString("antixray-txt-location", "config/antixray.txt");
                 muteListLoc = properties.getString("muted-players-location", "config/muted-players.txt");
                 banListLoc = properties.getString("banned-players-location", "config/bans.txt");
             } else {
@@ -175,8 +175,8 @@ public class etc {
             allowEnd = properties.getBoolean("allow-end", true);
             enableHealth = properties.getBoolean("enable-health", true);
             enableExperience = properties.getBoolean("enable-experience", true);
-            enableAntiXRay = properties.getBoolean("enable-antixray", false);
-            enableAntiXRayLighting = properties.getBoolean("enable-antixray-lighting", false);
+            //enableAntiXRay = properties.getBoolean("enable-antixray", false);
+            //enableAntiXRayLighting = properties.getBoolean("enable-antixray-lighting", false);
             deathMessages = properties.getBoolean("death-message", true);
             AltLocLoginAllowed = properties.getBoolean("allow-altlocationlogin", true);
 
@@ -457,7 +457,7 @@ public class etc {
      * @return
      */
     public boolean isAntiXRayEnabled() {
-        return enableAntiXRay;
+        return false;//enableAntiXRay;
     }
     
     /**
@@ -466,7 +466,7 @@ public class etc {
      * @return
      */
     public boolean isAntiXRayLightingEnabled() {
-        return enableAntiXRayLighting;
+        return false;//enableAntiXRayLighting;
     }
     
     /**
@@ -476,11 +476,11 @@ public class etc {
      * @return
      */
     public boolean isOpaqueAntiXRayBlock(int id) {
-        for (int i = 0; i < this.opaqueAntiXRayBlocks.length; i += 1) {
+        /*for (int i = 0; i < this.opaqueAntiXRayBlocks.length; i += 1) {
             if (this.opaqueAntiXRayBlocks[i] == id) {
                 return true;
             }
-        }
+        }*/
         return false;
     }
 
@@ -770,7 +770,7 @@ public class etc {
      * @return
      */
     public String getAntiXRayBlocksLocation() {
-        return antiXRayBlocksLoc;
+        return "";//antiXRayBlocksLoc;
     }
     
     /**
@@ -1006,7 +1006,7 @@ public class etc {
      * @param antiXRayLoc
      */
     public void setAntiXRayLocation(String antiXRayLoc) {
-        this.antiXRayBlocksLoc = antiXRayLoc;
+        //this.antiXRayBlocksLoc = antiXRayLoc;
     }
 
     /**
