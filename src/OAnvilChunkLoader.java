@@ -224,11 +224,11 @@ public class OAnvilChunkLoader implements OIChunkLoader, OIThreadedFileIO {
                 ONextTickListEntry var15 = (ONextTickListEntry) var14.next();
                 ONBTTagCompound var16 = new ONBTTagCompound();
 
-                var16.a("OBiomeGenTaiga", var15.d);
-                var16.a("OBiomeGenHell", var15.a);
-                var16.a("OMapGenStrongholdStairs2", var15.b);
-                var16.a("OSlotEnchantmentTable", var15.c);
-                var16.a("OPacket5PlayerInventory", (int) (var15.e - var11));
+                var16.a("i", var15.d);
+                var16.a("x", var15.a);
+                var16.a("y", var15.b);
+                var16.a("z", var15.c);
+                var16.a("t", (int) (var15.e - var11));
                 var13.a((ONBTBase) var16);
             }
 
