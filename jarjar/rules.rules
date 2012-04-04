@@ -486,7 +486,7 @@ rule qj OTileEntity
 rule qk OPacket9Respawn
 rule ql OGenLayerIsland
 rule qm OBlockRail
-rule qn OEnchantmentKnockback
+rule rg OEnchantmentKnockback
 rule qo OEmpty1
 rule qp OEnchantmentData
 rule qq ONetworkManager
@@ -506,7 +506,7 @@ rule rc OSlotArmor
 rule rd OVillageAgressor
 rule re OWorldGenTaiga1
 rule rf OBiomeGenSnow
-rule rg OEnchantmentHelper
+rule vo OEnchantmentHelper
 rule rh ORConThreadMain
 rule ri OPacket33RelEntityMoveLook
 rule rj OProfiler
@@ -622,7 +622,7 @@ rule vk OItemGlassBottle
 rule vl OEntityDragon
 rule vm OPacket30Entity
 rule vn OBiomeCacheBlock
-rule vo OEnchantmentFortune
+rule qn OEnchantmentFortune
 rule vp OPacket132UpdateTileEntity
 rule vq OPacket130UpdateSign
 rule vr OAnvilChunkLoader
