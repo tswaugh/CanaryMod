@@ -40,6 +40,9 @@ rule abi OItemFood
 rule abj OSlotCrafting
 rule abk OEntityWeatherEffect
 rule abl OChunkCoordIntPair
+rule abm OPostHttp
+rule abn OPlayerUsageSnooper
+rule abo OPlayerUsageSnooperThread
 rule ac OBlockDirectional
 rule ad ORecipesArmor
 rule ae OEntityAICatBehavior
@@ -71,7 +74,7 @@ rule bc OStructureStrongholdPieceWeight3
 rule bd OMapGenStrongholdPieceWeight2
 rule be OServerCommand
 rule bf OCompressedStreamTools
-rule bg OGenLayerSnow
+rule bg OGenLayerAddSnow
 rule bh OItemPickaxe
 rule bi OMapCoord
 rule bj OEntityThrowable
@@ -90,13 +93,13 @@ rule bv OEntityAIBreakDoor
 rule bw OSpawnListEntry
 rule bx OBlockLeaves
 rule by OItemShears
-rule bz OStatTypeSimple
+rule bz OStatTypeDistance
 rule c OSlotEnchantment
 rule ca OContainerFurnace
-rule cb OStatTypeDistance
+rule cb OStatTypeTime
 rule cc OEnumCreatureAttribute
 rule cd OEntityPotion
-rule ce OStatTypeTime
+rule ce OStatTypeSimple
 rule cf OChunkCoordinates
 rule cg OEntityGhast
 rule ch OBiomeGenJungle
@@ -106,7 +109,7 @@ rule ck OEnumToolMaterial
 rule cl OBlockPressurePlate
 rule cm OEntityAIMoveIndoors
 rule cn OEntityCow
-rule co OEntityOzelot
+rule co OEntityOcelot
 rule cp OStructurePieceBlockSelector
 rule cq OEntitySnowball
 rule cr OEntityAINearestAttackableTargetSorter
@@ -115,7 +118,7 @@ rule ct OEntityAIOcelotAttack
 rule cu OPacket70Bed
 rule cv OContainerChest
 rule cw OEntityAIPlay
-rule cx OGenLayerIsland
+rule cx OGenLayerAddIsland
 rule cy OEntityFireball
 rule cz OEntityAILeapAtTarget
 rule d OEntityLightningBolt
@@ -171,7 +174,7 @@ rule ev OIRecipe
 rule ew OContainer
 rule ex OBlockDragonEgg
 rule ey OMapColor
-rule ez ODragonPart
+rule ez OEntityDragonPart
 rule f OBlockChest
 rule fa OEntityAIBeg
 rule fb OPacket201PlayerInfo
@@ -225,7 +228,7 @@ rule gv OBlockCauldron
 rule gw OPacket61DoorChange
 rule gx OEntityAIFollowParent
 rule gy OChatAllowedCharacters
-rule gz OChunkProviderSky
+rule gz OChunkProviderEnd
 rule h OMapGenMineshaftRoom
 rule ha OMapGenStronghold
 rule hb OEntityEnderCrystal
@@ -249,7 +252,7 @@ rule hs OBiomeDecorator
 rule ht OMapGenVillageHouse4
 rule hu ONetLoginHandler
 rule hv OChunkProviderFlat
-rule hw OEntityFollowGolem
+rule hw OEntityAIFollowGolem
 rule hx OBlockEnchantmentTable
 rule hy OWorldServerMulti
 rule hz OPacket202PlayerAbilities
@@ -279,7 +282,7 @@ rule iv OConsoleLogManager
 rule iw OPacket4UpdateTime
 rule ix OExtendedBlockStorage
 rule iy OEntityAIEatGrass
-rule iz OSaveConverterAnvil
+rule iz OAnvilSaveConverter
 rule j OMapGenVillageStartPiece
 rule ja OEntityItem
 rule jb OCraftingManager
@@ -296,12 +299,12 @@ rule jl OItemDoor
 rule jm OStructurePieceTreasure
 rule jn ORegionFileChunkBuffer
 rule jo OGuiLogFormatter
-rule jp OBiomeGenSky
+rule jp OBiomeGenEnd
 rule jq OEntityAISit
 rule jr OMapGenStrongholdStairs
 rule js ONBTTagIntArray
 rule jt OItemRedstone
-rule ju OThreadedChunkLoaderPending
+rule ju OAnvilChunkLoaderPending
 rule jv OIPlayerFileData
 rule jw OPacket10Flying
 rule jx OEntityAIHurtByTarget
@@ -356,7 +359,7 @@ rule lr OEntityExpBottle
 rule ls OPacket104WindowItems
 rule lt OBiomeGenBase
 rule lu OGenLayerZoomVoronoi
-rule lv OGenLayerMushroomIsland
+rule lv OGenLayerAddMushroomIsland
 rule lw OItemEnderPearl
 rule lx OPacket
 rule ly OItemDye
@@ -381,7 +384,7 @@ rule mp OChunkProviderServer
 rule mq ONBTTagEnd
 rule mr OEmptyChunk
 rule ms OPacket43Experience
-rule mt OWorldProviderSky
+rule mt OWorldProviderHell
 rule mu OEnumCreatureType
 rule mv OEnchantmentFire
 rule mw OEnchantmentSilkTouch
@@ -432,7 +435,7 @@ rule om OVillageDoorInfo
 rule on OEnchantment
 rule oo OGenLayerRiverInit
 rule op OStringTranslate
-rule oq OMapGenWaterlily
+rule oq OWorldGenWaterlily
 rule or OBiomeGenPlains
 rule os OBlockCrops
 rule ot OPacket42RemoveEntityEffect
@@ -481,9 +484,9 @@ rule qh OMaterialPortal
 rule qi OMapGenStrongholdPrison
 rule qj OTileEntity
 rule qk OPacket9Respawn
-rule ql OLayerIsland
+rule ql OGenLayerIsland
 rule qm OBlockRail
-rule qn OEnchantmentFortune
+rule qn OEnchantmentKnockback
 rule qo OEmpty1
 rule qp OEnchantmentData
 rule qq ONetworkManager
@@ -503,7 +506,7 @@ rule rc OSlotArmor
 rule rd OVillageAgressor
 rule re OWorldGenTaiga1
 rule rf OBiomeGenSnow
-rule rg OEnchantmentKnockback
+rule rg OEnchantmentHelper
 rule rh ORConThreadMain
 rule ri OPacket33RelEntityMoveLook
 rule rj OProfiler
@@ -512,7 +515,7 @@ rule rl OItemSword
 rule rm ORegionFile
 rule rn OComponentNetherBridgeStartPiece
 rule ro OComponentNetherBridgeCrossing3
-rule rp OEnumEnchantable
+rule rp OEnumEnchantableType
 rule rq ODamageSource
 rule rr OChunkProviderHell
 rule rs OInventoryBasic
@@ -539,7 +542,7 @@ rule sl OWorldProviderSurface
 rule sm OBlockReed
 rule sn ORegionFileCache
 rule so OItemSeeds
-rule sp OItemBottle
+rule sp OItemLilyPad
 rule sq OItemMinecart
 rule sr OPacket60Explosion
 rule ss OMapGenStructure
@@ -616,10 +619,10 @@ rule vh ODataWatcher
 rule vi ORConThreadQuery
 rule vj ONoiseGeneratorOctaves
 rule vk OItemGlassBottle
-rule vl OEntityEnderDragon
+rule vl OEntityDragon
 rule vm OPacket30Entity
 rule vn OBiomeCacheBlock
-rule vo OEnchantmentHelper
+rule vo OEnchantmentFortune
 rule vp OPacket132UpdateTileEntity
 rule vq OPacket130UpdateSign
 rule vr OAnvilChunkLoader
@@ -671,7 +674,7 @@ rule xi OBlockMushroomCap
 rule xj OEntityAIRestrictSun
 rule xk OSlotFurnace
 rule xl OINpc
-rule xm OEntityRespiration
+rule xm OEnchantmentOxygen
 rule xn ORConThreadBase
 rule xo OStatBase
 rule xp OEntityAITaskEntry
@@ -691,7 +694,7 @@ rule yb OBlockFlower
 rule yc OItemSpade
 rule yd OWorldGenBigMushroom
 rule ye ORConConsoleSource
-rule yf OWorldProviderHell
+rule yf OWorldProviderSky
 rule yg OEntitySilverfish
 rule yh OMapGenMineshaftStart
 rule yi OPacketCount
@@ -706,7 +709,7 @@ rule yq OPlayerCapabilities
 rule yr OGenLayerRiverMix
 rule ys OIntHashMapEntry
 rule yt OConsoleLogFormatter
-rule yu OEntitySnowmanBase
+rule yu OEntityGolem
 rule yv OBlockRedstoneRepeater
 rule yw OBlockGrass
 rule yx OEntityFlying
@@ -725,7 +728,7 @@ rule zi OWorldGenPumpkin
 rule zj OItemColored
 rule zk OEntityAITempt
 rule zl OWorldProvider
-rule zm OWorldGenRavine
+rule zm OMapGenWaterlily
 rule zn ORecipesWeapons
 rule zo ONBTTagString
 rule zp OPathNavigate

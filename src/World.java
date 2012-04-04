@@ -156,7 +156,7 @@ public class World {
         List<Mob> toRet = new ArrayList<Mob>();
 
         for (Object o : world.b) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime) {
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityLavaSlime) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
         }
@@ -220,7 +220,7 @@ public class World {
         List<BaseEntity> toRet = new ArrayList<BaseEntity>();
 
         for (Object o : world.b) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowMan) {
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowMan) {
                 toRet.add(new Mob((OEntityLiving) o));
             } else if (o instanceof OEntityMinecart) {
                 toRet.add(((OEntityMinecart) o).cart);
@@ -261,7 +261,7 @@ public class World {
         List<LivingEntity> toRet = new ArrayList<LivingEntity>();
 
         for (Object o : world.b) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityEnderDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowMan) {
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowMan) {
                 toRet.add(new Mob((OEntityLiving) o));
             } else if (o instanceof OEntityPlayerMP) {
                 toRet.add(((OEntityPlayerMP) o).getPlayer());

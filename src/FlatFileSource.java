@@ -28,7 +28,7 @@ public class FlatFileSource extends DataSource {
         loadWarps();
         loadItems();
         loadEnderBlocks();
-        loadAntiXRayBlocks();
+        //loadAntiXRayBlocks();
         loadMutedPlayers();
         loadBanList();
 

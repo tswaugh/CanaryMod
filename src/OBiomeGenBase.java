@@ -15,7 +15,7 @@ public abstract class OBiomeGenBase {
     public static final OBiomeGenBase h = (new OBiomeGenSwamp(6)).b(522674).a("Swampland").a(9154376).b(-0.2F, 0.1F).a(0.8F, 0.9F);
     public static final OBiomeGenBase i = (new OBiomeGenRiver(7)).b(255).a("River").b(-0.5F, 0.0F);
     public static final OBiomeGenBase j = (new OBiomeGenHell(8)).b(16711680).a("Hell").j().a(2.0F, 0.0F);
-    public static final OBiomeGenBase k = (new OBiomeGenSky(9)).b(8421631).a("Sky").j();
+    public static final OBiomeGenBase k = (new OBiomeGenEnd(9)).b(8421631).a("Sky").j();
     public static final OBiomeGenBase l = (new OBiomeGenOcean(10)).b(9474208).a("FrozenOcean").b().b(-1.0F, 0.5F).a(0.0F, 0.5F);
     public static final OBiomeGenBase m = (new OBiomeGenRiver(11)).b(10526975).a("FrozenRiver").b().b(-0.5F, 0.0F).a(0.0F, 0.5F);
     public static final OBiomeGenBase n = (new OBiomeGenSnow(12)).b(16777215).a("Ice Plains").b().a(0.0F, 0.5F);

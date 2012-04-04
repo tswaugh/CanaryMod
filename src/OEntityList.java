@@ -141,7 +141,7 @@ public class OEntityList {
         a(OEntitySilverfish.class, "Silverfish", 60, 7237230, 3158064);
         a(OEntityBlaze.class, "Blaze", 61, 16167425, 16775294);
         a(OEntityLavaSlime.class, "LavaSlime", 62, 3407872, 16579584);
-        a(OEntityEnderDragon.class, "EnderDragon", 63);
+        a(OEntityDragon.class, "EnderDragon", 63);
         a(OEntityPig.class, "Pig", 90, 15771042, 14377823);
         a(OEntitySheep.class, "Sheep", 91, 15198183, 16758197);
         a(OEntityCow.class, "Cow", 92, 4470310, 10592673);
@@ -150,7 +150,7 @@ public class OEntityList {
         a(OEntityWolf.class, "Wolf", 95, 14144467, 13545366);
         a(OEntityMushroomCow.class, "MushroomCow", 96, 10489616, 12040119);
         a(OEntitySnowMan.class, "SnowMan", 97);
-        a(OEntityOzelot.class, "Ozelot", 98, 15720061, 5653556);
+        a(OEntityOcelot.class, "Ozelot", 98, 15720061, 5653556);
         a(OEntityIronGolem.class, "VillagerGolem", 99);
         a(OEntityVillager.class, "Villager", 120, 5651507, 12422002);
         a(OEntityEnderCrystal.class, "EnderCrystal", 200);

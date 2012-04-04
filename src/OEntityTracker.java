@@ -68,7 +68,7 @@ public class OEntityTracker {
             this.a(var1, 64, 3, true);
         } else if (var1 instanceof OIAnimals) {
             this.a(var1, 80, 3, true);
-        } else if (var1 instanceof OEntityEnderDragon) {
+        } else if (var1 instanceof OEntityDragon) {
             this.a(var1, 160, 3, true);
         } else if (var1 instanceof OEntityTNTPrimed) {
             this.a(var1, 160, 10, true);

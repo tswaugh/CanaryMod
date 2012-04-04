@@ -1,4 +1,9 @@
-import java.io.*;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,8 +31,8 @@ public class OAnvilChunkLoader implements OIChunkLoader, OIThreadedFileIO {
         synchronized (this.c) {
             if (this.b.contains(var5)) {
                 for (int var7 = 0; var7 < this.a.size(); ++var7) {
-                    if (((OThreadedChunkLoaderPending) this.a.get(var7)).a.equals(var5)) {
-                        var4 = ((OThreadedChunkLoaderPending) this.a.get(var7)).b;
+                    if (((OAnvilChunkLoaderPending) this.a.get(var7)).a.equals(var5)) {
+                        var4 = ((OAnvilChunkLoaderPending) this.a.get(var7)).b;
                         break;
                     }
                 }
@@ -91,21 +96,21 @@ public class OAnvilChunkLoader implements OIChunkLoader, OIThreadedFileIO {
         synchronized (this.c) {
             if (this.b.contains(var1)) {
                 for (int var4 = 0; var4 < this.a.size(); ++var4) {
-                    if (((OThreadedChunkLoaderPending) this.a.get(var4)).a.equals(var1)) {
-                        this.a.set(var4, new OThreadedChunkLoaderPending(var1, var2));
+                    if (((OAnvilChunkLoaderPending) this.a.get(var4)).a.equals(var1)) {
+                        this.a.set(var4, new OAnvilChunkLoaderPending(var1, var2));
                         return;
                     }
                 }
             }
 
-            this.a.add(new OThreadedChunkLoaderPending(var1, var2));
+            this.a.add(new OAnvilChunkLoaderPending(var1, var2));
             this.b.add(var1);
             OThreadedFileIOBase.a.a(this);
         }
     }
 
     public boolean c() {
-        OThreadedChunkLoaderPending var1 = null;
+        OAnvilChunkLoaderPending var1 = null;
         Object var2 = this.c;
 
         synchronized (this.c) {
@@ -113,7 +118,7 @@ public class OAnvilChunkLoader implements OIChunkLoader, OIThreadedFileIO {
                 return false;
             }
 
-            var1 = (OThreadedChunkLoaderPending) this.a.remove(0);
+            var1 = (OAnvilChunkLoaderPending) this.a.remove(0);
             this.b.remove(var1.a);
         }
 
@@ -128,7 +133,7 @@ public class OAnvilChunkLoader implements OIChunkLoader, OIThreadedFileIO {
         return true;
     }
 
-    private void a(OThreadedChunkLoaderPending var1) throws IOException {
+    private void a(OAnvilChunkLoaderPending var1) throws IOException {
         DataOutputStream var2 = ORegionFileCache.c(this.d, var1.a.a, var1.a.b);
 
         OCompressedStreamTools.a(var1.b, (DataOutput) var2);
@@ -219,11 +224,11 @@ public class OAnvilChunkLoader implements OIChunkLoader, OIThreadedFileIO {
                 ONextTickListEntry var15 = (ONextTickListEntry) var14.next();
                 ONBTTagCompound var16 = new ONBTTagCompound();
 
-                var16.a("i", var15.d);
-                var16.a("x", var15.a);
-                var16.a("y", var15.b);
-                var16.a("z", var15.c);
-                var16.a("t", (int) (var15.e - var11));
+                var16.a("OBiomeGenTaiga", var15.d);
+                var16.a("OBiomeGenHell", var15.a);
+                var16.a("OMapGenStrongholdStairs2", var15.b);
+                var16.a("OSlotEnchantmentTable", var15.c);
+                var16.a("OPacket5PlayerInventory", (int) (var15.e - var11));
                 var13.a((ONBTBase) var16);
             }
 
