@@ -56,7 +56,7 @@ public class OBlockFire extends OBlock {
     public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
         boolean var6 = var1.a(var2, var3 - 1, var4) == OBlock.bb.bO;
 
-        if (var1.t instanceof OWorldProviderSky && var1.a(var2, var3 - 1, var4) == OBlock.z.bO) {
+        if (var1.t instanceof OWorldProviderEnd && var1.a(var2, var3 - 1, var4) == OBlock.z.bO) {
             var6 = true;
         }
 
