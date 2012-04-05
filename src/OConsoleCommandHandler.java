@@ -72,34 +72,34 @@ public class OConsoleCommandHandler {
                     var8.e(var5);
                     this.a(var4, "Opping " + var5);
                     var8.a(var5, "\u00a7eYou are now op!");
-                } else if (var4.equalsIgnoreCase("deop ")) {
+                } else if (var4.equalsIgnoreCase("deop")) {
                     var8.f(var5);
                     var8.a(var5, "\u00a7eYou are no longer op!");
                     this.a(var7, "De-opping " + var5);
-                } else if (var4.equalsIgnoreCase("ban-ip ")) {
+                } else if (var4.equalsIgnoreCase("ban-ip")) {
                     var8.c(var5);
                     this.a(var7, "Banning ip " + var5);
-                } else if (var4.equalsIgnoreCase("pardon-ip ")) {
+                } else if (var4.equalsIgnoreCase("pardon-ip")) {
                     var8.d(var5);
                     this.a(var7, "Pardoning ip " + var5);
                 } else {
                     OEntityPlayerMP var18;
 
-                    if (var4.equalsIgnoreCase("ban ")) {
+                    if (var4.equalsIgnoreCase("ban")) {
                         var8.a(var5);
                         this.a(var4, "Banning " + var5);
                         var18 = var8.i(var5);
                         if (var18 != null) {
                             var18.a.a("Banned by admin");
                         }
-                    } else if (var4.equalsIgnoreCase("pardon ")) {
+                    } else if (var4.equalsIgnoreCase("pardon")) {
                         var8.b(var5);
                         this.a(var4, "Pardoning " + var5);
                     } else {
                         String var19;
                         int var21;
 
-                        if (var4.equalsIgnoreCase("kick ")) {
+                        if (var4.equalsIgnoreCase("kick")) {
                             var19 = var5;
                             var18 = null;
 
@@ -176,7 +176,7 @@ public class OConsoleCommandHandler {
                             } else {
                                 var6.b("Can\'t find user " + var19);
                             }
-                        } else if (var4.equalsIgnoreCase("OEntityAITaskEntry")) {
+                        } else if (var4.equalsIgnoreCase("xp")) {
                             if (var3.length != 3) {
                                 return;
                             }
