@@ -694,7 +694,9 @@ public class OServerConfigurationManager {
     }
 
     public String[] t() {
-       return this.c.e[0].r().d().g();
+        //CanaryMod get the default world from Canary world list instead.
+        return etc.getServer().getDefaultWorld().getWorld().r().d().g();
+       //return this.c.e[0].r().d().g();
     }
 
     private void u() {
