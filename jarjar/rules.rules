@@ -384,7 +384,7 @@ rule mp OChunkProviderServer
 rule mq ONBTTagEnd
 rule mr OEmptyChunk
 rule ms OPacket43Experience
-rule mt OWorldProviderHell
+rule mt OWorldProviderEnd
 rule mu OEnumCreatureType
 rule mv OEnchantmentFire
 rule mw OEnchantmentSilkTouch
@@ -694,7 +694,7 @@ rule yb OBlockFlower
 rule yc OItemSpade
 rule yd OWorldGenBigMushroom
 rule ye ORConConsoleSource
-rule yf OWorldProviderSky
+rule yf OWorldProviderHell
 rule yg OEntitySilverfish
 rule yh OMapGenMineshaftStart
 rule yi OPacketCount
