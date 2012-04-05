@@ -15,343 +15,277 @@ public class OConsoleCommandHandler {
 
     public synchronized void a(OServerCommand var1) {
         String var2 = var1.a;
-        OICommandListener var3 = var1.b;
-        String var4 = var3.d();
-        OServerConfigurationManager var5 = this.b.h;
+        String[] var3 = var2.split(" ");
+        String var4 = var3[0];
+        String var5 = var2.substring(var4.length()).trim();
+        OICommandListener var6 = var1.b;
+        String var7 = var6.d();
+        OServerConfigurationManager var8 = this.b.h;
 
-        if (!var2.toLowerCase().startsWith("help") && !var2.toLowerCase().startsWith("?")) {
-            if (var2.toLowerCase().startsWith("list")) {
-                var3.b("Connected players: " + var5.c());
-            } else if (var2.toLowerCase().startsWith("stop")) {
-                this.a(var4, "Stopping the server..");
+        if (!var4.equalsIgnoreCase("help") && !var4.equalsIgnoreCase("?")) {
+            if (var4.equalsIgnoreCase("list")) {
+                var6.b("Connected players: " + var8.c());
+            } else if (var4.equalsIgnoreCase("stop")) {
+                this.a(var7, "Stopping the server..");
                 this.b.a();
             } else {
-                int var6;
-                OWorldServer var7;
+                int var9;
+                OWorldServer var10;
 
-                if (var2.toLowerCase().startsWith("save-all")) {
-                    this.a(var4, "Forcing save..");
-                    if (var5 != null) {
-                        var5.g();
+                if (var4.equalsIgnoreCase("save-all")) {
+                    this.a(var7, "Forcing save..");
+                    if (var8 != null) {
+                        var8.g();
                     }
                     
-                    for (OWorldServer[] level : this.b.worlds.values()) // CanaryMod: multiworld
-                        for (var6 = 0; var6 < level.length; ++var6) {
-                            var7 = level[var6];
-                            boolean var8 = var7.I;
+                    for (OWorldServer[] level : this.b.worlds.values()) { // CanaryMod: multiworld
+                        for (var9 = 0; var9 < level.length; ++var9) {
+                            var10 = level[var9];
+                            boolean var11 = var10.I;
 
-                            var7.I = false;
-                            var7.a(true, (OIProgressUpdate) null);
-                            var7.I = var8;
+                            var10.I = false;
+                            var10.a(true, (OIProgressUpdate) null);
+                            var10.I = var11;
                         }
+                    }
 
-                    this.a(var4, "Save complete.");
-                } else if (var2.toLowerCase().startsWith("save-off")) {
-                    this.a(var4, "Disabling level saving..");
+                    this.a(var7, "Save complete.");
+                } else if (var4.equalsIgnoreCase("save-off")) {
+                    this.a(var7, "Disabling level saving..");
 
-                    for (OWorldServer[] level : this.b.worlds.values()) // CanaryMod: multiworld
-                        for (var6 = 0; var6 < level.length; ++var6) {
-                            var7 = level[var6];
-                            var7.I = true;
+                    for (OWorldServer[] level : this.b.worlds.values()) { // CanaryMod: multiworld
+                        for (var9 = 0; var9 < level.length; ++var9) {
+                            var10 = level[var9];
+                            var10.I = true;
                         }
-                } else if (var2.toLowerCase().startsWith("save-on")) {
-                    this.a(var4, "Enabling level saving..");
+                    }
+                } else if (var4.equalsIgnoreCase("save-on")) {
+                    this.a(var7, "Enabling level saving..");
 
-                    for (OWorldServer[] level : this.b.worlds.values()) // CanaryMod: multiworld
-                        for (var6 = 0; var6 < level.length; ++var6) {
-                            var7 = level[var6];
-                            var7.I = false;
+                    for (OWorldServer[] level : this.b.worlds.values()) { // CanaryMod: multiworld
+                        for (var9 = 0; var9 < level.length; ++var9) {
+                            var10 = level[var9];
+                            var10.I = false;
                         }
+                    }
+                } else if (var4.equalsIgnoreCase("op")) {
+                    var8.e(var5);
+                    this.a(var4, "Opping " + var5);
+                    var8.a(var5, "\u00a7eYou are now op!");
+                } else if (var4.equalsIgnoreCase("deop ")) {
+                    var8.f(var5);
+                    var8.a(var5, "\u00a7eYou are no longer op!");
+                    this.a(var7, "De-opping " + var5);
+                } else if (var4.equalsIgnoreCase("ban-ip ")) {
+                    var8.c(var5);
+                    this.a(var7, "Banning ip " + var5);
+                } else if (var4.equalsIgnoreCase("pardon-ip ")) {
+                    var8.d(var5);
+                    this.a(var7, "Pardoning ip " + var5);
                 } else {
-                    String var16;
+                    OEntityPlayerMP var18;
 
-                    if (var2.toLowerCase().startsWith("op ")) {
-                        var16 = var2.substring(var2.indexOf(" ")).trim();
-                        var5.e(var16);
-                        this.a(var4, "Opping " + var16);
-                        var5.a(var16, "\u00a7eYou are now op!");
-                    } else if (var2.toLowerCase().startsWith("deop ")) {
-                        var16 = var2.substring(var2.indexOf(" ")).trim();
-                        var5.f(var16);
-                        var5.a(var16, "\u00a7eYou are no longer op!");
-                        this.a(var4, "De-opping " + var16);
-                    } else if (var2.toLowerCase().startsWith("ban-ip ")) {
-                        var16 = var2.substring(var2.indexOf(" ")).trim();
-                        var5.c(var16);
-                        this.a(var4, "Banning ip " + var16);
-                    } else if (var2.toLowerCase().startsWith("pardon-ip ")) {
-                        var16 = var2.substring(var2.indexOf(" ")).trim();
-                        var5.d(var16);
-                        this.a(var4, "Pardoning ip " + var16);
+                    if (var4.equalsIgnoreCase("ban ")) {
+                        var8.a(var5);
+                        this.a(var4, "Banning " + var5);
+                        var18 = var8.i(var5);
+                        if (var18 != null) {
+                            var18.a.a("Banned by admin");
+                        }
+                    } else if (var4.equalsIgnoreCase("pardon ")) {
+                        var8.b(var5);
+                        this.a(var4, "Pardoning " + var5);
                     } else {
-                        OEntityPlayerMP var17;
+                        String var19;
+                        int var21;
 
-                        if (var2.toLowerCase().startsWith("ban ")) {
-                            var16 = var2.substring(var2.indexOf(" ")).trim();
-                            var5.a(var16);
-                            this.a(var4, "Banning " + var16);
-                            var17 = var5.i(var16);
-                            if (var17 != null) {
-                                var17.a.a("Banned by admin");
-                            }
-                        } else if (var2.toLowerCase().startsWith("pardon ")) {
-                            var16 = var2.substring(var2.indexOf(" ")).trim();
-                            var5.b(var16);
-                            this.a(var4, "Pardoning " + var16);
-                        } else {
-                            int var18;
+                        if (var4.equalsIgnoreCase("kick ")) {
+                            var19 = var5;
+                            var18 = null;
 
-                            if (var2.toLowerCase().startsWith("kick ")) {
-                                var16 = var2.substring(var2.indexOf(" ")).trim();
-                                var17 = null;
+                            for (var21 = 0; var21 < var8.b.size(); ++var21) {
+                                OEntityPlayerMP var12 = (OEntityPlayerMP) var8.b.get(var21);
 
-                                for (var18 = 0; var18 < var5.b.size(); ++var18) {
-                                    OEntityPlayerMP var9 = (OEntityPlayerMP) var5.b.get(var18);
-
-                                    if (var9.v.equalsIgnoreCase(var16)) {
-                                        var17 = var9;
-                                    }
+                                if (var12.v.equalsIgnoreCase(var5)) {
+                                    var18 = var12;
                                 }
+                            }
 
-                                if (var17 != null) {
-                                    var17.a.a("Kicked by admin");
-                                    this.a(var4, "Kicking " + var17.v);
+                            if (var18 != null) {
+                                var18.a.a("Kicked by admin");
+                                this.a(var4, "Kicking " + var18.v);
+                            } else {
+                                var6.b("Can\'t find user " + var19 + ". No kick.");
+                            }
+                        } else if (var4.equalsIgnoreCase("tp")) {
+                            if (var3.length == 3) {
+                                OEntityPlayerMP var20 = var8.i(var3[1]);
+
+                                var18 = var8.i(var3[2]);
+                                if (var20 == null) {
+                                    var6.b("Can\'t find user " + var3[1] + ". No tp.");
+                                } else if (var18 == null) {
+                                    var6.b("Can\'t find user " + var3[2] + ". No tp.");
+                                } else if (var20.w != var18.w) {
+                                    var6.b("User " + var3[1] + " and " + var3[2] + " are in different dimensions. No tp.");
                                 } else {
-                                    var3.b("Can\'t find user " + var16 + ". No kick.");
+                                    var20.a.a(var18.bm, var18.bn, var18.bo, var18.bs, var18.bt);
+                                    this.a(var7, "Teleporting " + var3[1] + " to " + var3[2] + ".");
                                 }
                             } else {
-                                OEntityPlayerMP var21;
-                                String[] var22;
+                                var6.b("Syntax error, please provice a source and a target.");
+                            }
+                        } else if (var4.equalsIgnoreCase("give")) {
+                            if (var3.length != 3 && var3.length != 4 && var3.length != 5) {
+                                return;
+                            }
 
+                            var19 = var3[1];
+                            var18 = var8.i(var19);
+                            if (var18 != null) {
+                                try {
+                                    var21 = Integer.parseInt(var3[2]);
+                                    if (OItem.d[var21] != null) {
+                                        this.a(var7, "Giving " + var18.v + " some " + var21);
+                                        int var22 = 1;
+                                        int var13 = 0;
 
-
-                                if (var2.toLowerCase().startsWith("tp ")) {
-                                    var22 = var2.split(" ");
-                                    if (var22.length == 3) {
-                                        var17 = var5.i(var22[1]);
-                                        var21 = var5.i(var22[2]);
-
-
-
-
-                                        if (var17 == null) {
-                                            var3.b("Can\'t find user " + var22[1] + ". No tp.");
-                                        } else if (var21 == null) {
-
-                                            var3.b("Can\'t find user " + var22[2] + ". No tp.");
-                                        } else if (var17.w != var21.w) {
-
-                                            var3.b("User " + var22[1] + " and " + var22[2] + " are in different dimensions. No tp.");
-                                        } else {
-                                            var17.a.a(var21.bm, var21.bn, var21.bo, var21.bs, var21.bt);
-
-                                            this.a(var4, "Teleporting " + var22[1] + " to " + var22[2] + ".");
+                                        if (var3.length > 3) {
+                                            var22 = this.a(var3[3], 1);
                                         }
+
+                                        if (var3.length > 4) {
+                                            var13 = this.a(var3[4], 1);
+                                        }
+
+                                        if (var22 < 1) {
+                                            var22 = 1;
+                                        }
+
+                                        if (var22 > 64) {
+                                            var22 = 64;
+                                        }
+
+                                        var18.b(new OItemStack(var21, var22, var13));
                                     } else {
-                                        var3.b("Syntax error, please provice a source and a target.");
+                                        var6.b("There\'s no item with id " + var21);
                                     }
-                                } else {
-                                    int var19;
-                                    String var20;
+                                } catch (NumberFormatException var16) {
+                                    var6.b("There\'s no item with id " + var3[2]);
+                                }
+                            } else {
+                                var6.b("Can\'t find user " + var19);
+                            }
+                        } else if (var4.equalsIgnoreCase("OEntityAITaskEntry")) {
+                            if (var3.length != 3) {
+                                return;
+                            }
 
-                                    if (var2.toLowerCase().startsWith("give ")) {
-                                        var22 = var2.split(" ");
+                            var19 = var3[1];
+                            var18 = var8.i(var19);
+                            if (var18 != null) {
+                                try {
+                                    var21 = Integer.parseInt(var3[2]);
+                                    var21 = var21 > 5000 ? 5000 : var21;
+                                    this.a(var7, "Giving " + var21 + " orbs to " + var18.v);
+                                    var18.g(var21);
+                                } catch (NumberFormatException var15) {
+                                    var6.b("Invalid orb count: " + var3[2]);
+                                }
+                            } else {
+                                var6.b("Can\'t find user " + var19);
+                            }
+                        } else if (var4.equalsIgnoreCase("gamemode")) {
+                            if (var3.length != 3) {
+                                return;
+                            }
 
-                                        if (var22.length != 3 && var22.length != 4 && var22.length != 5) {
-                                            return;
-                                        }
-
-                                        var20 = var22[1];
-                                        var21 = var5.i(var20);
-                                        if (var21 != null) {
-
-
-
-                                            try {
-                                                var19 = Integer.parseInt(var22[2]);
-                                                if (OItem.d[var19] != null) {
-                                                    this.a(var4, "Giving " + var21.v + " some " + var19);
-                                                    int var10 = 1;
-                                                    int var11 = 0;
-
-                                                    if (var22.length > 3) {
-                                                        var10 = this.a(var22[3], 1);
-
-
-                                                    }
-
-                                                    if (var22.length > 4) {
-                                                        var11 = this.a(var22[4], 1);
-
-
-                                                    }
-
-                                                    if (var10 < 1) {
-                                                        var10 = 1;
-                                                    }
-
-                                                    if (var10 > 64) {
-                                                        var10 = 64;
-                                                    }
-
-                                                    var21.b(new OItemStack(var19, var10, var11));
-                                                } else {
-                                                    var3.b("There\'s no item with id " + var19);
-                                                }
-                                            } catch (NumberFormatException var14) {
-                                                var3.b("There\'s no item with id " + var22[2]);
-                                            }
-                                        } else {
-                                            var3.b("Can\'t find user " + var20);
-                                        }
-                                    } else if (var2.toLowerCase().startsWith("xp")) {
-                                        var22 = var2.split(" ");
-                                        if (var22.length != 3) {
-
-
-                                            return;
-                                        }
-
-                                        var20 = var22[1];
-                                        var21 = var5.i(var20);
-                                        if (var21 != null) {
-
-
-
-                                            try {
-                                                var19 = Integer.parseInt(var22[2]);
-                                                var19 = var19 > 5000 ? 5000 : var19;
-                                                this.a(var4, "Giving " + var19 + " orbs to " + var21.v);
-                                                var21.g(var19);
-
-                                            } catch (NumberFormatException var13) {
-                                                var3.b("Invalid orb count: " + var22[2]);
-                                            }
-                                        } else {
-                                            var3.b("Can\'t find user " + var20);
-                                        }
-                                    } else if (var2.toLowerCase().startsWith("gamemode ")) {
-                                        var22 = var2.split(" ");
-                                        if (var22.length != 3) {
-
-
-                                            return;
-                                        }
-
-                                        var20 = var22[1];
-                                        var21 = var5.i(var20);
-                                        if (var21 != null) {
-
-
-
-                                            try {
-                                                var19 = Integer.parseInt(var22[2]);
-                                                var19 = OWorldSettings.a(var19);
-                                                if (var21.c.a() != var19) {
-
-                                                    this.a(var4, "Setting " + var21.v + " to game mode " + var19);
-                                                    var21.c.a(var19);
-
-                                                    var21.a.b((OPacket) (new OPacket70Bed(3, var19)));
-                                                } else {
-                                                    this.a(var4, var21.v + " already has game mode " + var19);
-                                                }
-                                            } catch (NumberFormatException var12) {
-                                                var3.b("There\'s no game mode with id " + var22[2]);
-                                            }
-                                        } else {
-                                            var3.b("Can\'t find user " + var20);
-                                        }
-                                    } else if (var2.toLowerCase().startsWith("time ")) {
-                                        var22 = var2.split(" ");
-                                        if (var22.length != 3) {
-
-
-                                            return;
-                                        }
-
-                                        var20 = var22[1];
-
-
-                                        try {
-                                            var18 = Integer.parseInt(var22[2]);
-                                            OWorldServer var23;
-
-
-                                            /* CanaryMod: we use our own time command
-                                            if ("add".equalsIgnoreCase(var20)) {
-                                                for (var19 = 0; var19 < this.b.e.length; ++var19) {
-                                                    var23 = this.b.e[var19];
-                                                    var23.b(var23.o() + (long) var18);
-
-
-                                                }
-
-                                                this.a(var4, "Added " + var18 + " to time");
-                                            } else if ("set".equalsIgnoreCase(var20)) {
-                                                for (var19 = 0; var19 < this.b.e.length; ++var19) {
-                                                    var23 = this.b.e[var19];
-                                                    var23.b((long) var18);
-
-
-                                                }
-
-                                                this.a(var4, "Set time to " + var18);
-                                            } else {
-                                                var3.b("Unknown method, use either \"add\" or \"set\"");
-                                            }
-                                            */
-                                        } catch (NumberFormatException var15) {
-                                            var3.b("Unable to convert time value, " + var22[2]);
-                                        }
-                                    } else if (var2.toLowerCase().startsWith("say ")) {
-                                        var2 = var2.substring(var2.indexOf(" ")).trim();
-                                        a.info("[" + var4 + "] " + var2);
-                                        var5.a((OPacket) (new OPacket3Chat("\u00a7d[Server] " + var2)));
-                                    } else if (var2.toLowerCase().startsWith("tell ")) {
-                                        var22 = var2.split(" ");
-                                        if (var22.length >= 3) {
-
-
-                                            var2 = var2.substring(var2.indexOf(" ")).trim();
-                                            var2 = var2.substring(var2.indexOf(" ")).trim();
-                                            a.info("[" + var4 + "->" + var22[1] + "] " + var2);
-                                            var2 = "\u00a77" + var4 + " whispers " + var2;
-                                            a.info(var2);
-                                            if (!var5.a(var22[1], (OPacket) (new OPacket3Chat(var2)))) {
-                                                var3.b("There\'s no player by that name online.");
-                                            }
-                                        }
-                                    } else if (var2.toLowerCase().startsWith("whitelist ")) {
-                                        this.a(var4, var2, var3);
-                                    /* CanaryMod: use our own weather command
-                                    } else if (var2.toLowerCase().startsWith("toggledownfall")) {
-                                        this.b.e[0].j();
-                                        var3.b("Toggling rain and snow, hold on...");
-                                    */
-                                    } else if (var2.toLowerCase().startsWith("banlist")) {
-                                        var22 = var2.split(" ");
-                                        if (var22.length == 2) {
-                                            if (var22[1].equals("ips")) {
-
-
-
-                                                var3.b("IP Ban list:" + this.a(this.b.q(), ", "));
-                                            }
-                                        } else {
-                                            var3.b("Ban list:" + this.a(this.b.r(), ", "));
-                                        }
+                            var19 = var3[1];
+                            var18 = var8.i(var19);
+                            if (var18 != null) {
+                                try {
+                                    var21 = Integer.parseInt(var3[2]);
+                                    var21 = OWorldSettings.a(var21);
+                                    if (var18.c.a() != var21) {
+                                        this.a(var7, "Setting " + var18.v + " to game mode " + var21);
+                                        var18.c.a(var21);
+                                        var18.a.b((OPacket) (new OPacket70Bed(3, var21)));
                                     } else {
-                                        a.info("Unknown console command. Type \"help\" for help.");
+                                        this.a(var7, var18.v + " already has game mode " + var21);
                                     }
+                                } catch (NumberFormatException var14) {
+                                    var6.b("There\'s no game mode with id " + var3[2]);
+                                }
+                            } else {
+                                var6.b("Can\'t find user " + var19);
+                            }
+                            // CanaryMod: We have our own time command
+                            /* } else if(var4.equalsIgnoreCase("time")) {
+                             if(var3.length != 3) {
+                             return;
+                             }
+
+                             var19 = var3[1];
+
+                             try {
+                             int var23 = Integer.parseInt(var3[2]);
+                             OWorldServer var24;
+                             if("add".equalsIgnoreCase(var19)) {
+                             for(var21 = 0; var21 < this.b.e.length; ++var21) {
+                             var24 = this.b.e[var21];
+                             var24.b(var24.o() + (long)var23);
+                             }
+
+                             this.a(var7, "Added " + var23 + " to time");
+                             } else if("set".equalsIgnoreCase(var19)) {
+                             for(var21 = 0; var21 < this.b.e.length; ++var21) {
+                             var24 = this.b.e[var21];
+                             var24.b((long)var23);
+                             }
+
+                             this.a(var7, "Set time to " + var23);
+                             } else {
+                             var6.b("Unknown method, use either \"add\" or \"set\"");
+                             }
+                             } catch (NumberFormatException var17) {
+                             var6.b("Unable to convert time value, " + var3[2]);
+                             }*/
+                        } else if (var4.equalsIgnoreCase("say") && var5.length() > 0) {
+                            a.info("[" + var7 + "] " + var5);
+                            var8.a((OPacket) (new OPacket3Chat("\u00a7d[Server] " + var5)));
+                        } else if (var4.equalsIgnoreCase("tell")) {
+                            if (var3.length >= 3) {
+                                var2 = var2.substring(var2.indexOf(" ")).trim();
+                                var2 = var2.substring(var2.indexOf(" ")).trim();
+                                a.info("[" + var7 + "->" + var3[1] + "] " + var2);
+                                var2 = "\u00a77" + var7 + " whispers " + var2;
+                                a.info(var2);
+                                if (!var8.a(var3[1], (OPacket) (new OPacket3Chat(var2)))) {
+                                    var6.b("There\'s no player by that name online.");
                                 }
                             }
+                        } else if (var4.equalsIgnoreCase("whitelist")) {
+                            this.a(var7, var2, var6);
+                            // CanaryMod: We have our own weather command
+                            /* } else if(var4.equalsIgnoreCase("toggledownfall")) {
+                             this.b.e[0].j();
+                             var6.b("Toggling rain and snow, hold on...");*/
+                        } else if (var4.equalsIgnoreCase("banlist")) {
+                            if (var3.length == 2) {
+                                if (var3[1].equals("ips")) {
+                                    var6.b("IP Ban list:" + this.a(this.b.q(), ", "));
+                                }
+                            } else {
+                                var6.b("Ban list:" + this.a(this.b.r(), ", "));
+                            }
+                        } else {
+                            a.info("Unknown console command. Type \"help\" for help.");
                         }
                     }
                 }
             }
         } else {
-            this.a(var3);
+            this.a(var6);
         }
 
     }
@@ -422,6 +356,7 @@ public class OConsoleCommandHandler {
         var1.b("   say <message>             broadcasts a message to all players");
         var1.b("   time <add|set> <amount>   adds to or sets the world time (0-24000)");
         var1.b("   gamemode <player> <mode>  sets player\'s game mode (0 or 1)");
+        var1.b("   xp <player> <amount>      gives the player the amount of xp (0-5000)");
     }
 
     private void a(String var1, String var2) {
