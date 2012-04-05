@@ -185,7 +185,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
     }
 
-    private int a(OItemStack var1) {
+    public static int a(OItemStack var1) {
         if (var1 == null) {
             return 0;
         } else {
@@ -194,6 +194,10 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
             return var2 < 256 && OBlock.m[var2].cd == OMaterial.d ? 300 : (var2 == OItem.C.bP ? 100 : (var2 == OItem.l.bP ? 1600 : (var2 == OItem.ax.bP ? 20000 : (var2 == OBlock.y.bO ? 100 : (var2 == OItem.bn.bP ? 2400 : 0)))));
         }
     }
+
+     public static boolean b(OItemStack var0) {
+        return a(var0) > 0;
+     }
 
     public boolean a(OEntityPlayer var1) {
         return this.k.b(this.l, this.m, this.n) != this ? false : var1.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
