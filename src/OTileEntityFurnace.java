@@ -82,7 +82,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
         this.a = var1.e("BurnTime");
         this.c = var1.e("CookTime");
-        this.b = this.a(this.d[1]);
+        this.b = a(this.d[1]);
     }
 
     public void b(ONBTTagCompound var1) {
@@ -122,7 +122,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
         if (!this.k.F) {
             if (this.a == 0 && this.o()) {
-                this.b = this.a = this.a(this.d[1]);
+                this.b = this.a = a(this.d[1]);
                 if (this.a > 0) {
                     var2 = true;
                     if (this.d[1] != null) {
