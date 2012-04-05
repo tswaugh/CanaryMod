@@ -160,14 +160,16 @@ public class etc {
                 muteListLoc = properties.getString("muted-players-location", "config/muted-players.txt");
                 banListLoc = properties.getString("banned-players-location", "config/bans.txt");
             } else {
-                PropertiesFile sql = new PropertiesFile("mysql.properties");
-
-                sql.getString("driver", "com.mysql.jdbc.Driver");
-                username = sql.getString("user", "root");
-                password = sql.getString("pass", "root");
-                db = sql.getString("db", "jdbc:mysql://localhost:3306/minecraft");
-                //Note: The pool size should not be set by users. It might have performance implications
-                cs = new ConnectionService(db, username, password, 10);
+                //Note(df): I moved the actual assignment of these values
+                //into ConnectionService.getInstance().
+                //This is to, hopefully, avoid the problem with connection guards
+                //beeing scheduled all over the place
+                
+                //Those values are left for the legacy mysql connection singleton
+                cs = ConnectionService.getInstance();
+                username = cs.getConnectionCredentialsUser();
+                password = cs.getConnectionCredentialsPasswd();
+                db = cs.getConnectionCredentialsUrl();
             }
             spawnProtectionSize = properties.getInt("spawn-protection-size", 16);
             logging = properties.getBoolean("logging", false);

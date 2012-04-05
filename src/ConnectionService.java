@@ -40,6 +40,7 @@ public class ConnectionService {
      */
     private ScheduledExecutorService ses;
 
+    private static ConnectionService instance = null;
     /**
      * Create a new connection service with the given objects.
      *
@@ -49,7 +50,7 @@ public class ConnectionService {
      * @param poolsize the initial connection pool size. 10 is a suitable value
      * most of the time
      */
-    public ConnectionService(String url, String user, String passwd, int poolsize) {
+    private ConnectionService(String url, String user, String passwd, int poolsize) {
         this.url = url;
         this.user = user;
         this.passwd = passwd;
@@ -59,6 +60,14 @@ public class ConnectionService {
         ses = Executors.newSingleThreadScheduledExecutor();
         ses.scheduleAtFixedRate(new ConnectionGuard(this),
                 timeout / 2, timeout / 2, TimeUnit.MILLISECONDS); //start cleanup thread
+    }
+    
+    public static ConnectionService getInstance() {
+        if(instance == null) {
+            PropertiesFile sql = new PropertiesFile("mysql.properties");
+            instance = new ConnectionService(sql.getString("db", "jdbc:mysql://localhost:3306/minecraft"), sql.getString("user", "root"), sql.getString("pass", "root"), 5);
+        }
+        return instance;
     }
 
     /**
@@ -118,5 +127,29 @@ public class ConnectionService {
                 connectionPool.remove(c);
             }
         }
+    }
+    
+    /**
+     * Get the username for this connection
+     * @return
+     */
+    public String getConnectionCredentialsUser() {
+        return user;
+    }
+    
+    /**
+     * Get the password for this connection
+     * @return
+     */
+    public String getConnectionCredentialsPasswd() {
+        return passwd;
+    }
+    
+    /**
+     * Get the url for this connection
+     * @return
+     */
+    public String getConnectionCredentialsUrl() {
+        return url;
     }
 }
