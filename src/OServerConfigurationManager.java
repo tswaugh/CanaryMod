@@ -104,6 +104,7 @@ public class OServerConfigurationManager {
 
         var2.b(var1);
         this.a(var1.w).a(var1);
+        this.u();
 
         for (int var3 = 0; var3 < this.b.size(); ++var3) {
             OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
@@ -690,6 +691,29 @@ public class OServerConfigurationManager {
 
     public int k() {
         return this.e;
+    }
+
+    public String[] t() {
+       return this.c.e[0].r().d().g();
+    }
+
+    private void u() {
+       OPlayerUsageSnooper var1 = new OPlayerUsageSnooper("server");
+       var1.a("version", this.c.i());
+       var1.a("os_name", System.getProperty("os.name"));
+       var1.a("os_version", System.getProperty("os.version"));
+       var1.a("os_architecture", System.getProperty("os.arch"));
+       var1.a("memory_total", Long.valueOf(Runtime.getRuntime().totalMemory()));
+       var1.a("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
+       var1.a("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
+       var1.a("java_version", System.getProperty("java.version"));
+       var1.a("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
+       var1.a("players_current", Integer.valueOf(this.j()));
+       var1.a("players_max", Integer.valueOf(this.k()));
+       var1.a("players_seen", Integer.valueOf(this.t().length));
+       var1.a("uses_auth", Boolean.valueOf(this.c.n));
+       var1.a("server_brand", this.c.getServerModName());
+       var1.a();
     }
     
     /**
