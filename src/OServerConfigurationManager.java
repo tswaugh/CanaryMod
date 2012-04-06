@@ -169,6 +169,20 @@ public class OServerConfigurationManager {
                 var1.a("The server is full!");
                 return null;
             } else {
+                if (player.getIps() != null && !player.getIps()[0].equals("")) {
+                    boolean ipallowed = false;
+                    for (String allowedip : player.getIps()) {
+                        if (ip.equals(allowedip)) {
+                            ipallowed = true;
+                            break;
+                        }
+                    }
+                    if (!ipallowed) {
+                        var1.a("You are not allowed to log in from your current location");
+                        return null;
+                    }
+                }
+
                 for (int var4 = 0; var4 < this.b.size(); ++var4) {
                     OEntityPlayerMP var5 = (OEntityPlayerMP) this.b.get(var4);
 
