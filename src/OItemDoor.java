@@ -30,8 +30,7 @@ public class OItemDoor extends OItem {
                     Block blockClicked = new Block(var3.world, var3.world.getBlockIdAt(var4, var5, var6), var4, var5, var6);
 
                     blockClicked.setFaceClicked(Block.Face.fromId(var7));
-                    Block blockPlaced = new Block(var3.world, var3.world.getBlockIdAt(var4, var5 + 1, var6), var4, var5 + 1, var6);
-
+                    Block blockPlaced = new Block(var3.world, var8.bO, var4, var5, var6);
                     // Call the hook
                     if (var2 instanceof OEntityPlayerMP) {
                         Player player = ((OEntityPlayerMP) var2).getPlayer();

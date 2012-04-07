@@ -37,7 +37,7 @@ public class OItemBed extends OItem {
             }
             
             // CanaryMod: onItemUse hook
-            if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var2).getPlayer(), blockClicked, new Block(var3.world, OBlock.S.bO, var4, var5, var6), new Item(var1))) {
+            if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var2).getPlayer(), new Block(var3.world, OBlock.S.bO, var4, var5, var6), blockClicked, new Item(var1))) {
                 return false;
             }
 
