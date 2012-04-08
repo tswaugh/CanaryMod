@@ -33,7 +33,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     protected OEntity o() {
         OEntityPlayer var1 = this.bi.b(this, 16.0D);
 
-        return var1 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity) ? var1 : null; // CanaryMod: MOB_TARGET hook;
+        return (var1 != null && this.h(var1) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity)) ? var1 : null; // CanaryMod: MOB_TARGET
     }
 
     public boolean a(ODamageSource var1, int var2) {

@@ -44,7 +44,7 @@ public class OEntityEnderman extends OEntityMob {
     protected OEntity o() {
         OEntityPlayer var1 = this.bi.b(this, 64.0D);
 
-        if (var1 != null) {
+        if (var1 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity)) { //CanaryMod - MOB_TARGET
             if (this.c(var1)) {
                 if (this.h++ == 5) {
                     this.h = 0;
