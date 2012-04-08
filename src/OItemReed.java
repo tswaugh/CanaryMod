@@ -50,7 +50,7 @@ public class OItemReed extends OItem {
         } else {
             if (var3.a(this.a, var4, var5, var6, false, var7)) {
                 // CanaryMod: Reed placement
-                Block blockPlaced = new Block(var3.world, var3.a(var4, var5, var6), var4, var5, var6);
+                Block blockPlaced = new Block(var3.world, this.a, var4, var5, var6);
 
                 blockClicked.setFaceClicked(Block.Face.fromId(var7));
                 Player player = ((OEntityPlayerMP) var2).getPlayer();

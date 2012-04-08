@@ -43,7 +43,7 @@ public class OItemSign extends OItem {
                 return false;
             } else {
                 // CanaryMod: Now we can call itemUse :)
-                Block blockPlaced = new Block(var3.world, (var7 == 1 ? OBlock.aF.bO : OBlock.aK.bO), var4, var5, var6);
+                Block blockPlaced = new Block(var3.world, (var7 == 1 ? 63 : 68), var4, var5, var6);
 
                 if (var2 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var2).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
                     return false;

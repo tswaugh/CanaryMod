@@ -182,9 +182,11 @@ public class OItem {
     }
 
     public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
-                ((OEntityPlayerMP) var2).getPlayer(),
-                this.getBlockInfo(var3, var4, var5, var6, var7), null, new Item(var1));
+        if (var1.c != 325 && var1.c != 326 && var1.c != 327) { //fix for onItemUse being called twice for buckets
+            return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
+                    ((OEntityPlayerMP) var2).getPlayer(), null, this.getBlockInfo(var3, var4, var5, var6, var7), new Item(var1));
+        }
+        return false;
     }
 
     public float a(OItemStack var1, OBlock var2) {

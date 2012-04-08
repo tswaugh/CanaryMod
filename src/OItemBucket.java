@@ -49,10 +49,8 @@ public class OItemBucket extends OItem {
                         var2.e(var13, var14, var15, 0);
 
                         return new OItemStack(OItem.aw);
-                    }
-
-                    if (var2.d(var13, var14, var15) == OMaterial.h && var2.c(var13, var14, var15) == 0) {
-                        // Filling a bucket with water!
+                    } else if (var2.d(var13, var14, var15) == OMaterial.h && var2.c(var13, var14, var15) == 0) {
+                        // Filling a bucket with lava!
                         if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1)) && var3.L.d) {
                             return var1;
                         }
