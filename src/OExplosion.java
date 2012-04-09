@@ -16,7 +16,11 @@ public class OExplosion {
     public OEntity e;
     public float f;
     public Set g;
+
+    //CanaryMod Start
     protected boolean toRet;
+    protected List blocksaffected;
+    //CanaryMod End
 
     public OExplosion(OWorld var1, OEntity var2, double var3, double var5, double var7, float var9) {
         super();
@@ -28,6 +32,7 @@ public class OExplosion {
         this.d = var7;
         this.g = new HashSet();
         this.toRet = false;
+        this.blocksaffected = new ArrayList();
     }
 
     public void a() {
@@ -81,6 +86,12 @@ public class OExplosion {
 
                             if (var14 > 0.0F) {
                                 this.g.add(new OChunkPosition(var22, var23, var24));
+
+                                //CanaryMod - set up a set of blocks rather than giving the OChunkPosition
+                                Block blockaffect = new Block(i.world, i.a((int) Math.floor(var22), (int) Math.floor(var23), (int) Math.floor(var24)), (int) Math.floor(var22), (int) Math.floor(var23), (int) Math.floor(var24));
+                                if (blockaffect.getType() != 0) { //Don't add air to the list
+                                    this.blocksaffected.add(blockaffect);
+                                }
                             }
 
                             var15 += var6 * (double) var21;
@@ -92,7 +103,7 @@ public class OExplosion {
             }
         }
 
-        this.toRet = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g);
+        this.toRet = ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g) || (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLOSION, block, (e != null ? new BaseEntity(e) : null), blocksaffected));
         this.f *= 2.0F;
         var3 = OMathHelper.b(this.b - (double) this.f - 1.0D);
         var4 = OMathHelper.b(this.b + (double) this.f + 1.0D);

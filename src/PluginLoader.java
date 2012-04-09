@@ -106,6 +106,11 @@ public class PluginLoader {
          *///
         EXPLODE, //
         /**
+         * Calls {@link PluginListener#onExplosion(Block, BaseEntity, List) }
+         */
+        //
+        EXPLOSION, //
+        /**
          * Calls {@link PluginListener#onMobSpawn(Mob) }
          *///
         MOB_SPAWN, //
@@ -891,6 +896,12 @@ public class PluginLoader {
 
                         case EXPLODE:
                             if (listener.onExplode((Block) parameters[0], (OEntity) parameters[1], (HashSet) parameters[2])) {
+                                toRet = true;
+                            }
+                            break;
+
+                        case EXPLOSION:
+                            if (listener.onExplosion((Block) parameters[0], (BaseEntity) parameters[1], (List) parameters[2])) {
                                 toRet = true;
                             }
                             break;
