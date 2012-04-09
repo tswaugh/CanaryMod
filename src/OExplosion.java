@@ -88,7 +88,7 @@ public class OExplosion {
                                 this.g.add(new OChunkPosition(var22, var23, var24));
 
                                 //CanaryMod - set up a set of blocks rather than giving the OChunkPosition
-                                Block blockaffect = new Block(i.world, i.a((int) Math.floor(var22), (int) Math.floor(var23), (int) Math.floor(var24)), (int) Math.floor(var22), (int) Math.floor(var23), (int) Math.floor(var24));
+                                Block blockaffect = new Block(i.world, i.a(var3, var4, var5), var3, var4, var5);
                                 if (blockaffect.getType() != 0) { //Don't add air to the list
                                     this.blocksaffected.add(blockaffect);
                                 }
