@@ -1179,7 +1179,6 @@ public class PluginListener {
      * @param oldBlock The Block that's being modified
      * @param newBlockId  The block ID of the new block
      * @return false to allow the update, true to cancel it.
-     * NOTE: Only farmland right now
      */
     public boolean onBlockUpdate(Block oldBlock, int newBlockId){ 
         return onBlockUpdate(oldBlock);
