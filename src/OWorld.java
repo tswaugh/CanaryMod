@@ -261,9 +261,7 @@ public class OWorld implements OIBlockAccess {
     }
 
     public boolean a(int var1, int var2, int var3, int var4, int var5) {
-        // CanaryMod: Get Block Info
-        Block block = this.world.getBlockAt(var1, var2, var3);
-        
+
         if (var1 >= -30000000 && var3 >= -30000000 && var1 < 30000000 && var3 < 30000000) {
             if (var2 < 0) {
                 return false;
@@ -272,6 +270,8 @@ public class OWorld implements OIBlockAccess {
             } else {
                 boolean var7 = false;
                 OChunk var6 = this.d(var1 >> 4, var3 >> 4);
+             // CanaryMod: Get Block Info
+                Block block = this.world.getBlockAt(var1, var2, var3);
                 //CanaryMod ignore if new block is air
                 if(var4 == 0){
                     var7 = var6.a(var1 & 15, var2, var3 & 15, var4, var5);
@@ -296,8 +296,17 @@ public class OWorld implements OIBlockAccess {
                 return false;
             } else {
                 OChunk var5 = this.d(var1 >> 4, var3 >> 4);
-                boolean var6 = var5.a(var1 & 15, var2, var3 & 15, var4);
-
+                //CanaryMod Block Updates
+                //Get Block Info
+                Block block = this.world.getBlockAt(var1, var2, var3);
+                //ignore if new block is air
+                boolean var6 = false;
+                if(var4 == 0) {
+                    var6 = var5.a(var1 & 15, var2, var3 & 15, var4);
+                } 
+                else if(!(Boolean)OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block, var4)){
+                    var6 = var5.a(var1 & 15, var2, var3 & 15, var4);
+                }
                 OProfiler.a("checkLight");
                 this.v(var1, var2, var3);
                 OProfiler.a();
