@@ -1385,7 +1385,44 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
     
     /**
+     * Returns a player's respawn location
+     * 
+     * @return spawn location
+     */
+    public Location getRespawnLocation() {
+        Location spawn = etc.getServer().getDefaultWorld().getSpawnLocation();
+        OChunkCoordinates loc = getEntity().ab();
+        if (loc != null) {
+            spawn = new Location(etc.getServer().getDefaultWorld(), loc.a, loc.b, loc.c);
+        }
+        return spawn;
+    }
+
+    /**
+     * Sets a player's respawn location
+     * 
+     * @param x
+     * @param y
+     * @param z
+     */
+    public void setRespawnLocation(int x, int y, int z) {
+        OChunkCoordinates loc = new OChunkCoordinates(x, y, z);
+        getEntity().a(loc);
+    }
+
+    /**
+     * Sets a player's respawn location
+     * 
+     * @param location
+     */
+    public void setRespawnLocation(Location location) {
+        OChunkCoordinates loc = new OChunkCoordinates((int) Math.floor(location.x), (int) Math.floor(location.y), (int) Math.floor(location.z));
+        getEntity().a(loc);
+    }
+
+    /**
      * Returns whether this player is an op.
+     * 
      * @return {@code true} if the player is op.
      */
     public boolean isOp() {
