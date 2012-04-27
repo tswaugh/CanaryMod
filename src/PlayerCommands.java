@@ -380,22 +380,20 @@ public class PlayerCommands {
                     }
                 }
                 if (args.length == 4) {
-                    int temp = -1;
-
                     if (args[3].matches("\\d+")) {
-                        temp = Integer.parseInt(args[3]);
+                        damage = Integer.parseInt(args[3]);
                     } else if (player.canIgnoreRestrictions()) {
                         toGive = etc.getServer().matchPlayer(args[3]);
                     }
-                    if (temp > -1 && temp < 201) {
-                        damage = temp;
+                    if ( (damage < 0 || damage > 200) && itemId != 373) {
+                        damage = 0;
                     }
                 } else if (args.length == 5) {
                     damage = Integer.parseInt(args[3]);
                     if (itemId == 383) {
                         System.out.println("ItemID: " + itemId);
                     }
-                    if (damage < 0 || damage > 200) {
+                    if ( (damage < 0 || damage > 200) && itemId != 373) {
                         damage = 0;
                     }
                     if (player.canIgnoreRestrictions()) {

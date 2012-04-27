@@ -45,7 +45,7 @@ public class MobSpawner implements ComplexBlock {
 
     @Override
     public void update() {
-        spawner.q_();
+        etc.getMCServer().h.a(spawner.d());
     }
 
     /**
@@ -55,7 +55,7 @@ public class MobSpawner implements ComplexBlock {
      */
     public void setSpawn(String spawn) {
         spawner.d = spawn;
-        // update(); If we call update here, mobspawner resets to default (Pig)
+        update();
     }
 
     /**
