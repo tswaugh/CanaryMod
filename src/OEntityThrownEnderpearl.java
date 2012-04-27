@@ -17,7 +17,17 @@ public class OEntityThrownEnderpearl extends OEntityThrowable {
         if (var1.g != null && var1.g.a(ODamageSource.a((OEntity) this, this.c), 0)) {
             ;
         }
-
+        //CanaryMod start - Fix enderpwarl dupe bug
+        Player p = null;
+        if(this.c instanceof OEntityPlayerMP) {
+            p = new Player((OEntityPlayerMP) this.c);
+        }
+        if((p != null) && !( etc.getServer().getPlayerList().contains(p) ) ){
+            this.X(); //kill this entity
+            return;
+        }
+        //CanaryMod end
+        
         for (int var2 = 0; var2 < 32; ++var2) {
             this.bi.a("portal", this.bm, this.bn + this.bS.nextDouble() * 2.0D, this.bo, this.bS.nextGaussian(), 0.0D, this.bS.nextGaussian());
         }
