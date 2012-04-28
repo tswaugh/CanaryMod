@@ -1207,6 +1207,10 @@ public class PluginLoader {
                         case DISPENSE:
                             toRet = listener.onDispense((Dispenser) parameters[0], (BaseEntity) parameters[1]);
                             break;
+                      
+                        case LIGHT_CHANGE:
+                            listener.onLightChange((Integer) parameters[0], (Integer) parameters[1], (Integer) parameters[2], (Integer) parameters[3]);
+                            break;
                         }
                        } catch (UnsupportedOperationException ex) {}
                 }
