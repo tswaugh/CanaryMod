@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -342,6 +341,12 @@ public class PluginLoader {
          * Calls{@Link PluginListener#onDispense(Block,Item) }
          */
         DISPENSE, //
+            //
+        /**
+         * Calls{@Link PluginListener#onLightChange(int,int,int,int) }
+         */
+        //
+        LIGHT_CHANGE,
         /**
          * For internal use only.
          *///
