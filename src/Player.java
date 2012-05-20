@@ -1035,7 +1035,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
 
         ent.a((OStatBase) OAchievementList.B);
-        OChunkCoordinates var2 = mcServer.a(world).d();
+        OChunkCoordinates var2 = mcServer.getWorld(ent.bi.name, world).d();
 
         if (var2 != null) {
             ent.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F);

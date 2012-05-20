@@ -640,15 +640,10 @@ public class etc {
         StringBuilder builder = new StringBuilder();
 
         for (int i = startIndex; i < string.length; i++) {
+            if (i != startIndex)
+                builder.append(seperator);
             builder.append(string[i]);
-            builder.append(seperator);
         }
-        if (builder.length() > 0) { // Skye's fix for OutOfBounds exception.
-            builder.deleteCharAt(builder.length() - seperator.length());
-        } // remove
-        // the
-        // extra
-        // seperator
         return builder.toString();
     }
 

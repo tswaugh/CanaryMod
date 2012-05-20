@@ -98,7 +98,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             OItemStack var2 = this.c(var1);
 
             if (var2 != this.ck[var1]) {
-                this.b.getTracker(this.bi.name, this.w).a(this, new OPacket5PlayerInventory(this.bd, var1, var2));
+                this.bi.getEntityTracker().a(this, new OPacket5PlayerInventory(this.bd, var1, var2));
                 this.ck[var1] = var2;
             }
         }
@@ -330,7 +330,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(OEntity var1, int var2) {
         if (!var1.bE) {
-            OEntityTracker var3 = this.b.getTracker(this.bi.name, this.w);
+            OEntityTracker var3 = this.bi.getEntityTracker();
 
             if (var1 instanceof OEntityItem) {
                 var3.a(var1, new OPacket22Collect(var1.bd, this.bd));
@@ -353,7 +353,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         if (!this.t) {
             this.u = -1;
             this.t = true;
-            OEntityTracker var1 = this.b.getTracker(this.bi.name, this.w);
+            OEntityTracker var1 = this.bi.getEntityTracker();
 
             var1.a(this, new OPacket18Animation(this, 1));
         }
@@ -366,7 +366,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         OEnumStatus var4 = super.a(var1, var2, var3);
 
         if (var4 == OEnumStatus.a) {
-            OEntityTracker var5 = this.b.getTracker(this.bi.name, this.w);
+            OEntityTracker var5 = this.bi.getEntityTracker();
             OPacket17Sleep var6 = new OPacket17Sleep(this, 0, var1, var2, var3);
 
             var5.a(this, var6);
@@ -379,7 +379,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(boolean var1, boolean var2, boolean var3) {
         if (this.Z()) {
-            OEntityTracker var4 = this.b.getTracker(this.bi.name, this.w);
+            OEntityTracker var4 = this.bi.getEntityTracker();
 
             var4.b(this, new OPacket18Animation(this, 3));
         }
@@ -641,7 +641,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         if (var1 != null && var1.a() != null && var1.a().d(var1) == OEnumAction.b) {
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.EAT, ((OEntityPlayerMP) this).getPlayer(), new Item(var1))) {
                 super.a(var1, var2);
-                OEntityTracker var3 = this.b.getTracker(this.bi.name, this.w);
+                OEntityTracker var3 = this.bi.getEntityTracker();
 
                 var3.b(this, new OPacket18Animation(this, 5));
             } else {
@@ -675,13 +675,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void c(OEntity var1) {
-        OEntityTracker var2 = this.b.getTracker(this.bi.name, this.w);
+        OEntityTracker var2 = this.bi.getEntityTracker();
 
         var2.b(this, new OPacket18Animation(var1, 6));
     }
 
     public void d(OEntity var1) {
-        OEntityTracker var2 = this.b.getTracker(this.bi.name, this.w);
+        OEntityTracker var2 = this.bi.getEntityTracker();
 
         var2.b(this, new OPacket18Animation(var1, 7));
     }

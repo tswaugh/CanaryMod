@@ -60,6 +60,7 @@ public class OWorld implements OIBlockAccess {
     public final World world = new World((OWorldServer) this);
     boolean loadedpreload = false;
     public final String name;
+    private OEntityTracker entityTracker; // Reference for multiworld
 
     public OBiomeGenBase a(int var1, int var2) {
         if (this.i(var1, 0, var2)) {
@@ -2775,5 +2776,13 @@ public class OWorld implements OIBlockAccess {
 
     public OChunkPosition b(String var1, int var2, int var3, int var4) {
         return this.q().a(this, var1, var2, var3, var4);
+    }
+
+    public OEntityTracker getEntityTracker() {
+        return this.entityTracker;
+    }
+    
+    protected void setEntityTracker(OEntityTracker entityTracker) {
+        this.entityTracker = entityTracker;
     }
 }

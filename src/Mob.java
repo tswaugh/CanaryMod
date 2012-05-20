@@ -26,7 +26,7 @@ public class Mob extends LivingEntity {
      * @deprecated Use {@link #Mob(java.lang.String, World)} instead.
      */
     public Mob(String mob) {
-        this((OEntityLiving) OEntityList.a(mob, etc.getMCServer().a(0)));
+        this(mob, etc.getServer().getDefaultWorld());
     }
     
     /**

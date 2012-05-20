@@ -17,7 +17,7 @@ public class OServerConfigurationManager {
     private File k;
     private File l;
     // private File m; //CanaryMod: disable Notchian whitelist
-    private OIPlayerFileData n;
+    // private OIPlayerFileData n; // CanaryMod: multiworld
     private boolean o;
     private int p = 0;
     
@@ -64,7 +64,7 @@ public class OServerConfigurationManager {
         mgrs[0].b(var1);
         mgrs[1].b(var1);
         mgrs[2].b(var1);
-        this.a(var1.w).a(var1);
+        this.getManager(var1.bi.name, var1.w).a(var1);
         OWorldServer var2 = this.c.getWorld(var1.bi.name, var1.w);
 
         var2.G.c((int) var1.bm >> 4, (int) var1.bo >> 4);
@@ -110,7 +110,7 @@ public class OServerConfigurationManager {
         }
 
         var2.b(var1);
-        this.a(var1.w).a(var1);
+        this.getManager(var2.name, var1.w).a(var1);
         this.u();
 
         for (int var3 = 0; var3 < this.b.size(); ++var3) {
@@ -130,14 +130,14 @@ public class OServerConfigurationManager {
     }
 
     public void d(OEntityPlayerMP var1) {
-        this.a(var1.w).c(var1);
+        this.getManager(var1.bi.name, var1.w).c(var1);
     }
 
     public void e(OEntityPlayerMP var1) {
-        this.n.a(var1);
+        this.saveHandlers.get(var1.bi.name).a(var1);
         this.c.getWorld(var1.bi.name, var1.w).e(var1);
         this.b.remove(var1);
-        this.a(var1.w).b(var1);
+        this.getManager(var1.bi.name, var1.w).b(var1);
         // CanaryMod: Player color and Prefix
         if (etc.getInstance().isPlayerList_enabled()) {
             PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(false);
@@ -153,7 +153,8 @@ public class OServerConfigurationManager {
         }
             
         // CanaryMod: whole section below is modified to handle whitelists etc
-        OEntityPlayerMP temp = new OEntityPlayerMP(c, c.a(0), var2, new OItemInWorldManager(c.a(0)));
+        OEntityPlayerMP temp = new OEntityPlayerMP(c, c.getWorld(c.m(), 0), var2,
+                new OItemInWorldManager(c.getWorld(c.m(), 0)));
         Player player = temp.getPlayer();
         String ip = var1.b.c().toString();
         ip = ip.substring(ip.indexOf("/") + 1);
@@ -225,9 +226,9 @@ public class OServerConfigurationManager {
     }
 
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3, Location spawnLocation) {
-        this.c.getTracker(var1.bi.name, var1.w).a(var1);
-        this.c.getTracker(var1.bi.name, var1.w).b(var1);
-        this.a(var1.w).b(var1);
+        var1.bi.getEntityTracker().a(var1);
+        var1.bi.getEntityTracker().b(var1);
+        this.getManager(var1.bi.name, var1.w).b(var1);
         this.b.remove(var1);
         this.c.getWorld(var1.bi.name, var1.w).f(var1);
         OChunkCoordinates var4 = var1.ab();
@@ -271,7 +272,7 @@ public class OServerConfigurationManager {
         var5.a.b((OPacket) (new OPacket9Respawn(var5.w, (byte) var5.bi.q, var5.bi.s().p(), var5.bi.y(), var5.c.a())));
         var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt);
         this.a(var5, var6);
-        this.a(var5.w).a(var5);
+        this.getManager(var5.bi.name, var5.w).a(var5);
         var6.b(var5);
         this.b.add(var5);
         var5.x();
@@ -365,7 +366,14 @@ public class OServerConfigurationManager {
     }
 
     public void a(int var1, int var2, int var3, int var4) {
-        this.a(var4).a(var1, var2, var3);
+        throw new UnsupportedOperationException("OServerConfigurationManager"
+                + ".a(int, int, int, int) has been replaced by OServer"
+                + "ConfigurationManager.markBlockNeedsUpdate(int, int, int, int,"
+                + " String).");
+    }
+    
+    public void markBlockNeedsUpdate(int var1, int var2, int var3, int var4, String var5) {
+        this.getManager(var5, var4).a(var1, var2, var3);
     }
 
     public void a(OPacket var1) {
@@ -669,7 +677,9 @@ public class OServerConfigurationManager {
 
     public void g() {
         for (int var1 = 0; var1 < this.b.size(); ++var1) {
-            this.n.a((OEntityPlayer) this.b.get(var1));
+            // CanaryMod: Store in a temp variable so we can get the save handler
+            OEntityPlayer oep = (OEntityPlayer) this.b.get(var1);
+            this.saveHandlers.get(oep.bi.name).a(oep);
         }
 
     }
@@ -790,7 +800,7 @@ public class OServerConfigurationManager {
         return this.f.contains(name.toLowerCase());
     }
     
-    void newWorld(String name) {
+    protected void newWorld(String name) {
         OPlayerManager[] toPut = new OPlayerManager[3];
         toPut[0] = new OPlayerManager(this.c, 0, this.viewDistance, name);
         toPut[1] = new OPlayerManager(this.c, -1, this.viewDistance, name);

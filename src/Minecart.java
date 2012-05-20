@@ -70,8 +70,7 @@ public class Minecart extends BaseVehicle {
      */
     @Deprecated
     public Minecart(double x, double y, double z, Type type) {
-        super(new OEntityMinecart(etc.getMCServer().a(0), x, y, z, type.getType()));
-        etc.getMCServer().a(0).b(entity);
+        this(etc.getServer().getDefaultWorld(), x, y, z, type);
     }
 
     /**

@@ -792,9 +792,11 @@ public class FlatFileSource extends DataSource {
                     else
                         ban.setName(split[0]);
                     if (split.length >= 2) {
-                        ban.setReason(split[1]);
-                        if (split.length >= 3)
-                            ban.setTimestamp(Integer.parseInt(split[2]));
+                        if (split.length >= 3 && split[split.length - 1].matches("-1|\\d+")) {
+                            ban.setTimestamp(Integer.parseInt(split[split.length - 1]));
+                            ban.setReason(line.substring(line.indexOf(':') + 1, line.lastIndexOf(':')));
+                        } else
+                            ban.setReason(line.substring(line.indexOf(':') + 1));
                     } else
                         ban.setReason(etc.getInstance().getDefaultBanMessage());
                     

@@ -94,7 +94,7 @@ public class ONetLoginHandler extends ONetHandler {
 
         if (var2 != null) {
             this.e.h.b(var2);
-            var2.a((OWorld) this.e.a(var2.w)); // CanaryMod: don't update, default world.
+            var2.a((OWorld) this.e.getWorld(this.e.m(), var2.w));
             var2.c.a((OWorldServer) var2.bi);
             a.info(this.b() + " logged in with entity id " + var2.bd + " at (" + var2.bm + ", " + var2.bn + ", " + var2.bo + ")");
             OWorldServer var3 = this.e.getWorld(var2.bi.name, var2.w);
