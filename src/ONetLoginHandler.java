@@ -17,6 +17,8 @@ public class ONetLoginHandler extends ONetHandler {
     private String g = null;
     private OPacket1Login h = null;
     private String i = "";
+    
+    private String worldname; // CanaryMod: store worldname given by plugins
 
     public ONetLoginHandler(OMinecraftServer var1, Socket var2, String var3) throws IOException {
         super();
@@ -63,7 +65,7 @@ public class ONetLoginHandler extends ONetHandler {
 
     public void a(OPacket1Login var1) {
         //CanaryMod: Filter bad player names and remove them from the login process
-        if(!var1.b.toLowerCase().matches("[a-zA-Z0-9-_]+")) {
+        if(!var1.b.toLowerCase().matches("[a-z0-9-_]+")) {
             c=true; //finished processing
             b.a("This name has been assimilated and you have been kicked.");
             return;
@@ -92,10 +94,10 @@ public class ONetLoginHandler extends ONetHandler {
 
         if (var2 != null) {
             this.e.h.b(var2);
-            var2.a((OWorld) this.e.a(var2.w));
+            var2.a((OWorld) this.e.a(var2.w)); // CanaryMod: don't update, default world.
             var2.c.a((OWorldServer) var2.bi);
             a.info(this.b() + " logged in with entity id " + var2.bd + " at (" + var2.bm + ", " + var2.bn + ", " + var2.bo + ")");
-            OWorldServer var3 = this.e.a(var2.w);
+            OWorldServer var3 = this.e.getWorld(var2.bi.name, var2.w);
             OChunkCoordinates var4 = var3.p();
 
             var2.c.b(var3.s().m());

@@ -79,7 +79,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(OPacket10Flying var1) {
-        OWorldServer var2 = this.d.a(this.e.w);
+        OWorldServer var2 = this.d.getWorld(this.e.bi.name, this.e.w);
 
         this.h = true;
         if (!this.e.j) {
@@ -319,7 +319,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     int x, y, z, type;
 
     public void a(OPacket14BlockDig var1) {
-        OWorldServer var2 = this.d.a(this.e.w);
+        OWorldServer var2 = this.d.getWorld(this.e.bi.name, this.e.w);
 
         if (var1.e == 4) {
             this.e.S();
@@ -428,7 +428,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     Block lastRightClicked;
 
     public void a(OPacket15Place var1) {
-        OWorldServer var2 = this.d.a(this.e.w);
+        OWorldServer var2 = this.d.getWorld(this.e.bi.name, this.e.w);
         OItemStack var3 = this.e.k.d();
         
         // CanaryMod: Store block data to call hooks
@@ -677,7 +677,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(OPacket7UseEntity var1) {
-        OWorldServer var2 = this.d.a(this.e.w);
+        OWorldServer var2 = this.d.getWorld(this.e.bi.name, this.e.w);
         OEntity var3 = var2.a(var1.b);
 
         if (var3 != null) {
@@ -796,7 +796,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(OPacket130UpdateSign var1) {
-        OWorldServer var2 = this.d.a(this.e.w);
+        OWorldServer var2 = this.d.getWorld(this.e.bi.name, this.e.w);
 
         if (var2.i(var1.a, var1.b, var1.c)) {
             OTileEntity var3 = var2.b(var1.a, var1.b, var1.c);

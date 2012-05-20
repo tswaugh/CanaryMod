@@ -11,8 +11,11 @@ public class OPlayerManager {
     private int e;
     private int f;
     private final int[][] g = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
+    
+    // CanaryMod: store world name
+    private final String worldName;
 
-    public OPlayerManager(OMinecraftServer var1, int var2, int var3) {
+    public OPlayerManager(OMinecraftServer var1, int var2, int var3, String worldName) {
         super();
         if (var3 > 15) {
             throw new IllegalArgumentException("Too big view radius!");
@@ -23,10 +26,12 @@ public class OPlayerManager {
             this.d = var1;
             this.e = var2;
         }
+        
+        this.worldName = worldName;
     }
 
     public OWorldServer a() {
-        return this.d.a(this.e);
+        return this.d.getWorld(this.worldName, this.e);
     }
 
     public void b() {
@@ -36,7 +41,7 @@ public class OPlayerManager {
 
         this.c.clear();
         if (this.a.isEmpty()) {
-            OWorldServer var3 = this.d.a(this.e);
+            OWorldServer var3 = this.d.getWorld(this.worldName, this.e);
             OWorldProvider var2 = var3.t;
 
             if (!var2.c()) {

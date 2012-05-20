@@ -17,12 +17,15 @@ public class OEntityTracker {
     private OMinecraftServer c;
     private int d;
     private int e;
+    
+    private String worldName; // CanaryMod: store worldname for multiworld
 
-    public OEntityTracker(OMinecraftServer var1, int var2) {
+    public OEntityTracker(OMinecraftServer var1, int var2, String worldName) {
         super();
         this.c = var1;
         this.e = var2;
-        this.d = var1.h.a();
+        this.d = var1.h.getMaxTrackingDistance(worldName);
+        this.worldName = worldName; // CanaryMod
     }
 
     public void a(OEntity var1) {
@@ -100,7 +103,7 @@ public class OEntityTracker {
 
             this.a.add(var5);
             this.b.a(var1.bd, var5);
-            var5.b(this.c.a(this.e).d);
+            var5.b(this.c.getWorld(this.worldName, this.e).d);
         }
     }
 
@@ -133,7 +136,7 @@ public class OEntityTracker {
             while (var2.hasNext()) {
                 OEntityTrackerEntry var3 = (OEntityTrackerEntry) var2.next();
 
-                var3.a(this.c.a(this.e).d);
+                var3.a(this.c.getWorld(this.worldName, this.e).d);
                 if (var3.n && var3.a instanceof OEntityPlayerMP) {
                     var1.add((OEntityPlayerMP) var3.a);
                 }
