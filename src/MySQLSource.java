@@ -494,7 +494,7 @@ public class MySQLSource extends DataSource {
 
         try {
             conn = etc.getConnection();
-            ps = conn.prepareStatement("INSERT INTO " + table_homes + " (name, x, y, z, rotX, rotY, `group`) VALUES(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = conn.prepareStatement("INSERT INTO " + table_homes + " (name, x, y, z, rotX, rotY, `group`, `world`,`dimension`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, home.Name);
             ps.setDouble(2, home.Location.x);
             ps.setDouble(3, home.Location.y);
@@ -502,6 +502,9 @@ public class MySQLSource extends DataSource {
             ps.setFloat(5, home.Location.rotX);
             ps.setFloat(6, home.Location.rotY);
             ps.setString(7, home.Group);
+            ps.setString(8, home.Location.world);
+            ps.setInt(9, home.Location.dimension);
+            
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();
@@ -583,7 +586,7 @@ public class MySQLSource extends DataSource {
 
         try {
             conn = etc.getConnection();
-            ps = conn.prepareStatement("INSERT INTO " + table_warps + " (name, x, y, z, rotX, rotY, dimension, `group`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = conn.prepareStatement("INSERT INTO " + table_warps + " (name, x, y, z, rotX, rotY, dimension, `group`, `world`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, warp.Name);
             ps.setDouble(2, warp.Location.x);
             ps.setDouble(3, warp.Location.y);
@@ -592,6 +595,7 @@ public class MySQLSource extends DataSource {
             ps.setFloat(6, warp.Location.rotY);
             ps.setInt(7, warp.Location.dimension);
             ps.setString(8, warp.Group);
+            ps.setString(9, warp.Location.world);
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();

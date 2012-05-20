@@ -504,7 +504,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         
         for (OWorldServer[] aows : this.worlds.values())
             for (var11 = 0; var11 < aows.length; ++var11) {
-                aows[var11].getEntityTracker().a();
+                aows[var11].getEntityTracker().updateTrackedEntities();
             }
 
         for (var11 = 0; var11 < this.C.size(); ++var11) {

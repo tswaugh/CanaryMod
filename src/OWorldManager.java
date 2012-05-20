@@ -13,11 +13,11 @@ public class OWorldManager implements OIWorldAccess {
     public void a(String var1, double var2, double var4, double var6, double var8, double var10, double var12) {}
 
     public void a(OEntity var1) {
-        this.b.getEntityTracker().a(var1);
+        this.b.getEntityTracker().trackEntity(var1);
     }
 
     public void b(OEntity var1) {
-        this.b.getEntityTracker().b(var1);
+        this.b.getEntityTracker().untrackEntity(var1);
     }
 
     public void a(String var1, double var2, double var4, double var6, float var8, float var9) {}

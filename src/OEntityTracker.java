@@ -19,6 +19,7 @@ public class OEntityTracker {
     private int e;
     
     private String worldName; // CanaryMod: store worldname for multiworld
+    private EntityTracker canaryEntityTracker; //CanaryMod entity Tracker
 
     public OEntityTracker(OMinecraftServer var1, int var2, String worldName) {
         super();
@@ -26,6 +27,15 @@ public class OEntityTracker {
         this.e = var2;
         this.d = var1.h.getMaxTrackingDistance(worldName);
         this.worldName = worldName; // CanaryMod
+        canaryEntityTracker = new EntityTracker(this);
+    }
+    
+    /**
+     * CanaryMod Get the EntityTracker
+     * @return
+     */
+    public EntityTracker getCanaryEntityTracker() {
+        return canaryEntityTracker;
     }
 
     public void a(OEntity var1) {

@@ -520,6 +520,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         loc.rotX = getRotation();
         loc.rotY = getPitch();
         loc.dimension = getWorld().getType().getId();
+        loc.world = getWorld().getName();
         return loc;
     }
 
@@ -1003,9 +1004,9 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
         
         if (getWorld().getType().getId() == 0) {
-            switchWorlds(-1);
+            switchWorlds(etc.getServer().getWorld(etc.getServer().getDefaultWorld().getName())[1]);
         } else {
-            switchWorlds(0);
+            switchWorlds(etc.getServer().getWorld(etc.getServer().getDefaultWorld().getName())[0]);
         }
         // Canary: We don't want a portal created
         // mcServer.h.a(ent, false);
@@ -1016,18 +1017,18 @@ public class Player extends HumanEntity implements MessageReceiver {
     
     /**
      * Switch to the specified dimension at the according position.
-     * @param world The id of the world to swith to.
+     * @param world The world to switch to
      */
-    public void switchWorlds(int world) {
+    public void switchWorlds(World world) {
         OMinecraftServer mcServer = etc.getMCServer();
         OEntityPlayerMP ent = getEntity();
         
         // Nether is not allowed, so shush
-        if (world == World.Dimension.NETHER.getId() && !mcServer.d.a("allow-nether", true)) {
+        if (world.getType() == World.Dimension.NETHER && !mcServer.d.a("allow-nether", true)) {
             return;
         }
         // The End is not allowed, so shush
-        if (world == World.Dimension.END.getId() && !mcServer.d.a("allow-end", true)) {
+        if (world.getType() == World.Dimension.END && !mcServer.d.a("allow-end", true)) {
             return;
         }
         // Dismount first or get buggy
@@ -1035,14 +1036,23 @@ public class Player extends HumanEntity implements MessageReceiver {
             ent.b(ent.bh);
         }
 
+        //Collect world switch achievement ?
         ent.a((OStatBase) OAchievementList.B);
-        OChunkCoordinates var2 = mcServer.getWorld(ent.bi.name, world).d();
+        
+        //switch world if needed
+        if(!world.getName().equals(ent.bi.name)) {
+            ent.bi.getEntityTracker().untrackEntity(ent);
+            ent.bi = world.getWorld();
+            ent.bi.getEntityTracker().trackEntity(ent);
+        }
+        //Get chunk coordinates...
+        OChunkCoordinates var2 = mcServer.getWorld(ent.bi.name, world.getType().getId()).d();
 
         if (var2 != null) {
             ent.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F);
         }
 
-        mcServer.h.sendPlayerToOtherDimension(ent, world, false);
+        mcServer.h.sendPlayerToOtherDimension(ent, world.getType().getId(), false);
         
         refreshCreativeMode();
     }
@@ -1050,15 +1060,16 @@ public class Player extends HumanEntity implements MessageReceiver {
     @Override
     public void teleportTo(BaseEntity ent) {
         if (!getWorld().equals(ent.getWorld())) {
-            switchWorlds(ent.getWorld().getType().getId());
+            switchWorlds(ent.getWorld());
         }
         super.teleportTo(ent);
     }
 
     @Override
     public void teleportTo(Location location) {
+        
         if (!getWorld().equals(location.getWorld())) {
-            switchWorlds(location.dimension);
+            switchWorlds(location.getWorld());
         }
         super.teleportTo(location);
     }

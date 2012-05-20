@@ -120,7 +120,7 @@ public class OWorldServer extends OWorld {
     public void a(OEntity var1, byte var2) {
         OPacket38EntityStatus var3 = new OPacket38EntityStatus(var1.bd, var2);
 
-        this.getEntityTracker().b(var1, var3);
+        this.getEntityTracker().sendPacketToPlayersAndEntity(var1, var3);
     }
 
     public OExplosion a(OEntity var1, double var2, double var4, double var6, float var8, boolean var9) {

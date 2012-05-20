@@ -637,12 +637,21 @@ public class PlayerCommands {
                 caller.notify("Could not find player.");
                 return;
             }
-            World.Dimension worldType = player.getWorld().getType();
-            if (worldType != World.Dimension.NORMAL) {
+//            World.Dimension worldType = player.getWorld().getType();
+//            if (worldType != World.Dimension.NORMAL) {
+//                if (player.canIgnoreRestrictions()) {
+//                    player.switchWorlds(World.Dimension.NORMAL.getId());
+//                } else {
+//                    player.notify("You cannot set a home in the " + worldType + ", mortal.");
+//                    return;
+//                }
+//            }
+            World world = player.getWorld();
+            if (world.getType() != World.Dimension.NORMAL) {
                 if (player.canIgnoreRestrictions()) {
-                    player.switchWorlds(World.Dimension.NORMAL.getId());
+                    player.switchWorlds(world);
                 } else {
-                    player.notify("You cannot set a home in the " + worldType + ", mortal.");
+                    player.notify("You cannot set a home in the " + world.getType().name() + ", mortal.");
                     return;
                 }
             }
@@ -682,12 +691,12 @@ public class PlayerCommands {
                 caller.notify("Could not find player.");
                 return;
             }
-            World.Dimension worldType = toMove.getWorld().getType();
-            if (worldType != World.Dimension.NORMAL) {
+            World world = toMove.getWorld();
+            if (world.getType() != World.Dimension.NORMAL) {
                 if (toMove != caller || toMove.canIgnoreRestrictions()) {
-                    toMove.switchWorlds(World.Dimension.NORMAL.getId());
+                    toMove.switchWorlds(world);
                 } else {
-                    toMove.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + worldType + "...");
+                    toMove.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + world.getType().name() + "...");
                     return;
                 }
             }
@@ -753,12 +762,21 @@ public class PlayerCommands {
                 home = etc.getDataSource().getHome(caller.getName());
             }
 
-            World.Dimension worldType = player.getWorld().getType();
-            if (worldType != World.Dimension.NORMAL) {
-                if (player.canIgnoreRestrictions()) {
-                    player.switchWorlds(World.Dimension.NORMAL.getId());
+//            World.Dimension worldType = player.getWorld().getType();
+//            if (worldType != World.Dimension.NORMAL) {
+//                if (player.canIgnoreRestrictions()) {
+//                    player.switchWorlds(World.Dimension.NORMAL.getId());
+//                } else {
+//                    player.notify("The veil between the worlds keeps you in the " + worldType + "...");
+//                    return;
+//                }
+//            }
+            World world = player.getWorld();
+            if (world.getType() != World.Dimension.NORMAL) {
+                if (player != caller || player.canIgnoreRestrictions()) {
+                    player.switchWorlds(world);
                 } else {
-                    player.notify("The veil between the worlds keeps you in the " + worldType + "...");
+                    player.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + world.getType().name() + "...");
                     return;
                 }
             }
@@ -801,15 +819,25 @@ public class PlayerCommands {
                     if ((caller instanceof Player) && !((Player) caller).isInGroup(warp.Group) && !warp.Group.equals("")) {
                         caller.notify("Warp not found.");
                     } else {
-                        World.Dimension worldType = toWarp.getWorld().getType();
-                        if (worldType != World.Dimension.NORMAL) {
+//                        World.Dimension worldType = toWarp.getWorld().getType();
+//                        if (worldType != World.Dimension.NORMAL) {
+//                            if (toWarp != caller || toWarp.canIgnoreRestrictions()) {
+//                                toWarp.switchWorlds(World.Dimension.NORMAL.getId());
+//                            } else {
+//                                toWarp.sendMessage(Colors.Rose + "The veil between the worlds keeps you in the " + worldType + "...");
+//                                return;
+//                            }
+//                        }
+                        World world = toWarp.getWorld();
+                        if (world.getType() != World.Dimension.NORMAL) {
                             if (toWarp != caller || toWarp.canIgnoreRestrictions()) {
-                                toWarp.switchWorlds(World.Dimension.NORMAL.getId());
+                                toWarp.switchWorlds(world);
                             } else {
-                                toWarp.sendMessage(Colors.Rose + "The veil between the worlds keeps you in the " + worldType + "...");
+                                toWarp.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + world.getType().name() + "...");
                                 return;
                             }
                         }
+                        
 
                         toWarp.teleportTo(warp.Location);
                         toWarp.sendMessage(Colors.Rose + "Woosh!");

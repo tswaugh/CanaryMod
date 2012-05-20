@@ -2778,8 +2778,12 @@ public class OWorld implements OIBlockAccess {
         return this.q().a(this, var1, var2, var3, var4);
     }
 
-    public OEntityTracker getEntityTracker() {
-        return this.entityTracker;
+    /**
+     * Get this worlds entity tracker to track and untrack players
+     * @return
+     */
+    public EntityTracker getEntityTracker() {
+        return this.entityTracker.getCanaryEntityTracker();
     }
     
     protected void setEntityTracker(OEntityTracker entityTracker) {

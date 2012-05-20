@@ -948,6 +948,9 @@ public class World {
         }
     }
     
+    public EntityTracker getEntityTracker() {
+       return world.getEntityTracker();
+    }
     /**
      * Gets this world's name.
      * @return This world's name.

@@ -227,8 +227,8 @@ public class OServerConfigurationManager {
     }
 
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3, Location spawnLocation) {
-        var1.bi.getEntityTracker().a(var1);
-        var1.bi.getEntityTracker().b(var1);
+        var1.bi.getEntityTracker().untrackEntity(var1);
+        var1.bi.getEntityTracker().trackEntity(var1);
         this.getManager(var1.bi.name, var1.w).b(var1);
         this.b.remove(var1);
         this.c.getWorld(var1.bi.name, var1.w).f(var1);

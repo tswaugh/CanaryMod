@@ -2,9 +2,14 @@
  * Location.java - Used for passing a location to other functions and such.
  * 
  * @author James
+ * @author Chris
+ * @author Willem
  */
 public class Location implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -511963348775597869L;
 
     /**
      * X location
@@ -32,9 +37,14 @@ public class Location implements java.io.Serializable {
     public float  rotY;
 
     /**
-     * World
+     * Dimension id
      */
     public int dimension;
+    
+    /**
+     * World name
+     */
+    public String world;
 
     /**
      * Creates a location
@@ -42,7 +52,7 @@ public class Location implements java.io.Serializable {
     public Location() {}
 
     /**
-     * Creates a location with the specified coordinates
+     * Creates a location with the specified coordinates in the default world in dimension 0 (NORMAL)
      * 
      * @param X
      * @param Y
@@ -52,6 +62,8 @@ public class Location implements java.io.Serializable {
         x = X;
         y = Y;
         z = Z;
+        dimension = 0;
+        world = etc.getServer().getDefaultWorld().getName();
     }
 
     /**
@@ -65,6 +77,7 @@ public class Location implements java.io.Serializable {
     public Location(World world, double x, double y, double z) {
         this(x, y, z);
         this.dimension = world.getType().getId();
+        this.world = world.getName();
     }
 
     /**
@@ -82,6 +95,8 @@ public class Location implements java.io.Serializable {
         z = Z;
         rotX = rotation;
         rotY = pitch;
+        dimension = 0;
+        world = etc.getServer().getDefaultWorld().getName();
     }
 
     /**
@@ -97,16 +112,21 @@ public class Location implements java.io.Serializable {
     public Location(World world, double X, double Y, double Z, float rotation, float pitch) {
         this(X, Y, Z, rotation, pitch);
         this.dimension = world.getType().getId();
+        this.world = world.getName();
     }
 
     /**
-     * Returns the world for this loacation's dimension.
+     * Returns the dimension of the world for this location
      * 
      * @return a <tt>World</tt>-object representing the world at this location's
-     *          dimension.
+     *          dimension. May return null if the given world does not exist!
      */
     public World getWorld() {
-        return etc.getServer().getWorld(dimension);
+        World[] worlds = etc.getServer().getWorld(world);
+        if(worlds == null || worlds.length == 0) {
+            return null;
+        }
+        return worlds[dimension];
     }
     
     /**
