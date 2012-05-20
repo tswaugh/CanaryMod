@@ -308,6 +308,12 @@ public class FlatFileSource extends DataSource {
                         } else {
                             home.Group = "";
                         }
+                        if (split.length >= 9) {
+                            home.Location.world = split[8];
+                            home.Location.dimension = Integer.parseInt(split[7]);
+                        } else {
+                            home.Location.world = etc.getServer().getDefaultWorld().getName();
+                        }
                         homes.add(home);
                     }
                     scanner.close();
@@ -366,6 +372,13 @@ public class FlatFileSource extends DataSource {
                             warp.Group = split[6 + posShift];
                         } else {
                             warp.Group = "";
+                        }
+                        posShift++;
+                        
+                        if (split.length >= 7 + posShift) {
+                            warp.Location.world = split[6 + posShift];
+                        } else {
+                            warp.Location.world = etc.getServer().getDefaultWorld().getName();
                         }
 
                         warps.add(warp);
@@ -1203,6 +1216,10 @@ public class FlatFileSource extends DataSource {
                 builder.append(home.Location.rotY);
                 builder.append(":");
                 builder.append(home.Group);
+                builder.append(":");
+                builder.append(home.Location.dimension);
+                builder.append(":");
+                builder.append(home.Location.world);
                 bw.append(builder.toString());
                 bw.newLine();
                 bw.close();
@@ -1259,6 +1276,10 @@ public class FlatFileSource extends DataSource {
                         builder.append(home.Location.rotY);
                         builder.append(":");
                         builder.append(home.Group);
+                        builder.append(":");
+                        builder.append(home.Location.dimension);
+                        builder.append(":");
+                        builder.append(home.Location.world);
                         toWrite.append(builder.toString()).append(LINE_SEP);
                     }
                 }
@@ -1304,6 +1325,8 @@ public class FlatFileSource extends DataSource {
             builder.append(warp.Location.dimension);
             builder.append(":");
             builder.append(warp.Group);
+            builder.append(":");
+            builder.append(warp.Location.world);
             bw.append(builder.toString());
             bw.newLine();
             bw.close();
@@ -1360,6 +1383,8 @@ public class FlatFileSource extends DataSource {
                     builder.append(warp.Location.dimension);
                     builder.append(":");
                     builder.append(warp.Group);
+                    builder.append(":");
+                    builder.append(warp.Location.world);
                     toWrite.append(builder.toString()).append(LINE_SEP);
                 }
             }

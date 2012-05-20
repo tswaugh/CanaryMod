@@ -64,7 +64,7 @@ public class OServerConfigurationManager {
         mgrs[0].b(var1);
         mgrs[1].b(var1);
         mgrs[2].b(var1);
-        this.getManager(var1.bi.name, var1.w).a(var1);
+        this.getManager(var1.bi.name, var1.w).addPlayer(var1);
         OWorldServer var2 = this.c.getWorld(var1.bi.name, var1.w);
 
         var2.G.c((int) var1.bm >> 4, (int) var1.bo >> 4);
@@ -86,9 +86,9 @@ public class OServerConfigurationManager {
                 + "Manager(String, int).");
     }
     
-    private OPlayerManager getManager(String worldName, int dimension) {
+    private PlayerManager getManager(String worldName, int dimension) {
         int index = dimension == -1 ? 1 : (dimension == 0 ? 0 : 2);
-        return this.managers.get(worldName)[index];
+        return this.managers.get(worldName)[index].getCanaryPlayerManager();
     }
 
     public void b(OEntityPlayerMP var1) {
@@ -110,7 +110,7 @@ public class OServerConfigurationManager {
         }
 
         var2.b(var1);
-        this.getManager(var2.name, var1.w).a(var1);
+        this.getManager(var2.name, var1.w).addPlayer(var1);
         this.u();
 
         for (int var3 = 0; var3 < this.b.size(); ++var3) {
@@ -130,14 +130,14 @@ public class OServerConfigurationManager {
     }
 
     public void d(OEntityPlayerMP var1) {
-        this.getManager(var1.bi.name, var1.w).c(var1);
+        this.getManager(var1.bi.name, var1.w).updateMountedMovingPlayer(var1);
     }
 
     public void e(OEntityPlayerMP var1) {
         this.saveHandlers.get(var1.bi.name).a(var1);
         this.c.getWorld(var1.bi.name, var1.w).e(var1);
         this.b.remove(var1);
-        this.getManager(var1.bi.name, var1.w).b(var1);
+        this.getManager(var1.bi.name, var1.w).removePlayer(var1);
         // CanaryMod: Player color and Prefix
         if (etc.getInstance().isPlayerList_enabled()) {
             PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(false);
@@ -229,7 +229,7 @@ public class OServerConfigurationManager {
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3, Location spawnLocation) {
         var1.bi.getEntityTracker().untrackEntity(var1);
         var1.bi.getEntityTracker().trackEntity(var1);
-        this.getManager(var1.bi.name, var1.w).b(var1);
+        this.getManager(var1.bi.name, var1.w).removePlayer(var1);
         this.b.remove(var1);
         this.c.getWorld(var1.bi.name, var1.w).f(var1);
         OChunkCoordinates var4 = var1.ab();
@@ -273,7 +273,7 @@ public class OServerConfigurationManager {
         var5.a.b((OPacket) (new OPacket9Respawn(var5.w, (byte) var5.bi.q, var5.bi.s().p(), var5.bi.y(), var5.c.a())));
         var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt);
         this.a(var5, var6);
-        this.getManager(var5.bi.name, var5.w).a(var5);
+        this.getManager(var5.bi.name, var5.w).addPlayer(var5);
         var6.b(var5);
         this.b.add(var5);
         var5.x();
@@ -374,7 +374,7 @@ public class OServerConfigurationManager {
     }
     
     public void markBlockNeedsUpdate(int var1, int var2, int var3, int var4, String var5) {
-        this.getManager(var5, var4).a(var1, var2, var3);
+        this.getManager(var5, var4).markBlockNeedsUpdate(var1, var2, var3);
     }
 
     public void a(OPacket var1) {

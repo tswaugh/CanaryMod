@@ -14,6 +14,8 @@ public class OPlayerManager {
     
     // CanaryMod: store world name
     private final String worldName;
+    
+    private PlayerManager playerManager; //CanaryMod player manager wrap
 
     public OPlayerManager(OMinecraftServer var1, int var2, int var3, String worldName) {
         super();
@@ -28,6 +30,11 @@ public class OPlayerManager {
         }
         
         this.worldName = worldName;
+        this.playerManager = new PlayerManager(this);
+    }
+    
+    public PlayerManager getCanaryPlayerManager() {
+        return playerManager;
     }
 
     public OWorldServer a() {

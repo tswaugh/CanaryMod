@@ -174,6 +174,11 @@ public class MySQLSource extends DataSource {
                     location.z = rs.getDouble("z");
                     location.rotX = rs.getFloat("rotX");
                     location.rotY = rs.getFloat("rotY");
+                    location.dimension = rs.getInt("dimension");
+                    location.world = rs.getString("world");
+                    if(location.world == null || location.world.isEmpty()) {
+                        location.world = etc.getServer().getDefaultWorld().getName();
+                    }
                     Warp home = new Warp();
 
                     home.ID = rs.getInt("id");
@@ -222,6 +227,10 @@ public class MySQLSource extends DataSource {
                     location.rotX = rs.getFloat("rotX");
                     location.rotY = rs.getFloat("rotY");
                     location.dimension = rs.getInt("dimension");
+                    location.world = rs.getString("world");
+                    if(location.world == null || location.world.isEmpty()) {
+                        location.world = etc.getServer().getDefaultWorld().getName();
+                    }
                     Warp warp = new Warp();
 
                     warp.ID = rs.getInt("id");
@@ -539,14 +548,15 @@ public class MySQLSource extends DataSource {
 
         try {
             conn = etc.getConnection();
-            ps = conn.prepareStatement("UPDATE " + table_homes + " SET x = ?, y = ?, z = ?, rotX = ?, rotY = ?, `group` = ? WHERE name = ?");
+            ps = conn.prepareStatement("UPDATE " + table_homes + " SET x = ?, y = ?, z = ?, rotX = ?, rotY = ?, `group` = ? `world` = ? WHERE name = ?");
             ps.setDouble(1, home.Location.x);
             ps.setDouble(2, home.Location.y);
             ps.setDouble(3, home.Location.z);
             ps.setFloat(4, home.Location.rotX);
             ps.setFloat(5, home.Location.rotY);
             ps.setString(6, home.Group);
-            ps.setString(7, home.Name);
+            ps.setString(7, home.Location.world);
+            ps.setString(8, home.Name);
             ps.executeUpdate();
 
             synchronized (homeLock) {
@@ -630,7 +640,7 @@ public class MySQLSource extends DataSource {
 
         try {
             conn = etc.getConnection();
-            ps = conn.prepareStatement("UPDATE " + table_warps + " SET x = ?, y = ?, z = ?, rotX = ?, rotY = ?, dimension = ?, `group` = ? WHERE name = ?");
+            ps = conn.prepareStatement("UPDATE " + table_warps + " SET x = ?, y = ?, z = ?, rotX = ?, rotY = ?, dimension = ?, `group` = ? `world` = ? WHERE name = ?");
             ps.setDouble(1, warp.Location.x);
             ps.setDouble(2, warp.Location.y);
             ps.setDouble(3, warp.Location.z);
@@ -638,7 +648,8 @@ public class MySQLSource extends DataSource {
             ps.setFloat(5, warp.Location.rotY);
             ps.setInt(6, warp.Location.dimension);
             ps.setString(7, warp.Group);
-            ps.setString(8, warp.Name);
+            ps.setString(8, warp.Location.world);
+            ps.setString(9, warp.Name);
             ps.executeUpdate();
 
             synchronized (warpLock) {
