@@ -1,13 +1,5 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class OServerConfigurationManager {
@@ -15,7 +7,7 @@ public class OServerConfigurationManager {
     public static Logger a = Logger.getLogger("Minecraft");
     public List b = new ArrayList();
     private OMinecraftServer c;
-    private OPlayerManager[] d = new OPlayerManager[3];
+    // private OPlayerManager[] d = new OPlayerManager[3]; // CanaryMod: multiworld
     private int e;
     private Set f = new HashSet();
     private Set g = new HashSet();
@@ -25,9 +17,13 @@ public class OServerConfigurationManager {
     private File k;
     private File l;
     // private File m; //CanaryMod: disable Notchian whitelist
-    private OIPlayerFileData n;
+    // private OIPlayerFileData n; // CanaryMod: multiworld
     private boolean o;
     private int p = 0;
+    
+    private Map<String, OPlayerManager[]> managers = new HashMap<String, OPlayerManager[]>(1);
+    private Map<String, OIPlayerFileData> saveHandlers = new HashMap<String, OIPlayerFileData>(1);
+    private int viewDistance;
 
     public OServerConfigurationManager(OMinecraftServer var1) {
         // CanaryMod: initialize
@@ -45,11 +41,8 @@ public class OServerConfigurationManager {
         this.k = var1.a("banned-ips.txt");
         this.l = var1.a("ops.txt");
         // this.m = var1.a("white-list.txt"); //CanaryMod: disable Notchian whitelist
-        int var2 = var1.d.a("view-distance", 10);
-
-        this.d[0] = new OPlayerManager(var1, 0, var2);
-        this.d[1] = new OPlayerManager(var1, -1, var2);
-        this.d[2] = new OPlayerManager(var1, 1, var2);
+        this.viewDistance = var1.d.a("view-distance", 10);
+        
         this.e = var1.d.a("max-players", 20);
         this.o = var1.d.a("white-list", false);
         this.l();
@@ -63,29 +56,43 @@ public class OServerConfigurationManager {
     }
 
     public void a(OWorldServer[] var1) {
-        this.n = var1[0].r().d();
+        this.saveHandlers.put(var1[0].name, var1[0].r().d());
     }
 
     public void a(OEntityPlayerMP var1) {
-        this.d[0].b(var1);
-        this.d[1].b(var1);
-        this.d[2].b(var1);
-        this.a(var1.w).a(var1);
-        OWorldServer var2 = this.c.a(var1.w);
+        OPlayerManager[] mgrs = this.managers.get(var1.bi.name);
+        mgrs[0].b(var1);
+        mgrs[1].b(var1);
+        mgrs[2].b(var1);
+        this.getManager(var1.bi.name, var1.w).a(var1);
+        OWorldServer var2 = this.c.getWorld(var1.bi.name, var1.w);
 
         var2.G.c((int) var1.bm >> 4, (int) var1.bo >> 4);
     }
 
     public int a() {
-        return this.d[0].c();
+        throw new UnsupportedOperationException("OServerConfigurationManager"
+                + ".a() has been replaced by OServerConfigurationManager"
+                + ".getMaxTrackingDistance(String).");
+    }
+    
+    public int getMaxTrackingDistance(String worldName) {
+        return this.managers.get(worldName)[0].c();
     }
 
     private OPlayerManager a(int var1) {
-        return var1 == -1 ? this.d[1] : (var1 == 0 ? this.d[0] : (var1 == 1 ? this.d[2] : null));
+        throw new UnsupportedOperationException("OServerConfigurationManager.a"
+                + "(int) has been replaced by OServerConfigurationManager.get"
+                + "Manager(String, int).");
+    }
+    
+    private OPlayerManager getManager(String worldName, int dimension) {
+        int index = dimension == -1 ? 1 : (dimension == 0 ? 0 : 2);
+        return this.managers.get(worldName)[index];
     }
 
     public void b(OEntityPlayerMP var1) {
-        this.n.b(var1);
+        this.saveHandlers.get(var1.bi.name).b(var1);
     }
 
     public void c(OEntityPlayerMP var1) {
@@ -94,7 +101,7 @@ public class OServerConfigurationManager {
 
         this.a(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000));
         this.b.add(var1);
-        OWorldServer var2 = this.c.a(var1.w);
+        OWorldServer var2 = this.c.getWorld(var1.bi.name, var1.w);
 
         var2.G.c((int) var1.bm >> 4, (int) var1.bo >> 4);
 
@@ -103,7 +110,7 @@ public class OServerConfigurationManager {
         }
 
         var2.b(var1);
-        this.a(var1.w).a(var1);
+        this.getManager(var2.name, var1.w).a(var1);
         this.u();
 
         for (int var3 = 0; var3 < this.b.size(); ++var3) {
@@ -123,14 +130,14 @@ public class OServerConfigurationManager {
     }
 
     public void d(OEntityPlayerMP var1) {
-        this.a(var1.w).c(var1);
+        this.getManager(var1.bi.name, var1.w).c(var1);
     }
 
     public void e(OEntityPlayerMP var1) {
-        this.n.a(var1);
-        this.c.a(var1.w).e(var1);
+        this.saveHandlers.get(var1.bi.name).a(var1);
+        this.c.getWorld(var1.bi.name, var1.w).e(var1);
         this.b.remove(var1);
-        this.a(var1.w).b(var1);
+        this.getManager(var1.bi.name, var1.w).b(var1);
         // CanaryMod: Player color and Prefix
         if (etc.getInstance().isPlayerList_enabled()) {
             PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(false);
@@ -146,7 +153,8 @@ public class OServerConfigurationManager {
         }
             
         // CanaryMod: whole section below is modified to handle whitelists etc
-        OEntityPlayerMP temp = new OEntityPlayerMP(c, c.a(0), var2, new OItemInWorldManager(c.a(0)));
+        OEntityPlayerMP temp = new OEntityPlayerMP(c, c.getWorld(c.m(), 0), var2,
+                new OItemInWorldManager(c.getWorld(c.m(), 0)));
         Player player = temp.getPlayer();
         String ip = var1.b.c().toString();
         ip = ip.substring(ip.indexOf("/") + 1);
@@ -219,15 +227,15 @@ public class OServerConfigurationManager {
     }
 
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3, Location spawnLocation) {
-        this.c.b(var1.w).a(var1);
-        this.c.b(var1.w).b(var1);
-        this.a(var1.w).b(var1);
+        var1.bi.getEntityTracker().a(var1);
+        var1.bi.getEntityTracker().b(var1);
+        this.getManager(var1.bi.name, var1.w).b(var1);
         this.b.remove(var1);
-        this.c.a(var1.w).f(var1);
+        this.c.getWorld(var1.bi.name, var1.w).f(var1);
         OChunkCoordinates var4 = var1.ab();
 
         var1.w = var2;
-        OEntityPlayerMP var5 = new OEntityPlayerMP(this.c, this.c.a(var1.w), var1.v, new OItemInWorldManager(this.c.a(var1.w)));
+        OEntityPlayerMP var5 = new OEntityPlayerMP(this.c, this.c.getWorld(var1.bi.name, var1.w), var1.v, new OItemInWorldManager(this.c.getWorld(var1.bi.name, var1.w)));
 
         if (var3) {
             var5.c((OEntityPlayer) var1);
@@ -235,12 +243,12 @@ public class OServerConfigurationManager {
 
         var5.bd = var1.bd;
         var5.a = var1.a;
-        OWorldServer var6 = this.c.a(var1.w);
+        OWorldServer var6 = this.c.getWorld(var1.bi.name, var1.w);
 
         var5.c.a(var1.c.a());
         var5.c.b(var6.s().m());
         if (var4 != null) {
-            OChunkCoordinates var7 = OEntityPlayer.a(this.c.a(var1.w), var4);
+            OChunkCoordinates var7 = OEntityPlayer.a(this.c.getWorld(var1.bi.name, var1.w), var4);
 
             if (var7 != null) {
                 var5.c((double) ((float) var7.a + 0.5F), (double) ((float) var7.b + 0.1F), (double) ((float) var7.c + 0.5F), 0.0F, 0.0F);
@@ -265,7 +273,7 @@ public class OServerConfigurationManager {
         var5.a.b((OPacket) (new OPacket9Respawn(var5.w, (byte) var5.bi.q, var5.bi.s().p(), var5.bi.y(), var5.c.a())));
         var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt);
         this.a(var5, var6);
-        this.a(var5.w).a(var5);
+        this.getManager(var5.bi.name, var5.w).a(var5);
         var6.b(var5);
         this.b.add(var5);
         var5.x();
@@ -282,10 +290,10 @@ public class OServerConfigurationManager {
     // Added createPortal option to cancel portal creation if not needed.
     public void sendPlayerToOtherDimension(OEntityPlayerMP var1, int var2, boolean createPortal) {
         int var3 = var1.w;
-        OWorldServer var4 = this.c.a(var1.w);
+        OWorldServer var4 = this.c.getWorld(var1.bi.name, var1.w);
 
         var1.w = var2;
-        OWorldServer var5 = this.c.a(var1.w);
+        OWorldServer var5 = this.c.getWorld(var1.bi.name, var1.w);
 
         var1.a.b((OPacket) (new OPacket9Respawn(var1.w, (byte) var1.bi.q, var5.s().p(), var5.y(), var1.c.a())));
         var4.f(var1);
@@ -351,14 +359,22 @@ public class OServerConfigurationManager {
             this.p = etc.getInstance().getPlayerList_ticks();
         }
         
-        for (int var2 = 0; var2 < this.d.length; ++var2) {
-            this.d[var2].b();
-        }
+        for (OPlayerManager[] mgrs : managers.values())
+            for (int var2 = 0; var2 < mgrs.length; ++var2) {
+                mgrs[var2].b();
+            }
 
     }
 
     public void a(int var1, int var2, int var3, int var4) {
-        this.a(var4).a(var1, var2, var3);
+        throw new UnsupportedOperationException("OServerConfigurationManager"
+                + ".a(int, int, int, int) has been replaced by OServer"
+                + "ConfigurationManager.markBlockNeedsUpdate(int, int, int, int,"
+                + " String).");
+    }
+    
+    public void markBlockNeedsUpdate(int var1, int var2, int var3, int var4, String var5) {
+        this.getManager(var5, var4).a(var1, var2, var3);
     }
 
     public void a(OPacket var1) {
@@ -662,7 +678,9 @@ public class OServerConfigurationManager {
 
     public void g() {
         for (int var1 = 0; var1 < this.b.size(); ++var1) {
-            this.n.a((OEntityPlayer) this.b.get(var1));
+            // CanaryMod: Store in a temp variable so we can get the save handler
+            OEntityPlayer oep = (OEntityPlayer) this.b.get(var1);
+            this.saveHandlers.get(oep.bi.name).a(oep);
         }
 
     }
@@ -782,5 +800,12 @@ public class OServerConfigurationManager {
     public boolean isBanned(String name) {
         return this.f.contains(name.toLowerCase());
     }
-
+    
+    protected void newWorld(String name) {
+        OPlayerManager[] toPut = new OPlayerManager[3];
+        toPut[0] = new OPlayerManager(this.c, 0, this.viewDistance, name);
+        toPut[1] = new OPlayerManager(this.c, -1, this.viewDistance, name);
+        toPut[2] = new OPlayerManager(this.c, 1, this.viewDistance, name);
+        this.managers.put(name, toPut);
+    }
 }

@@ -16,8 +16,17 @@ public class World {
 
     public enum Dimension {
 
+        /**
+         * Represents the Nether.
+         */
         NETHER(-1), //
+        /**
+         * Represents the overworld.
+         */
         NORMAL(0), //
+        /**
+         * Represents the End.
+         */
         END(1);
         private int id;
         private static Map<Integer, Dimension> map;
@@ -35,21 +44,36 @@ public class World {
             map.put(type, name);
         }
 
+        /**
+         * Returns this world's ID.
+         * @return this world's ID.
+         */
         public int getId() {
             return id;
         }
 
+        /**
+         * Get a <tt>Dimension</tt> by ID.
+         * @param type The ID for the <tt>Dimension</tt> to return
+         * @return The <tt>Dimension<tt> for the given ID.
+         * @see #getId()
+         */
         public static Dimension fromId(final int type) {
             return map.get(type);
         }
 
+        /**
+         * Returns the array index for use with, 
+         * e.g., {@link Server#getWorld(java.lang.String)}
+         * @return The array index for this <tt>Dimension</tt>
+         */
         public int toIndex() {
             return id == 0 ? 0 : id == -1 ? 1 : 2;
         }
 
         @Override
         public String toString() {
-            String name = this.name();
+            String name = this.name().toLowerCase();
             return name.substring(0, 1).toUpperCase() + name.substring(1);
         }
     }
@@ -127,9 +151,10 @@ public class World {
      * @param time time (-2^63 to 2^63-1)
      */
     public void setTime(long time) {
-        etc.getServer().getWorld(-1).getWorld().a(time);
-        etc.getServer().getWorld(0).getWorld().a(time);
-        etc.getServer().getWorld(1).getWorld().a(time);
+        // World info for each world overwrites the other on save,
+        // make sure they're the same. (Like you see it in the nether or end)
+        for (World w : etc.getServer().getWorld(this.getName()))
+            w.getWorld().a(time);
     }
 
     /**

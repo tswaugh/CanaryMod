@@ -103,7 +103,7 @@ public class Server {
      */
     @Deprecated
     public long getTime() {
-        return server.a(0).o();
+        return getDefaultWorld().getTime();
     }
 
     /**
@@ -114,13 +114,7 @@ public class Server {
      */
     @Deprecated
     public long getRelativeTime() {
-        long time = (getTime() % 24000);
-
-        // Java modulus is stupid.
-        if (time < 0) {
-            time += 24000;
-        }
-        return time;
+        return getDefaultWorld().getRelativeTime();
     }
 
     /**
@@ -131,7 +125,7 @@ public class Server {
      */
     @Deprecated
     public void setTime(long time) {
-        server.a(0).a(time);
+        getDefaultWorld().setTime(time);
     }
 
     /**
@@ -142,13 +136,7 @@ public class Server {
      */
     @Deprecated
     public void setRelativeTime(long time) {
-        long margin = (time - getTime()) % 24000;
-
-        // Java modulus is stupid.
-        if (margin < 0) {
-            margin += 24000;
-        }
-        setTime(getTime() + margin);
+        getDefaultWorld().setRelativeTime(time);
     }
 
     /**
@@ -235,14 +223,7 @@ public class Server {
      */
     @Deprecated
     public List<Mob> getMobList() {
-        List<Mob> toRet = new ArrayList<Mob>();
-
-        for (Object o : server.a(0).b) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast) {
-                toRet.add(new Mob((OEntityLiving) o));
-            }
-        }
-        return toRet;
+        return getDefaultWorld().getMobList();
     }
 
     /**
@@ -253,14 +234,7 @@ public class Server {
      */
     @Deprecated
     public List<Mob> getAnimalList() {
-        List<Mob> toRet = new ArrayList<Mob>();
-
-        for (Object o : server.a(0).b) {
-            if (o instanceof OEntityAnimal) {
-                toRet.add(new Mob((OEntityLiving) o));
-            }
-        }
-        return toRet;
+        return getDefaultWorld().getAnimalList();
     }
 
     /**
@@ -271,14 +245,7 @@ public class Server {
      */
     @Deprecated
     public List<Minecart> getMinecartList() {
-        List<Minecart> toRet = new ArrayList<Minecart>();
-
-        for (Object o : server.a(0).b) {
-            if (o instanceof OEntityMinecart) {
-                toRet.add(((OEntityMinecart) o).cart);
-            }
-        }
-        return toRet;
+        return getDefaultWorld().getMinecartList();
     }
 
     /**
@@ -289,14 +256,7 @@ public class Server {
      */
     @Deprecated
     public List<Boat> getBoatList() {
-        List<Boat> toRet = new ArrayList<Boat>();
-
-        for (Object o : server.a(0).b) {
-            if (o instanceof OEntityBoat) {
-                toRet.add(((OEntityBoat) o).boat);
-            }
-        }
-        return toRet;
+        return getDefaultWorld().getBoatList();
     }
 
     /**
@@ -307,20 +267,7 @@ public class Server {
      */
     @Deprecated
     public List<BaseEntity> getEntityList() {
-        List<BaseEntity> toRet = new ArrayList<BaseEntity>();
-
-        for (Object o : server.a(0).b) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal) {
-                toRet.add(new Mob((OEntityLiving) o));
-            } else if (o instanceof OEntityMinecart) {
-                toRet.add(((OEntityMinecart) o).cart);
-            } else if (o instanceof OEntityBoat) {
-                toRet.add(((OEntityBoat) o).boat);
-            } else if (o instanceof OEntityPlayerMP) {
-                toRet.add(((OEntityPlayerMP) o).getPlayer());
-            }
-        }
-        return toRet;
+        return getDefaultWorld().getEntityList();
     }
 
     /**
@@ -332,16 +279,7 @@ public class Server {
      */
     @Deprecated
     public List<LivingEntity> getLivingEntityList() {
-        List<LivingEntity> toRet = new ArrayList<LivingEntity>();
-
-        for (Object o : server.a(0).b) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal) {
-                toRet.add(new Mob((OEntityLiving) o));
-            } else if (o instanceof OEntityPlayerMP) {
-                toRet.add(((OEntityPlayerMP) o).getPlayer());
-            }
-        }
-        return toRet;
+        return getDefaultWorld().getLivingEntityList();
     }
 
     /**
@@ -352,16 +290,7 @@ public class Server {
      */
     @Deprecated
     public List<BaseVehicle> getVehicleEntityList() {
-        List<BaseVehicle> toRet = new ArrayList<BaseVehicle>();
-
-        for (Object o : server.a(0).b) {
-            if (o instanceof OEntityMinecart) {
-                toRet.add(((OEntityMinecart) o).cart);
-            } else if (o instanceof OEntityBoat) {
-                toRet.add(((OEntityBoat) o).boat);
-            }
-        }
-        return toRet;
+        return getDefaultWorld().getVehicleEntityList();
     }
 
     /**
@@ -372,16 +301,7 @@ public class Server {
      */
     @Deprecated
     public Location getSpawnLocation() {
-        // More structure ftw
-        OWorldInfo info = server.a(0).x;
-        Location spawn = new Location();
-
-        spawn.x = info.c() + 0.5D;
-        spawn.y = getMCServer().a(0).f(info.c(), info.e());
-        spawn.z = info.e() + 0.5D;
-        spawn.rotX = 0.0F;
-        spawn.rotY = 0.0F;
-        return spawn;
+        return getDefaultWorld().getSpawnLocation();
     }
 
     /**
@@ -393,7 +313,7 @@ public class Server {
      */
     @Deprecated
     public boolean setBlock(Block block) {
-        return setBlockAt(block.getType(), block.getX(), block.getY(), block.getZ()) && setBlockData(block.getX(), block.getY(), block.getZ(), block.getData());
+        return getDefaultWorld().setBlock(block);
     }
 
     /**
@@ -407,7 +327,7 @@ public class Server {
      */
     @Deprecated
     public Block getBlockAt(int x, int y, int z) {
-        return new Block(getBlockIdAt(x, y, z), x, y, z, getBlockData(x, y, z));
+        return getDefaultWorld().getBlockAt(x, y, z);
     }
 
     /**
@@ -421,7 +341,7 @@ public class Server {
      */
     @Deprecated
     public int getBlockData(int x, int y, int z) {
-        return server.a(0).c(x, y, z);
+        return getDefaultWorld().getBlockData(x, y, z);
     }
 
     /**
@@ -436,15 +356,7 @@ public class Server {
      */
     @Deprecated
     public boolean setBlockData(int x, int y, int z, int data) {
-        boolean toRet = server.a(0).d(x, y, z, data);
-
-        etc.getMCServer().h.a(new OPacket53BlockChange(x, y, z, etc.getMCServer().a(0)), 0);
-        ComplexBlock block = getComplexBlock(x, y, z);
-
-        if (block != null) {
-            block.update();
-        }
-        return toRet;
+        return getDefaultWorld().setBlockData(x, y, z, data);
     }
 
     /**
@@ -459,7 +371,7 @@ public class Server {
      */
     @Deprecated
     public boolean setBlockAt(int blockType, int x, int y, int z) {
-        return server.a(0).e(x, y, z, blockType);
+        return getDefaultWorld().setBlockAt(blockType, x, y, z);
     }
 
     /**
@@ -472,7 +384,7 @@ public class Server {
      */
     @Deprecated
     public int getHighestBlockY(int x, int z) {
-        return server.a(0).e(x, z);
+        return getDefaultWorld().getHighestBlockY(x, z);
     }
 
     /**
@@ -486,7 +398,7 @@ public class Server {
      */
     @Deprecated
     public int getBlockIdAt(int x, int y, int z) {
-        return server.a(0).a(x, y, z);
+        return getDefaultWorld().getBlockIdAt(x, y, z);
     }
 
     /**
@@ -500,7 +412,7 @@ public class Server {
      */
     @Deprecated
     public ComplexBlock getComplexBlock(Block block) {
-        return getComplexBlock(block.getX(), block.getY(), block.getZ());
+        return getDefaultWorld().getComplexBlock(block);
     }
 
     /**
@@ -516,23 +428,7 @@ public class Server {
      */
     @Deprecated
     public ComplexBlock getComplexBlock(int x, int y, int z) {
-        ComplexBlock result = getOnlyComplexBlock(x, y, z);
-
-        if (result != null) {
-            if (result instanceof Chest) {
-                Chest chest = (Chest) result;
-
-                result = chest.findAttachedChest();
-
-                if (result != null) {
-                    return result;
-                } else {
-                    return chest;
-                }
-            }
-        }
-
-        return result;
+        return getDefaultWorld().getComplexBlock(x, y, z);
     }
 
     /**
@@ -545,7 +441,7 @@ public class Server {
      */
     @Deprecated
     public ComplexBlock getOnlyComplexBlock(Block block) {
-        return getOnlyComplexBlock(block.getX(), block.getY(), block.getZ());
+        return getDefaultWorld().getOnlyComplexBlock(block);
     }
 
     /**
@@ -560,22 +456,7 @@ public class Server {
      */
     @Deprecated
     public ComplexBlock getOnlyComplexBlock(int x, int y, int z) {
-        OTileEntity localav = server.a(0).b(x, y, z);
-
-        if (localav != null) {
-            if (localav instanceof OTileEntityChest) {
-                return new Chest((OTileEntityChest) localav);
-            } else if (localav instanceof OTileEntitySign) {
-                return new Sign((OTileEntitySign) localav);
-            } else if (localav instanceof OTileEntityFurnace) {
-                return new Furnace((OTileEntityFurnace) localav);
-            } else if (localav instanceof OTileEntityMobSpawner) {
-                return new MobSpawner((OTileEntityMobSpawner) localav);
-            } else if (localav instanceof OTileEntityDispenser) {
-                return new Dispenser((OTileEntityDispenser) localav);
-            }
-        }
-        return null;
+        return getDefaultWorld().getOnlyComplexBlock(x, y, z);
     }
 
     /**
@@ -587,7 +468,7 @@ public class Server {
      */
     @Deprecated
     public void dropItem(Location loc, int itemId) {
-        dropItem(loc.x, loc.y, loc.z, itemId, 1);
+        getDefaultWorld().dropItem(loc, itemId);
     }
 
     /**
@@ -604,7 +485,7 @@ public class Server {
      */
     @Deprecated
     public ItemEntity dropItem(double x, double y, double z, int itemId) {
-        return dropItem(x, y, z, itemId, 1);
+        return getDefaultWorld().dropItem(x, y, z, itemId);
     }
 
     /**
@@ -619,7 +500,7 @@ public class Server {
      */
     @Deprecated
     public ItemEntity dropItem(Location loc, int itemId, int quantity) {
-        return dropItem(loc.x, loc.y, loc.z, itemId, quantity);
+        return getDefaultWorld().dropItem(loc, itemId, quantity);
     }
 
     /**
@@ -637,16 +518,7 @@ public class Server {
      */
     @Deprecated
     public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity) {
-        OWorldServer ows = server.a(0);
-        double d1 = ows.r.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-        double d2 = ows.r.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-        double d3 = ows.r.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-
-        OEntityItem oei = new OEntityItem(ows, x + d1, y + d2, z + d3, new OItemStack(itemId, quantity, 0));
-
-        oei.c = 10;
-        ows.b(oei);
-        return oei.item;
+        return getDefaultWorld().dropItem(x, y, z, itemId, quantity);
     }
 
     /**
@@ -657,7 +529,7 @@ public class Server {
      */
     @Deprecated
     public void updateBlockPhysics(Block block) {
-        updateBlockPhysics(block.getX(), block.getY(), block.getZ(), block.getData());
+        getDefaultWorld().updateBlockPhysics(block);
     }
 
     /**
@@ -672,7 +544,7 @@ public class Server {
      */
     @Deprecated
     public void updateBlockPhysics(int x, int y, int z, int data) {
-        server.a(0).c(x, y, z, data);
+        getDefaultWorld().updateBlockPhysics(x, y, z, data);
     }
 
     /**
@@ -712,7 +584,7 @@ public class Server {
      */
     @Deprecated
     public boolean isChunkLoaded(Block block) {
-        return isChunkLoaded(block.getX(), block.getY(), block.getZ());
+        return getDefaultWorld().isChunkLoaded(block);
     }
 
     /**
@@ -727,7 +599,7 @@ public class Server {
      */
     @Deprecated
     public boolean isChunkLoaded(int x, int y, int z) {
-        return server.a(0).v.a(x >> 4, z >> 4);
+        return getDefaultWorld().isChunkLoaded(x, y, z);
     }
 
     /**
@@ -739,7 +611,7 @@ public class Server {
      */
     @Deprecated
     public void loadChunk(Block block) {
-        loadChunk(block.getX(), block.getY(), block.getZ());
+        getDefaultWorld().loadChunk(block);
     }
 
     /**
@@ -753,7 +625,7 @@ public class Server {
      */
     @Deprecated
     public void loadChunk(int x, int y, int z) {
-        loadChunk(x >> 4, z >> 4);
+        getDefaultWorld().loadChunk(x, y, z);
     }
 
     /**
@@ -766,7 +638,7 @@ public class Server {
      */
     @Deprecated
     public void loadChunk(int x, int z) {
-        server.a(0).v.a(x, z);
+        getDefaultWorld().loadChunk(x, z);
     }
 
     /**
@@ -778,7 +650,7 @@ public class Server {
      */
     @Deprecated
     public boolean isBlockPowered(Block block) {
-        return isBlockPowered(block.getX(), block.getY(), block.getZ());
+        return getDefaultWorld().isBlockPowered(block);
     }
 
     /**
@@ -792,7 +664,7 @@ public class Server {
      */
     @Deprecated
     public boolean isBlockPowered(int x, int y, int z) {
-        return server.a(0).t(x, y, z);
+        return getDefaultWorld().isBlockPowered(x, y, z);
     }
 
     /**
@@ -804,7 +676,7 @@ public class Server {
      */
     @Deprecated
     public boolean isBlockIndirectlyPowered(Block block) {
-        return isBlockIndirectlyPowered(block.getX(), block.getY(), block.getZ());
+        return getDefaultWorld().isBlockIndirectlyPowered(block);
     }
 
     /**
@@ -819,7 +691,7 @@ public class Server {
      */
     @Deprecated
     public boolean isBlockIndirectlyPowered(int x, int y, int z) {
-        return server.a(0).u(x, y, z);
+        return getDefaultWorld().isBlockIndirectlyPowered(x, y, z);
     }
 
     /**
@@ -830,20 +702,7 @@ public class Server {
      */
     @Deprecated
     public void setThundering(boolean thundering) {
-        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, getDefaultWorld(), thundering)) {
-            return;
-        }
-
-        OWorldServer ows = server.a(0);
-
-        ows.x.a(thundering);
-
-        // Thanks to Bukkit for figuring out these numbers
-        if (thundering) {
-            setThunderTime(ows.r.nextInt(12000) + 3600);
-        } else {
-            setThunderTime(ows.r.nextInt(168000) + 12000);
-        }
+        getDefaultWorld().setThundering(thundering);
     }
 
     /**
@@ -854,7 +713,7 @@ public class Server {
      */
     @Deprecated
     public void setThunderTime(int ticks) {
-        server.a(0).x.b(ticks);
+        getDefaultWorld().setThunderTime(ticks);
     }
 
     /**
@@ -865,20 +724,7 @@ public class Server {
      */
     @Deprecated
     public void setRaining(boolean raining) {
-        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, getDefaultWorld(), raining)) {
-            return;
-        }
-
-        OWorldServer ows = server.a(0);
-
-        ows.x.b(raining);
-
-        // Thanks to Bukkit for figuring out these numbers
-        if (raining) {
-            setRainTime(ows.r.nextInt(12000) + 3600);
-        } else {
-            setRainTime(ows.r.nextInt(168000) + 12000);
-        }
+        getDefaultWorld().setRaining(raining);
     }
 
     /**
@@ -889,7 +735,7 @@ public class Server {
      */
     @Deprecated
     public void setRainTime(int ticks) {
-        server.a(0).x.c(ticks);
+        getDefaultWorld().setRainTime(ticks);
     }
 
     /**
@@ -900,7 +746,7 @@ public class Server {
      */
     @Deprecated
     public boolean isThundering() {
-        return server.a(0).x.i();
+        return getDefaultWorld().isThundering();
     }
 
     /**
@@ -911,7 +757,7 @@ public class Server {
      */
     @Deprecated
     public int getThunderTime() {
-        return server.a(0).x.j();
+        return getDefaultWorld().getThunderTime();
     }
 
     /**
@@ -922,7 +768,7 @@ public class Server {
      */
     @Deprecated
     public boolean isRaining() {
-        return server.a(0).x.k();
+        return getDefaultWorld().isRaining();
     }
 
     /**
@@ -933,7 +779,7 @@ public class Server {
      */
     @Deprecated
     public int getRainTime() {
-        return server.a(0).x.l();
+        return getDefaultWorld().getRainTime();
     }
 
     /**
@@ -942,7 +788,7 @@ public class Server {
      * @return the default dimension
      */
     public World getDefaultWorld() {
-        return server.a(0).world;
+        return server.getWorld(server.m(), 0).world;
     }
 
     /**
@@ -952,9 +798,14 @@ public class Server {
      *
      * @param dimension The dimension to return the World for
      * @return {@code dimension}'s World
+     * @deprecated Use a combination of {@link #getWorld(java.lang.String)} and
+     * {@link World.Dimension#toIndex()} instead:<blockquote><code>
+     * // Get the normal dimension from world "test"<br>
+     * World testNormal = etc.getServer().getWorld("test")[World.Dimension.NORMAL.toIndex()];
+     * </code></blockquote>
      */
     public World getWorld(int dimension) {
-        return server.a(dimension).world;
+        return server.getWorld(server.m(), dimension).world;
     }
 
     /**
@@ -1087,6 +938,7 @@ public class Server {
      * @param name The name of the world to get.
      * @return a {@link World}-array containing the 3 dimensions of the
      * specified world if it exists, <tt>null</tt> otherwise.
+     * @see World.Dimension#toIndex()
      */
     public World[] getWorld(String name) {
         return this.isWorldLoaded(name) ? this.loadWorld(name) : null;

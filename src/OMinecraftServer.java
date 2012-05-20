@@ -22,9 +22,9 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     private int z;
     public ONetworkListenThread c;
     public OPropertyManager d;
-    public OWorldServer[] e;
+    // public OWorldServer[] e;
     public long[] f = new long[100];
-    public long[][] g;
+    //public long[][] g;
     public OServerConfigurationManager h;
     private OConsoleCommandHandler A;
     private boolean B = true;
@@ -34,7 +34,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     public int l;
     private List C = new ArrayList();
     private List D = Collections.synchronizedList(new ArrayList());
-    public OEntityTracker[] m = new OEntityTracker[3];
+    // public OEntityTracker[] m = new OEntityTracker[3];
     public boolean n;
     public boolean o;
     public boolean p;
@@ -111,9 +111,6 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         }
 
         this.h = new OServerConfigurationManager(this);
-        this.m[0] = new OEntityTracker(this, 0);
-        this.m[1] = new OEntityTracker(this, -1);
-        this.m[2] = new OEntityTracker(this, 1);
         long var4 = System.nanoTime();
         String var6 = this.d.a("level-name", "world");
         String var7 = this.d.a("level-seed", "");
@@ -202,7 +199,9 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
                 toLoad[var10] = new OWorldServerMulti(this, var9, var2, var11, var8, toLoad[0]);
             }
 
+            this.h.newWorld(var2);
             toLoad[var10].a(new OWorldManager(this, toLoad[var10]));
+            toLoad[var10].setEntityTracker(new OEntityTracker(this, var11, var2));
             toLoad[var10].q = this.d.a("difficulty", 1);
             toLoad[var10].a(this.d.a("spawn-monsters", true), this.o);
             toLoad[var10].s().d(var6);
@@ -502,9 +501,11 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         this.c.a();
         this.h.b();
 
-        for (var11 = 0; var11 < this.m.length; ++var11) {
-            this.m[var11].a();
-        }
+        
+        for (OWorldServer[] aows : this.worlds.values())
+            for (var11 = 0; var11 < aows.length; ++var11) {
+                aows[var11].getEntityTracker().a();
+            }
 
         for (var11 = 0; var11 < this.C.size(); ++var11) {
             ((OIUpdatePlayerListBox) this.C.get(var11)).a();
@@ -578,7 +579,8 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     }
 
     public OWorldServer a(int var1) {
-        return this.getWorld(this.m(), var1);
+        throw new UnsupportedOperationException("OMinecraftServer.a(int) has"
+                + " been replaced by OMinecraftServer.getWorld(String, int).");
     }
     
     public OWorldServer getWorld(String levelName, int dimension) {
@@ -588,7 +590,8 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     }
 
     public OEntityTracker b(int var1) {
-        return var1 == -1 ? this.m[1] : (var1 == 1 ? this.m[2] : this.m[0]);
+        throw new UnsupportedOperationException("OMinecraftServer.b(int) has"
+                + " been replaced by OWorld.getEntityTracker()");
     }
 
     public int a(String var1, int var2) {
@@ -646,7 +649,10 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     }
 
     public String n() {
-        return "";
+        // CanaryMod: return our own stuff for RCon
+        etc e = etc.getInstance();
+        return (e.isCrow() ? "Crow " : "CanaryMod ") + e.getVersionStr() + ": "
+                + etc.getLoader().getPluginList();
     }
 
     public void o() {}

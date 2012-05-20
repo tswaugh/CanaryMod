@@ -723,8 +723,8 @@ public class PlayerCommands {
                 return;
             }
 
-            for (World.Dimension type : World.Dimension.values()) {
-                etc.getMCServer().a(type.getId()).s().a((int) player.getX(), (int) player.getY(), (int) player.getZ());
+            for (World w : etc.getServer().getWorld(player.getWorld().getName())) {
+                w.getWorld().s().a((int) player.getX(), (int) player.getY(), (int) player.getZ());
             }
 
             log.info("Spawn position changed.");
