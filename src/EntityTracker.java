@@ -39,6 +39,10 @@ public class EntityTracker {
         tracker.b(entity);
     }
     
+    public void untrackPlayerSymmetrics(OEntityPlayerMP player) {
+        tracker.a(player);
+    }
+    
     public void updateTrackedEntities() {
         tracker.a();
     }

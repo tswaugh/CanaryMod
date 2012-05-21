@@ -124,7 +124,7 @@ public class Location implements java.io.Serializable {
     public World getWorld() {
         World[] worlds = etc.getServer().getWorld(world);
         if(worlds == null || worlds.length == 0) {
-            return null;
+            return etc.getServer().getDefaultWorld();
         }
         return worlds[dimension];
     }

@@ -481,7 +481,17 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
                     OWorldServer var9 = level[var11];
 
                     if (this.j % 20 == 0) {
-                        this.h.a((OPacket) (new OPacket4UpdateTime(var9.o())), var9.t.g);
+                        // this.h.a((OPacket) (new
+                        // OPacket4UpdateTime(var9.o())), var9.t.g);
+                        // }
+                        // this.h.a((OPacket) (new
+                        // OPacket4UpdateTime(var9.o())), var9.t.g);
+                        for (int var12 = 0; var12 < h.b.size(); ++var12) {
+                            OEntityPlayerMP var13 = (OEntityPlayerMP) h.b.get(var12);
+                            if (var13.bi.hashCode() == var9.hashCode()) {
+                                var13.a.b((OPacket) (new OPacket4UpdateTime(var9.o())));
+                            }
+                        }
                     }
 
                     var9.h();

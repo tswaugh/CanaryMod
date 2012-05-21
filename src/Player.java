@@ -1041,13 +1041,22 @@ public class Player extends HumanEntity implements MessageReceiver {
         
         //switch world if needed
         if(!world.getName().equals(ent.bi.name)) {
+            World oldWorld = ent.bi.world;
             //remove player from entity tracker
-            ent.bi.getEntityTracker().untrackEntity(ent);
+            oldWorld.getEntityTracker().untrackPlayerSymmetrics(ent);
+            oldWorld.getEntityTracker().untrackEntity(ent);
+            
+            //remove player from old worlds entity list
+            oldWorld.removePlayerFromWorld(this);
+            
             //Remove player from player manager for the old world
             etc.getServer().getPlayerManager(ent.bi.world).removePlayer(ent);
+            
+            //Change players world reference
             ent.bi = world.getWorld();
-            //Add player to the new entity tracker
-            ent.bi.getEntityTracker().trackEntity(ent);
+            //Add player back to the new world
+            world.addPlayerToWorld(this);
+            world.getEntityTracker().trackPlayer(this);
         }
         //Get chunk coordinates...
         OChunkCoordinates var2 = mcServer.getWorld(ent.bi.name, world.getType().getId()).d();

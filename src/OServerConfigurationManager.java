@@ -64,6 +64,7 @@ public class OServerConfigurationManager {
         mgrs[0].b(var1);
         mgrs[1].b(var1);
         mgrs[2].b(var1);
+        this.getManager(var1.bi.name, var1.w).removePlayer(var1);
         this.getManager(var1.bi.name, var1.w).addPlayer(var1);
         OWorldServer var2 = this.c.getWorld(var1.bi.name, var1.w);
 
@@ -227,10 +228,10 @@ public class OServerConfigurationManager {
     }
 
     public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3, Location spawnLocation) {
+        var1.bi.getEntityTracker().untrackPlayerSymmetrics(var1);
         var1.bi.getEntityTracker().untrackEntity(var1);
-        var1.bi.getEntityTracker().trackEntity(var1);
-        this.getManager(var1.bi.name, var1.w).removePlayer(var1);
         this.b.remove(var1);
+        this.getManager(var1.bi.name, var1.w).removePlayer(var1);
         this.c.getWorld(var1.bi.name, var1.w).f(var1);
         OChunkCoordinates var4 = var1.ab();
 
@@ -273,8 +274,11 @@ public class OServerConfigurationManager {
         var5.a.b((OPacket) (new OPacket9Respawn(var5.w, (byte) var5.bi.q, var5.bi.s().p(), var5.bi.y(), var5.c.a())));
         var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt);
         this.a(var5, var6);
+        
         this.getManager(var5.bi.name, var5.w).addPlayer(var5);
-        var6.b(var5);
+        var5.bi.getEntityTracker().trackEntity(var5);
+        
+        //var6.b(var5);
         this.b.add(var5);
         var5.x();
         var5.E();
@@ -391,7 +395,9 @@ public class OServerConfigurationManager {
             OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
 
             if (var4.w == var2) {
-                var4.a.b(var1);
+                //CanaryMod re-route time updates to world-specific entity trackers
+                var4.bi.getEntityTracker().sendPacketToPlayersAndEntity(var4, var1);
+                //var4.a.b(var1);
             }
         }
 

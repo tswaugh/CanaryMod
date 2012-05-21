@@ -9,6 +9,7 @@ import java.util.Map;
  * here.
  *
  * @author 14mRh4X0r
+ * @author Chris
  */
 public class World {
 
@@ -979,6 +980,16 @@ public class World {
     public EntityTracker getEntityTracker() {
        return world.getEntityTracker();
     }
+    
+    public void removePlayerFromWorld(Player player) {
+        world.b.remove(player.getEntity());
+    }
+    
+    @SuppressWarnings("unchecked")
+    public void addPlayerToWorld(Player player) {
+        world.b.add(player.getEntity());
+    }
+    
     /**
      * Gets this world's name.
      * @return This world's name.
