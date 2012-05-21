@@ -593,11 +593,37 @@ public class World {
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity, int damage) {
+        return dropItem(x, y, z, new Item(itemId, quantity, -1, damage));
+    }
+
+    /**
+     * Drops an item with desired quantity at the specified location
+     * 
+     * @param loc
+     * @param item
+     * 
+     * @return returns the ItemEntity that was dropped
+     */
+    public ItemEntity dropItem(Location loc, Item item) {
+        return dropItem(loc.x, loc.y, loc.z, item);
+    }
+
+    /**
+     * Drops an item with desired quantity and damage value at the specified
+     * location
+     * 
+     * @param x
+     * @param y
+     * @param z
+     * @param item
+     * @return returns the ItemEntity that was dropped
+     */
+    public ItemEntity dropItem(double x, double y, double z, Item item) {
         double d1 = world.r.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double d2 = world.r.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
         double d3 = world.r.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
 
-        OEntityItem oei = new OEntityItem(world, x + d1, y + d2, z + d3, new OItemStack(itemId, quantity, damage));
+        OEntityItem oei = new OEntityItem(world, x + d1, y + d2, z + d3, item.getBaseItem() != null ? item.getBaseItem() : new OItemStack(item.getItemId(), item.getAmount(), item.getDamage()));
 
         oei.c = 10;
         world.b(oei);

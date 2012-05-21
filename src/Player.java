@@ -269,7 +269,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             if(i == null) {
                 continue;
             }
-            getWorld().dropItem(getLocation(), i.getItemId(), i.getAmount(), i.getDamage());
+            getWorld().dropItem(getLocation(), i);
         }
         inventory.clearContents();
     }
@@ -284,7 +284,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             if(i == null) {
                 continue;
             }
-            getWorld().dropItem(location, i.getItemId(), i.getAmount(), i.getDamage());
+            getWorld().dropItem(location, i);
         }
         inventory.clearContents();
     }
@@ -301,7 +301,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             if(i == null) {
                 continue;
             }
-            getWorld().dropItem(x, y, z, i.getItemId(), i.getAmount(), i.getDamage());
+            getWorld().dropItem(x, y, z, i);
         }
         inventory.clearContents();
     }
@@ -313,7 +313,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void dropItemFromSlot(int slot) {
         Item i = inventory.getItemFromSlot(slot);
         if(i != null) {
-            getWorld().dropItem(getLocation(), i.getItemId(), i.getAmount(), i.getDamage());
+            getWorld().dropItem(getLocation(), i);
             inventory.removeItem(slot);
         }
     }
@@ -326,7 +326,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void dropItemFromSlot(int slot, Location location) {
         Item i = inventory.getItemFromSlot(slot);
         if(i != null) {
-            getWorld().dropItem(location, i.getItemId(), i.getAmount(), i.getDamage());
+            getWorld().dropItem(location, i);
             inventory.removeItem(slot);
         }
     }
@@ -341,7 +341,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void dropItemFromSlot(int slot, double x, double y, double z) {
         Item i = inventory.getItemFromSlot(slot);
         if(i != null) {
-            getWorld().dropItem(x, y, z, i.getItemId(), i.getAmount(), i.getDamage());
+            getWorld().dropItem(x, y, z, i);
             inventory.removeItem(slot);
         }
     }
