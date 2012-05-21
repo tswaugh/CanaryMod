@@ -943,4 +943,13 @@ public class Server {
     public World[] getWorld(String name) {
         return this.isWorldLoaded(name) ? this.loadWorld(name) : null;
     }
+    
+    /**
+     * Get the configuration manager for the given world
+     * @param world
+     * @return
+     */
+    public PlayerManager getPlayerManager(World world) {
+        return server.h.getManager(world.getName(), world.getType().getId());
+    }
 }

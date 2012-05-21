@@ -1041,8 +1041,12 @@ public class Player extends HumanEntity implements MessageReceiver {
         
         //switch world if needed
         if(!world.getName().equals(ent.bi.name)) {
+            //remove player from entity tracker
             ent.bi.getEntityTracker().untrackEntity(ent);
+            //Remove player from player manager for the old world
+            etc.getServer().getPlayerManager(ent.bi.world).removePlayer(ent);
             ent.bi = world.getWorld();
+            //Add player to the new entity tracker
             ent.bi.getEntityTracker().trackEntity(ent);
         }
         //Get chunk coordinates...
@@ -1068,7 +1072,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     @Override
     public void teleportTo(Location location) {
         
-        if (!getWorld().equals(location.getWorld())) {
+        if (!(getWorld().hashCode() == location.getWorld().hashCode())) {
             switchWorlds(location.getWorld());
         }
         super.teleportTo(location);

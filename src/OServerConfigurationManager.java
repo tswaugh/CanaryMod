@@ -86,7 +86,7 @@ public class OServerConfigurationManager {
                 + "Manager(String, int).");
     }
     
-    private PlayerManager getManager(String worldName, int dimension) {
+    public PlayerManager getManager(String worldName, int dimension) {
         int index = dimension == -1 ? 1 : (dimension == 0 ? 0 : 2);
         return this.managers.get(worldName)[index].getCanaryPlayerManager();
     }

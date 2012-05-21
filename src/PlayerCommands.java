@@ -762,15 +762,6 @@ public class PlayerCommands {
                 home = etc.getDataSource().getHome(caller.getName());
             }
 
-//            World.Dimension worldType = player.getWorld().getType();
-//            if (worldType != World.Dimension.NORMAL) {
-//                if (player.canIgnoreRestrictions()) {
-//                    player.switchWorlds(World.Dimension.NORMAL.getId());
-//                } else {
-//                    player.notify("The veil between the worlds keeps you in the " + worldType + "...");
-//                    return;
-//                }
-//            }
             World world = player.getWorld();
             if (world.getType() != World.Dimension.NORMAL) {
                 if (player != caller || player.canIgnoreRestrictions()) {
