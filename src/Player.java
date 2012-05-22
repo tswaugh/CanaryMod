@@ -984,36 +984,6 @@ public class Player extends HumanEntity implements MessageReceiver {
     public List<String> getOnlyOneUseKits() {
         return new ArrayList(onlyOneUseKits);
     }
-
-    /**
-     * Switch to the other dimension at the according position.
-     * @deprecated use {@link #switchWorlds(int) } instead.
-     */
-    @Deprecated
-    public void switchWorlds() {
-        OMinecraftServer mcServer = etc.getMCServer();
-        OEntityPlayerMP ent = getEntity();
-
-        // Nether is not allowed, so shush
-        if (!mcServer.d.a("allow-nether", true)) {
-            return;
-        }
-        // Dismount first or get buggy
-        if (ent.bh != null) {
-            ent.c(ent.bh);
-        }
-        
-        if (getWorld().getType().getId() == 0) {
-            switchWorlds(etc.getServer().getWorld(etc.getServer().getDefaultWorld().getName())[1]);
-        } else {
-            switchWorlds(etc.getServer().getWorld(etc.getServer().getDefaultWorld().getName())[0]);
-        }
-        // Canary: We don't want a portal created
-        // mcServer.h.a(ent, false);
-        
-        // CanaryMod: Refresh the creative mode
-        refreshCreativeMode();
-    }
     
     /**
      * Switch to the specified dimension at the according position.
@@ -1040,7 +1010,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         ent.a((OStatBase) OAchievementList.B);
         
         //switch world if needed
-        if(!world.getName().equals(ent.bi.name)) {
+        if(!(world.hashCode() == ent.bi.world.hashCode())) {
             World oldWorld = ent.bi.world;
             //remove player from entity tracker
             oldWorld.getEntityTracker().untrackPlayerSymmetrics(ent);
@@ -1072,7 +1042,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     
     @Override
     public void teleportTo(BaseEntity ent) {
-        if (!getWorld().equals(ent.getWorld())) {
+        if (!(getWorld().hashCode() == ent.getWorld().hashCode())) {
             switchWorlds(ent.getWorld());
         }
         super.teleportTo(ent);

@@ -231,12 +231,13 @@ public class OServerConfigurationManager {
         var1.bi.getEntityTracker().untrackPlayerSymmetrics(var1);
         var1.bi.getEntityTracker().untrackEntity(var1);
         this.b.remove(var1);
+        var1.bi.world.removePlayerFromWorld(var1.getPlayer());
         this.getManager(var1.bi.name, var1.w).removePlayer(var1);
         this.c.getWorld(var1.bi.name, var1.w).f(var1);
         OChunkCoordinates var4 = var1.ab();
 
         var1.w = var2;
-        OEntityPlayerMP var5 = new OEntityPlayerMP(this.c, this.c.getWorld(var1.bi.name, var1.w), var1.v, new OItemInWorldManager(this.c.getWorld(var1.bi.name, var1.w)));
+        OEntityPlayerMP var5 = new OEntityPlayerMP(this.c, var1.bi, var1.v, new OItemInWorldManager(var1.bi));
 
         if (var3) {
             var5.c((OEntityPlayer) var1);
@@ -244,12 +245,12 @@ public class OServerConfigurationManager {
 
         var5.bd = var1.bd;
         var5.a = var1.a;
-        OWorldServer var6 = this.c.getWorld(var1.bi.name, var1.w);
+        OWorldServer var6 = (OWorldServer) var1.bi;
 
         var5.c.a(var1.c.a());
         var5.c.b(var6.s().m());
         if (var4 != null) {
-            OChunkCoordinates var7 = OEntityPlayer.a(this.c.getWorld(var1.bi.name, var1.w), var4);
+            OChunkCoordinates var7 = OEntityPlayer.a(var1.bi, var4);
 
             if (var7 != null) {
                 var5.c((double) ((float) var7.a + 0.5F), (double) ((float) var7.b + 0.1F), (double) ((float) var7.c + 0.5F), 0.0F, 0.0F);
@@ -275,11 +276,10 @@ public class OServerConfigurationManager {
         var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt);
         this.a(var5, var6);
         
-        this.getManager(var5.bi.name, var5.w).addPlayer(var5);
+        this.b.add(var5); //XXX
         var5.bi.getEntityTracker().trackEntity(var5);
-        
-        //var6.b(var5);
-        this.b.add(var5);
+        this.getManager(var5.bi.name, var5.w).addPlayer(var5);
+        var5.bi.world.addPlayerToWorld(var5.getPlayer());
         var5.x();
         var5.E();
         return var5;
@@ -381,6 +381,10 @@ public class OServerConfigurationManager {
         this.getManager(var5, var4).markBlockNeedsUpdate(var1, var2, var3);
     }
 
+    /**
+     * Send packet to all
+     * @param var1 packet XXX
+     */
     public void a(OPacket var1) {
         for (int var2 = 0; var2 < this.b.size(); ++var2) {
             OEntityPlayerMP var3 = (OEntityPlayerMP) this.b.get(var2);
@@ -390,6 +394,11 @@ public class OServerConfigurationManager {
 
     }
 
+    /**
+     * Send packet to guys in dimension
+     * @param var1 packet
+     * @param var2 dimension id
+     */
     public void a(OPacket var1, int var2) {
         for (int var3 = 0; var3 < this.b.size(); ++var3) {
             OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);

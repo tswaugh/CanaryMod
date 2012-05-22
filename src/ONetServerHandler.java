@@ -64,6 +64,10 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             this.e.I();
             this.b((OPacket) (new OPacket255KickDisconnect(var1)));
             this.b.d();
+            //CanaryMod handle disconnect world stuff
+            this.e.bi.getEntityTracker().untrackPlayerSymmetrics(this.e);
+            this.e.bi.getEntityTracker().untrackEntity(this.e);
+            etc.getServer().getPlayerManager(this.e.bi.world).removePlayer(this.e);
             
             // CanaryMod - onPlayerDisconnect Hook
             HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.e.v), var1);
@@ -292,7 +296,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     }
 
     public void a(double var1, double var3, double var5, float var7, float var8) {
-        // CanaryMod: Teleportation hook
+        // CanaryMod: Teleportation hook 
         Location from = new Location();
 
         from.x = var1;
@@ -300,6 +304,8 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         from.z = var5;
         from.rotX = var7;
         from.rotY = var8;
+        from.dimension = getPlayer().getWorld().getType().getId();
+        from.world = getPlayer().getWorld().getName();
         Player player = getPlayer();
 
         if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.TELEPORT, player, player.getLocation(), from)) {
@@ -591,7 +597,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         // CanaryMod: disconnect!
         OEntity.manager.callHook(PluginLoader.Hook.DISCONNECT, getPlayer());
         a.info(this.e.v + " lost connection: " + var1);
-
+        
         // CanaryMod - onPlayerDisconnect Hook
         HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the server.", this.e.v), var1);
 
@@ -599,7 +605,10 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         if (!hookResult.isHidden()) { 
             this.d.h.a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
         }
-
+        //CanaryMod handle disconnect world stuff
+        this.e.bi.getEntityTracker().untrackPlayerSymmetrics(this.e);
+        this.e.bi.getEntityTracker().untrackEntity(this.e);
+        etc.getServer().getPlayerManager(this.e.bi.world).removePlayer(this.e);
         this.d.h.e(this.e);
         this.c = true;
     }
@@ -703,17 +712,23 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         // CanaryMod: onPlayerRespawn
         OChunkCoordinates defaultSpawnCoords = e.ab();
         if (defaultSpawnCoords == null) {
-            defaultSpawnCoords = etc.getServer().getWorld(0).getWorld().p();
+//            defaultSpawnCoords = etc.getServer().getWorld(e.bi.name)[0].getWorld().p();
+            defaultSpawnCoords = e.bi.p();
         }
-        Location respawnLocation = new Location(etc.getServer().getWorld(0), defaultSpawnCoords.a, defaultSpawnCoords.b, defaultSpawnCoords.c, 0, 0);
+        
+//        Location respawnLocation = new Location(e.bi.world, defaultSpawnCoords.a, defaultSpawnCoords.b, defaultSpawnCoords.c, 0, 0);
+        Location respawnLocation = e.bi.world.getSpawnLocation();
         if (this.e.j) {
+            System.out.println("Player.j is true ...");
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
+            System.out.println("Resetting this player, with argument true");
             this.e = this.d.h.a(this.e, respawnLocation.dimension, true, respawnLocation);
         } else {
             if (this.e.aD() > 0) {
                 return;
             }
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
+            System.out.println("Resetting this player, with argument false");
             this.e = this.d.h.a(this.e, respawnLocation.dimension, false, respawnLocation);
         }
     }
