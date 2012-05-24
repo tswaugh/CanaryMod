@@ -136,4 +136,38 @@ public class Chunk {
         return chunk.b(x, y, z);
     }
 
+    /**
+     * Gets the chunk's biome data byte array
+     * 
+     * @return biomedata
+     */
+    public byte[] getBiomeData() {
+        return chunk.l();
+    }
+
+    /**
+     * Sets the chunk's biome data (needs to be byte[256])
+     * 
+     * @param biomedata
+     */
+    public void setBiomeData(byte[] biomedata) {
+        if (biomedata.length != 256) return;
+        chunk.a(biomedata);
+    }
+
+    /**
+     * resends chunk data to clients
+     */
+    public void update() {
+        etc.getMCServer().h.a(new OPacket51MapChunk(chunk, true, 0));
+    }
+
+    /**
+     * gets the wrapped chunk
+     * 
+     * @return chunk
+     */
+    public OChunk getChunk() {
+        return chunk;
+    }
 }

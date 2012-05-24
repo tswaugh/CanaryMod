@@ -232,7 +232,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param item
      */
     public void giveItemDrop(Item item) {
-        giveItemDrop(item.getItemId(), item.getAmount());
+        giveItemDrop(item.getItemId(), item.getAmount(), item.getDamage());
     }
 
     /**
@@ -242,18 +242,29 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param amount
      */
     public void giveItemDrop(int itemId, int amount) {
+        giveItemDrop(itemId, amount, 0);
+    }
+
+    /**
+     * Gives the player this item by dropping it in front of them
+     * 
+     * @param itemid
+     * @param amount
+     * @param damage
+     */
+    public void giveItemDrop(int itemId, int amount, int damage) {
         OEntityPlayerMP player = getEntity();
 
         if (amount == -1) {
-            player.b(new OItemStack(itemId, 255, 0));
+            player.b(new OItemStack(itemId, 255, damage));
         } else {
             int temp = amount;
 
             do {
                 if (temp - 64 >= 64) {
-                    player.b(new OItemStack(itemId, 64, 0));
+                    player.b(new OItemStack(itemId, 64, damage));
                 } else {
-                    player.b(new OItemStack(itemId, temp, 0));
+                    player.b(new OItemStack(itemId, temp, damage));
                 }
                 temp -= 64;
             } while (temp > 0);
