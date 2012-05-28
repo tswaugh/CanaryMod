@@ -1,4 +1,3 @@
-
 public class TamableEntity extends Mob{
 	public TamableEntity(OEntityTamable entity){
 		super(entity);
