@@ -55,18 +55,18 @@ public class TamableEntity extends Mob{
 	}
 
 	/**
-	 * Sets if this ocelot is tame.
+	 * Sets if this animal is tame.
 	 * 
-	 * @param tame True if the ocelot should be tame.
+	 * @param tame True if the animal should be tame.
 	 */
 	public void setTame(boolean tame){
 		getEntity().b(tame);
 	}
 
 	/**
-	 * Make this ocelot sit.
+	 * Make this animal sit.
 	 * 
-	 * @param sitting If this ocelot should be sitting.
+	 * @param sitting If this animal should be sitting.
 	 */
 	public void setSitting(boolean sitting){
 		int i = getEntity().bY.a(16);
@@ -77,7 +77,7 @@ public class TamableEntity extends Mob{
 	}
 
 	/**
-	 * Returns if this ocelot is currently sitting.
+	 * Returns if this animal is currently sitting.
 	 * 
 	 * @return Sitting or not.
 	 */
