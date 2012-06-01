@@ -350,6 +350,11 @@ public class PluginLoader {
          * Calls{@Link PluginListener#onLightChange(int,int,int,int) }
          */
         //
+        DEATH,
+         /**
+         * Calls{@Link PluginListener#onDeath(LivingEntity entity) }
+         */
+        //
         LIGHT_CHANGE,
         /**
          * For internal use only.
