@@ -983,11 +983,12 @@ public class World {
     
     public void removePlayerFromWorld(Player player) {
         world.b.remove(player.getEntity());
+        world.d.remove(player.getEntity());
     }
     
-    @SuppressWarnings("unchecked")
     public void addPlayerToWorld(Player player) {
         world.b.add(player.getEntity());
+        world.d.add(player.getEntity());
     }
     
     /**

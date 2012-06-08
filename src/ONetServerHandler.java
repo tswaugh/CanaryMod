@@ -266,7 +266,10 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
                 this.e.b(var7, var9, var11, var17, var18);
                 boolean var30 = var2.a(this.e, this.e.bw.b().e((double) var25, (double) var25, (double) var25)).size() == 0;
-
+                System.out.println("var26: "+var26);
+                System.out.println("var29: "+var29);
+                System.out.println("!var30: "+!var30);
+                System.out.println("is not sleeping: "+!this.e.Z());
                 if (var26 && (var29 || !var30) && !this.e.Z()) {
                     this.a(this.o, this.p, this.q, var17, var18);
                     return;
