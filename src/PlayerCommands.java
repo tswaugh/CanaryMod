@@ -1033,6 +1033,8 @@ public class PlayerCommands {
                 loc = p.getLocation();
             } else {
                 loc = new Location(t.getX() + .5D, t.getY() + 1.5D, t.getZ() + .5D);
+                loc.dimension = p.getWorld().getType().getId();
+                loc.world = p.getWorld().getName();
             }
 
             if (args.length == 2) {

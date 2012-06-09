@@ -982,13 +982,12 @@ public class World {
     }
     
     public void removePlayerFromWorld(Player player) {
-        world.b.remove(player.getEntity());
-        world.d.remove(player.getEntity());
+        world.b.remove((OEntity)player.getEntity());
+        world.f(player.getEntity());
     }
     
     public void addPlayerToWorld(Player player) {
         world.b.add(player.getEntity());
-        world.d.add(player.getEntity());
     }
     
     /**

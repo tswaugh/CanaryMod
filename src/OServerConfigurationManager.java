@@ -233,7 +233,6 @@ public class OServerConfigurationManager {
         this.b.remove(var1);
         var1.bi.world.removePlayerFromWorld(var1.getPlayer());
         this.getManager(var1.bi.name, var1.w).removePlayer(var1);
-        this.c.getWorld(var1.bi.name, var1.w).f(var1);
         OChunkCoordinates var4 = var1.ab();
 
         var1.w = var2;
