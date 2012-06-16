@@ -2,7 +2,7 @@
 public class OWorldManager implements OIWorldAccess {
 
     private OMinecraftServer a;
-    private OWorldServer b;
+    public OWorldServer b; //CanaryMod private -> public
 
     public OWorldManager(OMinecraftServer var1, OWorldServer var2) {
         super();
@@ -13,11 +13,15 @@ public class OWorldManager implements OIWorldAccess {
     public void a(String var1, double var2, double var4, double var6, double var8, double var10, double var12) {}
 
     public void a(OEntity var1) {
-        this.b.getEntityTracker().trackEntity(var1);
+        if(this.b.name.equals(var1.bi.name)) {
+            this.b.getEntityTracker().trackEntity(var1);
+        }
     }
 
     public void b(OEntity var1) {
-        this.b.getEntityTracker().untrackEntity(var1);
+        if(this.b.name.equals(var1.bi.name)) {
+            this.b.getEntityTracker().untrackEntity(var1);
+        }
     }
 
     public void a(String var1, double var2, double var4, double var6, float var8, float var9) {}

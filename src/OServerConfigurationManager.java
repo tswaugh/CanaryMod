@@ -231,7 +231,7 @@ public class OServerConfigurationManager {
         var1.bi.getEntityTracker().untrackPlayerSymmetrics(var1);
         var1.bi.getEntityTracker().untrackEntity(var1);
         this.b.remove(var1);
-        var1.bi.world.removePlayerFromWorld(var1.getPlayer());
+        var1.bi.world.removePlayerFromWorld(var1.getPlayer()); //Calls despawn method in OWorld
         this.getManager(var1.bi.name, var1.w).removePlayer(var1);
         OChunkCoordinates var4 = var1.ab();
 
@@ -243,7 +243,9 @@ public class OServerConfigurationManager {
         }
 
         var5.bd = var1.bd;
+        //Handle setting of serverhandlers
         var5.a = var1.a;
+        var5.a.setPlayer(var5); //Override player entity
         OWorldServer var6 = (OWorldServer) var1.bi;
 
         var5.c.a(var1.c.a());
@@ -275,8 +277,8 @@ public class OServerConfigurationManager {
         var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt);
         this.a(var5, var6);
         
-        this.b.add(var5); //XXX
-        var5.bi.getEntityTracker().trackEntity(var5);
+        this.b.add(var5); 
+//        var5.bi.getEntityTracker().trackEntity(var5); //no need to add player to tracker
         this.getManager(var5.bi.name, var5.w).addPlayer(var5);
         var5.bi.world.addPlayerToWorld(var5.getPlayer());
         var5.x();

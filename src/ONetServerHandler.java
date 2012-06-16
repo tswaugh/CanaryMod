@@ -911,6 +911,24 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
     public Player getPlayer() {
         return e.getPlayer();
     }
+    
+    /**
+     * Override player entity
+     * @param player
+     */
+    public void setPlayer(OEntityPlayerMP player) {
+        this.e = player;
+    }
+    
+    /**
+     * Override player entity
+     * @param player
+     */
+    public void setPlayer(Player player) {
+        this.e = player.getEntity();
+    }
+    
+    
 
     /**
      * Sends a message to the player

@@ -863,7 +863,7 @@ public class OWorld implements OIBlockAccess {
     }
 
     public void f(OEntity var1) {
-        var1.X();
+        var1.X(); 
         if (var1 instanceof OEntityPlayer) {
             this.d.remove((OEntityPlayer) var1);
             this.t();

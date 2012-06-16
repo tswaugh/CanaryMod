@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * World.java - Interface to worlds. Most of the stuff in Server.java was moved
  * here.
@@ -982,12 +983,11 @@ public class World {
     }
     
     public void removePlayerFromWorld(Player player) {
-        world.b.remove((OEntity)player.getEntity());
-        world.f(player.getEntity());
+        world.f((OEntity)player.getEntity());
     }
     
     public void addPlayerToWorld(Player player) {
-        world.b.add(player.getEntity());
+        world.b((OEntity)player.getEntity());
     }
     
     /**

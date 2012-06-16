@@ -1098,11 +1098,11 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param i
      */
     public void setCreativeMode(int i) {
-    	i = OWorldSettings.a(i);
-    	if (getEntity().c.a() != i) {
-    		getEntity().c.a(i);
-    		getEntity().a.b((OPacket) (new OPacket70Bed(3, i)));
-    	}
+        i = OWorldSettings.a(i);
+        if (getEntity().c.a() != i) {
+            getEntity().c.a(i);
+            getEntity().a.b((OPacket) (new OPacket70Bed(3, i)));
+        }
     }
 
     /**

@@ -32,7 +32,7 @@ public class EntityTracker {
      * @param player
      */
     public void untrackPlayer(Player player) {
-        tracker.b(player.getEntity());
+        tracker.b((OEntity)player.getEntity());
     }
     
     public void untrackEntity(OEntity entity) {
