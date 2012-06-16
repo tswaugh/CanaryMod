@@ -127,7 +127,7 @@ public class FlatFileSource extends DataSource {
                     linenum++;
                     String line = scanner.nextLine();
 
-                    if (line.startsWith("#") || line.equals("") || line.startsWith("﻿")) {
+                    if (line.startsWith("#") || line.equals("") || line.startsWith(" ")) {
                         continue;
                     }
 
@@ -1016,7 +1016,7 @@ public class FlatFileSource extends DataSource {
             BufferedWriter bw = new BufferedWriter(new FileWriter(loc, true));
             StringBuilder builder = new StringBuilder();
 
-            // #NAME:GROUPS:ADMIN/UNRESTRICTED:COLOR:COMMANDS
+            // #NAME:GROUPS:ADMIN/UNRESTRICTED:COLOR:COMMANDS:IPS
             builder.append(player.getName());
             builder.append(":");
             builder.append(etc.combineSplit(0, player.getGroups(), ","));
@@ -1034,6 +1034,8 @@ public class FlatFileSource extends DataSource {
             builder.append(player.getPrefix());
             builder.append(":");
             builder.append(etc.combineSplit(0, player.getCommands(), ","));
+            builder.append(":");
+            builder.append(player.getIps() != null ? etc.combineSplit(0, player.getIps(), ",") : "");
             bw.append(builder.toString());
             bw.newLine();
             bw.close();
@@ -1075,6 +1077,8 @@ public class FlatFileSource extends DataSource {
                     builder.append(player.getPrefix());
                     builder.append(":");
                     builder.append(etc.combineSplit(0, player.getCommands(), ","));
+                    builder.append(":");
+                    builder.append(player.getIps() != null ? etc.combineSplit(0, player.getIps(), ",") : "");
                     toWrite.append(builder.toString()).append(LINE_SEP);
                 }
             }
@@ -1099,7 +1103,7 @@ public class FlatFileSource extends DataSource {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
 
-                if (line.startsWith("#") || line.equals("") || line.startsWith("﻿")) {
+                if (line.startsWith("#") || line.equals("") || line.startsWith(" ")) {
                     continue;
                 }
                 String[] split = line.split(":");
@@ -1129,7 +1133,7 @@ public class FlatFileSource extends DataSource {
                 linenum++;
                 String line = scanner.nextLine();
 
-                if (line.startsWith("#") || line.equals("") || line.startsWith("﻿")) {
+                if (line.startsWith("#") || line.equals("") || line.startsWith(" ")) {
                     continue;
                 }
                 String[] split = line.split(":");
@@ -1161,7 +1165,17 @@ public class FlatFileSource extends DataSource {
                     player.setCommands(split[4].split(","));
                 }
                 if (split.length >= 6) {
-                    player.setIps(split[5].split(","));
+                    StringBuilder ips = new StringBuilder();
+                    for (String ip : split[5].split(",")) {
+                        if (ip.isEmpty() || ip.equals(" ") || !ip.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")) {
+                            continue;
+                        }
+                        ips.append(ip + ",");
+                    }
+                    if (!ips.toString().isEmpty()) {
+                        player.setIps(ips.toString().split(","));
+                    }
+                    player.setIps(null);
                 }
             }
             scanner.close();
@@ -1515,7 +1529,7 @@ public class FlatFileSource extends DataSource {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
 
-                if (line.startsWith("#") || line.equals("") || line.startsWith("﻿")) {
+                if (line.startsWith("#") || line.equals("") || line.startsWith(" ")) {
                     continue;
                 }
                 if (line.startsWith("@") && player.isInGroup(line.substring(1))) {
@@ -1590,7 +1604,7 @@ public class FlatFileSource extends DataSource {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
 
-                if (line.startsWith("#") || line.equals("") || line.startsWith("﻿")) {
+                if (line.startsWith("#") || line.equals("") || line.startsWith(" ")) {
                     continue;
                 }
                 if (line.startsWith("@") && player.isInGroup(line.substring(1))) {

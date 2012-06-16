@@ -375,7 +375,7 @@ public class MySQLSource extends DataSource {
 
         try {
             conn = etc.getConnection();
-            ps = conn.prepareStatement("INSERT INTO " + table_users + " (name, groups, prefix, commands, admin, canmodifyworld, ignoresrestrictions) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps = conn.prepareStatement("INSERT INTO " + table_users + " (name, groups, prefix, commands, admin, canmodifyworld, ignoresrestrictions, ip) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, player.getName());
             ps.setString(2, etc.combineSplit(0, player.getGroups(), ","));
             ps.setString(3, player.getPrefix());
@@ -383,6 +383,7 @@ public class MySQLSource extends DataSource {
             ps.setBoolean(5, player.getAdmin());
             ps.setBoolean(6, player.canModifyWorld());
             ps.setBoolean(7, player.ignoreRestrictions());
+            ps.setString(8, player.getIps() != null ? etc.combineSplit(0, player.getIps(), ",") : "");
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();
@@ -414,14 +415,15 @@ public class MySQLSource extends DataSource {
 
         try {
             conn = etc.getConnection();
-            ps = conn.prepareStatement("UPDATE " + table_users + " SET groups = ?, prefix = ?, commands = ?, admin = ?, canmodifyworld = ?, ignoresrestrictions = ? WHERE id = ?");
+            ps = conn.prepareStatement("UPDATE " + table_users + " SET groups = ?, prefix = ?, commands = ?, admin = ?, canmodifyworld = ?, ignoresrestrictions = ?, ip = ? WHERE id = ?");
             ps.setString(1, etc.combineSplit(0, player.getGroups(), ","));
             ps.setString(2, player.getPrefix());
             ps.setString(3, etc.combineSplit(0, player.getCommands(), ","));
             ps.setBoolean(4, player.getAdmin());
             ps.setBoolean(5, player.canModifyWorld());
             ps.setBoolean(6, player.ignoreRestrictions());
-            ps.setInt(7, player.getSqlId());
+            ps.setString(7, player.getIps() != null ? etc.combineSplit(0, player.getIps(), ",") : "");
+            ps.setInt(8, player.getSqlId());
             ps.executeUpdate();
         } catch (SQLException ex) {
             log.log(Level.SEVERE, "Unable to update user in users table", ex);
@@ -787,7 +789,17 @@ public class MySQLSource extends DataSource {
                 player.setAdmin(rs.getBoolean("admin"));
                 player.setCanModifyWorld(rs.getBoolean("canmodifyworld"));
                 player.setIgnoreRestrictions(rs.getBoolean("ignoresrestrictions"));
-                player.setIps(rs.getString("ip").split(","));
+                StringBuilder ips = new StringBuilder();
+                for (String ip : rs.getString("ip").split(",")) {
+                    if (ip.isEmpty() || ip.equals(" ") || !ip.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")) {
+                        continue;
+                    }
+                    ips.append(ip + ",");
+                }
+                if (!ips.toString().isEmpty()) {
+                    player.setIps(ips.toString().split(","));
+                }
+                player.setIps(null);
             }
         } catch (SQLException ex) {
             log.log(Level.SEVERE, "Unable to retreive users from user table", ex);

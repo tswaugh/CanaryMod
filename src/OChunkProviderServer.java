@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -85,6 +84,8 @@ public class OChunkProviderServer implements OIChunkProvider {
                 } else {
                     var5 = this.d.b(var1, var2);
                 }
+
+                etc.getLoader().callHook(PluginLoader.Hook.CHUNK_CREATED, var5.chunk);
             }
 
             this.f.a(var3, var5);

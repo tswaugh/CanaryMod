@@ -1,5 +1,15 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class OServerConfigurationManager {
@@ -181,11 +191,16 @@ public class OServerConfigurationManager {
             } else {
                 if (player.getIps() != null && !player.getIps()[0].equals("")) {
                     boolean ipallowed = false;
-                    for (String allowedip : player.getIps()) {
-                        if (ip.equals(allowedip)) {
-                            ipallowed = true;
-                            break;
+                    if (player.getIps() != null) {
+                        for (String allowedip : player.getIps()) {
+                            if (ip.equals(allowedip)) {
+                                ipallowed = true;
+                                break;
+                            }
                         }
+                    }
+                    else {
+                        ipallowed = true;
                     }
                     if (!ipallowed) {
                         var1.a("You are not allowed to log in from your current location");
