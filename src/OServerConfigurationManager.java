@@ -648,23 +648,41 @@ public class OServerConfigurationManager {
     }
 
     public void a(double var1, double var3, double var5, double var7, int var9, OPacket var10) {
-        this.a((OEntityPlayer) null, var1, var3, var5, var7, var9, var10);
+        this.a((OEntityPlayer) null, var1, var3, var5, var7, var9, var10, null);
     }
 
-    public void a(OEntityPlayer var1, double var2, double var4, double var6, double var8, int var10, OPacket var11) {
-        for (int var12 = 0; var12 < this.b.size(); ++var12) {
-            OEntityPlayerMP var13 = (OEntityPlayerMP) this.b.get(var12);
+    public void a(OEntityPlayer var1, double var2, double var4, double var6, double var8, int var10, OPacket var11, String worldName) {
+        if(worldName == null) {
+            for (int var12 = 0; var12 < this.b.size(); ++var12) {
+                OEntityPlayerMP var13 = (OEntityPlayerMP) this.b.get(var12);
 
-            if (var13 != var1 && var13.w == var10) {
-                double var14 = var2 - var13.bm;
-                double var16 = var4 - var13.bn;
-                double var18 = var6 - var13.bo;
+                if (var13 != var1 && var13.w == var10) {
+                    double var14 = var2 - var13.bm;
+                    double var16 = var4 - var13.bn;
+                    double var18 = var6 - var13.bo;
 
-                if (var14 * var14 + var16 * var16 + var18 * var18 < var8 * var8) {
-                    var13.a.b(var11);
+                    if (var14 * var14 + var16 * var16 + var18 * var18 < var8 * var8) {
+                        var13.a.b(var11);
+                    }
                 }
             }
         }
+        else {
+            for (int var12 = 0; var12 < this.b.size(); ++var12) {
+                OEntityPlayerMP var13 = (OEntityPlayerMP) this.b.get(var12);
+
+                if (var13 != var1 && var13.w == var10 && worldName.equals(var13.bi.name)) {
+                    double var14 = var2 - var13.bm;
+                    double var16 = var4 - var13.bn;
+                    double var18 = var6 - var13.bo;
+
+                    if (var14 * var14 + var16 * var16 + var18 * var18 < var8 * var8) {
+                        var13.a.b(var11);
+                    }
+                }
+            }
+        }
+        
 
     }
 

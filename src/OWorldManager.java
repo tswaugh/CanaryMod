@@ -41,6 +41,7 @@ public class OWorldManager implements OIWorldAccess {
     }
 
     public void a(OEntityPlayer var1, int var2, int var3, int var4, int var5, int var6) {
-        this.a.h.a(var1, (double) var3, (double) var4, (double) var5, 64.0D, this.b.t.g, new OPacket61DoorChange(var2, var3, var4, var5, var6));
+        //canatyMod: Fix for block particle spawning cross-worlds
+        this.a.h.a(var1, (double) var3, (double) var4, (double) var5, 64.0D, this.b.t.g, new OPacket61DoorChange(var2, var3, var4, var5, var6), b.name);
     }
 }
