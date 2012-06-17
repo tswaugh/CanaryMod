@@ -1021,7 +1021,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         ent.a((OStatBase) OAchievementList.B);
         
         //switch world if needed
-        if(!(world.hashCode() == ent.bi.world.hashCode())) {
+        if (!world.getName().equals(ent.bi.world.getName())) {
             World oldWorld = ent.bi.world;
             //remove player from entity tracker
             oldWorld.getEntityTracker().untrackPlayerSymmetrics(ent);
