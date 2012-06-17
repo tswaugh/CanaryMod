@@ -126,7 +126,7 @@ public class Location implements java.io.Serializable {
         if(worlds == null || worlds.length == 0) {
             return etc.getServer().getDefaultWorld();
         }
-        return worlds[dimension];
+        return worlds[World.Dimension.fromId(dimension).toIndex()];
     }
     
     /**
