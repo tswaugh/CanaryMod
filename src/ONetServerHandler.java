@@ -100,21 +100,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             Player player = getPlayer();
 
             if (etc.floor(o) != etc.floor(player.getX()) || etc.floor(p) != etc.floor(player.getY()) || etc.floor(q) != etc.floor(player.getZ())) {
-                Location from = new Location();
+                Location from = new Location(player.getWorld(), etc.floor(o), etc.floor(p), etc.floor(q));
 
-                from.x = etc.floor(o);
-                from.y = etc.floor(p);
-                from.z = etc.floor(q);
-                from.rotX = player.getRotation();
-                from.rotY = player.getPitch();
-
-                Location to = new Location();
-
-                to.x = etc.floor(e.bm);
-                to.y = etc.floor(e.bn);
-                to.z = etc.floor(e.bo);
-                to.rotX = player.getRotation();
-                to.rotY = player.getPitch();
+                Location to = player.getLocation();
 
                 OEntity.manager.callHook(PluginLoader.Hook.PLAYER_MOVE, player, from, to);
             }
