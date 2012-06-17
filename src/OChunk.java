@@ -646,6 +646,7 @@ public class OChunk {
             System.out.println("Wrong location! " + var1 + " Destorying Entity...");
             //Thread.dumpStack(); //CanaryMod: Disabled stack dump...
             var1.X(); //CanaryMod: Destroy the entity instead of keeping it around to cause more troubles
+            return;
         }
 
         int var4 = OMathHelper.b(var1.bn / 16.0D);
