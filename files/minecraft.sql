@@ -60,6 +60,8 @@ CREATE TABLE IF NOT EXISTS `homes` (
   `rotX` float NOT NULL,
   `rotY` float NOT NULL,
   `group` VARCHAR(64) NOT NULL DEFAULT '',
+  `dimension` tinyint(1) NOT NULL DEFAULT '0',
+  `world` VARCHAR(32) NOT NULL DEFAULT 'world',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -223,6 +225,7 @@ CREATE TABLE IF NOT EXISTS `warps` (
   `rotY` float NOT NULL,
   `dimension` tinyint(1) NOT NULL DEFAULT 0,
   `group` VARCHAR(64) NOT NULL DEFAULT '',
+  `world` VARCHAR(32) NOT NULL DEFAULT 'world',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
