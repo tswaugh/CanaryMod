@@ -311,7 +311,7 @@ public class OServerConfigurationManager {
         }
 
         var5.a.b((OPacket) (new OPacket9Respawn(var5.w, (byte) var5.bi.q, var5.bi.s().p(), var5.bi.y(), var5.c.a())));
-        var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt);
+        var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt, var5.w, var5.bi.name);
         this.a(var5, var6);
         
         this.b.add(var5); 
@@ -383,7 +383,7 @@ public class OServerConfigurationManager {
         }
 
         this.a(var1);
-        var1.a.a(var1.bm, var1.bn, var1.bo, var1.bs, var1.bt);
+        var1.a.a(var1.bm, var1.bn, var1.bo, var1.bs, var1.bt, var1.w, var1.bi.name);
         var1.a((OWorld) var5);
         var1.c.a(var5);
         this.a(var1, var5);

@@ -894,7 +894,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         if (player.bh != null) {
             player.b(player.bh);
         }
-        player.a.a(x, y, z, rotation, pitch);
+        player.a.a(x, y, z, rotation, pitch, getWorld().getType().getId(), getWorld().getName());
     }
 
     /**
@@ -1043,7 +1043,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         OChunkCoordinates var2 = mcServer.getWorld(ent.bi.name, world.getType().getId()).d();
 
         if (var2 != null) {
-            ent.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F);
+            ent.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F, getWorld().getType().getId(), getWorld().getName());
         }
 
         mcServer.h.sendPlayerToOtherDimension(ent, world.getType().getId(), false);

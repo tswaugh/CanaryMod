@@ -254,8 +254,9 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 
                 this.e.b(var7, var9, var11, var17, var18);
                 boolean var30 = var2.a(this.e, this.e.bw.b().e((double) var25, (double) var25, (double) var25)).size() == 0;
+                //tp back when obstructed
                 if (var26 && (var29 || !var30) && !this.e.Z()) {
-                    this.a(this.o, this.p, this.q, var17, var18);
+                    this.a(this.o, this.p, this.q, var17, var18, this.e.w, this.e.bi.name);
                     return;
                 }
 
@@ -282,20 +283,21 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         }
     }
 
-    public void a(double var1, double var3, double var5, float var7, float var8) {
+    //CabaryMod changed signature to include world and dimension to go
+    public void a(double var1, double var3, double var5, float var7, float var8, int dimension, String world) {
         // CanaryMod: Teleportation hook 
-        Location from = new Location();
+        Location to = new Location();
 
-        from.x = var1;
-        from.y = var3;
-        from.z = var5;
-        from.rotX = var7;
-        from.rotY = var8;
-        from.dimension = getPlayer().getWorld().getType().getId();
-        from.world = getPlayer().getWorld().getName();
+        to.x = var1;
+        to.y = var3;
+        to.z = var5;
+        to.rotX = var7;
+        to.rotY = var8;
+        to.dimension = dimension;
+        to.world = world;
         Player player = getPlayer();
 
-        if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.TELEPORT, player, player.getLocation(), from)) {
+        if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.TELEPORT, player, player.getLocation(), to)) {
             return;
         }
         

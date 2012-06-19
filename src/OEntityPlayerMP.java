@@ -300,7 +300,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             OChunkCoordinates var2 = this.b.getWorld(this.bi.name, var1).d();
 
             if (var2 != null) {
-                this.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F);
+                this.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F, this.w, this.bi.name);
             }
 
             this.b.h.a(this, 1);
@@ -370,7 +370,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             OPacket17Sleep var6 = new OPacket17Sleep(this, 0, var1, var2, var3);
 
             var5.a(this, var6);
-            this.a.a(this.bm, this.bn, this.bo, this.bs, this.bt);
+            this.a.a(this.bm, this.bn, this.bo, this.bs, this.bt, this.w, this.bi.name);
             this.a.b((OPacket) var6);
         }
 
@@ -386,7 +386,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
         super.a(var1, var2, var3);
         if (this.a != null) {
-            this.a.a(this.bm, this.bn, this.bo, this.bs, this.bt);
+            this.a.a(this.bm, this.bn, this.bo, this.bs, this.bt, this.w, this.bi.name);
         }
 
     }
@@ -394,7 +394,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public void b(OEntity var1) {
         super.b(var1);
         this.a.b((OPacket) (new OPacket39AttachEntity(this, this.bh)));
-        this.a.a(this.bm, this.bn, this.bo, this.bs, this.bt);
+        this.a.a(this.bm, this.bn, this.bo, this.bs, this.bt, this.w, this.bi.name);
     }
 
     protected void a(double var1, boolean var3) {}
@@ -671,7 +671,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a_(double var1, double var3, double var5) {
-        this.a.a(var1, var3, var5, this.bs, this.bt);
+        this.a.a(var1, var3, var5, this.bs, this.bt, this.w, this.bi.name);
     }
 
     public void c(OEntity var1) {
