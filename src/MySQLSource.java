@@ -375,7 +375,7 @@ public class MySQLSource extends DataSource {
 
         try {
             conn = etc.getConnection();
-            ps = conn.prepareStatement("INSERT INTO " + table_users + " (name, groups, prefix, commands, admin, canmodifyworld, ignoresrestrictions, ip) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps = conn.prepareStatement("INSERT INTO " + table_users + " (name, groups, prefix, commands, admin, canmodifyworld, ignoresrestrictions, ip) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, player.getName());
             ps.setString(2, etc.combineSplit(0, player.getGroups(), ","));
             ps.setString(3, player.getPrefix());
