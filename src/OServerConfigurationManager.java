@@ -145,7 +145,7 @@ public class OServerConfigurationManager {
     }
 
     public void e(OEntityPlayerMP var1) {
-        this.saveHandlers.get(var1.bi.name).a(var1);
+        this.saveHandlers.get(var1.bi.name).a(var1); //save player
         this.c.getWorld(var1.bi.name, var1.w).e(var1);
         this.b.remove(var1);
         this.getManager(var1.bi.name, var1.w).removePlayer(var1);
@@ -162,14 +162,36 @@ public class OServerConfigurationManager {
         if (!etc.getLoader().isLoaded()) {
             var1.a("The server is not finished loading yet!");
         }
-            
-        // CanaryMod: whole section below is modified to handle whitelists etc
-        OEntityPlayerMP temp = new OEntityPlayerMP(c, c.getWorld(c.m(), 0), var2,
-                new OItemInWorldManager(c.getWorld(c.m(), 0)));
-        Player player = temp.getPlayer();
-        String ip = var1.b.c().toString();
+        
+        String ip = var1.b.c().toString(); //IP, move up!
         ip = ip.substring(ip.indexOf("/") + 1);
         ip = ip.substring(0, ip.lastIndexOf(":"));
+        //CanaryMod: Moved the loginchecks hook up.
+        //Plugins should get priority over system settings anyways, this also allows setting of custom world spawns
+
+        HookParametersLogincheck hook = (HookParametersLogincheck) etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, new Object[] {new HookParametersLogincheck(c.getWorld(c.m(), 0).name, var2, ip)});
+
+        if(hook.getKickReason() != null) {
+            var1.a(hook.getKickReason());
+            return null; //return and spare the rest. 
+        }
+        //CanaryMod before anything happens with a player instance, make sure the world we want is loaded into memory
+        //or else we'll run into crazy NPEs and subsequent "epic failure"
+       World[] worlds = etc.getServer().loadWorld(hook.getWorldName());
+        
+        // CanaryMod: whole section below is modified to handle whitelists and bans etc
+        
+        //There, now we can put the player into the proper world before he joins. Fancy
+        OEntityPlayerMP temp = new OEntityPlayerMP(c, worlds[0].getWorld(), var2,
+                new OItemInWorldManager(worlds[0].getWorld()));
+        
+        //CanaryMod: set the world already.
+        //Usually this is called in ONetLoginhandler.b(OPacketLogin)
+        //However, we lost recollection of the world by then and need to set it here instead!
+        temp.a((OWorld)worlds[0].getWorld());
+        Player player = temp.getPlayer();
+        
+
         
         if (etc.getDataSource().isOnBanList(var2, ip)) {
             Ban ban = etc.getDataSource().getBan(var2, ip);
@@ -224,16 +246,16 @@ public class OServerConfigurationManager {
                 // return new OEntityPlayerMP(this.c, this.c.a(0), var2, new OItemInWorldManager(this.c.a(0)));
             }
         }
-        Object obj = etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, var2, ip);
-
-        if (obj instanceof String) {
-            String result = (String) obj;
-
-            if (result != null && !result.equals("")) {
-                var1.a(result);
-                return null;
-            }
-        }
+//        Object obj = etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, var2, ip);
+//
+//        if (obj instanceof String) {
+//            String result = (String) obj;
+//
+//            if (result != null && !result.equals("")) {
+//                var1.a(result);
+//                return null;
+//            }
+//        }
         return temp;
     }
     

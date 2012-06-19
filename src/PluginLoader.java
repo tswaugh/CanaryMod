@@ -25,7 +25,7 @@ public class PluginLoader {
     public enum Hook {
 
         /**
-         * Calls {@link PluginListener#onLoginChecks(java.lang.String) }
+         * Calls {@link PluginListener#onLoginChecks(HookParametersLogincheck) }
          *///
         LOGINCHECK, //
         /**
@@ -809,11 +809,7 @@ public class PluginLoader {
                     try {
                         switch (h) {
                         case LOGINCHECK:
-                            String result = listener.onLoginChecks((String) parameters[0], (String) parameters[1]);
-
-                            if (result != null) {
-                                toRet = result;
-                            }
+                            toRet = listener.onLoginChecks((HookParametersLogincheck)parameters[0]);
                             break;
 
                         case LOGIN:

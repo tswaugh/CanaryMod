@@ -1036,8 +1036,8 @@ public class Player extends HumanEntity implements MessageReceiver {
             //Change players world reference
             ent.bi = world.getWorld();
             //Add player back to the new world
-            world.addPlayerToWorld(this);
-            world.getEntityTracker().trackPlayer(this);
+//            world.addPlayerToWorld(this);
+//            world.getEntityTracker().trackPlayer(this);
         }
         //Get chunk coordinates...
         OChunkCoordinates var2 = mcServer.getWorld(ent.bi.name, world.getType().getId()).d();

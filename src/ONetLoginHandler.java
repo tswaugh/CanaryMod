@@ -90,13 +90,16 @@ public class ONetLoginHandler extends ONetHandler {
     }
 
     public void b(OPacket1Login var1) {
-        OEntityPlayerMP var2 = this.e.h.a(this, var1.b);
+        OEntityPlayerMP var2 = this.e.h.a(this, var1.b); //create new player instance - this has called a loginchecks hook
 
-        if (var2 != null) {
+        if (var2 != null) { //Is not null, lets go on!
             this.e.h.b(var2);
-            var2.a((OWorld) this.e.getWorld(this.e.m(), var2.w));
+            //The world the player will spawn in is set here.
+            //We had the LoginChecks hook in this.e.h.a(this, var1.b); so we have a specific world
+            //already specified and only get the right dimension here if that's needed.
+            var2.a((OWorld) this.e.getWorld(var2.bi.name, var2.w)); 
             var2.c.a((OWorldServer) var2.bi);
-            a.info(this.b() + " logged in with entity id " + var2.bd + " at (" + var2.bm + ", " + var2.bn + ", " + var2.bo + ")");
+            a.info(this.b() + " logged in with entity id " + var2.bd + " at (" + var2.bm + ", " + var2.bn + ", " + var2.bo + " in world "+var2.bi.name+". Dimension: "+var2.w+")");
             OWorldServer var3 = this.e.getWorld(var2.bi.name, var2.w);
             OChunkCoordinates var4 = var3.p();
 

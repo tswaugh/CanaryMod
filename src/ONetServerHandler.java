@@ -70,7 +70,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
             etc.getServer().getPlayerManager(this.e.bi.world).removePlayer(this.e);
             
             // CanaryMod - onPlayerDisconnect Hook
-            HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.e.v), var1);
+            HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.e.v), var1); //XXX
 
             hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult);
             if (!hookResult.isHidden()) { 
@@ -588,7 +588,7 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         // CanaryMod - onPlayerDisconnect Hook
         HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the server.", this.e.v), var1);
 
-        hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult);
+        hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult); //XXX
         if (!hookResult.isHidden()) { 
             this.d.h.a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
         }
@@ -706,16 +706,13 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
 //        Location respawnLocation = new Location(e.bi.world, defaultSpawnCoords.a, defaultSpawnCoords.b, defaultSpawnCoords.c, 0, 0);
         Location respawnLocation = e.bi.world.getSpawnLocation();
         if (this.e.j) {
-            System.out.println("Player.j is true ...");
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
-            System.out.println("Resetting this player, with argument true");
             this.e = this.d.h.a(this.e, respawnLocation.dimension, true, respawnLocation);
         } else {
             if (this.e.aD() > 0) {
                 return;
             }
             etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, e.getPlayer(), respawnLocation);
-            System.out.println("Resetting this player, with argument false");
             this.e = this.d.h.a(this.e, respawnLocation.dimension, false, respawnLocation);
         }
     }

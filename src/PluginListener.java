@@ -78,10 +78,26 @@ public class PluginListener {
      * @param user
      * @param IP
      * @return kick reason. null if you don't want to kick the player.
+     * @deprecated Use onLoginChecks(HookParametersLogincheck) instead!
      *
      */
+    @Deprecated
     public String onLoginChecks(String user, String IP){
         return onLoginChecks(user);
+    }
+    
+    /**
+     * Called during the early login process to check whether or not to kick the player
+     * and optionally set his world to spawn in (for multiworld plugins!)
+     * @param hook Use setKickReason(String) to specify a kick reason or leave/set it null to not kick the player
+     * @return
+     */
+    public HookParametersLogincheck onLoginChecks(HookParametersLogincheck hook) {
+        String kickReason = onLoginChecks(hook.getPlayerName(), hook.getIp());
+        if(kickReason != null) {
+            hook.setKickReason(kickReason);
+        }
+        return hook;
     }
 
     /**
