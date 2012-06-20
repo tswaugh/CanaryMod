@@ -767,6 +767,7 @@ public class PluginLoader {
 
         case ENCHANT:
         case CHAT:
+        case LOGINCHECK:
             toRet = parameters[0];
             break;
             
