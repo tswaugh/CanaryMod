@@ -242,7 +242,7 @@ public class etc {
                     versionStr = versionParam.substring(5); // and back to a string.
                     tainted = false; // looks official. We hope.
                 } else {
-                    version = Integer.parseInt(versionParam);
+                    version = (int) Double.parseDouble(versionParam);
                     versionStr = Integer.toString(version); // and back to a string.
                     tainted = false; // looks official. We hope.
                 }
