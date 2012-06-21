@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -645,6 +646,28 @@ public class etc {
             builder.append(string[i]);
         }
         return builder.toString();
+    }
+    
+    /**
+     * Splits a string into an array at the given separator, without removing empty ones like .split() does.
+     * @author Jos Kuijpers
+     * @param in The string to split
+     * @param seperator The string to split at
+     * @return an array containing all components
+     */
+    public static String[] realSplit(String in, String seperator) {
+        String[] res = {};
+        ArrayList<String> items = new ArrayList<String>();
+        
+        int pos = 0;
+        int last = 0;
+        while((pos = in.indexOf(seperator, last)) != -1) {
+            items.add(in.substring(last, pos));
+            last = pos+seperator.length();
+        }
+        items.add(in.substring(last));
+        
+        return items.toArray(res);
     }
 
     /**
