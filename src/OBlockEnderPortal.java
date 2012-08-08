@@ -6,8 +6,8 @@ public class OBlockEnderPortal extends OBlockContainer {
 
     public static boolean a = false;
 
-    protected OBlockEnderPortal(int var1, OMaterial var2) {
-        super(var1, 0, var2);
+    protected OBlockEnderPortal(int i, OMaterial omaterial) {
+        super(i, 0, omaterial);
         this.a(1.0F);
     }
 
@@ -15,13 +15,13 @@ public class OBlockEnderPortal extends OBlockContainer {
         return new OTileEntityEndPortal();
     }
 
-    public void a(OIBlockAccess var1, int var2, int var3, int var4) {
-        float var5 = 0.0625F;
+    public void a(OIBlockAccess oiblockaccess, int i, int j, int k) {
+        float f = 0.0625F;
 
-        this.a(0.0F, 0.0F, 0.0F, 1.0F, var5, 1.0F);
+        this.a(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, OAxisAlignedBB var5, ArrayList var6) {}
+    public void a(OWorld oworld, int i, int j, int k, OAxisAlignedBB oaxisalignedbb, ArrayList arraylist) {}
 
     public boolean a() {
         return false;
@@ -31,27 +31,27 @@ public class OBlockEnderPortal extends OBlockContainer {
         return false;
     }
 
-    public int a(Random var1) {
+    public int a(Random random) {
         return 0;
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, OEntity var5) {
-    	if (var5.bh == null && var5.bg == null && var5 instanceof OEntityPlayer && !var1.F) {
-    		// CanaryMod: Check if end is enabled
-    		if (etc.getInstance().isEndEnabled()) {
-    			((OEntityPlayer) var5).e(1);
-    		}
-    	}
+    public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
+        if (oentity.bh == null && oentity.bg == null && oentity instanceof OEntityPlayer && !oworld.F) {
+            // CanaryMod: Check if end is enabled
+            if (etc.getInstance().isEndEnabled()) {
+                ((OEntityPlayer) oentity).e(1);
+            }
+        }
     }
 
     public int c() {
         return -1;
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4) {
-    	if (!a) {
-    		if (var1.t.g != 0) {
-    			var1.e(var2, var3, var4, 0);
+    public void a(OWorld oworld, int i, int j, int k) {
+        if (!a) {
+            if (oworld.t.g != 0) {
+                oworld.e(i, j, k, 0);
             }
         }
     }

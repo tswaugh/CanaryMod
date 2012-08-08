@@ -1,5 +1,6 @@
 import java.util.List;
 
+
 public class OEntityPigZombie extends OEntityZombie {
 
     private int a = 0;
@@ -21,7 +22,7 @@ public class OEntityPigZombie extends OEntityZombie {
     public void F_() {
         this.bb = this.d != null ? 0.95F : 0.5F;
         if (this.b > 0 && --this.b == 0) {
-            this.bi.a(this, "mob.zombiepig.zpigangry", this.p() * 2.0F, ( (this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+            this.bi.a(this, "mob.zombiepig.zpigangry", this.p() * 2.0F, ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
         super.F_();
@@ -51,6 +52,7 @@ public class OEntityPigZombie extends OEntityZombie {
 
     public boolean a(ODamageSource var1, int var2) {
         OEntity var3 = var1.a();
+
         if (var3 instanceof OEntityPlayer) {
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), this.entity)) { // CanaryMod: MOB_TARGET
 
@@ -58,8 +60,10 @@ public class OEntityPigZombie extends OEntityZombie {
 
                 for (int var5 = 0; var5 < var4.size(); ++var5) {
                     OEntity var6 = (OEntity) var4.get(var5);
+
                     if (var6 instanceof OEntityPigZombie) {
                         OEntityPigZombie var7 = (OEntityPigZombie) var6;
+
                         var7.e(var3);
                     }
                 }
@@ -93,6 +97,7 @@ public class OEntityPigZombie extends OEntityZombie {
         int var3 = this.bS.nextInt(2 + var2);
 
         int var4;
+
         for (var4 = 0; var4 < var3; ++var4) {
             this.b(OItem.bl.bP, 1);
         }
@@ -108,10 +113,12 @@ public class OEntityPigZombie extends OEntityZombie {
     protected void b(int var1) {
         if (var1 > 0) {
             OItemStack var2 = new OItemStack(OItem.F);
+
             OEnchantmentHelper.a(this.bS, var2, 5);
             this.a(var2, 0.0F);
         } else {
             int var3 = this.bS.nextInt(3);
+
             if (var3 == 0) {
                 this.b(OItem.o.bP, 1);
             } else if (var3 == 1) {

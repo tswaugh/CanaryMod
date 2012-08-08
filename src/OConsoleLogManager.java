@@ -15,21 +15,21 @@ public class OConsoleLogManager {
     }
 
     public static void a() {
-        OConsoleLogFormatter var0 = new OConsoleLogFormatter();
+        OConsoleLogFormatter oconsolelogformatter = new OConsoleLogFormatter();
 
         a.setUseParentHandlers(false);
-        ConsoleHandler var1 = new ConsoleHandler();
+        ConsoleHandler consolehandler = new ConsoleHandler();
 
-        var1.setFormatter(var0);
-        a.addHandler(var1);
+        consolehandler.setFormatter(oconsolelogformatter);
+        a.addHandler(consolehandler);
 
         try {
-            FileHandler var2 = new FileHandler("server.log", true);
+            FileHandler filehandler = new FileHandler("server.log", true);
 
-            var2.setFormatter(var0);
-            a.addHandler(var2);
-        } catch (Exception var3) {
-            a.log(Level.WARNING, "Failed to log to server.log", var3);
+            filehandler.setFormatter(oconsolelogformatter);
+            a.addHandler(filehandler);
+        } catch (Exception exception) {
+            a.log(Level.WARNING, "Failed to log to server.log", exception);
         }
 
         // CanaryMod: Keep the serveroutput logs.
@@ -41,10 +41,10 @@ public class OConsoleLogManager {
             }
             FileHandler localFileHandler = new FileHandler("logs/server_" + ((int) (System.currentTimeMillis() / 1000L)) + ".log");
 
-            localFileHandler.setFormatter(var0);
+            localFileHandler.setFormatter(oconsolelogformatter);
             a.addHandler(localFileHandler);
-        } catch (Exception localException) {
-            a.log(Level.WARNING, "Failed to log to server log", localException);
+        } catch (Exception exception1) {
+            a.log(Level.WARNING, "Failed to log to server log", exception1);
         }
 
     }

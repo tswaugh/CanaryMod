@@ -3,83 +3,83 @@ import java.util.List;
 
 public class OItemBoat extends OItem {
 
-    public OItemBoat(int var1) {
-        super(var1);
+    public OItemBoat(int i) {
+        super(i);
         this.bQ = 1;
     }
 
-    public OItemStack a(OItemStack var1, OWorld var2, OEntityPlayer var3) {
-        float var4 = 1.0F;
-        float var5 = var3.bv + (var3.bt - var3.bv) * var4;
-        float var6 = var3.bu + (var3.bs - var3.bu) * var4;
-        double var7 = var3.bj + (var3.bm - var3.bj) * (double) var4;
-        double var9 = var3.bk + (var3.bn - var3.bk) * (double) var4 + 1.62D - (double) var3.bF;
-        double var11 = var3.bl + (var3.bo - var3.bl) * (double) var4;
-        OVec3D var13 = OVec3D.b(var7, var9, var11);
-        float var14 = OMathHelper.b(-var6 * 0.017453292F - 3.1415927F);
-        float var15 = OMathHelper.a(-var6 * 0.017453292F - 3.1415927F);
-        float var16 = -OMathHelper.b(-var5 * 0.017453292F);
-        float var17 = OMathHelper.a(-var5 * 0.017453292F);
-        float var18 = var15 * var16;
-        float var20 = var14 * var16;
-        double var21 = 5.0D;
-        OVec3D var23 = var13.c((double) var18 * var21, (double) var17 * var21, (double) var20 * var21);
-        OMovingObjectPosition var24 = var2.a(var13, var23, true);
+    public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
+        float f = 1.0F;
+        float f1 = oentityplayer.bv + (oentityplayer.bt - oentityplayer.bv) * f;
+        float f2 = oentityplayer.bu + (oentityplayer.bs - oentityplayer.bu) * f;
+        double d0 = oentityplayer.bj + (oentityplayer.bm - oentityplayer.bj) * (double) f;
+        double d1 = oentityplayer.bk + (oentityplayer.bn - oentityplayer.bk) * (double) f + 1.62D - (double) oentityplayer.bF;
+        double d2 = oentityplayer.bl + (oentityplayer.bo - oentityplayer.bl) * (double) f;
+        OVec3D ovec3d = OVec3D.b(d0, d1, d2);
+        float f3 = OMathHelper.b(-f2 * 0.017453292F - 3.1415927F);
+        float f4 = OMathHelper.a(-f2 * 0.017453292F - 3.1415927F);
+        float f5 = -OMathHelper.b(-f1 * 0.017453292F);
+        float f6 = OMathHelper.a(-f1 * 0.017453292F);
+        float f7 = f4 * f5;
+        float f8 = f3 * f5;
+        double d3 = 5.0D;
+        OVec3D ovec3d1 = ovec3d.c((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
+        OMovingObjectPosition omovingobjectposition = oworld.a(ovec3d, ovec3d1, true);
 
-        if (var24 == null) {
-            return var1;
+        if (omovingobjectposition == null) {
+            return oitemstack;
         } else {
-            OVec3D var25 = var3.f(var4);
-            boolean var26 = false;
-            float var27 = 1.0F;
-            List var28 = var2.b((OEntity) var3, var3.bw.a(var25.a * var21, var25.b * var21, var25.c * var21).b((double) var27, (double) var27, (double) var27));
+            OVec3D ovec3d2 = oentityplayer.f(f);
+            boolean flag = false;
+            float f9 = 1.0F;
+            List list = oworld.b((OEntity) oentityplayer, oentityplayer.bw.a(ovec3d2.a * d3, ovec3d2.b * d3, ovec3d2.c * d3).b((double) f9, (double) f9, (double) f9));
 
-            for (int var29 = 0; var29 < var28.size(); ++var29) {
-                OEntity var30 = (OEntity) var28.get(var29);
+            for (int i = 0; i < list.size(); ++i) {
+                OEntity oentity = (OEntity) list.get(i);
 
-                if (var30.o_()) {
-                    float var31 = var30.j_();
-                    OAxisAlignedBB var32 = var30.bw.b((double) var31, (double) var31, (double) var31);
+                if (oentity.o_()) {
+                    float f10 = oentity.j_();
+                    OAxisAlignedBB oaxisalignedbb = oentity.bw.b((double) f10, (double) f10, (double) f10);
 
-                    if (var32.a(var13)) {
-                        var26 = true;
+                    if (oaxisalignedbb.a(ovec3d)) {
+                        flag = true;
                     }
                 }
             }
 
-            if (var26) {
-                return var1;
+            if (flag) {
+                return oitemstack;
             } else {
-                if (var24.a == OEnumMovingObjectType.a) {
-                    int var33 = var24.b;
-                    int var34 = var24.c;
-                    int var35 = var24.d;
+                if (omovingobjectposition.a == OEnumMovingObjectType.a) {
+                    int j = omovingobjectposition.b;
+                    int k = omovingobjectposition.c;
+                    int l = omovingobjectposition.d;
 
-                    if (!var2.F) {
-                        if (var2.a(var33, var34, var35) == OBlock.aS.bO) {
-                            --var34;
+                    if (!oworld.F) {
+                        if (oworld.a(j, k, l) == OBlock.aS.bO) {
+                            --k;
                         }
                         
                         // CanaryMod: placing of a boat
-                        Block blockClicked = new Block(var2.world, var2.a(var33, var34, var35), var33, var34, var35);
+                        Block blockClicked = new Block(oworld.world, oworld.a(j, k, l), j, k, l);
 
-                        blockClicked.setFaceClicked(Block.Face.fromId(var24.e));
-                        Block blockPlaced = new Block(var2.world, 0, var33, var34, var35);
+                        blockClicked.setFaceClicked(Block.Face.fromId(omovingobjectposition.e));
+                        Block blockPlaced = new Block(oworld.world, 0, j, k, l);
 
                         // CanaryMod: Call hook
-                        if (var3 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var3).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
-                            return var1;
+                        if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
+                            return oitemstack;
                         }
 
-                        var2.b((OEntity) (new OEntityBoat(var2, (double) ((float) var33 + 0.5F), (double) ((float) var34 + 1.0F), (double) ((float) var35 + 0.5F))));
+                        oworld.b((OEntity) (new OEntityBoat(oworld, (double) ((float) j + 0.5F), (double) ((float) k + 1.0F), (double) ((float) l + 0.5F))));
                     }
 
-                    if (!var3.L.d) {
-                        --var1.a;
+                    if (!oentityplayer.L.d) {
+                        --oitemstack.a;
                     }
                 }
 
-                return var1;
+                return oitemstack;
             }
         }
     }

@@ -22,26 +22,26 @@ public class ORegionFile {
     private int g;
     private long h = 0L;
 
-    public ORegionFile(File var1) {
+    public ORegionFile(File file1) {
         super();
-        this.b = var1;
+        this.b = file1;
         this.b("REGION LOAD " + this.b);
         this.g = 0;
 
         try {
-            if (var1.exists()) {
-                this.h = var1.lastModified();
+            if (file1.exists()) {
+                this.h = file1.lastModified();
             }
 
-            this.c = new RandomAccessFile(var1, "rw");
-            int var2;
+            this.c = new RandomAccessFile(file1, "rw");
+            int i;
 
             if (this.c.length() < 4096L) {
-                for (var2 = 0; var2 < 1024; ++var2) {
+                for (i = 0; i < 1024; ++i) {
                     this.c.writeInt(0);
                 }
 
-                for (var2 = 0; var2 < 1024; ++var2) {
+                for (i = 0; i < 1024; ++i) {
                     this.c.writeInt(0);
                 }
 
@@ -49,17 +49,17 @@ public class ORegionFile {
             }
 
             if ((this.c.length() & 4095L) != 0L) {
-                for (var2 = 0; (long) var2 < (this.c.length() & 4095L); ++var2) {
+                for (i = 0; (long) i < (this.c.length() & 4095L); ++i) {
                     this.c.write(0);
                 }
             }
 
-            var2 = (int) this.c.length() / 4096;
-            this.f = new ArrayList(var2);
+            i = (int) this.c.length() / 4096;
+            this.f = new ArrayList(i);
 
-            int var3;
+            int j;
 
-            for (var3 = 0; var3 < var2; ++var3) {
+            for (j = 0; j < i; ++j) {
                 this.f.add(Boolean.valueOf(true));
             }
 
@@ -67,213 +67,213 @@ public class ORegionFile {
             this.f.set(1, Boolean.valueOf(false));
             this.c.seek(0L);
 
-            int var4;
+            int k;
 
-            for (var3 = 0; var3 < 1024; ++var3) {
-                var4 = this.c.readInt();
-                this.d[var3] = var4;
-                if (var4 != 0 && (var4 >> 8) + (var4 & 255) <= this.f.size()) {
-                    for (int var5 = 0; var5 < (var4 & 255); ++var5) {
-                        this.f.set((var4 >> 8) + var5, Boolean.valueOf(false));
+            for (j = 0; j < 1024; ++j) {
+                k = this.c.readInt();
+                this.d[j] = k;
+                if (k != 0 && (k >> 8) + (k & 255) <= this.f.size()) {
+                    for (int l = 0; l < (k & 255); ++l) {
+                        this.f.set((k >> 8) + l, Boolean.valueOf(false));
                     }
                 }
             }
 
-            for (var3 = 0; var3 < 1024; ++var3) {
-                var4 = this.c.readInt();
-                this.e[var3] = var4;
+            for (j = 0; j < 1024; ++j) {
+                k = this.c.readInt();
+                this.e[j] = k;
             }
-        } catch (IOException var6) {
-            var6.printStackTrace();
+        } catch (IOException ioexception) {
+            ioexception.printStackTrace();
         }
 
     }
 
-    private void a(String var1) {}
+    private void a(String s) {}
 
-    private void b(String var1) {
-        this.a(var1 + "\n");
+    private void b(String s) {
+        this.a(s + "\n");
     }
 
-    private void a(String var1, int var2, int var3, String var4) {
-        this.a("REGION " + var1 + " " + this.b.getName() + "[" + var2 + "," + var3 + "] = " + var4);
+    private void a(String s, int i, int j, String s1) {
+        this.a("REGION " + s + " " + this.b.getName() + "[" + i + "," + j + "] = " + s1);
     }
 
-    private void a(String var1, int var2, int var3, int var4, String var5) {
-        this.a("REGION " + var1 + " " + this.b.getName() + "[" + var2 + "," + var3 + "] " + var4 + "B = " + var5);
+    private void a(String s, int i, int j, int k, String s1) {
+        this.a("REGION " + s + " " + this.b.getName() + "[" + i + "," + j + "] " + k + "B = " + s1);
     }
 
-    private void b(String var1, int var2, int var3, String var4) {
-        this.a(var1, var2, var3, var4 + "\n");
+    private void b(String s, int i, int j, String s1) {
+        this.a(s, i, j, s1 + "\n");
     }
 
-    public synchronized DataInputStream a(int var1, int var2) {
-        if (this.d(var1, var2)) {
-            this.b("READ", var1, var2, "out of bounds");
+    public synchronized DataInputStream a(int i, int j) {
+        if (this.d(i, j)) {
+            this.b("READ", i, j, "out of bounds");
             return null;
         } else {
             try {
-                int var3 = this.e(var1, var2);
+                int k = this.e(i, j);
 
-                if (var3 == 0) {
+                if (k == 0) {
                     return null;
                 } else {
-                    int var4 = var3 >> 8;
-                    int var5 = var3 & 255;
+                    int l = k >> 8;
+                    int i1 = k & 255;
 
-                    if (var4 + var5 > this.f.size()) {
-                        this.b("READ", var1, var2, "invalid sector");
+                    if (l + i1 > this.f.size()) {
+                        this.b("READ", i, j, "invalid sector");
                         return null;
                     } else {
-                        this.c.seek((long) (var4 * 4096));
-                        int var6 = this.c.readInt();
+                        this.c.seek((long) (l * 4096));
+                        int j1 = this.c.readInt();
 
-                        if (var6 > 4096 * var5) {
-                            this.b("READ", var1, var2, "invalid length: " + var6 + " > 4096 * " + var5);
+                        if (j1 > 4096 * i1) {
+                            this.b("READ", i, j, "invalid length: " + j1 + " > 4096 * " + i1);
                             return null;
-                        } else if (var6 <= 0) {
-                            this.b("READ", var1, var2, "invalid length: " + var6 + " < 1");
+                        } else if (j1 <= 0) {
+                            this.b("READ", i, j, "invalid length: " + j1 + " < 1");
                             return null;
                         } else {
-                            byte var7 = this.c.readByte();
-                            byte[] var8;
-                            DataInputStream var9;
+                            byte b0 = this.c.readByte();
+                            byte[] abyte;
+                            DataInputStream datainputstream;
 
-                            if (var7 == 1) {
-                                var8 = new byte[var6 - 1];
-                                this.c.read(var8);
-                                var9 = new DataInputStream(new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(var8))));
-                                return var9;
-                            } else if (var7 == 2) {
-                                var8 = new byte[var6 - 1];
-                                this.c.read(var8);
-                                var9 = new DataInputStream(new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(var8))));
-                                return var9;
+                            if (b0 == 1) {
+                                abyte = new byte[j1 - 1];
+                                this.c.read(abyte);
+                                datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(abyte))));
+                                return datainputstream;
+                            } else if (b0 == 2) {
+                                abyte = new byte[j1 - 1];
+                                this.c.read(abyte);
+                                datainputstream = new DataInputStream(new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(abyte))));
+                                return datainputstream;
                             } else {
-                                this.b("READ", var1, var2, "unknown version " + var7);
+                                this.b("READ", i, j, "unknown version " + b0);
                                 return null;
                             }
                         }
                     }
                 }
-            } catch (IOException var10) {
-                this.b("READ", var1, var2, "exception");
+            } catch (IOException ioexception) {
+                this.b("READ", i, j, "exception");
                 return null;
             }
         }
     }
 
-    public DataOutputStream b(int var1, int var2) {
-        return this.d(var1, var2) ? null : new DataOutputStream(new DeflaterOutputStream(new ORegionFileChunkBuffer(this, var1, var2)));
+    public DataOutputStream b(int i, int j) {
+        return this.d(i, j) ? null : new DataOutputStream(new DeflaterOutputStream(new ORegionFileChunkBuffer(this, i, j)));
     }
 
-    protected synchronized void a(int var1, int var2, byte[] var3, int var4) {
+    protected synchronized void a(int i, int j, byte[] abyte, int k) {
         try {
-            int var5 = this.e(var1, var2);
-            int var6 = var5 >> 8;
-            int var7 = var5 & 255;
-            int var8 = (var4 + 5) / 4096 + 1;
+            int l = this.e(i, j);
+            int i1 = l >> 8;
+            int j1 = l & 255;
+            int k1 = (k + 5) / 4096 + 1;
 
-            if (var8 >= 256) {
+            if (k1 >= 256) {
                 return;
             }
 
-            if (var6 != 0 && var7 == var8) {
-                this.a("SAVE", var1, var2, var4, "rewrite");
-                this.a(var6, var3, var4);
+            if (i1 != 0 && j1 == k1) {
+                this.a("SAVE", i, j, k, "rewrite");
+                this.a(i1, abyte, k);
             } else {
-                int var9;
+                int l1;
 
-                for (var9 = 0; var9 < var7; ++var9) {
-                    this.f.set(var6 + var9, Boolean.valueOf(true));
+                for (l1 = 0; l1 < j1; ++l1) {
+                    this.f.set(i1 + l1, Boolean.valueOf(true));
                 }
 
-                var9 = this.f.indexOf(Boolean.valueOf(true));
-                int var10 = 0;
-                int var11;
+                l1 = this.f.indexOf(Boolean.valueOf(true));
+                int i2 = 0;
+                int j2;
 
-                if (var9 != -1) {
-                    for (var11 = var9; var11 < this.f.size(); ++var11) {
-                        if (var10 != 0) {
-                            if (((Boolean) this.f.get(var11)).booleanValue()) {
-                                ++var10;
+                if (l1 != -1) {
+                    for (j2 = l1; j2 < this.f.size(); ++j2) {
+                        if (i2 != 0) {
+                            if (((Boolean) this.f.get(j2)).booleanValue()) {
+                                ++i2;
                             } else {
-                                var10 = 0;
+                                i2 = 0;
                             }
-                        } else if (((Boolean) this.f.get(var11)).booleanValue()) {
-                            var9 = var11;
-                            var10 = 1;
+                        } else if (((Boolean) this.f.get(j2)).booleanValue()) {
+                            l1 = j2;
+                            i2 = 1;
                         }
 
-                        if (var10 >= var8) {
+                        if (i2 >= k1) {
                             break;
                         }
                     }
                 }
 
-                if (var10 >= var8) {
-                    this.a("SAVE", var1, var2, var4, "reuse");
-                    var6 = var9;
-                    this.a(var1, var2, var9 << 8 | var8);
+                if (i2 >= k1) {
+                    this.a("SAVE", i, j, k, "reuse");
+                    i1 = l1;
+                    this.a(i, j, l1 << 8 | k1);
 
-                    for (var11 = 0; var11 < var8; ++var11) {
-                        this.f.set(var6 + var11, Boolean.valueOf(false));
+                    for (j2 = 0; j2 < k1; ++j2) {
+                        this.f.set(i1 + j2, Boolean.valueOf(false));
                     }
 
-                    this.a(var6, var3, var4);
+                    this.a(i1, abyte, k);
                 } else {
-                    this.a("SAVE", var1, var2, var4, "grow");
+                    this.a("SAVE", i, j, k, "grow");
                     this.c.seek(this.c.length());
-                    var6 = this.f.size();
+                    i1 = this.f.size();
 
-                    for (var11 = 0; var11 < var8; ++var11) {
+                    for (j2 = 0; j2 < k1; ++j2) {
                         this.c.write(a);
                         this.f.add(Boolean.valueOf(false));
                     }
 
-                    this.g += 4096 * var8;
-                    this.a(var6, var3, var4);
-                    this.a(var1, var2, var6 << 8 | var8);
+                    this.g += 4096 * k1;
+                    this.a(i1, abyte, k);
+                    this.a(i, j, i1 << 8 | k1);
                 }
             }
 
-            this.b(var1, var2, (int) (System.currentTimeMillis() / 1000L));
-        } catch (IOException var12) {
-            var12.printStackTrace();
+            this.b(i, j, (int) (System.currentTimeMillis() / 1000L));
+        } catch (IOException ioexception) {
+            ioexception.printStackTrace();
         }
 
     }
 
-    private void a(int var1, byte[] var2, int var3) throws IOException {
-        this.b(" " + var1);
-        this.c.seek((long) (var1 * 4096));
-        this.c.writeInt(var3 + 1);
+    private void a(int i, byte[] abyte, int j) throws IOException {
+        this.b(" " + i);
+        this.c.seek((long) (i * 4096));
+        this.c.writeInt(j + 1);
         this.c.writeByte(2);
-        this.c.write(var2, 0, var3);
+        this.c.write(abyte, 0, j);
     }
 
-    private boolean d(int var1, int var2) {
-        return var1 < 0 || var1 >= 32 || var2 < 0 || var2 >= 32;
+    private boolean d(int i, int j) {
+        return i < 0 || i >= 32 || j < 0 || j >= 32;
     }
 
-    private int e(int var1, int var2) {
-        return this.d[var1 + var2 * 32];
+    private int e(int i, int j) {
+        return this.d[i + j * 32];
     }
 
-    public boolean c(int var1, int var2) {
-        return this.e(var1, var2) != 0;
+    public boolean c(int i, int j) {
+        return this.e(i, j) != 0;
     }
 
-    private void a(int var1, int var2, int var3) throws IOException {
-        this.d[var1 + var2 * 32] = var3;
-        this.c.seek((long) ((var1 + var2 * 32) * 4));
-        this.c.writeInt(var3);
+    private void a(int i, int j, int k) throws IOException {
+        this.d[i + j * 32] = k;
+        this.c.seek((long) ((i + j * 32) * 4));
+        this.c.writeInt(k);
     }
 
-    private void b(int var1, int var2, int var3) throws IOException {
-        this.e[var1 + var2 * 32] = var3;
-        this.c.seek((long) (4096 + (var1 + var2 * 32) * 4));
-        this.c.writeInt(var3);
+    private void b(int i, int j, int k) throws IOException {
+        this.e[i + j * 32] = k;
+        this.c.seek((long) (4096 + (i + j * 32) * 4));
+        this.c.writeInt(k);
     }
 
     public void a() throws IOException {

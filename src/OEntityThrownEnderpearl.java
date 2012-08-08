@@ -1,34 +1,35 @@
 
 public class OEntityThrownEnderpearl extends OEntityThrowable {
 
-    public OEntityThrownEnderpearl(OWorld var1) {
-        super(var1);
+    public OEntityThrownEnderpearl(OWorld oworld) {
+        super(oworld);
     }
 
-    public OEntityThrownEnderpearl(OWorld var1, OEntityLiving var2) {
-        super(var1, var2);
+    public OEntityThrownEnderpearl(OWorld oworld, OEntityLiving oentityliving) {
+        super(oworld, oentityliving);
     }
 
-    public OEntityThrownEnderpearl(OWorld var1, double var2, double var4, double var6) {
-        super(var1, var2, var4, var6);
+    public OEntityThrownEnderpearl(OWorld oworld, double d0, double d1, double d2) {
+        super(oworld, d0, d1, d2);
     }
 
-    protected void a(OMovingObjectPosition var1) {
-        if (var1.g != null && var1.g.a(ODamageSource.a((OEntity) this, this.c), 0)) {
+    protected void a(OMovingObjectPosition omovingobjectposition) {
+        if (omovingobjectposition.g != null && omovingobjectposition.g.a(ODamageSource.a((OEntity) this, this.c), 0)) {
             ;
         }
-        //CanaryMod start - Fix enderpwarl dupe bug
+        // CanaryMod start - Fix enderpwarl dupe bug
         Player p = null;
-        if(this.c instanceof OEntityPlayerMP) {
+
+        if (this.c instanceof OEntityPlayerMP) {
             p = new Player((OEntityPlayerMP) this.c);
         }
-        if((p != null) && !( etc.getServer().getPlayerList().contains(p) ) ){
-            this.X(); //kill this entity
+        if ((p != null) && !(etc.getServer().getPlayerList().contains(p))) {
+            this.X(); // kill this entity
             return;
         }
-        //CanaryMod end
+        // CanaryMod end
         
-        for (int var2 = 0; var2 < 32; ++var2) {
+        for (int i = 0; i < 32; ++i) {
             this.bi.a("portal", this.bm, this.bn + this.bS.nextDouble() * 2.0D, this.bo, this.bS.nextGaussian(), 0.0D, this.bS.nextGaussian());
         }
 

@@ -1,8 +1,8 @@
 
 public class OEntitySpider extends OEntityMob {
 
-    public OEntitySpider(OWorld var1) {
-        super(var1);
+    public OEntitySpider(OWorld oworld) {
+        super(oworld);
         this.ae = "/mob/spider.png";
         this.b(1.4F, 0.9F);
         this.bb = 0.8F;
@@ -38,13 +38,13 @@ public class OEntitySpider extends OEntityMob {
     }
 
     protected OEntity o() {
-        float var1 = this.b(1.0F);
+        float f = this.b(1.0F);
 
-        double var2 = 16.0D;
-        OEntityPlayer var3 = this.bi.b(this, var2);
+        double d0 = 16.0D;
+        OEntityPlayer oentityplayer = this.bi.b(this, d0);
 
-        if (var1 < 0.5F && var3 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), entity)) {
-            return var3;
+        if (f < 0.5F && oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), entity)) {
+            return oentityplayer;
         } else {
             return null;
         }
@@ -62,44 +62,44 @@ public class OEntitySpider extends OEntityMob {
         return "mob.spiderdeath";
     }
 
-    protected void a(OEntity var1, float var2) {
-        float var3 = this.b(1.0F);
+    protected void a(OEntity oentity, float f) {
+        float f1 = this.b(1.0F);
 
-        if (var3 > 0.5F && this.bS.nextInt(100) == 0) {
+        if (f1 > 0.5F && this.bS.nextInt(100) == 0) {
             this.d = null;
         } else {
-            if (var2 > 2.0F && var2 < 6.0F && this.bS.nextInt(10) == 0) {
+            if (f > 2.0F && f < 6.0F && this.bS.nextInt(10) == 0) {
                 if (this.bx) {
-                    double var4 = var1.bm - this.bm;
-                    double var6 = var1.bo - this.bo;
-                    float var8 = OMathHelper.a(var4 * var4 + var6 * var6);
+                    double d0 = oentity.bm - this.bm;
+                    double d1 = oentity.bo - this.bo;
+                    float f2 = OMathHelper.a(d0 * d0 + d1 * d1);
 
-                    this.bp = var4 / (double) var8 * 0.5D * 0.800000011920929D + this.bp * 0.20000000298023224D;
-                    this.br = var6 / (double) var8 * 0.5D * 0.800000011920929D + this.br * 0.20000000298023224D;
+                    this.bp = d0 / (double) f2 * 0.5D * 0.800000011920929D + this.bp * 0.20000000298023224D;
+                    this.br = d1 / (double) f2 * 0.5D * 0.800000011920929D + this.br * 0.20000000298023224D;
                     this.bq = 0.4000000059604645D;
                 }
             } else {
-                super.a(var1, var2);
+                super.a(oentity, f);
             }
 
         }
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
     }
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
     }
 
     protected int f() {
         return OItem.J.bP;
     }
 
-    protected void a(boolean var1, int var2) {
-        super.a(var1, var2);
-        if (var1 && (this.bS.nextInt(3) == 0 || this.bS.nextInt(1 + var2) > 0)) {
+    protected void a(boolean flag, int i) {
+        super.a(flag, i);
+        if (flag && (this.bS.nextInt(3) == 0 || this.bS.nextInt(1 + i) > 0)) {
             this.b(OItem.bt.bP, 1);
         }
 
@@ -115,23 +115,23 @@ public class OEntitySpider extends OEntityMob {
         return OEnumCreatureAttribute.c;
     }
 
-    public boolean a(OPotionEffect var1) {
-        return var1.a() == OPotion.u.H ? false : super.a(var1);
+    public boolean a(OPotionEffect opotioneffect) {
+        return opotioneffect.a() == OPotion.u.H ? false : super.a(opotioneffect);
     }
 
     public boolean w() {
         return (this.bY.a(16) & 1) != 0;
     }
 
-    public void a(boolean var1) {
-        byte var2 = this.bY.a(16);
+    public void a(boolean flag) {
+        byte b0 = this.bY.a(16);
 
-        if (var1) {
-            var2 = (byte) (var2 | 1);
+        if (flag) {
+            b0 = (byte) (b0 | 1);
         } else {
-            var2 &= -2;
+            b0 &= -2;
         }
 
-        this.bY.b(16, Byte.valueOf(var2));
+        this.bY.b(16, Byte.valueOf(b0));
     }
 }

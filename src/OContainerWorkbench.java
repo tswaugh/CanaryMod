@@ -8,38 +8,38 @@ public class OContainerWorkbench extends OContainer {
     private int i;
     private int j;
 
-    public OContainerWorkbench(OInventoryPlayer var1, OWorld var2, int var3, int var4, int var5) {
+    public OContainerWorkbench(OInventoryPlayer oinventoryplayer, OWorld oworld, int i, int j, int k) {
         super();
-        this.c = var2;
-        this.h = var3;
-        this.i = var4;
-        this.j = var5;
-        this.a((OSlot) (new OSlotCrafting(var1.d, this.a, this.b, 0, 124, 35)));
+        this.c = oworld;
+        this.h = i;
+        this.i = j;
+        this.j = k;
+        this.a((OSlot) (new OSlotCrafting(oinventoryplayer.d, this.a, this.b, 0, 124, 35)));
 
-        int var6;
-        int var7;
+        int l;
+        int i1;
 
-        for (var6 = 0; var6 < 3; ++var6) {
-            for (var7 = 0; var7 < 3; ++var7) {
-                this.a(new OSlot(this.a, var7 + var6 * 3, 30 + var7 * 18, 17 + var6 * 18));
+        for (l = 0; l < 3; ++l) {
+            for (i1 = 0; i1 < 3; ++i1) {
+                this.a(new OSlot(this.a, i1 + l * 3, 30 + i1 * 18, 17 + l * 18));
             }
         }
 
-        for (var6 = 0; var6 < 3; ++var6) {
-            for (var7 = 0; var7 < 9; ++var7) {
-                this.a(new OSlot(var1, var7 + var6 * 9 + 9, 8 + var7 * 18, 84 + var6 * 18));
+        for (l = 0; l < 3; ++l) {
+            for (i1 = 0; i1 < 9; ++i1) {
+                this.a(new OSlot(oinventoryplayer, i1 + l * 9 + 9, 8 + i1 * 18, 84 + l * 18));
             }
         }
 
-        for (var6 = 0; var6 < 9; ++var6) {
-            this.a(new OSlot(var1, var6, 8 + var6 * 18, 142));
+        for (l = 0; l < 9; ++l) {
+            this.a(new OSlot(oinventoryplayer, l, 8 + l * 18, 142));
         }
 
         this.a((OIInventory) this.a);
     }
 
     // Canarymod - send custom recipes result to client
-    public void a(OIInventory var1) {
+    public void a(OIInventory oiinventory) {
         OItemStack craftresult = OCraftingManager.a().a(this.a);
 
         this.b.a(0, craftresult);
@@ -51,63 +51,63 @@ public class OContainerWorkbench extends OContainer {
         player.a.b(new OPacket103SetSlot(this.f, 0, craftresult));
     }
 
-    public void a(OEntityPlayer var1) {
-        super.a(var1);
+    public void a(OEntityPlayer oentityplayer) {
+        super.a(oentityplayer);
         if (!this.c.F) {
-            for (int var2 = 0; var2 < 9; ++var2) {
-                OItemStack var3 = this.a.b(var2);
+            for (int i = 0; i < 9; ++i) {
+                OItemStack oitemstack = this.a.b(i);
 
-                if (var3 != null) {
-                    var1.b(var3);
+                if (oitemstack != null) {
+                    oentityplayer.b(oitemstack);
                 }
             }
 
         }
     }
 
-    public boolean b(OEntityPlayer var1) {
-        return this.c.a(this.h, this.i, this.j) != OBlock.ay.bO ? false : var1.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
+    public boolean b(OEntityPlayer oentityplayer) {
+        return this.c.a(this.h, this.i, this.j) != OBlock.ay.bO ? false : oentityplayer.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 
-    public OItemStack a(int var1) {
-        OItemStack var2 = null;
-        OSlot var3 = (OSlot) this.e.get(var1);
+    public OItemStack a(int i) {
+        OItemStack oitemstack = null;
+        OSlot oslot = (OSlot) this.e.get(i);
 
-        if (var3 != null && var3.c()) {
-            OItemStack var4 = var3.b();
+        if (oslot != null && oslot.c()) {
+            OItemStack oitemstack1 = oslot.b();
 
-            var2 = var4.j();
-            if (var1 == 0) {
-                if (!this.a(var4, 10, 46, true)) {
+            oitemstack = oitemstack1.j();
+            if (i == 0) {
+                if (!this.a(oitemstack1, 10, 46, true)) {
                     return null;
                 }
 
-                var3.a(var4, var2);
-            } else if (var1 >= 10 && var1 < 37) {
-                if (!this.a(var4, 37, 46, false)) {
+                oslot.a(oitemstack1, oitemstack);
+            } else if (i >= 10 && i < 37) {
+                if (!this.a(oitemstack1, 37, 46, false)) {
                     return null;
                 }
-            } else if (var1 >= 37 && var1 < 46) {
-                if (!this.a(var4, 10, 37, false)) {
+            } else if (i >= 37 && i < 46) {
+                if (!this.a(oitemstack1, 10, 37, false)) {
                     return null;
                 }
-            } else if (!this.a(var4, 10, 46, false)) {
+            } else if (!this.a(oitemstack1, 10, 46, false)) {
                 return null;
             }
 
-            if (var4.a == 0) {
-                var3.d((OItemStack) null);
+            if (oitemstack1.a == 0) {
+                oslot.d((OItemStack) null);
             } else {
-                var3.d();
+                oslot.d();
             }
 
-            if (var4.a == var2.a) {
+            if (oitemstack1.a == oitemstack.a) {
                 return null;
             }
 
-            var3.c(var4);
+            oslot.c(oitemstack1);
         }
 
-        return var2;
+        return oitemstack;
     }
 }

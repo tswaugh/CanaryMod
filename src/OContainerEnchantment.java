@@ -15,137 +15,137 @@ public class OContainerEnchantment extends OContainer {
     public long b;
     public int[] c = new int[3];
 
-    public OContainerEnchantment(OInventoryPlayer var1, OWorld var2, int var3, int var4, int var5) {
+    public OContainerEnchantment(OInventoryPlayer oinventoryplayer, OWorld oworld, int i, int j, int k) {
         super();
-        this.h = var2;
-        this.i = var3;
-        this.j = var4;
-        this.k = var5;
+        this.h = oworld;
+        this.i = i;
+        this.j = j;
+        this.k = k;
         this.a((OSlot) (new OSlotEnchantment(this, this.a, 0, 25, 47)));
 
-        int var6;
+        int l;
 
-        for (var6 = 0; var6 < 3; ++var6) {
-            for (int var7 = 0; var7 < 9; ++var7) {
-                this.a(new OSlot(var1, var7 + var6 * 9 + 9, 8 + var7 * 18, 84 + var6 * 18));
+        for (l = 0; l < 3; ++l) {
+            for (int i1 = 0; i1 < 9; ++i1) {
+                this.a(new OSlot(oinventoryplayer, i1 + l * 9 + 9, 8 + i1 * 18, 84 + l * 18));
             }
         }
 
-        for (var6 = 0; var6 < 9; ++var6) {
-            this.a(new OSlot(var1, var6, 8 + var6 * 18, 142));
+        for (l = 0; l < 9; ++l) {
+            this.a(new OSlot(oinventoryplayer, l, 8 + l * 18, 142));
         }
 
     }
 
-    public void a(OICrafting var1) {
-        super.a(var1);
-        var1.a(this, 0, this.c[0]);
-        var1.a(this, 1, this.c[1]);
-        var1.a(this, 2, this.c[2]);
+    public void a(OICrafting oicrafting) {
+        super.a(oicrafting);
+        oicrafting.a(this, 0, this.c[0]);
+        oicrafting.a(this, 1, this.c[1]);
+        oicrafting.a(this, 2, this.c[2]);
     }
 
     public void a() {
         super.a();
 
-        for (int var1 = 0; var1 < this.g.size(); ++var1) {
-            OICrafting var2 = (OICrafting) this.g.get(var1);
+        for (int i = 0; i < this.g.size(); ++i) {
+            OICrafting oicrafting = (OICrafting) this.g.get(i);
 
-            var2.a(this, 0, this.c[0]);
-            var2.a(this, 1, this.c[1]);
-            var2.a(this, 2, this.c[2]);
+            oicrafting.a(this, 0, this.c[0]);
+            oicrafting.a(this, 1, this.c[1]);
+            oicrafting.a(this, 2, this.c[2]);
         }
 
     }
 
-    public void a(OIInventory var1) {
-        if (var1 == this.a) {
-            OItemStack var2 = var1.g_(0);
-            int var3;
+    public void a(OIInventory oiinventory) {
+        if (oiinventory == this.a) {
+            OItemStack oitemstack = oiinventory.g_(0);
+            int i;
 
-            if (var2 != null && var2.q()) {
+            if (oitemstack != null && oitemstack.q()) {
                 this.b = this.l.nextLong();
                 if (!this.h.F) {
-                    var3 = 0;
+                    i = 0;
 
-                    int var4;
+                    int j;
 
-                    for (var4 = -1; var4 <= 1; ++var4) {
-                        for (int var5 = -1; var5 <= 1; ++var5) {
-                            if ((var4 != 0 || var5 != 0) && this.h.g(this.i + var5, this.j, this.k + var4) && this.h.g(this.i + var5, this.j + 1, this.k + var4)) {
-                                if (this.h.a(this.i + var5 * 2, this.j, this.k + var4 * 2) == OBlock.an.bO) {
-                                    ++var3;
+                    for (j = -1; j <= 1; ++j) {
+                        for (int k = -1; k <= 1; ++k) {
+                            if ((j != 0 || k != 0) && this.h.g(this.i + k, this.j, this.k + j) && this.h.g(this.i + k, this.j + 1, this.k + j)) {
+                                if (this.h.a(this.i + k * 2, this.j, this.k + j * 2) == OBlock.an.bO) {
+                                    ++i;
                                 }
 
-                                if (this.h.a(this.i + var5 * 2, this.j + 1, this.k + var4 * 2) == OBlock.an.bO) {
-                                    ++var3;
+                                if (this.h.a(this.i + k * 2, this.j + 1, this.k + j * 2) == OBlock.an.bO) {
+                                    ++i;
                                 }
 
-                                if (var5 != 0 && var4 != 0) {
-                                    if (this.h.a(this.i + var5 * 2, this.j, this.k + var4) == OBlock.an.bO) {
-                                        ++var3;
+                                if (k != 0 && j != 0) {
+                                    if (this.h.a(this.i + k * 2, this.j, this.k + j) == OBlock.an.bO) {
+                                        ++i;
                                     }
 
-                                    if (this.h.a(this.i + var5 * 2, this.j + 1, this.k + var4) == OBlock.an.bO) {
-                                        ++var3;
+                                    if (this.h.a(this.i + k * 2, this.j + 1, this.k + j) == OBlock.an.bO) {
+                                        ++i;
                                     }
 
-                                    if (this.h.a(this.i + var5, this.j, this.k + var4 * 2) == OBlock.an.bO) {
-                                        ++var3;
+                                    if (this.h.a(this.i + k, this.j, this.k + j * 2) == OBlock.an.bO) {
+                                        ++i;
                                     }
 
-                                    if (this.h.a(this.i + var5, this.j + 1, this.k + var4 * 2) == OBlock.an.bO) {
-                                        ++var3;
+                                    if (this.h.a(this.i + k, this.j + 1, this.k + j * 2) == OBlock.an.bO) {
+                                        ++i;
                                     }
                                 }
                             }
                         }
                     }
 
-                    for (var4 = 0; var4 < 3; ++var4) {
-                        this.c[var4] = OEnchantmentHelper.a(this.l, var4, var3, var2);
+                    for (j = 0; j < 3; ++j) {
+                        this.c[j] = OEnchantmentHelper.a(this.l, j, i, oitemstack);
                     }
 
                     this.a();
                 }
             } else {
-                for (var3 = 0; var3 < 3; ++var3) {
-                    this.c[var3] = 0;
+                for (i = 0; i < 3; ++i) {
+                    this.c[i] = 0;
                 }
             }
         }
 
     }
 
-    public boolean a(OEntityPlayer var1, int var2) {
-        OItemStack var3 = this.a.g_(0);
+    public boolean a(OEntityPlayer oentityplayer, int i) {
+        OItemStack oitemstack = this.a.g_(0);
 
-        if (this.c[var2] > 0 && var3 != null && (var1.M >= this.c[var2] || var1.L.d)) {
+        if (this.c[i] > 0 && oitemstack != null && (oentityplayer.M >= this.c[i] || oentityplayer.L.d)) {
             if (!this.h.F) {
-                List var4 = OEnchantmentHelper.b(this.l, var3, this.c[var2]);
+                List list = OEnchantmentHelper.b(this.l, oitemstack, this.c[i]);
 
-                if (var4 != null) {
-					// CanaryMod hook: onEnchant
-                    HookParametersEnchant enchantParameters = (HookParametersEnchant)etc.getLoader().callHook(PluginLoader.Hook.ENCHANT, new HookParametersEnchant(((OEntityPlayerMP)var1).getPlayer(), var3.c, var4));
-                    if (!enchantParameters.isCanceled() && enchantParameters.isValid(false))
-                    {
+                if (list != null) {
+                    // CanaryMod hook: onEnchant
+                    HookParametersEnchant enchantParameters = (HookParametersEnchant) etc.getLoader().callHook(PluginLoader.Hook.ENCHANT, new HookParametersEnchant(((OEntityPlayerMP) oentityplayer).getPlayer(), oitemstack.c, list));
+
+                    if (!enchantParameters.isCanceled() && enchantParameters.isValid(false)) {
                         List<Enchantment> enchantments = enchantParameters.getEnchantments();
-                        var4 = new ArrayList();
-                        for (Enchantment enchantment : enchantments)
-                        {
-                            var4.add(new OEnchantmentData(enchantment.getEnchantment(), enchantment.getLevel()));
+
+                        list = new ArrayList();
+                        for (Enchantment enchantment : enchantments) {
+                            list.add(new OEnchantmentData(enchantment.getEnchantment(), enchantment.getLevel()));
                         }
 						
-						var1.e_(this.c[var2]);
-						Iterator var5 = var4.iterator();
+                        oentityplayer.e_(this.c[i]);
+                        Iterator iterator = list.iterator();
 
-						while (var5.hasNext()) {
-							OEnchantmentData var6 = (OEnchantmentData) var5.next();
+                        while (iterator.hasNext()) {
+                            OEnchantmentData oenchantmentdata = (OEnchantmentData) iterator.next();
 	
-							var3.a(var6.a, var6.b);
-						}
+                            oitemstack.a(oenchantmentdata.a, oenchantmentdata.b);
+                        }
 						
-						this.a(this.a);
-					}
+                        this.a(this.a);
+                    }
                 }
             }
 
@@ -155,51 +155,51 @@ public class OContainerEnchantment extends OContainer {
         }
     }
 
-    public void a(OEntityPlayer var1) {
-        super.a(var1);
+    public void a(OEntityPlayer oentityplayer) {
+        super.a(oentityplayer);
         if (!this.h.F) {
-            OItemStack var2 = this.a.b(0);
+            OItemStack oitemstack = this.a.b(0);
 
-            if (var2 != null) {
-                var1.b(var2);
+            if (oitemstack != null) {
+                oentityplayer.b(oitemstack);
             }
 
         }
     }
 
-    public boolean b(OEntityPlayer var1) {
-        return this.h.a(this.i, this.j, this.k) != OBlock.bE.bO ? false : var1.e((double) this.i + 0.5D, (double) this.j + 0.5D, (double) this.k + 0.5D) <= 64.0D;
+    public boolean b(OEntityPlayer oentityplayer) {
+        return this.h.a(this.i, this.j, this.k) != OBlock.bE.bO ? false : oentityplayer.e((double) this.i + 0.5D, (double) this.j + 0.5D, (double) this.k + 0.5D) <= 64.0D;
     }
 
-    public OItemStack a(int var1) {
-        OItemStack var2 = null;
-        OSlot var3 = (OSlot) this.e.get(var1);
+    public OItemStack a(int i) {
+        OItemStack oitemstack = null;
+        OSlot oslot = (OSlot) this.e.get(i);
 
-        if (var3 != null && var3.c()) {
-            OItemStack var4 = var3.b();
+        if (oslot != null && oslot.c()) {
+            OItemStack oitemstack1 = oslot.b();
 
-            var2 = var4.j();
-            if (var1 != 0) {
+            oitemstack = oitemstack1.j();
+            if (i != 0) {
                 return null;
             }
 
-            if (!this.a(var4, 1, 37, true)) {
+            if (!this.a(oitemstack1, 1, 37, true)) {
                 return null;
             }
 
-            if (var4.a == 0) {
-                var3.d((OItemStack) null);
+            if (oitemstack1.a == 0) {
+                oslot.d((OItemStack) null);
             } else {
-                var3.d();
+                oslot.d();
             }
 
-            if (var4.a == var2.a) {
+            if (oitemstack1.a == oitemstack.a) {
                 return null;
             }
 
-            var3.c(var4);
+            oslot.c(oitemstack1);
         }
 
-        return var2;
+        return oitemstack;
     }
 }

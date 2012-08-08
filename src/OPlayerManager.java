@@ -15,21 +15,21 @@ public class OPlayerManager {
     // CanaryMod: store world name
     private final String worldName;
     
-    private PlayerManager playerManager; //CanaryMod player manager wrap
+    private PlayerManager playerManager; // CanaryMod player manager wrap
 
-    public OPlayerManager(OMinecraftServer var1, int var2, int var3, String worldName) {
+    public OPlayerManager(OMinecraftServer ominecraftserver, int i, int j, String s) {
         super();
-        if (var3 > 15) {
+        if (j > 15) {
             throw new IllegalArgumentException("Too big view radius!");
-        } else if (var3 < 3) {
+        } else if (j < 3) {
             throw new IllegalArgumentException("Too small view radius!");
         } else {
-            this.f = var3;
-            this.d = var1;
-            this.e = var2;
+            this.f = j;
+            this.d = ominecraftserver;
+            this.e = i;
         }
         
-        this.worldName = worldName;
+        this.s = s;
         this.playerManager = new PlayerManager(this);
     }
     
@@ -42,146 +42,146 @@ public class OPlayerManager {
     }
 
     public void b() {
-        for (int var1 = 0; var1 < this.c.size(); ++var1) {
-            ((OPlayerInstance) this.c.get(var1)).a();
+        for (int i = 0; i < this.c.size(); ++i) {
+            ((OPlayerInstance) this.c.get(i)).a();
         }
 
         this.c.clear();
         if (this.a.isEmpty()) {
-            OWorldServer var3 = this.d.getWorld(this.worldName, this.e);
-            OWorldProvider var2 = var3.t;
+            OWorldServer oworldserver = this.d.getWorld(this.worldName, this.e);
+            OWorldProvider oworldprovider = oworldserver.t;
 
-            if (!var2.c()) {
-                var3.G.c();
+            if (!oworldprovider.c()) {
+                oworldserver.G.c();
             }
         }
 
     }
 
-    private OPlayerInstance a(int var1, int var2, boolean var3) {
-        long var4 = (long) var1 + 2147483647L | (long) var2 + 2147483647L << 32;
-        OPlayerInstance var6 = (OPlayerInstance) this.b.a(var4);
+    private OPlayerInstance a(int i, int j, boolean flag) {
+        long k = (long) i + 2147483647L | (long) j + 2147483647L << 32;
+        OPlayerInstance oplayerinstance = (OPlayerInstance) this.b.a(k);
 
-        if (var6 == null && var3) {
-            var6 = new OPlayerInstance(this, var1, var2);
-            this.b.a(var4, var6);
+        if (oplayerinstance == null && flag) {
+            oplayerinstance = new OPlayerInstance(this, i, j);
+            this.b.a(k, oplayerinstance);
         }
 
-        return var6;
+        return oplayerinstance;
     }
 
-    public void a(int var1, int var2, int var3) {
-        int var4 = var1 >> 4;
-        int var5 = var3 >> 4;
-        OPlayerInstance var6 = this.a(var4, var5, false);
+    public void a(int i, int j, int k) {
+        int l = i >> 4;
+        int i1 = k >> 4;
+        OPlayerInstance oplayerinstance = this.a(l, i1, false);
 
-        if (var6 != null) {
-            var6.a(var1 & 15, var2, var3 & 15);
+        if (oplayerinstance != null) {
+            oplayerinstance.a(i & 15, j, k & 15);
         }
 
     }
 
-    public void a(OEntityPlayerMP var1) {
-        int var2 = (int) var1.bm >> 4;
-        int var3 = (int) var1.bo >> 4;
+    public void a(OEntityPlayerMP oentityplayermp) {
+        int i = (int) oentityplayermp.bm >> 4;
+        int j = (int) oentityplayermp.bo >> 4;
 
-        var1.d = var1.bm;
-        var1.e = var1.bo;
-        int var4 = 0;
-        int var5 = this.f;
-        int var6 = 0;
-        int var7 = 0;
+        oentityplayermp.d = oentityplayermp.bm;
+        oentityplayermp.e = oentityplayermp.bo;
+        int k = 0;
+        int l = this.f;
+        int i1 = 0;
+        int j1 = 0;
 
-        this.a(var2, var3, true).a(var1);
+        this.a(i, j, true).a(oentityplayermp);
 
-        int var8;
+        int k1;
 
-        for (var8 = 1; var8 <= var5 * 2; ++var8) {
-            for (int var9 = 0; var9 < 2; ++var9) {
-                int[] var10 = this.g[var4++ % 4];
+        for (k1 = 1; k1 <= l * 2; ++k1) {
+            for (int l1 = 0; l1 < 2; ++l1) {
+                int[] aint = this.g[k++ % 4];
 
-                for (int var11 = 0; var11 < var8; ++var11) {
-                    var6 += var10[0];
-                    var7 += var10[1];
-                    this.a(var2 + var6, var3 + var7, true).a(var1);
+                for (int i2 = 0; i2 < k1; ++i2) {
+                    i1 += aint[0];
+                    j1 += aint[1];
+                    this.a(i + i1, j + j1, true).a(oentityplayermp);
                 }
             }
         }
 
-        var4 %= 4;
+        k %= 4;
 
-        for (var8 = 0; var8 < var5 * 2; ++var8) {
-            var6 += this.g[var4][0];
-            var7 += this.g[var4][1];
-            this.a(var2 + var6, var3 + var7, true).a(var1);
+        for (k1 = 0; k1 < l * 2; ++k1) {
+            i1 += this.g[k][0];
+            j1 += this.g[k][1];
+            this.a(i + i1, j + j1, true).a(oentityplayermp);
         }
 
-        this.a.add(var1);
+        this.a.add(oentityplayermp);
     }
 
-    public void b(OEntityPlayerMP var1) {
-        int var2 = (int) var1.d >> 4;
-        int var3 = (int) var1.e >> 4;
+    public void b(OEntityPlayerMP oentityplayermp) {
+        int i = (int) oentityplayermp.d >> 4;
+        int j = (int) oentityplayermp.e >> 4;
 
-        for (int var4 = var2 - this.f; var4 <= var2 + this.f; ++var4) {
-            for (int var5 = var3 - this.f; var5 <= var3 + this.f; ++var5) {
-                OPlayerInstance var6 = this.a(var4, var5, false);
+        for (int k = i - this.f; k <= i + this.f; ++k) {
+            for (int l = j - this.f; l <= j + this.f; ++l) {
+                OPlayerInstance oplayerinstance = this.a(k, l, false);
 
-                if (var6 != null) {
-                    var6.b(var1);
+                if (oplayerinstance != null) {
+                    oplayerinstance.b(oentityplayermp);
                 }
             }
         }
 
-        this.a.remove(var1);
+        this.a.remove(oentityplayermp);
     }
 
-    private boolean a(int var1, int var2, int var3, int var4) {
-        int var5 = var1 - var3;
-        int var6 = var2 - var4;
+    private boolean a(int i, int j, int k, int l) {
+        int i1 = i - k;
+        int j1 = j - l;
 
-        return var5 >= -this.f && var5 <= this.f ? var6 >= -this.f && var6 <= this.f : false;
+        return i1 >= -this.f && i1 <= this.f ? j1 >= -this.f && j1 <= this.f : false;
     }
 
-    public void c(OEntityPlayerMP var1) {
-        int var2 = (int) var1.bm >> 4;
-        int var3 = (int) var1.bo >> 4;
-        double var4 = var1.d - var1.bm;
-        double var6 = var1.e - var1.bo;
-        double var8 = var4 * var4 + var6 * var6;
+    public void c(OEntityPlayerMP oentityplayermp) {
+        int i = (int) oentityplayermp.bm >> 4;
+        int j = (int) oentityplayermp.bo >> 4;
+        double d0 = oentityplayermp.d - oentityplayermp.bm;
+        double d1 = oentityplayermp.e - oentityplayermp.bo;
+        double d2 = d0 * d0 + d1 * d1;
 
-        if (var8 >= 64.0D) {
-            int var10 = (int) var1.d >> 4;
-            int var11 = (int) var1.e >> 4;
-            int var12 = var2 - var10;
-            int var13 = var3 - var11;
+        if (d2 >= 64.0D) {
+            int k = (int) oentityplayermp.d >> 4;
+            int l = (int) oentityplayermp.e >> 4;
+            int i1 = i - k;
+            int j1 = j - l;
 
-            if (var12 != 0 || var13 != 0) {
+            if (i1 != 0 || j1 != 0) {
                 // CanaryMod speed up teleporting.
-                if (var12 > f || var12 < -f || var13 > f || var13 < -f) {
-                    b(var1);
-                    a(var1);
+                if (i1 > f || i1 < -f || j1 > f || j1 < -f) {
+                    b(oentityplayermp);
+                    a(oentityplayermp);
                     return;
                 }
 
-                for (int var14 = var2 - this.f; var14 <= var2 + this.f; ++var14) {
-                    for (int var15 = var3 - this.f; var15 <= var3 + this.f; ++var15) {
-                        if (!this.a(var14, var15, var10, var11)) {
-                            this.a(var14, var15, true).a(var1);
+                for (int k1 = i - this.f; k1 <= i + this.f; ++k1) {
+                    for (int l1 = j - this.f; l1 <= j + this.f; ++l1) {
+                        if (!this.a(k1, l1, k, l)) {
+                            this.a(k1, l1, true).a(oentityplayermp);
                         }
 
-                        if (!this.a(var14 - var12, var15 - var13, var2, var3)) {
-                            OPlayerInstance var16 = this.a(var14 - var12, var15 - var13, false);
+                        if (!this.a(k1 - i1, l1 - j1, i, j)) {
+                            OPlayerInstance oplayerinstance = this.a(k1 - i1, l1 - j1, false);
 
-                            if (var16 != null) {
-                                var16.b(var1);
+                            if (oplayerinstance != null) {
+                                oplayerinstance.b(oentityplayermp);
                             }
                         }
                     }
                 }
 
-                var1.d = var1.bm;
-                var1.e = var1.bo;
+                oentityplayermp.d = oentityplayermp.bm;
+                oentityplayermp.e = oentityplayermp.bo;
             }
         }
     }
@@ -191,26 +191,26 @@ public class OPlayerManager {
     }
 
     // $FF: synthetic method
-    static OLongHashMap a(OPlayerManager var0) {
-        return var0.b;
+    static OLongHashMap a(OPlayerManager oplayermanager) {
+        return oplayermanager.b;
     }
 
     // $FF: synthetic method
-    static List b(OPlayerManager var0) {
-        return var0.c;
+    static List b(OPlayerManager oplayermanager) {
+        return oplayermanager.c;
     }
    
     // CanaryMod: bring back old "send packet to chunk" method from alpha
-    public void sendPacketToChunk(OPacket packetToSend, int globalx, int globaly, int globalz) {
+    public void sendPacketToChunk(OPacket opacket, int i, int j, int k) {
         // Get chunk coordinates
-        int chunkx = globalx >> 4;
-        int chunkz = globalz >> 4;
+        int chunkx = i >> 4;
+        int chunkz = k >> 4;
         // Get the chunk
         OPlayerInstance localOPlayerInstance = a(chunkx, chunkz, false);
 
         // if chunk != null, send packet
         if (localOPlayerInstance != null) {
-            localOPlayerInstance.a(packetToSend);
+            localOPlayerInstance.a(opacket);
         }
     }
 

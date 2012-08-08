@@ -16,42 +16,42 @@ public class OPacket53BlockChange extends OPacket {
         this.p = true;
     }
 
-    public OPacket53BlockChange(int var1, int var2, int var3, OWorld var4) {
+    public OPacket53BlockChange(int i, int j, int k, OWorld oworld) {
         super();
         this.p = true;
-        this.a = var1;
-        this.b = var2;
-        this.c = var3;
-        this.d = var4.a(var1, var2, var3);
-        this.e = var4.c(var1, var2, var3);
+        this.a = i;
+        this.b = j;
+        this.c = k;
+        this.d = oworld.a(i, j, k);
+        this.e = oworld.c(i, j, k);
     }
 
-    public void a(DataInputStream var1) {
-    	try {
-    		this.a = var1.readInt();
-    		this.b = var1.read();
-    		this.c = var1.readInt();
-    		this.d = var1.read();
-    		this.e = var1.read();
-    	} catch (IOException e1) {
-    		e1.printStackTrace();
-    	}
-    }
-
-    public void a(DataOutputStream var1) {
+    public void a(DataInputStream datainputstream) {
         try {
-			var1.writeInt(this.a);
-			var1.write(this.b);
-			var1.writeInt(this.c);
-			var1.write(this.d);
-			var1.write(this.e);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+            this.a = datainputstream.readInt();
+            this.b = datainputstream.read();
+            this.c = datainputstream.readInt();
+            this.d = datainputstream.read();
+            this.e = datainputstream.read();
+        } catch (IOException ioexception) {
+            ioexception.printStackTrace();
+        }
     }
 
-    public void a(ONetHandler var1) {
-        var1.a(this);
+    public void a(DataOutputStream dataoutputstream) {
+        try {
+            dataoutputstream.writeInt(this.a);
+            dataoutputstream.write(this.b);
+            dataoutputstream.writeInt(this.c);
+            dataoutputstream.write(this.d);
+            dataoutputstream.write(this.e);
+        } catch (IOException ioexception) {
+            ioexception.printStackTrace();
+        }
+    }
+
+    public void a(ONetHandler onethandler) {
+        onethandler.a(this);
     }
 
     public int a() {

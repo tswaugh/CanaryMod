@@ -42,22 +42,22 @@ public class OPotion {
     private boolean M;
     private final int N;
 
-    protected OPotion(int var1, boolean var2, int var3) {
+    protected OPotion(int i, boolean flag, int j) {
         super();
-        this.H = var1;
-        a[var1] = this;
-        this.K = var2;
-        if (var2) {
+        this.H = i;
+        a[i] = this;
+        this.K = flag;
+        if (flag) {
             this.L = 0.5D;
         } else {
             this.L = 1.0D;
         }
 
-        this.N = var3;
+        this.N = j;
     }
 
-    protected OPotion a(int var1, int var2) {
-        this.J = var1 + var2 * 8;
+    protected OPotion a(int i, int j) {
+        this.J = i + j * 8;
         return this;
     }
 
@@ -65,48 +65,48 @@ public class OPotion {
         return this.H;
     }
 
-    public void a(OEntityLiving var1, int var2) {
+    public void a(OEntityLiving oentityliving, int i) {
         if (this.H == l.H) {
-            if (var1.aD() < var1.d()) {
-                var1.d(1);
+            if (oentityliving.aD() < oentityliving.d()) {
+                oentityliving.d(1);
             }
         } else if (this.H == u.H) {
-            if (var1.aD() > 1) {
+            if (oentityliving.aD() > 1) {
                 // Canarymod: DAMAGE From Poison
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, var1.entity, 1)) {
-                    var1.a(ODamageSource.m, 1);
+                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, oentityliving.entity, 1)) {
+                    oentityliving.a(ODamageSource.m, 1);
                 }
             }
-        } else if (this.H == s.H && var1 instanceof OEntityPlayer) {
-            ((OEntityPlayer) var1).c(0.025F * (float) (var2 + 1));
-        } else if ((this.H != h.H || var1.aN()) && (this.H != i.H || !var1.aN())) {
-            if (this.H == i.H && !var1.aN() || this.H == h.H && var1.aN()) {
+        } else if (this.H == s.H && oentityliving instanceof OEntityPlayer) {
+            ((OEntityPlayer) oentityliving).c(0.025F * (float) (i + 1));
+        } else if ((this.H != h.H || oentityliving.aN()) && (this.H != i.H || !oentityliving.aN())) {
+            if (this.H == i.H && !oentityliving.aN() || this.H == h.H && oentityliving.aN()) {
                 // Canarymod: call to DAMAGE on 1.9?
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, var1.entity, 4 << var2)) {
-                    var1.a(ODamageSource.m, 6 << var2);
+                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, oentityliving.entity, 4 << i)) {
+                    oentityliving.a(ODamageSource.m, 6 << i);
                 }
             }
         } else {
-            var1.d(6 << var2);
+            oentityliving.d(6 << i);
         }
 
     }
 
-    public void a(OEntityLiving var1, OEntityLiving var2, int var3, double var4) {
-        int var6;
+    public void a(OEntityLiving oentityliving, OEntityLiving oentityliving1, int i, double d0) {
+        int j;
 
-        if ((this.H != h.H || var2.aN()) && (this.H != i.H || !var2.aN())) {
-            if (this.H == i.H && !var2.aN() || this.H == h.H && var2.aN()) {
-                var6 = (int) (var4 * (double) (6 << var3) + 0.5D);
-                if (var1 == null) {
-                    var2.a(ODamageSource.m, var6);
+        if ((this.H != h.H || oentityliving1.aN()) && (this.H != i.H || !oentityliving1.aN())) {
+            if (this.H == i.H && !oentityliving1.aN() || this.H == h.H && oentityliving1.aN()) {
+                j = (int) (d0 * (double) (6 << i) + 0.5D);
+                if (oentityliving == null) {
+                    oentityliving1.a(ODamageSource.m, j);
                 } else {
-                    var2.a(ODamageSource.b(var2, var1), var6);
+                    oentityliving1.a(ODamageSource.b(oentityliving1, oentityliving), j);
                 }
             }
         } else {
-            var6 = (int) (var4 * (double) (6 << var3) + 0.5D);
-            var2.d(var6);
+            j = (int) (d0 * (double) (6 << i) + 0.5D);
+            oentityliving1.d(j);
         }
 
     }
@@ -115,18 +115,18 @@ public class OPotion {
         return false;
     }
 
-    public boolean b(int var1, int var2) {
+    public boolean b(int i, int j) {
         if (this.H != l.H && this.H != u.H) {
             return this.H == s.H;
         } else {
-            int var3 = 25 >> var2;
+            int k = 25 >> j;
 
-            return var3 > 0 ? var1 % var3 == 0 : true;
+            return k > 0 ? i % k == 0 : true;
         }
     }
 
-    public OPotion a(String var1) {
-        this.I = var1;
+    public OPotion a(String s) {
+        this.I = s;
         return this;
     }
 
@@ -134,8 +134,8 @@ public class OPotion {
         return this.I;
     }
 
-    protected OPotion a(double var1) {
-        this.L = var1;
+    protected OPotion a(double d0) {
+        this.L = d0;
         return this;
     }
 

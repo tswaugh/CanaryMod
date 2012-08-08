@@ -9,35 +9,35 @@ public class OTileEntitySign extends OTileEntity {
         super();
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-        var1.a("Text1", this.a[0]);
-        var1.a("Text2", this.a[1]);
-        var1.a("Text3", this.a[2]);
-        var1.a("Text4", this.a[3]);
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        onbttagcompound.a("Text1", this.a[0]);
+        onbttagcompound.a("Text2", this.a[1]);
+        onbttagcompound.a("Text3", this.a[2]);
+        onbttagcompound.a("Text4", this.a[3]);
     }
 
-    public void a(ONBTTagCompound var1) {
+    public void a(ONBTTagCompound onbttagcompound) {
         this.c = false;
-        super.a(var1);
+        super.a(onbttagcompound);
 
-        for (int var2 = 0; var2 < 4; ++var2) {
-            this.a[var2] = var1.j("Text" + (var2 + 1));
-            if (this.a[var2].length() > 15) {
-                this.a[var2] = this.a[var2].substring(0, 15);
+        for (int i = 0; i < 4; ++i) {
+            this.a[i] = onbttagcompound.j("Text" + (i + 1));
+            if (this.a[i].length() > 15) {
+                this.a[i] = this.a[i].substring(0, 15);
             }
         }
 
     }
 
     public OPacket d() {
-        String[] var1 = new String[4];
+        String[] astring = new String[4];
 
-        for (int var2 = 0; var2 < 4; ++var2) {
-            var1[var2] = this.a[var2];
+        for (int i = 0; i < 4; ++i) {
+            astring[i] = this.a[i];
         }
 
-        return new OPacket130UpdateSign(this.l, this.m, this.n, var1);
+        return new OPacket130UpdateSign(this.l, this.m, this.n, astring);
     }
 
     public boolean c() {

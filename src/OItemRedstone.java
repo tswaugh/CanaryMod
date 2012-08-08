@@ -1,60 +1,60 @@
 
 public class OItemRedstone extends OItem {
 
-    public OItemRedstone(int var1) {
-        super(var1);
+    public OItemRedstone(int i) {
+        super(i);
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
         // CanaryMod: Store block data clicked
-        Block blockClicked = new Block(var3.world, var3.a(var4, var5, var6), var4, var5, var6);
+        Block blockClicked = new Block(oworld.world, oworld.a(i, j, k), i, j, k);
 
-        blockClicked.setFaceClicked(Block.Face.fromId(var7));
+        blockClicked.setFaceClicked(Block.Face.fromId(l));
         
-        if (var3.a(var4, var5, var6) != OBlock.aS.bO) {
-            if (var7 == 0) {
-                --var5;
+        if (oworld.a(i, j, k) != OBlock.aS.bO) {
+            if (l == 0) {
+                --j;
             }
 
-            if (var7 == 1) {
-                ++var5;
+            if (l == 1) {
+                ++j;
             }
 
-            if (var7 == 2) {
-                --var6;
+            if (l == 2) {
+                --k;
             }
 
-            if (var7 == 3) {
-                ++var6;
+            if (l == 3) {
+                ++k;
             }
 
-            if (var7 == 4) {
-                --var4;
+            if (l == 4) {
+                --i;
             }
 
-            if (var7 == 5) {
-                ++var4;
+            if (l == 5) {
+                ++i;
             }
 
-            if (!var3.g(var4, var5, var6)) {
+            if (!oworld.g(i, j, k)) {
                 return false;
             }
         }
 
-        if (!var2.d(var4, var5, var6)) {
+        if (!oentityplayer.d(i, j, k)) {
             return false;
         } else {
-            if (OBlock.av.c(var3, var4, var5, var6)) {
+            if (OBlock.av.c(oworld, i, j, k)) {
                 // CanaryMod: Redstone dust hook!
-                Block blockPlaced = new Block(var3.world, Block.Type.RedstoneWire.getType(), var4, var5, var6);
-                Player player = ((OEntityPlayerMP) var2).getPlayer();
+                Block blockPlaced = new Block(oworld.world, Block.Type.RedstoneWire.getType(), i, j, k);
+                Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();
 
-                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(var1))) {
+                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(oitemstack))) {
                     return false;
                 }
 
-                --var1.a;
-                var3.e(var4, var5, var6, OBlock.av.bO);
+                --oitemstack.a;
+                oworld.e(i, j, k, OBlock.av.bO);
             }
 
             return true;

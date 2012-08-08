@@ -15,7 +15,7 @@ public abstract class OEntityCreature extends OEntityLiving {
     }
 
     protected void d_() {
-        OProfiler.a("ai"); //CanaryMod jarjar fix
+        OProfiler.a("ai"); // CanaryMod jarjar fix
         if (this.f > 0) {
             --this.f;
         }

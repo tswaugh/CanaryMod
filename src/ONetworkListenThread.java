@@ -20,94 +20,94 @@ public class ONetworkListenThread {
     public OMinecraftServer c;
     private HashMap i = new HashMap();
 
-    public ONetworkListenThread(OMinecraftServer var1, InetAddress var2, int var3) throws IOException {
+    public ONetworkListenThread(OMinecraftServer ominecraftserver, InetAddress inetaddress, int i) throws IOException {
         super();
-        this.c = var1;
-        this.d = new ServerSocket(var3, 0, var2);
+        this.c = ominecraftserver;
+        this.d = new ServerSocket(i, 0, inetaddress);
         this.d.setPerformancePreferences(0, 2, 1);
         this.b = true;
-        this.e = new ONetworkAcceptThread(this, "Listen thread", var1);
+        this.e = new ONetworkAcceptThread(this, "Listen thread", ominecraftserver);
         this.e.start();
     }
 
-    public void a(Socket var1) {
-        InetAddress var2 = var1.getInetAddress();
-        HashMap var3 = this.i;
+    public void a(Socket socket) {
+        InetAddress inetaddress = socket.getInetAddress();
+        HashMap hashmap = this.i;
 
         synchronized (this.i) {
-            this.i.remove(var2);
+            this.i.remove(inetaddress);
         }
     }
 
-    public void a(ONetServerHandler var1) {
-        this.h.add(var1);
+    public void a(ONetServerHandler onetserverhandler) {
+        this.h.add(onetserverhandler);
     }
 
-    private void a(ONetLoginHandler var1) {
-        if (var1 == null) {
+    private void a(ONetLoginHandler onetloginhandler) {
+        if (onetloginhandler == null) {
             throw new IllegalArgumentException("Got null pendingconnection!");
         } else {
-            this.g.add(var1);
+            this.g.add(onetloginhandler);
         }
     }
 
     public void a() {
-        int var1;
+        int i;
 
-        for (var1 = 0; var1 < this.g.size(); ++var1) {
-            ONetLoginHandler var2 = (ONetLoginHandler) this.g.get(var1);
-
-            try {
-                var2.a();
-            } catch (Exception var5) {
-                var2.a("Internal server error");
-                a.log(Level.WARNING, "Failed to handle packet: " + var5, var5);
-            }
-
-            if (var2.c) {
-                this.g.remove(var1--);
-            }
-
-            var2.b.a();
-        }
-
-        for (var1 = 0; var1 < this.h.size(); ++var1) {
-            ONetServerHandler var6 = (ONetServerHandler) this.h.get(var1);
+        for (i = 0; i < this.g.size(); ++i) {
+            ONetLoginHandler onetloginhandler = (ONetLoginHandler) this.g.get(i);
 
             try {
-                var6.a();
-            } catch (Exception var4) {
-                a.log(Level.WARNING, "Failed to handle packet: " + var4, var4);
-                var6.a("Internal server error");
+                onetloginhandler.a();
+            } catch (Exception exception) {
+                onetloginhandler.a("Internal server error");
+                a.log(Level.WARNING, "Failed to handle packet: " + exception, exception);
             }
 
-            if (var6.c) {
-                this.h.remove(var1--);
+            if (onetloginhandler.c) {
+                this.g.remove(i--);
             }
 
-            var6.b.a();
+            onetloginhandler.b.a();
+        }
+
+        for (i = 0; i < this.h.size(); ++i) {
+            ONetServerHandler onetserverhandler = (ONetServerHandler) this.h.get(i);
+
+            try {
+                onetserverhandler.a();
+            } catch (Exception exception1) {
+                a.log(Level.WARNING, "Failed to handle packet: " + exception1, exception1);
+                onetserverhandler.a("Internal server error");
+            }
+
+            if (onetserverhandler.c) {
+                this.h.remove(i--);
+            }
+
+            onetserverhandler.b.a();
         }
 
     }
 
     // $FF: synthetic method
-    static ServerSocket a(ONetworkListenThread var0) {
-        return var0.d;
+    static ServerSocket a(ONetworkListenThread onetworklistenthread) {
+        return onetworklistenthread.d;
     }
 
     // $FF: synthetic method
-    static HashMap b(ONetworkListenThread var0) {
-        return var0.i;
+    static HashMap b(ONetworkListenThread onetworklistenthread) {
+        return onetworklistenthread.i;
     }
 
     // $FF: synthetic method
-    static int c(ONetworkListenThread var0) {
-        return var0.f++;
+    static int c(ONetworkListenThread onetworklistenthread) {
+        return onetworklistenthread.f++;
     }
 
     // $FF: synthetic method
-    static void a(ONetworkListenThread var0, ONetLoginHandler var1) {
-        var0.a(var1);
+    static void a(ONetworkListenThread onetworklistenthread, ONetLoginHandler onetloginhandler) {
+        onetworklistenthread.a(onetloginhandler);
     }
 
 }

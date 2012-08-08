@@ -8,24 +8,24 @@ public class OThreadCommandReader extends Thread {
     // $FF: synthetic field
     final OMinecraftServer a;
 
-    public OThreadCommandReader(OMinecraftServer var1) {
+    public OThreadCommandReader(OMinecraftServer ominecraftserver) {
         super();
-        this.a = var1;
+        this.a = ominecraftserver;
     }
 
     public void run() {
-        BufferedReader var1 = new BufferedReader(new InputStreamReader(System.in));
-        String var2 = null;
+        BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(System.in));
+        String s = null;
 
         try {
-            while (!this.a.i && (var2 = var1.readLine()) != null) {
+            while (!this.a.i && (s = bufferedreader.readLine()) != null) {
                 // CanaryMod: run through our parser first.
-                if (!etc.getInstance().parseConsoleCommand(var2, a)) {
-                    this.a.a(var2, this.a);
+                if (!etc.getInstance().parseConsoleCommand(s, a)) {
+                    this.a.a(s, this.a);
                 }
             }
-        } catch (IOException var4) {
-            var4.printStackTrace();
+        } catch (IOException ioexception) {
+            ioexception.printStackTrace();
         }
 
     }

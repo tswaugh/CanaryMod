@@ -17,80 +17,78 @@ public class OPacket52MultiBlockChange extends OPacket {
         this.p = true;
     }
 
-    public OPacket52MultiBlockChange(int var1, int var2, short[] var3, int var4, OWorld var5) {
+    public OPacket52MultiBlockChange(int i, int j, short[] ashort, int k, OWorld oworld) {
         super();
         this.p = true;
-        this.a = var1;
-        this.b = var2;
-        this.d = var4;
-        int var6 = 4 * var4;
-        OChunk var7 = var5.d(var1, var2);
+        this.a = i;
+        this.b = j;
+        this.d = k;
+        int l = 4 * k;
+        OChunk ochunk = oworld.d(i, j);
 
         try {
-            if (var4 >= 64) {
-                System.out.println("ChunkTilesUpdatePacket compress " + var4);
-                if (e.length < var6) {
-                    e = new byte[var6];
+            if (k >= 64) {
+                System.out.println("ChunkTilesUpdatePacket compress " + k);
+                if (e.length < l) {
+                    e = new byte[l];
                 }
             } else {
-                ByteArrayOutputStream var8 = new ByteArrayOutputStream(var6);
-                DataOutputStream var9 = new DataOutputStream(var8);
+                ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream(l);
+                DataOutputStream dataoutputstream = new DataOutputStream(bytearrayoutputstream);
 
-                for (int var10 = 0; var10 < var4; ++var10) {
-                    int var11 = var3[var10] >> 12 & 15;
-                    int var12 = var3[var10] >> 8 & 15;
-                    int var13 = var3[var10] & 255;
+                for (int i1 = 0; i1 < k; ++i1) {
+                    int j1 = ashort[i1] >> 12 & 15;
+                    int k1 = ashort[i1] >> 8 & 15;
+                    int l1 = ashort[i1] & 255;
 
-                    var9.writeShort(var3[var10]);
-                    var9.writeShort((short) ((var7.a(var11, var13, var12) & 4095) << 4 | var7.c(var11, var13, var12) & 15));
+                    dataoutputstream.writeShort(ashort[i1]);
+                    dataoutputstream.writeShort((short) ((ochunk.a(j1, l1, k1) & 4095) << 4 | ochunk.c(j1, l1, k1) & 15));
                 }
 
-                this.c = var8.toByteArray();
-                if (this.c.length != var6) {
-                    throw new RuntimeException("Expected length " + var6 + " doesn\'t match received length " + this.c.length);
+                this.c = bytearrayoutputstream.toByteArray();
+                if (this.c.length != l) {
+                    throw new RuntimeException("Expected length " + l + " doesn\'t match received length " + this.c.length);
                 }
             }
-        } catch (IOException var14) {
-            System.err.println(var14.getMessage());
+        } catch (IOException ioexception) {
+            System.err.println(ioexception.getMessage());
             this.c = null;
         }
 
     }
 
-    public void a(DataInputStream var1) {
+    public void a(DataInputStream datainputstream) {
         try {
-            this.a = var1.readInt();
-            this.b = var1.readInt();
-            this.d = var1.readShort() & '\uffff';
-            int var2 = var1.readInt();
+            this.a = datainputstream.readInt();
+            this.b = datainputstream.readInt();
+            this.d = datainputstream.readShort() & '\uffff';
+            int i = datainputstream.readInt();
 
-            if (var2 > 0) {
-                this.c = new byte[var2];
-                var1.readFully(this.c);
+            if (i > 0) {
+                this.c = new byte[i];
+                datainputstream.readFully(this.c);
             }
-        } catch (IOException IOE) {
-        }
+        } catch (ioexceptionxception ioexception) {}
 
     }
 
-    public void a(DataOutputStream var1) {
+    public void a(DataOutputStream dataoutputstream) {
         try {
-            var1.writeInt(this.a);
-            var1.writeInt(this.b);
-            var1.writeShort((short) this.d);
+            dataoutputstream.writeInt(this.a);
+            dataoutputstream.writeInt(this.b);
+            dataoutputstream.writeShort((short) this.d);
             if (this.c != null) {
-                var1.writeInt(this.c.length);
-                var1.write(this.c);
+                dataoutputstream.writeInt(this.c.length);
+                dataoutputstream.write(this.c);
             } else {
-                var1.writeInt(0);
+                dataoutputstream.writeInt(0);
             }
-        } catch (IOException IOE) {
-        }
+        } catch (ioexceptionxception ioexception) {}
 
     }
 
-    public void a(ONetHandler var1) {
-        var1.a(this);
+    public void a(ONetHandler onethandler) {
+        onethandler.a(this);
     }
 
     public int a() {

@@ -18,14 +18,14 @@ public class OItemInWorldManager {
     private int m;
     private int n;
 
-    public OItemInWorldManager(OWorld var1) {
+    public OItemInWorldManager(OWorld oworld) {
         super();
-        this.a = var1;
+        this.a = oworld;
     }
 
-    public void a(int var1) {
-        this.c = var1;
-        if (var1 == 0) {
+    public void a(int i) {
+        this.c = i;
+        if (i == 0) {
             this.b.L.c = false;
             this.b.L.b = false;
             this.b.L.d = false;
@@ -46,9 +46,9 @@ public class OItemInWorldManager {
         return this.c == 1;
     }
 
-    public void b(int var1) {
+    public void b(int i) {
         if (this.c == -1) {
-            this.c = var1;
+            this.c = i;
         }
 
         this.a(this.c);
@@ -57,14 +57,14 @@ public class OItemInWorldManager {
     public void c() {
         this.i = (int) (System.currentTimeMillis() / 50); // CanaryMod - block lag fix
         if (this.j) {
-            int var1 = this.i - this.n;
-            int var2 = this.a.a(this.k, this.l, this.m);
+            int i = this.i - this.n;
+            int j = this.a.a(this.k, this.l, this.m);
 
-            if (var2 != 0) {
-                OBlock var3 = OBlock.m[var2];
-                float var4 = var3.a(this.b) * (float) (var1 + 1);
+            if (j != 0) {
+                OBlock oblock = OBlock.m[j];
+                float f = oblock.a(this.b) * (float) (i + 1);
 
-                if (var4 >= 1.0F) {
+                if (f >= 1.0F) {
                     this.j = false;
                     this.c(this.k, this.l, this.m);
                 }
@@ -75,48 +75,48 @@ public class OItemInWorldManager {
 
     }
 
-    public void a(int var1, int var2, int var3, int var4) {
+    public void a(int i, int j, int k, int l) {
         if (this.b()) {
-            if (!this.a.a((OEntityPlayer) null, var1, var2, var3, var4)) {
-                this.c(var1, var2, var3);
+            if (!this.a.a((OEntityPlayer) null, i, j, k, l)) {
+                this.c(i, j, k);
             }
 
         } else {
-            this.a.a((OEntityPlayer) null, var1, var2, var3, var4);
+            this.a.a((OEntityPlayer) null, i, j, k, l);
             this.e = this.i;
-            int var5 = this.a.a(var1, var2, var3);
+            int i1 = this.a.a(i, j, k);
 
-            if (var5 > 0) {
-                OBlock.m[var5].b(this.a, var1, var2, var3, this.b);
+            if (i1 > 0) {
+                OBlock.m[i1].b(this.a, i, j, k, this.b);
             }
 
-            if (var5 > 0 && OBlock.m[var5].a(this.b) >= 1.0F) {
-                this.c(var1, var2, var3);
+            if (i1 > 0 && OBlock.m[i1].a(this.b) >= 1.0F) {
+                this.c(i, j, k);
             } else {
-                this.f = var1;
-                this.g = var2;
-                this.h = var3;
+                this.f = i;
+                this.g = j;
+                this.h = k;
             }
 
         }
     }
 
-    public void a(int var1, int var2, int var3) {
-        if (var1 == this.f && var2 == this.g && var3 == this.h) {
-            int var4 = this.i - this.e;
-            int var5 = this.a.a(var1, var2, var3);
+    public void a(int i, int j, int k) {
+        if (i == this.f && j == this.g && k == this.h) {
+            int l = this.i - this.e;
+            int i1 = this.a.a(i, j, k);
 
-            if (var5 != 0) {
-                OBlock var6 = OBlock.m[var5];
-                float var7 = var6.a(this.b) * (float) (var4 + 1);
+            if (i1 != 0) {
+                OBlock oblock = OBlock.m[i1];
+                float f = oblock.a(this.b) * (float) (l + 1);
 
-                if (var7 >= 0.7F) {
-                    this.c(var1, var2, var3);
+                if (f >= 0.7F) {
+                    this.c(i, j, k);
                 } else if (!this.j) {
                     this.j = true;
-                    this.k = var1;
-                    this.l = var2;
-                    this.m = var3;
+                    this.k = i;
+                    this.l = j;
+                    this.m = k;
                     this.n = this.e;
                 }
             }
@@ -125,21 +125,21 @@ public class OItemInWorldManager {
         this.d = 0.0F;
     }
 
-    public boolean b(int var1, int var2, int var3) {
-        OBlock var4 = OBlock.m[this.a.a(var1, var2, var3)];
-        int var5 = this.a.c(var1, var2, var3);
-        boolean var6 = this.a.e(var1, var2, var3, 0);
+    public boolean b(int i, int j, int k) {
+        OBlock oblock = OBlock.m[this.a.a(i, j, k)];
+        int l = this.a.c(i, j, k);
+        boolean flag = this.a.e(i, j, k, 0);
 
-        if (var4 != null && var6) {
-            var4.c(this.a, var1, var2, var3, var5);
+        if (oblock != null && flag) {
+            oblock.c(this.a, i, j, k, l);
         }
 
-        return var6;
+        return flag;
     }
 
-    public boolean c(int var1, int var2, int var3) {
+    public boolean c(int i, int j, int k) {
         // CanaryMod start - portal destroy
-        Block block = ((OEntityPlayerMP) b).getPlayer().getWorld().getBlockAt(var1, var2, var3); //
+        Block block = ((OEntityPlayerMP) b).getPlayer().getWorld().getBlockAt(i, j, k); //
 
         if (block.getType() == Block.Type.Obsidian.getType()) {
             boolean removeAll = true;
@@ -153,7 +153,7 @@ public class OItemInWorldManager {
             int[][] blockOffsets = new int[][] { new int[] { 0, 1, 0}, new int[] { 1, 0, 0}, new int[] { -1, 0, 0}, new int[] { 0, 0, 1}, new int[] { 0, 0, -1}, new int[] { 0, -1, 0}};
 
             for (int i = 0; i < blockOffsets.length; i += 1) {
-                Block[][] blocks = getPortalBlocks(block.getWorld(), var1 + blockOffsets[i][0], var2 + blockOffsets[i][1], var3 + blockOffsets[i][2]);
+                Block[][] blocks = getPortalBlocks(block.getWorld(), i + blockOffsets[i][0], j + blockOffsets[i][1], k + blockOffsets[i][2]);
 
                 if (blocks != null) {
                     // CanaryMod hook onPortalDestroy
@@ -181,32 +181,32 @@ public class OItemInWorldManager {
         }
         // CanaryMod end
         
-        int var4 = this.a.a(var1, var2, var3);
-        int var5 = this.a.c(var1, var2, var3);
+        int l = this.a.a(i, j, k);
+        int i1 = this.a.c(i, j, k);
 
-        this.a.a(this.b, 2001, var1, var2, var3, var4 + (this.a.c(var1, var2, var3) << 12));
-        boolean var6 = this.b(var1, var2, var3);
+        this.a.a(this.b, 2001, i, j, k, l + (this.a.c(i, j, k) << 12));
+        boolean flag = this.b(i, j, k);
 
         if (this.b()) {
-            ((OEntityPlayerMP) this.b).a.b((OPacket) (new OPacket53BlockChange(var1, var2, var3, this.a)));
+            ((OEntityPlayerMP) this.b).a.b((OPacket) (new OPacket53BlockChange(i, j, k, this.a)));
         } else {
-            OItemStack var7 = this.b.U();
-            boolean var8 = this.b.b(OBlock.m[var4]);
+            OItemStack oitemstack = this.b.U();
+            boolean flag1 = this.b.b(OBlock.m[l]);
 
-            if (var7 != null) {
-                var7.a(var4, var1, var2, var3, this.b);
-                if (var7.a == 0) {
-                    var7.a(this.b);
+            if (oitemstack != null) {
+                oitemstack.a(l, i, j, k, this.b);
+                if (oitemstack.a == 0) {
+                    oitemstack.a(this.b);
                     this.b.V();
                 }
             }
 
-            if (var6 && var8) {
-                OBlock.m[var4].a(this.a, this.b, var1, var2, var3, var5);
+            if (flag && flag1) {
+                OBlock.m[l].a(this.a, this.b, i, j, k, i1);
             }
         }
 
-        return var6;
+        return flag;
     }
 
     public boolean a(OEntityPlayer var1, OWorld var2, OItemStack var3) {        
@@ -242,65 +242,65 @@ public class OItemInWorldManager {
      * @param blockClicked
      * @return
      */
-    public boolean itemUsed(OEntityPlayer player, OWorld world, OItemStack item, Block blockToPlace, Block blockClicked) {
+    public boolean oitemstackUsed(OEntityPlayer oentityplayer, OWorld oworld, OItemStack oitemstack, Block block, Block block1) {
         // CanaryMod: only call this hook if we're not using buckets/signs
-        if (item != null) {
-            if (item.a > 0 && item.c != Item.Type.Sign.getId() && item.c != Item.Type.Bucket.getId() && item.c != Item.Type.WaterBucket.getId() && item.c != Item.Type.LavaBucket.getId() && item.c != Item.Type.MilkBucket.getId()) {
-                if (player instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) player).getPlayer(), blockToPlace, blockClicked, new Item(item))) {
+        if (oitemstack != null) {
+            if (oitemstack.a > 0 && oitemstack.c != Item.Type.Sign.getId() && oitemstack.c != Item.Type.Bucket.getId() && oitemstack.c != Item.Type.WaterBucket.getId() && oitemstack.c != Item.Type.LavaBucket.getId() && oitemstack.c != Item.Type.MilkBucket.getId()) {
+                if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), block, block1, new Item(oitemstack))) {
                     return false;
                 }
             }
         }
-        return this.a(player, world, item);
+        return this.a(oentityplayer, oworld, oitemstack);
     }
 
-    public boolean a(OEntityPlayer var1, OWorld var2, OItemStack var3, int var4, int var5, int var6, int var7) {
-        int var8 = var2.a(var4, var5, var6);
+    public boolean a(OEntityPlayer oentityplayer, OWorld oworld, OItemStack oitemstack, int i, int j, int k, int l) {
+        int i1 = oworld.a(i, j, k);
 
-        if (var8 > 0 && OBlock.m[var8].a(var2, var4, var5, var6, var1)) {
+        if (i1 > 0 && OBlock.m[i1].a(oworld, i, j, k, oentityplayer)) {
             return true;
-        } else if (var3 == null) {
+        } else if (oitemstack == null) {
             return false;
         } else if (this.b()) {
-            int var9 = var3.h();
-            int var10 = var3.a;
-            boolean var11 = var3.a(var1, var2, var4, var5, var6, var7);
+            int j1 = oitemstack.h();
+            int k1 = oitemstack.a;
+            boolean flag = oitemstack.a(oentityplayer, oworld, i, j, k, l);
 
-            var3.b(var9);
-            var3.a = var10;
-            return var11;
+            oitemstack.b(j1);
+            oitemstack.a = k1;
+            return flag;
         } else {
-            return var3.a(var1, var2, var4, var5, var6, var7);
+            return oitemstack.a(oentityplayer, oworld, i, j, k, l);
         }
     }
 
-    public void a(OWorldServer var1) {
-        this.a = var1;
+    public void a(OWorldServer oworldserver) {
+        this.a = oworldserver;
     }
     
     // CanaryMod start - getPortalBlocks
-    private Block[][] getPortalBlocks(World world, int x, int y, int z) {
-        int portalId = Block.Type.Portal.getType();
+    private Block[][] getPortalBlocks(World world, int i, int j, int k) {
+        int portalId = Block.Tjpe.Portal.getTjpe();
 
-        if (world.getBlockIdAt(x, y, z) == portalId) {
-            // These will be equal 1 if the portal is defined on their axis
+        if (world.getBlockIdAt(i, j, k) == portalId) {
+            // These will be equal 1 if the portal is defined on their aiis
             // and 0 if not.
-            int portalXOffset = (world.getBlockIdAt(x - 1, y, z) == portalId || world.getBlockIdAt(x + 1, y, z) == portalId) ? 1 : 0;
-            int portalZOffset = (world.getBlockIdAt(x, y, z - 1) == portalId || world.getBlockIdAt(x, y, z + 1) == portalId) ? 1 : 0;
+            int portalXOffset = (world.getBlockIdAt(i - 1, j, k) == portalId || world.getBlockIdAt(i + 1, j, k) == portalId) ? 1 : 0;
+            int portalZOffset = (world.getBlockIdAt(i, j, k - 1) == portalId || world.getBlockIdAt(i, j, k + 1) == portalId) ? 1 : 0;
 
-            // If the portal is either x aligned or z aligned but not both
-            // (has neighbor portal in x or z plane but not both)
+            // If the portal is either i aligned or k aligned but not both
+            // (has neighbor portal in i or k plane but not both)
             if (portalXOffset != portalZOffset) {
                 // Get the edge of the portal.
-                int portalX = x - ((world.getBlockIdAt(x - 1, y, z) == portalId) ? 1 : 0);
-                int portalZ = z - ((world.getBlockIdAt(x, y, z - 1) == portalId) ? 1 : 0);
-                int portalY = y;
+                int portalX = i - ((world.getBlockIdAt(i - 1, j, k) == portalId) ? 1 : 0);
+                int portalZ = k - ((world.getBlockIdAt(i, j, k - 1) == portalId) ? 1 : 0);
+                int portalY = j;
 
                 while (world.getBlockIdAt(portalX, ++portalY, portalZ) == portalId) {
                     ;
                 }
                 portalY -= 1;
-                // Scan the portal and see if its still all there (2x3
+                // Scan the portal and see if its still all there (2i3
                 // formation)
                 boolean completePortal = true;
                 Block[][] portalBlocks = new Block[3][2];
@@ -308,7 +308,7 @@ public class OItemInWorldManager {
                 for (int i = 0; i < 3 && completePortal == true; i += 1) {
                     for (int j = 0; j < 2 && completePortal == true; j += 1) {
                         portalBlocks[i][j] = world.getBlockAt(portalX + j * portalXOffset, portalY - i, portalZ + j * portalZOffset);
-                        if (portalBlocks[i][j].getType() != portalId) {
+                        if (portalBlocks[i][j].getTjpe() != portalId) {
                             completePortal = false;
                         }
                     }

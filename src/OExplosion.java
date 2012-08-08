@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+
 public class OExplosion {
 
     public boolean a = false;
@@ -17,19 +18,19 @@ public class OExplosion {
     public float f;
     public Set g;
 
-    //CanaryMod Start
+    // CanaryMod Start
     protected boolean toRet;
     protected List blocksaffected;
-    //CanaryMod End
+    // CanaryMod End
 
-    public OExplosion(OWorld var1, OEntity var2, double var3, double var5, double var7, float var9) {
+    public OExplosion(OWorld oworld, OEntity oentity, double d0, double d1, double d2, float f) {
         super();
-        this.i = var1;
-        this.e = var2;
-        this.f = var9;
-        this.b = var3;
-        this.c = var5;
-        this.d = var7;
+        this.i = oworld;
+        this.e = oentity;
+        this.f = f;
+        this.b = d0;
+        this.c = d1;
+        this.d = d2;
         this.g = new HashSet();
         this.toRet = false;
         this.blocksaffected = new ArrayList();
@@ -38,6 +39,7 @@ public class OExplosion {
     public void a() {
         // CanaryMod: allow explosion
         Block block = new Block(i.world, i.a((int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d)), (int) Math.floor(b), (int) Math.floor(c), (int) Math.floor(d));
+
         if (this.e == null) {
             block.setStatus(1);
         } else if (this.e instanceof OEntityCreeper) {
@@ -46,57 +48,58 @@ public class OExplosion {
             block.setStatus(3);
         }
 
-        float var1 = this.f;
-        byte var2 = 16;
+        float f = this.f;
+        byte b0 = 16;
 
-        int var3;
-        int var4;
-        int var5;
-        double var15;
-        double var17;
-        double var19;
+        int i;
+        int j;
+        int k;
+        double d0;
+        double d1;
+        double d2;
 
-        for (var3 = 0; var3 < var2; ++var3) {
-            for (var4 = 0; var4 < var2; ++var4) {
-                for (var5 = 0; var5 < var2; ++var5) {
-                    if (var3 == 0 || var3 == var2 - 1 || var4 == 0 || var4 == var2 - 1 || var5 == 0 || var5 == var2 - 1) {
-                        double var6 = (double) ((float) var3 / ((float) var2 - 1.0F) * 2.0F - 1.0F);
-                        double var8 = (double) ((float) var4 / ((float) var2 - 1.0F) * 2.0F - 1.0F);
-                        double var10 = (double) ((float) var5 / ((float) var2 - 1.0F) * 2.0F - 1.0F);
-                        double var12 = Math.sqrt(var6 * var6 + var8 * var8 + var10 * var10);
+        for (i = 0; i < b0; ++i) {
+            for (j = 0; j < b0; ++j) {
+                for (k = 0; k < b0; ++k) {
+                    if (i == 0 || i == b0 - 1 || j == 0 || j == b0 - 1 || k == 0 || k == b0 - 1) {
+                        double d3 = (double) ((float) i / ((float) b0 - 1.0F) * 2.0F - 1.0F);
+                        double d4 = (double) ((float) j / ((float) b0 - 1.0F) * 2.0F - 1.0F);
+                        double d5 = (double) ((float) k / ((float) b0 - 1.0F) * 2.0F - 1.0F);
+                        double d6 = Math.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
 
-                        var6 /= var12;
-                        var8 /= var12;
-                        var10 /= var12;
-                        float var14 = this.f * (0.7F + this.i.r.nextFloat() * 0.6F);
+                        d3 /= d6;
+                        d4 /= d6;
+                        d5 /= d6;
+                        float f1 = this.f * (0.7F + this.i.r.nextFloat() * 0.6F);
 
-                        var15 = this.b;
-                        var17 = this.c;
-                        var19 = this.d;
+                        d0 = this.b;
+                        d1 = this.c;
+                        d2 = this.d;
 
-                        for (float var21 = 0.3F; var14 > 0.0F; var14 -= var21 * 0.75F) {
-                            int var22 = OMathHelper.b(var15);
-                            int var23 = OMathHelper.b(var17);
-                            int var24 = OMathHelper.b(var19);
-                            int var25 = this.i.a(var22, var23, var24);
+                        for (float f2 = 0.3F; f1 > 0.0F; f1 -= f2 * 0.75F) {
+                            int l = OMathHelper.b(d0);
+                            int i1 = OMathHelper.b(d1);
+                            int j1 = OMathHelper.b(d2);
+                            int k1 = this.i.a(l, i1, j1);
 
-                            if (var25 > 0) {
-                                var14 -= (OBlock.m[var25].a(this.e) + 0.3F) * var21;
+                            if (k1 > 0) {
+                                f1 -= (OBlock.m[k1].a(this.e) + 0.3F) * f2;
                             }
 
-                            if (var14 > 0.0F) {
-                                this.g.add(new OChunkPosition(var22, var23, var24));
+                            if (f1 > 0.0F) {
+                                this.g.add(new OChunkPosition(l, i1, j1));
 
-                                //CanaryMod - set up a set of blocks rather than giving the OChunkPosition
-                                Block blockaffect = new Block(i.world, i.a(var22, var23, var24), var22, var23, var24);
-                                if (blockaffect.getType() != 0 && !blocksaffected.contains(blockaffect)) { //Don't add air to the list
+                                // CanaryMod - set up a set of blocks rather than giving the OChunkPosition
+                                Block blockaffect = new Block(i.world, i.a(l, i1, j1), l, i1, j1);
+
+                                if (blockaffect.getType() != 0 && !blocksaffected.contains(blockaffect)) { // Don't add air to the list
                                     this.blocksaffected.add(blockaffect);
                                 }
                             }
 
-                            var15 += var6 * (double) var21;
-                            var17 += var8 * (double) var21;
-                            var19 += var10 * (double) var21;
+                            d0 += d3 * (double) f2;
+                            d1 += d4 * (double) f2;
+                            d2 += d5 * (double) f2;
                             
                         }
                     }
@@ -106,114 +109,114 @@ public class OExplosion {
 
         this.toRet = ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, e, g) || (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLOSION, block, (e != null ? new BaseEntity(e) : null), blocksaffected));
         this.f *= 2.0F;
-        var3 = OMathHelper.b(this.b - (double) this.f - 1.0D);
-        var4 = OMathHelper.b(this.b + (double) this.f + 1.0D);
-        var5 = OMathHelper.b(this.c - (double) this.f - 1.0D);
-        int var26 = OMathHelper.b(this.c + (double) this.f + 1.0D);
-        int var27 = OMathHelper.b(this.d - (double) this.f - 1.0D);
-        int var28 = OMathHelper.b(this.d + (double) this.f + 1.0D);
-        List var29 = this.i.b(this.e, OAxisAlignedBB.b((double) var3, (double) var5, (double) var27, (double) var4, (double) var26, (double) var28));
-        OVec3D var30 = OVec3D.b(this.b, this.c, this.d);
+        i = OMathHelper.b(this.b - (double) this.f - 1.0D);
+        j = OMathHelper.b(this.b + (double) this.f + 1.0D);
+        k = OMathHelper.b(this.c - (double) this.f - 1.0D);
+        int l1 = OMathHelper.b(this.c + (double) this.f + 1.0D);
+        int i2 = OMathHelper.b(this.d - (double) this.f - 1.0D);
+        int j2 = OMathHelper.b(this.d + (double) this.f + 1.0D);
+        List list = this.i.b(this.e, OAxisAlignedBB.b((double) i, (double) k, (double) i2, (double) j, (double) l1, (double) j2));
+        OVec3D ovec3d = OVec3D.b(this.b, this.c, this.d);
 
-        for (int var31 = 0; var31 < var29.size(); ++var31) {
-            OEntity var32 = (OEntity) var29.get(var31);
-            double var33 = var32.f(this.b, this.c, this.d) / (double) this.f;
+        for (int k2 = 0; k2 < list.size(); ++k2) {
+            OEntity oentity = (OEntity) list.get(k2);
+            double d7 = oentity.f(this.b, this.c, this.d) / (double) this.f;
 
-            if (var33 <= 1.0D) {
-                var15 = var32.bm - this.b;
-                var17 = var32.bn - this.c;
-                var19 = var32.bo - this.d;
-                double var35 = (double) OMathHelper.a(var15 * var15 + var17 * var17 + var19 * var19);
+            if (d7 <= 1.0D) {
+                d0 = oentity.bm - this.b;
+                d1 = oentity.bn - this.c;
+                d2 = oentity.bo - this.d;
+                double d8 = (double) OMathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
 
-                var15 /= var35;
-                var17 /= var35;
-                var19 /= var35;
-                double var37 = (double) this.i.a(var30, var32.bw);
-                double var39 = (1.0D - var33) * var37;
+                d0 /= d8;
+                d1 /= d8;
+                d2 /= d8;
+                double d9 = (double) this.i.a(ovec3d, oentity.bw);
+                double d10 = (1.0D - d7) * d9;
 
                 // CanaryMod Damage hook: Explosions
-                int damage = (int) ((var39 * var39 + var39) / 2.0D * 8.0D * f + 1.0D);
+                int damage = (int) ((d10 * d10 + d10) / 2.0D * 8.0D * f + 1.0D);
                 PluginLoader.DamageType dmgType = (e instanceof OEntityCreeper) ? PluginLoader.DamageType.CREEPER_EXPLOSION : PluginLoader.DamageType.EXPLOSION;
 
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, null, var32.entity, damage) && !toRet) {
-                    var32.a(ODamageSource.l, (int) ((var39 * var39 + var39) / 2.0D * 8.0D * (double) this.f + 1.0D));
+                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, null, oentity.entity, damage) && !toRet) {
+                    oentity.a(ODamageSource.l, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.f + 1.0D));
                 }
-                var32.bp += var15 * var39;
-                var32.bq += var17 * var39;
-                var32.br += var19 * var39;
+                oentity.bp += d0 * d10;
+                oentity.bq += d1 * d10;
+                oentity.br += d2 * d10;
             }
         }
 
-        this.f = var1;
-        ArrayList var43 = new ArrayList();
+        this.f = f;
+        ArrayList arraylist = new ArrayList();
 
-        var43.addAll(this.g);
+        arraylist.addAll(this.g);
     }
 
-    public void a(boolean var1) {
+    public void a(boolean flag) {
         this.i.a(this.b, this.c, this.d, "random.explode", 4.0F, (1.0F + (this.i.r.nextFloat() - this.i.r.nextFloat()) * 0.2F) * 0.7F);
         this.i.a("hugeexplosion", this.b, this.c, this.d, 0.0D, 0.0D, 0.0D);
-        ArrayList var2 = new ArrayList();
+        ArrayList arraylist = new ArrayList();
 
-        var2.addAll(this.g);
+        arraylist.addAll(this.g);
         if (this.toRet) {
             this.g = new HashSet();
             return;
         }
 
-        int var3;
-        OChunkPosition var4;
-        int var5;
-        int var6;
-        int var7;
-        int var8;
+        int i;
+        OChunkPosition ochunkposition;
+        int j;
+        int k;
+        int l;
+        int i1;
 
-        for (var3 = var2.size() - 1; var3 >= 0; --var3) {
-            var4 = (OChunkPosition) var2.get(var3);
-            var5 = var4.a;
-            var6 = var4.b;
-            var7 = var4.c;
-            var8 = this.i.a(var5, var6, var7);
-            if (var1) {
-                double var9 = (double) ((float) var5 + this.i.r.nextFloat());
-                double var11 = (double) ((float) var6 + this.i.r.nextFloat());
-                double var13 = (double) ((float) var7 + this.i.r.nextFloat());
-                double var15 = var9 - this.b;
-                double var17 = var11 - this.c;
-                double var19 = var13 - this.d;
-                double var21 = (double) OMathHelper.a(var15 * var15 + var17 * var17 + var19 * var19);
+        for (i = arraylist.size() - 1; i >= 0; --i) {
+            ochunkposition = (OChunkPosition) arraylist.get(i);
+            j = ochunkposition.a;
+            k = ochunkposition.b;
+            l = ochunkposition.c;
+            i1 = this.i.a(j, k, l);
+            if (flag) {
+                double d0 = (double) ((float) j + this.i.r.nextFloat());
+                double d1 = (double) ((float) k + this.i.r.nextFloat());
+                double d2 = (double) ((float) l + this.i.r.nextFloat());
+                double d3 = d0 - this.b;
+                double d4 = d1 - this.c;
+                double d5 = d2 - this.d;
+                double d6 = (double) OMathHelper.a(d3 * d3 + d4 * d4 + d5 * d5);
 
-                var15 /= var21;
-                var17 /= var21;
-                var19 /= var21;
-                double var23 = 0.5D / (var21 / (double) this.f + 0.1D);
+                d3 /= d6;
+                d4 /= d6;
+                d5 /= d6;
+                double d7 = 0.5D / (d6 / (double) this.f + 0.1D);
 
-                var23 *= (double) (this.i.r.nextFloat() * this.i.r.nextFloat() + 0.3F);
-                var15 *= var23;
-                var17 *= var23;
-                var19 *= var23;
-                this.i.a("explode", (var9 + this.b * 1.0D) / 2.0D, (var11 + this.c * 1.0D) / 2.0D, (var13 + this.d * 1.0D) / 2.0D, var15, var17, var19);
-                this.i.a("smoke", var9, var11, var13, var15, var17, var19);
+                d7 *= (double) (this.i.r.nextFloat() * this.i.r.nextFloat() + 0.3F);
+                d3 *= d7;
+                d4 *= d7;
+                d5 *= d7;
+                this.i.a("explode", (d0 + this.b * 1.0D) / 2.0D, (d1 + this.c * 1.0D) / 2.0D, (d2 + this.d * 1.0D) / 2.0D, d3, d4, d5);
+                this.i.a("smoke", d0, d1, d2, d3, d4, d5);
             }
 
-            if (var8 > 0) {
-                OBlock.m[var8].a(this.i, var5, var6, var7, this.i.c(var5, var6, var7), 0.3F, 0);
-                this.i.e(var5, var6, var7, 0);
-                OBlock.m[var8].a_(this.i, var5, var6, var7);
+            if (i1 > 0) {
+                OBlock.m[i1].a(this.i, j, k, l, this.i.c(j, k, l), 0.3F, 0);
+                this.i.e(j, k, l, 0);
+                OBlock.m[i1].a_(this.i, j, k, l);
             }
         }
 
         if (this.a) {
-            for (var3 = var2.size() - 1; var3 >= 0; --var3) {
-                var4 = (OChunkPosition) var2.get(var3);
-                var5 = var4.a;
-                var6 = var4.b;
-                var7 = var4.c;
-                var8 = this.i.a(var5, var6, var7);
-                int var25 = this.i.a(var5, var6 - 1, var7);
+            for (i = arraylist.size() - 1; i >= 0; --i) {
+                ochunkposition = (OChunkPosition) arraylist.get(i);
+                j = ochunkposition.a;
+                k = ochunkposition.b;
+                l = ochunkposition.c;
+                i1 = this.i.a(j, k, l);
+                int j1 = this.i.a(j, k - 1, l);
 
-                if (var8 == 0 && OBlock.n[var25] && this.h.nextInt(3) == 0) {
-                    this.i.e(var5, var6, var7, OBlock.ar.bO);
+                if (i1 == 0 && OBlock.n[j1] && this.h.nextInt(3) == 0) {
+                    this.i.e(j, k, l, OBlock.ar.bO);
                 }
             }
         }

@@ -1,88 +1,87 @@
 
 public class OItemSlab extends OItemBlock {
 
-    public OItemSlab(int var1) {
-        super(var1);
+    public OItemSlab(int i) {
+        super(i);
         this.f(0);
         this.a(true);
     }
 
-    public int a(int var1) {
-        return var1;
+    public int a(int i) {
+        return i;
     }
 
-    public String a(OItemStack var1) {
-        int var2 = var1.h();
+    public String a(OItemStack oitemstack) {
+        int i = oitemstack.h();
 
-        if (var2 < 0 || var2 >= OBlockStep.a.length) {
-            var2 = 0;
+        if (i < 0 || i >= OBlockStep.a.length) {
+            i = 0;
         }
 
-        return super.b() + "." + OBlockStep.a[var2];
+        return super.b() + "." + OBlockStep.a[i];
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
-                ((OEntityPlayerMP) var2).getPlayer(), null,
-                this.getBlockInfo(var3, var4, var5, var6, var7), new Item(var1)))
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, this.getBlockInfo(oworld, i, j, k, l), new Item(oitemstack))) {
             return true;
+        }
             
-        if (var1.a == 0) {
+        if (oitemstack.a == 0) {
             return false;
-        } else if (!var2.d(var4, var5, var6)) {
+        } else if (!oentityplayer.d(i, j, k)) {
             return false;
         } else {
-            int var8 = var3.a(var4, var5, var6);
-            int var9 = var3.c(var4, var5, var6);
-            int var10 = var9 & 7;
-            boolean var11 = (var9 & 8) != 0;
+            int i1 = oworld.a(i, j, k);
+            int j1 = oworld.c(i, j, k);
+            int k1 = j1 & 7;
+            boolean flag = (j1 & 8) != 0;
 
-            if ((var7 == 1 && !var11 || var7 == 0 && var11) && var8 == OBlock.ak.bO && var10 == var1.h()) {
-                if (var3.a(OBlock.aj.e(var3, var4, var5, var6)) && var3.b(var4, var5, var6, OBlock.aj.bO, var10)) {
-                    var3.a((double) ((float) var4 + 0.5F), (double) ((float) var5 + 0.5F), (double) ((float) var6 + 0.5F), OBlock.aj.cb.c(), (OBlock.aj.cb.a() + 1.0F) / 2.0F, OBlock.aj.cb.b() * 0.8F);
-                    --var1.a;
+            if ((l == 1 && !flag || l == 0 && flag) && i1 == OBlock.ak.bO && k1 == oitemstack.h()) {
+                if (oworld.a(OBlock.aj.e(oworld, i, j, k)) && oworld.b(i, j, k, OBlock.aj.bO, k1)) {
+                    oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), OBlock.aj.cb.c(), (OBlock.aj.cb.a() + 1.0F) / 2.0F, OBlock.aj.cb.b() * 0.8F);
+                    --oitemstack.a;
                 }
 
                 return true;
             } else {
-                return b(var1, var2, var3, var4, var5, var6, var7) ? true : super.a(var1, var2, var3, var4, var5, var6, var7);
+                return b(oitemstack, oentityplayer, oworld, i, j, k, l) ? true : super.a(oitemstack, oentityplayer, oworld, i, j, k, l);
             }
         }
     }
 
-    private static boolean b(OItemStack var0, OEntityPlayer var1, OWorld var2, int var3, int var4, int var5, int var6) {
-        if (var6 == 0) {
-            --var4;
-}
-
-        if (var6 == 1) {
-            ++var4;
+    private static boolean b(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+        if (l == 0) {
+            --j;
         }
 
-        if (var6 == 2) {
-            --var5;
+        if (l == 1) {
+            ++j;
         }
 
-        if (var6 == 3) {
-            ++var5;
+        if (l == 2) {
+            --k;
         }
 
-        if (var6 == 4) {
-            --var3;
+        if (l == 3) {
+            ++k;
         }
 
-        if (var6 == 5) {
-            ++var3;
+        if (l == 4) {
+            --i;
         }
 
-        int var7 = var2.a(var3, var4, var5);
-        int var8 = var2.c(var3, var4, var5);
-        int var9 = var8 & 7;
+        if (l == 5) {
+            ++i;
+        }
 
-        if (var7 == OBlock.ak.bO && var9 == var0.h()) {
-            if (var2.a(OBlock.aj.e(var2, var3, var4, var5)) && var2.b(var3, var4, var5, OBlock.aj.bO, var9)) {
-                var2.a((double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), (double) ((float) var5 + 0.5F), OBlock.aj.cb.c(), (OBlock.aj.cb.a() + 1.0F) / 2.0F, OBlock.aj.cb.b() * 0.8F);
-                --var0.a;
+        int i1 = oworld.a(i, j, k);
+        int j1 = oworld.c(i, j, k);
+        int k1 = j1 & 7;
+
+        if (i1 == OBlock.ak.bO && k1 == oitemstack.h()) {
+            if (oworld.a(OBlock.aj.e(oworld, i, j, k)) && oworld.b(i, j, k, OBlock.aj.bO, k1)) {
+                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), OBlock.aj.cb.c(), (OBlock.aj.cb.a() + 1.0F) / 2.0F, OBlock.aj.cb.b() * 0.8F);
+                --oitemstack.a;
             }
 
             return true;

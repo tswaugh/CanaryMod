@@ -10,19 +10,19 @@ class OServerGuiCommandListener implements ActionListener {
     // $FF: synthetic field
     final OServerGUI b;
 
-    OServerGuiCommandListener(OServerGUI var1, JTextField var2) {
+    OServerGuiCommandListener(OServerGUI oservergui, JTextField jtextfield) {
         super();
-        this.b = var1;
-        this.a = var2;
+        this.b = oservergui;
+        this.a = jtextfield;
     }
 
-    public void actionPerformed(ActionEvent var1) {
-        String var2 = this.a.getText().trim();
+    public void actionPerformed(ActionEvent actionevent) {
+        String s = this.a.getText().trim();
 
         // CanaryMod: parse our commands first.
-        if (var2.length() > 0 && etc.getMCServer() != null) {
-            if (!etc.getInstance().parseConsoleCommand(var2, etc.getMCServer())) {
-                etc.getMCServer().a(var2, this.b);
+        if (s.length() > 0 && etc.getMCServer() != null) {
+            if (!etc.getInstance().parseConsoleCommand(s, etc.getMCServer())) {
+                etc.getMCServer().a(s, this.b);
             }
         }
 

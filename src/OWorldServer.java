@@ -10,64 +10,64 @@ public class OWorldServer extends OWorld {
     private OMinecraftServer J;
     private OIntHashMap K;
 
-    public OWorldServer(OMinecraftServer var1, OISaveHandler var2, String var3, int var4, OWorldSettings var5) {
-        super(var2, var3, var5, OWorldProvider.a(var4));
-        this.J = var1;
+    public OWorldServer(OMinecraftServer ominecraftserver, OISaveHandler oisavehandler, String s, int i, OWorldSettings oworldsettings) {
+        super(oisavehandler, s, oworldsettings, OWorldProvider.a(i));
+        this.J = ominecraftserver;
         if (this.K == null) {
             this.K = new OIntHashMap();
         }
 
     }
 
-    public void a(OEntity var1, boolean var2) {
-        if (!this.J.o && (var1 instanceof OEntityAnimal || var1 instanceof OEntityWaterMob)) {
-            var1.X();
+    public void a(OEntity oentity, boolean flag) {
+        if (!this.J.o && (oentity instanceof OEntityAnimal || oentity instanceof OEntityWaterMob)) {
+            oentity.X();
         }
 
-        if (!this.J.p && var1 instanceof OINpc) {
-            var1.X();
+        if (!this.J.p && oentity instanceof OINpc) {
+            oentity.X();
         }
 
-        if (var1.bg == null || !(var1.bg instanceof OEntityPlayer)) {
-            super.a(var1, var2);
+        if (oentity.bg == null || !(oentity.bg instanceof OEntityPlayer)) {
+            super.a(oentity, flag);
         }
 
     }
 
-    public void b(OEntity var1, boolean var2) {
-        super.a(var1, var2);
+    public void b(OEntity oentity, boolean flag) {
+        super.a(oentity, flag);
     }
 
     protected OIChunkProvider b() {
-        OIChunkLoader var1 = this.w.a(this.t);
+        OIChunkLoader oichunkloader = this.w.a(this.t);
 
-        this.G = new OChunkProviderServer(this, var1, this.t.b());
+        this.G = new OChunkProviderServer(this, oichunkloader, this.t.b());
         return this.G;
     }
 
-    public List c(int var1, int var2, int var3, int var4, int var5, int var6) {
-        ArrayList var7 = new ArrayList();
+    public List c(int i, int j, int k, int l, int i1, int j1) {
+        ArrayList arraylist = new ArrayList();
 
-        for (int var8 = 0; var8 < this.c.size(); ++var8) {
-            OTileEntity var9 = (OTileEntity) this.c.get(var8);
+        for (int k1 = 0; k1 < this.c.size(); ++k1) {
+            OTileEntity otileentity = (OTileEntity) this.c.get(k1);
 
-            if (var9.l >= var1 && var9.m >= var2 && var9.n >= var3 && var9.l < var4 && var9.m < var5 && var9.n < var6) {
-                var7.add(var9);
+            if (otileentity.l >= i && otileentity.m >= j && otileentity.n >= k && otileentity.l < l && otileentity.m < i1 && otileentity.n < j1) {
+                arraylist.add(otileentity);
             }
         }
 
-        return var7;
+        return arraylist;
     }
 
-    public boolean a(OEntityPlayer var1, int var2, int var3, int var4) {
-        int var5 = OMathHelper.a(var2 - this.x.c());
-        int var6 = OMathHelper.a(var4 - this.x.e());
+    public boolean a(OEntityPlayer oentityplayer, int i, int j, int k) {
+        int l = OMathHelper.a(i - this.x.c());
+        int i1 = OMathHelper.a(k - this.x.e());
 
-        if (var5 > var6) {
-            var6 = var5;
+        if (l > i1) {
+            i1 = l;
         }
 
-        return var6 > 16 || this.J.h.h(var1.v);
+        return i1 > 16 || this.J.h.h(oentityplayer.v);
     }
 
     protected void c() {
@@ -78,64 +78,64 @@ public class OWorldServer extends OWorld {
         super.c();
     }
 
-    protected void c(OEntity var1) {
-        super.c(var1);
-        this.K.a(var1.bd, var1);
-        OEntity[] var2 = var1.bb();
+    protected void c(OEntity oentity) {
+        super.c(oentity);
+        this.K.a(oentity.bd, oentity);
+        OEntity[] aoentity = oentity.bb();
 
-        if (var2 != null) {
-            for (int var3 = 0; var3 < var2.length; ++var3) {
-                this.K.a(var2[var3].bd, var2[var3]);
+        if (aoentity != null) {
+            for (int i = 0; i < aoentity.length; ++i) {
+                this.K.a(aoentity[i].bd, aoentity[i]);
             }
         }
 
     }
 
-    protected void d(OEntity var1) {
-        super.d(var1);
-        this.K.d(var1.bd);
-        OEntity[] var2 = var1.bb();
+    protected void d(OEntity oentity) {
+        super.d(oentity);
+        this.K.d(oentity.bd);
+        OEntity[] aoentity = oentity.bb();
 
-        if (var2 != null) {
-            for (int var3 = 0; var3 < var2.length; ++var3) {
-                this.K.d(var2[var3].bd);
+        if (aoentity != null) {
+            for (int i = 0; i < aoentity.length; ++i) {
+                this.K.d(aoentity[i].bd);
             }
         }
 
     }
 
-    public OEntity a(int var1) {
-        return (OEntity) this.K.a(var1);
+    public OEntity a(int i) {
+        return (OEntity) this.K.a(i);
     }
 
-    public boolean a(OEntity var1) {
-        if (super.a(var1)) {
-            this.J.h.a(var1.bm, var1.bn, var1.bo, 512.0D, this.t.g, new OPacket71Weather(var1));
+    public boolean a(OEntity oentity) {
+        if (super.a(oentity)) {
+            this.J.h.a(oentity.bm, oentity.bn, oentity.bo, 512.0D, this.t.g, new OPacket71Weather(oentity));
             return true;
         } else {
             return false;
         }
     }
 
-    public void a(OEntity var1, byte var2) {
-        OPacket38EntityStatus var3 = new OPacket38EntityStatus(var1.bd, var2);
+    public void a(OEntity oentity, byte b0) {
+        OPacket38EntityStatus opacket38entitystatus = new OPacket38EntityStatus(oentity.bd, b0);
 
-        this.getEntityTracker().sendPacketToPlayersAndEntity(var1, var3);
+        this.getEntityTracker().sendPacketToPlayersAndEntity(oentity, opacket38entitystatus);
     }
 
-    public OExplosion a(OEntity var1, double var2, double var4, double var6, float var8, boolean var9) {
-        OExplosion var10 = new OExplosion(this, var1, var2, var4, var6, var8);
+    public OExplosion a(OEntity oentity, double d0, double d1, double d2, float f, boolean flag) {
+        OExplosion oexplosion = new OExplosion(this, oentity, d0, d1, d2, f);
 
-        var10.a = var9;
-        var10.a();
-        var10.a(false);
-        this.J.h.a(var2, var4, var6, 64.0D, this.t.g, new OPacket60Explosion(var2, var4, var6, var8, var10.g));
-        return var10;
+        oexplosion.a = flag;
+        oexplosion.a();
+        oexplosion.a(false);
+        this.J.h.a(d0, d1, d2, 64.0D, this.t.g, new OPacket60Explosion(d0, d1, d2, f, oexplosion.g));
+        return oexplosion;
     }
 
-    public void e(int var1, int var2, int var3, int var4, int var5) {
-        super.e(var1, var2, var3, var4, var5);
-        this.J.h.a((double) var1, (double) var2, (double) var3, 64.0D, this.t.g, new OPacket54PlayNoteBlock(var1, var2, var3, var4, var5));
+    public void e(int i, int j, int k, int l, int i1) {
+        super.e(i, j, k, l, i1);
+        this.J.h.a((double) i, (double) j, (double) k, 64.0D, this.t.g, new OPacket54PlayNoteBlock(i, j, k, l, i1));
     }
 
     public void A() {
@@ -143,11 +143,11 @@ public class OWorldServer extends OWorld {
     }
 
     protected void i() {
-        boolean var1 = this.x();
+        boolean flag = this.x();
 
         super.i();
-        if (var1 != this.x()) {
-            if (var1) {
+        if (flag != this.x()) {
+            if (flag) {
                 this.J.h.a((OPacket) (new OPacket70Bed(2, 0)));
             } else {
                 this.J.h.a((OPacket) (new OPacket70Bed(1, 0)));

@@ -17,46 +17,46 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         return this.d.length;
     }
 
-    public OItemStack g_(int var1) {
-        return this.d[var1];
+    public OItemStack g_(int i) {
+        return this.d[i];
     }
 
-    public OItemStack a(int var1, int var2) {
-        if (this.d[var1] != null) {
-            OItemStack var3;
+    public OItemStack a(int i, int j) {
+        if (this.d[i] != null) {
+            OItemStack oitemstack;
 
-            if (this.d[var1].a <= var2) {
-                var3 = this.d[var1];
-                this.d[var1] = null;
-                return var3;
+            if (this.d[i].a <= j) {
+                oitemstack = this.d[i];
+                this.d[i] = null;
+                return oitemstack;
             } else {
-                var3 = this.d[var1].a(var2);
-                if (this.d[var1].a == 0) {
-                    this.d[var1] = null;
+                oitemstack = this.d[i].a(j);
+                if (this.d[i].a == 0) {
+                    this.d[i] = null;
                 }
 
-                return var3;
+                return oitemstack;
             }
         } else {
             return null;
         }
     }
 
-    public OItemStack b(int var1) {
-        if (this.d[var1] != null) {
-            OItemStack var2 = this.d[var1];
+    public OItemStack b(int i) {
+        if (this.d[i] != null) {
+            OItemStack oitemstack = this.d[i];
 
-            this.d[var1] = null;
-            return var2;
+            this.d[i] = null;
+            return oitemstack;
         } else {
             return null;
         }
     }
 
-    public void a(int var1, OItemStack var2) {
-        this.d[var1] = var2;
-        if (var2 != null && var2.a > this.a()) {
-            var2.a = this.a();
+    public void a(int i, OItemStack oitemstack) {
+        this.d[i] = oitemstack;
+        if (oitemstack != null && oitemstack.a > this.a()) {
+            oitemstack.a = this.a();
         }
 
     }
@@ -65,43 +65,43 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         return name;
     }
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-        ONBTTagList var2 = var1.n("Items");
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
+        ONBTTagList onbttaglist = onbttagcompound.n("Items");
 
         this.d = new OItemStack[this.c()];
 
-        for (int var3 = 0; var3 < var2.d(); ++var3) {
-            ONBTTagCompound var4 = (ONBTTagCompound) var2.a(var3);
-            byte var5 = var4.d("Slot");
+        for (int i = 0; i < onbttaglist.d(); ++i) {
+            ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.a(i);
+            byte b0 = onbttagcompound1.d("Slot");
 
-            if (var5 >= 0 && var5 < this.d.length) {
-                this.d[var5] = OItemStack.a(var4);
+            if (b0 >= 0 && b0 < this.d.length) {
+                this.d[b0] = OItemStack.a(onbttagcompound1);
             }
         }
 
-        this.a = var1.e("BurnTime");
-        this.c = var1.e("CookTime");
+        this.a = onbttagcompound.e("BurnTime");
+        this.c = onbttagcompound.e("CookTime");
         this.b = a(this.d[1]);
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-        var1.a("BurnTime", (short) this.a);
-        var1.a("CookTime", (short) this.c);
-        ONBTTagList var2 = new ONBTTagList();
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        onbttagcompound.a("BurnTime", (short) this.a);
+        onbttagcompound.a("CookTime", (short) this.c);
+        ONBTTagList onbttaglist = new ONBTTagList();
 
-        for (int var3 = 0; var3 < this.d.length; ++var3) {
-            if (this.d[var3] != null) {
-                ONBTTagCompound var4 = new ONBTTagCompound();
+        for (int i = 0; i < this.d.length; ++i) {
+            if (this.d[i] != null) {
+                ONBTTagCompound onbttagcompound1 = new ONBTTagCompound();
 
-                var4.a("Slot", (byte) var3);
-                this.d[var3].b(var4);
-                var2.a((ONBTBase) var4);
+                onbttagcompound1.a("Slot", (byte) i);
+                this.d[i].b(onbttagcompound1);
+                onbttaglist.a((ONBTBase) onbttagcompound1);
             }
         }
 
-        var1.a("Items", (ONBTBase) var2);
+        onbttagcompound.a("Items", (ONBTBase) onbttaglist);
     }
 
     public int a() {
@@ -113,8 +113,8 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
     }
 
     public void q_() {
-        boolean var1 = this.a > 0;
-        boolean var2 = false;
+        boolean flag = this.a > 0;
+        boolean flag1 = false;
 
         if (this.a > 0) {
             --this.a;
@@ -124,7 +124,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
             if (this.a == 0 && this.o()) {
                 this.b = this.a = a(this.d[1]);
                 if (this.a > 0) {
-                    var2 = true;
+                    flag1 = true;
                     if (this.d[1] != null) {
                         --this.d[1].a;
                         if (this.d[1].a == 0) {
@@ -139,19 +139,19 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
                 if (this.c == 200) {
                     this.c = 0;
                     this.n();
-                    var2 = true;
+                    flag1 = true;
                 }
             } else {
                 this.c = 0;
             }
 
-            if (var1 != this.a > 0) {
-                var2 = true;
+            if (flag != this.a > 0) {
+                flag1 = true;
                 OBlockFurnace.a(this.a > 0, this.k, this.l, this.m, this.n);
             }
         }
 
-        if (var2) {
+        if (flag1) {
             this.G_();
         }
 
@@ -161,19 +161,19 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (this.d[0] == null) {
             return false;
         } else {
-            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bP);
+            OItemStack oitemstack = OFurnaceRecipes.a().a(this.d[0].a().bP);
 
-            return var1 == null ? false : (this.d[2] == null ? true : (!this.d[2].a(var1) ? false : (this.d[2].a < this.a() && this.d[2].a < this.d[2].b() ? true : this.d[2].a < var1.b())));
+            return oitemstack == null ? false : (this.d[2] == null ? true : (!this.d[2].a(oitemstack) ? false : (this.d[2].a < this.a() && this.d[2].a < this.d[2].b() ? true : this.d[2].a < oitemstack.b())));
         }
     }
 
     public void n() {
         if (this.o()) {
-            OItemStack var1 = OFurnaceRecipes.a().a(this.d[0].a().bP);
+            OItemStack oitemstack = OFurnaceRecipes.a().a(this.d[0].a().bP);
 
             if (this.d[2] == null) {
-                this.d[2] = var1.j();
-            } else if (this.d[2].c == var1.c) {
+                this.d[2] = oitemstack.j();
+            } else if (this.d[2].c == oitemstack.c) {
                 ++this.d[2].a;
             }
 
@@ -185,22 +185,22 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
     }
 
-    public static int a(OItemStack var1) {
-        if (var1 == null) {
+    public static int a(OItemStack oitemstack) {
+        if (oitemstack == null) {
             return 0;
         } else {
-            int var2 = var1.a().bP;
+            int i = oitemstack.a().bP;
 
-            return var2 < 256 && OBlock.m[var2].cd == OMaterial.d ? 300 : (var2 == OItem.C.bP ? 100 : (var2 == OItem.l.bP ? 1600 : (var2 == OItem.ax.bP ? 20000 : (var2 == OBlock.y.bO ? 100 : (var2 == OItem.bn.bP ? 2400 : 0)))));
+            return i < 256 && OBlock.m[i].cd == OMaterial.d ? 300 : (i == OItem.C.bP ? 100 : (i == OItem.l.bP ? 1600 : (i == OItem.ax.bP ? 20000 : (i == OBlock.y.bO ? 100 : (i == OItem.bn.bP ? 2400 : 0)))));
         }
     }
 
-     public static boolean b(OItemStack var0) {
-        return a(var0) > 0;
-     }
+    public static boolean b(OItemStack oitemstack) {
+        return a(oitemstack) > 0;
+    }
 
-    public boolean a(OEntityPlayer var1) {
-        return this.k.b(this.l, this.m, this.n) != this ? false : var1.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.k.b(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
 
     public void f() {}
@@ -213,18 +213,18 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
     }
 
     @Override
-    public void setContents(OItemStack[] values) {
-        d = Arrays.copyOf(values, getContentsSize());
+    public void setContents(OItemStack[] aoitemstack) {
+        d = Arrays.copyOf(aoitemstack, getContentsSize());
     }
 
     @Override
-    public OItemStack getContentsAt(int index) {
-        return g_(index);
+    public OItemStack getContentsAt(int i) {
+        return g_(i);
     }
 
     @Override
-    public void setContentsAt(int index, OItemStack value) {
-        a(index, value);
+    public void setContentsAt(int i, OItemStack oitemstack) {
+        a(i, oitemstack);
     }
 
     @Override
@@ -238,8 +238,8 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
     }
 
     @Override
-    public void setName(String value) {
-        name = value;
+    public void setName(String s) {
+        name = s;
     }
 
 }

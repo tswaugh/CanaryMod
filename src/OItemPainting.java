@@ -1,50 +1,50 @@
 
 public class OItemPainting extends OItem {
 
-    public OItemPainting(int var1) {
-        super(var1);
+    public OItemPainting(int i) {
+        super(i);
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
         // CanaryMod: store clicked block data
-        Block blockClicked = new Block(var3.world, var3.world.getBlockIdAt(var4, var5, var6), var4, var5, var6);
+        Block blockClicked = new Block(oworld.world, oworld.world.getBlockIdAt(i, j, k), i, j, k);
 
-        blockClicked.setFaceClicked(Block.Face.fromId(var7));
+        blockClicked.setFaceClicked(Block.Face.fromId(l));
         
-        if (var7 == 0) {
+        if (l == 0) {
             return false;
-        } else if (var7 == 1) {
+        } else if (l == 1) {
             return false;
         } else {
-            byte var8 = 0;
+            byte b0 = 0;
 
-            if (var7 == 4) {
-                var8 = 1;
+            if (l == 4) {
+                b0 = 1;
             }
 
-            if (var7 == 3) {
-                var8 = 2;
+            if (l == 3) {
+                b0 = 2;
             }
 
-            if (var7 == 5) {
-                var8 = 3;
+            if (l == 5) {
+                b0 = 3;
             }
 
-            if (!var2.d(var4, var5, var6)) {
+            if (!oentityplayer.d(i, j, k)) {
                 return false;
             } else {
-                OEntityPainting var9 = new OEntityPainting(var3, var4, var5, var6, var8);
+                OEntityPainting oentitypainting = new OEntityPainting(oworld, i, j, k, b0);
 
-                if (var9.k()) {
-                    if (!var3.F) {
+                if (oentitypainting.k()) {
+                    if (!oworld.F) {
                         // CanaryMod: Painting place hook
-                        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var2).getPlayer(), null, blockClicked, new Item(var1))) {
+                        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, blockClicked, new Item(oitemstack))) {
                             return false;
                         }
-                        var3.b((OEntity) var9);
+                        oworld.b((OEntity) oentitypainting);
                     }
 
-                    --var1.a;
+                    --oitemstack.a;
                 }
 
                 return true;

@@ -3,47 +3,48 @@ public class OItemDoor extends OItem {
 
     private OMaterial a;
 
-    public OItemDoor(int var1, OMaterial var2) {
-        super(var1);
-        this.a = var2;
+    public OItemDoor(int i, OMaterial omaterial) {
+        super(i);
+        this.a = omaterial;
         this.bQ = 1;
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        if (var7 != 1) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+        if (l != 1) {
             return false;
         } else {
-            ++var5;
-            OBlock var8;
+            ++j;
+            OBlock oblock;
 
             if (this.a == OMaterial.d) {
-                var8 = OBlock.aE;
+                oblock = OBlock.aE;
             } else {
-                var8 = OBlock.aL;
+                oblock = OBlock.aL;
             }
 
-            if (var2.d(var4, var5, var6) && var2.d(var4, var5 + 1, var6)) {
-                if (!var8.c(var3, var4, var5, var6)) {
+            if (oentityplayer.d(i, j, k) && oentityplayer.d(i, j + 1, k)) {
+                if (!oblock.c(oworld, i, j, k)) {
                     return false;
                 } else {
                     // CanaryMod hook: onItemUse
-                    Block blockClicked = new Block(var3.world, var3.world.getBlockIdAt(var4, var5, var6), var4, var5, var6);
+                    Block blockClicked = new Block(oworld.world, oworld.world.getBlockIdAt(i, j, k), i, j, k);
 
-                    blockClicked.setFaceClicked(Block.Face.fromId(var7));
-                    Block blockPlaced = new Block(var3.world, var8.bO, var4, var5, var6);
+                    blockClicked.setFaceClicked(Block.Face.fromId(l));
+                    Block blockPlaced = new Block(oworld.world, oblock.bO, i, j, k);
+
                     // Call the hook
-                    if (var2 instanceof OEntityPlayerMP) {
-                        Player player = ((OEntityPlayerMP) var2).getPlayer();
+                    if (oentityplayer instanceof OEntityPlayerMP) {
+                        Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();
 
-                        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(var1))) {
+                        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(oitemstack))) {
                             return false;
                         }
                     }
                     
-                    int var9 = OMathHelper.b((double) ((var2.bs + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
+                    int i1 = OMathHelper.b((double) ((oentityplayer.bs + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
 
-                    a(var3, var4, var5, var6, var9, var8);
-                    --var1.a;
+                    a(oworld, i, j, k, i1, oblock);
+                    --oitemstack.a;
                     return true;
                 }
             } else {
@@ -52,43 +53,43 @@ public class OItemDoor extends OItem {
         }
     }
 
-    public static void a(OWorld var0, int var1, int var2, int var3, int var4, OBlock var5) {
-        byte var6 = 0;
-        byte var7 = 0;
+    public static void a(OWorld oworld, int i, int j, int k, int l, OBlock oblock) {
+        byte b0 = 0;
+        byte b1 = 0;
 
-        if (var4 == 0) {
-            var7 = 1;
+        if (l == 0) {
+            b1 = 1;
         }
 
-        if (var4 == 1) {
-            var6 = -1;
+        if (l == 1) {
+            b0 = -1;
         }
 
-        if (var4 == 2) {
-            var7 = -1;
+        if (l == 2) {
+            b1 = -1;
         }
 
-        if (var4 == 3) {
-            var6 = 1;
+        if (l == 3) {
+            b0 = 1;
         }
 
-        int var8 = (var0.e(var1 - var6, var2, var3 - var7) ? 1 : 0) + (var0.e(var1 - var6, var2 + 1, var3 - var7) ? 1 : 0);
-        int var9 = (var0.e(var1 + var6, var2, var3 + var7) ? 1 : 0) + (var0.e(var1 + var6, var2 + 1, var3 + var7) ? 1 : 0);
-        boolean var10 = var0.a(var1 - var6, var2, var3 - var7) == var5.bO || var0.a(var1 - var6, var2 + 1, var3 - var7) == var5.bO;
-        boolean var11 = var0.a(var1 + var6, var2, var3 + var7) == var5.bO || var0.a(var1 + var6, var2 + 1, var3 + var7) == var5.bO;
-        boolean var12 = false;
+        int i1 = (oworld.e(i - b0, j, k - b1) ? 1 : 0) + (oworld.e(i - b0, j + 1, k - b1) ? 1 : 0);
+        int j1 = (oworld.e(i + b0, j, k + b1) ? 1 : 0) + (oworld.e(i + b0, j + 1, k + b1) ? 1 : 0);
+        boolean flag = oworld.a(i - b0, j, k - b1) == oblock.bO || oworld.a(i - b0, j + 1, k - b1) == oblock.bO;
+        boolean flag1 = oworld.a(i + b0, j, k + b1) == oblock.bO || oworld.a(i + b0, j + 1, k + b1) == oblock.bO;
+        boolean flag2 = false;
 
-        if (var10 && !var11) {
-            var12 = true;
-        } else if (var9 > var8) {
-            var12 = true;
+        if (flag && !flag1) {
+            flag2 = true;
+        } else if (j1 > i1) {
+            flag2 = true;
         }
 
-        var0.o = true;
-        var0.b(var1, var2, var3, var5.bO, var4);
-        var0.b(var1, var2 + 1, var3, var5.bO, 8 | (var12 ? 1 : 0));
-        var0.o = false;
-        var0.h(var1, var2, var3, var5.bO);
-        var0.h(var1, var2 + 1, var3, var5.bO);
+        oworld.o = true;
+        oworld.b(i, j, k, oblock.bO, l);
+        oworld.b(i, j + 1, k, oblock.bO, 8 | (flag2 ? 1 : 0));
+        oworld.o = false;
+        oworld.h(i, j, k, oblock.bO);
+        oworld.h(i, j + 1, k, oblock.bO);
     }
 }

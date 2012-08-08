@@ -11,12 +11,12 @@ public class OEntityItem extends OEntity {
 
     // CanaryMod End
 
-    public OEntityItem(OWorld var1, double var2, double var4, double var6, OItemStack var8) {
-        super(var1);
+    public OEntityItem(OWorld oworld, double d0, double d1, double d2, OItemStack oitemstack) {
+        super(oworld);
         this.b(0.25F, 0.25F);
         this.bF = this.bH / 2.0F;
-        this.c(var2, var4, var6);
-        this.a = var8;
+        this.c(d0, d1, d2);
+        this.a = oitemstack;
         this.bs = (float) (Math.random() * 360.0D);
         this.bp = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
         this.bq = 0.20000000298023224D;
@@ -27,8 +27,8 @@ public class OEntityItem extends OEntity {
         return false;
     }
 
-    public OEntityItem(OWorld var1) {
-        super(var1);
+    public OEntityItem(OWorld oworld) {
+        super(oworld);
         this.b(0.25F, 0.25F);
         this.bF = this.bH / 2.0F;
     }
@@ -43,6 +43,7 @@ public class OEntityItem extends OEntity {
         
         // CanaryMod start
         boolean tmpTouchesGround = this.bx;
+
         // CanaryMod end
 
         this.bj = this.bm;
@@ -58,29 +59,29 @@ public class OEntityItem extends OEntity {
 
         this.g(this.bm, (this.bw.b + this.bw.e) / 2.0D, this.bo);
         this.a(this.bp, this.bq, this.br);
-        float var1 = 0.98F;
+        float f = 0.98F;
 
         if (this.bx) {
-            var1 = 0.58800006F;
-            int var2 = this.bi.a(OMathHelper.b(this.bm), OMathHelper.b(this.bw.b) - 1, OMathHelper.b(this.bo));
+            f = 0.58800006F;
+            int i = this.bi.a(OMathHelper.b(this.bm), OMathHelper.b(this.bw.b) - 1, OMathHelper.b(this.bo));
 
-            if (var2 > 0) {
-                var1 = OBlock.m[var2].ce * 0.98F;
+            if (i > 0) {
+                f = OBlock.m[i].ce * 0.98F;
             }
             
             // CanaryMod start
             // It does touch the ground now, but didn't in last tick
-            if(!tmpTouchesGround) {
-            	if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_TOUCH_GROUND, item)) {
+            if (!tmpTouchesGround) {
+                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_TOUCH_GROUND, item)) {
                     this.X(); // kill the item
-            	}
+                }
             }
             // CanaryMod end
         }
 
-        this.bp *= (double) var1;
+        this.bp *= (double) f;
         this.bq *= 0.9800000190734863D;
-        this.br *= (double) var1;
+        this.br *= (double) f;
         if (this.bx) {
             this.bq *= -0.5D;
         }
@@ -105,13 +106,13 @@ public class OEntityItem extends OEntity {
         return this.bi.a(this.bw, OMaterial.g, this);
     }
 
-    protected void a(int var1) {
-        this.a(ODamageSource.b, var1);
+    protected void a(int i) {
+        this.a(ODamageSource.b, i);
     }
 
-    public boolean a(ODamageSource var1, int var2) {
+    public boolean a(ODamageSource odamagesource, int i) {
         this.aW();
-        this.e -= var2;
+        this.e -= i;
         if (this.e <= 0) {
             this.X();
         }
@@ -119,49 +120,49 @@ public class OEntityItem extends OEntity {
         return false;
     }
 
-    public void b(ONBTTagCompound var1) {
-        var1.a("Health", (short) ((byte) this.e));
-        var1.a("Age", (short) this.b);
-        var1.a("Item", this.a.b(new ONBTTagCompound()));
+    public void b(ONBTTagCompound onbttagcompound) {
+        onbttagcompound.a("Health", (short) ((byte) this.e));
+        onbttagcompound.a("Age", (short) this.b);
+        onbttagcompound.a("Item", this.a.b(new ONBTTagCompound()));
     }
 
-    public void a(ONBTTagCompound var1) {
-        this.e = var1.e("Health") & 255;
-        this.b = var1.e("Age");
-        ONBTTagCompound var2 = var1.m("Item");
+    public void a(ONBTTagCompound onbttagcompound) {
+        this.e = onbttagcompound.e("Health") & 255;
+        this.b = onbttagcompound.e("Age");
+        ONBTTagCompound onbttagcompound1 = onbttagcompound.m("Item");
 
-        this.a = OItemStack.a(var2);
+        this.a = OItemStack.a(onbttagcompound1);
         if (this.a == null) {
             this.X();
         }
 
     }
 
-    public void a_(OEntityPlayer var1) {
+    public void a_(OEntityPlayer oentityplayer) {
         if (!this.bi.F) {
-            int var2 = this.a.a;
+            int i = this.a.a;
 
             // CanaryMod: First simulate the pickup and call the hooks
-            if (this.c == 0 && var1.k.canPickup(this)) {
-                if (var1.k.a(this.a)) {
+            if (this.c == 0 && oentityplayer.k.canPickup(this)) {
+                if (oentityplayer.k.a(this.a)) {
                     if (this.a.c == OBlock.J.bO) {
-                        var1.a((OStatBase) OAchievementList.g);
+                        oentityplayer.a((OStatBase) OAchievementList.g);
                     }
 
                     if (this.a.c == OItem.aE.bP) {
-                        var1.a((OStatBase) OAchievementList.t);
+                        oentityplayer.a((OStatBase) OAchievementList.t);
                     }
 
                     if (this.a.c == OItem.m.bP) {
-                        var1.a((OStatBase) OAchievementList.w);
+                        oentityplayer.a((OStatBase) OAchievementList.w);
                     }
 
                     if (this.a.c == OItem.bn.bP) {
-                        var1.a((OStatBase) OAchievementList.z);
+                        oentityplayer.a((OStatBase) OAchievementList.z);
                     }
 
                     this.bi.a(this, "random.pop", 0.2F, ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                    var1.a((OEntity) this, var2);
+                    oentityplayer.a((OEntity) this, i);
                     if (this.a.a <= 0) {
                         this.X();
                     }

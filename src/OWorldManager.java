@@ -2,46 +2,46 @@
 public class OWorldManager implements OIWorldAccess {
 
     private OMinecraftServer a;
-    public OWorldServer b; //CanaryMod private -> public
+    public OWorldServer b; // CanaryMod private -> public
 
-    public OWorldManager(OMinecraftServer var1, OWorldServer var2) {
+    public OWorldManager(OMinecraftServer ominecraftserver, OWorldServer oworldserver) {
         super();
-        this.a = var1;
-        this.b = var2;
+        this.a = ominecraftserver;
+        this.b = oworldserver;
     }
 
-    public void a(String var1, double var2, double var4, double var6, double var8, double var10, double var12) {}
+    public void a(String s, double d0, double d1, double d2, double d3, double d4, double d5) {}
 
-    public void a(OEntity var1) {
-        if(this.b.name.equals(var1.bi.name)) {
-            this.b.getEntityTracker().trackEntity(var1);
+    public void a(OEntity oentity) {
+        if (this.b.name.equals(oentity.bi.name)) {
+            this.b.getEntityTracker().trackEntity(oentity);
         }
     }
 
-    public void b(OEntity var1) {
-        if(this.b.name.equals(var1.bi.name)) {
-            this.b.getEntityTracker().untrackEntity(var1);
+    public void b(OEntity oentity) {
+        if (this.b.name.equals(oentity.bi.name)) {
+            this.b.getEntityTracker().untrackEntity(oentity);
         }
     }
 
-    public void a(String var1, double var2, double var4, double var6, float var8, float var9) {}
+    public void a(String s, double d0, double d1, double d2, float f, float f1) {}
 
-    public void a(int var1, int var2, int var3, int var4, int var5, int var6) {}
+    public void a(int i, int j, int k, int l, int i1, int j1) {}
 
-    public void a(int var1, int var2, int var3) {
-        this.a.h.markBlockNeedsUpdate(var1, var2, var3, this.b.t.g, this.b.name);
+    public void a(int i, int j, int k) {
+        this.a.h.markBlockNeedsUpdate(i, j, k, this.b.t.g, this.b.name);
     }
 
-    public void b(int var1, int var2, int var3) {}
+    public void b(int i, int j, int k) {}
 
-    public void a(String var1, int var2, int var3, int var4) {}
+    public void a(String s, int i, int j, int k) {}
 
-    public void a(int var1, int var2, int var3, OTileEntity var4) {
-        this.a.h.a(var1, var2, var3, var4);
+    public void a(int i, int j, int k, OTileEntity otileentity) {
+        this.a.h.a(i, j, k, otileentity);
     }
 
-    public void a(OEntityPlayer var1, int var2, int var3, int var4, int var5, int var6) {
-        //canatyMod: Fix for block particle spawning cross-worlds
-        this.a.h.a(var1, (double) var3, (double) var4, (double) var5, 64.0D, this.b.t.g, new OPacket61DoorChange(var2, var3, var4, var5, var6), b.name);
+    public void a(OEntityPlayer oentityplayer, int i, int j, int k, int l, int i1) {
+        // canatyMod: Fix for block particle spawning cross-worlds
+        this.a.h.a(oentityplayer, (double) j, (double) k, (double) l, 64.0D, this.b.t.g, new OPacket61DoorChange(i, j, k, l, i1), b.name);
     }
 }

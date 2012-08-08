@@ -16,21 +16,21 @@ public class OEnchantmentHelper {
         super();
     }
 
-    public static int a(int var0, OItemStack var1) {
-        if (var1 == null) {
+    public static int a(int i, OItemStack oitemstack) {
+        if (oitemstack == null) {
             return 0;
         } else {
-            ONBTTagList var2 = var1.p();
+            ONBTTagList onbttaglist = oitemstack.p();
 
-            if (var2 == null) {
+            if (onbttaglist == null) {
                 return 0;
             } else {
-                for (int var3 = 0; var3 < var2.d(); ++var3) {
-                    short var4 = ((ONBTTagCompound) var2.a(var3)).e("id");
-                    short var5 = ((ONBTTagCompound) var2.a(var3)).e("lvl");
+                for (int j = 0; j < onbttaglist.d(); ++j) {
+                    short short1 = ((ONBTTagCompound) onbttaglist.a(j)).e("id");
+                    short short2 = ((ONBTTagCompound) onbttaglist.a(j)).e("lvl");
 
-                    if (var4 == var0) {
-                        return var5;
+                    if (short1 == i) {
+                        return short2;
                     }
                 }
 
@@ -39,34 +39,34 @@ public class OEnchantmentHelper {
         }
     }
 
-    private static int a(int var0, OItemStack[] var1) {
-        int var2 = 0;
-        OItemStack[] var3 = var1;
-        int var4 = var1.length;
+    private static int a(int i, OItemStack[] aoitemstack) {
+        int j = 0;
+        OItemStack[] aoitemstack1 = aoitemstack;
+        int k = aoitemstack.length;
 
-        for (int var5 = 0; var5 < var4; ++var5) {
-            OItemStack var6 = var3[var5];
-            int var7 = a(var0, var6);
+        for (int l = 0; l < k; ++l) {
+            OItemStack oitemstack = aoitemstack1[l];
+            int i1 = a(i, oitemstack);
 
-            if (var7 > var2) {
-                var2 = var7;
+            if (i1 > j) {
+                j = i1;
             }
         }
 
-        return var2;
+        return j;
     }
 
-    private static void a(OIEnchantmentModifier var0, OItemStack var1) {
-        if (var1 != null) {
-            ONBTTagList var2 = var1.p();
+    private static void a(OIEnchantmentModifier oienchantmentmodifier, OItemStack oitemstack) {
+        if (oitemstack != null) {
+            ONBTTagList onbttaglist = oitemstack.p();
 
-            if (var2 != null) {
-                for (int var3 = 0; var3 < var2.d(); ++var3) {
-                    short var4 = ((ONBTTagCompound) var2.a(var3)).e("id");
-                    short var5 = ((ONBTTagCompound) var2.a(var3)).e("lvl");
+            if (onbttaglist != null) {
+                for (int i = 0; i < onbttaglist.d(); ++i) {
+                    short short1 = ((ONBTTagCompound) onbttaglist.a(i)).e("id");
+                    short short2 = ((ONBTTagCompound) onbttaglist.a(i)).e("lvl");
 
-                    if (OEnchantment.b[var4] != null) {
-                        var0.a(OEnchantment.b[var4], var5);
+                    if (OEnchantment.b[short1] != null) {
+                        oienchantmentmodifier.a(OEnchantment.b[short1], short2);
                     }
                 }
 
@@ -74,22 +74,22 @@ public class OEnchantmentHelper {
         }
     }
 
-    private static void a(OIEnchantmentModifier var0, OItemStack[] var1) {
-        OItemStack[] var2 = var1;
-        int var3 = var1.length;
+    private static void a(OIEnchantmentModifier oienchantmentmodifier, OItemStack[] aoitemstack) {
+        OItemStack[] aoitemstack1 = aoitemstack;
+        int i = aoitemstack.length;
 
-        for (int var4 = 0; var4 < var3; ++var4) {
-            OItemStack var5 = var2[var4];
+        for (int j = 0; j < i; ++j) {
+            OItemStack oitemstack = aoitemstack1[j];
 
-            a(var0, var5);
+            a(oienchantmentmodifier, oitemstack);
         }
 
     }
 
-    public static int a(OInventoryPlayer var0, ODamageSource var1) {
+    public static int a(OInventoryPlayer oinventoryplayer, ODamageSource odamagesource) {
         b.a = 0;
-        b.b = var1;
-        a((OIEnchantmentModifier) b, var0.b);
+        b.b = odamagesource;
+        a((OIEnchantmentModifier) b, oinventoryplayer.b);
         if (b.a > 25) {
             b.a = 25;
         }
@@ -97,165 +97,165 @@ public class OEnchantmentHelper {
         return (b.a + 1 >> 1) + a.nextInt((b.a >> 1) + 1);
     }
 
-    public static int a(OInventoryPlayer var0, OEntityLiving var1) {
+    public static int a(OInventoryPlayer oinventoryplayer, OEntityLiving oentityliving) {
         c.a = 0;
-        c.b = var1;
-        a((OIEnchantmentModifier) c, var0.d());
+        c.b = oentityliving;
+        a((OIEnchantmentModifier) c, oinventoryplayer.d());
         return c.a > 0 ? 1 + a.nextInt(c.a) : 0;
     }
 
-    public static int b(OInventoryPlayer var0, OEntityLiving var1) {
-        return a(OEnchantment.m.x, var0.d());
+    public static int b(OInventoryPlayer oinventoryplayer, OEntityLiving oentityliving) {
+        return a(OEnchantment.m.x, oinventoryplayer.d());
     }
 
-    public static int c(OInventoryPlayer var0, OEntityLiving var1) {
-        return a(OEnchantment.n.x, var0.d());
+    public static int c(OInventoryPlayer oinventoryplayer, OEntityLiving oentityliving) {
+        return a(OEnchantment.n.x, oinventoryplayer.d());
     }
 
-    public static int a(OInventoryPlayer var0) {
-        return a(OEnchantment.h.x, var0.b);
+    public static int a(OInventoryPlayer oinventoryplayer) {
+        return a(OEnchantment.h.x, oinventoryplayer.b);
     }
 
-    public static int b(OInventoryPlayer var0) {
-        return a(OEnchantment.p.x, var0.d());
+    public static int b(OInventoryPlayer oinventoryplayer) {
+        return a(OEnchantment.p.x, oinventoryplayer.d());
     }
 
-    public static int c(OInventoryPlayer var0) {
-        return a(OEnchantment.r.x, var0.d());
+    public static int c(OInventoryPlayer oinventoryplayer) {
+        return a(OEnchantment.r.x, oinventoryplayer.d());
     }
 
-    public static boolean d(OInventoryPlayer var0) {
-        return a(OEnchantment.q.x, var0.d()) > 0;
+    public static boolean d(OInventoryPlayer oinventoryplayer) {
+        return a(OEnchantment.q.x, oinventoryplayer.d()) > 0;
     }
 
-    public static int e(OInventoryPlayer var0) {
-        return a(OEnchantment.s.x, var0.d());
+    public static int e(OInventoryPlayer oinventoryplayer) {
+        return a(OEnchantment.s.x, oinventoryplayer.d());
     }
 
-    public static int f(OInventoryPlayer var0) {
-        return a(OEnchantment.o.x, var0.d());
+    public static int f(OInventoryPlayer oinventoryplayer) {
+        return a(OEnchantment.o.x, oinventoryplayer.d());
     }
 
-    public static boolean g(OInventoryPlayer var0) {
-        return a(OEnchantment.i.x, var0.b) > 0;
+    public static boolean g(OInventoryPlayer oinventoryplayer) {
+        return a(OEnchantment.i.x, oinventoryplayer.b) > 0;
     }
 
-    public static int a(Random var0, int var1, int var2, OItemStack var3) {
-        OItem var4 = var3.a();
-        int var5 = var4.c();
+    public static int a(Random random, int i, int j, OItemStack oitemstack) {
+        OItem oitem = oitemstack.a();
+        int k = oitem.c();
 
-        if (var5 <= 0) {
+        if (k <= 0) {
             return 0;
         } else {
-            if (var2 > 30) {
-                var2 = 30;
+            if (j > 30) {
+                j = 30;
             }
 
-            var2 = 1 + (var2 >> 1) + var0.nextInt(var2 + 1);
-            int var6 = var0.nextInt(5) + var2;
+            j = 1 + (j >> 1) + random.nextInt(j + 1);
+            int l = random.nextInt(5) + j;
 
-            return var1 == 0 ? (var6 >> 1) + 1 : (var1 == 1 ? var6 * 2 / 3 + 1 : var6);
+            return i == 0 ? (l >> 1) + 1 : (i == 1 ? l * 2 / 3 + 1 : l);
         }
     }
 
-    public static void a(Random var0, OItemStack var1, int var2) {
-        List var3 = b(var0, var1, var2);
+    public static void a(Random random, OItemStack oitemstack, int i) {
+        List list = b(random, oitemstack, i);
 
-        if (var3 != null) {
-            Iterator var4 = var3.iterator();
+        if (list != null) {
+            Iterator iterator = list.iterator();
 
-            while (var4.hasNext()) {
-                OEnchantmentData var5 = (OEnchantmentData) var4.next();
+            while (iterator.hasNext()) {
+                OEnchantmentData oenchantmentdata = (OEnchantmentData) iterator.next();
 
-                var1.a(var5.a, var5.b);
+                oitemstack.a(oenchantmentdata.a, oenchantmentdata.b);
             }
         }
 
     }
 
-    public static List b(Random var0, OItemStack var1, int var2) {
-        OItem var3 = var1.a();
-        int var4 = var3.c();
+    public static List b(Random random, OItemStack oitemstack, int i) {
+        OItem oitem = oitemstack.a();
+        int j = oitem.c();
 
-        if (var4 <= 0) {
+        if (j <= 0) {
             return null;
         } else {
-            var4 = 1 + var0.nextInt((var4 >> 1) + 1) + var0.nextInt((var4 >> 1) + 1);
-            int var5 = var4 + var2;
-            float var6 = (var0.nextFloat() + var0.nextFloat() - 1.0F) * 0.25F;
-            int var7 = (int) ((float) var5 * (1.0F + var6) + 0.5F);
-            ArrayList var8 = null;
-            Map var9 = b(var7, var1);
+            j = 1 + random.nextInt((j >> 1) + 1) + random.nextInt((j >> 1) + 1);
+            int k = j + i;
+            float f = (random.nextFloat() + random.nextFloat() - 1.0F) * 0.25F;
+            int l = (int) ((float) k * (1.0F + f) + 0.5F);
+            ArrayList arraylist = null;
+            Map map = b(l, oitemstack);
 
-            if (var9 != null && !var9.isEmpty()) {
-                OEnchantmentData var10 = (OEnchantmentData) OWeightedRandom.a(var0, var9.values());
+            if (map != null && !map.isEmpty()) {
+                OEnchantmentData oenchantmentdata = (OEnchantmentData) OWeightedRandom.a(random, map.values());
 
-                if (var10 != null) {
-                    var8 = new ArrayList();
-                    var8.add(var10);
+                if (oenchantmentdata != null) {
+                    arraylist = new ArrayList();
+                    arraylist.add(oenchantmentdata);
 
-                    for (int var11 = var7 >> 1; var0.nextInt(50) <= var11; var11 >>= 1) {
-                        Iterator var12 = var9.keySet().iterator();
+                    for (int i1 = l >> 1; random.nextInt(50) <= i1; i1 >>= 1) {
+                        Iterator iterator = map.keySet().iterator();
 
-                        while (var12.hasNext()) {
-                            Integer var13 = (Integer) var12.next();
-                            boolean var14 = true;
-                            Iterator var15 = var8.iterator();
+                        while (iterator.hasNext()) {
+                            Integer integer = (Integer) iterator.next();
+                            boolean flag = true;
+                            Iterator iterator1 = arraylist.iterator();
 
                             while (true) {
-                                if (var15.hasNext()) {
-                                    OEnchantmentData var16 = (OEnchantmentData) var15.next();
+                                if (iterator1.hasNext()) {
+                                    OEnchantmentData oenchantmentdata1 = (OEnchantmentData) iterator1.next();
 
-                                    if (var16.a.a(OEnchantment.b[var13.intValue()])) {
+                                    if (oenchantmentdata1.a.a(OEnchantment.b[integer.intValue()])) {
                                         continue;
                                     }
 
-                                    var14 = false;
+                                    flag = false;
                                 }
 
-                                if (!var14) {
-                                    var12.remove();
+                                if (!flag) {
+                                    iterator.remove();
                                 }
                                 break;
                             }
                         }
 
-                        if (!var9.isEmpty()) {
-                            OEnchantmentData var17 = (OEnchantmentData) OWeightedRandom.a(var0, var9.values());
+                        if (!map.isEmpty()) {
+                            OEnchantmentData oenchantmentdata2 = (OEnchantmentData) OWeightedRandom.a(random, map.values());
 
-                            var8.add(var17);
+                            arraylist.add(oenchantmentdata2);
                         }
                     }
                 }
             }
 
-            return var8;
+            return arraylist;
         }
     }
 
-    public static Map b(int var0, OItemStack var1) {
-        OItem var2 = var1.a();
-        HashMap var3 = null;
-        OEnchantment[] var4 = OEnchantment.b;
-        int var5 = var4.length;
+    public static Map b(int i, OItemStack oitemstack) {
+        OItem oitem = oitemstack.a();
+        HashMap hashmap = null;
+        OEnchantment[] aoenchantment = OEnchantment.b;
+        int j = aoenchantment.length;
 
-        for (int var6 = 0; var6 < var5; ++var6) {
-            OEnchantment var7 = var4[var6];
+        for (int k = 0; k < j; ++k) {
+            OEnchantment oenchantment = aoenchantment[k];
 
-            if (var7 != null && var7.y.a(var2)) {
-                for (int var8 = var7.c(); var8 <= var7.a(); ++var8) {
-                    if (var0 >= var7.a(var8) && var0 <= var7.b(var8)) {
-                        if (var3 == null) {
-                            var3 = new HashMap();
+            if (oenchantment != null && oenchantment.y.a(oitem)) {
+                for (int l = oenchantment.c(); l <= oenchantment.a(); ++l) {
+                    if (i >= oenchantment.a(l) && i <= oenchantment.b(l)) {
+                        if (hashmap == null) {
+                            hashmap = new HashMap();
                         }
 
-                        var3.put(Integer.valueOf(var7.x), new OEnchantmentData(var7, var8));
+                        hashmap.put(Integer.valueOf(oenchantment.x), new OEnchantmentData(oenchantment, l));
                     }
                 }
             }
         }
 
-        return var3;
+        return hashmap;
     }
 
 }

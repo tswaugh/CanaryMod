@@ -6,21 +6,21 @@ public class OBlockStairs extends OBlock {
 
     private OBlock a;
 
-    protected OBlockStairs(int var1, OBlock var2) {
-        super(var1, var2.bN, var2.cd);
-        this.a = var2;
-        this.c(var2.bP);
-        this.b(var2.bQ / 3.0F);
-        this.a(var2.cb);
+    protected OBlockStairs(int i, OBlock oblock) {
+        super(i, oblock.bN, oblock.cd);
+        this.a = oblock;
+        this.c(oblock.bP);
+        this.b(oblock.bQ / 3.0F);
+        this.a(oblock.cb);
         this.f(255);
     }
 
-    public void a(OIBlockAccess var1, int var2, int var3, int var4) {
+    public void a(OIBlockAccess oiblockaccess, int i, int j, int k) {
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public OAxisAlignedBB e(OWorld var1, int var2, int var3, int var4) {
-        return super.e(var1, var2, var3, var4);
+    public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
+        return super.e(oworld, i, j, k);
     }
 
     public boolean a() {
@@ -35,132 +35,132 @@ public class OBlockStairs extends OBlock {
         return 10;
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, OAxisAlignedBB var5, ArrayList var6) {
-        int var7 = var1.c(var2, var3, var4);
-        int var8 = var7 & 3;
-        float var9 = 0.0F;
-        float var10 = 0.5F;
-        float var11 = 0.5F;
-        float var12 = 1.0F;
+    public void a(OWorld oworld, int i, int j, int k, OAxisAlignedBB oaxisalignedbb, ArrayList arraylist) {
+        int l = oworld.c(i, j, k);
+        int i1 = l & 3;
+        float f = 0.0F;
+        float f1 = 0.5F;
+        float f2 = 0.5F;
+        float f3 = 1.0F;
 
-        if ((var7 & 4) != 0) {
-            var9 = 0.5F;
-            var10 = 1.0F;
-            var11 = 0.0F;
-            var12 = 0.5F;
+        if ((l & 4) != 0) {
+            f = 0.5F;
+            f1 = 1.0F;
+            f2 = 0.0F;
+            f3 = 0.5F;
         }
 
-        this.a(0.0F, var9, 0.0F, 1.0F, var10, 1.0F);
-        super.a(var1, var2, var3, var4, var5, var6);
-        if (var8 == 0) {
-            this.a(0.5F, var11, 0.0F, 1.0F, var12, 1.0F);
-            super.a(var1, var2, var3, var4, var5, var6);
-        } else if (var8 == 1) {
-            this.a(0.0F, var11, 0.0F, 0.5F, var12, 1.0F);
-            super.a(var1, var2, var3, var4, var5, var6);
-        } else if (var8 == 2) {
-            this.a(0.0F, var11, 0.5F, 1.0F, var12, 1.0F);
-            super.a(var1, var2, var3, var4, var5, var6);
-        } else if (var8 == 3) {
-            this.a(0.0F, var11, 0.0F, 1.0F, var12, 0.5F);
-            super.a(var1, var2, var3, var4, var5, var6);
+        this.a(0.0F, f, 0.0F, 1.0F, f1, 1.0F);
+        super.a(oworld, i, j, k, oaxisalignedbb, arraylist);
+        if (i1 == 0) {
+            this.a(0.5F, f2, 0.0F, 1.0F, f3, 1.0F);
+            super.a(oworld, i, j, k, oaxisalignedbb, arraylist);
+        } else if (i1 == 1) {
+            this.a(0.0F, f2, 0.0F, 0.5F, f3, 1.0F);
+            super.a(oworld, i, j, k, oaxisalignedbb, arraylist);
+        } else if (i1 == 2) {
+            this.a(0.0F, f2, 0.5F, 1.0F, f3, 1.0F);
+            super.a(oworld, i, j, k, oaxisalignedbb, arraylist);
+        } else if (i1 == 3) {
+            this.a(0.0F, f2, 0.0F, 1.0F, f3, 0.5F);
+            super.a(oworld, i, j, k, oaxisalignedbb, arraylist);
         }
 
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public void b(OWorld var1, int var2, int var3, int var4, OEntityPlayer var5) {
-        this.a.b(var1, var2, var3, var4, var5);
+    public void b(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {
+        this.a.b(oworld, i, j, k, oentityplayer);
     }
 
-    public void c(OWorld var1, int var2, int var3, int var4, int var5) {
-        this.a.c(var1, var2, var3, var4, var5);
+    public void c(OWorld oworld, int i, int j, int k, int l) {
+        this.a.c(oworld, i, j, k, l);
     }
 
-    public float a(OEntity var1) {
-        return this.a.a(var1);
+    public float a(OEntity oentity) {
+        return this.a.a(oentity);
     }
 
-    public int a(int var1, int var2) {
-        return this.a.a(var1, 0);
+    public int a(int i, int j) {
+        return this.a.a(i, 0);
     }
 
-    public int a(int var1) {
-        return this.a.a(var1, 0);
+    public int a(int i) {
+        return this.a.a(i, 0);
     }
 
     public int d() {
         return this.a.d();
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, OEntity var5, OVec3D var6) {
-        this.a.a(var1, var2, var3, var4, var5, var6);
+    public void a(OWorld oworld, int i, int j, int k, OEntity oentity, OVec3D ovec3d) {
+        this.a.a(oworld, i, j, k, oentity, ovec3d);
     }
 
     public boolean E_() {
         return this.a.E_();
     }
 
-    public boolean a(int var1, boolean var2) {
-        return this.a.a(var1, var2);
+    public boolean a(int i, boolean flag) {
+        return this.a.a(i, flag);
     }
 
-    public boolean c(OWorld var1, int var2, int var3, int var4) {
-        return this.a.c(var1, var2, var3, var4);
+    public boolean c(OWorld oworld, int i, int j, int k) {
+        return this.a.c(oworld, i, j, k);
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4) {
-        this.a(var1, var2, var3, var4, 0);
-        this.a.a(var1, var2, var3, var4);
+    public void a(OWorld oworld, int i, int j, int k) {
+        this.a(oworld, i, j, k, 0);
+        this.a.a(oworld, i, j, k);
     }
 
-    public void d(OWorld var1, int var2, int var3, int var4) {
-        this.a.d(var1, var2, var3, var4);
+    public void d(OWorld oworld, int i, int j, int k) {
+        this.a.d(oworld, i, j, k);
     }
 
-    public void b(OWorld var1, int var2, int var3, int var4, OEntity var5) {
-        this.a.b(var1, var2, var3, var4, var5);
+    public void b(OWorld oworld, int i, int j, int k, OEntity oentity) {
+        this.a.b(oworld, i, j, k, oentity);
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
-        this.a.a(var1, var2, var3, var4, var5);
+    public void a(OWorld oworld, int i, int j, int k, Random random) {
+        this.a.a(oworld, i, j, k, random);
     }
 
-    public boolean a(OWorld var1, int var2, int var3, int var4, OEntityPlayer var5) {
-        return this.a.a(var1, var2, var3, var4, var5);
+    public boolean a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {
+        return this.a.a(oworld, i, j, k, oentityplayer);
     }
 
-    public void a_(OWorld var1, int var2, int var3, int var4) {
-        this.a.a_(var1, var2, var3, var4);
+    public void a_(OWorld oworld, int i, int j, int k) {
+        this.a.a_(oworld, i, j, k);
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, OEntityLiving var5) {
-        int var6 = OMathHelper.b((double) (var5.bs * 4.0F / 360.0F) + 0.5D) & 3;
-        int var7 = var1.c(var2, var3, var4) & 4;
+    public void a(OWorld oworld, int i, int j, int k, OEntityLiving oentityliving) {
+        int l = OMathHelper.b((double) (oentityliving.bs * 4.0F / 360.0F) + 0.5D) & 3;
+        int i1 = oworld.c(i, j, k) & 4;
 
-        if (var6 == 0) {
-            var1.c(var2, var3, var4, 2 | var7);
+        if (l == 0) {
+            oworld.c(i, j, k, 2 | i1);
         }
 
-        if (var6 == 1) {
-            var1.c(var2, var3, var4, 1 | var7);
+        if (l == 1) {
+            oworld.c(i, j, k, 1 | i1);
         }
 
-        if (var6 == 2) {
-            var1.c(var2, var3, var4, 3 | var7);
+        if (l == 2) {
+            oworld.c(i, j, k, 3 | i1);
         }
 
-        if (var6 == 3) {
-            var1.c(var2, var3, var4, 0 | var7);
+        if (l == 3) {
+            oworld.c(i, j, k, 0 | i1);
         }
 
     }
 
-    public void e(OWorld var1, int var2, int var3, int var4, int var5) {
-        if (var5 == 0) {
-            int var6 = var1.c(var2, var3, var4);
+    public void e(OWorld oworld, int i, int j, int k, int l) {
+        if (l == 0) {
+            int i1 = oworld.c(i, j, k);
 
-            var1.c(var2, var3, var4, var6 | 4);
+            oworld.c(i, j, k, i1 | 4);
         }
 
     }

@@ -7,39 +7,39 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
     public long a = 0L;
     private int c;
 
-    public OEntityLightningBolt(OWorld var1, double var2, double var4, double var6) {
-        super(var1);
-        this.c(var2, var4, var6, 0.0F, 0.0F);
+    public OEntityLightningBolt(OWorld oworld, double d0, double d1, double d2) {
+        super(oworld);
+        this.c(d0, d1, d2, 0.0F, 0.0F);
         this.b = 2;
         this.a = this.bS.nextLong();
         this.c = this.bS.nextInt(3) + 1;
-        if (var1.q >= 2 && var1.a(OMathHelper.b(var2), OMathHelper.b(var4), OMathHelper.b(var6), 10)) {
-            int var8 = OMathHelper.b(var2);
-            int var9 = OMathHelper.b(var4);
-            int var10 = OMathHelper.b(var6);
+        if (oworld.q >= 2 && oworld.a(OMathHelper.b(d0), OMathHelper.b(d1), OMathHelper.b(d2), 10)) {
+            int i = OMathHelper.b(d0);
+            int j = OMathHelper.b(d1);
+            int k = OMathHelper.b(d2);
 
-            if (var1.a(var8, var9, var10) == 0 && OBlock.ar.c(var1, var8, var9, var10)) {
+            if (oworld.a(i, j, k) == 0 && OBlock.ar.c(oworld, i, j, k)) {
                 // CanaryMod: Ignite hook
-                Block block = this.bi.world.getBlockAt(var8, var9, var10);
+                Block block = this.bi.world.getBlockAt(i, j, k);
 
                 block.setStatus(5); // lightning
                 if (!(Boolean) manager.callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                    var1.e(var8, var9, var10, OBlock.ar.bO);
+                    oworld.e(i, j, k, OBlock.ar.bO);
                 }
             }
 
-            for (var8 = 0; var8 < 4; ++var8) {
-                var9 = OMathHelper.b(var2) + this.bS.nextInt(3) - 1;
-                var10 = OMathHelper.b(var4) + this.bS.nextInt(3) - 1;
-                int var11 = OMathHelper.b(var6) + this.bS.nextInt(3) - 1;
+            for (i = 0; i < 4; ++i) {
+                j = OMathHelper.b(d0) + this.bS.nextInt(3) - 1;
+                k = OMathHelper.b(d1) + this.bS.nextInt(3) - 1;
+                int l = OMathHelper.b(d2) + this.bS.nextInt(3) - 1;
 
-                if (var1.a(var9, var10, var11) == 0 && OBlock.ar.c(var1, var9, var10, var11)) {
+                if (oworld.a(j, k, l) == 0 && OBlock.ar.c(oworld, j, k, l)) {
                     // CanaryMod: Ignite hook
-                    Block block = this.bi.world.getBlockAt(var9, var10, var11);
+                    Block block = this.bi.world.getBlockAt(j, k, l);
 
                     block.setStatus(5); // lightning
                     if (!(Boolean) manager.callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                        var1.e(var9, var10, var11, OBlock.ar.bO);
+                        oworld.e(j, k, l, OBlock.ar.bO);
                     }
                 }
             }
@@ -63,17 +63,17 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
                 this.b = 1;
                 this.a = this.bS.nextLong();
                 if (this.bi.a(OMathHelper.b(this.bm), OMathHelper.b(this.bn), OMathHelper.b(this.bo), 10)) {
-                    int var1 = OMathHelper.b(this.bm);
-                    int var2 = OMathHelper.b(this.bn);
-                    int var3 = OMathHelper.b(this.bo);
+                    int i = OMathHelper.b(this.bm);
+                    int j = OMathHelper.b(this.bn);
+                    int k = OMathHelper.b(this.bo);
 
-                    if (this.bi.a(var1, var2, var3) == 0 && OBlock.ar.c(this.bi, var1, var2, var3)) {
+                    if (this.bi.a(i, j, k) == 0 && OBlock.ar.c(this.bi, i, j, k)) {
                         // CanaryMod: Ignite hook
-                        Block block = this.bi.world.getBlockAt(var1, var2, var3);
+                        Block block = this.bi.world.getBlockAt(i, j, k);
 
                         block.setStatus(5); // lightning
                         if (!(Boolean) manager.callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                            this.bi.e(var1, var2, var3, OBlock.ar.bO);
+                            this.bi.e(i, j, k, OBlock.ar.bO);
                         }
                     }
                 }
@@ -81,13 +81,13 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
         }
 
         if (this.b >= 0) {
-            double var4 = 3.0D;
-            List var8 = this.bi.b((OEntity) this, OAxisAlignedBB.b(this.bm - var4, this.bn - var4, this.bo - var4, this.bm + var4, this.bn + 6.0D + var4, this.bo + var4));
+            double d0 = 3.0D;
+            List list = this.bi.b((OEntity) this, OAxisAlignedBB.b(this.bm - d0, this.bn - d0, this.bo - d0, this.bm + d0, this.bn + 6.0D + d0, this.bo + d0));
 
-            for (int var6 = 0; var6 < var8.size(); ++var6) {
-                OEntity var7 = (OEntity) var8.get(var6);
+            for (int l = 0; l < list.size(); ++l) {
+                OEntity oentity = (OEntity) list.get(l);
 
-                var7.a(this);
+                oentity.a(this);
             }
 
             this.bi.n = 2;
@@ -97,7 +97,7 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
 
     protected void b() {}
 
-    protected void a(ONBTTagCompound var1) {}
+    protected void a(ONBTTagCompound onbttagcompound) {}
 
-    protected void b(ONBTTagCompound var1) {}
+    protected void b(ONBTTagCompound onbttagcompound) {}
 }

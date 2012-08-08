@@ -18,57 +18,56 @@ public class OTileEntity {
         super();
     }
 
-    private static void a(Class var0, String var1) {
-        if (b.containsKey(var1)) {
-            throw new IllegalArgumentException("Duplicate id: " + var1);
+    private static void a(Class oclass, String s) {
+        if (b.containsKey(s)) {
+            throw new IllegalArgumentException("Duplicate id: " + s);
         } else {
-            a.put(var1, var0);
-            b.put(var0, var1);
+            a.put(s, oclass);
+            b.put(oclass, s);
         }
     }
 
-    public void a(ONBTTagCompound var1) {
-        this.l = var1.f("x");
-        this.m = var1.f("y");
-        this.n = var1.f("z");
+    public void a(ONBTTagCompound onbttagcompound) {
+        this.l = onbttagcompound.f("x");
+        this.m = onbttagcompound.f("y");
+        this.n = onbttagcompound.f("z");
     }
 
-    public void b(ONBTTagCompound var1) {
-        String var2 = (String) b.get(this.getClass());
+    public void b(ONBTTagCompound onbttagcompound) {
+        String s = (String) b.get(this.getClass());
 
-        if (var2 == null) {
+        if (s == null) {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
         } else {
-            var1.a("id", var2);
-            var1.a("x", this.l);
-            var1.a("y", this.m);
-            var1.a("z", this.n);
+            onbttagcompound.a("id", s);
+            onbttagcompound.a("x", this.l);
+            onbttagcompound.a("y", this.m);
+            onbttagcompound.a("z", this.n);
         }
     }
 
-    public void q_() {
-    }
+    public void q_() {}
 
-    public static OTileEntity c(ONBTTagCompound var0) {
-        OTileEntity var1 = null;
+    public static OTileEntity c(ONBTTagCompound onbttagcompound) {
+        OTileEntity otileentity = null;
 
         try {
-            Class var2 = (Class) a.get(var0.j("id"));
+            Class oclass = (Class) a.get(onbttagcompound.j("id"));
 
-            if (var2 != null) {
-                var1 = (OTileEntity) var2.newInstance();
+            if (oclass != null) {
+                otileentity = (OTileEntity) oclass.newInstance();
             }
-        } catch (Exception var3) {
-            var3.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
-        if (var1 != null) {
-            var1.a(var0);
+        if (otileentity != null) {
+            otileentity.a(onbttagcompound);
         } else {
-            System.out.println("Skipping TileEntity with id " + var0.j("id"));
+            System.out.println("Skipping TileEntity with id " + onbttagcompound.j("id"));
         }
 
-        return var1;
+        return otileentity;
     }
 
     public int k() {
@@ -103,7 +102,7 @@ public class OTileEntity {
         this.o = false;
     }
 
-    public void b(int var1, int var2) {}
+    public void b(int i, int j) {}
 
     public void h() {
         this.q = null;

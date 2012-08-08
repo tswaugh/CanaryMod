@@ -3,72 +3,72 @@ public class OItemReed extends OItem {
 
     private int a;
 
-    public OItemReed(int var1, OBlock var2) {
-        super(var1);
-        this.a = var2.bO;
+    public OItemReed(int i, OBlock oblock) {
+        super(i);
+        this.a = oblock.bO;
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
         // CanaryMod: Store blockClicked
-        int clicked = var3.a(var4, var5, var6);
-        Block blockClicked = new Block(var3.world, clicked, var4, var5, var6);
+        int clicked = oworld.a(i, j, k);
+        Block blockClicked = new Block(oworld.world, clicked, i, j, k);
         
-        int var8 = var3.a(var4, var5, var6);
+        int i1 = oworld.a(i, j, k);
 
-        if (var8 == OBlock.aS.bO) {
-            var7 = 1;
-        } else if (var8 != OBlock.bu.bO && var8 != OBlock.X.bO && var8 != OBlock.Y.bO) {
-            if (var7 == 0) {
-                --var5;
+        if (i1 == OBlock.aS.bO) {
+            l = 1;
+        } else if (i1 != OBlock.bu.bO && i1 != OBlock.X.bO && i1 != OBlock.Y.bO) {
+            if (l == 0) {
+                --j;
             }
 
-            if (var7 == 1) {
-                ++var5;
+            if (l == 1) {
+                ++j;
             }
 
-            if (var7 == 2) {
-                --var6;
+            if (l == 2) {
+                --k;
             }
 
-            if (var7 == 3) {
-                ++var6;
+            if (l == 3) {
+                ++k;
             }
 
-            if (var7 == 4) {
-                --var4;
+            if (l == 4) {
+                --i;
             }
 
-            if (var7 == 5) {
-                ++var4;
+            if (l == 5) {
+                ++i;
             }
         }
 
-        if (!var2.d(var4, var5, var6)) {
+        if (!oentityplayer.d(i, j, k)) {
             return false;
-        } else if (var1.a == 0) {
+        } else if (oitemstack.a == 0) {
             return false;
         } else {
-            if (var3.a(this.a, var4, var5, var6, false, var7)) {
+            if (oworld.a(this.a, i, j, k, false, l)) {
                 // CanaryMod: Reed placement
-                Block blockPlaced = new Block(var3.world, this.a, var4, var5, var6);
+                Block blockPlaced = new Block(oworld.world, this.a, i, j, k);
 
-                blockClicked.setFaceClicked(Block.Face.fromId(var7));
-                Player player = ((OEntityPlayerMP) var2).getPlayer();
+                blockClicked.setFaceClicked(Block.Face.fromId(l));
+                Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();
 
-                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(var1))) {
+                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(oitemstack))) {
                     return false;
                 }
                 
-                OBlock var9 = OBlock.m[this.a];
+                OBlock oblock = OBlock.m[this.a];
 
-                if (var3.e(var4, var5, var6, this.a)) {
-                    if (var3.a(var4, var5, var6) == this.a) {
-                        OBlock.m[this.a].e(var3, var4, var5, var6, var7);
-                        OBlock.m[this.a].a(var3, var4, var5, var6, (OEntityLiving) var2);
+                if (oworld.e(i, j, k, this.a)) {
+                    if (oworld.a(i, j, k) == this.a) {
+                        OBlock.m[this.a].e(oworld, i, j, k, l);
+                        OBlock.m[this.a].a(oworld, i, j, k, (OEntityLiving) oentityplayer);
                     }
 
-                    var3.a((double) ((float) var4 + 0.5F), (double) ((float) var5 + 0.5F), (double) ((float) var6 + 0.5F), var9.cb.c(), (var9.cb.a() + 1.0F) / 2.0F, var9.cb.b() * 0.8F);
-                    --var1.a;
+                    oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cb.c(), (oblock.cb.a() + 1.0F) / 2.0F, oblock.cb.b() * 0.8F);
+                    --oitemstack.a;
                 }
             }
 

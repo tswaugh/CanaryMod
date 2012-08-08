@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 
-
 public class ONetLoginHandler extends ONetHandler {
 
     public static Logger a = Logger.getLogger("Minecraft");
@@ -20,10 +19,10 @@ public class ONetLoginHandler extends ONetHandler {
     
     private String worldname; // CanaryMod: store worldname given by plugins
 
-    public ONetLoginHandler(OMinecraftServer var1, Socket var2, String var3) throws IOException {
+    public ONetLoginHandler(OMinecraftServer ominecraftserver, Socket socket, String s) throws IOException {
         super();
-        this.e = var1;
-        this.b = new ONetworkManager(var2, var3, this);
+        this.e = ominecraftserver;
+        this.b = new ONetworkManager(socket, s, this);
         this.b.f = 0;
     }
 
@@ -41,19 +40,19 @@ public class ONetLoginHandler extends ONetHandler {
 
     }
 
-    public void a(String var1) {
+    public void a(String s) {
         try {
-            a.info("Disconnecting " + this.b() + ": " + var1);
-            this.b.a((OPacket) (new OPacket255KickDisconnect(var1)));
+            a.info("Disconnecting " + this.b() + ": " + s);
+            this.b.a((OPacket) (new OPacket255KickDisconnect(s)));
             this.b.d();
             this.c = true;
-        } catch (Exception var3) {
-            var3.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
     }
 
-    public void a(OPacket2Handshake var1) {
+    public void a(OPacket2Handshake opacket2handshake) {
         if (this.e.n) {
             this.i = Long.toString(d.nextLong(), 16);
             this.b.a((OPacket) (new OPacket2Handshake(this.i)));
@@ -63,17 +62,17 @@ public class ONetLoginHandler extends ONetHandler {
 
     }
 
-    public void a(OPacket1Login var1) {
-        //CanaryMod: Filter bad player names and remove them from the login process
-        if(!var1.b.toLowerCase().matches("[a-z0-9-_]+")) {
-            c=true; //finished processing
+    public void a(OPacket1Login opacket1login) {
+        // CanaryMod: Filter bad player names and remove them from the login process
+        if (!opacket1login.b.toLowerCase().matches("[a-z0-9-_]+")) {
+            c = true; // finished processing
             b.a("This name has been assimilated and you have been kicked.");
             return;
         }
-        //CanaryMod End
-        this.g = var1.b;
-        if (var1.a != 29) {
-            if (var1.a > 29) {
+        // CanaryMod End
+        this.g = opacket1login.b;
+        if (opacket1login.a != 29) {
+            if (opacket1login.a > 29) {
                 this.a("Outdated server!");
             } else {
                 this.a("Outdated client!");
@@ -81,100 +80,100 @@ public class ONetLoginHandler extends ONetHandler {
 
         } else {
             if (!this.e.n) {
-                this.b(var1);
+                this.b(opacket1login);
             } else {
-                (new OThreadLoginVerifier(this, var1)).start();
+                (new OThreadLoginVerifier(this, opacket1login)).start();
             }
 
         }
     }
 
-    public void b(OPacket1Login var1) {
-        OEntityPlayerMP var2 = this.e.h.a(this, var1.b); //create new player instance - this has called a loginchecks hook
+    public void b(OPacket1Login opacket1login) {
+        OEntityPlayerMP oentityplayermp = this.e.h.a(this, opacket1login.b); // create new player instance - this has called a loginchecks hook
 
-        if (var2 != null) { //Is not null, lets go on!
-            this.e.h.b(var2);
-            //The world the player will spawn in is set here.
-            //We had the LoginChecks hook in this.e.h.a(this, var1.b); so we have a specific world
-            //already specified and only get the right dimension here if that's needed.
-            var2.a((OWorld) this.e.getWorld(var2.bi.name, var2.w)); 
-            var2.c.a((OWorldServer) var2.bi);
-            a.info(this.b() + " logged in with entity id " + var2.bd + " at (" + var2.bm + ", " + var2.bn + ", " + var2.bo + " in world "+var2.bi.name+". Dimension: "+var2.w+")");
-            OWorldServer var3 = this.e.getWorld(var2.bi.name, var2.w);
-            OChunkCoordinates var4 = var3.p();
+        if (oentityplayermp != null) { // Is not null, lets go on!
+            this.e.h.b(oentityplayermp);
+            // The world the player will spawn in is set here.
+            // We had the LoginChecks hook in this.e.h.a(this, opacket1login.b); so we have a specific world
+            // already specified and only get the right dimension here if that's needed.
+            oentityplayermp.a((OWorld) this.e.getWorld(oentityplayermp.bi.name, oentityplayermp.w)); 
+            oentityplayermp.c.a((OWorldServer) oentityplayermp.bi);
+            a.info(this.b() + " logged in with entity id " + oentityplayermp.bd + " at (" + oentityplayermp.bm + ", " + oentityplayermp.bn + ", " + oentityplayermp.bo + " in world " + oentityplayermp.bi.name + ". Dimension: " + oentityplayermp.w + ")");
+            OWorldServer oworldserver = this.e.getWorld(oentityplayermp.bi.name, oentityplayermp.w);
+            OChunkCoordinates ochunkcoordinates = oworldserver.p();
 
-            var2.c.b(var3.s().m());
-            ONetServerHandler var5 = new ONetServerHandler(this.e, this.b, var2);
+            oentityplayermp.c.b(oworldserver.s().m());
+            ONetServerHandler onetserverhandler = new ONetServerHandler(this.e, this.b, oentityplayermp);
             
             // CanaryMod - if seed is hidden send 0 instead.
-            var5.b((OPacket) (new OPacket1Login("", var2.bd, var3.s().p(), var2.c.a(), var3.t.g, (byte) var3.q, (byte) var3.y(), (byte) this.e.h.k())));
-            var5.b((OPacket) (new OPacket6SpawnPosition(var4.a, var4.b, var4.c)));
-            this.e.h.a(var2, var3);
+            onetserverhandler.b((OPacket) (new OPacket1Login("", oentityplayermp.bd, oworldserver.s().p(), oentityplayermp.c.a(), oworldserver.t.g, (byte) oworldserver.q, (byte) oworldserver.y(), (byte) this.e.h.k())));
+            onetserverhandler.b((OPacket) (new OPacket6SpawnPosition(ochunkcoordinates.a, ochunkcoordinates.b, ochunkcoordinates.c)));
+            this.e.h.a(oentityplayermp, oworldserver);
             // CanaryMod - onPlayerConnect Hook
-            HookParametersConnect hookResult = new HookParametersConnect(String.format(Colors.Yellow + "%s joined the game.", var2.v), true);
+            HookParametersConnect hookResult = new HookParametersConnect(String.format(Colors.Yellow + "%s joined the game.", oentityplayermp.v), true);
 
-            hookResult = (HookParametersConnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_CONNECT, var2.getPlayer(), hookResult);
+            hookResult = (HookParametersConnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_CONNECT, oentityplayermp.getPlayer(), hookResult);
             if (!hookResult.isHidden()) { 
                 this.e.h.a((OPacket) (new OPacket3Chat(hookResult.getJoinMessage())));
             }
             
             // CanaryMod - Check Creative Mode
-            var2.getPlayer().refreshCreativeMode();
+            oentityplayermp.getPlayer().refreshCreativeMode();
             
             // CanaryMod - Check if player is listed as muted, and mute him
-            if(etc.getDataSource().isPlayerOnMuteList(var2.getPlayer().getName())) {
-                var2.getPlayer().toggleMute();
+            if (etc.getDataSource().isPlayerOnMuteList(oentityplayermp.getPlayer().getName())) {
+                oentityplayermp.getPlayer().toggleMute();
             }
             // CanaryMod END
 
-            this.e.h.a(var2, var3);
-            //this.e.h.a((OPacket) (new OPacket3Chat("\u00a7e" + var2.v + " joined the game.")));
-            this.e.h.c(var2);
-            var5.a(var2.bm, var2.bn, var2.bo, var2.bs, var2.bt, var2.w, var2.bi.name);
-            this.e.c.a(var5);
-            var5.b((OPacket) (new OPacket4UpdateTime(var3.o())));
+            this.e.h.a(oentityplayermp, oworldserver);
+            // this.e.h.a((OPacket) (new OPacket3Chat("\u00a7e" + oentityplayermp.v + " joined the game.")));
+            this.e.h.c(oentityplayermp);
+            onetserverhandler.a(oentityplayermp.bm, oentityplayermp.bn, oentityplayermp.bo, oentityplayermp.bs, oentityplayermp.bt, oentityplayermp.w, oentityplayermp.bi.name);
+            this.e.c.a(onetserverhandler);
+            onetserverhandler.b((OPacket) (new OPacket4UpdateTime(oworldserver.o())));
 
             // CanaryMod - enable/disable potion effects on login
             if (hookResult.applyPotionsEffects()) {
-                Iterator var6 = var2.aM().iterator();
+                Iterator iterator = oentityplayermp.aM().iterator();
 
-                while (var6.hasNext()) {
-                    OPotionEffect var7 = (OPotionEffect) var6.next();
+                while (iterator.hasNext()) {
+                    OPotionEffect opotioneffect = (OPotionEffect) iterator.next();
 
-                    var5.b((OPacket) (new OPacket41EntityEffect(var2.bd, var7)));
+                    onetserverhandler.b((OPacket) (new OPacket41EntityEffect(oentityplayermp.bd, opotioneffect)));
                 }
             }
 
-            var2.x();
+            oentityplayermp.x();
         }
 
         this.c = true;
     }
 
-    public void a(String var1, Object[] var2) {
+    public void a(String s, Object[] aobject) {
         a.info(this.b() + " lost connection");
         this.c = true;
     }
 
-    public void a(OPacket254ServerPing var1) {
+    public void a(OPacket254ServerPing opacket254serverping) {
         if (this.b.f() == null) {
             return;
         } // CanaryMod - Fix if we don't have a socket, don't do anything
         try {
-            String var2 = this.e.s + "\u00a7" + this.e.h.j() + "\u00a7" + this.e.h.k();
+            String s = this.e.s + "\u00a7" + this.e.h.j() + "\u00a7" + this.e.h.k();
 
-            this.b.a((OPacket) (new OPacket255KickDisconnect(var2)));
+            this.b.a((OPacket) (new OPacket255KickDisconnect(s)));
             // CanaryMod swapped lines below. The network connection should be terminated AFTER removing the socket from the connection list.
             this.e.c.a(this.b.f());
             this.b.d();
             this.c = true;
-        } catch (Exception var3) {
-            var3.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
     }
 
-    public void a(OPacket var1) {
+    public void a(OPacket opacket) {
         this.a("Protocol error");
     }
 
@@ -187,13 +186,13 @@ public class ONetLoginHandler extends ONetHandler {
     }
 
     // $FF: synthetic method
-    static String a(ONetLoginHandler var0) {
-        return var0.i;
+    static String a(ONetLoginHandler onetloginhandler) {
+        return onetloginhandler.i;
     }
 
     // $FF: synthetic method
-    static OPacket1Login a(ONetLoginHandler var0, OPacket1Login var1) {
-        return var0.h = var1;
+    static OPacket1Login a(ONetLoginHandler onetloginhandler, OPacket1Login opacket1login) {
+        return onetloginhandler.h = opacket1login;
     }
 
 }

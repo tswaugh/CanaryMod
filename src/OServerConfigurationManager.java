@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
+
 public class OServerConfigurationManager {
 
     public static Logger a = Logger.getLogger("Minecraft");
@@ -35,26 +36,26 @@ public class OServerConfigurationManager {
     private Map<String, OIPlayerFileData> saveHandlers = new HashMap<String, OIPlayerFileData>(1);
     private int viewDistance;
 
-    public OServerConfigurationManager(OMinecraftServer var1) {
+    public OServerConfigurationManager(OMinecraftServer ominecraftserver) {
         // CanaryMod: initialize
-        etc.setServer(var1);
+        etc.setServer(ominecraftserver);
         etc.getInstance().loadData();
         a.info("Note: your current classpath is: " + System.getProperty("java.class.path", "*UNKNOWN*"));
         if (!etc.getInstance().getTainted()) {
-            a.info((etc.getInstance().isCrow()?"CanaryMod Crow":"CanaryMod")+" Build " + etc.getInstance().getVersionStr());
+            a.info((etc.getInstance().isCrow() ? "CanaryMod Crow" : "CanaryMod") + " Build " + etc.getInstance().getVersionStr());
         } else {
             a.info("Tainted Build Information: " + etc.getInstance().getVersionStr());
         }
         
-        this.c = var1;
-        this.j = var1.a("banned-players.txt");
-        this.k = var1.a("banned-ips.txt");
-        this.l = var1.a("ops.txt");
-        // this.m = var1.a("white-list.txt"); //CanaryMod: disable Notchian whitelist
-        this.viewDistance = var1.d.a("view-distance", 10);
+        this.c = ominecraftserver;
+        this.j = ominecraftserver.a("banned-players.txt");
+        this.k = ominecraftserver.a("banned-ips.txt");
+        this.l = ominecraftserver.a("ops.txt");
+        // this.m = ominecraftserver.a("white-list.txt"); //CanaryMod: disable Notchian whitelist
+        this.viewDistance = ominecraftserver.d.a("view-distance", 10);
         
-        this.e = var1.d.a("max-players", 20);
-        this.o = var1.d.a("white-list", false);
+        this.e = ominecraftserver.d.a("max-players", 20);
+        this.o = ominecraftserver.d.a("white-list", false);
         this.l();
         this.n();
         this.p();
@@ -65,154 +66,152 @@ public class OServerConfigurationManager {
         // this.s();
     }
 
-    public void a(OWorldServer[] var1) {
-        this.saveHandlers.put(var1[0].name, var1[0].r().d());
+    public void a(OWorldServer[] aoworldserver) {
+        this.saveHandlers.put(aoworldserver[0].name, aoworldserver[0].r().d());
     }
 
-    public void a(OEntityPlayerMP var1) {
-        OPlayerManager[] mgrs = this.managers.get(var1.bi.name);
-        mgrs[0].b(var1);
-        mgrs[1].b(var1);
-        mgrs[2].b(var1);
-        this.getManager(var1.bi.name, var1.w).removePlayer(var1);
-        this.getManager(var1.bi.name, var1.w).addPlayer(var1);
-        OWorldServer var2 = this.c.getWorld(var1.bi.name, var1.w);
+    public void a(OEntityPlayerMP oentityplayermp) {
+        OPlayerManager[] mgrs = this.managers.get(oentityplayermp.bi.name);
 
-        var2.G.c((int) var1.bm >> 4, (int) var1.bo >> 4);
+        mgrs[0].b(oentityplayermp);
+        mgrs[1].b(oentityplayermp);
+        mgrs[2].b(oentityplayermp);
+        this.getManager(oentityplayermp.bi.name, oentityplayermp.w).removePlayer(oentityplayermp);
+        this.getManager(oentityplayermp.bi.name, oentityplayermp.w).addPlayer(oentityplayermp);
+        OWorldServer oworldserver = this.c.getWorld(oentityplayermp.bi.name, oentityplayermp.w);
+
+        oworldserver.G.c((int) oentityplayermp.bm >> 4, (int) oentityplayermp.bo >> 4);
     }
 
     public int a() {
-        throw new UnsupportedOperationException("OServerConfigurationManager"
-                + ".a() has been replaced by OServerConfigurationManager"
-                + ".getMaxTrackingDistance(String).");
+        throw new UnsupportedOperationException("OServerConfigurationManager" + ".a() has been replaced by OServerConfigurationManager" + ".getMaxTrackingDistance(String).");
     }
     
-    public int getMaxTrackingDistance(String worldName) {
-        return this.managers.get(worldName)[0].c();
+    public int getMaxTrackingDistance(String s) {
+        return this.managers.get(s)[0].c();
     }
 
-    private OPlayerManager a(int var1) {
-        throw new UnsupportedOperationException("OServerConfigurationManager.a"
-                + "(int) has been replaced by OServerConfigurationManager.get"
-                + "Manager(String, int).");
+    private OPlayerManager a(int i) {
+        throw new UnsupportedOperationException("OServerConfigurationManager.a" + "(int) has been replaced by OServerConfigurationManager.get" + "Manager(String, int).");
     }
     
-    public PlayerManager getManager(String worldName, int dimension) {
-        int index = dimension == -1 ? 1 : (dimension == 0 ? 0 : 2);
-        return this.managers.get(worldName)[index].getCanaryPlayerManager();
+    public PlayerManager getManager(String s, int i) {
+        int index = i == -1 ? 1 : (i == 0 ? 0 : 2);
+
+        return this.managers.get(s)[index].getCanaryPlayerManager();
     }
 
-    public void b(OEntityPlayerMP var1) {
-        this.saveHandlers.get(var1.bi.name).b(var1);
+    public void b(OEntityPlayerMP oentityplayermp) {
+        this.saveHandlers.get(oentityplayermp.bi.name).b(oentityplayermp);
     }
 
-    public void c(OEntityPlayerMP var1) {
+    public void c(OEntityPlayerMP oentityplayermp) {
         // CanaryMod: Playername with color and Prefix
-        PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(true);
+        PlayerlistEntry entry = oentityplayermp.getPlayer().getPlayerlistEntry(true);
 
         this.a(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000));
-        this.b.add(var1);
-        OWorldServer var2 = this.c.getWorld(var1.bi.name, var1.w);
+        this.b.add(oentityplayermp);
+        OWorldServer oworldserver = this.c.getWorld(oentityplayermp.bi.name, oentityplayermp.w);
 
-        var2.G.c((int) var1.bm >> 4, (int) var1.bo >> 4);
+        oworldserver.G.c((int) oentityplayermp.bm >> 4, (int) oentityplayermp.bo >> 4);
 
-        while (var2.a(var1, var1.bw).size() != 0) {
-            var1.c(var1.bm, var1.bn + 1.0D, var1.bo);
+        while (oworldserver.a(oentityplayermp, oentityplayermp.bw).size() != 0) {
+            oentityplayermp.c(oentityplayermp.bm, oentityplayermp.bn + 1.0D, oentityplayermp.bo);
         }
 
-        var2.b(var1);
-        this.getManager(var2.name, var1.w).addPlayer(var1);
+        oworldserver.b(oentityplayermp);
+        this.getManager(oworldserver.name, oentityplayermp.w).addPlayer(oentityplayermp);
         this.u();
 
-        for (int var3 = 0; var3 < this.b.size(); ++var3) {
-            OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
+        for (int i = 0; i < this.b.size(); ++i) {
+            OEntityPlayerMP oentityplayermp1 = (OEntityPlayerMP) this.b.get(i);
 
-            entry = var4.getPlayer().getPlayerlistEntry(true);
-            var1.a.b(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
+            entry = oentityplayermp1.getPlayer().getPlayerlistEntry(true);
+            oentityplayermp.a.b(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
         }
 
         // CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
-        if (var1.getPlayer().getMode()) {
-            var1.getPlayer().setCreativeMode(1);
+        if (oentityplayermp.getPlayer().getMode()) {
+            oentityplayermp.getPlayer().setCreativeMode(1);
         }
-        etc.getInstance().getMotd(var1.getPlayer());
-        etc.getLoader().callHook(PluginLoader.Hook.LOGIN, var1.getPlayer());
-        var1.getPlayer().refreshCreativeMode();
+        etc.getInstance().getMotd(oentityplayermp.getPlayer());
+        etc.getLoader().callHook(PluginLoader.Hook.LOGIN, oentityplayermp.getPlayer());
+        oentityplayermp.getPlayer().refreshCreativeMode();
     }
 
-    public void d(OEntityPlayerMP var1) {
-        this.getManager(var1.bi.name, var1.w).updateMountedMovingPlayer(var1);
+    public void d(OEntityPlayerMP oentityplayermp) {
+        this.getManager(oentityplayermp.bi.name, oentityplayermp.w).updateMountedMovingPlayer(oentityplayermp);
     }
 
-    public void e(OEntityPlayerMP var1) {
-        this.saveHandlers.get(var1.bi.name).a(var1); //save player
-        this.c.getWorld(var1.bi.name, var1.w).e(var1);
-        this.b.remove(var1);
-        this.getManager(var1.bi.name, var1.w).removePlayer(var1);
+    public void e(OEntityPlayerMP oentityplayermp) {
+        this.saveHandlers.get(oentityplayermp.bi.name).a(oentityplayermp); // save player
+        this.c.getWorld(oentityplayermp.bi.name, oentityplayermp.w).e(oentityplayermp);
+        this.b.remove(oentityplayermp);
+        this.getManager(oentityplayermp.bi.name, oentityplayermp.w).removePlayer(oentityplayermp);
         // CanaryMod: Player color and Prefix
         if (etc.getInstance().isPlayerList_enabled()) {
-            PlayerlistEntry entry = var1.getPlayer().getPlayerlistEntry(false);
+            PlayerlistEntry entry = oentityplayermp.getPlayer().getPlayerlistEntry(false);
 
             this.a(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
         }
     }
 
-    public OEntityPlayerMP a(ONetLoginHandler var1, String var2) {
+    public OEntityPlayerMP a(ONetLoginHandler onetloginhandler, String s) {
         // TODO: add reasons, expire tempbans
         if (!etc.getLoader().isLoaded()) {
-            var1.a("The server is not finished loading yet!");
+            onetloginhandler.a("The server is not finished loading yet!");
         }
         
-        String ip = var1.b.c().toString(); //IP, move up!
+        String ip = onetloginhandler.b.c().toString(); // IP, move up!
+
         ip = ip.substring(ip.indexOf("/") + 1);
         ip = ip.substring(0, ip.lastIndexOf(":"));
-        //CanaryMod: Moved the loginchecks hook up.
-        //Plugins should get priority over system settings anyways, this also allows setting of custom world spawns
+        // CanaryMod: Moved the loginchecks hook up.
+        // Plugins should get priority over system settings anyways, this also allows setting of custom world spawns
 
-        HookParametersLogincheck hook = (HookParametersLogincheck) etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, new Object[] {new HookParametersLogincheck(c.getWorld(c.m(), 0).name, var2, ip)});
+        HookParametersLogincheck hook = (HookParametersLogincheck) etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, new Object[] { new HookParametersLogincheck(c.getWorld(c.m(), 0).name, s, ip)});
 
-        if(hook.getKickReason() != null) {
-            var1.a(hook.getKickReason());
-            return null; //return and spare the rest. 
+        if (hook.getKickReason() != null) {
+            onetloginhandler.a(hook.getKickReason());
+            return null; // return and spare the rest. 
         }
-        //CanaryMod before anything happens with a player instance, make sure the world we want is loaded into memory
-        //or else we'll run into crazy NPEs and subsequent "epic failure"
-       World[] worlds = etc.getServer().loadWorld(hook.getWorldName());
+        // CanaryMod before anything happens with a player instance, make sure the world we want is loaded into memory
+        // or else we'll run into crazy NPEs and subsequent "epic failure"
+        World[] worlds = etc.getServer().loadWorld(hook.getWorldName());
         
         // CanaryMod: whole section below is modified to handle whitelists and bans etc
         
-        //There, now we can put the player into the proper world before he joins. Fancy
-        OEntityPlayerMP temp = new OEntityPlayerMP(c, worlds[0].getWorld(), var2,
-                new OItemInWorldManager(worlds[0].getWorld()));
+        // There, now we can put the player into the proper world before he joins. Fancy
+        OEntityPlayerMP temp = new OEntityPlayerMP(c, worlds[0].getWorld(), s, new OItemInWorldManager(worlds[0].getWorld()));
         
-        //CanaryMod: set the world already.
-        //Usually this is called in ONetLoginhandler.b(OPacketLogin)
-        //However, we lost recollection of the world by then and need to set it here instead!
-        temp.a((OWorld)worlds[0].getWorld());
+        // CanaryMod: set the world already.
+        // Usually this is called in ONetLoginhandler.b(OPacketLogin)
+        // However, we lost recollection of the world by then and need to set it here instead!
+        temp.a((OWorld) worlds[0].getWorld());
         Player player = temp.getPlayer();
         
+        if (etc.getDataSource().isOnBanList(s, ip)) {
+            Ban ban = etc.getDataSource().getBan(s, ip);
 
-        
-        if (etc.getDataSource().isOnBanList(var2, ip)) {
-            Ban ban = etc.getDataSource().getBan(var2, ip);
-            var1.a(ban.getReason());
+            onetloginhandler.a(ban.getReason());
             return null;
-        } else if (this.f.contains(var2.trim().toLowerCase())) {
-            var1.a(etc.getInstance().getDefaultBanMessage());
+        } else if (this.f.contains(s.trim().toLowerCase())) {
+            onetloginhandler.a(etc.getInstance().getDefaultBanMessage());
             return null;
-        } else if ((etc.getInstance().isWhitelistEnabled() && !(etc.getDataSource().isUserOnWhitelist(var2) || player.isAdmin()))) {
-            var1.a(etc.getInstance().getWhitelistMessage());
+        } else if ((etc.getInstance().isWhitelistEnabled() && !(etc.getDataSource().isUserOnWhitelist(s) || player.isAdmin()))) {
+            onetloginhandler.a(etc.getInstance().getWhitelistMessage());
             return null;
         } else {
             if (this.g.contains(ip)) {
-                var1.a("Your IP address is banned from this server!");
+                onetloginhandler.a("Your IP address is banned from this server!");
                 return null;
-            } else if (this.b.size() >= this.e && !etc.getDataSource().isUserOnReserveList(var2)) {
-                var1.a("The server is full!");
+            } else if (this.b.size() >= this.e && !etc.getDataSource().isUserOnReserveList(s)) {
+                onetloginhandler.a("The server is full!");
                 return null;
             } else {
                 if (player.getIps() != null && !player.getIps()[0].equals("")) {
                     boolean ipallowed = false;
+
                     if (player.getIps() != null) {
                         for (String allowedip : player.getIps()) {
                             if (ip.equals(allowedip)) {
@@ -220,214 +219,210 @@ public class OServerConfigurationManager {
                                 break;
                             }
                         }
-                    }
-                    else {
+                    } else {
                         ipallowed = true;
                     }
                     if (!ipallowed) {
-                        var1.a("You are not allowed to log in from your current location");
+                        onetloginhandler.a("You are not allowed to log in from your current location");
                         return null;
                     }
                 }
 
-                for (int var4 = 0; var4 < this.b.size(); ++var4) {
-                    OEntityPlayerMP var5 = (OEntityPlayerMP) this.b.get(var4);
+                for (int i = 0; i < this.b.size(); ++i) {
+                    OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.b.get(i);
 
-                    if (var5.v.equalsIgnoreCase(var2)) {
+                    if (oentityplayermp.v.equalsIgnoreCase(s)) {
                         if (etc.getInstance().isAltLocLoginAllowed()) {
-                            var5.a.a("You logged in from another location");
+                            oentityplayermp.a.a("You logged in from another location");
                         } else {
-                            var1.a("You are already logged in from another location");
+                            onetloginhandler.a("You are already logged in from another location");
                             return null;
                         }
                     }
                 }
 
-                // return new OEntityPlayerMP(this.c, this.c.a(0), var2, new OItemInWorldManager(this.c.a(0)));
+                // return new OEntityPlayerMP(this.c, this.c.a(0), s, new OItemInWorldManager(this.c.a(0)));
             }
         }
-//        Object obj = etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, var2, ip);
-//
-//        if (obj instanceof String) {
-//            String result = (String) obj;
-//
-//            if (result != null && !result.equals("")) {
-//                var1.a(result);
-//                return null;
-//            }
-//        }
+        // Object obj = etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, s, ip);
+        //
+        // if (obj instanceof String) {
+        // String result = (String) obj;
+        //
+        // if (result != null && !result.equals("")) {
+        // onetloginhandler.a(result);
+        // return null;
+        // }
+        // }
         return temp;
     }
     
     // CanaryMod alias to set location when respawning.
-    public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3) {
-        return a(var1, var2, var3, null);
+    public OEntityPlayerMP a(OEntityPlayerMP oentityplayermp, int i, boolean flag) {
+        return a(oentityplayermp, i, flag, null);
     }
 
-    public OEntityPlayerMP a(OEntityPlayerMP var1, int var2, boolean var3, Location spawnLocation) {
-        var1.bi.getEntityTracker().untrackPlayerSymmetrics(var1);
-        var1.bi.getEntityTracker().untrackEntity(var1);
-        this.b.remove(var1);
-        var1.bi.world.removePlayerFromWorld(var1.getPlayer()); //Calls despawn method in OWorld
-        this.getManager(var1.bi.name, var1.w).removePlayer(var1);
-        OChunkCoordinates var4 = var1.ab();
+    public OEntityPlayerMP a(OEntityPlayerMP oentityplayermp, int i, boolean flag, Location location) {
+        oentityplayermp.bi.getEntityTracker().untrackPlayerSymmetrics(oentityplayermp);
+        oentityplayermp.bi.getEntityTracker().untrackEntity(oentityplayermp);
+        this.b.remove(oentityplayermp);
+        oentityplayermp.bi.world.removePlayerFromWorld(oentityplayermp.getPlayer()); // Calls despawn method in OWorld
+        this.getManager(oentityplayermp.bi.name, oentityplayermp.w).removePlayer(oentityplayermp);
+        OChunkCoordinates ochunkcoordinates = oentityplayermp.ab();
 
-        var1.w = var2;
-        OEntityPlayerMP var5 = new OEntityPlayerMP(this.c, var1.bi, var1.v, new OItemInWorldManager(var1.bi));
+        oentityplayermp.w = i;
+        OEntityPlayerMP oentityplayermp1 = new OEntityPlayerMP(this.c, oentityplayermp.bi, oentityplayermp.v, new OItemInWorldManager(oentityplayermp.bi));
 
-        if (var3) {
-            var5.c((OEntityPlayer) var1);
+        if (flag) {
+            oentityplayermp1.c((OEntityPlayer) oentityplayermp);
         }
 
-        var5.bd = var1.bd;
-        //Handle setting of serverhandlers
-        var5.a = var1.a;
-        var5.a.setPlayer(var5); //Override player entity
-        OWorldServer var6 = (OWorldServer) var1.bi;
+        oentityplayermp1.bd = oentityplayermp.bd;
+        // Handle setting of serverhandlers
+        oentityplayermp1.a = oentityplayermp.a;
+        oentityplayermp1.a.setPlayer(oentityplayermp1); // Override player entity
+        OWorldServer oworldserver = (OWorldServer) oentityplayermp.bi;
 
-        var5.c.a(var1.c.a());
-        var5.c.b(var6.s().m());
-        if (var4 != null) {
-            OChunkCoordinates var7 = OEntityPlayer.a(var1.bi, var4);
+        oentityplayermp1.c.a(oentityplayermp.c.a());
+        oentityplayermp1.c.b(oworldserver.s().m());
+        if (ochunkcoordinates != null) {
+            OChunkCoordinates ochunkcoordinates1 = OEntityPlayer.a(oentityplayermp.bi, ochunkcoordinates);
 
-            if (var7 != null) {
-                var5.c((double) ((float) var7.a + 0.5F), (double) ((float) var7.b + 0.1F), (double) ((float) var7.c + 0.5F), 0.0F, 0.0F);
-                var5.a(var4);
+            if (ochunkcoordinates1 != null) {
+                oentityplayermp1.c((double) ((float) ochunkcoordinates1.a + 0.5F), (double) ((float) ochunkcoordinates1.b + 0.1F), (double) ((float) ochunkcoordinates1.c + 0.5F), 0.0F, 0.0F);
+                oentityplayermp1.a(ochunkcoordinates);
             } else {
-                var5.a.b((OPacket) (new OPacket70Bed(0, 0)));
+                oentityplayermp1.a.b((OPacket) (new OPacket70Bed(0, 0)));
             }
         }
         
         // CanaryMod set player location and angle if a spawn location is defined
-        if (spawnLocation != null)
-        {
-            var5.c((double) spawnLocation.x, (double) spawnLocation.y, (double)spawnLocation.z, 0.0F, 0.0F);
+        if (location != null) {
+            oentityplayermp1.c((double) location.x, (double) location.y, (double) location.z, 0.0F, 0.0F);
         }
 
-        var6.G.c((int) var5.bm >> 4, (int) var5.bo >> 4);
+        oworldserver.G.c((int) oentityplayermp1.bm >> 4, (int) oentityplayermp1.bo >> 4);
 
-        while (var6.a(var5, var5.bw).size() != 0) {
-            var5.c(var5.bm, var5.bn + 1.0D, var5.bo);
+        while (oworldserver.a(oentityplayermp1, oentityplayermp1.bw).size() != 0) {
+            oentityplayermp1.c(oentityplayermp1.bm, oentityplayermp1.bn + 1.0D, oentityplayermp1.bo);
         }
 
-        var5.a.b((OPacket) (new OPacket9Respawn(var5.w, (byte) var5.bi.q, var5.bi.s().p(), var5.bi.y(), var5.c.a())));
-        var5.a.a(var5.bm, var5.bn, var5.bo, var5.bs, var5.bt, var5.w, var5.bi.name);
-        this.a(var5, var6);
+        oentityplayermp1.a.b((OPacket) (new OPacket9Respawn(oentityplayermp1.w, (byte) oentityplayermp1.bi.q, oentityplayermp1.bi.s().p(), oentityplayermp1.bi.y(), oentityplayermp1.c.a())));
+        oentityplayermp1.a.a(oentityplayermp1.bm, oentityplayermp1.bn, oentityplayermp1.bo, oentityplayermp1.bs, oentityplayermp1.bt, oentityplayermp1.w, oentityplayermp1.bi.name);
+        this.a(oentityplayermp1, oworldserver);
         
-        this.b.add(var5); 
-//        var5.bi.getEntityTracker().trackEntity(var5); //no need to add player to tracker
-        this.getManager(var5.bi.name, var5.w).addPlayer(var5);
-        var5.bi.world.addPlayerToWorld(var5.getPlayer());
-        var5.x();
-        var5.E();
-        return var5;
+        this.b.add(oentityplayermp1); 
+        // oentityplayermp1.bi.getEntityTracker().trackEntity(oentityplayermp1); //no need to add player to tracker
+        this.getManager(oentityplayermp1.bi.name, oentityplayermp1.w).addPlayer(oentityplayermp1);
+        oentityplayermp1.bi.world.addPlayerToWorld(oentityplayermp1.getPlayer());
+        oentityplayermp1.x();
+        oentityplayermp1.E();
+        return oentityplayermp1;
     }
     
     // CanaryMod alias to normally create portals when players are switching worlds.
-    public void a(OEntityPlayerMP var1, int var2) {
-        sendPlayerToOtherDimension(var1, var2, true);
+    public void a(OEntityPlayerMP oentityplayermp, int i) {
+        sendPlayerToOtherDimension(oentityplayermp, i, true);
     }
 
     // CanaryMod used to be a(OEntityPlayerMP var1, int var2) to teleport player to other dimensions.
     // Added createPortal option to cancel portal creation if not needed.
-    public void sendPlayerToOtherDimension(OEntityPlayerMP var1, int var2, boolean createPortal) {
-        int var3 = var1.w;
-        OWorldServer var4 = this.c.getWorld(var1.bi.name, var1.w);
+    public void sendPlayerToOtherDimension(OEntityPlayerMP oentityplayermp, int i, boolean flag) {
+        int j = oentityplayermp.w;
+        OWorldServer oworldserver = this.c.getWorld(oentityplayermp.bi.name, oentityplayermp.w);
 
-        var1.w = var2;
-        OWorldServer var5 = this.c.getWorld(var1.bi.name, var1.w);
+        oentityplayermp.w = i;
+        OWorldServer oworldserver1 = this.c.getWorld(oentityplayermp.bi.name, oentityplayermp.w);
 
-        var1.a.b((OPacket) (new OPacket9Respawn(var1.w, (byte) var1.bi.q, var5.s().p(), var5.y(), var1.c.a())));
-        var4.f(var1);
-        var1.bE = false;
-        double var6 = var1.bm;
-        double var8 = var1.bo;
-        double var10 = 8.0D;
+        oentityplayermp.a.b((OPacket) (new OPacket9Respawn(oentityplayermp.w, (byte) oentityplayermp.bi.q, oworldserver1.s().p(), oworldserver1.y(), oentityplayermp.c.a())));
+        oworldserver.f(oentityplayermp);
+        oentityplayermp.bE = false;
+        double d0 = oentityplayermp.bm;
+        double d1 = oentityplayermp.bo;
+        double d2 = 8.0D;
 
-        if (var1.w == -1) {
-            var6 /= var10;
-            var8 /= var10;
-            var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
-            if (var1.aE()) {
-                var4.a(var1, false);
+        if (oentityplayermp.w == -1) {
+            d0 /= d2;
+            d1 /= d2;
+            oentityplayermp.c(d0, oentityplayermp.bn, d1, oentityplayermp.bs, oentityplayermp.bt);
+            if (oentityplayermp.aE()) {
+                oworldserver.a(oentityplayermp, false);
             }
-        } else if (var1.w == 0) {
-            var6 *= var10;
-            var8 *= var10;
-            var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
-            if (var1.aE()) {
-                var4.a(var1, false);
+        } else if (oentityplayermp.w == 0) {
+            d0 *= d2;
+            d1 *= d2;
+            oentityplayermp.c(d0, oentityplayermp.bn, d1, oentityplayermp.bs, oentityplayermp.bt);
+            if (oentityplayermp.aE()) {
+                oworldserver.a(oentityplayermp, false);
             }
         } else {
-            OChunkCoordinates var12 = var5.d();
+            OChunkCoordinates ochunkcoordinates = oworldserver1.d();
 
-            var6 = (double) var12.a;
-            var1.bn = (double) var12.b;
-            var8 = (double) var12.c;
-            var1.c(var6, var1.bn, var8, 90.0F, 0.0F);
-            if (var1.aE()) {
-                var4.a(var1, false);
+            d0 = (double) ochunkcoordinates.a;
+            oentityplayermp.bn = (double) ochunkcoordinates.b;
+            d1 = (double) ochunkcoordinates.c;
+            oentityplayermp.c(d0, oentityplayermp.bn, d1, 90.0F, 0.0F);
+            if (oentityplayermp.aE()) {
+                oworldserver.a(oentityplayermp, false);
             }
         }
 
-        if (var3 != 1 && var1.aE()) {
-            var5.b(var1);
-            var1.c(var6, var1.bn, var8, var1.bs, var1.bt);
-            var5.a(var1, false);
+        if (j != 1 && oentityplayermp.aE()) {
+            oworldserver1.b(oentityplayermp);
+            oentityplayermp.c(d0, oentityplayermp.bn, d1, oentityplayermp.bs, oentityplayermp.bt);
+            oworldserver1.a(oentityplayermp, false);
             // CanaryMod - don't create portal if we are not using a portal to teleport.
-            if (createPortal) {
-                var5.G.a = true;
-                (new OTeleporter()).a(var5, var1);
-                var5.G.a = false;
+            if (flag) {
+                oworldserver1.G.a = true;
+                (new OTeleporter()).a(oworldserver1, oentityplayermp);
+                oworldserver1.G.a = false;
             }
         }
 
-        this.a(var1);
-        var1.a.a(var1.bm, var1.bn, var1.bo, var1.bs, var1.bt, var1.w, var1.bi.name);
-        var1.a((OWorld) var5);
-        var1.c.a(var5);
-        this.a(var1, var5);
-        this.f(var1);
+        this.a(oentityplayermp);
+        oentityplayermp.a.a(oentityplayermp.bm, oentityplayermp.bn, oentityplayermp.bo, oentityplayermp.bs, oentityplayermp.bt, oentityplayermp.w, oentityplayermp.bi.name);
+        oentityplayermp.a((OWorld) oworldserver1);
+        oentityplayermp.c.a(oworldserver1);
+        this.a(oentityplayermp, oworldserver1);
+        this.f(oentityplayermp);
     }
 
     public void b() {
         if ((etc.getInstance().isPlayerList_autoupdate()) && (this.p-- <= 0)) {
-            for (int var1 = 0; var1 < this.b.size(); var1++) {
-                OEntityPlayerMP var2 = (OEntityPlayerMP) this.b.get(var1);
-                PlayerlistEntry entry = var2.getPlayer().getPlayerlistEntry(true);
+            for (int i = 0; i < this.b.size(); i++) {
+                OEntityPlayerMP j = (OEntityPlayerMP) this.b.get(i);
+                PlayerlistEntry entry = j.getPlayer().getPlayerlistEntry(true);
 
                 a(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
             }
             this.p = etc.getInstance().getPlayerList_ticks();
         }
         
-        for (OPlayerManager[] mgrs : managers.values())
-            for (int var2 = 0; var2 < mgrs.length; ++var2) {
-                mgrs[var2].b();
+        for (OPlayerManager[] mgrs : managers.values()) {
+            for (int j = 0; j < mgrs.length; ++j) {
+                mgrs[j].b();
             }
+        }
 
     }
 
-    public void a(int var1, int var2, int var3, int var4) {
-        throw new UnsupportedOperationException("OServerConfigurationManager"
-                + ".a(int, int, int, int) has been replaced by OServer"
-                + "ConfigurationManager.markBlockNeedsUpdate(int, int, int, int,"
-                + " String).");
+    public void a(int i, int j, int k, int l) {
+        throw new UnsupportedOperationException("OServerConfigurationManager" + ".a(int, int, int, int) has been replaced by OServer" + "ConfigurationManager.markBlockNeedsUpdate(int, int, int, int," + " String).");
     }
     
-    public void markBlockNeedsUpdate(int var1, int var2, int var3, int var4, String var5) {
-        this.getManager(var5, var4).markBlockNeedsUpdate(var1, var2, var3);
+    public void markBlockNeedsUpdate(int i, int j, int k, int l, String s) {
+        this.getManager(s, l).markBlockNeedsUpdate(i, j, k);
     }
 
     /**
      * Send packet to all
      * @param var1 packet XXX
      */
-    public void a(OPacket var1) {
-        for (int var2 = 0; var2 < this.b.size(); ++var2) {
-            OEntityPlayerMP var3 = (OEntityPlayerMP) this.b.get(var2);
+    public void a(OPacket opacket) {
+        for (int i = 0; i < this.b.size(); ++i) {
+            OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.b.get(i);
 
-            var3.a.b(var1);
+            oentityplayermp.a.b(opacket);
         }
 
     }
@@ -437,84 +432,84 @@ public class OServerConfigurationManager {
      * @param var1 packet
      * @param var2 dimension id
      */
-    public void a(OPacket var1, int var2) {
-        for (int var3 = 0; var3 < this.b.size(); ++var3) {
-            OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
+    public void a(OPacket opacket, int i) {
+        for (int j = 0; j < this.b.size(); ++j) {
+            OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.b.get(j);
 
-            if (var4.w == var2) {
-                //CanaryMod re-route time updates to world-specific entity trackers
-                var4.bi.getEntityTracker().sendPacketToPlayersAndEntity(var4, var1);
-                //var4.a.b(var1);
+            if (oentityplayermp.w == i) {
+                // CanaryMod re-route time updates to world-specific entity trackers
+                oentityplayermp.bi.getEntityTracker().sendPacketToPlayersAndEntity(oentityplayermp, opacket);
+                // oentityplayermp.a.b(opacket);
             }
         }
 
     }
 
     public String c() {
-        String var1 = "";
+        String s = "";
 
-        for (int var2 = 0; var2 < this.b.size(); ++var2) {
-            if (var2 > 0) {
-                var1 = var1 + ", ";
+        for (int i = 0; i < this.b.size(); ++i) {
+            if (i > 0) {
+                s = s + ", ";
             }
 
-            var1 = var1 + ((OEntityPlayerMP) this.b.get(var2)).v;
+            s = s + ((OEntityPlayerMP) this.b.get(i)).v;
         }
 
-        return var1;
+        return s;
     }
 
     public String[] d() {
-        String[] var1 = new String[this.b.size()];
+        String[] astring = new String[this.b.size()];
 
-        for (int var2 = 0; var2 < this.b.size(); ++var2) {
-            var1[var2] = ((OEntityPlayerMP) this.b.get(var2)).v;
+        for (int i = 0; i < this.b.size(); ++i) {
+            astring[i] = ((OEntityPlayerMP) this.b.get(i)).v;
         }
 
-        return var1;
+        return astring;
     }
 
-    public void a(String var1) {
-        this.f.add(var1.toLowerCase());
+    public void a(String s) {
+        this.f.add(s.toLowerCase());
         this.m();
     }
 
-    public void b(String var1) {
-        this.f.remove(var1.toLowerCase());
+    public void b(String s) {
+        this.f.remove(s.toLowerCase());
         this.m();
     }
 
     private void l() {
         try {
             this.f.clear();
-            BufferedReader var1 = new BufferedReader(new FileReader(this.j));
-            String var2 = "";
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.j));
+            String s = "";
 
-            while ((var2 = var1.readLine()) != null) {
-                this.f.add(var2.trim().toLowerCase());
+            while ((s = bufferedreader.readLine()) != null) {
+                this.f.add(s.trim().toLowerCase());
             }
 
-            var1.close();
-        } catch (Exception var3) {
-            a.warning("Failed to load ban list: " + var3);
+            bufferedreader.close();
+        } catch (Exception exception) {
+            a.warning("Failed to load ban list: " + exception);
         }
 
     }
 
     private void m() {
         try {
-            PrintWriter var1 = new PrintWriter(new FileWriter(this.j, false));
-            Iterator var2 = this.f.iterator();
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.j, false));
+            Iterator iterator = this.f.iterator();
 
-            while (var2.hasNext()) {
-                String var3 = (String) var2.next();
+            while (iterator.hasNext()) {
+                String s = (String) iterator.next();
 
-                var1.println(var3);
+                printwriter.println(s);
             }
 
-            var1.close();
-        } catch (Exception var4) {
-            a.warning("Failed to save ban list: " + var4);
+            printwriter.close();
+        } catch (Exception exception) {
+            a.warning("Failed to save ban list: " + exception);
         }
 
     }
@@ -527,220 +522,212 @@ public class OServerConfigurationManager {
         return this.g;
     }
 
-    public void c(String var1) {
-        this.g.add(var1.toLowerCase());
+    public void c(String s) {
+        this.g.add(s.toLowerCase());
         this.o();
     }
 
-    public void d(String var1) {
-        this.g.remove(var1.toLowerCase());
+    public void d(String s) {
+        this.g.remove(s.toLowerCase());
         this.o();
     }
 
     private void n() {
         try {
             this.g.clear();
-            BufferedReader var1 = new BufferedReader(new FileReader(this.k));
-            String var2 = "";
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.k));
+            String s = "";
 
-            while ((var2 = var1.readLine()) != null) {
-                this.g.add(var2.trim().toLowerCase());
+            while ((s = bufferedreader.readLine()) != null) {
+                this.g.add(s.trim().toLowerCase());
             }
 
-            var1.close();
-        } catch (Exception var3) {
-            a.warning("Failed to load ip ban list: " + var3);
+            bufferedreader.close();
+        } catch (Exception exception) {
+            a.warning("Failed to load ip ban list: " + exception);
         }
 
     }
 
     private void o() {
         try {
-            PrintWriter var1 = new PrintWriter(new FileWriter(this.k, false));
-            Iterator var2 = this.g.iterator();
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.k, false));
+            Iterator iterator = this.g.iterator();
 
-            while (var2.hasNext()) {
-                String var3 = (String) var2.next();
+            while (iterator.hasNext()) {
+                String s = (String) iterator.next();
 
-                var1.println(var3);
+                printwriter.println(s);
             }
 
-            var1.close();
-        } catch (Exception var4) {
-            a.warning("Failed to save ip ban list: " + var4);
+            printwriter.close();
+        } catch (Exception exception) {
+            a.warning("Failed to save ip ban list: " + exception);
         }
 
     }
 
-    public void e(String var1) {
-        this.h.add(var1.toLowerCase());
+    public void e(String s) {
+        this.h.add(s.toLowerCase());
         this.q();
     }
 
-    public void f(String var1) {
-        this.h.remove(var1.toLowerCase());
+    public void f(String s) {
+        this.h.remove(s.toLowerCase());
         this.q();
     }
 
     private void p() {
         try {
             this.h.clear();
-            BufferedReader var1 = new BufferedReader(new FileReader(this.l));
-            String var2 = "";
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.l));
+            String s = "";
 
-            while ((var2 = var1.readLine()) != null) {
-                this.h.add(var2.trim().toLowerCase());
+            while ((s = bufferedreader.readLine()) != null) {
+                this.h.add(s.trim().toLowerCase());
             }
 
-            var1.close();
-        } catch (Exception var3) {
-            a.warning("Failed to load operators list: " + var3);
+            bufferedreader.close();
+        } catch (Exception exception) {
+            a.warning("Failed to load operators list: " + exception);
         }
 
     }
 
     private void q() {
         try {
-            PrintWriter var1 = new PrintWriter(new FileWriter(this.l, false));
-            Iterator var2 = this.h.iterator();
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.l, false));
+            Iterator iterator = this.h.iterator();
 
-            while (var2.hasNext()) {
-                String var3 = (String) var2.next();
+            while (iterator.hasNext()) {
+                String s = (String) iterator.next();
 
-                var1.println(var3);
+                printwriter.println(s);
             }
 
-            var1.close();
-        } catch (Exception var4) {
-            a.warning("Failed to save operators list: " + var4);
+            printwriter.close();
+        } catch (Exception exception) {
+            a.warning("Failed to save operators list: " + exception);
         }
 
     }
 
-    private void r() {
-        // CanaryMod: Disable Notchian Whitelist
-        /*try {
-            this.i.clear();
-            BufferedReader var1 = new BufferedReader(new FileReader(this.m));
-            String var2 = "";
+    private void r() {// CanaryMod: Disable Notchian Whitelist
+        /* try {
+         this.i.clear();
+         BufferedReader var1 = new BufferedReader(new FileReader(this.m));
+         String var2 = "";
 
-            while ((var2 = var1.readLine()) != null) {
-                this.i.add(var2.trim().toLowerCase());
-            }
+         while ((var2 = var1.readLine()) != null) {
+         this.i.add(var2.trim().toLowerCase());
+         }
 
-            var1.close();
-        } catch (Exception var3) {
-            a.warning("Failed to load white-list: " + var3);
-        }*/
+         var1.close();
+         } catch (Exception var3) {
+         a.warning("Failed to load white-list: " + var3);
+         }*/}
 
+    private void s() {// CanaryMod: Disable Notchian Whitelist
+        /* try {
+         PrintWriter var1 = new PrintWriter(new FileWriter(this.m, false));
+         Iterator var2 = this.i.iterator();
+
+         while (var2.hasNext()) {
+         String var3 = (String) var2.next();
+
+         var1.println(var3);
+         }
+
+         var1.close();
+         } catch (Exception var4) {
+         a.warning("Failed to save white-list: " + var4);
+         }*/}
+
+    public boolean g(String s) {
+        s = s.trim().toLowerCase();
+        return !this.o || this.h.contains(s) || this.i.contains(s);
     }
 
-    private void s() {
-        // CanaryMod: Disable Notchian Whitelist
-        /*try {
-            PrintWriter var1 = new PrintWriter(new FileWriter(this.m, false));
-            Iterator var2 = this.i.iterator();
-
-            while (var2.hasNext()) {
-                String var3 = (String) var2.next();
-
-                var1.println(var3);
-            }
-
-            var1.close();
-        } catch (Exception var4) {
-            a.warning("Failed to save white-list: " + var4);
-        }*/
-
+    public boolean h(String s) {
+        return this.h.contains(s.trim().toLowerCase());
     }
 
-    public boolean g(String var1) {
-        var1 = var1.trim().toLowerCase();
-        return !this.o || this.h.contains(var1) || this.i.contains(var1);
-    }
+    public OEntityPlayerMP i(String s) {
+        for (int i = 0; i < this.b.size(); ++i) {
+            OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.b.get(i);
 
-    public boolean h(String var1) {
-        return this.h.contains(var1.trim().toLowerCase());
-    }
-
-    public OEntityPlayerMP i(String var1) {
-        for (int var2 = 0; var2 < this.b.size(); ++var2) {
-            OEntityPlayerMP var3 = (OEntityPlayerMP) this.b.get(var2);
-
-            if (var3.v.equalsIgnoreCase(var1)) {
-                return var3;
+            if (oentityplayermp.v.equalsIgnoreCase(s)) {
+                return oentityplayermp;
             }
         }
 
         return null;
     }
 
-    public void a(String var1, String var2) {
-        OEntityPlayerMP var3 = this.i(var1);
+    public void a(String s, String s1) {
+        OEntityPlayerMP oentityplayermp = this.i(s);
 
-        if (var3 != null) {
-            var3.a.b((OPacket) (new OPacket3Chat(var2)));
+        if (oentityplayermp != null) {
+            oentityplayermp.a.b((OPacket) (new OPacket3Chat(s1)));
         }
 
     }
 
-    public void a(double var1, double var3, double var5, double var7, int var9, OPacket var10) {
-        this.a((OEntityPlayer) null, var1, var3, var5, var7, var9, var10, null);
+    public void a(double d0, double d1, double d2, double d3, int i, OPacket opacket) {
+        this.a((OEntityPlayer) null, d0, d1, d2, d3, i, opacket, null);
     }
 
-    public void a(OEntityPlayer var1, double var2, double var4, double var6, double var8, int var10, OPacket var11, String worldName) {
-        if(worldName == null) {
-            for (int var12 = 0; var12 < this.b.size(); ++var12) {
-                OEntityPlayerMP var13 = (OEntityPlayerMP) this.b.get(var12);
+    public void a(OEntityPlayer oentityplayer, double d0, double d1, double d2, double d3, int i, OPacket opacket, String s) {
+        if (s == null) {
+            for (int k = 0; k < this.b.size(); ++k) {
+                OEntityPlayerMP oentityplayermp1 = (OEntityPlayerMP) this.b.get(k);
 
-                if (var13 != var1 && var13.w == var10) {
-                    double var14 = var2 - var13.bm;
-                    double var16 = var4 - var13.bn;
-                    double var18 = var6 - var13.bo;
+                if (oentityplayermp1 != oentityplayer && oentityplayermp1.w == i) {
+                    double d7 = d0 - oentityplayermp1.bm;
+                    double d8 = d1 - oentityplayermp1.bn;
+                    double d9 = d2 - oentityplayermp1.bo;
 
-                    if (var14 * var14 + var16 * var16 + var18 * var18 < var8 * var8) {
-                        var13.a.b(var11);
+                    if (d7 * d7 + d8 * d8 + d9 * d9 < d3 * d3) {
+                        oentityplayermp1.a.b(opacket);
                     }
                 }
             }
-        }
-        else {
-            for (int var12 = 0; var12 < this.b.size(); ++var12) {
-                OEntityPlayerMP var13 = (OEntityPlayerMP) this.b.get(var12);
+        } else {
+            for (int k = 0; k < this.b.size(); ++k) {
+                OEntityPlayerMP oentityplayermp1 = (OEntityPlayerMP) this.b.get(k);
 
-                if (var13 != var1 && var13.w == var10 && worldName.equals(var13.bi.name)) {
-                    double var14 = var2 - var13.bm;
-                    double var16 = var4 - var13.bn;
-                    double var18 = var6 - var13.bo;
+                if (oentityplayermp1 != oentityplayer && oentityplayermp1.w == i && s.equals(oentityplayermp1.bi.name)) {
+                    double d7 = d0 - oentityplayermp1.bm;
+                    double d8 = d1 - oentityplayermp1.bn;
+                    double d9 = d2 - oentityplayermp1.bo;
 
-                    if (var14 * var14 + var16 * var16 + var18 * var18 < var8 * var8) {
-                        var13.a.b(var11);
+                    if (d7 * d7 + d8 * d8 + d9 * d9 < d3 * d3) {
+                        oentityplayermp1.a.b(opacket);
                     }
                 }
             }
         }
         
-
     }
 
-    public void j(String var1) {
-        OPacket3Chat var2 = new OPacket3Chat(var1);
+    public void j(String s) {
+        OPacket3Chat opacket3chat = new OPacket3Chat(s);
 
-        for (int var3 = 0; var3 < this.b.size(); ++var3) {
-            OEntityPlayerMP var4 = (OEntityPlayerMP) this.b.get(var3);
+        for (int i = 0; i < this.b.size(); ++i) {
+            OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.b.get(i);
 
-            if (this.h(var4.v)) {
-                var4.a.b((OPacket) var2);
+            if (this.h(oentityplayermp.v)) {
+                oentityplayermp.a.b((OPacket) opacket3chat);
             }
         }
 
     }
 
-    public boolean a(String var1, OPacket var2) {
-        OEntityPlayerMP var3 = this.i(var1);
+    public boolean a(String s, OPacket opacket) {
+        OEntityPlayerMP oentityplayermp = this.i(s);
 
-        if (var3 != null) {
-            var3.a.b(var2);
+        if (oentityplayermp != null) {
+            oentityplayermp.a.b(opacket);
             return true;
         } else {
             return false;
@@ -748,23 +735,24 @@ public class OServerConfigurationManager {
     }
 
     public void g() {
-        for (int var1 = 0; var1 < this.b.size(); ++var1) {
+        for (int i = 0; i < this.b.size(); ++i) {
             // CanaryMod: Store in a temp variable so we can get the save handler
-            OEntityPlayer oep = (OEntityPlayer) this.b.get(var1);
+            OEntityPlayer oep = (OEntityPlayer) this.b.get(i);
+
             this.saveHandlers.get(oep.bi.name).a(oep);
         }
 
     }
 
-    public void a(int var1, int var2, int var3, OTileEntity var4) {}
+    public void a(int i, int j, int k, OTileEntity otileentity) {}
 
-    public void k(String var1) {
-        this.i.add(var1);
+    public void k(String s) {
+        this.i.add(s);
         // this.s(); CanaryMod - Disable Notchian whitelist
     }
 
-    public void l(String var1) {
-        this.i.remove(var1);
+    public void l(String s) {
+        this.i.remove(s);
         // this.s(); CanaryMod - Disable Notchian whitelist
     }
 
@@ -772,21 +760,20 @@ public class OServerConfigurationManager {
         return this.i;
     }
 
-    public void i() {
-        // this.r(); CanaryMod - Disable Notchian whitelist
+    public void i() {// this.r(); CanaryMod - Disable Notchian whitelist
     }
 
-    public void a(OEntityPlayerMP var1, OWorldServer var2) {
-        var1.a.b((OPacket) (new OPacket4UpdateTime(var2.o())));
-        if (var2.x()) {
-            var1.a.b((OPacket) (new OPacket70Bed(1, 0)));
+    public void a(OEntityPlayerMP oentityplayermp, OWorldServer oworldserver) {
+        oentityplayermp.a.b((OPacket) (new OPacket4UpdateTime(oworldserver.o())));
+        if (oworldserver.x()) {
+            oentityplayermp.a.b((OPacket) (new OPacket70Bed(1, 0)));
         }
 
     }
 
-    public void f(OEntityPlayerMP var1) {
-        var1.a(var1.l);
-        var1.J();
+    public void f(OEntityPlayerMP oentityplayermp) {
+        oentityplayermp.a(oentityplayermp.l);
+        oentityplayermp.J();
     }
 
     public int j() {
@@ -798,28 +785,29 @@ public class OServerConfigurationManager {
     }
 
     public String[] t() {
-        //CanaryMod get the default world from Canary world list instead.
+        // CanaryMod get the default world from Canary world list instead.
         return etc.getServer().getDefaultWorld().getWorld().r().d().g();
-       //return this.c.e[0].r().d().g();
+        // return this.c.e[0].r().d().g();
     }
 
     private void u() {
-       OPlayerUsageSnooper var1 = new OPlayerUsageSnooper("server");
-       var1.a("version", this.c.i());
-       var1.a("os_name", System.getProperty("os.name"));
-       var1.a("os_version", System.getProperty("os.version"));
-       var1.a("os_architecture", System.getProperty("os.arch"));
-       var1.a("memory_total", Long.valueOf(Runtime.getRuntime().totalMemory()));
-       var1.a("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
-       var1.a("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
-       var1.a("java_version", System.getProperty("java.version"));
-       var1.a("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
-       var1.a("players_current", Integer.valueOf(this.j()));
-       var1.a("players_max", Integer.valueOf(this.k()));
-       var1.a("players_seen", Integer.valueOf(this.t().length));
-       var1.a("uses_auth", Boolean.valueOf(this.c.n));
-       var1.a("server_brand", this.c.getServerModName());
-       var1.a();
+        OPlayerUsageSnooper oplayerusagesnooper = new OPlayerUsageSnooper("server");
+
+        oplayerusagesnooper.a("version", this.c.i());
+        oplayerusagesnooper.a("os_name", System.getProperty("os.name"));
+        oplayerusagesnooper.a("os_version", System.getProperty("os.version"));
+        oplayerusagesnooper.a("os_architecture", System.getProperty("os.arch"));
+        oplayerusagesnooper.a("memory_total", Long.valueOf(Runtime.getRuntime().totalMemory()));
+        oplayerusagesnooper.a("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
+        oplayerusagesnooper.a("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
+        oplayerusagesnooper.a("java_version", System.getProperty("java.version"));
+        oplayerusagesnooper.a("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
+        oplayerusagesnooper.a("players_current", Integer.valueOf(this.j()));
+        oplayerusagesnooper.a("players_max", Integer.valueOf(this.k()));
+        oplayerusagesnooper.a("players_seen", Integer.valueOf(this.t().length));
+        oplayerusagesnooper.a("uses_auth", Boolean.valueOf(this.c.n));
+        oplayerusagesnooper.a("server_brand", this.c.getServerModName());
+        oplayerusagesnooper.a();
     }
     
     /**
@@ -868,15 +856,16 @@ public class OServerConfigurationManager {
      * @param name player name
      * @return true if player is banned from server
      */
-    public boolean isBanned(String name) {
-        return this.f.contains(name.toLowerCase());
+    public boolean isBanned(String s) {
+        return this.f.contains(s.toLowerCase());
     }
     
-    protected void newWorld(String name) {
+    protected void newWorld(String s) {
         OPlayerManager[] toPut = new OPlayerManager[3];
-        toPut[0] = new OPlayerManager(this.c, 0, this.viewDistance, name);
-        toPut[1] = new OPlayerManager(this.c, -1, this.viewDistance, name);
-        toPut[2] = new OPlayerManager(this.c, 1, this.viewDistance, name);
-        this.managers.put(name, toPut);
+
+        toPut[0] = new OPlayerManager(this.c, 0, this.viewDistance, s);
+        toPut[1] = new OPlayerManager(this.c, -1, this.viewDistance, s);
+        toPut[2] = new OPlayerManager(this.c, 1, this.viewDistance, s);
+        this.managers.put(s, toPut);
     }
 }

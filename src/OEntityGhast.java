@@ -10,21 +10,21 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
     public int e = 0;
     public int f = 0;
 
-    public OEntityGhast(OWorld var1) {
-        super(var1);
+    public OEntityGhast(OWorld oworld) {
+        super(oworld);
         this.ae = "/mob/ghast.png";
         this.b(4.0F, 4.0F);
         this.bX = true;
         this.aA = 5;
     }
 
-    public boolean a(ODamageSource var1, int var2) {
-        if ("fireball".equals(var1.l()) && var1.a() instanceof OEntityPlayer) {
-            super.a(var1, 1000);
-            ((OEntityPlayer) var1.a()).a((OStatBase) OAchievementList.y);
+    public boolean a(ODamageSource odamagesource, int i) {
+        if ("fireball".equals(odamagesource.l()) && odamagesource.a() instanceof OEntityPlayer) {
+            super.a(odamagesource, 1000);
+            ((OEntityPlayer) odamagesource.a()).a((OStatBase) OAchievementList.y);
             return true;
         } else {
-            return super.a(var1, var2);
+            return super.a(odamagesource, i);
         }
     }
 
@@ -39,9 +39,9 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
 
     public void F_() {
         super.F_();
-        byte var1 = this.bY.a(16);
+        byte b0 = this.bY.a(16);
 
-        this.ae = var1 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
+        this.ae = b0 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
     }
 
     protected void d_() {
@@ -51,12 +51,12 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
 
         this.aG();
         this.e = this.f;
-        double var1 = this.b - this.bm;
-        double var3 = this.c - this.bn;
-        double var5 = this.d - this.bo;
-        double var7 = (double) OMathHelper.a(var1 * var1 + var3 * var3 + var5 * var5);
+        double d0 = this.b - this.bm;
+        double d1 = this.c - this.bn;
+        double d2 = this.d - this.bo;
+        double d3 = (double) OMathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
 
-        if (var7 < 1.0D || var7 > 60.0D) {
+        if (d3 < 1.0D || d3 > 60.0D) {
             this.b = this.bm + (double) ((this.bS.nextFloat() * 2.0F - 1.0F) * 16.0F);
             this.c = this.bn + (double) ((this.bS.nextFloat() * 2.0F - 1.0F) * 16.0F);
             this.d = this.bo + (double) ((this.bS.nextFloat() * 2.0F - 1.0F) * 16.0F);
@@ -64,10 +64,10 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
 
         if (this.a-- <= 0) {
             this.a += this.bS.nextInt(5) + 2;
-            if (this.a(this.b, this.c, this.d, var7)) {
-                this.bp += var1 / var7 * 0.1D;
-                this.bq += var3 / var7 * 0.1D;
-                this.br += var5 / var7 * 0.1D;
+            if (this.a(this.b, this.c, this.d, d3)) {
+                this.bp += d0 / d3 * 0.1D;
+                this.bq += d1 / d3 * 0.1D;
+                this.br += d2 / d3 * 0.1D;
             } else {
                 this.b = this.bm;
                 this.c = this.bn;
@@ -80,25 +80,25 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         }
 
         if (this.g == null || this.h-- <= 0) {
-            OEntityPlayer var8 = this.bi.b(this, 100.0D);
+            OEntityPlayer oentityplayer = this.bi.b(this, 100.0D);
             
             // CanaryMod: MOB_TARGET Hook for ghasts.
-            if (var8 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var8.entity.getPlayer(), entity)) {
-                this.g = var8;
+            if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), entity)) {
+                this.g = oentityplayer;
             }
             if (this.g != null) {
                 this.h = 20;
             }
         }
 
-        double var9 = 64.0D;
+        double d4 = 64.0D;
 
-        if (this.g != null && this.g.j(this) < var9 * var9) {
-            double var11 = this.g.bm - this.bm;
-            double var13 = this.g.bw.b + (double) (this.g.bH / 2.0F) - (this.bn + (double) (this.bH / 2.0F));
-            double var15 = this.g.bo - this.bo;
+        if (this.g != null && this.g.j(this) < d4 * d4) {
+            double d5 = this.g.bm - this.bm;
+            double d6 = this.g.bw.b + (double) (this.g.bH / 2.0F) - (this.bn + (double) (this.bH / 2.0F));
+            double d7 = this.g.bo - this.bo;
 
-            this.V = this.bs = -((float) Math.atan2(var11, var15)) * 180.0F / 3.1415927F;
+            this.V = this.bs = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
             if (this.h(this.g)) {
                 if (this.f == 10) {
                     this.bi.a((OEntityPlayer) null, 1007, (int) this.bm, (int) this.bn, (int) this.bo, 0);
@@ -107,14 +107,14 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
                 ++this.f;
                 if (this.f == 20) {
                     this.bi.a((OEntityPlayer) null, 1008, (int) this.bm, (int) this.bn, (int) this.bo, 0);
-                    OEntityFireball var17 = new OEntityFireball(this.bi, this, var11, var13, var15);
-                    double var18 = 4.0D;
-                    OVec3D var20 = this.f(1.0F);
+                    OEntityFireball oentityfireball = new OEntityFireball(this.bi, this, d5, d6, d7);
+                    double d8 = 4.0D;
+                    OVec3D ovec3d = this.f(1.0F);
 
-                    var17.bm = this.bm + var20.a * var18;
-                    var17.bn = this.bn + (double) (this.bH / 2.0F) + 0.5D;
-                    var17.bo = this.bo + var20.c * var18;
-                    this.bi.b((OEntity) var17);
+                    oentityfireball.bm = this.bm + ovec3d.a * d8;
+                    oentityfireball.bn = this.bn + (double) (this.bH / 2.0F) + 0.5D;
+                    oentityfireball.bo = this.bo + ovec3d.c * d8;
+                    this.bi.b((OEntity) oentityfireball);
                     this.f = -40;
                 }
             } else if (this.f > 0) {
@@ -128,25 +128,25 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         }
 
         if (!this.bi.F) {
-            byte var21 = this.bY.a(16);
-            byte var22 = (byte) (this.f > 10 ? 1 : 0);
+            byte b0 = this.bY.a(16);
+            byte b1 = (byte) (this.f > 10 ? 1 : 0);
 
-            if (var21 != var22) {
-                this.bY.b(16, Byte.valueOf(var22));
+            if (b0 != b1) {
+                this.bY.b(16, Byte.valueOf(b1));
             }
         }
 
     }
 
-    private boolean a(double var1, double var3, double var5, double var7) {
-        double var9 = (this.b - this.bm) / var7;
-        double var11 = (this.c - this.bn) / var7;
-        double var13 = (this.d - this.bo) / var7;
-        OAxisAlignedBB var15 = this.bw.b();
+    private boolean a(double d0, double d1, double d2, double d3) {
+        double d4 = (this.b - this.bm) / d3;
+        double d5 = (this.c - this.bn) / d3;
+        double d6 = (this.d - this.bo) / d3;
+        OAxisAlignedBB oaxisalignedbb = this.bw.b();
 
-        for (int var16 = 1; (double) var16 < var7; ++var16) {
-            var15.d(var9, var11, var13);
-            if (this.bi.a((OEntity) this, var15).size() > 0) {
+        for (int i = 1; (double) i < d3; ++i) {
+            oaxisalignedbb.d(d4, d5, d6);
+            if (this.bi.a((OEntity) this, oaxisalignedbb).size() > 0) {
                 return false;
             }
         }
@@ -170,18 +170,18 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         return OItem.L.bP;
     }
 
-    protected void a(boolean var1, int var2) {
-        int var3 = this.bS.nextInt(2) + this.bS.nextInt(1 + var2);
+    protected void a(boolean flag, int i) {
+        int j = this.bS.nextInt(2) + this.bS.nextInt(1 + i);
 
-        int var4;
+        int k;
 
-        for (var4 = 0; var4 < var3; ++var4) {
+        for (k = 0; k < j; ++k) {
             this.b(OItem.bo.bP, 1);
         }
 
-        var3 = this.bS.nextInt(3) + this.bS.nextInt(1 + var2);
+        j = this.bS.nextInt(3) + this.bS.nextInt(1 + i);
 
-        for (var4 = 0; var4 < var3; ++var4) {
+        for (k = 0; k < j; ++k) {
             this.b(OItem.L.bP, 1);
         }
 
@@ -199,8 +199,8 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         return 1;
     }
     
-    public void setTarget(OEntity var1) {
-        this.g = var1;
+    public void setTarget(OEntity oentity) {
+        this.g = oentity;
     }
     
     public OEntity getTarget() {

@@ -8,30 +8,30 @@ public class OPotionEffect {
     public boolean permanent = false;
     public PotionEffect potionEffect = new PotionEffect(this);
 
-    public OPotionEffect(int var1, int var2, int var3) {
+    public OPotionEffect(int i, int j, int k) {
         super();
-        this.a = var1;
-        this.b = var2;
-        this.c = var3;
+        this.a = i;
+        this.b = j;
+        this.c = k;
     }
 
-    public OPotionEffect(OPotionEffect var1) {
+    public OPotionEffect(OPotionEffect opotioneffect) {
         super();
-        this.a = var1.a;
-        this.b = var1.b;
-        this.c = var1.c;
+        this.a = opotioneffect.a;
+        this.b = opotioneffect.b;
+        this.c = opotioneffect.c;
     }
 
-    public void a(OPotionEffect var1) {
-        if (this.a != var1.a) {
+    public void a(OPotionEffect opotioneffect) {
+        if (this.a != opotioneffect.a) {
             System.err.println("This method should only be called for matching effects!");
         }
 
-        if (var1.c > this.c) {
-            this.c = var1.c;
-            this.b = var1.b;
-        } else if (var1.c == this.c && this.b < var1.b) {
-            this.b = var1.b;
+        if (opotioneffect.c > this.c) {
+            this.c = opotioneffect.c;
+            this.b = opotioneffect.b;
+        } else if (opotioneffect.c == this.c && this.b < opotioneffect.b) {
+            this.b = opotioneffect.b;
         }
 
     }
@@ -48,10 +48,10 @@ public class OPotionEffect {
         return this.c;
     }
 
-    public boolean a(OEntityLiving var1) {
+    public boolean a(OEntityLiving oentityliving) {
         if (this.b > 0) {
             if (OPotion.a[this.a].b(this.b, this.c)) {
-                this.b(var1);
+                this.b(oentityliving);
             }
 
             this.e();
@@ -64,9 +64,9 @@ public class OPotionEffect {
         return this.permanent ? this.b : --this.b;
     }
 
-    public void b(OEntityLiving var1) {
+    public void b(OEntityLiving oentityliving) {
         if (this.b > 0) {
-            OPotion.a[this.a].a(var1, this.c);
+            OPotion.a[this.a].a(oentityliving, this.c);
         }
 
     }
@@ -80,24 +80,24 @@ public class OPotionEffect {
     }
 
     public String toString() {
-        String var1 = "";
+        String s = "";
 
         if (this.c() > 0) {
-            var1 = this.d() + " x " + (this.c() + 1) + ", Duration: " + this.b();
+            s = this.d() + " x " + (this.c() + 1) + ", Duration: " + this.b();
         } else {
-            var1 = this.d() + ", Duration: " + this.b();
+            s = this.d() + ", Duration: " + this.b();
         }
 
-        return OPotion.a[this.a].f() ? "(" + var1 + ")" : var1;
+        return OPotion.a[this.a].f() ? "(" + s + ")" : s;
     }
 
-    public boolean equals(Object var1) {
-        if (!(var1 instanceof OPotionEffect)) {
+    public boolean equals(Object object) {
+        if (!(object instanceof OPotionEffect)) {
             return false;
         } else {
-            OPotionEffect var2 = (OPotionEffect) var1;
+            OPotionEffect opotioneffect = (OPotionEffect) object;
 
-            return this.a == var2.a && this.c == var2.c && this.b == var2.b;
+            return this.a == opotioneffect.a && this.c == opotioneffect.c && this.b == opotioneffect.b;
         }
     }
 }

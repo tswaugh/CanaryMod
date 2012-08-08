@@ -10,8 +10,8 @@ public class OEntityEnderman extends OEntityMob {
 
     // CanaryMod End
 
-    public OEntityEnderman(OWorld var1) {
-        super(var1);
+    public OEntityEnderman(OWorld oworld) {
+        super(oworld);
         this.ae = "/mob/enderman.png";
         this.bb = 0.2F;
         this.c = 7;
@@ -29,26 +29,26 @@ public class OEntityEnderman extends OEntityMob {
         this.bY.a(17, new Byte((byte) 0));
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-        var1.a("carried", (short) this.A());
-        var1.a("carriedData", (short) this.E());
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        onbttagcompound.a("carried", (short) this.A());
+        onbttagcompound.a("carriedData", (short) this.E());
     }
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-        this.c(var1.e("carried"));
-        this.e(var1.e("carriedData"));
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
+        this.c(onbttagcompound.e("carried"));
+        this.e(onbttagcompound.e("carriedData"));
     }
 
     protected OEntity o() {
-        OEntityPlayer var1 = this.bi.b(this, 64.0D);
+        OEntityPlayer oentityplayer = this.bi.b(this, 64.0D);
 
-        if (var1 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity)) { //CanaryMod - MOB_TARGET
-            if (this.c(var1)) {
+        if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), entity)) { // CanaryMod - MOB_TARGET
+            if (this.c(oentityplayer)) {
                 if (this.h++ == 5) {
                     this.h = 0;
-                    return var1;
+                    return oentityplayer;
                 }
             } else {
                 this.h = 0;
@@ -58,24 +58,24 @@ public class OEntityEnderman extends OEntityMob {
         return null;
     }
 
-    public float b(float var1) {
-        return super.b(var1);
+    public float b(float f) {
+        return super.b(f);
     }
 
-    private boolean c(OEntityPlayer var1) {
-        OItemStack var2 = var1.k.b[3];
+    private boolean c(OEntityPlayer oentityplayer) {
+        OItemStack oitemstack = oentityplayer.k.b[3];
 
-        if (var2 != null && var2.c == OBlock.ba.bO) {
+        if (oitemstack != null && oitemstack.c == OBlock.ba.bO) {
             return false;
         } else {
-            OVec3D var3 = var1.f(1.0F).b();
-            OVec3D var4 = OVec3D.b(this.bm - var1.bm, this.bw.b + (double) (this.bH / 2.0F) - (var1.bn + (double) var1.B()), this.bo - var1.bo);
-            double var5 = var4.c();
+            OVec3D ovec3d = oentityplayer.f(1.0F).b();
+            OVec3D ovec3d1 = OVec3D.b(this.bm - oentityplayer.bm, this.bw.b + (double) (this.bH / 2.0F) - (oentityplayer.bn + (double) oentityplayer.B()), this.bo - oentityplayer.bo);
+            double d0 = ovec3d1.c();
 
-            var4 = var4.b();
-            double var7 = var3.a(var4);
+            ovec3d1 = ovec3d1.b();
+            double d1 = ovec3d.a(ovec3d1);
 
-            return var7 > 1.0D - 0.025D / var5 ? var1.h(this) : false;
+            return d1 > 1.0D - 0.025D / d0 ? oentityplayer.h(this) : false;
         }
     }
 
@@ -86,53 +86,53 @@ public class OEntityEnderman extends OEntityMob {
 
         this.a = this.d != null;
         this.bb = this.d != null ? 6.5F : 0.3F;
-        int var1;
+        int i;
 
         if (!this.bi.F) {
-            int var2;
-            int var3;
-            int var4;
+            int j;
+            int k;
+            int l;
 
             if (this.A() == 0) {
                 if (this.bS.nextInt(20) == 0) {
-                    var1 = OMathHelper.b(this.bm - 2.0D + this.bS.nextDouble() * 4.0D);
-                    var2 = OMathHelper.b(this.bn + this.bS.nextDouble() * 3.0D);
-                    var3 = OMathHelper.b(this.bo - 2.0D + this.bS.nextDouble() * 4.0D);
-                    var4 = this.bi.a(var1, var2, var3);
-                    if (b[var4]) {
+                    i = OMathHelper.b(this.bm - 2.0D + this.bS.nextDouble() * 4.0D);
+                    j = OMathHelper.b(this.bn + this.bS.nextDouble() * 3.0D);
+                    k = OMathHelper.b(this.bo - 2.0D + this.bS.nextDouble() * 4.0D);
+                    l = this.bi.a(i, j, k);
+                    if (b[l]) {
                         // CanaryMod onEndermanPickup
-                        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_PICKUP, entity, new Block(var4, var1, var2, var3, this.bi.a(var1, var2, var3)))) {
-							this.c(this.bi.a(var1, var2, var3));
-							this.e(this.bi.c(var1, var2, var3));
-							this.bi.e(var1, var2, var3, 0);
-						}
+                        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_PICKUP, entity, new Block(l, i, j, k, this.bi.a(i, j, k)))) {
+                            this.c(this.bi.a(i, j, k));
+                            this.e(this.bi.c(i, j, k));
+                            this.bi.e(i, j, k, 0);
+                        }
                     }
                 }
             } else if (this.bS.nextInt(2000) == 0) {
-                var1 = OMathHelper.b(this.bm - 1.0D + this.bS.nextDouble() * 2.0D);
-                var2 = OMathHelper.b(this.bn + this.bS.nextDouble() * 2.0D);
-                var3 = OMathHelper.b(this.bo - 1.0D + this.bS.nextDouble() * 2.0D);
-                var4 = this.bi.a(var1, var2, var3);
-                int var5 = this.bi.a(var1, var2 - 1, var3);
+                i = OMathHelper.b(this.bm - 1.0D + this.bS.nextDouble() * 2.0D);
+                j = OMathHelper.b(this.bn + this.bS.nextDouble() * 2.0D);
+                k = OMathHelper.b(this.bo - 1.0D + this.bS.nextDouble() * 2.0D);
+                l = this.bi.a(i, j, k);
+                int i1 = this.bi.a(i, j - 1, k);
 
-                if (var4 == 0 && var5 > 0 && OBlock.m[var5].b()) {
+                if (l == 0 && i1 > 0 && OBlock.m[i1].b()) {
                     // CanaryMod onEndermanDrop
-                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_DROP, entity, new Block(var5, var1, var2, var3, this.bi.a(var1, var2, var3)))) {
-						this.bi.b(var1, var2, var3, this.A(), this.E());
-						this.c(0);
-					}
+                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_DROP, entity, new Block(i1, i, j, k, this.bi.a(i, j, k)))) {
+                        this.bi.b(i, j, k, this.A(), this.E());
+                        this.c(0);
+                    }
                 }
             }
         }
 
-        for (var1 = 0; var1 < 2; ++var1) {
+        for (i = 0; i < 2; ++i) {
             this.bi.a("portal", this.bm + (this.bS.nextDouble() - 0.5D) * (double) this.bG, this.bn + this.bS.nextDouble() * (double) this.bH - 0.25D, this.bo + (this.bS.nextDouble() - 0.5D) * (double) this.bG, (this.bS.nextDouble() - 0.5D) * 2.0D, -this.bS.nextDouble(), (this.bS.nextDouble() - 0.5D) * 2.0D);
         }
 
         if (this.bi.e() && !this.bi.F) {
-            float var6 = this.b(1.0F);
+            float f = this.b(1.0F);
 
-            if (var6 > 0.5F && this.bi.l(OMathHelper.b(this.bm), OMathHelper.b(this.bn), OMathHelper.b(this.bo)) && this.bS.nextFloat() * 30.0F < (var6 - 0.4F) * 2.0F) {
+            if (f > 0.5F && this.bi.l(OMathHelper.b(this.bm), OMathHelper.b(this.bn), OMathHelper.b(this.bo)) && this.bS.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
                 this.d = null;
                 this.x();
             }
@@ -170,79 +170,79 @@ public class OEntityEnderman extends OEntityMob {
     }
 
     protected boolean x() {
-        double var1 = this.bm + (this.bS.nextDouble() - 0.5D) * 64.0D;
-        double var3 = this.bn + (double) (this.bS.nextInt(64) - 32);
-        double var5 = this.bo + (this.bS.nextDouble() - 0.5D) * 64.0D;
+        double d0 = this.bm + (this.bS.nextDouble() - 0.5D) * 64.0D;
+        double d1 = this.bn + (double) (this.bS.nextInt(64) - 32);
+        double d2 = this.bo + (this.bS.nextDouble() - 0.5D) * 64.0D;
 
-        return this.b(var1, var3, var5);
+        return this.b(d0, d1, d2);
     }
 
-    protected boolean e(OEntity var1) {
-        OVec3D var2 = OVec3D.b(this.bm - var1.bm, this.bw.b + (double) (this.bH / 2.0F) - var1.bn + (double) var1.B(), this.bo - var1.bo);
+    protected boolean e(OEntity oentity) {
+        OVec3D ovec3d = OVec3D.b(this.bm - oentity.bm, this.bw.b + (double) (this.bH / 2.0F) - oentity.bn + (double) oentity.B(), this.bo - oentity.bo);
 
-        var2 = var2.b();
-        double var3 = 16.0D;
-        double var5 = this.bm + (this.bS.nextDouble() - 0.5D) * 8.0D - var2.a * var3;
-        double var7 = this.bn + (double) (this.bS.nextInt(16) - 8) - var2.b * var3;
-        double var9 = this.bo + (this.bS.nextDouble() - 0.5D) * 8.0D - var2.c * var3;
+        ovec3d = ovec3d.b();
+        double d0 = 16.0D;
+        double d1 = this.bm + (this.bS.nextDouble() - 0.5D) * 8.0D - ovec3d.a * d0;
+        double d2 = this.bn + (double) (this.bS.nextInt(16) - 8) - ovec3d.b * d0;
+        double d3 = this.bo + (this.bS.nextDouble() - 0.5D) * 8.0D - ovec3d.c * d0;
 
-        return this.b(var5, var7, var9);
+        return this.b(d1, d2, d3);
     }
 
-    protected boolean b(double var1, double var3, double var5) {
-        double var7 = this.bm;
-        double var9 = this.bn;
-        double var11 = this.bo;
+    protected boolean b(double d0, double d1, double d2) {
+        double d3 = this.bm;
+        double d4 = this.bn;
+        double d5 = this.bo;
 
-        this.bm = var1;
-        this.bn = var3;
-        this.bo = var5;
-        boolean var13 = false;
-        int var14 = OMathHelper.b(this.bm);
-        int var15 = OMathHelper.b(this.bn);
-        int var16 = OMathHelper.b(this.bo);
-        int var18;
+        this.bm = d0;
+        this.bn = d1;
+        this.bo = d2;
+        boolean flag = false;
+        int i = OMathHelper.b(this.bm);
+        int j = OMathHelper.b(this.bn);
+        int k = OMathHelper.b(this.bo);
+        int l;
 
-        if (this.bi.i(var14, var15, var16)) {
-            boolean var17 = false;
+        if (this.bi.i(i, j, k)) {
+            boolean flag1 = false;
 
-            while (!var17 && var15 > 0) {
-                var18 = this.bi.a(var14, var15 - 1, var16);
-                if (var18 != 0 && OBlock.m[var18].cd.c()) {
-                    var17 = true;
+            while (!flag1 && j > 0) {
+                l = this.bi.a(i, j - 1, k);
+                if (l != 0 && OBlock.m[l].cd.c()) {
+                    flag1 = true;
                 } else {
                     --this.bn;
-                    --var15;
+                    --j;
                 }
             }
 
-            if (var17) {
+            if (flag1) {
                 this.c(this.bm, this.bn, this.bo);
                 if (this.bi.a((OEntity) this, this.bw).size() == 0 && !this.bi.c(this.bw)) {
-                    var13 = true;
+                    flag = true;
                 }
             }
         }
 
-        if (!var13) {
-            this.c(var7, var9, var11);
+        if (!flag) {
+            this.c(d3, d4, d5);
             return false;
         } else {
-            short var30 = 128;
+            short short1 = 128;
 
-            for (var18 = 0; var18 < var30; ++var18) {
-                double var19 = (double) var18 / ((double) var30 - 1.0D);
-                float var21 = (this.bS.nextFloat() - 0.5F) * 0.2F;
-                float var22 = (this.bS.nextFloat() - 0.5F) * 0.2F;
-                float var23 = (this.bS.nextFloat() - 0.5F) * 0.2F;
-                double var24 = var7 + (this.bm - var7) * var19 + (this.bS.nextDouble() - 0.5D) * (double) this.bG * 2.0D;
-                double var26 = var9 + (this.bn - var9) * var19 + this.bS.nextDouble() * (double) this.bH;
-                double var28 = var11 + (this.bo - var11) * var19 + (this.bS.nextDouble() - 0.5D) * (double) this.bG * 2.0D;
+            for (l = 0; l < short1; ++l) {
+                double d6 = (double) l / ((double) short1 - 1.0D);
+                float f = (this.bS.nextFloat() - 0.5F) * 0.2F;
+                float f1 = (this.bS.nextFloat() - 0.5F) * 0.2F;
+                float f2 = (this.bS.nextFloat() - 0.5F) * 0.2F;
+                double d7 = d3 + (this.bm - d3) * d6 + (this.bS.nextDouble() - 0.5D) * (double) this.bG * 2.0D;
+                double d8 = d4 + (this.bn - d4) * d6 + this.bS.nextDouble() * (double) this.bH;
+                double d9 = d5 + (this.bo - d5) * d6 + (this.bS.nextDouble() - 0.5D) * (double) this.bG * 2.0D;
 
-                this.bi.a("portal", var24, var26, var28, (double) var21, (double) var22, (double) var23);
+                this.bi.a("portal", d7, d8, d9, (double) f, (double) f1, (double) f2);
             }
 
-            this.bi.a(var7, var9, var11, "mob.endermen.portal", 1.0F, 1.0F);
+            this.bi.a(d3, d4, d5, "mob.endermen.portal", 1.0F, 1.0F);
             this.bi.a(this, "mob.endermen.portal", 1.0F, 1.0F);
             return true;
         }
@@ -264,38 +264,38 @@ public class OEntityEnderman extends OEntityMob {
         return OItem.bm.bP;
     }
 
-    protected void a(boolean var1, int var2) {
-        int var3 = this.f();
+    protected void a(boolean flag, int i) {
+        int j = this.f();
 
-        if (var3 > 0) {
-            int var4 = this.bS.nextInt(2 + var2);
+        if (j > 0) {
+            int k = this.bS.nextInt(2 + i);
 
-            for (int var5 = 0; var5 < var4; ++var5) {
-                this.b(var3, 1);
+            for (int l = 0; l < k; ++l) {
+                this.b(j, 1);
             }
         }
 
     }
 
-    public void c(int var1) {
-        this.bY.b(16, Byte.valueOf((byte) (var1 & 255)));
+    public void c(int i) {
+        this.bY.b(16, Byte.valueOf((byte) (i & 255)));
     }
 
     public int A() {
         return this.bY.a(16);
     }
 
-    public void e(int var1) {
-        this.bY.b(17, Byte.valueOf((byte) (var1 & 255)));
+    public void e(int i) {
+        this.bY.b(17, Byte.valueOf((byte) (i & 255)));
     }
 
     public int E() {
         return this.bY.a(17);
     }
 
-    public boolean a(ODamageSource var1, int var2) {
-        if (var1 instanceof OEntityDamageSourceIndirect) {
-            for (int var3 = 0; var3 < 64; ++var3) {
+    public boolean a(ODamageSource odamagesource, int i) {
+        if (odamagesource instanceof OEntityDamageSourceIndirect) {
+            for (int j = 0; j < 64; ++j) {
                 if (this.x()) {
                     return true;
                 }
@@ -303,21 +303,21 @@ public class OEntityEnderman extends OEntityMob {
 
             return false;
         } else {
-            return super.a(var1, var2);
+            return super.a(odamagesource, i);
         }
     }
     
     // CanaryMod start
-    public static boolean canHoldItem(int blockID) {
-        return b[blockID];
+    public static boolean canHoldItem(int i) {
+        return b[i];
     }
 
-    public static void setHoldable(int blockID, boolean holdable) {
-        b[blockID] = holdable;
+    public static void setHoldable(int i, boolean flag) {
+        b[i] = flag;
     }
 
-    public static boolean getHoldable(int blockID) {
-        return b[blockID];
+    public static boolean getHoldable(int i) {
+        return b[i];
     }
 
     // CanaryMod end

@@ -10,9 +10,9 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     // CanaryMod
     private String name = "Inventory";
 
-    public OInventoryPlayer(OEntityPlayer var1) {
+    public OInventoryPlayer(OEntityPlayer oentityplayer) {
         super();
-        this.d = var1;
+        this.d = oentityplayer;
     }
 
     public OItemStack d() {
@@ -23,20 +23,20 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
         return 9;
     }
 
-    private int f(int var1) {
-        for (int var2 = 0; var2 < this.a.length; ++var2) {
-            if (this.a[var2] != null && this.a[var2].c == var1) {
-                return var2;
+    private int f(int i) {
+        for (int j = 0; j < this.a.length; ++j) {
+            if (this.a[j] != null && this.a[j].c == i) {
+                return j;
             }
         }
 
         return -1;
     }
 
-    private int d(OItemStack var1) {
-        for (int var2 = 0; var2 < this.a.length; ++var2) {
-            if (this.a[var2] != null && this.a[var2].c == var1.c && this.a[var2].c() && this.a[var2].a < this.a[var2].b() && this.a[var2].a < this.a() && (!this.a[var2].e() || this.a[var2].h() == var1.h()) && OItemStack.a(this.a[var2], var1)) {
-                return var2;
+    private int d(OItemStack oitemstack) {
+        for (int i = 0; i < this.a.length; ++i) {
+            if (this.a[i] != null && this.a[i].c == oitemstack.c && this.a[i].c() && this.a[i].a < this.a[i].b() && this.a[i].a < this.a() && (!this.a[i].e() || this.a[i].h() == oitemstack.h()) && OItemStack.a(this.a[i], oitemstack)) {
+                return i;
             }
         }
 
@@ -44,108 +44,108 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     }
 
     private int m() {
-        for (int var1 = 0; var1 < this.a.length; ++var1) {
-            if (this.a[var1] == null) {
-                return var1;
+        for (int i = 0; i < this.a.length; ++i) {
+            if (this.a[i] == null) {
+                return i;
             }
         }
 
         return -1;
     }
 
-    private int e(OItemStack var1) {
-        int var2 = var1.c;
-        int var3 = var1.a;
-        int var4;
+    private int e(OItemStack oitemstack) {
+        int i = oitemstack.c;
+        int j = oitemstack.a;
+        int k;
 
-        if (var1.b() == 1) {
-            var4 = this.m();
-            if (var4 < 0) {
-                return var3;
+        if (oitemstack.b() == 1) {
+            k = this.m();
+            if (k < 0) {
+                return j;
             } else {
-                if (this.a[var4] == null) {
-                    this.a[var4] = OItemStack.b(var1);
+                if (this.a[k] == null) {
+                    this.a[k] = OItemStack.b(oitemstack);
                 }
 
                 return 0;
             }
         } else {
-            var4 = this.d(var1);
-            if (var4 < 0) {
-                var4 = this.m();
+            k = this.d(oitemstack);
+            if (k < 0) {
+                k = this.m();
             }
 
-            if (var4 < 0) {
-                return var3;
+            if (k < 0) {
+                return j;
             } else {
-                if (this.a[var4] == null) {
-                    this.a[var4] = new OItemStack(var2, 0, var1.h());
-                    if (var1.n()) {
-                        this.a[var4].d((ONBTTagCompound) var1.o().b());
+                if (this.a[k] == null) {
+                    this.a[k] = new OItemStack(i, 0, oitemstack.h());
+                    if (oitemstack.n()) {
+                        this.a[k].d((ONBTTagCompound) oitemstack.o().b());
                     }
                 }
 
-                int var5 = var3;
+                int l = j;
 
-                if (var3 > this.a[var4].b() - this.a[var4].a) {
-                    var5 = this.a[var4].b() - this.a[var4].a;
+                if (j > this.a[k].b() - this.a[k].a) {
+                    l = this.a[k].b() - this.a[k].a;
                 }
 
-                if (var5 > this.a() - this.a[var4].a) {
-                    var5 = this.a() - this.a[var4].a;
+                if (l > this.a() - this.a[k].a) {
+                    l = this.a() - this.a[k].a;
                 }
 
-                if (var5 == 0) {
-                    return var3;
+                if (l == 0) {
+                    return j;
                 } else {
-                    var3 -= var5;
-                    this.a[var4].a += var5;
-                    this.a[var4].b = 5;
-                    return var3;
+                    j -= l;
+                    this.a[k].a += l;
+                    this.a[k].b = 5;
+                    return j;
                 }
             }
         }
     }
 
     public void i() {
-        for (int var1 = 0; var1 < this.a.length; ++var1) {
-            if (this.a[var1] != null) {
-                this.a[var1].a(this.d.bi, this.d, var1, this.c == var1);
+        for (int i = 0; i < this.a.length; ++i) {
+            if (this.a[i] != null) {
+                this.a[i].a(this.d.bi, this.d, i, this.c == i);
             }
         }
 
     }
 
-    public boolean c(int var1) {
-        int var2 = this.f(var1);
+    public boolean c(int i) {
+        int j = this.f(i);
 
-        if (var2 < 0) {
+        if (j < 0) {
             return false;
         } else {
-            if (--this.a[var2].a <= 0) {
-                this.a[var2] = null;
+            if (--this.a[j].a <= 0) {
+                this.a[j] = null;
             }
 
             return true;
         }
     }
 
-    public boolean d(int var1) {
-        int var2 = this.f(var1);
+    public boolean d(int i) {
+        int j = this.f(i);
 
-        return var2 >= 0;
+        return j >= 0;
     }
     
     // CanaryMod: Simulate Pickup (Its the same as a(OItemStack) but without
     // altering the inventory
-    public boolean canPickup(OEntityItem entityItem) {
-        OItemStack var1 = entityItem.a;
-        int var2;
+    public boolean canPickup(OEntityItem oentityitem) {
+        OItemStack oitemstack = oentityitem.a;
+        int i;
 
-        if (var1.f()) {
-            var2 = this.m();
-            if (var2 >= 0) {
-                return !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP) d).getPlayer(), entityItem.item);
+        if (oitemstack.f()) {
+            i = this.m();
+            if (i >= 0) {
+                return !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP) d).getPlayer(), oentityitem.item);
             } else if (this.d.L.d) {
                 return true;
             } else {
@@ -153,7 +153,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
             }
         } else {
             int slot = 0;
-            int left = var1.a;
+            int left = oitemstack.a;
             
             do {
                 OItemStack oitemstack = this.a[slot];
@@ -161,159 +161,159 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 
                 if (oitemstack == null) {
                     delta = Math.min(64, left);
-                } else if (oitemstack.a < 64 && oitemstack.c == var1.c && oitemstack.d() == var1.d()) {
+                } else if (oitemstack.a < 64 && oitemstack.c == oitemstack.c && oitemstack.d() == oitemstack.d()) {
                     delta = Math.min(64 - oitemstack.a, left);
                 }
                 left -= delta;
                 slot++;
             } while (left > 0 && slot < 36);
-            if (var1.a - left > 0) {
-                return !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP) d).getPlayer(), entityItem.item);
+            if (oitemstack.a - left > 0) {
+                return !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP) d).getPlayer(), oentityitem.item);
             } else {
                 return false;
             }
         }
     }
 
-    public boolean a(OItemStack var1) {
-        int var2;
+    public boolean a(OItemStack oitemstack) {
+        int i;
 
-        if (var1.f()) {
-            var2 = this.m();
-            if (var2 >= 0) {
-                this.a[var2] = OItemStack.b(var1);
-                this.a[var2].b = 5;
-                var1.a = 0;
+        if (oitemstack.f()) {
+            i = this.m();
+            if (i >= 0) {
+                this.a[i] = OItemStack.b(oitemstack);
+                this.a[i].b = 5;
+                oitemstack.a = 0;
                 return true;
             } else if (this.d.L.d) {
-                var1.a = 0;
+                oitemstack.a = 0;
                 return true;
             } else {
                 return false;
             }
         } else {
             do {
-                var2 = var1.a;
-                var1.a = this.e(var1);
-            } while (var1.a > 0 && var1.a < var2);
+                i = oitemstack.a;
+                oitemstack.a = this.e(oitemstack);
+            } while (oitemstack.a > 0 && oitemstack.a < i);
 
-            if (var1.a == var2 && this.d.L.d) {
-                var1.a = 0;
+            if (oitemstack.a == i && this.d.L.d) {
+                oitemstack.a = 0;
                 return true;
             } else {
-                return var1.a < var2;
+                return oitemstack.a < i;
             }
         }
     }
 
-    public OItemStack a(int var1, int var2) {
-        OItemStack[] var3 = this.a;
+    public OItemStack a(int i, int j) {
+        OItemStack[] aoitemstack = this.a;
 
-        if (var1 >= this.a.length) {
-            var3 = this.b;
-            var1 -= this.a.length;
+        if (i >= this.a.length) {
+            aoitemstack = this.b;
+            i -= this.a.length;
         }
 
-        if (var3[var1] != null) {
-            OItemStack var4;
+        if (aoitemstack[i] != null) {
+            OItemStack oitemstack;
 
-            if (var3[var1].a <= var2) {
-                var4 = var3[var1];
-                var3[var1] = null;
-                return var4;
+            if (aoitemstack[i].a <= j) {
+                oitemstack = aoitemstack[i];
+                aoitemstack[i] = null;
+                return oitemstack;
             } else {
-                var4 = var3[var1].a(var2);
-                if (var3[var1].a == 0) {
-                    var3[var1] = null;
+                oitemstack = aoitemstack[i].a(j);
+                if (aoitemstack[i].a == 0) {
+                    aoitemstack[i] = null;
                 }
 
-                return var4;
+                return oitemstack;
             }
         } else {
             return null;
         }
     }
 
-    public OItemStack b(int var1) {
-        OItemStack[] var2 = this.a;
+    public OItemStack b(int i) {
+        OItemStack[] aoitemstack = this.a;
 
-        if (var1 >= this.a.length) {
-            var2 = this.b;
-            var1 -= this.a.length;
+        if (i >= this.a.length) {
+            aoitemstack = this.b;
+            i -= this.a.length;
         }
 
-        if (var2[var1] != null) {
-            OItemStack var3 = var2[var1];
+        if (aoitemstack[i] != null) {
+            OItemStack oitemstack = aoitemstack[i];
 
-            var2[var1] = null;
-            return var3;
+            aoitemstack[i] = null;
+            return oitemstack;
         } else {
             return null;
         }
     }
 
-    public void a(int var1, OItemStack var2) {
-        OItemStack[] var3 = this.a;
+    public void a(int i, OItemStack oitemstack) {
+        OItemStack[] aoitemstack = this.a;
 
-        if (var1 >= var3.length) {
-            var1 -= var3.length;
-            var3 = this.b;
+        if (i >= aoitemstack.length) {
+            i -= aoitemstack.length;
+            aoitemstack = this.b;
         }
 
-        var3[var1] = var2;
+        aoitemstack[i] = oitemstack;
     }
 
-    public float a(OBlock var1) {
-        float var2 = 1.0F;
+    public float a(OBlock oblock) {
+        float f = 1.0F;
 
         if (this.a[this.c] != null) {
-            var2 *= this.a[this.c].a(var1);
+            f *= this.a[this.c].a(oblock);
         }
 
-        return var2;
+        return f;
     }
 
-    public ONBTTagList a(ONBTTagList var1) {
-        int var2;
-        ONBTTagCompound var3;
+    public ONBTTagList a(ONBTTagList onbttaglist) {
+        int i;
+        ONBTTagCompound onbttagcompound;
 
-        for (var2 = 0; var2 < this.a.length; ++var2) {
-            if (this.a[var2] != null) {
-                var3 = new ONBTTagCompound();
-                var3.a("Slot", (byte) var2);
-                this.a[var2].b(var3);
-                var1.a((ONBTBase) var3);
+        for (i = 0; i < this.a.length; ++i) {
+            if (this.a[i] != null) {
+                onbttagcompound = new ONBTTagCompound();
+                onbttagcompound.a("Slot", (byte) i);
+                this.a[i].b(onbttagcompound);
+                onbttaglist.a((ONBTBase) onbttagcompound);
             }
         }
 
-        for (var2 = 0; var2 < this.b.length; ++var2) {
-            if (this.b[var2] != null) {
-                var3 = new ONBTTagCompound();
-                var3.a("Slot", (byte) (var2 + 100));
-                this.b[var2].b(var3);
-                var1.a((ONBTBase) var3);
+        for (i = 0; i < this.b.length; ++i) {
+            if (this.b[i] != null) {
+                onbttagcompound = new ONBTTagCompound();
+                onbttagcompound.a("Slot", (byte) (i + 100));
+                this.b[i].b(onbttagcompound);
+                onbttaglist.a((ONBTBase) onbttagcompound);
             }
         }
 
-        return var1;
+        return onbttaglist;
     }
 
-    public void b(ONBTTagList var1) {
+    public void b(ONBTTagList onbttaglist) {
         this.a = new OItemStack[36];
         this.b = new OItemStack[4];
 
-        for (int var2 = 0; var2 < var1.d(); ++var2) {
-            ONBTTagCompound var3 = (ONBTTagCompound) var1.a(var2);
-            int var4 = var3.d("Slot") & 255;
-            OItemStack var5 = OItemStack.a(var3);
+        for (int i = 0; i < onbttaglist.d(); ++i) {
+            ONBTTagCompound onbttagcompound = (ONBTTagCompound) onbttaglist.a(i);
+            int j = onbttagcompound.d("Slot") & 255;
+            OItemStack oitemstack = OItemStack.a(onbttagcompound);
 
-            if (var5 != null) {
-                if (var4 >= 0 && var4 < this.a.length) {
-                    this.a[var4] = var5;
+            if (oitemstack != null) {
+                if (j >= 0 && j < this.a.length) {
+                    this.a[j] = oitemstack;
                 }
 
-                if (var4 >= 100 && var4 < this.b.length + 100) {
-                    this.b[var4 - 100] = var5;
+                if (j >= 100 && j < this.b.length + 100) {
+                    this.b[j - 100] = oitemstack;
                 }
             }
         }
@@ -324,15 +324,15 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
         return this.a.length + 4;
     }
 
-    public OItemStack g_(int var1) {
-        OItemStack[] var2 = this.a;
+    public OItemStack g_(int i) {
+        OItemStack[] aoitemstack = this.a;
 
-        if (var1 >= var2.length) {
-            var1 -= var2.length;
-            var2 = this.b;
+        if (i >= aoitemstack.length) {
+            i -= aoitemstack.length;
+            aoitemstack = this.b;
         }
 
-        return var2[var1];
+        return aoitemstack[i];
     }
 
     public String e() {
@@ -343,48 +343,48 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
         return 64;
     }
 
-    public int a(OEntity var1) {
-        OItemStack var2 = this.g_(this.c);
+    public int a(OEntity oentity) {
+        OItemStack oitemstack = this.g_(this.c);
 
-        return var2 != null ? var2.a(var1) : 1;
+        return oitemstack != null ? oitemstack.a(oentity) : 1;
     }
 
-    public boolean b(OBlock var1) {
-        if (var1.cd.k()) {
+    public boolean b(OBlock oblock) {
+        if (oblock.cd.k()) {
             return true;
         } else {
-            OItemStack var2 = this.g_(this.c);
+            OItemStack oitemstack = this.g_(this.c);
 
-            return var2 != null ? var2.b(var1) : false;
+            return oitemstack != null ? oitemstack.b(oblock) : false;
         }
     }
 
     public int j() {
-        int var1 = 0;
+        int i = 0;
 
-        for (int var2 = 0; var2 < this.b.length; ++var2) {
-            if (this.b[var2] != null && this.b[var2].a() instanceof OItemArmor) {
-                int var3 = ((OItemArmor) this.b[var2].a()).b;
+        for (int j = 0; j < this.b.length; ++j) {
+            if (this.b[j] != null && this.b[j].a() instanceof OItemArmor) {
+                int k = ((OItemArmor) this.b[j].a()).b;
 
-                var1 += var3;
+                i += k;
             }
         }
 
-        return var1;
+        return i;
     }
 
-    public void e(int var1) {
-        var1 /= 4;
-        if (var1 < 1) {
-            var1 = 1;
+    public void e(int i) {
+        i /= 4;
+        if (i < 1) {
+            i = 1;
         }
 
-        for (int var2 = 0; var2 < this.b.length; ++var2) {
-            if (this.b[var2] != null && this.b[var2].a() instanceof OItemArmor) {
-                this.b[var2].a(var1, this.d);
-                if (this.b[var2].a == 0) {
-                    this.b[var2].a(this.d);
-                    this.b[var2] = null;
+        for (int j = 0; j < this.b.length; ++j) {
+            if (this.b[j] != null && this.b[j].a() instanceof OItemArmor) {
+                this.b[j].a(i, this.d);
+                if (this.b[j].a == 0) {
+                    this.b[j].a(this.d);
+                    this.b[j] = null;
                 }
             }
         }
@@ -392,19 +392,19 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     }
 
     public void k() {
-        int var1;
+        int i;
 
-        for (var1 = 0; var1 < this.a.length; ++var1) {
-            if (this.a[var1] != null) {
-                this.d.a(this.a[var1], true);
-                this.a[var1] = null;
+        for (i = 0; i < this.a.length; ++i) {
+            if (this.a[i] != null) {
+                this.d.a(this.a[i], true);
+                this.a[i] = null;
             }
         }
 
-        for (var1 = 0; var1 < this.b.length; ++var1) {
-            if (this.b[var1] != null) {
-                this.d.a(this.b[var1], true);
-                this.b[var1] = null;
+        for (i = 0; i < this.b.length; ++i) {
+            if (this.b[i] != null) {
+                this.d.a(this.b[i], true);
+                this.b[i] = null;
             }
         }
 
@@ -414,30 +414,30 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
         this.e = true;
     }
 
-    public void b(OItemStack var1) {
-        this.f = var1;
-        this.d.a(var1);
+    public void b(OItemStack oitemstack) {
+        this.f = oitemstack;
+        this.d.a(oitemstack);
     }
 
     public OItemStack l() {
         return this.f;
     }
 
-    public boolean a(OEntityPlayer var1) {
-        return this.d.bE ? false : var1.j(this.d) <= 64.0D;
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.d.bE ? false : oentityplayer.j(this.d) <= 64.0D;
     }
 
-    public boolean c(OItemStack var1) {
-        int var2;
+    public boolean c(OItemStack oitemstack) {
+        int i;
 
-        for (var2 = 0; var2 < this.b.length; ++var2) {
-            if (this.b[var2] != null && this.b[var2].c(var1)) {
+        for (i = 0; i < this.b.length; ++i) {
+            if (this.b[i] != null && this.b[i].c(oitemstack)) {
                 return true;
             }
         }
 
-        for (var2 = 0; var2 < this.a.length; ++var2) {
-            if (this.a[var2] != null && this.a[var2].c(var1)) {
+        for (i = 0; i < this.a.length; ++i) {
+            if (this.a[i] != null && this.a[i].c(oitemstack)) {
                 return true;
             }
         }
@@ -455,18 +455,18 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     }
    
     @Override
-    public void setContents(OItemStack[] values) {
-        a = values;
+    public void setContents(OItemStack[] aoitemstack) {
+        a = aoitemstack;
     }
 
     @Override
-    public OItemStack getContentsAt(int index) {
-        return g_(index);
+    public OItemStack getContentsAt(int i) {
+        return g_(i);
     }
 
     @Override
-    public void setContentsAt(int index, OItemStack value) {
-        a(index, value);
+    public void setContentsAt(int i, OItemStack oitemstack) {
+        a(i, oitemstack);
     }
 
     @Override
@@ -480,19 +480,19 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     }
 
     @Override
-    public void setName(String value) {
-        name = value;
+    public void setName(String s) {
+        name = s;
     }
 
-    public void a(OInventoryPlayer var1) {
-        int var2;
+    public void a(OInventoryPlayer oinventoryplayer) {
+        int i;
 
-        for (var2 = 0; var2 < this.a.length; ++var2) {
-            this.a[var2] = OItemStack.b(var1.a[var2]);
+        for (i = 0; i < this.a.length; ++i) {
+            this.a[i] = OItemStack.b(oinventoryplayer.a[i]);
         }
 
-        for (var2 = 0; var2 < this.b.length; ++var2) {
-            this.b[var2] = OItemStack.b(var1.b[var2]);
+        for (i = 0; i < this.b.length; ++i) {
+            this.b[i] = OItemStack.b(oinventoryplayer.b[i]);
         }
 
     }

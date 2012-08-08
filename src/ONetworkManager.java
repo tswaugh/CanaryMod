@@ -38,41 +38,41 @@ public class ONetworkManager {
     public int f = 0;
     private int y = 50;
 
-    public ONetworkManager(Socket var1, String var2, ONetHandler var3) throws IOException {
+    public ONetworkManager(Socket socket, String s, ONetHandler onethandler) throws IOException {
         super();
-        this.h = var1;
-        this.i = var1.getRemoteSocketAddress();
-        this.p = var3;
+        this.h = socket;
+        this.i = socket.getRemoteSocketAddress();
+        this.p = onethandler;
 
         try {
-            var1.setSoTimeout(30000);
-            var1.setTrafficClass(24);
-        } catch (SocketException var5) {
-            System.err.println(var5.getMessage());
+            socket.setSoTimeout(30000);
+            socket.setTrafficClass(24);
+        } catch (SocketException socketexception) {
+            System.err.println(socketexception.getMessage());
         }
 
-        this.j = new DataInputStream(var1.getInputStream());
-        this.k = new DataOutputStream(new BufferedOutputStream(var1.getOutputStream(), 5120));
-        this.s = new ONetworkReaderThread(this, var2 + " read thread");
-        this.r = new ONetworkWriterThread(this, var2 + " write thread");
+        this.j = new DataInputStream(socket.getInputStream());
+        this.k = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream(), 5120));
+        this.s = new ONetworkReaderThread(this, s + " read thread");
+        this.r = new ONetworkWriterThread(this, s + " write thread");
         this.s.start();
         this.r.start();
     }
 
-    public void a(ONetHandler var1) {
-        this.p = var1;
+    public void a(ONetHandler onethandler) {
+        this.p = onethandler;
     }
 
-    public void a(OPacket var1) {
+    public void a(OPacket opacket) {
         if (!this.q) {
-            Object var2 = this.g;
+            Object object = this.g;
 
             synchronized (this.g) {
-                this.x += var1.a() + 1;
-                if (var1.p) {
-                    this.o.add(var1);
+                this.x += opacket.a() + 1;
+                if (opacket.p) {
+                    this.o.add(opacket);
                 } else {
-                    this.n.add(var1);
+                    this.n.add(opacket);
                 }
 
             }
@@ -80,47 +80,47 @@ public class ONetworkManager {
     }
 
     private boolean g() {
-        boolean var1 = false;
+        boolean flag = false;
 
         try {
-            Object var2;
-            OPacket var3;
-            int var10001;
-            int[] var10000;
+            Object object;
+            OPacket opacket;
+            int i;
+            int[] aint;
 
             if (!this.n.isEmpty() && (this.f == 0 || System.currentTimeMillis() - ((OPacket) this.n.get(0)).k >= (long) this.f)) {
-                var2 = this.g;
+                object = this.g;
                 synchronized (this.g) {
-                    var3 = (OPacket) this.n.remove(0);
-                    this.x -= var3.a() + 1;
+                    opacket = (OPacket) this.n.remove(0);
+                    this.x -= opacket.a() + 1;
                 }
 
-                OPacket.a(var3, this.k);
-                var10000 = e;
-                var10001 = var3.b();
-                var10000[var10001] += var3.a() + 1;
-                var1 = true;
+                OPacket.a(opacket, this.k);
+                aint = e;
+                i = opacket.b();
+                aint[i] += opacket.a() + 1;
+                flag = true;
             }
 
             if (this.y-- <= 0 && !this.o.isEmpty() && (this.f == 0 || System.currentTimeMillis() - ((OPacket) this.o.get(0)).k >= (long) this.f)) {
-                var2 = this.g;
+                object = this.g;
                 synchronized (this.g) {
-                    var3 = (OPacket) this.o.remove(0);
-                    this.x -= var3.a() + 1;
+                    opacket = (OPacket) this.o.remove(0);
+                    this.x -= opacket.a() + 1;
                 }
 
-                OPacket.a(var3, this.k);
-                var10000 = e;
-                var10001 = var3.b();
-                var10000[var10001] += var3.a() + 1;
+                OPacket.a(opacket, this.k);
+                aint = e;
+                i = opacket.b();
+                aint[i] += opacket.a() + 1;
                 this.y = 0;
-                var1 = true;
+                flag = true;
             }
 
-            return var1;
-        } catch (Exception var8) {
+            return flag;
+        } catch (Exception exception) {
             if (!this.t) {
-                this.a(var8);
+                this.a(exception);
             }
 
             return false;
@@ -133,66 +133,66 @@ public class ONetworkManager {
     }
 
     private boolean h() {
-        boolean var1 = false;
+        boolean flag = false;
 
         try {
-            OPacket var2 = OPacket.a(this.j, this.p.c());
+            OPacket opacket = OPacket.a(this.j, this.p.c());
 
-            if (var2 != null) {
-                int[] var10000 = d;
-                int var10001 = var2.b();
+            if (opacket != null) {
+                int[] aint = d;
+                int i = opacket.b();
 
-                var10000[var10001] += var2.a() + 1;
+                aint[i] += opacket.a() + 1;
                 if (!this.q) {
-                    this.m.add(var2);
+                    this.m.add(opacket);
                 }
 
-                var1 = true;
+                flag = true;
             } else {
                 this.a("disconnect.endOfStream", new Object[0]);
             }
 
-            return var1;
-        } catch (Exception var3) {
+            return flag;
+        } catch (Exception exception) {
             if (!this.t) {
-                this.a(var3);
+                this.a(exception);
             }
 
             return false;
         }
     }
 
-    private void a(Exception var1) {
-        var1.printStackTrace();
-        this.a("disconnect.genericReason", new Object[] { "Internal exception: " + var1.toString()});
+    private void a(Exception exception) {
+        exception.printStackTrace();
+        this.a("disconnect.genericReason", new Object[] { "Internal exception: " + exception.toString()});
     }
 
-    public void a(String var1, Object... var2) {
+    public void a(String s, Object... aobject) {
         if (this.l) {
             this.t = true;
-            this.u = var1;
-            this.v = var2;
+            this.u = s;
+            this.v = aobject;
             (new ONetworkMasterThread(this)).start();
             this.l = false;
 
             try {
                 this.j.close();
                 this.j = null;
-            } catch (Throwable var6) {
+            } catch (Throwable throwable) {
                 ;
             }
 
             try {
                 this.k.close();
                 this.k = null;
-            } catch (Throwable var5) {
+            } catch (Throwable throwable1) {
                 ;
             }
 
             try {
                 this.h.close();
                 this.h = null;
-            } catch (Throwable var4) {
+            } catch (Throwable throwable2) {
                 ;
             }
 
@@ -212,12 +212,12 @@ public class ONetworkManager {
             this.w = 0;
         }
 
-        int var1 = 1000;
+        int i = 1000;
 
-        while (!this.m.isEmpty() && var1-- >= 0) {
-            OPacket var2 = (OPacket) this.m.remove(0);
+        while (!this.m.isEmpty() && i-- >= 0) {
+            OPacket opacket = (OPacket) this.m.remove(0);
 
-            var2.a(this.p);
+            opacket.a(this.p);
         }
 
         this.a();
@@ -249,48 +249,48 @@ public class ONetworkManager {
     }
 
     // $FF: synthetic method
-    static boolean a(ONetworkManager var0) {
-        return var0.l;
+    static boolean a(ONetworkManager onetworkmanager) {
+        return onetworkmanager.l;
     }
 
     // $FF: synthetic method
-    static boolean b(ONetworkManager var0) {
-        return var0.q;
+    static boolean b(ONetworkManager onetworkmanager) {
+        return onetworkmanager.q;
     }
 
     // $FF: synthetic method
-    static boolean c(ONetworkManager var0) {
-        return var0.h();
+    static boolean c(ONetworkManager onetworkmanager) {
+        return onetworkmanager.h();
     }
 
     // $FF: synthetic method
-    static boolean d(ONetworkManager var0) {
-        return var0.g();
+    static boolean d(ONetworkManager onetworkmanager) {
+        return onetworkmanager.g();
     }
 
     // $FF: synthetic method
-    static DataOutputStream e(ONetworkManager var0) {
-        return var0.k;
+    static DataOutputStream e(ONetworkManager onetworkmanager) {
+        return onetworkmanager.k;
     }
 
     // $FF: synthetic method
-    static boolean f(ONetworkManager var0) {
-        return var0.t;
+    static boolean f(ONetworkManager onetworkmanager) {
+        return onetworkmanager.t;
     }
 
     // $FF: synthetic method
-    static void a(ONetworkManager var0, Exception var1) {
-        var0.a(var1);
+    static void a(ONetworkManager onetworkmanager, Exception exception) {
+        onetworkmanager.a(exception);
     }
 
     // $FF: synthetic method
-    static Thread g(ONetworkManager var0) {
-        return var0.s;
+    static Thread g(ONetworkManager onetworkmanager) {
+        return onetworkmanager.s;
     }
 
     // $FF: synthetic method
-    static Thread h(ONetworkManager var0) {
-        return var0.r;
+    static Thread h(ONetworkManager onetworkmanager) {
+        return onetworkmanager.r;
     }
 
 }

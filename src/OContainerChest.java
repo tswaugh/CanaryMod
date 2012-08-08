@@ -3,69 +3,72 @@ public class OContainerChest extends OContainer {
 
     private OIInventory a;
     private int b;
-    //CanaryMod: silenced - Used to determine wether the chest should be opened or closed stealthily
+    // CanaryMod: silenced - Used to determine wether the chest should be opened or closed stealthily
     private boolean silenced;
 
-    public OContainerChest(OIInventory var1, OIInventory var2, boolean silenced) {
+    public OContainerChest(OIInventory oiinventory, OIInventory oiinventory1, boolean flag) {
         super();
-        this.a = var2;
-        this.b = var2.c() / 9;
-        this.silenced = silenced;
-        if (!this.silenced) {
-            var2.f();
+        this.a = oiinventory1;
+        this.b = oiinventory1.c() / 9;
+        this.flag = flag;
+        if (!this.flag) {
+            oiinventory1.f();
         }
-        int var3 = (this.b - 4) * 18;
+        int i = (this.b - 4) * 18;
 
-        int var4;
-        int var5;
-        for (var4 = 0; var4 < this.b; ++var4) {
-            for (var5 = 0; var5 < 9; ++var5) {
-                this.a(new OSlot(var2, var5 + var4 * 9, 8 + var5 * 18, 18 + var4 * 18));
+        int j;
+        int k;
+
+        for (j = 0; j < this.b; ++j) {
+            for (k = 0; k < 9; ++k) {
+                this.a(new OSlot(oiinventory1, k + j * 9, 8 + k * 18, 18 + j * 18));
             }
         }
 
-        for (var4 = 0; var4 < 3; ++var4) {
-            for (var5 = 0; var5 < 9; ++var5) {
-                this.a(new OSlot(var1, var5 + var4 * 9 + 9, 8 + var5 * 18, 103 + var4 * 18 + var3));
+        for (j = 0; j < 3; ++j) {
+            for (k = 0; k < 9; ++k) {
+                this.a(new OSlot(oiinventory, k + j * 9 + 9, 8 + k * 18, 103 + j * 18 + i));
             }
         }
 
-        for (var4 = 0; var4 < 9; ++var4) {
-            this.a(new OSlot(var1, var4, 8 + var4 * 18, 161 + var3));
+        for (j = 0; j < 9; ++j) {
+            this.a(new OSlot(oiinventory, j, 8 + j * 18, 161 + i));
         }
 
     }
 
-    public boolean b(OEntityPlayer var1) {
-        return this.a.a(var1);
+    public boolean b(OEntityPlayer oentityplayer) {
+        return this.a.a(oentityplayer);
     }
 
-    public OItemStack a(int var1) {
-        OItemStack var2 = null;
-        OSlot var3 = (OSlot) this.e.get(var1);
-        if (var3 != null && var3.c()) {
-            OItemStack var4 = var3.b();
-            var2 = var4.j();
-            if (var1 < this.b * 9) {
-                if (!this.a(var4, this.b * 9, this.e.size(), true)) {
+    public OItemStack a(int i) {
+        OItemStack oitemstack = null;
+        OSlot oslot = (OSlot) this.e.get(i);
+
+        if (oslot != null && oslot.c()) {
+            OItemStack oitemstack1 = oslot.b();
+
+            oitemstack = oitemstack1.j();
+            if (i < this.b * 9) {
+                if (!this.a(oitemstack1, this.b * 9, this.e.size(), true)) {
                     return null;
                 }
-            } else if (!this.a(var4, 0, this.b * 9, false)) {
+            } else if (!this.a(oitemstack1, 0, this.b * 9, false)) {
                 return null;
             }
 
-            if (var4.a == 0) {
-                var3.d((OItemStack) null);
+            if (oitemstack1.a == 0) {
+                oslot.d((OItemStack) null);
             } else {
-                var3.d();
+                oslot.d();
             }
         }
 
-        return var2;
+        return oitemstack;
     }
 
-    public void a(OEntityPlayer var1) {
-        super.a(var1);
+    public void a(OEntityPlayer oentityplayer) {
+        super.a(oentityplayer);
         if (!this.silenced) {
             this.a.g();
         }

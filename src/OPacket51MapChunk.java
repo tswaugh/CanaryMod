@@ -23,182 +23,182 @@ public class OPacket51MapChunk extends OPacket {
         this.p = true;
     }
 
-    public OPacket51MapChunk(OChunk var1, boolean var2, int var3) {
+    public OPacket51MapChunk(OChunk ochunk, boolean flag, int i) {
         super();
         this.p = true;
-        this.a = var1.g;
-        this.b = var1.h;
-        this.f = var2;
-        if (var2) {
-            var3 = '\uffff';
+        this.a = ochunk.g;
+        this.b = ochunk.h;
+        this.f = flag;
+        if (flag) {
+            i = '\uffff';
         }
 
-        OExtendedBlockStorage[] var4 = var1.h();
-        int var5 = 0;
-        int var6 = 0;
+        OExtendedBlockStorage[] aoextendedblockstorage = ochunk.h();
+        int j = 0;
+        int k = 0;
 
-        int var7;
+        int l;
 
-        for (var7 = 0; var7 < var4.length; ++var7) {
-            if (var4[var7] != null && (!var2 || !var4[var7].a()) && (var3 & 1 << var7) != 0) {
-                this.c |= 1 << var7;
-                ++var5;
-                if (var4[var7].h() != null) {
-                    this.d |= 1 << var7;
-                    ++var6;
+        for (l = 0; l < aoextendedblockstorage.length; ++l) {
+            if (aoextendedblockstorage[l] != null && (!flag || !aoextendedblockstorage[l].a()) && (i & 1 << l) != 0) {
+                this.c |= 1 << l;
+                ++j;
+                if (aoextendedblockstorage[l].h() != null) {
+                    this.d |= 1 << l;
+                    ++k;
                 }
             }
         }
 
-        var7 = 2048 * (5 * var5 + var6);
-        if (var2) {
-            var7 += 256;
+        l = 2048 * (5 * j + k);
+        if (flag) {
+            l += 256;
         }
 
-        if (i.length < var7) {
-            i = new byte[var7];
+        if (i.length < l) {
+            i = new byte[l];
         }
 
-        byte[] var8 = i;
-        int var9 = 0;
+        byte[] abyte = i;
+        int i1 = 0;
 
-        int var10;
+        int j1;
 
-        for (var10 = 0; var10 < var4.length; ++var10) {
-            if (var4[var10] != null && (!var2 || !var4[var10].a()) && (var3 & 1 << var10) != 0) {
-                byte[] var11 = var4[var10].g();
+        for (j1 = 0; j1 < aoextendedblockstorage.length; ++j1) {
+            if (aoextendedblockstorage[j1] != null && (!flag || !aoextendedblockstorage[j1].a()) && (i & 1 << j1) != 0) {
+                byte[] abyte1 = aoextendedblockstorage[j1].g();
 
-                System.arraycopy(var11, 0, var8, var9, var11.length);
-                var9 += var11.length;
+                System.arraycopy(abyte1, 0, abyte, i1, abyte1.length);
+                i1 += abyte1.length;
             }
         }
 
-        ONibbleArray var16;
+        ONibbleArray onibblearray;
 
-        for (var10 = 0; var10 < var4.length; ++var10) {
-            if (var4[var10] != null && (!var2 || !var4[var10].a()) && (var3 & 1 << var10) != 0) {
-                var16 = var4[var10].i();
-                System.arraycopy(var16.a, 0, var8, var9, var16.a.length);
-                var9 += var16.a.length;
+        for (j1 = 0; j1 < aoextendedblockstorage.length; ++j1) {
+            if (aoextendedblockstorage[j1] != null && (!flag || !aoextendedblockstorage[j1].a()) && (i & 1 << j1) != 0) {
+                onibblearray = aoextendedblockstorage[j1].i();
+                System.arraycopy(onibblearray.a, 0, abyte, i1, onibblearray.a.length);
+                i1 += onibblearray.a.length;
             }
         }
 
-        for (var10 = 0; var10 < var4.length; ++var10) {
-            if (var4[var10] != null && (!var2 || !var4[var10].a()) && (var3 & 1 << var10) != 0) {
-                var16 = var4[var10].j();
-                System.arraycopy(var16.a, 0, var8, var9, var16.a.length);
-                var9 += var16.a.length;
+        for (j1 = 0; j1 < aoextendedblockstorage.length; ++j1) {
+            if (aoextendedblockstorage[j1] != null && (!flag || !aoextendedblockstorage[j1].a()) && (i & 1 << j1) != 0) {
+                onibblearray = aoextendedblockstorage[j1].j();
+                System.arraycopy(onibblearray.a, 0, abyte, i1, onibblearray.a.length);
+                i1 += onibblearray.a.length;
             }
         }
 
-        for (var10 = 0; var10 < var4.length; ++var10) {
-            if (var4[var10] != null && (!var2 || !var4[var10].a()) && (var3 & 1 << var10) != 0) {
-                var16 = var4[var10].k();
-                System.arraycopy(var16.a, 0, var8, var9, var16.a.length);
-                var9 += var16.a.length;
+        for (j1 = 0; j1 < aoextendedblockstorage.length; ++j1) {
+            if (aoextendedblockstorage[j1] != null && (!flag || !aoextendedblockstorage[j1].a()) && (i & 1 << j1) != 0) {
+                onibblearray = aoextendedblockstorage[j1].k();
+                System.arraycopy(onibblearray.a, 0, abyte, i1, onibblearray.a.length);
+                i1 += onibblearray.a.length;
             }
         }
 
-        if (var6 > 0) {
-            for (var10 = 0; var10 < var4.length; ++var10) {
-                if (var4[var10] != null && (!var2 || !var4[var10].a()) && var4[var10].h() != null && (var3 & 1 << var10) != 0) {
-                    var16 = var4[var10].h();
-                    System.arraycopy(var16.a, 0, var8, var9, var16.a.length);
-                    var9 += var16.a.length;
+        if (k > 0) {
+            for (j1 = 0; j1 < aoextendedblockstorage.length; ++j1) {
+                if (aoextendedblockstorage[j1] != null && (!flag || !aoextendedblockstorage[j1].a()) && aoextendedblockstorage[j1].h() != null && (i & 1 << j1) != 0) {
+                    onibblearray = aoextendedblockstorage[j1].h();
+                    System.arraycopy(onibblearray.a, 0, abyte, i1, onibblearray.a.length);
+                    i1 += onibblearray.a.length;
                 }
             }
         }
 
-        if (var2) {
-            byte[] var18 = var1.l();
+        if (flag) {
+            byte[] abyte2 = ochunk.l();
 
-            System.arraycopy(var18, 0, var8, var9, var18.length);
-            var9 += var18.length;
+            System.arraycopy(abyte2, 0, abyte, i1, abyte2.length);
+            i1 += abyte2.length;
         }
 
-        Deflater var17 = new Deflater(-1);
-        boolean var14 = false;
+        Deflater deflater = new Deflater(-1);
+        boolean flag1 = false;
 
         try {
-            var14 = true;
-            var17.setInput(var8, 0, var9);
-            var17.finish();
-            this.e = new byte[var9];
-            this.g = var17.deflate(this.e);
-            var14 = false;
+            flag1 = true;
+            deflater.setInput(abyte, 0, i1);
+            deflater.finish();
+            this.e = new byte[i1];
+            this.g = deflater.deflate(this.e);
+            flag1 = false;
         } finally {
-            if (var14) {
-                var17.end();
+            if (flag1) {
+                deflater.end();
             }
         }
 
-        var17.end();
+        deflater.end();
     }
 
-    public void a(DataInputStream var1) {
+    public void a(DataInputStream datainputstream) {
         try {
-            this.a = var1.readInt();
-            this.b = var1.readInt();
-            this.f = var1.readBoolean();
-            this.c = var1.readShort();
-            this.d = var1.readShort();
-            this.g = var1.readInt();
-            this.h = var1.readInt();
+            this.a = datainputstream.readInt();
+            this.b = datainputstream.readInt();
+            this.f = datainputstream.readBoolean();
+            this.c = datainputstream.readShort();
+            this.d = datainputstream.readShort();
+            this.g = datainputstream.readInt();
+            this.h = datainputstream.readInt();
             if (i.length < this.g) {
                 i = new byte[this.g];
             }
-            var1.readFully(i, 0, this.g);
+            datainputstream.readFully(i, 0, this.g);
     
-            int var2 = 0;
+            int i = 0;
     
-            int var3;
+            int j;
     
-            for (var3 = 0; var3 < 16; ++var3) {
-                var2 += this.c >> var3 & 1;
+            for (j = 0; j < 16; ++j) {
+                i += this.c >> j & 1;
             }
     
-            var3 = 12288 * var2;
+            j = 12288 * i;
             if (this.f) {
-                var3 += 256;
+                j += 256;
             }
     
-            this.e = new byte[var3];
-            Inflater var4 = new Inflater();
+            this.e = new byte[j];
+            Inflater inflater = new Inflater();
     
-            var4.setInput(i, 0, this.g);
-            boolean var9 = false;
+            inflater.setInput(i, 0, this.g);
+            boolean flag = false;
     
             try {
-                var9 = true;
-                var4.inflate(this.e);
-                var9 = false;
-            } catch (DataFormatException var10) {
+                flag = true;
+                inflater.inflate(this.e);
+                flag = false;
+            } catch (DataFormatException dataformatexception) {
                 throw new IOException("Bad compressed data format");
             } finally {
-                if (var9) {
-                    var4.end();
+                if (flag) {
+                    inflater.end();
                 }
             }
     
-            var4.end();
+            inflater.end();
         } catch (IOException ioexception) {}
     }
 
-    public void a(DataOutputStream var1) {
+    public void a(DataOutputStream dataoutputstream) {
         try {
-            var1.writeInt(this.a);
-            var1.writeInt(this.b);
-            var1.writeBoolean(this.f);
-            var1.writeShort((short) (this.c & '\uffff'));
-            var1.writeShort((short) (this.d & '\uffff'));
-            var1.writeInt(this.g);
-            var1.writeInt(this.h);
-            var1.write(this.e, 0, this.g);
-        } catch (IOException ioexception){}
+            dataoutputstream.writeInt(this.a);
+            dataoutputstream.writeInt(this.b);
+            dataoutputstream.writeBoolean(this.f);
+            dataoutputstream.writeShort((short) (this.c & '\uffff'));
+            dataoutputstream.writeShort((short) (this.d & '\uffff'));
+            dataoutputstream.writeInt(this.g);
+            dataoutputstream.writeInt(this.h);
+            dataoutputstream.write(this.e, 0, this.g);
+        } catch (IOException ioexception) {}
     }
 
-    public void a(ONetHandler var1) {
-        var1.a(this);
+    public void a(ONetHandler onethandler) {
+        onethandler.a(this);
     }
 
     public int a() {

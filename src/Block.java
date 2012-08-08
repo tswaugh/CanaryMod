@@ -172,23 +172,23 @@ public class Block {
         /**
          * The top of the block
          */
-        Top(1),
+        Top(1), //
         /**
          * The bottom of the block
          */
-        Bottom(0),
+        Bottom(0), //
         /**
          * The left (Z-wise) of the block (Faces west)
          */
-        Left(3),
+        Left(3), //
         /**
          * The right (Z-wise) of the block (Faces east)
          */
-        Right(2),
+        Right(2), //
         /**
          * The front (X-wise) of the block (Faces south)
          */
-        Front(5),
+        Front(5), //
         /**
          * The back (X-wise) of the block (Faces north)
          */

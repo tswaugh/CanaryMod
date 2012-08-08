@@ -4,34 +4,34 @@ public class OItemSeeds extends OItem {
     private int a;
     private int b;
 
-    public OItemSeeds(int var1, int var2, int var3) {
-        super(var1);
-        this.a = var2;
-        this.b = var3;
+    public OItemSeeds(int i, int j, int k) {
+        super(i);
+        this.a = j;
+        this.b = k;
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        if (var7 != 1) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+        if (l != 1) {
             return false;
-        } else if (var2.d(var4, var5, var6) && var2.d(var4, var5 + 1, var6)) {
-            int var8 = var3.a(var4, var5, var6);
+        } else if (oentityplayer.d(i, j, k) && oentityplayer.d(i, j + 1, k)) {
+            int i1 = oworld.a(i, j, k);
 
-            if (var8 == this.b && var3.g(var4, var5 + 1, var6)) {
+            if (i1 == this.b && oworld.g(i, j + 1, k)) {
                 // CanaryMod: Seeds
-                Block blockClicked = new Block(var3.world, var8, var4, var5, var6);
+                Block blockClicked = new Block(oworld.world, i1, i, j, k);
 
-                blockClicked.setFaceClicked(Block.Face.fromId(var7));
-                Block blockPlaced = new Block(var3.world, var3.a(var4, var5 + 1, var6), var4, var5 + 1, var6);
+                blockClicked.setFaceClicked(Block.Face.fromId(l));
+                Block blockPlaced = new Block(oworld.world, oworld.a(i, j + 1, k), i, j + 1, k);
 
                 // Call the hook
-                Player player = ((OEntityPlayerMP) var2).getPlayer();
+                Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();
 
-                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(var1))) {
+                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(oitemstack))) {
                     return false;
                 }
                 
-                var3.e(var4, var5 + 1, var6, this.a);
-                --var1.a;
+                oworld.e(i, j + 1, k, this.a);
+                --oitemstack.a;
                 return true;
             } else {
                 return false;

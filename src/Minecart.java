@@ -17,11 +17,11 @@ public class Minecart extends BaseVehicle {
         /**
          * Base minecart.
          */
-        Minecart(0),
+        Minecart(0), //
         /**
          * Storage minecart. Has storage for items.
          */
-        StorageCart(1),
+        StorageCart(1), //
         /**
          * Powered minecart. Has storage for fuel.
          */

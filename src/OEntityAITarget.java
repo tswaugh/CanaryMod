@@ -9,7 +9,6 @@ public abstract class OEntityAITarget extends OEntityAIBase {
     private int f;
     private int g;
 
-
     public OEntityAITarget(OEntityLiving var1, float var2, boolean var3) {
         this(var1, var2, var3, false);
     }
@@ -27,6 +26,7 @@ public abstract class OEntityAITarget extends OEntityAIBase {
 
     public boolean b() {
         OEntityLiving var1 = this.c.at();
+
         if (var1 == null) {
             return false;
         } else if (!var1.aE()) {
@@ -100,13 +100,13 @@ public abstract class OEntityAITarget extends OEntityAIBase {
                         }
                     }
 
-                    //CanaryMod - MOB_TARGET
+                    // CanaryMod - MOB_TARGET
                     if (var1.entity.isPlayer()) {
                         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, var1.entity.getPlayer(), this.c.entity)) {
                             return false;
                         }
                     }
-                    //CanaryMod end
+                    // CanaryMod end
 
                     return true;
                 }
@@ -119,15 +119,18 @@ public abstract class OEntityAITarget extends OEntityAIBase {
     private boolean a(OEntityLiving var1) {
         this.f = 10 + this.c.an().nextInt(5);
         OPathEntity var2 = this.c.al().a(var1);
+
         if (var2 == null) {
             return false;
         } else {
             OPathPoint var3 = var2.c();
+
             if (var3 == null) {
                 return false;
             } else {
                 int var4 = var3.a - OMathHelper.b(var1.bm);
                 int var5 = var3.c - OMathHelper.b(var1.bo);
+
                 return (double) (var4 * var4 + var5 * var5) <= 2.25D;
             }
         }

@@ -51,7 +51,7 @@ public abstract class OBiomeGenBase {
     protected OWorldGenForest P;
     protected OWorldGenSwamp Q;
 
-    protected OBiomeGenBase(int var1) {
+    protected OBiomeGenBase(int i) {
         super();
         this.A = (byte) OBlock.u.bO;
         this.B = (byte) OBlock.v.bO;
@@ -69,8 +69,8 @@ public abstract class OBiomeGenBase {
         this.O = new OWorldGenBigTree(false);
         this.P = new OWorldGenForest(false);
         this.Q = new OWorldGenSwamp();
-        this.M = var1;
-        a[var1] = this;
+        this.M = i;
+        a[i] = this;
         this.I = this.a();
         this.K.add(new OSpawnListEntry(OEntitySheep.class, 12, 4, 4));
         this.K.add(new OSpawnListEntry(OEntityPig.class, 10, 4, 4));
@@ -89,19 +89,19 @@ public abstract class OBiomeGenBase {
         return new OBiomeDecorator(this);
     }
 
-    private OBiomeGenBase a(float var1, float var2) {
-        if (var1 > 0.1F && var1 < 0.2F) {
+    private OBiomeGenBase a(float f, float f1) {
+        if (f > 0.1F && f < 0.2F) {
             throw new IllegalArgumentException("Please avoid temperatures in the range 0.1 - 0.2 because of snow");
         } else {
-            this.F = var1;
-            this.G = var2;
+            this.F = f;
+            this.G = f1;
             return this;
         }
     }
 
-    private OBiomeGenBase b(float var1, float var2) {
-        this.D = var1;
-        this.E = var2;
+    private OBiomeGenBase b(float f, float f1) {
+        this.D = f;
+        this.E = f1;
         return this;
     }
 
@@ -110,11 +110,11 @@ public abstract class OBiomeGenBase {
         return this;
     }
 
-    public OWorldGenerator a(Random var1) {
-        return (OWorldGenerator) (var1.nextInt(10) == 0 ? this.O : this.N);
+    public OWorldGenerator a(Random random) {
+        return (OWorldGenerator) (random.nextInt(10) == 0 ? this.O : this.N);
     }
 
-    public OWorldGenerator b(Random var1) {
+    public OWorldGenerator b(Random random) {
         return new OWorldGenTallGrass(OBlock.X.bO, 1);
     }
 
@@ -123,36 +123,37 @@ public abstract class OBiomeGenBase {
         return this;
     }
 
-    protected OBiomeGenBase a(String var1) {
-        this.y = var1;
+    protected OBiomeGenBase a(String s) {
+        this.y = s;
         return this;
     }
 
-    protected OBiomeGenBase a(int var1) {
-        this.C = var1;
+    protected OBiomeGenBase a(int i) {
+        this.C = i;
         return this;
     }
 
-    protected OBiomeGenBase b(int var1) {
-        this.z = var1;
+    protected OBiomeGenBase b(int i) {
+        this.z = i;
         return this;
     }
 
     // CanaryMod start - responsible for adding spawned monsters to the monster list.
-    public List a(OEnumCreatureType var1) {
+    public List a(OEnumCreatureType oenumcreaturetype) {
         etc config = etc.getInstance();
 
-        if (var1 == OEnumCreatureType.a) {
+        if (oenumcreaturetype == OEnumCreatureType.a) {
             return config.getMonstersClass(this);
         }
-        if (var1 == OEnumCreatureType.b) {
+        if (oenumcreaturetype == OEnumCreatureType.b) {
             return config.getAnimalsClass(this);
         }
-        if (var1 == OEnumCreatureType.c) {
+        if (oenumcreaturetype == OEnumCreatureType.c) {
             return config.getWaterAnimalsClass(this);
         }
         return null;
     }
+
     // CanaryMod end
 
     public boolean c() {
@@ -183,8 +184,8 @@ public abstract class OBiomeGenBase {
         return this.F;
     }
 
-    public void a(OWorld var1, Random var2, int var3, int var4) {
-        this.I.a(var1, var2, var3, var4);
+    public void a(OWorld oworld, Random random, int i, int j) {
+        this.I.a(oworld, random, i, j);
     }
 
 }

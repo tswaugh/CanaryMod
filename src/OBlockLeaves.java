@@ -6,26 +6,26 @@ public class OBlockLeaves extends OBlockLeavesBase {
     private int c;
     int[] a;
 
-    protected OBlockLeaves(int var1, int var2) {
-        super(var1, var2, OMaterial.i, false);
-        this.c = var2;
+    protected OBlockLeaves(int i, int j) {
+        super(i, j, OMaterial.i, false);
+        this.c = j;
         this.a(true);
     }
 
-    public void d(OWorld var1, int var2, int var3, int var4) {
-        byte var5 = 1;
-        int var6 = var5 + 1;
+    public void d(OWorld oworld, int i, int j, int k) {
+        byte b0 = 1;
+        int l = b0 + 1;
 
-        if (var1.a(var2 - var6, var3 - var6, var4 - var6, var2 + var6, var3 + var6, var4 + var6)) {
-            for (int var7 = -var5; var7 <= var5; ++var7) {
-                for (int var8 = -var5; var8 <= var5; ++var8) {
-                    for (int var9 = -var5; var9 <= var5; ++var9) {
-                        int var10 = var1.a(var2 + var7, var3 + var8, var4 + var9);
+        if (oworld.a(i - l, j - l, k - l, i + l, j + l, k + l)) {
+            for (int i1 = -b0; i1 <= b0; ++i1) {
+                for (int j1 = -b0; j1 <= b0; ++j1) {
+                    for (int k1 = -b0; k1 <= b0; ++k1) {
+                        int l1 = oworld.a(i + i1, j + j1, k + k1);
 
-                        if (var10 == OBlock.K.bO) {
-                            int var11 = var1.c(var2 + var7, var3 + var8, var4 + var9);
+                        if (l1 == OBlock.K.bO) {
+                            int i2 = oworld.c(i + i1, j + j1, k + k1);
 
-                            var1.d(var2 + var7, var3 + var8, var4 + var9, var11 | 8);
+                            oworld.d(i + i1, j + j1, k + k1, i2 | 8);
                         }
                     }
                 }
@@ -34,70 +34,70 @@ public class OBlockLeaves extends OBlockLeavesBase {
 
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
-        if (!var1.F) {
-            int var6 = var1.c(var2, var3, var4);
+    public void a(OWorld oworld, int i, int j, int k, Random random) {
+        if (!oworld.F) {
+            int l = oworld.c(i, j, k);
 
-            if ((var6 & 8) != 0 && (var6 & 4) == 0) {
-                byte var7 = 4;
-                int var8 = var7 + 1;
-                byte var9 = 32;
-                int var10 = var9 * var9;
-                int var11 = var9 / 2;
+            if ((l & 8) != 0 && (l & 4) == 0) {
+                byte b0 = 4;
+                int i1 = b0 + 1;
+                byte b1 = 32;
+                int j1 = b1 * b1;
+                int k1 = b1 / 2;
 
                 if (this.a == null) {
-                    this.a = new int[var9 * var9 * var9];
+                    this.a = new int[b1 * b1 * b1];
                 }
 
-                int var12;
+                int l1;
 
-                if (var1.a(var2 - var8, var3 - var8, var4 - var8, var2 + var8, var3 + var8, var4 + var8)) {
-                    int var13;
-                    int var14;
-                    int var15;
+                if (oworld.a(i - i1, j - i1, k - i1, i + i1, j + i1, k + i1)) {
+                    int i2;
+                    int j2;
+                    int k2;
 
-                    for (var12 = -var7; var12 <= var7; ++var12) {
-                        for (var13 = -var7; var13 <= var7; ++var13) {
-                            for (var14 = -var7; var14 <= var7; ++var14) {
-                                var15 = var1.a(var2 + var12, var3 + var13, var4 + var14);
-                                if (var15 == OBlock.J.bO) {
-                                    this.a[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = 0;
-                                } else if (var15 == OBlock.K.bO) {
-                                    this.a[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -2;
+                    for (l1 = -b0; l1 <= b0; ++l1) {
+                        for (i2 = -b0; i2 <= b0; ++i2) {
+                            for (j2 = -b0; j2 <= b0; ++j2) {
+                                k2 = oworld.a(i + l1, j + i2, k + j2);
+                                if (k2 == OBlock.J.bO) {
+                                    this.a[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = 0;
+                                } else if (k2 == OBlock.K.bO) {
+                                    this.a[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -2;
                                 } else {
-                                    this.a[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -1;
+                                    this.a[(l1 + k1) * j1 + (i2 + k1) * b1 + j2 + k1] = -1;
                                 }
                             }
                         }
                     }
 
-                    for (var12 = 1; var12 <= 4; ++var12) {
-                        for (var13 = -var7; var13 <= var7; ++var13) {
-                            for (var14 = -var7; var14 <= var7; ++var14) {
-                                for (var15 = -var7; var15 <= var7; ++var15) {
-                                    if (this.a[(var13 + var11) * var10 + (var14 + var11) * var9 + var15 + var11] == var12 - 1) {
-                                        if (this.a[(var13 + var11 - 1) * var10 + (var14 + var11) * var9 + var15 + var11] == -2) {
-                                            this.a[(var13 + var11 - 1) * var10 + (var14 + var11) * var9 + var15 + var11] = var12;
+                    for (l1 = 1; l1 <= 4; ++l1) {
+                        for (i2 = -b0; i2 <= b0; ++i2) {
+                            for (j2 = -b0; j2 <= b0; ++j2) {
+                                for (k2 = -b0; k2 <= b0; ++k2) {
+                                    if (this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1] == l1 - 1) {
+                                        if (this.a[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2) {
+                                            this.a[(i2 + k1 - 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.a[(var13 + var11 + 1) * var10 + (var14 + var11) * var9 + var15 + var11] == -2) {
-                                            this.a[(var13 + var11 + 1) * var10 + (var14 + var11) * var9 + var15 + var11] = var12;
+                                        if (this.a[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] == -2) {
+                                            this.a[(i2 + k1 + 1) * j1 + (j2 + k1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.a[(var13 + var11) * var10 + (var14 + var11 - 1) * var9 + var15 + var11] == -2) {
-                                            this.a[(var13 + var11) * var10 + (var14 + var11 - 1) * var9 + var15 + var11] = var12;
+                                        if (this.a[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] == -2) {
+                                            this.a[(i2 + k1) * j1 + (j2 + k1 - 1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.a[(var13 + var11) * var10 + (var14 + var11 + 1) * var9 + var15 + var11] == -2) {
-                                            this.a[(var13 + var11) * var10 + (var14 + var11 + 1) * var9 + var15 + var11] = var12;
+                                        if (this.a[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] == -2) {
+                                            this.a[(i2 + k1) * j1 + (j2 + k1 + 1) * b1 + k2 + k1] = l1;
                                         }
 
-                                        if (this.a[(var13 + var11) * var10 + (var14 + var11) * var9 + (var15 + var11 - 1)] == -2) {
-                                            this.a[(var13 + var11) * var10 + (var14 + var11) * var9 + (var15 + var11 - 1)] = var12;
+                                        if (this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] == -2) {
+                                            this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + (k2 + k1 - 1)] = l1;
                                         }
 
-                                        if (this.a[(var13 + var11) * var10 + (var14 + var11) * var9 + var15 + var11 + 1] == -2) {
-                                            this.a[(var13 + var11) * var10 + (var14 + var11) * var9 + var15 + var11 + 1] = var12;
+                                        if (this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] == -2) {
+                                            this.a[(i2 + k1) * j1 + (j2 + k1) * b1 + k2 + k1 + 1] = l1;
                                         }
                                     }
                                 }
@@ -106,80 +106,80 @@ public class OBlockLeaves extends OBlockLeavesBase {
                     }
                 }
 
-                var12 = this.a[var11 * var10 + var11 * var9 + var11];
-                if (var12 >= 0) {
-                    var1.d(var2, var3, var4, var6 & -9);
+                l1 = this.a[k1 * j1 + k1 * b1 + k1];
+                if (l1 >= 0) {
+                    oworld.d(i, j, k, l & -9);
                 } else {
-                    this.g(var1, var2, var3, var4);
+                    this.g(oworld, i, j, k);
                 }
             }
 
         }
     }
 
-    private void g(OWorld var1, int var2, int var3, int var4) {
-		// CanaryMod: stop leaves from decaying
-        World world = var1.world;
-        Block block = new Block(world, world.getBlockIdAt(var2, var3, var4), var2, var3, var4);
+    private void g(OWorld oworld, int i, int j, int k) {
+        // CanaryMod: stop leaves from decaying
+        World world = oworld.world;
+        Block block = new Block(world, world.getBlockIdAt(i, j, k), i, j, k);
 
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.LEAF_DECAY, block)) {
-			this.b(var1, var2, var3, var4, var1.c(var2, var3, var4), 0);
-			var1.e(var2, var3, var4, 0);
-		}
+            this.b(oworld, i, j, k, oworld.c(i, j, k), 0);
+            oworld.e(i, j, k, 0);
+        }
     }
 
-    public int a(Random var1) {
-        return var1.nextInt(20) == 0 ? 1 : 0;
+    public int a(Random random) {
+        return random.nextInt(20) == 0 ? 1 : 0;
     }
 
-    public int a(int var1, Random var2, int var3) {
+    public int a(int i, Random random, int j) {
         return OBlock.y.bO;
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, int var5, float var6, int var7) {
-        if (!var1.F) {
-            byte var8 = 20;
+    public void a(OWorld oworld, int i, int j, int k, int l, float f, int i1) {
+        if (!oworld.F) {
+            byte b0 = 20;
 
-            if ((var5 & 3) == 3) {
-                var8 = 40;
+            if ((l & 3) == 3) {
+                b0 = 40;
             }
 
-            if (var1.r.nextInt(var8) == 0) {
-                int var9 = this.a(var5, var1.r, var7);
+            if (oworld.r.nextInt(b0) == 0) {
+                int j1 = this.a(l, oworld.r, i1);
 
-                this.a(var1, var2, var3, var4, new OItemStack(var9, 1, this.c(var5)));
+                this.a(oworld, i, j, k, new OItemStack(j1, 1, this.c(l)));
             }
 
-            if ((var5 & 3) == 0 && var1.r.nextInt(200) == 0) {
-                this.a(var1, var2, var3, var4, new OItemStack(OItem.i, 1, 0));
+            if ((l & 3) == 0 && oworld.r.nextInt(200) == 0) {
+                this.a(oworld, i, j, k, new OItemStack(OItem.i, 1, 0));
             }
         }
 
     }
 
-    public void a(OWorld var1, OEntityPlayer var2, int var3, int var4, int var5, int var6) {
-        if (!var1.F && var2.U() != null && var2.U().c == OItem.bd.bP) {
-            var2.a(OStatList.C[this.bO], 1);
-            this.a(var1, var3, var4, var5, new OItemStack(OBlock.K.bO, 1, var6 & 3));
+    public void a(OWorld oworld, OEntityPlayer oentityplayer, int i, int j, int k, int l) {
+        if (!oworld.F && oentityplayer.U() != null && oentityplayer.U().c == OItem.bd.bP) {
+            oentityplayer.a(OStatList.C[this.bO], 1);
+            this.a(oworld, i, j, k, new OItemStack(OBlock.K.bO, 1, l & 3));
         } else {
-            super.a(var1, var2, var3, var4, var5, var6);
+            super.a(oworld, oentityplayer, i, j, k, l);
         }
 
     }
 
-    protected int c(int var1) {
-        return var1 & 3;
+    protected int c(int i) {
+        return i & 3;
     }
 
     public boolean a() {
         return !this.b;
     }
 
-    public int a(int var1, int var2) {
-        return (var2 & 3) == 1 ? this.bN + 80 : ((var2 & 3) == 3 ? this.bN + 144 : this.bN);
+    public int a(int i, int j) {
+        return (j & 3) == 1 ? this.bN + 80 : ((j & 3) == 3 ? this.bN + 144 : this.bN);
     }
 
-    public void b(OWorld var1, int var2, int var3, int var4, OEntity var5) {
-        super.b(var1, var2, var3, var4, var5);
+    public void b(OWorld oworld, int i, int j, int k, OEntity oentity) {
+        super.b(oworld, i, j, k, oentity);
     }
 }

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 public abstract class OContainer {
 
     public List d = new ArrayList();
@@ -12,292 +13,308 @@ public abstract class OContainer {
     private short a = 0;
     protected List g = new ArrayList();
     private Set b = new HashSet();
-    //CanaryMod: inventory - Used to know which inventory was passed to this container GUI.
+    // CanaryMod: inventory - Used to know which inventory was passed to this container GUI.
     private Inventory inventory;
 
     public OContainer() {
         super();
     }
 
-    protected void a(OSlot var1) {
-        var1.c = this.e.size();
-        this.e.add(var1);
+    protected void a(OSlot oslot) {
+        oslot.c = this.e.size();
+        this.e.add(oslot);
         this.d.add((Object) null);
     }
 
-    public void a(OICrafting var1) {
-        if (this.g.contains(var1)) {
+    public void a(OICrafting oicrafting) {
+        if (this.g.contains(oicrafting)) {
             throw new IllegalArgumentException("Listener already listening");
         } else {
-            this.g.add(var1);
-            var1.a(this, this.b());
+            this.g.add(oicrafting);
+            oicrafting.a(this, this.b());
             this.a();
         }
     }
 
     public List b() {
-        ArrayList var1 = new ArrayList();
+        ArrayList arraylist = new ArrayList();
 
-        for (int var2 = 0; var2 < this.e.size(); ++var2) {
-            var1.add(((OSlot) this.e.get(var2)).b());
+        for (int i = 0; i < this.e.size(); ++i) {
+            arraylist.add(((OSlot) this.e.get(i)).b());
         }
 
-        return var1;
+        return arraylist;
     }
 
     public void a() {
-        for (int var1 = 0; var1 < this.e.size(); ++var1) {
-            OItemStack var2 = ((OSlot) this.e.get(var1)).b();
-            OItemStack var3 = (OItemStack) this.d.get(var1);
-            if (!OItemStack.b(var3, var2)) {
-                var3 = var2 == null ? null : var2.j();
-                this.d.set(var1, var3);
+        for (int i = 0; i < this.e.size(); ++i) {
+            OItemStack oitemstack = ((OSlot) this.e.get(i)).b();
+            OItemStack oitemstack1 = (OItemStack) this.d.get(i);
 
-                for (int var4 = 0; var4 < this.g.size(); ++var4) {
-                    ((OICrafting) this.g.get(var4)).a(this, var1, var3);
+            if (!OItemStack.b(oitemstack1, oitemstack)) {
+                oitemstack1 = oitemstack == null ? null : oitemstack.j();
+                this.d.set(i, oitemstack1);
+
+                for (int j = 0; j < this.g.size(); ++j) {
+                    ((OICrafting) this.g.get(j)).a(this, i, oitemstack1);
                 }
             }
         }
 
     }
 
-    public boolean a(OEntityPlayer var1, int var2) {
+    public boolean a(OEntityPlayer oentityplayer, int i) {
         return false;
     }
 
-    public OSlot a(OIInventory var1, int var2) {
-        for (int var3 = 0; var3 < this.e.size(); ++var3) {
-            OSlot var4 = (OSlot) this.e.get(var3);
-            if (var4.a(var1, var2)) {
-                return var4;
+    public OSlot a(OIInventory oiinventory, int i) {
+        for (int j = 0; j < this.e.size(); ++j) {
+            OSlot oslot = (OSlot) this.e.get(j);
+
+            if (oslot.a(oiinventory, i)) {
+                return oslot;
             }
         }
 
         return null;
     }
 
-    public OSlot b(int var1) {
-        return (OSlot) this.e.get(var1);
+    public OSlot b(int i) {
+        return (OSlot) this.e.get(i);
     }
 
-    public OItemStack a(int var1) {
-        OSlot var2 = (OSlot) this.e.get(var1);
-        return var2 != null ? var2.b() : null;
+    public OItemStack a(int i) {
+        OSlot oslot = (OSlot) this.e.get(i);
+
+        return oslot != null ? oslot.b() : null;
     }
 
-    public OItemStack a(int var1, int var2, boolean var3, OEntityPlayer var4) {
-        OItemStack var5 = null;
-        if (var2 > 1) {
+    public OItemStack a(int i, int j, boolean flag, OEntityPlayer oentityplayer) {
+        OItemStack oitemstack = null;
+
+        if (j > 1) {
             return null;
         } else {
-            if (var2 == 0 || var2 == 1) {
-                OInventoryPlayer var6 = var4.k;
-                if (var1 == -999) {
-                    if (var6.l() != null && var1 == -999) {
-                        if (var2 == 0) {
-                            var4.b(var6.l());
-                            var6.b((OItemStack) null);
+            if (j == 0 || j == 1) {
+                OInventoryPlayer oinventoryplayer = oentityplayer.k;
+
+                if (i == -999) {
+                    if (oinventoryplayer.l() != null && i == -999) {
+                        if (j == 0) {
+                            oentityplayer.b(oinventoryplayer.l());
+                            oinventoryplayer.b((OItemStack) null);
                         }
 
-                        if (var2 == 1) {
-                            var4.b(var6.l().a(1));
-                            if (var6.l().a == 0) {
-                                var6.b((OItemStack) null);
+                        if (j == 1) {
+                            oentityplayer.b(oinventoryplayer.l().a(1));
+                            if (oinventoryplayer.l().a == 0) {
+                                oinventoryplayer.b((OItemStack) null);
                             }
                         }
                     }
-                } else if (var3) {
-                    OItemStack var7 = this.a(var1);
-                    if (var7 != null) {
-                        int var8 = var7.c;
-                        var5 = var7.j();
-                        OSlot var9 = (OSlot) this.e.get(var1);
-                        if (var9 != null && var9.b() != null && var9.b().c == var8) {
-                            this.b(var1, var2, var3, var4);
+                } else if (flag) {
+                    OItemStack oitemstack1 = this.a(i);
+
+                    if (oitemstack1 != null) {
+                        int k = oitemstack1.c;
+
+                        oitemstack = oitemstack1.j();
+                        OSlot oslot = (OSlot) this.e.get(i);
+
+                        if (oslot != null && oslot.b() != null && oslot.b().c == k) {
+                            this.b(i, j, flag, oentityplayer);
                         }
                     }
                 } else {
-                    if (var1 < 0) {
+                    if (i < 0) {
                         return null;
                     }
 
-                    OSlot var12 = (OSlot) this.e.get(var1);
-                    if (var12 != null) {
-                        var12.d();
-                        OItemStack var13 = var12.b();
-                        OItemStack var14 = var6.l();
-                        if (var13 != null) {
-                            var5 = var13.j();
+                    OSlot oslot1 = (OSlot) this.e.get(i);
+
+                    if (oslot1 != null) {
+                        oslot1.d();
+                        OItemStack oitemstack2 = oslot1.b();
+                        OItemStack oitemstack3 = oinventoryplayer.l();
+
+                        if (oitemstack2 != null) {
+                            oitemstack = oitemstack2.j();
                         }
 
-                        int var10;
-                        if (var13 == null) {
-                            if (var14 != null && var12.a(var14)) {
-                                var10 = var2 == 0 ? var14.a : 1;
-                                if (var10 > var12.a()) {
-                                    var10 = var12.a();
+                        int l;
+
+                        if (oitemstack2 == null) {
+                            if (oitemstack3 != null && oslot1.a(oitemstack3)) {
+                                l = j == 0 ? oitemstack3.a : 1;
+                                if (l > oslot1.a()) {
+                                    l = oslot1.a();
                                 }
 
-                                var12.d(var14.a(var10));
-                                if (var14.a == 0) {
-                                    var6.b((OItemStack) null);
+                                oslot1.d(oitemstack3.a(l));
+                                if (oitemstack3.a == 0) {
+                                    oinventoryplayer.b((OItemStack) null);
                                 }
                             }
-                        } else if (var14 == null) {
-                            var10 = var2 == 0 ? var13.a : (var13.a + 1) / 2;
-                            OItemStack var11 = var12.a(var10);
-                            var6.b(var11);
-                            if (var13.a == 0) {
-                                var12.d((OItemStack) null);
+                        } else if (oitemstack3 == null) {
+                            l = j == 0 ? oitemstack2.a : (oitemstack2.a + 1) / 2;
+                            OItemStack oitemstack4 = oslot1.a(l);
+
+                            oinventoryplayer.b(oitemstack4);
+                            if (oitemstack2.a == 0) {
+                                oslot1.d((OItemStack) null);
                             }
 
-                            var12.c(var6.l());
-                        } else if (var12.a(var14)) {
-                            if (var13.c == var14.c && (!var13.e() || var13.h() == var14.h()) && OItemStack.a(var13, var14)) {
-                                var10 = var2 == 0 ? var14.a : 1;
-                                if (var10 > var12.a() - var13.a) {
-                                    var10 = var12.a() - var13.a;
+                            oslot1.c(oinventoryplayer.l());
+                        } else if (oslot1.a(oitemstack3)) {
+                            if (oitemstack2.c == oitemstack3.c && (!oitemstack2.e() || oitemstack2.h() == oitemstack3.h()) && OItemStack.a(oitemstack2, oitemstack3)) {
+                                l = j == 0 ? oitemstack3.a : 1;
+                                if (l > oslot1.a() - oitemstack2.a) {
+                                    l = oslot1.a() - oitemstack2.a;
                                 }
 
-                                if (var10 > var14.b() - var13.a) {
-                                    var10 = var14.b() - var13.a;
+                                if (l > oitemstack3.b() - oitemstack2.a) {
+                                    l = oitemstack3.b() - oitemstack2.a;
                                 }
 
-
-                                var14.a(var10);
-                                if (var14.a == 0) {
-                                    var6.b((OItemStack) null);
+                                oitemstack3.a(l);
+                                if (oitemstack3.a == 0) {
+                                    oinventoryplayer.b((OItemStack) null);
                                 }
 
-                                var13.a += var10;
-                            } else if (var14.a <= var12.a()) {
-                                var12.d(var14);
-                                var6.b(var13);
+                                oitemstack2.a += l;
+                            } else if (oitemstack3.a <= oslot1.a()) {
+                                oslot1.d(oitemstack3);
+                                oinventoryplayer.b(oitemstack2);
                             }
-                        } else if (var13.c == var14.c && var14.b() > 1 && (!var13.e() || var13.h() == var14.h()) && OItemStack.a(var13, var14)) {
-                            var10 = var13.a;
-                            if (var10 > 0 && var10 + var14.a <= var14.b()) {
-                                var14.a += var10;
-                                var13 = var12.a(var10);
-                                if (var13.a == 0) {
-                                    var12.d((OItemStack) null);
+                        } else if (oitemstack2.c == oitemstack3.c && oitemstack3.b() > 1 && (!oitemstack2.e() || oitemstack2.h() == oitemstack3.h()) && OItemStack.a(oitemstack2, oitemstack3)) {
+                            l = oitemstack2.a;
+                            if (l > 0 && l + oitemstack3.a <= oitemstack3.b()) {
+                                oitemstack3.a += l;
+                                oitemstack2 = oslot1.a(l);
+                                if (oitemstack2.a == 0) {
+                                    oslot1.d((OItemStack) null);
                                 }
 
-                                var12.c(var6.l());
+                                oslot1.c(oinventoryplayer.l());
                             }
                         }
                     }
                 }
             }
 
-            return var5;
+            return oitemstack;
         }
     }
 
-    protected void b(int var1, int var2, boolean var3, OEntityPlayer var4) {
-        this.a(var1, var2, var3, var4);
+    protected void b(int i, int j, boolean flag, OEntityPlayer oentityplayer) {
+        this.a(i, j, flag, oentityplayer);
     }
 
-    public void a(OEntityPlayer var1) {
-        //CanaryMod: onCloseInventory
-        if (var1 instanceof OEntityPlayerMP) {
-            HookParametersCloseInventory closeInventoryParameters = new HookParametersCloseInventory(((OEntityPlayerMP) var1).getPlayer(), this.inventory, false);
+    public void a(OEntityPlayer oentityplayer) {
+        // CanaryMod: onCloseInventory
+        if (oentityplayer instanceof OEntityPlayerMP) {
+            HookParametersCloseInventory closeInventoryParameters = new HookParametersCloseInventory(((OEntityPlayerMP) oentityplayer).getPlayer(), this.inventory, false);
+
             etc.getLoader().callHook(PluginLoader.Hook.CLOSE_INVENTORY, closeInventoryParameters);
         }
 
-        OInventoryPlayer var2 = var1.k;
-        if (var2.l() != null) {
-            var1.b(var2.l());
-            var2.b((OItemStack) null);
+        OInventoryPlayer oinventoryplayer = oentityplayer.k;
+
+        if (oinventoryplayer.l() != null) {
+            oentityplayer.b(oinventoryplayer.l());
+            oinventoryplayer.b((OItemStack) null);
         }
     }
 
-    public void a(OIInventory var1) {
+    public void a(OIInventory oiinventory) {
         this.a();
     }
 
-    public void a(int var1, OItemStack var2) {
-        this.b(var1).d(var2);
+    public void a(int i, OItemStack oitemstack) {
+        this.b(i).d(oitemstack);
     }
 
-    public boolean c(OEntityPlayer var1) {
-        return !this.b.contains(var1);
+    public boolean c(OEntityPlayer oentityplayer) {
+        return !this.b.contains(oentityplayer);
     }
 
-    public void a(OEntityPlayer var1, boolean var2) {
-        if (var2) {
-            this.b.remove(var1);
+    public void a(OEntityPlayer oentityplayer, boolean flag) {
+        if (flag) {
+            this.b.remove(oentityplayer);
         } else {
-            this.b.add(var1);
+            this.b.add(oentityplayer);
         }
 
     }
 
-    public abstract boolean b(OEntityPlayer var1);
+    public abstract boolean b(OEntityPlayer oentityplayer);
 
-    protected boolean a(OItemStack var1, int var2, int var3, boolean var4) {
-        boolean var5 = false;
-        int var6 = var2;
-        if (var4) {
-            var6 = var3 - 1;
+    protected boolean a(OItemStack oitemstack, int i, int j, boolean flag) {
+        boolean flag1 = false;
+        int k = i;
+
+        if (flag) {
+            k = j - 1;
         }
 
-        OSlot var7;
-        OItemStack var8;
-        if (var1.c()) {
-            while (var1.a > 0 && (!var4 && var6 < var3 || var4 && var6 >= var2)) {
-                var7 = (OSlot) this.e.get(var6);
-                var8 = var7.b();
-                if (var8 != null && var8.c == var1.c && (!var1.e() || var1.h() == var8.h()) && OItemStack.a(var1, var8)) {
-                    int var9 = var8.a + var1.a;
-                    if (var9 <= var1.b()) {
-                        var1.a = 0;
-                        var8.a = var9;
-                        var7.d();
-                        var5 = true;
-                    } else if (var8.a < var1.b()) {
-                        var1.a -= var1.b() - var8.a;
-                        var8.a = var1.b();
-                        var7.d();
-                        var5 = true;
+        OSlot oslot;
+        OItemStack oitemstack1;
+
+        if (oitemstack.c()) {
+            while (oitemstack.a > 0 && (!flag && k < j || flag && k >= i)) {
+                oslot = (OSlot) this.e.get(k);
+                oitemstack1 = oslot.b();
+                if (oitemstack1 != null && oitemstack1.c == oitemstack.c && (!oitemstack.e() || oitemstack.h() == oitemstack1.h()) && OItemStack.a(oitemstack, oitemstack1)) {
+                    int l = oitemstack1.a + oitemstack.a;
+
+                    if (l <= oitemstack.b()) {
+                        oitemstack.a = 0;
+                        oitemstack1.a = l;
+                        oslot.d();
+                        flag1 = true;
+                    } else if (oitemstack1.a < oitemstack.b()) {
+                        oitemstack.a -= oitemstack.b() - oitemstack1.a;
+                        oitemstack1.a = oitemstack.b();
+                        oslot.d();
+                        flag1 = true;
                     }
                 }
 
-                if (var4) {
-                    --var6;
+                if (flag) {
+                    --k;
                 } else {
-                    ++var6;
+                    ++k;
                 }
             }
         }
 
-        if (var1.a > 0) {
-            if (var4) {
-                var6 = var3 - 1;
+        if (oitemstack.a > 0) {
+            if (flag) {
+                k = j - 1;
             } else {
-                var6 = var2;
+                k = i;
             }
 
-            while (!var4 && var6 < var3 || var4 && var6 >= var2) {
-                var7 = (OSlot) this.e.get(var6);
-                var8 = var7.b();
-                if (var8 == null) {
-                    var7.d(var1.j());
-                    var7.d();
-                    var1.a = 0;
-                    var5 = true;
+            while (!flag && k < j || flag && k >= i) {
+                oslot = (OSlot) this.e.get(k);
+                oitemstack1 = oslot.b();
+                if (oitemstack1 == null) {
+                    oslot.d(oitemstack.j());
+                    oslot.d();
+                    oitemstack.a = 0;
+                    flag1 = true;
                     break;
                 }
 
-                if (var4) {
-                    --var6;
+                if (flag) {
+                    --k;
                 } else {
-                    ++var6;
+                    ++k;
                 }
             }
         }
 
-        return var5;
+        return flag1;
     }
 
     // CanaryMod: get and set inventory passed to the GUI.

@@ -156,18 +156,18 @@ public class OItem {
     private String bU = null;
     private String bV;
 
-    protected OItem(int var1) {
+    protected OItem(int i) {
         super();
-        this.bP = 256 + var1;
-        if (d[256 + var1] != null) {
-            System.out.println("CONFLICT @ " + var1);
+        this.bP = 256 + i;
+        if (d[256 + i] != null) {
+            System.out.println("CONFLICT @ " + i);
         }
 
-        d[256 + var1] = this;
+        d[256 + i] = this;
     }
 
-    public OItem d(int var1) {
-        this.bR = var1;
+    public OItem d(int i) {
+        this.bR = i;
         return this;
     }
 
@@ -176,36 +176,35 @@ public class OItem {
         return this;
     }
 
-    public OItem a(int var1, int var2) {
-        this.bR = var1 + var2 * 16;
+    public OItem a(int i, int j) {
+        this.bR = i + j * 16;
         return this;
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        if (var1.c != 325 && var1.c != 326 && var1.c != 327) { //fix for onItemUse being called twice for buckets
-            return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
-                    ((OEntityPlayerMP) var2).getPlayer(), null, this.getBlockInfo(var3, var4, var5, var6, var7), new Item(var1));
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+        if (oitemstack.c != 325 && oitemstack.c != 326 && oitemstack.c != 327) { // fix for onItemUse being called twice for buckets
+            return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, this.getBlockInfo(oworld, i, j, k, l), new Item(oitemstack));
         }
         return false;
     }
 
-    public float a(OItemStack var1, OBlock var2) {
+    public float a(OItemStack oitemstack, OBlock oblock) {
         return 1.0F;
     }
 
-    public OItemStack a(OItemStack var1, OWorld var2, OEntityPlayer var3) {
-        return var1;
+    public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
+        return oitemstack;
     }
 
-    public OItemStack b(OItemStack var1, OWorld var2, OEntityPlayer var3) {
-        return var1;
+    public OItemStack b(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
+        return oitemstack;
     }
 
     public int d() { // CanaryMod - get max stacksize
         return this.bQ;
     }
 
-    public int a(int var1) {
+    public int a(int i) {
         return 0;
     }
 
@@ -213,8 +212,8 @@ public class OItem {
         return this.bT;
     }
 
-    protected OItem a(boolean var1) {
-        this.bT = var1;
+    protected OItem a(boolean flag) {
+        this.bT = flag;
         return this;
     }
 
@@ -222,8 +221,8 @@ public class OItem {
         return this.a;
     }
 
-    protected OItem f(int var1) {
-        this.a = var1;
+    protected OItem f(int i) {
+        this.a = i;
         return this;
     }
 
@@ -231,31 +230,31 @@ public class OItem {
         return this.a > 0 && !this.bT;
     }
 
-    public boolean a(OItemStack var1, OEntityLiving var2, OEntityLiving var3) {
+    public boolean a(OItemStack oitemstack, OEntityLiving oentityliving, OEntityLiving oentityliving1) {
         return false;
     }
 
-    public boolean a(OItemStack var1, int var2, int var3, int var4, int var5, OEntityLiving var6) {
+    public boolean a(OItemStack oitemstack, int i, int j, int k, int l, OEntityLiving oentityliving) {
         return false;
     }
 
-    public int a(OEntity var1) {
+    public int a(OEntity oentity) {
         return 1;
     }
 
-    public boolean a(OBlock var1) {
+    public boolean a(OBlock oblock) {
         return false;
     }
 
-    public void a(OItemStack var1, OEntityLiving var2) {}
+    public void a(OItemStack oitemstack, OEntityLiving oentityliving) {}
 
     public OItem h() {
         this.bS = true;
         return this;
     }
 
-    public OItem a(String var1) {
-        this.bV = "item." + var1;
+    public OItem a(String s) {
+        this.bV = "item." + s;
         return this;
     }
 
@@ -263,16 +262,16 @@ public class OItem {
         return this.bV;
     }
 
-    public String a(OItemStack var1) {
+    public String a(OItemStack oitemstack) {
         return this.bV;
     }
 
-    public OItem a(OItem var1) {
-        this.b = var1;
+    public OItem a(OItem oitem) {
+        this.b = oitem;
         return this;
     }
 
-    public boolean e(OItemStack var1) {
+    public boolean e(OItemStack oitemstack) {
         return true;
     }
 
@@ -292,26 +291,26 @@ public class OItem {
         return OStatCollector.a(this.b() + ".name");
     }
 
-    public void a(OItemStack var1, OWorld var2, OEntity var3, int var4, boolean var5) {}
+    public void a(OItemStack oitemstack, OWorld oworld, OEntity oentity, int i, boolean flag) {}
 
-    public void d(OItemStack var1, OWorld var2, OEntityPlayer var3) {}
+    public void d(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {}
 
     public boolean t_() {
         return false;
     }
 
-    public OEnumAction d(OItemStack var1) {
+    public OEnumAction d(OItemStack oitemstack) {
         return OEnumAction.a;
     }
 
-    public int c(OItemStack var1) {
+    public int c(OItemStack oitemstack) {
         return 0;
     }
 
-    public void a(OItemStack var1, OWorld var2, OEntityPlayer var3, int var4) {}
+    public void a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer, int i) {}
 
-    protected OItem b(String var1) {
-        this.bU = var1;
+    protected OItem b(String s) {
+        this.bU = s;
         return this;
     }
 
@@ -323,29 +322,29 @@ public class OItem {
         return this.bU != null;
     }
 
-    public boolean f(OItemStack var1) {
+    public boolean f(OItemStack oitemstack) {
         return this.d() == 1 && this.g();
     }
 
-    protected OMovingObjectPosition a(OWorld var1, OEntityPlayer var2, boolean var3) {
-        float var4 = 1.0F;
-        float var5 = var2.bv + (var2.bt - var2.bv) * var4;
-        float var6 = var2.bu + (var2.bs - var2.bu) * var4;
-        double var7 = var2.bj + (var2.bm - var2.bj) * (double) var4;
-        double var9 = var2.bk + (var2.bn - var2.bk) * (double) var4 + 1.62D - (double) var2.bF;
-        double var11 = var2.bl + (var2.bo - var2.bl) * (double) var4;
-        OVec3D var13 = OVec3D.b(var7, var9, var11);
-        float var14 = OMathHelper.b(-var6 * 0.017453292F - 3.1415927F);
-        float var15 = OMathHelper.a(-var6 * 0.017453292F - 3.1415927F);
-        float var16 = -OMathHelper.b(-var5 * 0.017453292F);
-        float var17 = OMathHelper.a(-var5 * 0.017453292F);
-        float var18 = var15 * var16;
-        float var20 = var14 * var16;
-        double var21 = 5.0D;
-        OVec3D var23 = var13.c((double) var18 * var21, (double) var17 * var21, (double) var20 * var21);
-        OMovingObjectPosition var24 = var1.a(var13, var23, var3, !var3);
+    protected OMovingObjectPosition a(OWorld oworld, OEntityPlayer oentityplayer, boolean flag) {
+        float f = 1.0F;
+        float f1 = oentityplayer.bv + (oentityplayer.bt - oentityplayer.bv) * f;
+        float f2 = oentityplayer.bu + (oentityplayer.bs - oentityplayer.bu) * f;
+        double d0 = oentityplayer.bj + (oentityplayer.bm - oentityplayer.bj) * (double) f;
+        double d1 = oentityplayer.bk + (oentityplayer.bn - oentityplayer.bk) * (double) f + 1.62D - (double) oentityplayer.bF;
+        double d2 = oentityplayer.bl + (oentityplayer.bo - oentityplayer.bl) * (double) f;
+        OVec3D ovec3d = OVec3D.b(d0, d1, d2);
+        float f3 = OMathHelper.b(-f2 * 0.017453292F - 3.1415927F);
+        float f4 = OMathHelper.a(-f2 * 0.017453292F - 3.1415927F);
+        float f5 = -OMathHelper.b(-f1 * 0.017453292F);
+        float f6 = OMathHelper.a(-f1 * 0.017453292F);
+        float f7 = f4 * f5;
+        float f8 = f3 * f5;
+        double d3 = 5.0D;
+        OVec3D ovec3d1 = ovec3d.c((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
+        OMovingObjectPosition omovingobjectposition = oworld.a(ovec3d, ovec3d1, flag, !flag);
 
-        return var24;
+        return omovingobjectposition;
     }
 
     public int c() {
@@ -357,9 +356,3 @@ public class OItem {
     }
     
     // CanaryMod start - Add convenience method to get block clicked.
-    protected Block getBlockInfo(OWorld var3, int var4, int var5, int var6, int var7) {
-        Block b = var3.world.getBlockAt(var4, var5, var6);
-        b.setFaceClicked(Block.Face.fromId(var7));
-        return b;
-    } // CanaryMod end
-}

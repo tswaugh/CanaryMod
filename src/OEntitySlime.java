@@ -14,6 +14,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         super(var1);
         this.ae = "/mob/slime.png";
         int var2 = 1 << this.bS.nextInt(3);
+
         this.bF = 0.0F;
         this.d = this.bS.nextInt(20) + 10;
         this.c(var2);
@@ -34,6 +35,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
 
     public int d() {
         int var1 = this.L();
+
         return var1 * var1;
     }
 
@@ -67,6 +69,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         this.b += (this.a - this.b) * 0.5F;
         this.c = this.b;
         boolean var1 = this.bx;
+
         super.F_();
         if (this.bx && !var1) {
             int var2 = this.L();
@@ -76,11 +79,12 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
                 float var5 = this.bS.nextFloat() * 0.5F + 0.5F;
                 float var6 = OMathHelper.a(var4) * (float) var2 * 0.5F * var5;
                 float var7 = OMathHelper.b(var4) * (float) var2 * 0.5F * var5;
+
                 this.bi.a(this.A(), this.bm + (double) var6, this.bw.b, this.bo + (double) var7, 0.0D, 0.0D, 0.0D);
             }
 
             if (this.K()) {
-                this.bi.a(this, this.I(), this.p(), ( (this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+                this.bi.a(this, this.I(), this.p(), ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F) / 0.8F);
             }
 
             this.a = -0.5F;
@@ -92,7 +96,8 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
     protected void d_() {
         this.aG();
         OEntityPlayer var1 = this.bi.b(this, 16.0D);
-        if (var1 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity)) { //CanaryMod - MOB_TARGET
+
+        if (var1 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity)) { // CanaryMod - MOB_TARGET
             this.a(var1, 10.0F, 20.0F);
         }
 
@@ -104,7 +109,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
 
             this.aZ = true;
             if (this.M()) {
-                this.bi.a(this, this.I(), this.p(), ( (this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                this.bi.a(this, this.I(), this.p(), ((this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.a = 1.0F;
@@ -133,6 +138,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
 
     public void X() {
         int var1 = this.L();
+
         if (!this.bi.F && var1 > 1 && this.aD() <= 0) {
             int var2 = 2 + this.bS.nextInt(3);
 
@@ -140,6 +146,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
                 float var4 = ((float) (var3 % 2) - 0.5F) * (float) var1 / 4.0F;
                 float var5 = ((float) (var3 / 2) - 0.5F) * (float) var1 / 4.0F;
                 OEntitySlime var6 = this.C();
+
                 var6.c(var1 / 2);
                 var6.c(this.bm + (double) var4, this.bn + 0.5D, this.bo + (double) var5, this.bS.nextFloat() * 360.0F, 0.0F);
                 this.bi.b((OEntity) var6);
@@ -152,6 +159,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
     public void a_(OEntityPlayer var1) {
         if (this.G()) {
             int var2 = this.L();
+
             if (this.h(var1) && (double) this.i(var1) < 0.6D * (double) var2 && var1.a(ODamageSource.a((OEntityLiving) this), this.H())) {
                 this.bi.a(this, "mob.slimeattack", 1.0F, (this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F);
             }
@@ -181,6 +189,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
 
     public boolean l() {
         OChunk var1 = this.bi.c(OMathHelper.b(this.bm), OMathHelper.b(this.bo));
+
         return (this.L() == 1 || this.bi.q > 0) && this.bS.nextInt(10) == 0 && var1.a(987234911L).nextInt(10) == 0 && this.bn < 40.0D ? super.l() : false;
     }
 

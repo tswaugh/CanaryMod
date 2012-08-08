@@ -7,82 +7,80 @@ public class OItemPotion extends OItem {
 
     private HashMap a = new HashMap();
 
-    public OItemPotion(int var1) {
-        super(var1);
+    public OItemPotion(int i) {
+        super(i);
         this.e(1);
         this.a(true);
         this.f(0);
     }
 
-    public List b(OItemStack var1) {
-        return this.b(var1.h());
+    public List b(OItemStack oitemstack) {
+        return this.b(oitemstack.h());
     }
 
-    public List b(int var1) {
-        List var2 = (List) this.a.get(Integer.valueOf(var1));
+    public List b(int i) {
+        List list = (List) this.a.get(Integer.valueOf(i));
 
-        if (var2 == null) {
-            var2 = OPotionHelper.a(var1, false);
-            this.a.put(Integer.valueOf(var1), var2);
+        if (list == null) {
+            list = OPotionHelper.a(i, false);
+            this.a.put(Integer.valueOf(i), list);
         }
 
-        return var2;
+        return list;
     }
 
-    public OItemStack b(OItemStack var1, OWorld var2, OEntityPlayer var3) {
-        --var1.a;
-        if (!var2.F) {
-            List var4 = this.b(var1);
+    public OItemStack b(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
+        --oitemstack.a;
+        if (!oworld.F) {
+            List list = this.b(oitemstack);
 
-            if (var4 != null) {
-                Iterator var5 = var4.iterator();
+            if (list != null) {
+                Iterator iterator = list.iterator();
 
-                while (var5.hasNext()) {
-                    OPotionEffect var6 = (OPotionEffect) var5.next();
+                while (iterator.hasNext()) {
+                    OPotionEffect opotioneffect = (OPotionEffect) iterator.next();
 
-                    var3.e(new OPotionEffect(var6));
+                    oentityplayer.e(new OPotionEffect(opotioneffect));
                 }
             }
         }
 
-        if (var1.a <= 0) {
+        if (oitemstack.a <= 0) {
             return new OItemStack(OItem.bs);
         } else {
-            var3.k.a(new OItemStack(OItem.bs));
-            return var1;
+            oentityplayer.k.a(new OItemStack(OItem.bs));
+            return oitemstack;
         }
     }
 
-    public int c(OItemStack var1) {
+    public int c(OItemStack oitemstack) {
         return 32;
     }
 
-    public OEnumAction d(OItemStack var1) {
+    public OEnumAction d(OItemStack oitemstack) {
         return OEnumAction.c;
     }
 
-    public OItemStack a(OItemStack var1, OWorld var2, OEntityPlayer var3) {
-        if (c(var1.h())) {
-            --var1.a;
-            var2.a(var3, "random.bow", 0.5F, 0.4F / (c.nextFloat() * 0.4F + 0.8F));
-            if (!var2.F) {
-                var2.b((OEntity) (new OEntityPotion(var2, var3, var1.h())));
+    public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
+        if (c(oitemstack.h())) {
+            --oitemstack.a;
+            oworld.a(oentityplayer, "random.bow", 0.5F, 0.4F / (c.nextFloat() * 0.4F + 0.8F));
+            if (!oworld.F) {
+                oworld.b((OEntity) (new OEntityPotion(oworld, oentityplayer, oitemstack.h())));
             }
 
-            return var1;
+            return oitemstack;
         } else {
-            var3.a(var1, this.c(var1));
-            return var1;
+            oentityplayer.a(oitemstack, this.c(oitemstack));
+            return oitemstack;
         }
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
-                ((OEntityPlayerMP) var2).getPlayer(), null,
-                this.getBlockInfo(var3, var4, var5, var6, var7), new Item(var1));
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+        return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, this.getBlockInfo(oworld, i, j, k, l), new Item(oitemstack));
     }
 
-    public static boolean c(int var0) {
-        return (var0 & 16384) != 0;
+    public static boolean c(int i) {
+        return (i & 16384) != 0;
     }
 }

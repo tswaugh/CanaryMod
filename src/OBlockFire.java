@@ -6,8 +6,8 @@ public class OBlockFire extends OBlock {
     private int[] a = new int[256];
     private int[] b = new int[256];
 
-    protected OBlockFire(int var1, int var2) {
-        super(var1, var2, OMaterial.n);
+    protected OBlockFire(int i, int j) {
+        super(i, j, OMaterial.n);
         this.a(true);
     }
 
@@ -24,12 +24,12 @@ public class OBlockFire extends OBlock {
         this.a(OBlock.bu.bO, 15, 100);
     }
 
-    private void a(int var1, int var2, int var3) {
-        this.a[var1] = var2;
-        this.b[var1] = var3;
+    private void a(int i, int j, int k) {
+        this.a[i] = j;
+        this.b[i] = k;
     }
 
-    public OAxisAlignedBB e(OWorld var1, int var2, int var3, int var4) {
+    public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
         return null;
     }
 
@@ -45,7 +45,7 @@ public class OBlockFire extends OBlock {
         return 3;
     }
 
-    public int a(Random var1) {
+    public int a(Random random) {
         return 0;
     }
 
@@ -53,83 +53,83 @@ public class OBlockFire extends OBlock {
         return 30;
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
-        boolean var6 = var1.a(var2, var3 - 1, var4) == OBlock.bb.bO;
+    public void a(OWorld oworld, int i, int j, int k, Random random) {
+        boolean flag = oworld.a(i, j - 1, k) == OBlock.bb.bO;
 
-        if (var1.t instanceof OWorldProviderEnd && var1.a(var2, var3 - 1, var4) == OBlock.z.bO) {
-            var6 = true;
+        if (oworld.t instanceof OWorldProviderEnd && oworld.a(i, j - 1, k) == OBlock.z.bO) {
+            flag = true;
         }
 
-        if (!this.c(var1, var2, var3, var4)) {
-            var1.e(var2, var3, var4, 0);
+        if (!this.c(oworld, i, j, k)) {
+            oworld.e(i, j, k, 0);
         }
 
-        if (!var6 && var1.x() && (var1.y(var2, var3, var4) || var1.y(var2 - 1, var3, var4) || var1.y(var2 + 1, var3, var4) || var1.y(var2, var3, var4 - 1) || var1.y(var2, var3, var4 + 1))) {
-            var1.e(var2, var3, var4, 0);
+        if (!flag && oworld.x() && (oworld.y(i, j, k) || oworld.y(i - 1, j, k) || oworld.y(i + 1, j, k) || oworld.y(i, j, k - 1) || oworld.y(i, j, k + 1))) {
+            oworld.e(i, j, k, 0);
         } else {
-            int var7 = var1.c(var2, var3, var4);
+            int l = oworld.c(i, j, k);
 
-            if (var7 < 15) {
-                var1.d(var2, var3, var4, var7 + var5.nextInt(3) / 2);
+            if (l < 15) {
+                oworld.d(i, j, k, l + random.nextInt(3) / 2);
             }
 
-            var1.c(var2, var3, var4, this.bO, this.d() + var5.nextInt(10));
-            if (!var6 && !this.g(var1, var2, var3, var4)) {
-                if (!var1.e(var2, var3 - 1, var4) || var7 > 3) {
-                    var1.e(var2, var3, var4, 0);
+            oworld.c(i, j, k, this.bO, this.d() + random.nextInt(10));
+            if (!flag && !this.g(oworld, i, j, k)) {
+                if (!oworld.e(i, j - 1, k) || l > 3) {
+                    oworld.e(i, j, k, 0);
                 }
 
-            } else if (!var6 && !this.c((OIBlockAccess) var1, var2, var3 - 1, var4) && var7 == 15 && var5.nextInt(4) == 0) {
-                var1.e(var2, var3, var4, 0);
+            } else if (!flag && !this.c((OIBlockAccess) oworld, i, j - 1, k) && l == 15 && random.nextInt(4) == 0) {
+                oworld.e(i, j, k, 0);
             } else {
-                boolean var8 = var1.z(var2, var3, var4);
-                byte var9 = 0;
+                boolean flag1 = oworld.z(i, j, k);
+                byte b0 = 0;
 
-                if (var8) {
-                    var9 = -50;
+                if (flag1) {
+                    b0 = -50;
                 }
 
-                this.a(var1, var2 + 1, var3, var4, 300 + var9, var5, var7);
-                this.a(var1, var2 - 1, var3, var4, 300 + var9, var5, var7);
-                this.a(var1, var2, var3 - 1, var4, 250 + var9, var5, var7);
-                this.a(var1, var2, var3 + 1, var4, 250 + var9, var5, var7);
-                this.a(var1, var2, var3, var4 - 1, 300 + var9, var5, var7);
-                this.a(var1, var2, var3, var4 + 1, 300 + var9, var5, var7);
+                this.a(oworld, i + 1, j, k, 300 + b0, random, l);
+                this.a(oworld, i - 1, j, k, 300 + b0, random, l);
+                this.a(oworld, i, j - 1, k, 250 + b0, random, l);
+                this.a(oworld, i, j + 1, k, 250 + b0, random, l);
+                this.a(oworld, i, j, k - 1, 300 + b0, random, l);
+                this.a(oworld, i, j, k + 1, 300 + b0, random, l);
 
-                for (int var10 = var2 - 1; var10 <= var2 + 1; ++var10) {
-                    for (int var11 = var4 - 1; var11 <= var4 + 1; ++var11) {
-                        for (int var12 = var3 - 1; var12 <= var3 + 4; ++var12) {
-                            if (var10 != var2 || var12 != var3 || var11 != var4) {
-                                int var13 = 100;
+                for (int i1 = i - 1; i1 <= i + 1; ++i1) {
+                    for (int j1 = k - 1; j1 <= k + 1; ++j1) {
+                        for (int k1 = j - 1; k1 <= j + 4; ++k1) {
+                            if (i1 != i || k1 != j || j1 != k) {
+                                int l1 = 100;
 
-                                if (var12 > var3 + 1) {
-                                    var13 += (var12 - (var3 + 1)) * 100;
+                                if (k1 > j + 1) {
+                                    l1 += (k1 - (j + 1)) * 100;
                                 }
 
-                                int var14 = this.h(var1, var10, var12, var11);
+                                int i2 = this.h(oworld, i1, k1, j1);
 
-                                if (var14 > 0) {
-                                    int var15 = (var14 + 40) / (var7 + 30);
+                                if (i2 > 0) {
+                                    int j2 = (i2 + 40) / (l + 30);
 
-                                    if (var8) {
-                                        var15 /= 2;
+                                    if (flag1) {
+                                        j2 /= 2;
                                     }
 
-                                    if (var15 > 0 && var5.nextInt(var13) <= var15 && (!var1.x() || !var1.y(var10, var12, var11)) && !var1.y(var10 - 1, var12, var4) && !var1.y(var10 + 1, var12, var11) && !var1.y(var10, var12, var11 - 1) && !var1.y(var10, var12, var11 + 1)) {
-                                        int var16 = var7 + var5.nextInt(5) / 4;
+                                    if (j2 > 0 && random.nextInt(l1) <= j2 && (!oworld.x() || !oworld.y(i1, k1, j1)) && !oworld.y(i1 - 1, k1, k) && !oworld.y(i1 + 1, k1, j1) && !oworld.y(i1, k1, j1 - 1) && !oworld.y(i1, k1, j1 + 1)) {
+                                        int k2 = l + random.nextInt(5) / 4;
 
-                                        if (var16 > 15) {
-                                            var16 = 15;
+                                        if (k2 > 15) {
+                                            k2 = 15;
                                         }
 
                                         // CanaryMod: dynamic spreading of fire.
                                         // avg call amount per placed block of fire ~ 4
-                                        Block block = new Block(var1.world, var1.a(var10, var12, var11), var10, var12, var11);
+                                        Block block = new Block(oworld.world, oworld.a(i1, k1, j1), i1, k1, j1);
 
                                         block.setStatus(3);
                                         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
-											var1.b(var10, var12, var11, this.bO, var16);
-										}
+                                            oworld.b(i1, k1, j1, this.bO, k2);
+                                        }
 
                                     }
                                 }
@@ -142,61 +142,61 @@ public class OBlockFire extends OBlock {
         }
     }
 
-    private void a(OWorld var1, int var2, int var3, int var4, int var5, Random var6, int var7) {
-        int var8 = this.b[var1.a(var2, var3, var4)];
+    private void a(OWorld oworld, int i, int j, int k, int l, Random random, int i1) {
+        int j1 = this.b[oworld.a(i, j, k)];
 
-        if (var6.nextInt(var5) < var8) {
-            boolean var9 = var1.a(var2, var3, var4) == OBlock.am.bO;
+        if (random.nextInt(l) < j1) {
+            boolean flag = oworld.a(i, j, k) == OBlock.am.bO;
 
-            if (var6.nextInt(var7 + 10) < 5 && !var1.y(var2, var3, var4)) {
-                int var10 = var7 + var6.nextInt(5) / 4;
+            if (random.nextInt(i1 + 10) < 5 && !oworld.y(i, j, k)) {
+                int k1 = i1 + random.nextInt(5) / 4;
 
-                if (var10 > 15) {
-                    var10 = 15;
+                if (k1 > 15) {
+                    k1 = 15;
                 }
 
-				// CanaryMod: VERY SLOW dynamic spreading of fire.
-                Block block = new Block(var1.world, var1.a(var2, var3, var4), var2, var3, var4);
+                // CanaryMod: VERY SLOW dynamic spreading of fire.
+                Block block = new Block(oworld.world, oworld.a(i, j, k), i, j, k);
 
                 block.setStatus(3);
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
-					var1.b(var2, var3, var4, this.bO, var10);
-				}
+                    oworld.b(i, j, k, this.bO, k1);
+                }
             } else {
                 // CanaryMod: fire destroying a block.
-                Block block = new Block(var1.world, var1.a(var2, var3, var4), var2, var3, var4);
+                Block block = new Block(oworld.world, oworld.a(i, j, k), i, j, k);
 
                 block.setStatus(4);
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                    var1.e(var2, var3, var4, 0);
+                    oworld.e(i, j, k, 0);
                 }
             }
 
-            if (var9) {
-                OBlock.am.c(var1, var2, var3, var4, 1);
+            if (flag) {
+                OBlock.am.c(oworld, i, j, k, 1);
             }
         }
 
     }
 
-    private boolean g(OWorld var1, int var2, int var3, int var4) {
-        return this.c((OIBlockAccess) var1, var2 + 1, var3, var4) ? true : (this.c((OIBlockAccess) var1, var2 - 1, var3, var4) ? true : (this.c((OIBlockAccess) var1, var2, var3 - 1, var4) ? true : (this.c((OIBlockAccess) var1, var2, var3 + 1, var4) ? true : (this.c((OIBlockAccess) var1, var2, var3, var4 - 1) ? true : this.c((OIBlockAccess) var1, var2, var3, var4 + 1)))));
+    private boolean g(OWorld oworld, int i, int j, int k) {
+        return this.c((OIBlockAccess) oworld, i + 1, j, k) ? true : (this.c((OIBlockAccess) oworld, i - 1, j, k) ? true : (this.c((OIBlockAccess) oworld, i, j - 1, k) ? true : (this.c((OIBlockAccess) oworld, i, j + 1, k) ? true : (this.c((OIBlockAccess) oworld, i, j, k - 1) ? true : this.c((OIBlockAccess) oworld, i, j, k + 1)))));
     }
 
-    private int h(OWorld var1, int var2, int var3, int var4) {
-        byte var5 = 0;
+    private int h(OWorld oworld, int i, int j, int k) {
+        byte b0 = 0;
 
-        if (!var1.g(var2, var3, var4)) {
+        if (!oworld.g(i, j, k)) {
             return 0;
         } else {
-            int var6 = this.f(var1, var2 + 1, var3, var4, var5);
+            int l = this.f(oworld, i + 1, j, k, b0);
 
-            var6 = this.f(var1, var2 - 1, var3, var4, var6);
-            var6 = this.f(var1, var2, var3 - 1, var4, var6);
-            var6 = this.f(var1, var2, var3 + 1, var4, var6);
-            var6 = this.f(var1, var2, var3, var4 - 1, var6);
-            var6 = this.f(var1, var2, var3, var4 + 1, var6);
-            return var6;
+            l = this.f(oworld, i - 1, j, k, l);
+            l = this.f(oworld, i, j - 1, k, l);
+            l = this.f(oworld, i, j + 1, k, l);
+            l = this.f(oworld, i, j, k - 1, l);
+            l = this.f(oworld, i, j, k + 1, l);
+            return l;
         }
     }
 
@@ -204,32 +204,32 @@ public class OBlockFire extends OBlock {
         return false;
     }
 
-    public boolean c(OIBlockAccess var1, int var2, int var3, int var4) {
-        return this.a[var1.a(var2, var3, var4)] > 0;
+    public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k) {
+        return this.a[oiblockaccess.a(i, j, k)] > 0;
     }
 
-    public int f(OWorld var1, int var2, int var3, int var4, int var5) {
-        int var6 = this.a[var1.a(var2, var3, var4)];
+    public int f(OWorld oworld, int i, int j, int k, int l) {
+        int i1 = this.a[oworld.a(i, j, k)];
 
-        return var6 > var5 ? var6 : var5;
+        return i1 > l ? i1 : l;
     }
 
-    public boolean c(OWorld var1, int var2, int var3, int var4) {
-        return var1.e(var2, var3 - 1, var4) || this.g(var1, var2, var3, var4);
+    public boolean c(OWorld oworld, int i, int j, int k) {
+        return oworld.e(i, j - 1, k) || this.g(oworld, i, j, k);
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, int var5) {
-        if (!var1.e(var2, var3 - 1, var4) && !this.g(var1, var2, var3, var4)) {
-            var1.e(var2, var3, var4, 0);
+    public void a(OWorld oworld, int i, int j, int k, int l) {
+        if (!oworld.e(i, j - 1, k) && !this.g(oworld, i, j, k)) {
+            oworld.e(i, j, k, 0);
         }
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4) {
-        if (var1.t.g > 0 || var1.a(var2, var3 - 1, var4) != OBlock.ap.bO || !OBlock.be.b_(var1, var2, var3, var4)) {
-            if (!var1.e(var2, var3 - 1, var4) && !this.g(var1, var2, var3, var4)) {
-                var1.e(var2, var3, var4, 0);
+    public void a(OWorld oworld, int i, int j, int k) {
+        if (oworld.t.g > 0 || oworld.a(i, j - 1, k) != OBlock.ap.bO || !OBlock.be.b_(oworld, i, j, k)) {
+            if (!oworld.e(i, j - 1, k) && !this.g(oworld, i, j, k)) {
+                oworld.e(i, j, k, 0);
             } else {
-                var1.c(var2, var3, var4, this.bO, this.d() + var1.r.nextInt(10));
+                oworld.c(i, j, k, this.bO, this.d() + oworld.r.nextInt(10));
             }
         }
     }

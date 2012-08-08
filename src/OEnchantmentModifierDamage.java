@@ -8,12 +8,12 @@ final class OEnchantmentModifierDamage implements OIEnchantmentModifier {
         super();
     }
 
-    public void a(OEnchantment var1, int var2) {
-        this.a += var1.a(var2, this.b);
+    public void a(OEnchantment oenchantment, int i) {
+        this.a += oenchantment.a(i, this.b);
     }
 
     // $FF: synthetic method
-    OEnchantmentModifierDamage(OEmpty1 var1) {
+    OEnchantmentModifierDamage(OEmpty1 oempty1) {
         this();
     }
 }

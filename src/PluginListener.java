@@ -16,19 +16,19 @@ public class PluginListener {
         /**
          * Highly critical for hooks that absolutely must occur before any others. Use carefully.
          */
-        CRITICAL,
+        CRITICAL, //
         /**
          * May block/interrupt/undo the action, but prefer MEDIUM
          */
-        HIGH,
+        HIGH, //
         /**
          * Preferred priority for blocking/interrupting/undoing the action
          */
-        MEDIUM,
+        MEDIUM, //
         /**
          * Must not block/interrupt/undo the action
          */
-        LOW
+        LOW;
     }
 
     /**

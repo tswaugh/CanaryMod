@@ -13,6 +13,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /*
  * CANARYMOD OLD SERVER
  */
@@ -26,7 +27,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     public OPropertyManager d;
     // public OWorldServer[] e;
     public long[] f = new long[100];
-    //public long[][] g;
+    // public long[][] g;
     public OServerConfigurationManager h;
     private OConsoleCommandHandler A;
     private boolean B = true;
@@ -67,10 +68,10 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
 
     private boolean s() throws IOException {
         this.A = new OConsoleCommandHandler(this);
-        OThreadCommandReader var1 = new OThreadCommandReader(this);
+        OThreadCommandReader othreadcommandreader = new OThreadCommandReader(this);
 
-        var1.setDaemon(true);
-        var1.start();
+        othreadcommandreader.setDaemon(true);
+        othreadcommandreader.start();
         OConsoleLogManager.a();
         a.info("Starting minecraft server version 1.2.5");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
@@ -87,20 +88,20 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         this.r = this.d.a("allow-flight", false);
         this.s = this.d.a("motd", "A Minecraft Server");
         this.s.replace('\u00a7', '$');
-        InetAddress var2 = null;
+        InetAddress inetaddress = null;
 
         if (this.y.length() > 0) {
-            var2 = InetAddress.getByName(this.y);
+            inetaddress = InetAddress.getByName(this.y);
         }
 
         this.z = this.d.a("server-port", 25565);
         a.info("Starting Minecraft server on " + (this.y.length() == 0 ? "*" : this.y) + ":" + this.z);
 
         try {
-            this.c = new ONetworkListenThread(this, var2, this.z);
-        } catch (IOException var18) {
+            this.c = new ONetworkListenThread(this, inetaddress, this.z);
+        } catch (IOException ioexception) {
             a.warning("**** FAILED TO BIND TO PORT!");
-            a.log(Level.WARNING, "The exception was: " + var18.toString());
+            a.log(Level.WARNING, "The exception was: " + ioexception.toString());
             a.warning("Perhaps a server is already running on that port?");
             return false;
         }
@@ -113,40 +114,40 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         }
 
         this.h = new OServerConfigurationManager(this);
-        long var4 = System.nanoTime();
-        String var6 = this.d.a("level-name", "world");
-        String var7 = this.d.a("level-seed", "");
-        String var8 = this.d.a("level-type", "DEFAULT");
-        long var9 = (new Random()).nextLong();
+        long i = System.nanoTime();
+        String s = this.d.a("level-name", "world");
+        String s1 = this.d.a("level-seed", "");
+        String s2 = this.d.a("level-type", "DEFAULT");
+        long j = (new Random()).nextLong();
 
-        if (var7.length() > 0) {
+        if (s1.length() > 0) {
             try {
-                long var11 = Long.parseLong(var7);
+                long k = Long.parseLong(s1);
 
-                if (var11 != 0L) {
-                    var9 = var11;
+                if (k != 0L) {
+                    j = k;
                 }
-            } catch (NumberFormatException var17) {
-                var9 = (long) var7.hashCode();
+            } catch (NumberFormatException numberformatexception) {
+                j = (long) s1.hashCode();
             }
         }
 
-        OEnumWorldType var13 = OEnumWorldType.a(var8);
+        OEnumWorldType oenumworldtype = OEnumWorldType.a(s2);
 
-        if (var13 == null) {
-            var13 = OEnumWorldType.b;
+        if (oenumworldtype == null) {
+            oenumworldtype = OEnumWorldType.b;
         }
 
         this.t = this.d.a("max-build-height", 256);
         this.t = (this.t + 8) / 16 * 16;
         this.t = OMathHelper.a(this.t, 64, 256);
         this.d.a("max-build-height", (Object) Integer.valueOf(this.t));
-        a.info("Preparing level \"" + var6 + "\"");
-        this.a(new OAnvilSaveConverter(new File(".")), var6, var9, var13);
-        long var14 = System.nanoTime() - var4;
-        String var16 = String.format("%.3fs", new Object[] { Double.valueOf((double) var14 / 1.0E9D)});
+        a.info("Preparing level \"" + s + "\"");
+        this.a(new OAnvilSaveConverter(new File(".")), s, j, oenumworldtype);
+        long l = System.nanoTime() - i;
+        String s3 = String.format("%.3fs", new Object[] { Double.valueOf((double) l / 1.0E9D)});
 
-        a.info("Done (" + var16 + ")! For help, type \"help\" or \"?\"");
+        a.info("Done (" + s3 + ")! For help, type \"help\" or \"?\"");
         if (this.d.a("enable-query", false)) {
             a.info("Starting GS4 status listener");
             this.I = new ORConThreadQuery(this);
@@ -162,84 +163,81 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         return true;
     }
 
-    protected void loadWorld(String name, long seed, World.Type worldType) {
-        this.a(new OAnvilSaveConverter(new File(".")), name, seed, worldType.getNative());
+    protected void loadWorld(String s, long i, World.Type world.type) {
+        this.a(new OAnvilSaveConverter(new File(".")), s, i, world.type.getNative());
     }
 
-    
-    
-    
-    private void a(OISaveFormat var1, String var2, long var3, OEnumWorldType var5) {
-        if (var1.a(var2)) {
+    private void a(OISaveFormat oisaveformat, String s, long i, OEnumWorldType oenumworldtype) {
+        if (oisaveformat.a(s)) {
             a.info("Converting map!");
-            var1.a(var2, new OConvertProgressUpdater(this));
+            oisaveformat.a(s, new OConvertProgressUpdater(this));
         }
 
         OWorldServer[] toLoad = new OWorldServer[3];
 
-        this.worlds.put(var2, toLoad);
-        this.worldTickNanos.put(var2, new long[toLoad.length][100]);
-        int var6 = this.d.a("gamemode", 0);
+        this.worlds.put(s, toLoad);
+        this.worldTickNanos.put(s, new long[toLoad.length][100]);
+        int j = this.d.a("gamemode", 0);
 
-        var6 = OWorldSettings.a(var6);
-        a.info("Default game type: " + var6);
-        boolean var7 = this.d.a("generate-structures", true);
-        OWorldSettings var8 = new OWorldSettings(var3, var6, var7, false, var5);
-        OAnvilSaveHandler var9 = new OAnvilSaveHandler(new File("."), var2, true);
+        j = OWorldSettings.a(j);
+        a.info("Default game type: " + j);
+        boolean flag = this.d.a("generate-structures", true);
+        OWorldSettings oworldsettings = new OWorldSettings(i, j, flag, false, oenumworldtype);
+        OAnvilSaveHandler oanvilsavehandler = new OAnvilSaveHandler(new File("."), s, true);
 
-        for (int var10 = 0; var10 < toLoad.length; ++var10) {
-            byte var11 = 0;
+        for (int k = 0; k < toLoad.length; ++k) {
+            byte b0 = 0;
 
-            if (var10 == 1) {
-                var11 = -1;
+            if (k == 1) {
+                b0 = -1;
             }
 
-            if (var10 == 2) {
-                var11 = 1;
+            if (k == 2) {
+                b0 = 1;
             }
 
-            if (var10 == 0) {
-                toLoad[var10] = new OWorldServer(this, var9, var2, var11, var8);
+            if (k == 0) {
+                toLoad[k] = new OWorldServer(this, oanvilsavehandler, s, b0, oworldsettings);
             } else {
-                toLoad[var10] = new OWorldServerMulti(this, var9, var2, var11, var8, toLoad[0]);
+                toLoad[k] = new OWorldServerMulti(this, oanvilsavehandler, s, b0, oworldsettings, toLoad[0]);
             }
 
-            this.h.newWorld(var2);
-            toLoad[var10].a(new OWorldManager(this, toLoad[var10]));
-            toLoad[var10].setEntityTracker(new OEntityTracker(this, var11, var2));
-            toLoad[var10].q = this.d.a("difficulty", 1);
-            toLoad[var10].a(this.d.a("spawn-monsters", true), this.o);
-            toLoad[var10].s().d(var6);
+            this.h.newWorld(s);
+            toLoad[k].a(new OWorldManager(this, toLoad[k]));
+            toLoad[k].setEntityTracker(new OEntityTracker(this, b0, s));
+            toLoad[k].q = this.d.a("difficulty", 1);
+            toLoad[k].a(this.d.a("spawn-monsters", true), this.o);
+            toLoad[k].s().d(j);
             this.h.a(toLoad);
         }
 
-        short var23 = 196;
-        long var12 = System.currentTimeMillis();
+        short short1 = 196;
+        long l = System.currentTimeMillis();
 
-        for (int var14 = 0; var14 < 1; ++var14) {
-            a.info("Preparing start region for level " + var14);
-            OWorldServer var15 = toLoad[var14];
-            OChunkCoordinates var16 = var15.p();
+        for (int i1 = 0; i1 < 1; ++i1) {
+            a.info("Preparing start region for level " + i1);
+            OWorldServer oworldserver = toLoad[i1];
+            OChunkCoordinates ochunkcoordinates = oworldserver.p();
 
-            for (int var17 = -var23; var17 <= var23 && this.B; var17 += 16) {
-                for (int var18 = -var23; var18 <= var23 && this.B; var18 += 16) {
-                    long var19 = System.currentTimeMillis();
+            for (int j1 = -short1; j1 <= short1 && this.B; j1 += 16) {
+                for (int k1 = -short1; k1 <= short1 && this.B; k1 += 16) {
+                    long l1 = System.currentTimeMillis();
 
-                    if (var19 < var12) {
-                        var12 = var19;
+                    if (l1 < l) {
+                        l = l1;
                     }
 
-                    if (var19 > var12 + 1000L) {
-                        int var21 = (var23 * 2 + 1) * (var23 * 2 + 1);
-                        int var22 = (var17 + var23) * (var23 * 2 + 1) + var18 + 1;
+                    if (l1 > l + 1000L) {
+                        int i2 = (short1 * 2 + 1) * (short1 * 2 + 1);
+                        int j2 = (j1 + short1) * (short1 * 2 + 1) + k1 + 1;
 
-                        this.b("Preparing spawn area", var22 * 100 / var21);
-                        var12 = var19;
+                        this.b("Preparing spawn area", j2 * 100 / i2);
+                        l = l1;
                     }
 
-                    var15.G.c(var16.a + var17 >> 4, var16.c + var18 >> 4);
+                    oworldserver.G.c(ochunkcoordinates.a + j1 >> 4, ochunkcoordinates.c + k1 >> 4);
 
-                    while (var15.z() && this.B) {
+                    while (oworldserver.z() && this.B) {
                         ;
                     }
                 }
@@ -249,10 +247,10 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         this.t();
     }
 
-    private void b(String var1, int var2) {
-        this.k = var1;
-        this.l = var2;
-        a.info(var1 + ": " + var2 + "%");
+    private void b(String s, int i) {
+        this.k = s;
+        this.l = i;
+        a.info(s + ": " + i + "%");
     }
 
     private void t() {
@@ -260,11 +258,11 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         this.l = 0;
     }
 
-    private void u(OWorldServer var1) {
-        a.info("Saving chunks for level " + var1.t.g);
+    private void u(OWorldServer oworldserver) {
+        a.info("Saving chunks for level " + oworldserver.t.g);
 
-        var1.a(true, (OIProgressUpdate) null);
-        var1.A();
+        oworldserver.a(true, (OIProgressUpdate) null);
+        oworldserver.A();
     }
 
     private void v() {
@@ -277,11 +275,11 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
             a.info("Saving chunks for world " + entrySet.getKey());
             OWorldServer[] level = entrySet.getValue();
 
-            for (int var1 = 0; var1 < level.length; ++var1) {
-                OWorldServer var2 = level[var1];
+            for (int i = 0; i < level.length; ++i) {
+                OWorldServer oworldserver = level[i];
 
-                if (var2 != null) {
-                    this.u(var2);
+                if (oworldserver != null) {
+                    this.u(oworldserver);
                 }
             }
         }
@@ -292,30 +290,30 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     }
 
     public void run() {
-        boolean var59 = false;
+        boolean k9 = false;
 
         label595: {
             try {
-                var59 = true;
+                k9 = true;
                 if (this.s()) {
-                    long var1 = System.currentTimeMillis();
+                    long i = System.currentTimeMillis();
 
-                    for (long var3 = 0L; this.B; Thread.sleep(1L)) {
-                        long var5 = System.currentTimeMillis();
-                        long var7 = var5 - var1;
+                    for (long j = 0L; this.B; Thread.sleep(1L)) {
+                        long k = System.currentTimeMillis();
+                        long l = k - i;
 
-                        if (var7 > 2000L) {
+                        if (l > 2000L) {
                             a.warning("Can\'t keep up! Did the system time change, or is the server overloaded?");
-                            var7 = 2000L;
+                            l = 2000L;
                         }
 
-                        if (var7 < 0L) {
+                        if (l < 0L) {
                             a.warning("Time ran backwards! Did the system time change?");
-                            var7 = 0L;
+                            l = 0L;
                         }
 
-                        var3 += var7;
-                        var1 = var5;
+                        j += l;
+                        i = k;
                         // CanaryMod start: multiworld sleeping
                         boolean allSleeping = true;
 
@@ -326,37 +324,37 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
                         
                         if (allSleeping) { // CanaryMod: multiworld sleeping
                             this.w();
-                            var3 = 0L;
+                            j = 0L;
                         } else {
-                            while (var3 > 50L) {
-                                var3 -= 50L;
+                            while (j > 50L) {
+                                j -= 50L;
                                 this.w();
                             }
                         }
                     }
 
-                    var59 = false;
+                    k9 = false;
                 } else {
                     while (this.B) {
                         this.b();
 
                         try {
                             Thread.sleep(10L);
-                        } catch (InterruptedException var61) {
-                            var61.printStackTrace();
+                        } catch (InterruptedException interruptedexception) {
+                            interruptedexception.printStackTrace();
                         }
                     }
 
-                    var59 = false;
+                    k9 = false;
                 }
                 break label595;
-            } catch (Throwable var68) {
-                var68.printStackTrace();
-                a.log(Level.SEVERE, "Unexpected exception", var68);
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+                a.log(Level.SEVERE, "Unexpected exception", throwable);
 
                 while (true) {
                     if (!this.B) {
-                        var59 = false;
+                        k9 = false;
                         break;
                     }
 
@@ -364,27 +362,27 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
 
                     try {
                         Thread.sleep(10L);
-                    } catch (InterruptedException var60) {
-                        var60.printStackTrace();
+                    } catch (InterruptedException interruptedexception1) {
+                        interruptedexception1.printStackTrace();
                     }
                 }
             } finally {
-                if (var59) {
-                    boolean var48 = false;
+                if (k9) {
+                    boolean flag1 = false;
 
                     label523: {
                         label522: {
                             try {
-                                var48 = true;
+                                flag1 = true;
                                 this.v();
                                 this.i = true;
-                                var48 = false;
+                                flag1 = false;
                                 break label522;
-                            } catch (Throwable var62) {
-                                var62.printStackTrace();
-                                var48 = false;
+                            } catch (Throwable throwable1) {
+                                throwable1.printStackTrace();
+                                flag1 = false;
                             } finally {
-                                if (var48) {
+                                if (flag1) {
                                     System.exit(0);
                                 }
                             }
@@ -399,20 +397,20 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
                 }
             }
 
-            boolean var37 = false;
+            boolean flag2 = false;
 
             label596: {
                 try {
-                    var37 = true;
+                    flag2 = true;
                     this.v();
                     this.i = true;
-                    var37 = false;
+                    flag2 = false;
                     break label596;
-                } catch (Throwable var64) {
-                    var64.printStackTrace();
-                    var37 = false;
+                } catch (Throwable throwable2) {
+                    throwable2.printStackTrace();
+                    flag2 = false;
                 } finally {
-                    if (var37) {
+                    if (flag2) {
                         System.exit(0);
                     }
                 }
@@ -425,20 +423,20 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
             return;
         }
 
-        boolean var26 = false;
+        boolean flag3 = false;
 
         label597: {
             try {
-                var26 = true;
+                flag3 = true;
                 this.v();
                 this.i = true;
-                var26 = false;
+                flag3 = false;
                 break label597;
-            } catch (Throwable var66) {
-                var66.printStackTrace();
-                var26 = false;
+            } catch (Throwable throwable3) {
+                throwable3.printStackTrace();
+                flag3 = false;
             } finally {
-                if (var26) {
+                if (flag3) {
                     System.exit(0);
                 }
             }
@@ -451,25 +449,25 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     }
 
     private void w() {
-        long var1 = System.nanoTime();
+        long i = System.nanoTime();
         ArrayList<String> var3 = new ArrayList<String>();
         Iterator<String> var4 = b.keySet().iterator();
 
         while (var4.hasNext()) {
-            String var5 = var4.next();
-            int var6 = b.get(var5).intValue();
+            String s = var4.next();
+            int j = b.get(s).intValue();
 
-            if (var6 > 0) {
-                b.put(var5, Integer.valueOf(var6 - 1));
+            if (j > 0) {
+                b.put(s, Integer.valueOf(j - 1));
             } else {
-                var3.add(var5);
+                var3.add(s);
             }
         }
 
-        int var11;
+        int k;
 
-        for (var11 = 0; var11 < var3.size(); ++var11) {
-            b.remove(var3.get(var11));
+        for (k = 0; k < var3.size(); ++k) {
+            b.remove(var3.get(k));
         }
 
         OAxisAlignedBB.a();
@@ -479,60 +477,61 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         for (Map.Entry<String, OWorldServer[]> entry : this.worlds.entrySet()) {
             OWorldServer[] level = entry.getValue();
 
-            for (var11 = 0; var11 < level.length; ++var11) {
-                long var7 = System.nanoTime();
+            for (k = 0; k < level.length; ++k) {
+                long l = System.nanoTime();
 
-                if (var11 == 0 || this.d.a("allow-nether", true)) {
-                    OWorldServer var9 = level[var11];
+                if (k == 0 || this.d.a("allow-nether", true)) {
+                    OWorldServer oworldserver = level[k];
 
                     if (this.j % 20 == 0) {
                         // this.h.a((OPacket) (new
-                        // OPacket4UpdateTime(var9.o())), var9.t.g);
+                        // OPacket4UpdateTime(oworldserver.o())), oworldserver.t.g);
                         // }
                         // this.h.a((OPacket) (new
-                        // OPacket4UpdateTime(var9.o())), var9.t.g);
-                        for (int var12 = 0; var12 < h.b.size(); ++var12) {
-                            OEntityPlayerMP var13 = (OEntityPlayerMP) h.b.get(var12);
-                            if (var13.bi.hashCode() == var9.hashCode()) {
-                                var13.a.b((OPacket) (new OPacket4UpdateTime(var9.o())));
+                        // OPacket4UpdateTime(oworldserver.o())), oworldserver.t.g);
+                        for (int i1 = 0; i1 < h.b.size(); ++i1) {
+                            OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) h.b.get(i1);
+
+                            if (oentityplayermp.bi.hashCode() == oworldserver.hashCode()) {
+                                oentityplayermp.a.b((OPacket) (new OPacket4UpdateTime(oworldserver.o())));
                             }
                         }
                     }
 
-                    var9.h();
+                    oworldserver.h();
 
                     while (true) {
-                        if (!var9.z()) {
-                            var9.f();
+                        if (!oworldserver.z()) {
+                            oworldserver.f();
                             break;
                         }
                     }
                 }
 
-                this.worldTickNanos.get(entry.getKey())[var11][this.j % 100] = System.nanoTime() - var7;
+                this.worldTickNanos.get(entry.getKey())[k][this.j % 100] = System.nanoTime() - l;
             }
         }
 
         this.c.a();
         this.h.b();
 
-        
-        for (OWorldServer[] aows : this.worlds.values())
-            for (var11 = 0; var11 < aows.length; ++var11) {
-                aows[var11].getEntityTracker().updateTrackedEntities();
+        for (OWorldServer[] aows : this.worlds.values()) {
+            for (k = 0; k < aows.length; ++k) {
+                aows[k].getEntityTracker().updateTrackedEntities();
             }
+        }
 
-        for (var11 = 0; var11 < this.C.size(); ++var11) {
-            this.C.get(var11).a();
+        for (k = 0; k < this.C.size(); ++k) {
+            this.C.get(k).a();
         }
 
         try {
             this.b();
-        } catch (Exception var10) {
-            a.log(Level.WARNING, "Unexpected exception while parsing console command", var10);
+        } catch (Exception exception) {
+            a.log(Level.WARNING, "Unexpected exception while parsing console command", exception);
         }
 
-        this.f[this.j % 100] = System.nanoTime() - var1;
+        this.f[this.j % 100] = System.nanoTime() - i;
         this.u[this.j % 100] = OPacket.n - this.E;
         this.E = OPacket.n;
         this.v[this.j % 100] = OPacket.o - this.F;
@@ -543,82 +542,80 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         this.H = OPacket.m;
     }
 
-    public void a(String var1, OICommandListener var2) {
-        this.D.add(new OServerCommand(var1, var2));
+    public void a(String s, OICommandListener oicommandlistener) {
+        this.D.add(new OServerCommand(s, oicommandlistener));
     }
 
     public void b() {
         while (this.D.size() > 0) {
-            OServerCommand var1 = this.D.remove(0);
+            OServerCommand oservercommand = this.D.remove(0);
 
-            this.A.a(var1);
+            this.A.a(oservercommand);
         }
 
     }
 
-    public void a(OIUpdatePlayerListBox var1) {
-        this.C.add(var1);
+    public void a(OIUpdatePlayerListBox oiupdateplayerlistbox) {
+        this.C.add(oiupdateplayerlistbox);
     }
 
-    public static void main(String[] var0) {
+    public static void main(String[] astring) {
         OStatList.a();
 
         try {
-            OMinecraftServer var1 = new OMinecraftServer();
+            OMinecraftServer ominecraftserver = new OMinecraftServer();
 
-            if (!GraphicsEnvironment.isHeadless() && (var0.length <= 0 || !var0[0].equals("nogui"))) {
-                OServerGUI.a(var1);
+            if (!GraphicsEnvironment.isHeadless() && (astring.length <= 0 || !astring[0].equals("nogui"))) {
+                OServerGUI.a(ominecraftserver);
             }
 
-            (new OThreadServerApplication("Server thread", var1)).start();
-        } catch (Exception var2) {
-            a.log(Level.SEVERE, "Failed to start the minecraft server", var2);
+            (new OThreadServerApplication("Server thread", ominecraftserver)).start();
+        } catch (Exception exception) {
+            a.log(Level.SEVERE, "Failed to start the minecraft server", exception);
         }
 
     }
 
-    public File a(String var1) {
-        return new File(var1);
+    public File a(String s) {
+        return new File(s);
     }
 
-    public void b(String var1) {
-        a.info(var1);
+    public void b(String s) {
+        a.info(s);
     }
 
-    public void c(String var1) {
-        a.warning(var1);
+    public void c(String s) {
+        a.warning(s);
     }
 
     public String d() {
         return "CONSOLE";
     }
 
-    public OWorldServer a(int var1) {
-        throw new UnsupportedOperationException("OMinecraftServer.a(int) has"
-                + " been replaced by OMinecraftServer.getWorld(String, int).");
+    public OWorldServer a(int i) {
+        throw new UnsupportedOperationException("OMinecraftServer.a(int) has" + " been replaced by OMinecraftServer.getWorld(String, int).");
     }
     
-    public OWorldServer getWorld(String levelName, int dimension) {
-        int index = dimension == 0 ? 0 : dimension == -1 ? 1 : 2;
+    public OWorldServer getWorld(String s, int i) {
+        int index = i == 0 ? 0 : i == -1 ? 1 : 2;
 
-        return this.worlds.get(levelName)[index];
+        return this.worlds.get(s)[index];
     }
 
-    public OEntityTracker b(int var1) {
-        throw new UnsupportedOperationException("OMinecraftServer.b(int) has"
-                + " been replaced by OWorld.getEntityTracker()");
+    public OEntityTracker b(int i) {
+        throw new UnsupportedOperationException("OMinecraftServer.b(int) has" + " been replaced by OWorld.getEntityTracker()");
     }
 
-    public int a(String var1, int var2) {
-        return this.d.a(var1, var2);
+    public int a(String s, int i) {
+        return this.d.a(s, i);
     }
 
-    public String a(String var1, String var2) {
-        return this.d.a(var1, var2);
+    public String a(String s, String s1) {
+        return this.d.a(s, s1);
     }
 
-    public void a(String var1, Object var2) {
-        this.d.a(var1, var2);
+    public void a(String s, Object object) {
+        this.d.a(s, object);
     }
 
     public void c() {
@@ -626,9 +623,9 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     }
 
     public String e() {
-        File var1 = this.d.c();
+        File file1 = this.d.c();
 
-        return var1 != null ? var1.getAbsolutePath() : "No settings file";
+        return file1 != null ? file1.getAbsolutePath() : "No settings file";
     }
 
     public String f() {
@@ -666,15 +663,15 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     public String n() {
         // CanaryMod: return our own stuff for RCon
         etc e = etc.getInstance();
-        return (e.isCrow() ? "Crow " : "CanaryMod ") + e.getVersionStr() + ": "
-                + etc.getLoader().getPluginList();
+
+        return (e.isCrow() ? "Crow " : "CanaryMod ") + e.getVersionStr() + ": " + etc.getLoader().getPluginList();
     }
 
     public void o() {}
 
-    public String d(String var1) {
+    public String d(String s) {
         ORConConsoleSource.a.a();
-        this.A.a(new OServerCommand(var1, ORConConsoleSource.a));
+        this.A.a(new OServerCommand(s, ORConConsoleSource.a));
         return ORConConsoleSource.a.b();
     }
 
@@ -682,13 +679,13 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         return false;
     }
 
-    public void e(String var1) {
-        a.log(Level.SEVERE, var1);
+    public void e(String s) {
+        a.log(Level.SEVERE, s);
     }
 
-    public void f(String var1) {
+    public void f(String s) {
         if (this.p()) {
-            a.log(Level.INFO, var1);
+            a.log(Level.INFO, s);
         }
 
     }
@@ -706,8 +703,8 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
     }
 
     // $FF: synthetic method
-    public static boolean a(OMinecraftServer var0) {
-        return var0.B;
+    public static boolean a(OMinecraftServer ominecraftserver) {
+        return ominecraftserver.B;
     }
 
 }
