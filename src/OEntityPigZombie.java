@@ -7,8 +7,8 @@ public class OEntityPigZombie extends OEntityZombie {
     private int b = 0;
     private static final OItemStack g = new OItemStack(OItem.F, 1);
 
-    public OEntityPigZombie(OWorld var1) {
-        super(var1);
+    public OEntityPigZombie(OWorld oworld) {
+        super(oworld);
         this.ae = "/mob/pigzombie.png";
         this.bb = 0.5F;
         this.c = 5;
@@ -32,14 +32,14 @@ public class OEntityPigZombie extends OEntityZombie {
         return this.bi.q > 0 && this.bi.a(this.bw) && this.bi.a((OEntity) this, this.bw).size() == 0 && !this.bi.c(this.bw);
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-        var1.a("Anger", (short) this.a);
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        onbttagcompound.a("Anger", (short) this.a);
     }
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-        this.a = var1.e("Anger");
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
+        this.a = onbttagcompound.e("Anger");
     }
 
     protected OEntity o() {
@@ -50,33 +50,33 @@ public class OEntityPigZombie extends OEntityZombie {
         super.e();
     }
 
-    public boolean a(ODamageSource var1, int var2) {
-        OEntity var3 = var1.a();
+    public boolean a(ODamageSource odamagesource, int i) {
+        OEntity oentity = odamagesource.a();
 
-        if (var3 instanceof OEntityPlayer) {
-            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), this.entity)) { // CanaryMod: MOB_TARGET
+        if (oentity instanceof OEntityPlayer) {
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentity.entity.getPlayer(), this.entity)) { // CanaryMod: MOB_TARGET
 
-                List var4 = this.bi.b((OEntity) this, this.bw.b(32.0D, 32.0D, 32.0D));
+                List list = this.bi.b((OEntity) this, this.bw.b(32.0D, 32.0D, 32.0D));
 
-                for (int var5 = 0; var5 < var4.size(); ++var5) {
-                    OEntity var6 = (OEntity) var4.get(var5);
+                for (int j = 0; j < list.size(); ++j) {
+                    OEntity oentity1 = (OEntity) list.get(j);
 
-                    if (var6 instanceof OEntityPigZombie) {
-                        OEntityPigZombie var7 = (OEntityPigZombie) var6;
+                    if (oentity1 instanceof OEntityPigZombie) {
+                        OEntityPigZombie oentitypigzombie = (OEntityPigZombie) oentity1;
 
-                        var7.e(var3);
+                        oentitypigzombie.e(oentity);
                     }
                 }
 
-                this.e(var3);
+                this.e(oentity);
             }
         }
 
-        return super.a(var1, var2);
+        return super.a(odamagesource, i);
     }
 
-    private void e(OEntity var1) {
-        this.d = var1;
+    private void e(OEntity oentity) {
+        this.d = oentity;
         this.a = 400 + this.bS.nextInt(400);
         this.b = this.bS.nextInt(40);
     }
@@ -93,37 +93,37 @@ public class OEntityPigZombie extends OEntityZombie {
         return "mob.zombiepig.zpigdeath";
     }
 
-    protected void a(boolean var1, int var2) {
-        int var3 = this.bS.nextInt(2 + var2);
+    protected void a(boolean flag, int i) {
+        int j = this.bS.nextInt(2 + i);
 
-        int var4;
+        int k;
 
-        for (var4 = 0; var4 < var3; ++var4) {
+        for (k = 0; k < j; ++k) {
             this.b(OItem.bl.bP, 1);
         }
 
-        var3 = this.bS.nextInt(2 + var2);
+        j = this.bS.nextInt(2 + i);
 
-        for (var4 = 0; var4 < var3; ++var4) {
+        for (k = 0; k < j; ++k) {
             this.b(OItem.bp.bP, 1);
         }
 
     }
 
-    protected void b(int var1) {
-        if (var1 > 0) {
-            OItemStack var2 = new OItemStack(OItem.F);
+    protected void b(int i) {
+        if (i > 0) {
+            OItemStack oitemstack = new OItemStack(OItem.F);
 
-            OEnchantmentHelper.a(this.bS, var2, 5);
-            this.a(var2, 0.0F);
+            OEnchantmentHelper.a(this.bS, oitemstack, 5);
+            this.a(oitemstack, 0.0F);
         } else {
-            int var3 = this.bS.nextInt(3);
+            int j = this.bS.nextInt(3);
 
-            if (var3 == 0) {
+            if (j == 0) {
                 this.b(OItem.o.bP, 1);
-            } else if (var3 == 1) {
+            } else if (j == 1) {
                 this.b(OItem.F.bP, 1);
-            } else if (var3 == 2) {
+            } else if (j == 2) {
                 this.b(OItem.ak.bP, 1);
             }
         }

@@ -13,7 +13,7 @@ final class OEnchantmentModifierDamage implements OIEnchantmentModifier {
     }
 
     // $FF: synthetic method
-    OEnchantmentModifierDamage(OEmpty1 oempty1) {
+    OEnchantmentModifierDamage(OEmpty3 oempty3) {
         this();
     }
 }

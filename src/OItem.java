@@ -170,9 +170,10 @@ public class OItem {
         this.bR = i;
         return this;
     }
-
-    public OItem e(int var1) { // CanaryMod set max stack size
-        this.bQ = var1;
+    
+    // CanaryMod set max stack size
+    public OItem e(int i) {
+        this.bQ = i;
         return this;
     }
 

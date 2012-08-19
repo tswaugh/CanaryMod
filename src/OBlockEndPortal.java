@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class OBlockEnderPortal extends OBlockContainer {
+public class OBlockEndPortal extends OBlockContainer {
 
     public static boolean a = false;
 
-    protected OBlockEnderPortal(int i, OMaterial omaterial) {
+    protected OBlockEndPortal(int i, OMaterial omaterial) {
         super(i, 0, omaterial);
         this.a(1.0F);
     }

@@ -628,7 +628,8 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         getPlayer().chat(s);
     }
 
-    private void c(String var1) {// Handled by PlayerCommands class
+    // Handled by PlayerCommands class
+    private void c(String s) {
     }
 
     public void a(OPacket18Animation opacket18animation) {

@@ -1,15 +1,15 @@
 
-public class OEntityThrownEnderpearl extends OEntityThrowable {
+public class OEntityEnderPearl extends OEntityThrowable {
 
-    public OEntityThrownEnderpearl(OWorld oworld) {
+    public OEntityEnderPearl(OWorld oworld) {
         super(oworld);
     }
 
-    public OEntityThrownEnderpearl(OWorld oworld, OEntityLiving oentityliving) {
+    public OEntityEnderPearl(OWorld oworld, OEntityLiving oentityliving) {
         super(oworld, oentityliving);
     }
 
-    public OEntityThrownEnderpearl(OWorld oworld, double d0, double d1, double d2) {
+    public OEntityEnderPearl(OWorld oworld, double d0, double d1, double d2) {
         super(oworld, d0, d1, d2);
     }
 

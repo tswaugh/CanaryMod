@@ -1,5 +1,5 @@
 
-public class OEntityWolf extends OEntityTamable {
+public class OEntityWolf extends OEntityTameable {
 
     private boolean b = false;
     private float c;

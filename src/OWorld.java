@@ -2649,10 +2649,10 @@ public class OWorld implements OIBlockAccess {
 
     public void t() {
         this.N = !this.d.isEmpty();
-        Iterator<OEntityPlayer> var1 = this.d.iterator();
+        Iterator<OEntityPlayer> it = this.d.iterator();
 
-        while (var1.hasNext()) {
-            OEntityPlayer oentityplayer = var1.next();
+        while (it.hasNext()) {
+            OEntityPlayer oentityplayer = it.next();
 
             if (!oentityplayer.Z()) {
                 this.N = false;
@@ -2664,10 +2664,10 @@ public class OWorld implements OIBlockAccess {
 
     protected void u() {
         this.N = false;
-        Iterator<OEntityPlayer> var1 = this.d.iterator();
+        Iterator<OEntityPlayer> it = this.d.iterator();
 
-        while (var1.hasNext()) {
-            OEntityPlayer oentityplayer = var1.next();
+        while (it.hasNext()) {
+            OEntityPlayer oentityplayer = it.next();
 
             if (oentityplayer.Z()) {
                 oentityplayer.a(false, false, true);
@@ -2679,16 +2679,16 @@ public class OWorld implements OIBlockAccess {
 
     public boolean v() {
         if (this.N && !this.F) {
-            Iterator<OEntityPlayer> var1 = this.d.iterator();
+            Iterator<OEntityPlayer> it = this.d.iterator();
 
             OEntityPlayer oentityplayer;
 
             do {
-                if (!var1.hasNext()) {
+                if (!it.hasNext()) {
                     return true;
                 }
 
-                oentityplayer = var1.next();
+                oentityplayer = it.next();
             } while (oentityplayer.aa());
 
             return false;

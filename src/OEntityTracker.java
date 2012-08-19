@@ -60,7 +60,7 @@ public class OEntityTracker {
             this.a(oentity, 64, 10, false);
         } else if (oentity instanceof OEntitySnowball) {
             this.a(oentity, 64, 10, true);
-        } else if (oentity instanceof OEntityThrownEnderpearl) {
+        } else if (oentity instanceof OEntityEnderPearl) {
             this.a(oentity, 64, 10, true);
         } else if (oentity instanceof OEntityEnderEye) {
             this.a(oentity, 64, 10, true);

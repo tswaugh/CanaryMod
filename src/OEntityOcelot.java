@@ -1,5 +1,5 @@
 
-public class OEntityOcelot extends OEntityTamable {
+public class OEntityOcelot extends OEntityTameable {
 
     private OEntityAITempt b;
 
@@ -12,7 +12,7 @@ public class OEntityOcelot extends OEntityTamable {
         this.aL.a(2, this.a);
         this.aL.a(3, this.b = new OEntityAITempt(this, 0.18F, OItem.aT.bP, true));
         this.aL.a(4, new OEntityAIAvoidEntity(this, OEntityPlayer.class, 16.0F, 0.23F, 0.4F));
-        this.aL.a(5, new OEntityAICatBehavior(this, 0.4F));
+        this.aL.a(5, new OEntityAIOcelotSit(this, 0.4F));
         this.aL.a(6, new OEntityAIFollowOwner(this, 0.3F, 10.0F, 5.0F));
         this.aL.a(7, new OEntityAILeapAtTarget(this, 0.3F));
         this.aL.a(8, new OEntityAIOcelotAttack(this));

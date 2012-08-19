@@ -9,8 +9,8 @@ import java.util.Random;
 public class OEnchantmentHelper {
 
     private static final Random a = new Random();
-    private static final OEnchantmentModifierDamage b = new OEnchantmentModifierDamage((OEmpty1) null);
-    private static final OEnchantmentModifierLiving c = new OEnchantmentModifierLiving((OEmpty1) null);
+    private static final OEnchantmentModifierDamage b = new OEnchantmentModifierDamage((OEmpty3) null);
+    private static final OEnchantmentModifierLiving c = new OEnchantmentModifierLiving((OEmpty3) null);
 
     public OEnchantmentHelper() {
         super();

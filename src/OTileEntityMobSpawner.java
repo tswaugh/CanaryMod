@@ -107,6 +107,6 @@ public class OTileEntityMobSpawner extends OTileEntity {
     public OPacket d() {
         int i = OEntityList.a(this.d);
 
-        return new OPacket132UpdateTileEntity(this.l, this.m, this.n, 1, i);
+        return new OPacket132TileEntityData(this.l, this.m, this.n, 1, i);
     }
 }

@@ -63,7 +63,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
 
     public OMinecraftServer() {
         super();
-        new OThreadSleepForever(this);
+        new OThreadServerSleep(this);
     }
 
     private boolean s() throws IOException {
@@ -132,10 +132,10 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
             }
         }
 
-        OEnumWorldType oenumworldtype = OEnumWorldType.a(s2);
+        OWorldType oworldtype = OWorldType.a(s2);
 
-        if (oenumworldtype == null) {
-            oenumworldtype = OEnumWorldType.b;
+        if (oworldtype == null) {
+            oworldtype = OWorldType.b;
         }
 
         this.t = this.d.a("max-build-height", 256);
@@ -143,7 +143,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         this.t = OMathHelper.a(this.t, 64, 256);
         this.d.a("max-build-height", (Object) Integer.valueOf(this.t));
         a.info("Preparing level \"" + s + "\"");
-        this.a(new OAnvilSaveConverter(new File(".")), s, j, oenumworldtype);
+        this.a(new OAnvilSaveConverter(new File(".")), s, j, oworldtype);
         long l = System.nanoTime() - i;
         String s3 = String.format("%.3fs", new Object[] { Double.valueOf((double) l / 1.0E9D)});
 
@@ -167,7 +167,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         this.a(new OAnvilSaveConverter(new File(".")), s, i, worldtype.getNative());
     }
 
-    private void a(OISaveFormat oisaveformat, String s, long i, OEnumWorldType oenumworldtype) {
+    private void a(OISaveFormat oisaveformat, String s, long i, OWorldType oworldtype) {
         if (oisaveformat.a(s)) {
             a.info("Converting map!");
             oisaveformat.a(s, new OConvertProgressUpdater(this));
@@ -182,7 +182,7 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         j = OWorldSettings.a(j);
         a.info("Default game type: " + j);
         boolean flag = this.d.a("generate-structures", true);
-        OWorldSettings oworldsettings = new OWorldSettings(i, j, flag, false, oenumworldtype);
+        OWorldSettings oworldsettings = new OWorldSettings(i, j, flag, false, oworldtype);
         OAnvilSaveHandler oanvilsavehandler = new OAnvilSaveHandler(new File("."), s, true);
 
         for (int k = 0; k < toLoad.length; ++k) {
