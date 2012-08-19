@@ -401,10 +401,10 @@ public class OChunk {
                         boolean completePortal = true;
                         Block[][] portalBlocks = new Block[3][2];
 
-                        for (int i1 = 0; i1 < 3 && completePortal == true; i1 += 1) {
-                            for (int j1 = 0; j1 < 2 && completePortal == true; j1 += 1) {
-                                portalBlocks[i1][j1] = chunk.getWorld().getBlockAt(portalX + j1 * portalXOffset, portalY - i1, portalZ + j1 * portalZOffset);
-                                if (portalBlocks[i1][j1].getType() != portalId) {
+                        for (int i2 = 0; i2 < 3 && completePortal == true; i2 += 1) {
+                            for (int j2 = 0; j2 < 2 && completePortal == true; j2 += 1) {
+                                portalBlocks[i2][j2] = chunk.getWorld().getBlockAt(portalX + j2 * portalXOffset, portalY - i2, portalZ + j2 * portalZOffset);
+                                if (portalBlocks[i2][j2].getType() != portalId) {
                                     completePortal = false;
                                 }
                             }
@@ -537,10 +537,10 @@ public class OChunk {
                         boolean completePortal = true;
                         Block[][] portalBlocks = new Block[3][2];
 
-                        for (int i1 = 0; i1 < 3 && completePortal == true; i1 += 1) {
-                            for (int j1 = 0; j1 < 2 && completePortal == true; j1 += 1) {
-                                portalBlocks[i1][j1] = chunk.getWorld().getBlockAt(portalX + j1 * portalXOffset, portalY - i1, portalZ + j1 * portalZOffset);
-                                if (portalBlocks[i1][j1].getType() != portalId) {
+                        for (int i2 = 0; i2 < 3 && completePortal == true; i2 += 1) {
+                            for (int j2 = 0; j2 < 2 && completePortal == true; j2 += 1) {
+                                portalBlocks[i2][j2] = chunk.getWorld().getBlockAt(portalX + j2 * portalXOffset, portalY - i2, portalZ + j2 * portalZOffset);
+                                if (portalBlocks[i2][j2].getType() != portalId) {
                                     completePortal = false;
                                 }
                             }

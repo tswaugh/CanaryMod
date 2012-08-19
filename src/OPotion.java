@@ -79,8 +79,8 @@ public class OPotion {
             }
         } else if (this.H == s.H && oentityliving instanceof OEntityPlayer) {
             ((OEntityPlayer) oentityliving).c(0.025F * (float) (i + 1));
-        } else if ((this.H != h.H || oentityliving.aN()) && (this.H != i.H || !oentityliving.aN())) {
-            if (this.H == i.H && !oentityliving.aN() || this.H == h.H && oentityliving.aN()) {
+        } else if ((this.H != h.H || oentityliving.aN()) && (this.H != OPotion.i.H || !oentityliving.aN())) {
+            if (this.H == OPotion.i.H && !oentityliving.aN() || this.H == h.H && oentityliving.aN()) {
                 // Canarymod: call to DAMAGE on 1.9?
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, oentityliving.entity, 4 << i)) {
                     oentityliving.a(ODamageSource.m, 6 << i);
@@ -95,8 +95,8 @@ public class OPotion {
     public void a(OEntityLiving oentityliving, OEntityLiving oentityliving1, int i, double d0) {
         int j;
 
-        if ((this.H != h.H || oentityliving1.aN()) && (this.H != i.H || !oentityliving1.aN())) {
-            if (this.H == i.H && !oentityliving1.aN() || this.H == h.H && oentityliving1.aN()) {
+        if ((this.H != h.H || oentityliving1.aN()) && (this.H != OPotion.i.H || !oentityliving1.aN())) {
+            if (this.H == OPotion.i.H && !oentityliving1.aN() || this.H == h.H && oentityliving1.aN()) {
                 j = (int) (d0 * (double) (6 << i) + 0.5D);
                 if (oentityliving == null) {
                     oentityliving1.a(ODamageSource.m, j);

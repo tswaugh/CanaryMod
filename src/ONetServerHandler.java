@@ -293,8 +293,8 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
         to.z = d2;
         to.rotX = f;
         to.rotY = f1;
-        to.i = i;
-        to.s = s;
+        to.dimension = i;
+        to.world = s;
         Player player = getPlayer();
 
         if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.TELEPORT, player, player.getLocation(), to)) {
@@ -922,17 +922,17 @@ public class ONetServerHandler extends ONetHandler implements OICommandListener 
      * 
      * @param msg
      */
-    public void s(String s) {
-        if (s.length() >= 119) {
-            String cutMsg = s.substring(0, 118);
+    public void msg(String msg) {
+        if (msg.length() >= 119) {
+            String cutMsg = msg.substring(0, 118);
             int finalCut = cutMsg.lastIndexOf(" ");
             String subCut = cutMsg.substring(0, finalCut);
-            String newMsg = s.substring(finalCut + 1);
+            String newMsg = msg.substring(finalCut + 1);
 
             b(new OPacket3Chat(subCut));
-            s(newMsg);
+            msg(newMsg);
         } else {
-            b(new OPacket3Chat(s));
+            b(new OPacket3Chat(msg));
         }
     }
 

@@ -919,14 +919,14 @@ public class OWorld implements OIBlockAccess {
         }
         
         for (int j2 = 0; j2 < list.size(); ++j2) {
-            OEntity oentity = (OEntity) list.get(j2);
+            OEntity oentity1 = (OEntity) list.get(j2);
             
-            OAxisAlignedBB oaxisalignedbb1 = oentity.h();
+            OAxisAlignedBB oaxisalignedbb1 = oentity1.h();
 
             if (oaxisalignedbb1 != null && oaxisalignedbb1.a(oaxisalignedbb)) {
 
                 // this collided with a boat
-                if (minecart != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, minecart, oentity.entity)) { // Canary
+                if (minecart != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, minecart, oentity1.entity)) { // Canary
                     continue;
                 } // Canary
                 
@@ -934,11 +934,11 @@ public class OWorld implements OIBlockAccess {
             }
 
             // appears to only be for boats and minecarts currently. Everything else returns null
-            oaxisalignedbb1 = oentity.b_(oentity); // originally: oaxisalignedbb1 = oentity.b_((OEntity) list.get(j2));
+            oaxisalignedbb1 = oentity.b_(oentity1); // originally: oaxisalignedbb1 = oentity.b_((OEntity) list.get(j2));
             if (oaxisalignedbb1 != null && oaxisalignedbb1.a(oaxisalignedbb)) {
 
                 // this collided with entity
-                if (minecart != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, minecart, oentity.entity)) { // Canary
+                if (minecart != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, minecart, oentity1.entity)) { // Canary
                     continue;
                 } // Canary
                 
@@ -2790,6 +2790,6 @@ public class OWorld implements OIBlockAccess {
     }
     
     protected void setEntityTracker(OEntityTracker oentitytracker) {
-        this.oentitytracker = oentitytracker;
+        this.entityTracker = oentitytracker;
     }
 }

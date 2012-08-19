@@ -55,11 +55,11 @@ public class OPacket51MapChunk extends OPacket {
             l += 256;
         }
 
-        if (i.length < l) {
-            i = new byte[l];
+        if (OPacket51MapChunk.i.length < l) {
+            OPacket51MapChunk.i = new byte[l];
         }
 
-        byte[] abyte = i;
+        byte[] abyte = OPacket51MapChunk.i;
         int i1 = 0;
 
         int j1;
@@ -165,7 +165,7 @@ public class OPacket51MapChunk extends OPacket {
             this.e = new byte[j];
             Inflater inflater = new Inflater();
     
-            inflater.setInput(i, 0, this.g);
+            inflater.setInput(OPacket51MapChunk.i, 0, this.g);
             boolean flag = false;
     
             try {

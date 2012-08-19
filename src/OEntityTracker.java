@@ -25,7 +25,7 @@ public class OEntityTracker {
         this.c = ominecraftserver;
         this.e = i;
         this.d = ominecraftserver.h.getMaxTrackingDistance(s);
-        this.s = s; // CanaryMod
+        this.worldName = s; // CanaryMod
         canaryEntityTracker = new EntityTracker(this);
     }
     
@@ -142,8 +142,8 @@ public class OEntityTracker {
             ArrayList arraylist = new ArrayList();
             Iterator iterator = this.a.iterator();
 
-            while (iterator.hasNconcurrentmodificationexceptiont()) {
-                OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.nconcurrentmodificationexceptiont();
+            while (iterator.hasNext()) {
+                OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.next();
 
                 oentitytrackerentry.a(this.c.getWorld(this.worldName, this.e).d);
                 if (oentitytrackerentry.n && oentitytrackerentry.a instanceof OEntityPlayerMP) {
@@ -155,8 +155,8 @@ public class OEntityTracker {
                 OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) arraylist.get(i);
                 Iterator iterator1 = this.a.iterator();
 
-                while (iterator1.hasNconcurrentmodificationexceptiont()) {
-                    OEntityTrackerEntry oentitytrackerentry1 = (OEntityTrackerEntry) iterator1.nconcurrentmodificationexceptiont();
+                while (iterator1.hasNext()) {
+                    OEntityTrackerEntry oentitytrackerentry1 = (OEntityTrackerEntry) iterator1.next();
 
                     if (oentitytrackerentry1.a != oentityplayermp) {
                         oentitytrackerentry1.b(oentityplayermp);
@@ -183,7 +183,7 @@ public class OEntityTracker {
 
     // CanaryMod: deprecated. Use server.addToServerQueue().
     @Deprecated
-    public synchrunnableonized static void add(Runnable runnable) {
+    public synchronized static void add(Runnable runnable) {
         add(runnable, 0L);
     }
 

@@ -10,8 +10,8 @@ public class OContainerChest extends OContainer {
         super();
         this.a = oiinventory1;
         this.b = oiinventory1.c() / 9;
-        this.flag = flag;
-        if (!this.flag) {
+        this.silenced = flag;
+        if (!this.silenced) {
             oiinventory1.f();
         }
         int i = (this.b - 4) * 18;

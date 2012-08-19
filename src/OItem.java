@@ -356,3 +356,9 @@ public class OItem {
     }
     
     // CanaryMod start - Add convenience method to get block clicked.
+    protected Block getBlockInfo(OWorld var3, int var4, int var5, int var6, int var7) {
+        Block b = var3.world.getBlockAt(var4, var5, var6);
+        b.setFaceClicked(Block.Face.fromId(var7));
+        return b;
+    } // CanaryMod end
+}

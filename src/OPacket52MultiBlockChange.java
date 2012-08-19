@@ -68,7 +68,7 @@ public class OPacket52MultiBlockChange extends OPacket {
                 this.c = new byte[i];
                 datainputstream.readFully(this.c);
             }
-        } catch (ioexceptionxception ioexception) {}
+        } catch (IOException ioexception) {}
 
     }
 
@@ -83,7 +83,7 @@ public class OPacket52MultiBlockChange extends OPacket {
             } else {
                 dataoutputstream.writeInt(0);
             }
-        } catch (ioexceptionxception ioexception) {}
+        } catch (IOException ioexception) {}
 
     }
 

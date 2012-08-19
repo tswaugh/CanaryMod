@@ -156,12 +156,12 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
             int left = oitemstack.a;
             
             do {
-                OItemStack oitemstack = this.a[slot];
+                OItemStack oitemstack1 = this.a[slot];
                 int delta = 0;
                 
-                if (oitemstack == null) {
+                if (oitemstack1 == null) {
                     delta = Math.min(64, left);
-                } else if (oitemstack.a < 64 && oitemstack.c == oitemstack.c && oitemstack.d() == oitemstack.d()) {
+                } else if (oitemstack1.a < 64 && oitemstack.c == oitemstack1.c && oitemstack.d() == oitemstack1.d()) {
                     delta = Math.min(64 - oitemstack.a, left);
                 }
                 left -= delta;

@@ -112,9 +112,9 @@ public class OEntitySheep extends OEntityAnimal {
     }
 
     public void d_(int i) {
-        int i = this.bY.a(16);
+        int j = this.bY.a(16);
 
-        this.bY.b(16, Byte.valueOf((byte) (i & 0xF0 | i & 0xF)));
+        this.bY.b(16, Byte.valueOf((byte) (j & 0xF0 | i & 0xF)));
     }
 
     public boolean A_() {

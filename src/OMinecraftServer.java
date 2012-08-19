@@ -163,8 +163,8 @@ public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
         return true;
     }
 
-    protected void loadWorld(String s, long i, World.Type world.type) {
-        this.a(new OAnvilSaveConverter(new File(".")), s, i, world.type.getNative());
+    protected void loadWorld(String s, long i, World.Type worldtype) {
+        this.a(new OAnvilSaveConverter(new File(".")), s, i, worldtype.getNative());
     }
 
     private void a(OISaveFormat oisaveformat, String s, long i, OEnumWorldType oenumworldtype) {

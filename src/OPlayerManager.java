@@ -29,7 +29,7 @@ public class OPlayerManager {
             this.e = i;
         }
         
-        this.s = s;
+        this.worldName = s;
         this.playerManager = new PlayerManager(this);
     }
     

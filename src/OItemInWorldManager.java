@@ -152,19 +152,19 @@ public class OItemInWorldManager {
             }
             int[][] blockOffsets = new int[][] { new int[] { 0, 1, 0}, new int[] { 1, 0, 0}, new int[] { -1, 0, 0}, new int[] { 0, 0, 1}, new int[] { 0, 0, -1}, new int[] { 0, -1, 0}};
 
-            for (int i = 0; i < blockOffsets.length; i += 1) {
-                Block[][] blocks = getPortalBlocks(block.getWorld(), i + blockOffsets[i][0], j + blockOffsets[i][1], k + blockOffsets[i][2]);
+            for (int i1 = 0; i1 < blockOffsets.length; i1 += 1) {
+                Block[][] blocks = getPortalBlocks(block.getWorld(), i + blockOffsets[i1][0], j + blockOffsets[i1][1], k + blockOffsets[i1][2]);
 
                 if (blocks != null) {
                     // CanaryMod hook onPortalDestroy
                     if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_DESTROY, (Object) blocks)) {
                         removeAll = false;
                     } else {
-                        for (int j = 0; j < 3; j += 1) {
-                            for (int k = 0; k < 2; k += 1) {
-                                block.getWorld().getWorld().c(blocks[j][k].getX() >> 4, blocks[j][k].getZ() >> 4).a(blocks[j][k].getX() & 15, blocks[j][k].getY(), blocks[j][k].getZ() & 15, 0, 0, false);
+                        for (int j1 = 0; j1 < 3; j1 += 1) {
+                            for (int k1 = 0; k1 < 2; k1 += 1) {
+                                block.getWorld().getWorld().c(blocks[j1][k1].getX() >> 4, blocks[j1][k1].getZ() >> 4).a(blocks[j1][k1].getX() & 15, blocks[j1][k1].getY(), blocks[j1][k1].getZ() & 15, 0, 0, false);
                                 for (Player player : updatedPlayers) {
-                                    player.getUser().a.b(new OPacket53BlockChange(blocks[j][k].getX(), blocks[j][k].getY(), blocks[j][k].getZ(), block.getWorld().getWorld()));
+                                    player.getUser().a.b(new OPacket53BlockChange(blocks[j1][k1].getX(), blocks[j1][k1].getY(), blocks[j1][k1].getZ(), block.getWorld().getWorld()));
                                 }
                             }
                         }
@@ -242,7 +242,7 @@ public class OItemInWorldManager {
      * @param blockClicked
      * @return
      */
-    public boolean oitemstackUsed(OEntityPlayer oentityplayer, OWorld oworld, OItemStack oitemstack, Block block, Block block1) {
+    public boolean itemUsed(OEntityPlayer oentityplayer, OWorld oworld, OItemStack oitemstack, Block block, Block block1) {
         // CanaryMod: only call this hook if we're not using buckets/signs
         if (oitemstack != null) {
             if (oitemstack.a > 0 && oitemstack.c != Item.Type.Sign.getId() && oitemstack.c != Item.Type.Bucket.getId() && oitemstack.c != Item.Type.WaterBucket.getId() && oitemstack.c != Item.Type.LavaBucket.getId() && oitemstack.c != Item.Type.MilkBucket.getId()) {
@@ -280,16 +280,16 @@ public class OItemInWorldManager {
     
     // CanaryMod start - getPortalBlocks
     private Block[][] getPortalBlocks(World world, int i, int j, int k) {
-        int portalId = Block.Tjpe.Portal.getTjpe();
+        int portalId = Block.Type.Portal.getType();
 
         if (world.getBlockIdAt(i, j, k) == portalId) {
-            // These will be equal 1 if the portal is defined on their aiis
+            // These will be equal 1 if the portal is defined on their axis
             // and 0 if not.
             int portalXOffset = (world.getBlockIdAt(i - 1, j, k) == portalId || world.getBlockIdAt(i + 1, j, k) == portalId) ? 1 : 0;
             int portalZOffset = (world.getBlockIdAt(i, j, k - 1) == portalId || world.getBlockIdAt(i, j, k + 1) == portalId) ? 1 : 0;
 
-            // If the portal is either i aligned or k aligned but not both
-            // (has neighbor portal in i or k plane but not both)
+            // If the portal is either x aligned or z aligned but not both
+            // (has neighbor portal in x or z plane but not both)
             if (portalXOffset != portalZOffset) {
                 // Get the edge of the portal.
                 int portalX = i - ((world.getBlockIdAt(i - 1, j, k) == portalId) ? 1 : 0);
@@ -300,15 +300,15 @@ public class OItemInWorldManager {
                     ;
                 }
                 portalY -= 1;
-                // Scan the portal and see if its still all there (2i3
+                // Scan the portal and see if its still all there (2x3
                 // formation)
                 boolean completePortal = true;
                 Block[][] portalBlocks = new Block[3][2];
 
-                for (int i = 0; i < 3 && completePortal == true; i += 1) {
-                    for (int j = 0; j < 2 && completePortal == true; j += 1) {
-                        portalBlocks[i][j] = world.getBlockAt(portalX + j * portalXOffset, portalY - i, portalZ + j * portalZOffset);
-                        if (portalBlocks[i][j].getTjpe() != portalId) {
+                for (int i1 = 0; i1 < 3 && completePortal == true; i1 += 1) {
+                    for (int j1 = 0; j1 < 2 && completePortal == true; j1 += 1) {
+                        portalBlocks[i1][j1] = world.getBlockAt(portalX + j1 * portalXOffset, portalY - i1, portalZ + j1 * portalZOffset);
+                        if (portalBlocks[i1][j1].getType() != portalId) {
                             completePortal = false;
                         }
                     }
