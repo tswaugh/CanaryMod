@@ -3,13 +3,12 @@ public class OItemPainting extends OItem {
 
     public OItemPainting(int i) {
         super(i);
+        this.a(OCreativeTabs.c);
     }
 
-    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         // CanaryMod: store clicked block data
-        Block blockClicked = new Block(oworld.world, oworld.world.getBlockIdAt(i, j, k), i, j, k);
-
-        blockClicked.setFaceClicked(Block.Face.fromId(l));
+        Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
         
         if (l == 0) {
             return false;
@@ -30,18 +29,18 @@ public class OItemPainting extends OItem {
                 b0 = 3;
             }
 
-            if (!oentityplayer.d(i, j, k)) {
+            if (!oentityplayer.e(i, j, k)) {
                 return false;
             } else {
                 OEntityPainting oentitypainting = new OEntityPainting(oworld, i, j, k, b0);
 
-                if (oentitypainting.k()) {
-                    if (!oworld.F) {
+                if (oentitypainting.d()) {
+                    if (!oworld.K) {
                         // CanaryMod: Painting place hook
                         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, blockClicked, new Item(oitemstack))) {
                             return false;
                         }
-                        oworld.b((OEntity) oentitypainting);
+                        oworld.d((OEntity) oentitypainting);
                     }
 
                     --oitemstack.a;

@@ -85,8 +85,8 @@ public class etc {
     //CanaryMod: Allow End
     private boolean                       allowEnd = true;
     // Playerlist options (tab)
-    private boolean                       playerList_autoupdate = false;
-    private int                           playerList_ticks = 500;
+    private boolean                       playerList_autoupdate = true;
+    private int                           playerList_ticks = 600;
     private boolean                       playerList_colors = true;
     private boolean                       playerList_enabled = true;
     
@@ -134,8 +134,8 @@ public class etc {
             loadIds(allowedItems, properties.getString("alloweditems", ""));
             loadIds(disallowedItems, properties.getString("disalloweditems", ""));
             loadIds(itemSpawnBlacklist, properties.getString("itemspawnblacklist", ""));
-            playerList_autoupdate = properties.getBoolean("playerlist-autoupdate", false);
-            playerList_ticks = properties.getInt("playerlist-ticks", 500);
+            playerList_autoupdate = properties.getBoolean("playerlist-autoupdate", true);
+            playerList_ticks = properties.getInt("playerlist-ticks", 600);
             playerList_colors = properties.getBoolean("playerlist-usecolors", true);
             playerList_enabled = properties.getBoolean("playerlist-enabled", true);
             motd = properties.getString("motd", "My Canary Server.");

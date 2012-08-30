@@ -4,10 +4,12 @@ public class OItemMonsterPlacer extends OItem {
     public OItemMonsterPlacer(int i) {
         super(i);
         this.a(true);
+        this.a(OCreativeTabs.f);
     }
 
-    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
-        if (oworld.F || oitemstack.h() < 50 || (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), this.getBlockInfo(oworld, i, j, k, l), null, new Item(oitemstack))) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
+        // CanaryMod: deny hackish eggs, call onItemUse
+        if (oworld.K || oitemstack.j() < 50 || oitemstack.j() >= 200 || (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), this.getBlockInfo(oworld, i, j, k, l), null, new Item(oitemstack))) {
             return true;
         } else {
             int i1 = oworld.a(i, j, k);
@@ -17,11 +19,11 @@ public class OItemMonsterPlacer extends OItem {
             k += OFacing.d[l];
             double d0 = 0.0D;
 
-            if (l == 1 && i1 == OBlock.aZ.bO || i1 == OBlock.bB.bO) {
+            if (l == 1 && i1 == OBlock.aZ.ca || i1 == OBlock.bB.ca) {
                 d0 = 0.5D;
             }
 
-            if (a(oworld, oitemstack.h(), (double) i + 0.5D, (double) j + d0, (double) k + 0.5D) && !oentityplayer.L.d) {
+            if (a(oworld, oitemstack.j(), (double) i + 0.5D, (double) j + d0, (double) k + 0.5D) && !oentityplayer.bZ.d) {
                 --oitemstack.a;
             }
 
@@ -36,9 +38,17 @@ public class OItemMonsterPlacer extends OItem {
             OEntity oentity = OEntityList.a(i, oworld);
 
             if (oentity != null) {
-                oentity.c(d0, d1, d2, oworld.r.nextFloat() * 360.0F, 0.0F);
-                oworld.b(oentity);
-                ((OEntityLiving) oentity).az();
+                oentity.b(d0, d1, d2, oworld.v.nextFloat() * 360.0F, 0.0F);
+                if (oentity instanceof OEntityVillager) {
+                    OEntityVillager oentityvillager = (OEntityVillager) oentity;
+
+                    oentityvillager.b(oentityvillager.au().nextInt(5));
+                    oworld.d((OEntity) oentityvillager);
+                    return true;
+                }
+
+                oworld.d(oentity);
+                ((OEntityLiving) oentity).aH();
             }
 
             return oentity != null;

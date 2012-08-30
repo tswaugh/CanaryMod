@@ -349,7 +349,7 @@ public class BaseEntity {
      * @return the World this entity is in
      */
     public World getWorld() {
-        return getEntity().bi.world;
+        return getEntity().p.world;
     }
 
     /**

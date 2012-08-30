@@ -93,22 +93,22 @@ public class OChunk {
         return this.f[j << 4 | i];
     }
 
-    public int g() {
+    public int h() {
         for (int i = this.q.length - 1; i >= 0; --i) {
             if (this.q[i] != null) {
-                return this.q[i].c();
+                return this.q[i].d();
             }
         }
 
         return 0;
     }
 
-    public OExtendedBlockStorage[] h() {
+    public OExtendedBlockStorage[] i() {
         return this.q;
     }
 
-    public void a() {
-        int i = this.g();
+    public void b() {
+        int i = this.h();
 
         int j;
         int k;
@@ -130,7 +130,7 @@ public class OChunk {
                         this.f[k << 4 | j] = l;
                     }
 
-                    if (!this.e.t.e) {
+                    if (!this.e.w.e) {
                         l = 15;
                         int i1 = i + 16 - 1;
 
@@ -141,7 +141,7 @@ public class OChunk {
 
                                 if (oextendedblockstorage != null) {
                                     oextendedblockstorage.c(j, i1 & 15, k, l);
-                                    this.e.o((this.g << 4) + j, i1, (this.h << 4) + k);
+                                    this.e.n((this.g << 4) + j, i1, (this.h << 4) + k);
                                 }
                             }
 
@@ -165,15 +165,13 @@ public class OChunk {
 
     }
 
-    public void b() {}
-
     private void e(int i, int j) {
         this.c[i + j * 16] = true;
         this.s = true;
     }
 
-    private void o() {
-        OProfiler.a("recheckGaps");
+    private void q() {
+        this.e.F.a("recheckGaps");
         if (this.e.a(this.g * 16 + 8, 0, this.h * 16 + 8, 16)) {
             for (int i = 0; i < 16; ++i) {
                 for (int j = 0; j < 16; ++j) {
@@ -182,10 +180,10 @@ public class OChunk {
                         int k = this.b(i, j);
                         int l = this.g * 16 + i;
                         int i1 = this.h * 16 + j;
-                        int j1 = this.e.e(l - 1, i1);
-                        int k1 = this.e.e(l + 1, i1);
-                        int l1 = this.e.e(l, i1 - 1);
-                        int i2 = this.e.e(l, i1 + 1);
+                        int j1 = this.e.f(l - 1, i1);
+                        int k1 = this.e.f(l + 1, i1);
+                        int l1 = this.e.f(l, i1 - 1);
+                        int i2 = this.e.f(l, i1 + 1);
 
                         if (k1 < j1) {
                             j1 = k1;
@@ -211,11 +209,11 @@ public class OChunk {
             this.s = false;
         }
 
-        OProfiler.a();
+        this.e.F.b();
     }
 
     private void g(int i, int j, int k) {
-        int l = this.e.e(i, j);
+        int l = this.e.f(i, j);
 
         if (l > k) {
             this.d(i, j, k, l + 1);
@@ -228,7 +226,7 @@ public class OChunk {
     private void d(int i, int j, int k, int l) {
         if (l > k && this.e.a(i, 0, j, 16)) {
             for (int i1 = k; i1 < l; ++i1) {
-                this.e.b(OEnumSkyBlock.a, i, i1, j);
+                this.e.c(OEnumSkyBlock.a, i, i1, j);
             }
 
             this.l = true;
@@ -249,14 +247,14 @@ public class OChunk {
         }
 
         if (i1 != l) {
-            this.e.g(i, k, i1, l);
+            this.e.g(i + this.g * 16, k + this.h * 16, i1, l);
             this.f[k << 4 | i] = i1;
             int j1 = this.g * 16 + i;
             int k1 = this.h * 16 + k;
             int l1;
             int i2;
 
-            if (!this.e.t.e) {
+            if (!this.e.w.e) {
                 OExtendedBlockStorage oextendedblockstorage;
 
                 if (i1 < l) {
@@ -264,7 +262,7 @@ public class OChunk {
                         oextendedblockstorage = this.q[l1 >> 4];
                         if (oextendedblockstorage != null) {
                             oextendedblockstorage.c(i, l1 & 15, k, 15);
-                            this.e.o((this.g << 4) + i, l1, (this.h << 4) + k);
+                            this.e.n((this.g << 4) + i, l1, (this.h << 4) + k);
                         }
                     }
                 } else {
@@ -280,7 +278,7 @@ public class OChunk {
                         oextendedblockstorage = this.q[l1 >> 4];
                         if (oextendedblockstorage != null) {
                             oextendedblockstorage.c(i, l1 & 15, k, 0);
-                            this.e.o((this.g << 4) + i, l1, (this.h << 4) + k);
+                            this.e.n((this.g << 4) + i, l1, (this.h << 4) + k);
                         }
                     }
                 }
@@ -316,7 +314,7 @@ public class OChunk {
                 j2 = l;
             }
 
-            if (!this.e.t.e) {
+            if (!this.e.w.e) {
                 this.d(j1 - 1, k1, i2, j2);
                 this.d(j1 + 1, k1, i2, j2);
                 this.d(j1, k1 - 1, i2, j2);
@@ -360,7 +358,7 @@ public class OChunk {
         return a(i, j, k, l, i1, true);
     }
    
-    public boolean a(int i, int j, int k, int l, int i1, boolean flag) {
+    public boolean a(int i, int j, int k, int l, int i1, boolean checkPortal) {
         int j1 = k << 4 | i;
 
         if (j >= this.b[j1] - 1) {
@@ -369,14 +367,15 @@ public class OChunk {
 
         int k1 = this.f[j1];
         int l1 = this.a(i, j, k);
+        int i2 = this.c(i, j, k);
 
-        if (l1 == l && this.c(i, j, k) == i1) {
+        if (l1 == l && i2 == i1) {
             return false;
         } else {
             int portalPointX = this.g * 16 + i;
             int portalPointZ = this.h * 16 + k;
 
-            if (flag == true) {
+            if (checkPortal == true) {
                 int portalPointY = j;
                 // CanaryMod check if removed block is portal block
                 int portalId = Block.Type.Portal.getType();
@@ -401,10 +400,10 @@ public class OChunk {
                         boolean completePortal = true;
                         Block[][] portalBlocks = new Block[3][2];
 
-                        for (int i2 = 0; i2 < 3 && completePortal == true; i2 += 1) {
-                            for (int j2 = 0; j2 < 2 && completePortal == true; j2 += 1) {
-                                portalBlocks[i2][j2] = chunk.getWorld().getBlockAt(portalX + j2 * portalXOffset, portalY - i2, portalZ + j2 * portalZOffset);
-                                if (portalBlocks[i2][j2].getType() != portalId) {
+                        for (int i3 = 0; i3 < 3 && completePortal == true; i3 += 1) {
+                            for (int j3 = 0; j3 < 2 && completePortal == true; j3 += 1) {
+                                portalBlocks[i3][j3] = chunk.getWorld().getBlockAt(portalX + j3 * portalXOffset, portalY - i3, portalZ + j3 * portalZOffset);
+                                if (portalBlocks[i3][j3].getType() != portalId) {
                                     completePortal = false;
                                 }
                             }
@@ -424,7 +423,7 @@ public class OChunk {
             }
 		
             OExtendedBlockStorage oextendedblockstorage = this.q[j >> 4];
-            boolean flag1 = false;
+            boolean flag = false;
 
             if (oextendedblockstorage == null) {
                 if (l == 0) {
@@ -432,18 +431,22 @@ public class OChunk {
                 }
 
                 oextendedblockstorage = this.q[j >> 4] = new OExtendedBlockStorage(j >> 4 << 4);
-                flag1 = j >= k1;
+                flag = j >= k1;
+            }
+
+            int j2 = this.g * 16 + i;
+            int k2 = this.h * 16 + k;
+
+            if (l1 != 0 && !this.e.K) {
+                OBlock.m[l1].h(this.e, j2, j, k2, i2);
             }
 
             oextendedblockstorage.a(i, j & 15, k, l);
-            int i2 = this.g * 16 + i;
-            int j2 = this.h * 16 + k;
-
             if (l1 != 0) {
-                if (!this.e.F) {
-                    OBlock.m[l1].d(this.e, i2, j, j2);
+                if (!this.e.K) {
+                    OBlock.m[l1].a(this.e, j2, j, k2, l1, i2);
                 } else if (OBlock.m[l1] instanceof OBlockContainer && l1 != l) {
-                    this.e.q(i2, j, j2);
+                    this.e.q(j2, j, k2);
                 }
             }
 
@@ -451,8 +454,8 @@ public class OChunk {
                 return false;
             } else {
                 oextendedblockstorage.b(i, j & 15, k, i1);
-                if (flag1) {
-                    this.a();
+                if (flag) {
+                    this.b();
                 } else {
                     if (OBlock.o[l & 4095] > 0) {
                         if (j >= k1) {
@@ -468,15 +471,15 @@ public class OChunk {
                 OTileEntity otileentity;
 
                 if (l != 0) {
-                    if (!this.e.F) {
-                        OBlock.m[l].a(this.e, i2, j, j2);
+                    if (!this.e.K) {
+                        OBlock.m[l].g(this.e, j2, j, k2);
                     }
 
                     if (OBlock.m[l] instanceof OBlockContainer) {
                         otileentity = this.e(i, j, k);
                         if (otileentity == null) {
-                            otileentity = ((OBlockContainer) OBlock.m[l]).a_();
-                            this.e.a(i2, j, j2, otileentity);
+                            otileentity = ((OBlockContainer) OBlock.m[l]).a(this.e);
+                            this.e.a(j2, j, k2, otileentity);
                         }
 
                         if (otileentity != null) {
@@ -501,7 +504,7 @@ public class OChunk {
         return b(i, j, k, l, true);
     }
    
-    public boolean b(int i, int j, int k, int l, boolean flag) {
+    public boolean b(int i, int j, int k, int l, boolean checkPortal) {
         OExtendedBlockStorage oextendedblockstorage = this.q[j >> 4];
 
         if (oextendedblockstorage == null) {
@@ -510,7 +513,7 @@ public class OChunk {
             int i1 = this.g * 16 + i;
             int j1 = this.h * 16 + k;
 
-            if (flag == true) {
+            if (checkPortal == true) {
                 int portalPointX = i1;
                 int portalPointY = j;
                 int portalPointZ = j1;
@@ -585,7 +588,7 @@ public class OChunk {
     public int a(OEnumSkyBlock oenumskyblock, int i, int j, int k) {
         OExtendedBlockStorage oextendedblockstorage = this.q[j >> 4];
 
-        return oextendedblockstorage == null ? oenumskyblock.c : (oenumskyblock == OEnumSkyBlock.a ? oextendedblockstorage.c(i, j & 15, k) : (oenumskyblock == OEnumSkyBlock.b ? oextendedblockstorage.d(i, j & 15, k) : oenumskyblock.c));
+        return oextendedblockstorage == null ? (this.d(i, j, k) ? oenumskyblock.c : 0) : (oenumskyblock == OEnumSkyBlock.a ? oextendedblockstorage.c(i, j & 15, k) : (oenumskyblock == OEnumSkyBlock.b ? oextendedblockstorage.d(i, j & 15, k) : oenumskyblock.c));
     }
 
     public void a(OEnumSkyBlock oenumskyblock, int i, int j, int k, int l) {
@@ -593,19 +596,15 @@ public class OChunk {
 
         if (oextendedblockstorage == null) {
             oextendedblockstorage = this.q[j >> 4] = new OExtendedBlockStorage(j >> 4 << 4);
-            this.a();
+            this.b();
         }
 
         this.l = true;
         if (oenumskyblock == OEnumSkyBlock.a) {
-            if (!this.e.t.e) {
+            if (!this.e.w.e) {
                 oextendedblockstorage.c(i, j & 15, k, l);
             }
-        } else {
-            if (oenumskyblock != OEnumSkyBlock.b) {
-                return;
-            }
-
+        } else if (oenumskyblock == OEnumSkyBlock.b) {
             oextendedblockstorage.d(i, j & 15, k, l);
         }
 
@@ -615,9 +614,9 @@ public class OChunk {
         OExtendedBlockStorage oextendedblockstorage = this.q[j >> 4];
 
         if (oextendedblockstorage == null) {
-            return !this.e.t.e && l < OEnumSkyBlock.a.c ? OEnumSkyBlock.a.c - l : 0;
+            return !this.e.w.e && l < OEnumSkyBlock.a.c ? OEnumSkyBlock.a.c - l : 0;
         } else {
-            int i1 = this.e.t.e ? 0 : oextendedblockstorage.c(i, j & 15, k);
+            int i1 = this.e.w.e ? 0 : oextendedblockstorage.c(i, j & 15, k);
 
             if (i1 > 0) {
                 a = true;
@@ -636,8 +635,8 @@ public class OChunk {
 
     public void a(OEntity oentity) {
         this.m = true;
-        int i = OMathHelper.b(oentity.bm / 16.0D);
-        int j = OMathHelper.b(oentity.bo / 16.0D);
+        int i = OMathHelper.c(oentity.t / 16.0D);
+        int j = OMathHelper.c(oentity.v / 16.0D);
 
         if (i != this.g || j != this.h) {
             System.out.println("Wrong location! " + oentity + " Destorying Entity...");
@@ -646,7 +645,7 @@ public class OChunk {
             return;
         }
 
-        int k = OMathHelper.b(oentity.bn / 16.0D);
+        int k = OMathHelper.c(oentity.u / 16.0D);
 
         if (k < 0) {
             k = 0;
@@ -656,15 +655,15 @@ public class OChunk {
             k = this.j.length - 1;
         }
 
-        oentity.bZ = true;
-        oentity.ca = this.g;
-        oentity.cb = k;
-        oentity.cc = this.h;
+        oentity.ag = true;
+        oentity.ah = this.g;
+        oentity.ai = k;
+        oentity.aj = this.h;
         this.j[k].add(oentity);
     }
 
     public void b(OEntity oentity) {
-        this.a(oentity, oentity.cb);
+        this.a(oentity, oentity.ai);
     }
 
     public void a(OEntity oentity, int i) {
@@ -690,19 +689,19 @@ public class OChunk {
         if (otileentity == null) {
             int l = this.a(i, j, k);
 
-            if (l <= 0 || !OBlock.m[l].o()) {
+            if (l <= 0 || !OBlock.m[l].s()) {
                 return null;
             }
 
             if (otileentity == null) {
-                otileentity = ((OBlockContainer) OBlock.m[l]).a_();
+                otileentity = ((OBlockContainer) OBlock.m[l]).a(this.e);
                 this.e.a(this.g * 16 + i, j, this.h * 16 + k, otileentity);
             }
 
             otileentity = (OTileEntity) this.i.get(ochunkposition);
         }
 
-        if (otileentity != null && otileentity.l()) {
+        if (otileentity != null && otileentity.p()) {
             this.i.remove(ochunkposition);
             return null;
         } else {
@@ -717,7 +716,7 @@ public class OChunk {
 
         this.a(i, j, k, otileentity);
         if (this.d) {
-            this.e.c.add(otileentity);
+            this.e.h.add(otileentity);
         }
 
     }
@@ -725,12 +724,12 @@ public class OChunk {
     public void a(int i, int j, int k, OTileEntity otileentity) {
         OChunkPosition ochunkposition = new OChunkPosition(i, j, k);
 
-        otileentity.k = this.e;
+        otileentity.a(this.e);
         otileentity.l = this.g * 16 + i;
         otileentity.m = j;
         otileentity.n = this.h * 16 + k;
         if (this.a(i, j, k) != 0 && OBlock.m[this.a(i, j, k)] instanceof OBlockContainer) {
-            otileentity.m();
+            otileentity.q();
             this.i.put(ochunkposition, otileentity);
         }
     }
@@ -745,17 +744,19 @@ public class OChunk {
                 otileentity.j();
             }
         }
-
     }
 
     public void c() {
         this.d = true;
         this.e.a(this.i.values());
+        List[] alist = this.j;
+        int i = alist.length;
 
-        for (int i = 0; i < this.j.length; ++i) {
-            this.e.a(this.j[i]);
+        for (int j = 0; j < i; ++j) {
+            List list = alist[j];
+
+            this.e.a(list);
         }
-
     }
 
     public void d() {
@@ -768,10 +769,14 @@ public class OChunk {
             this.e.a(otileentity);
         }
 
-        for (int i = 0; i < this.j.length; ++i) {
-            this.e.b(this.j[i]);
-        }
+        List[] alist = this.j;
+        int i = alist.length;
 
+        for (int j = 0; j < i; ++j) {
+            List list = alist[j];
+
+            this.e.b(list);
+        }
     }
 
     public void e() {
@@ -779,8 +784,8 @@ public class OChunk {
     }
 
     public void a(OEntity oentity, OAxisAlignedBB oaxisalignedbb, List list) {
-        int i = OMathHelper.b((oaxisalignedbb.b - 2.0D) / 16.0D);
-        int j = OMathHelper.b((oaxisalignedbb.e + 2.0D) / 16.0D);
+        int i = OMathHelper.c((oaxisalignedbb.b - 2.0D) / 16.0D);
+        int j = OMathHelper.c((oaxisalignedbb.e + 2.0D) / 16.0D);
 
         if (i < 0) {
             i = 0;
@@ -792,18 +797,19 @@ public class OChunk {
 
         for (int k = i; k <= j; ++k) {
             List list1 = this.j[k];
+            Iterator iterator = list1.iterator();
 
-            for (int l = 0; l < list1.size(); ++l) {
-                OEntity oentity1 = (OEntity) list1.get(l);
+            while (iterator.hasNext()) {
+                OEntity oentity1 = (OEntity) iterator.next();
 
-                if (oentity1 != oentity && oentity1.bw.a(oaxisalignedbb)) {
+                if (oentity1 != oentity && oentity1.D.a(oaxisalignedbb)) {
                     list.add(oentity1);
-                    OEntity[] aoentity = oentity1.bb();
+                    OEntity[] aoentity = oentity1.al();
 
                     if (aoentity != null) {
-                        for (int i1 = 0; i1 < aoentity.length; ++i1) {
-                            oentity1 = aoentity[i1];
-                            if (oentity1 != oentity && oentity1.bw.a(oaxisalignedbb)) {
+                        for (int l = 0; l < aoentity.length; ++l) {
+                            oentity1 = aoentity[l];
+                            if (oentity1 != oentity && oentity1.D.a(oaxisalignedbb)) {
                                 list.add(oentity1);
                             }
                         }
@@ -811,12 +817,11 @@ public class OChunk {
                 }
             }
         }
-
     }
 
     public void a(Class oclass, OAxisAlignedBB oaxisalignedbb, List list) {
-        int i = OMathHelper.b((oaxisalignedbb.b - 2.0D) / 16.0D);
-        int j = OMathHelper.b((oaxisalignedbb.e + 2.0D) / 16.0D);
+        int i = OMathHelper.c((oaxisalignedbb.b - 2.0D) / 16.0D);
+        int j = OMathHelper.c((oaxisalignedbb.e + 2.0D) / 16.0D);
 
         if (i < 0) {
             i = 0;
@@ -832,24 +837,24 @@ public class OChunk {
 
         for (int k = i; k <= j; ++k) {
             List list1 = this.j[k];
+            Iterator iterator = list1.iterator();
 
-            for (int l = 0; l < list1.size(); ++l) {
-                OEntity oentity = (OEntity) list1.get(l);
+            while (iterator.hasNext()) {
+                OEntity oentity = (OEntity) iterator.next();
 
-                if (oclass.isAssignableFrom(oentity.getClass()) && oentity.bw.a(oaxisalignedbb)) {
+                if (oclass.isAssignableFrom(oentity.getClass()) && oentity.D.a(oaxisalignedbb)) {
                     list.add(oentity);
                 }
             }
         }
-
     }
 
     public boolean a(boolean flag) {
         if (flag) {
-            if (this.m && this.e.o() != this.n) {
+            if (this.m && this.e.D() != this.n) {
                 return true;
             }
-        } else if (this.m && this.e.o() >= this.n + 600L) {
+        } else if (this.m && this.e.D() >= this.n + 600L) {
             return true;
         }
 
@@ -857,25 +862,11 @@ public class OChunk {
     }
 
     public Random a(long i) {
-        return new Random(this.e.n() + (long) (this.g * this.g * 4987142) + (long) (this.g * 5947611) + (long) (this.h * this.h) * 4392871L + (long) (this.h * 389711) ^ i);
+        return new Random(this.e.C() + (long) (this.g * this.g * 4987142) + (long) (this.g * 5947611) + (long) (this.h * this.h) * 4392871L + (long) (this.h * 389711) ^ i);
     }
 
-    public boolean f() {
+    public boolean g() {
         return false;
-    }
-
-    public void i() {
-        OExtendedBlockStorage[] aoextendedblockstorage = this.q;
-        int i = aoextendedblockstorage.length;
-
-        for (int j = 0; j < i; ++j) {
-            OExtendedBlockStorage oextendedblockstorage = aoextendedblockstorage[j];
-
-            if (oextendedblockstorage != null) {
-                oextendedblockstorage.e();
-            }
-        }
-
     }
 
     public void a(OIChunkProvider oichunkprovider, OIChunkProvider oichunkprovider1, int i, int j) {
@@ -883,15 +874,15 @@ public class OChunk {
             oichunkprovider.a(oichunkprovider1, i, j);
         }
 
-        if (oichunkprovider.a(i - 1, j) && !oichunkprovider.b(i - 1, j).k && oichunkprovider.a(i - 1, j + 1) && oichunkprovider.a(i, j + 1) && oichunkprovider.a(i - 1, j + 1)) {
+        if (oichunkprovider.a(i - 1, j) && !oichunkprovider.d(i - 1, j).k && oichunkprovider.a(i - 1, j + 1) && oichunkprovider.a(i, j + 1) && oichunkprovider.a(i - 1, j + 1)) {
             oichunkprovider.a(oichunkprovider1, i - 1, j);
         }
 
-        if (oichunkprovider.a(i, j - 1) && !oichunkprovider.b(i, j - 1).k && oichunkprovider.a(i + 1, j - 1) && oichunkprovider.a(i + 1, j - 1) && oichunkprovider.a(i + 1, j)) {
+        if (oichunkprovider.a(i, j - 1) && !oichunkprovider.d(i, j - 1).k && oichunkprovider.a(i + 1, j - 1) && oichunkprovider.a(i + 1, j - 1) && oichunkprovider.a(i + 1, j)) {
             oichunkprovider.a(oichunkprovider1, i, j - 1);
         }
 
-        if (oichunkprovider.a(i - 1, j - 1) && !oichunkprovider.b(i - 1, j - 1).k && oichunkprovider.a(i, j - 1) && oichunkprovider.a(i - 1, j)) {
+        if (oichunkprovider.a(i - 1, j - 1) && !oichunkprovider.d(i - 1, j - 1).k && oichunkprovider.a(i, j - 1) && oichunkprovider.a(i - 1, j)) {
             oichunkprovider.a(oichunkprovider1, i - 1, j - 1);
         }
 
@@ -902,13 +893,13 @@ public class OChunk {
         int l = this.b[k];
 
         if (l == -999) {
-            int i1 = this.g() + 15;
+            int i1 = this.h() + 15;
 
             l = -1;
 
             while (i1 > 0 && l == -1) {
                 int j1 = this.a(i, i1, j);
-                OMaterial omaterial = j1 == 0 ? OMaterial.a : OBlock.m[j1].cd;
+                OMaterial omaterial = j1 == 0 ? OMaterial.a : OBlock.m[j1].cp;
 
                 if (!omaterial.c() && !omaterial.d()) {
                     --i1;
@@ -923,14 +914,14 @@ public class OChunk {
         return l;
     }
 
-    public void j() {
-        if (this.s && !this.e.t.e) {
-            this.o();
+    public void k() {
+        if (this.s && !this.e.w.e) {
+            this.q();
         }
 
     }
 
-    public OChunkCoordIntPair k() {
+    public OChunkCoordIntPair l() {
         return new OChunkCoordIntPair(this.g, this.h);
     }
 
@@ -971,7 +962,7 @@ public class OChunk {
         return OBiomeGenBase.a[k] == null ? OBiomeGenBase.c : OBiomeGenBase.a[k];
     }
 
-    public byte[] l() {
+    public byte[] m() {
         return this.r;
     }
 
@@ -979,11 +970,11 @@ public class OChunk {
         this.r = abyte;
     }
 
-    public void m() {
+    public void n() {
         this.t = 0;
     }
 
-    public void n() {
+    public void o() {
         for (int i = 0; i < 8; ++i) {
             if (this.t >= 4096) {
                 return;
@@ -1002,30 +993,30 @@ public class OChunk {
 
                 if (this.q[j] == null && (k1 == 0 || k1 == 15 || k == 0 || k == 15 || l == 0 || l == 15) || this.q[j] != null && this.q[j].a(k, k1, l) == 0) {
                     if (OBlock.q[this.e.a(i1, l1 - 1, j1)] > 0) {
-                        this.e.v(i1, l1 - 1, j1);
+                        this.e.x(i1, l1 - 1, j1);
                     }
 
                     if (OBlock.q[this.e.a(i1, l1 + 1, j1)] > 0) {
-                        this.e.v(i1, l1 + 1, j1);
+                        this.e.x(i1, l1 + 1, j1);
                     }
 
                     if (OBlock.q[this.e.a(i1 - 1, l1, j1)] > 0) {
-                        this.e.v(i1 - 1, l1, j1);
+                        this.e.x(i1 - 1, l1, j1);
                     }
 
                     if (OBlock.q[this.e.a(i1 + 1, l1, j1)] > 0) {
-                        this.e.v(i1 + 1, l1, j1);
+                        this.e.x(i1 + 1, l1, j1);
                     }
 
                     if (OBlock.q[this.e.a(i1, l1, j1 - 1)] > 0) {
-                        this.e.v(i1, l1, j1 - 1);
+                        this.e.x(i1, l1, j1 - 1);
                     }
 
                     if (OBlock.q[this.e.a(i1, l1, j1 + 1)] > 0) {
-                        this.e.v(i1, l1, j1 + 1);
+                        this.e.x(i1, l1, j1 + 1);
                     }
 
-                    this.e.v(i1, l1, j1);
+                    this.e.x(i1, l1, j1);
                 }
             }
         }

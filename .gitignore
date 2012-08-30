@@ -10,3 +10,5 @@ jarjar/*
 !jarjar/rules.rules
 nbproject/*
 servero/*
+*.orig
+*.rej

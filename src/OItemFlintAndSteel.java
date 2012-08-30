@@ -3,15 +3,14 @@ public class OItemFlintAndSteel extends OItem {
 
     public OItemFlintAndSteel(int i) {
         super(i);
-        this.bQ = 1;
-        this.f(64);
+        this.bU = 1;
+        this.e(64);
+        this.a(OCreativeTabs.i);
     }
 
-    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         // CanaryMod: Store block data clicked
-        Block blockClicked = new Block(oworld.world, oworld.a(i, j, k), i, j, k);
-
-        blockClicked.setFaceClicked(Block.Face.fromId(l));
+        Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
         
         if (l == 0) {
             --j;
@@ -37,7 +36,7 @@ public class OItemFlintAndSteel extends OItem {
             ++i;
         }
 
-        if (!oentityplayer.d(i, j, k)) {
+        if (!oentityplayer.e(i, j, k)) {
             return false;
         } else {
             int i1 = oworld.a(i, j, k);
@@ -56,8 +55,8 @@ public class OItemFlintAndSteel extends OItem {
                     return false;
                 }
                 
-                oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, c.nextFloat() * 0.4F + 0.8F);
-                oworld.e(i, j, k, OBlock.ar.bO);
+                oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, d.nextFloat() * 0.4F + 0.8F);
+                oworld.e(i, j, k, OBlock.ar.ca);
             }
 
             oitemstack.a(1, oentityplayer);

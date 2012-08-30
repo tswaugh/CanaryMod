@@ -50,7 +50,7 @@ public class OPotionEffect {
 
     public boolean a(OEntityLiving oentityliving) {
         if (this.b > 0) {
-            if (OPotion.a[this.a].b(this.b, this.c)) {
+            if (OPotion.a[this.a].a(this.b, this.c)) {
                 this.b(oentityliving);
             }
 
@@ -72,7 +72,7 @@ public class OPotionEffect {
     }
 
     public String d() {
-        return OPotion.a[this.a].c();
+        return OPotion.a[this.a].a();
     }
 
     public int hashCode() {
@@ -88,7 +88,7 @@ public class OPotionEffect {
             s = this.d() + ", Duration: " + this.b();
         }
 
-        return OPotion.a[this.a].f() ? "(" + s + ")" : s;
+        return OPotion.a[this.a].i() ? "(" + s + ")" : s;
     }
 
     public boolean equals(Object object) {

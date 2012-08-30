@@ -106,7 +106,9 @@ public class PluginLoader {
         FLOW, //
         /**
          * Calls {@link PluginListener#onExplode(Block, OEntity, HashSet) }
+         * @deprecated Use {@link #EXPLOSION} instead.
          */
+        @Deprecated
         EXPLODE, //
         /**
          * Calls {@link PluginListener#onExplosion(Block, BaseEntity, List) }

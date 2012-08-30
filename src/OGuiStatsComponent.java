@@ -30,10 +30,10 @@ public class OGuiStatsComponent extends JComponent {
 
         System.gc();
         this.d[0] = "Memory use: " + i / 1024L / 1024L + " mb (" + Runtime.getRuntime().freeMemory() * 100L / Runtime.getRuntime().maxMemory() + "% free)";
-        this.d[1] = "Threads: " + ONetworkManager.b + " + " + ONetworkManager.c;
-        this.d[2] = "Avg tick: " + a.format(this.a(this.e.f) * 1.0E-6D) + " ms";
-        this.d[3] = "Avg sent: " + (int) this.a(this.e.u) + ", Avg size: " + (int) this.a(this.e.v);
-        this.d[4] = "Avg rec: " + (int) this.a(this.e.w) + ", Avg size: " + (int) this.a(this.e.x);
+        this.d[1] = "Threads: " + OTcpConnection.a.get() + " + " + OTcpConnection.b.get();
+        this.d[2] = "Avg tick: " + a.format(this.a(this.e.j) * 1.0E-6D) + " ms";
+        this.d[3] = "Avg sent: " + (int) this.a(this.e.f) + ", Avg size: " + (int) this.a(this.e.g);
+        this.d[4] = "Avg rec: " + (int) this.a(this.e.h) + ", Avg size: " + (int) this.a(this.e.i);
         if (this.e.worlds != null) {
             // CanaryMod start: Multiworld
             for (Map.Entry<String, OWorldServer[]> entry : this.e.worlds.entrySet()) {
@@ -42,23 +42,27 @@ public class OGuiStatsComponent extends JComponent {
 
                 for (int j = 0; j < level.length; ++j) {
                     this.d[5 + j] = "World " + worldName + " lvl " + j + " tick: " + a.format(this.a(this.e.worldTickNanos.get(worldName)[j]) * 1.0E-6D) + " ms";
-                    if (level[j] != null && level[j].G != null) {
-                        this.d[5 + j] += ", " + level[j].G.d();
+                    if (level[j] != null && level[j].b != null) {
+                        this.d[5 + j] += ", " + level[j].b.d();
                     }
                 }
             }
             // CanaryMod end
         }
 
-        this.b[this.c++ & 255] = (int) (this.a(this.e.v) * 100.0D / 12500.0D);
+        this.b[this.c++ & 255] = (int) (this.a(this.e.g) * 100.0D / 12500.0D);
         this.repaint();
     }
 
     private double a(long[] along) {
         long i = 0L;
+        long[] along1 = along;
+        int j = along.length;
 
-        for (int j = 0; j < along.length; ++j) {
-            i += along[j];
+        for (int k = 0; k < j; ++k) {
+            long l = along1[k];
+
+            i += l;
         }
 
         return (double) i / (double) along.length;

@@ -1,28 +1,32 @@
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class OItemPotion extends OItem {
 
     private HashMap a = new HashMap();
+    private static final Map b = new LinkedHashMap();
 
     public OItemPotion(int i) {
         super(i);
-        this.e(1);
+        this.d(1);
         this.a(true);
-        this.f(0);
+        this.e(0);
+        this.a(OCreativeTabs.k);
     }
 
-    public List b(OItemStack oitemstack) {
-        return this.b(oitemstack.h());
+    public List l(OItemStack oitemstack) {
+        return this.f(oitemstack.j());
     }
 
-    public List b(int i) {
+    public List f(int i) {
         List list = (List) this.a.get(Integer.valueOf(i));
 
         if (list == null) {
-            list = OPotionHelper.a(i, false);
+            list = OPotionHelper.b(i, false);
             this.a.put(Integer.valueOf(i), list);
         }
 
@@ -30,9 +34,12 @@ public class OItemPotion extends OItem {
     }
 
     public OItemStack b(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
-        --oitemstack.a;
-        if (!oworld.F) {
-            List list = this.b(oitemstack);
+        if (!oentityplayer.bZ.d) {
+            --oitemstack.a;
+        }
+
+        if (!oworld.K) {
+            List list = this.l(oitemstack);
 
             if (list != null) {
                 Iterator iterator = list.iterator();
@@ -40,47 +47,53 @@ public class OItemPotion extends OItem {
                 while (iterator.hasNext()) {
                     OPotionEffect opotioneffect = (OPotionEffect) iterator.next();
 
-                    oentityplayer.e(new OPotionEffect(opotioneffect));
+                    oentityplayer.d(new OPotionEffect(opotioneffect));
                 }
             }
         }
 
-        if (oitemstack.a <= 0) {
-            return new OItemStack(OItem.bs);
-        } else {
-            oentityplayer.k.a(new OItemStack(OItem.bs));
-            return oitemstack;
+        if (!oentityplayer.bZ.d) {
+            if (oitemstack.a <= 0) {
+                return new OItemStack(OItem.bt);
+            }
+
+            oentityplayer.by.a(new OItemStack(OItem.bt));
         }
+
+        return oitemstack;
     }
 
-    public int c(OItemStack oitemstack) {
+    public int a(OItemStack oitemstack) {
         return 32;
     }
 
-    public OEnumAction d(OItemStack oitemstack) {
+    public OEnumAction b(OItemStack oitemstack) {
         return OEnumAction.c;
     }
 
     public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
-        if (c(oitemstack.h())) {
-            --oitemstack.a;
-            oworld.a(oentityplayer, "random.bow", 0.5F, 0.4F / (c.nextFloat() * 0.4F + 0.8F));
-            if (!oworld.F) {
-                oworld.b((OEntity) (new OEntityPotion(oworld, oentityplayer, oitemstack.h())));
+        if (g(oitemstack.j())) {
+            if (!oentityplayer.bZ.d) {
+                --oitemstack.a;
+            }
+
+            oworld.a(oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
+            if (!oworld.K) {
+                oworld.d((OEntity) (new OEntityPotion(oworld, oentityplayer, oitemstack.j())));
             }
 
             return oitemstack;
         } else {
-            oentityplayer.a(oitemstack, this.c(oitemstack));
+            oentityplayer.a(oitemstack, this.a(oitemstack));
             return oitemstack;
         }
     }
 
-    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, this.getBlockInfo(oworld, i, j, k, l), new Item(oitemstack));
     }
 
-    public static boolean c(int i) {
+    public static boolean g(int i) {
         return (i & 16384) != 0;
     }
 }

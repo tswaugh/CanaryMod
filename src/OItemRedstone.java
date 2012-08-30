@@ -3,15 +3,14 @@ public class OItemRedstone extends OItem {
 
     public OItemRedstone(int i) {
         super(i);
+        this.a(OCreativeTabs.d);
     }
 
-    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         // CanaryMod: Store block data clicked
-        Block blockClicked = new Block(oworld.world, oworld.a(i, j, k), i, j, k);
-
-        blockClicked.setFaceClicked(Block.Face.fromId(l));
+        Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
         
-        if (oworld.a(i, j, k) != OBlock.aS.bO) {
+        if (oworld.a(i, j, k) != OBlock.aS.ca) {
             if (l == 0) {
                 --j;
             }
@@ -36,15 +35,15 @@ public class OItemRedstone extends OItem {
                 ++i;
             }
 
-            if (!oworld.g(i, j, k)) {
+            if (!oworld.c(i, j, k)) {
                 return false;
             }
         }
 
-        if (!oentityplayer.d(i, j, k)) {
+        if (!oentityplayer.e(i, j, k)) {
             return false;
         } else {
-            if (OBlock.av.c(oworld, i, j, k)) {
+            if (OBlock.av.b(oworld, i, j, k)) {
                 // CanaryMod: Redstone dust hook!
                 Block blockPlaced = new Block(oworld.world, Block.Type.RedstoneWire.getType(), i, j, k);
                 Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();
@@ -54,7 +53,7 @@ public class OItemRedstone extends OItem {
                 }
 
                 --oitemstack.a;
-                oworld.e(i, j, k, OBlock.av.bO);
+                oworld.e(i, j, k, OBlock.av.ca);
             }
 
             return true;

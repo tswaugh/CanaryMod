@@ -850,9 +850,9 @@ public class Player extends HumanEntity implements MessageReceiver {
         String name;
 
         if (etc.getInstance().isPlayerList_colors()) { 
-            name = getFullName() + Colors.LightGreen;
+            name = this.getFullName() + Colors.LightGreen;
         } else {
-            name = getName();
+            name = this.getName();
         }
         PlayerlistEntry entry = new PlayerlistEntry(name, this.getPing(), show);
 
@@ -873,7 +873,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public OEntityPlayerMP getUser() {
-        return getEntity();
+        return this.getEntity();
     }
 
     /**

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -9,11 +10,7 @@ public class OEntityList {
     private static Map d = new HashMap();
     private static Map e = new HashMap();
     private static Map f = new HashMap();
-    public static HashMap a = new HashMap();
-
-    public OEntityList() {
-        super();
-    }
+    public static HashMap a = new LinkedHashMap();
 
     private static void a(Class oclass, String s, int i) {
         b.put(s, oclass);
@@ -48,7 +45,7 @@ public class OEntityList {
         OEntity oentity = null;
 
         try {
-            Class oclass = (Class) b.get(onbttagcompound.j("id"));
+            Class oclass = (Class) b.get(onbttagcompound.i("id"));
 
             if (oclass != null) {
                 oentity = (OEntity) oclass.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { oworld});
@@ -60,7 +57,7 @@ public class OEntityList {
         if (oentity != null) {
             oentity.e(onbttagcompound);
         } else {
-            System.out.println("Skipping Entity with id " + onbttagcompound.j("id"));
+            System.out.println("Skipping Entity with id " + onbttagcompound.i("id"));
         }
 
         return oentity;
@@ -87,19 +84,15 @@ public class OEntityList {
     }
 
     public static int a(OEntity oentity) {
-        return ((Integer) e.get(oentity.getClass())).intValue();
+        Class oclass = oentity.getClass();
+
+        return e.containsKey(oclass) ? ((Integer) e.get(oclass)).intValue() : 0;
     }
 
     public static String b(OEntity oentity) {
         return (String) c.get(oentity.getClass());
     }
 
-    public static int a(String s) {
-        Integer integer = (Integer) f.get(s);
-
-        return integer == null ? 90 : integer.intValue();
-    }
-    
     // CanaryMod: Let us do a name->class lookup for mob spawning
     public static Class<?> getEntity(String s) {
         return (Class<?>) b.get(s);
