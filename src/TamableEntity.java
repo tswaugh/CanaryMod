@@ -1,5 +1,5 @@
 public class TamableEntity extends Mob{
-	public TamableEntity(OEntityTamable entity){
+	public TamableEntity(OEntityTameable entity){
 		super(entity);
 	}
 
@@ -84,7 +84,8 @@ public class TamableEntity extends Mob{
 		return getEntity().v_();
 	}
 
-	public OEntityTamable getEntity() {
-		return (OEntityTamable) entity;
+    @Override
+	public OEntityTameable getEntity() {
+		return (OEntityTameable) entity;
 	}
 }

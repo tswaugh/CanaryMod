@@ -10,143 +10,144 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
     public int e = 0;
     public int f = 0;
 
-    public OEntityGhast(OWorld var1) {
-        super(var1);
-        this.ae = "/mob/ghast.png";
-        this.b(4.0F, 4.0F);
-        this.bX = true;
-        this.aA = 5;
+    public OEntityGhast(OWorld oworld) {
+        super(oworld);
+        this.az = "/mob/ghast.png";
+        this.a(4.0F, 4.0F);
+        this.ae = true;
+        this.aV = 5;
     }
 
-    public boolean a(ODamageSource var1, int var2) {
-        if ("fireball".equals(var1.l()) && var1.a() instanceof OEntityPlayer) {
-            super.a(var1, 1000);
-            ((OEntityPlayer) var1.a()).a((OStatBase) OAchievementList.y);
+    public boolean a(ODamageSource odamagesource, int i) {
+        if ("fireball".equals(odamagesource.l()) && odamagesource.g() instanceof OEntityPlayer) {
+            super.a(odamagesource, 1000);
+            ((OEntityPlayer) odamagesource.g()).a((OStatBase) OAchievementList.y);
             return true;
         } else {
-            return super.a(var1, var2);
+            return super.a(odamagesource, i);
         }
     }
 
-    protected void b() {
-        super.b();
-        this.bY.a(16, Byte.valueOf((byte) 0));
+    protected void a() {
+        super.a();
+        this.af.a(16, Byte.valueOf((byte) 0));
     }
 
-    public int d() {
+    public int aM() {
         return 10;
     }
 
-    public void F_() {
-        super.F_();
-        byte var1 = this.bY.a(16);
+    public void h_() {
+        super.h_();
+        byte b0 = this.af.a(16);
 
-        this.ae = var1 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
+        this.az = b0 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
     }
 
-    protected void d_() {
-        if (!this.bi.F && this.bi.q == 0) {
-            this.X();
+    protected void be() {
+        if (!this.p.K && this.p.u == 0) {
+            this.y();
         }
 
-        this.aG();
+        this.bb();
         this.e = this.f;
-        double var1 = this.b - this.bm;
-        double var3 = this.c - this.bn;
-        double var5 = this.d - this.bo;
-        double var7 = (double) OMathHelper.a(var1 * var1 + var3 * var3 + var5 * var5);
+        double d0 = this.b - this.t;
+        double d1 = this.c - this.u;
+        double d2 = this.d - this.v;
+        double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-        if (var7 < 1.0D || var7 > 60.0D) {
-            this.b = this.bm + (double) ((this.bS.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.c = this.bn + (double) ((this.bS.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            this.d = this.bo + (double) ((this.bS.nextFloat() * 2.0F - 1.0F) * 16.0F);
+        if (d3 < 1.0D || d3 > 3600.0D) {
+            this.b = this.t + (double) ((this.Z.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.c = this.u + (double) ((this.Z.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.d = this.v + (double) ((this.Z.nextFloat() * 2.0F - 1.0F) * 16.0F);
         }
 
         if (this.a-- <= 0) {
-            this.a += this.bS.nextInt(5) + 2;
-            if (this.a(this.b, this.c, this.d, var7)) {
-                this.bp += var1 / var7 * 0.1D;
-                this.bq += var3 / var7 * 0.1D;
-                this.br += var5 / var7 * 0.1D;
+            this.a += this.Z.nextInt(5) + 2;
+            d3 = (double) OMathHelper.a(d3);
+            if (this.a(this.b, this.c, this.d, d3)) {
+                this.w += d0 / d3 * 0.1D;
+                this.x += d1 / d3 * 0.1D;
+                this.y += d2 / d3 * 0.1D;
             } else {
-                this.b = this.bm;
-                this.c = this.bn;
-                this.d = this.bo;
+                this.b = this.t;
+                this.c = this.u;
+                this.d = this.v;
             }
         }
 
-        if (this.g != null && this.g.bE) {
+        if (this.g != null && this.g.L) {
             this.g = null;
         }
 
         if (this.g == null || this.h-- <= 0) {
-            OEntityPlayer var8 = this.bi.b(this, 100.0D);
+            OEntityPlayer oentityplayer = this.p.b(this, 100.0D);
             
             // CanaryMod: MOB_TARGET Hook for ghasts.
-            if (var8 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var8.entity.getPlayer(), entity)) {
-                this.g = var8;
+            if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityplayer.entity.getPlayer(), this.entity)) {
+                this.g = oentityplayer;
             }
             if (this.g != null) {
                 this.h = 20;
             }
         }
 
-        double var9 = 64.0D;
+        double d4 = 64.0D;
 
-        if (this.g != null && this.g.j(this) < var9 * var9) {
-            double var11 = this.g.bm - this.bm;
-            double var13 = this.g.bw.b + (double) (this.g.bH / 2.0F) - (this.bn + (double) (this.bH / 2.0F));
-            double var15 = this.g.bo - this.bo;
+        if (this.g != null && this.g.e((OEntity) this) < d4 * d4) {
+            double d5 = this.g.t - this.t;
+            double d6 = this.g.D.b + (double) (this.g.O / 2.0F) - (this.u + (double) (this.O / 2.0F));
+            double d7 = this.g.v - this.v;
 
-            this.V = this.bs = -((float) Math.atan2(var11, var15)) * 180.0F / 3.1415927F;
-            if (this.h(this.g)) {
+            this.aq = this.z = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
+            if (this.l(this.g)) {
                 if (this.f == 10) {
-                    this.bi.a((OEntityPlayer) null, 1007, (int) this.bm, (int) this.bn, (int) this.bo, 0);
+                    this.p.a((OEntityPlayer) null, 1007, (int) this.t, (int) this.u, (int) this.v, 0);
                 }
 
                 ++this.f;
                 if (this.f == 20) {
-                    this.bi.a((OEntityPlayer) null, 1008, (int) this.bm, (int) this.bn, (int) this.bo, 0);
-                    OEntityFireball var17 = new OEntityFireball(this.bi, this, var11, var13, var15);
-                    double var18 = 4.0D;
-                    OVec3D var20 = this.f(1.0F);
+                    this.p.a((OEntityPlayer) null, 1008, (int) this.t, (int) this.u, (int) this.v, 0);
+                    OEntityFireball oentityfireball = new OEntityFireball(this.p, this, d5, d6, d7);
+                    double d8 = 4.0D;
+                    OVec3 ovec3 = this.i(1.0F);
 
-                    var17.bm = this.bm + var20.a * var18;
-                    var17.bn = this.bn + (double) (this.bH / 2.0F) + 0.5D;
-                    var17.bo = this.bo + var20.c * var18;
-                    this.bi.b((OEntity) var17);
+                    oentityfireball.t = this.t + ovec3.a * d8;
+                    oentityfireball.u = this.u + (double) (this.O / 2.0F) + 0.5D;
+                    oentityfireball.v = this.v + ovec3.c * d8;
+                    this.p.d((OEntity) oentityfireball);
                     this.f = -40;
                 }
             } else if (this.f > 0) {
                 --this.f;
             }
         } else {
-            this.V = this.bs = -((float) Math.atan2(this.bp, this.br)) * 180.0F / 3.1415927F;
+            this.aq = this.z = -((float) Math.atan2(this.w, this.y)) * 180.0F / 3.1415927F;
             if (this.f > 0) {
                 --this.f;
             }
         }
 
-        if (!this.bi.F) {
-            byte var21 = this.bY.a(16);
-            byte var22 = (byte) (this.f > 10 ? 1 : 0);
+        if (!this.p.K) {
+            byte b0 = this.af.a(16);
+            byte b1 = (byte) (this.f > 10 ? 1 : 0);
 
-            if (var21 != var22) {
-                this.bY.b(16, Byte.valueOf(var22));
+            if (b0 != b1) {
+                this.af.b(16, Byte.valueOf(b1));
             }
         }
 
     }
 
-    private boolean a(double var1, double var3, double var5, double var7) {
-        double var9 = (this.b - this.bm) / var7;
-        double var11 = (this.c - this.bn) / var7;
-        double var13 = (this.d - this.bo) / var7;
-        OAxisAlignedBB var15 = this.bw.b();
+    private boolean a(double d0, double d1, double d2, double d3) {
+        double d4 = (this.b - this.t) / d3;
+        double d5 = (this.c - this.u) / d3;
+        double d6 = (this.d - this.v) / d3;
+        OAxisAlignedBB oaxisalignedbb = this.D.c();
 
-        for (int var16 = 1; (double) var16 < var7; ++var16) {
-            var15.d(var9, var11, var13);
-            if (this.bi.a((OEntity) this, var15).size() > 0) {
+        for (int i = 1; (double) i < d3; ++i) {
+            oaxisalignedbb.d(d4, d5, d6);
+            if (!this.p.a((OEntity) this, oaxisalignedbb).isEmpty()) {
                 return false;
             }
         }
@@ -154,53 +155,53 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         return true;
     }
 
-    protected String i() {
+    protected String aQ() {
         return "mob.ghast.moan";
     }
 
-    protected String j() {
+    protected String aR() {
         return "mob.ghast.scream";
     }
 
-    protected String k() {
+    protected String aS() {
         return "mob.ghast.death";
     }
 
-    protected int f() {
-        return OItem.L.bP;
+    protected int aT() {
+        return OItem.M.bT;
     }
 
-    protected void a(boolean var1, int var2) {
-        int var3 = this.bS.nextInt(2) + this.bS.nextInt(1 + var2);
+    protected void a(boolean flag, int i) {
+        int j = this.Z.nextInt(2) + this.Z.nextInt(1 + i);
 
-        int var4;
+        int k;
 
-        for (var4 = 0; var4 < var3; ++var4) {
-            this.b(OItem.bo.bP, 1);
+        for (k = 0; k < j; ++k) {
+            this.b(OItem.bp.bT, 1);
         }
 
-        var3 = this.bS.nextInt(3) + this.bS.nextInt(1 + var2);
+        j = this.Z.nextInt(3) + this.Z.nextInt(1 + i);
 
-        for (var4 = 0; var4 < var3; ++var4) {
-            this.b(OItem.L.bP, 1);
+        for (k = 0; k < j; ++k) {
+            this.b(OItem.M.bT, 1);
         }
 
     }
 
-    protected float p() {
+    protected float aP() {
         return 10.0F;
     }
 
-    public boolean l() {
-        return this.bS.nextInt(20) == 0 && super.l() && this.bi.q > 0;
+    public boolean bi() {
+        return this.Z.nextInt(20) == 0 && super.bi() && this.p.u > 0;
     }
 
-    public int q() {
+    public int bl() {
         return 1;
     }
     
-    public void setTarget(OEntity var1) {
-        this.g = var1;
+    public void setTarget(OEntity oentity) {
+        this.g = oentity;
     }
     
     public OEntity getTarget() {

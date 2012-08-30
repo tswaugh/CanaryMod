@@ -1,98 +1,98 @@
+ import java.util.Iterator;
 import java.util.List;
-
 
 public class OEntityBoat extends OEntity {
 
-    private int a;
+    private boolean a;
     private double b;
-    private double c;
+    private int c;
     private double d;
     private double e;
     private double f;
+    private double g;
+    private double h;
+    
     // CanaryMod Start
     Boat boat = new Boat(this);
 
     // CanaryMod end
 
-    public OEntityBoat(OWorld var1) {
-        super(var1);
-        this.bf = true;
-        this.b(1.5F, 0.6F);
-        this.bF = this.bH / 2.0F;
+    public OEntityBoat(OWorld oworld) {
+        super(oworld);
+        this.a = true;
+        this.b = 0.07D;
+        this.m = true;
+        this.a(1.5F, 0.6F);
+        this.M = this.O / 2.0F;
     }
 
-    protected boolean g_() {
+    protected boolean e_() {
         return false;
     }
 
-    protected void b() {
-        this.bY.a(17, new Integer(0));
-        this.bY.a(18, new Integer(1));
-        this.bY.a(19, new Integer(0));
+    protected void a() {
+        this.af.a(17, new Integer(0));
+        this.af.a(18, new Integer(1));
+        this.af.a(19, new Integer(0));
     }
 
-    public OAxisAlignedBB b_(OEntity var1) {
-        return var1.bw;
+    public OAxisAlignedBB g(OEntity oentity) {
+        return oentity.D;
     }
 
-    public OAxisAlignedBB h() {
-        return this.bw;
+    public OAxisAlignedBB E() {
+        return this.D;
     }
 
-    public boolean e_() {
+    public boolean M() {
         return true;
     }
 
-    public OEntityBoat(OWorld var1, double var2, double var4, double var6) {
-        this(var1);
-        this.c(var2, var4 + (double) this.bF, var6);
-        this.bp = 0.0D;
-        this.bq = 0.0D;
-        this.br = 0.0D;
-        this.bj = var2;
-        this.bk = var4;
-        this.bl = var6;
+    public OEntityBoat(OWorld oworld, double d0, double d1, double d2) {
+        this(oworld);
+        this.b(d0, d1 + (double) this.M, d2);
+        this.w = 0.0D;
+        this.x = 0.0D;
+        this.y = 0.0D;
+        this.q = d0;
+        this.r = d1;
+        this.s = d2;
         
         // CanaryMod: Creation of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_CREATE, boat);
     }
 
-    public double x_() {
-        return (double) this.bH * 0.0D - 0.30000001192092896D;
+    public double X() {
+        return (double) this.O * 0.0D - 0.30000001192092896D;
     }
 
-    public boolean a(ODamageSource var1, int var2) {
+    public boolean a(ODamageSource odamagesource, int i) {
         // CanaryMod: Attack of the boat
         BaseEntity entity = null;
         
-        if (var1 != null && var1.a() != null) {
-            entity = new BaseEntity(var1.a());
+        if (odamagesource != null && odamagesource.g() != null) {
+            entity = new BaseEntity(odamagesource.g());
         }
-        if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, boat, entity, var2)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, boat, entity, i)) {
             return true;
         }
         
-        if (!this.bi.F && !this.bE) {
-            this.d(-this.m());
-            this.c(10);
-            this.b(this.k() + var2 * 10);
-            this.aW();
-            if (this.k() > 40) {
-                if (this.bg != null) {
-                    this.bg.b((OEntity) this);
+        if (!this.p.K && !this.L) {
+            this.c(-this.i());
+            this.b(10);
+            this.a(this.g() + i * 10);
+            this.K();
+            if (odamagesource.g() instanceof OEntityPlayer && ((OEntityPlayer) odamagesource.g()).bZ.d) {
+                this.a(100);
+            }
+
+            if (this.g() > 40) {
+                if (this.n != null) {
+                    this.n.a((OEntity) this);
                 }
 
-                int var3;
-
-                for (var3 = 0; var3 < 3; ++var3) {
-                    this.a(OBlock.x.bO, 1, 0.0F);
-                }
-
-                for (var3 = 0; var3 < 2; ++var3) {
-                    this.a(OItem.C.bP, 1, 0.0F);
-                }
-
-                this.X();
+                this.a(OItem.aE.bT, 1, 0.0F);
+                this.y();
             }
 
             return true;
@@ -101,281 +101,276 @@ public class OEntityBoat extends OEntity {
         }
     }
 
-    public boolean o_() {
-        return !this.bE;
+    public boolean L() {
+        return !this.L;
     }
 
-    public void F_() {
-        super.F_();
+    public void h_() {
+        super.h_();
         // CanaryMod: Update of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, boat);
         
-        double prevX = bj;
-        double prevY = bk;
-        double prevZ = bl;
+        double prevX = this.q;
+        double prevY = this.r;
+        double prevZ = this.s;
         
-        if (this.l() > 0) {
-            this.c(this.l() - 1);
+        if (this.h() > 0) {
+            this.b(this.h() - 1);
         }
 
-        if (this.k() > 0) {
-            this.b(this.k() - 1);
+        if (this.g() > 0) {
+            this.a(this.g() - 1);
         }
 
-        this.bj = this.bm;
-        this.bk = this.bn;
-        this.bl = this.bo;
-        byte var1 = 5;
-        double var2 = 0.0D;
+        this.q = this.t;
+        this.r = this.u;
+        this.s = this.v;
+        byte b0 = 5;
+        double d0 = 0.0D;
 
-        for (int var4 = 0; var4 < var1; ++var4) {
-            double var5 = this.bw.b + (this.bw.e - this.bw.b) * (double) (var4 + 0) / (double) var1 - 0.125D;
-            double var7 = this.bw.b + (this.bw.e - this.bw.b) * (double) (var4 + 1) / (double) var1 - 0.125D;
-            OAxisAlignedBB var9 = OAxisAlignedBB.b(this.bw.a, var5, this.bw.c, this.bw.d, var7, this.bw.f);
+        for (int i = 0; i < b0; ++i) {
+            double d1 = this.D.b + (this.D.e - this.D.b) * (double) (i + 0) / (double) b0 - 0.125D;
+            double d2 = this.D.b + (this.D.e - this.D.b) * (double) (i + 1) / (double) b0 - 0.125D;
+            OAxisAlignedBB oaxisalignedbb = OAxisAlignedBB.a().a(this.D.a, d1, this.D.c, this.D.d, d2, this.D.f);
 
-            if (this.bi.b(var9, OMaterial.g)) {
-                var2 += 1.0D / (double) var1;
+            if (this.p.b(oaxisalignedbb, OMaterial.g)) {
+                d0 += 1.0D / (double) b0;
             }
         }
 
-        double var10 = Math.sqrt(this.bp * this.bp + this.br * this.br);
-        double var12;
-        double var14;
+        double d3 = Math.sqrt(this.w * this.w + this.y * this.y);
+        double d4;
+        double d5;
 
-        if (var10 > 0.15D) {
-            var12 = Math.cos((double) this.bs * 3.141592653589793D / 180.0D);
-            var14 = Math.sin((double) this.bs * 3.141592653589793D / 180.0D);
+        if (d3 > 0.26249999999999996D) {
+            d4 = Math.cos((double) this.z * 3.141592653589793D / 180.0D);
+            d5 = Math.sin((double) this.z * 3.141592653589793D / 180.0D);
 
-            for (int var16 = 0; (double) var16 < 1.0D + var10 * 60.0D; ++var16) {
-                double var17 = (double) (this.bS.nextFloat() * 2.0F - 1.0F);
-                double var19 = (double) (this.bS.nextInt(2) * 2 - 1) * 0.7D;
-                double var21;
-                double var23;
+            for (int j = 0; (double) j < 1.0D + d3 * 60.0D; ++j) {
+                double d6 = (double) (this.Z.nextFloat() * 2.0F - 1.0F);
+                double d7 = (double) (this.Z.nextInt(2) * 2 - 1) * 0.7D;
+                double d8;
+                double d9;
 
-                if (this.bS.nextBoolean()) {
-                    var21 = this.bm - var12 * var17 * 0.8D + var14 * var19;
-                    var23 = this.bo - var14 * var17 * 0.8D - var12 * var19;
-                    this.bi.a("splash", var21, this.bn - 0.125D, var23, this.bp, this.bq, this.br);
+                if (this.Z.nextBoolean()) {
+                    d8 = this.t - d4 * d6 * 0.8D + d5 * d7;
+                    d9 = this.v - d5 * d6 * 0.8D - d4 * d7;
+                    this.p.a("splash", d8, this.u - 0.125D, d9, this.w, this.x, this.y);
                 } else {
-                    var21 = this.bm + var12 + var14 * var17 * 0.7D;
-                    var23 = this.bo + var14 - var12 * var17 * 0.7D;
-                    this.bi.a("splash", var21, this.bn - 0.125D, var23, this.bp, this.bq, this.br);
+                    d8 = this.t + d4 + d5 * d6 * 0.7D;
+                    d9 = this.v + d5 - d4 * d6 * 0.7D;
+                    this.p.a("splash", d8, this.u - 0.125D, d9, this.w, this.x, this.y);
                 }
             }
         }
 
-        double var25;
-        double var27;
+        double d10;
+        double d11;
 
-        if (this.bi.F) {
-            if (this.a > 0) {
-                var12 = this.bm + (this.b - this.bm) / (double) this.a;
-                var14 = this.bn + (this.c - this.bn) / (double) this.a;
-                var25 = this.bo + (this.d - this.bo) / (double) this.a;
-
-                for (var27 = this.e - (double) this.bs; var27 < -180.0D; var27 += 360.0D) {
-                    ;
-                }
-
-                while (var27 >= 180.0D) {
-                    var27 -= 360.0D;
-                }
-
-                this.bs = (float) ((double) this.bs + var27 / (double) this.a);
-                this.bt = (float) ((double) this.bt + (this.f - (double) this.bt) / (double) this.a);
-                --this.a;
-                this.c(var12, var14, var25);
-                this.c(this.bs, this.bt);
+        if (this.p.K && this.a) {
+            if (this.c > 0) {
+                d4 = this.t + (this.d - this.t) / (double) this.c;
+                d5 = this.u + (this.e - this.u) / (double) this.c;
+                d10 = this.v + (this.f - this.v) / (double) this.c;
+                d11 = OMathHelper.g(this.g - (double) this.z);
+                this.z = (float) ((double) this.z + d11 / (double) this.c);
+                this.A = (float) ((double) this.A + (this.h - (double) this.A) / (double) this.c);
+                --this.c;
+                this.b(d4, d5, d10);
+                this.b(this.z, this.A);
             } else {
-                var12 = this.bm + this.bp;
-                var14 = this.bn + this.bq;
-                var25 = this.bo + this.br;
-                this.c(var12, var14, var25);
-                if (this.bx) {
-                    this.bp *= 0.5D;
-                    this.bq *= 0.5D;
-                    this.br *= 0.5D;
+                d4 = this.t + this.w;
+                d5 = this.u + this.x;
+                d10 = this.v + this.y;
+                this.b(d4, d5, d10);
+                if (this.E) {
+                    this.w *= 0.5D;
+                    this.x *= 0.5D;
+                    this.y *= 0.5D;
                 }
 
-                this.bp *= 0.9900000095367432D;
-                this.bq *= 0.949999988079071D;
-                this.br *= 0.9900000095367432D;
+                this.w *= 0.9900000095367432D;
+                this.x *= 0.949999988079071D;
+                this.y *= 0.9900000095367432D;
             }
-
         } else {
-            if (var2 < 1.0D) {
-                var12 = var2 * 2.0D - 1.0D;
-                this.bq += 0.03999999910593033D * var12;
+            if (d0 < 1.0D) {
+                d4 = d0 * 2.0D - 1.0D;
+                this.x += 0.03999999910593033D * d4;
             } else {
-                if (this.bq < 0.0D) {
-                    this.bq /= 2.0D;
+                if (this.x < 0.0D) {
+                    this.x /= 2.0D;
                 }
 
-                this.bq += 0.007000000216066837D;
+                this.x += 0.007000000216066837D;
             }
 
-            if (this.bg != null) {
-                this.bp += this.bg.bp * 0.2D;
-                this.br += this.bg.br * 0.2D;
+            if (this.n != null) {
+                this.w += this.n.w * this.b;
+                this.y += this.n.y * this.b;
             }
 
-            var12 = 0.4D;
-            if (this.bp < -var12) {
-                this.bp = -var12;
+            d4 = Math.sqrt(this.w * this.w + this.y * this.y);
+            if (d4 > 0.35D) {
+                d5 = 0.35D / d4;
+                this.w *= d5;
+                this.y *= d5;
+                d4 = 0.35D;
             }
 
-            if (this.bp > var12) {
-                this.bp = var12;
-            }
-
-            if (this.br < -var12) {
-                this.br = -var12;
-            }
-
-            if (this.br > var12) {
-                this.br = var12;
-            }
-
-            if (this.bx) {
-                this.bp *= 0.5D;
-                this.bq *= 0.5D;
-                this.br *= 0.5D;
-            }
-
-            this.a(this.bp, this.bq, this.br);
-            if (this.by && var10 > 0.2D) {
-                if (!this.bi.F) {
-                    this.X();
-
-                    int var29;
-
-                    for (var29 = 0; var29 < 3; ++var29) {
-                        this.a(OBlock.x.bO, 1, 0.0F);
-                    }
-
-                    for (var29 = 0; var29 < 2; ++var29) {
-                        this.a(OItem.C.bP, 1, 0.0F);
-                    }
+            if (d4 > d3 && this.b < 0.35D) {
+                this.b += (0.35D - this.b) / 35.0D;
+                if (this.b > 0.35D) {
+                    this.b = 0.35D;
                 }
             } else {
-                this.bp *= 0.9900000095367432D;
-                this.bq *= 0.949999988079071D;
-                this.br *= 0.9900000095367432D;
+                this.b -= (this.b - 0.07D) / 35.0D;
+                if (this.b < 0.07D) {
+                    this.b = 0.07D;
+                }
             }
 
-            this.bt = 0.0F;
-            var14 = (double) this.bs;
-            var25 = this.bj - this.bm;
-            var27 = this.bl - this.bo;
-            if (var25 * var25 + var27 * var27 > 0.001D) {
-                var14 = (double) ((float) (Math.atan2(var27, var25) * 180.0D / 3.141592653589793D));
+            if (this.E) {
+                this.w *= 0.5D;
+                this.x *= 0.5D;
+                this.y *= 0.5D;
             }
 
-            double var30;
+            this.d(this.w, this.x, this.y);
+            if (this.F && d3 > 0.2D) {
+                if (!this.p.K) {
+                    this.y();
 
-            for (var30 = var14 - (double) this.bs; var30 >= 180.0D; var30 -= 360.0D) {
-                ;
-            }
+                    int k;
 
-            while (var30 < -180.0D) {
-                var30 += 360.0D;
-            }
+                    for (k = 0; k < 3; ++k) {
+                        this.a(OBlock.x.ca, 1, 0.0F);
+                    }
 
-            if (var30 > 20.0D) {
-                var30 = 20.0D;
-            }
-
-            if (var30 < -20.0D) {
-                var30 = -20.0D;
-            }
-
-            this.bs = (float) ((double) this.bs + var30);
-            this.c(this.bs, this.bt);
-            
-            // CanaryMod: Change of the boat
-            if ((int) bj != (int) prevX || (int) bk != (int) prevY || (int) bl != (int) prevZ) {
-                manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, boat, (int) bj, (int) bk, (int) bl);
-            }
-            
-            List var32 = this.bi.b((OEntity) this, this.bw.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
-            int var33;
-
-            if (var32 != null && var32.size() > 0) {
-                for (var33 = 0; var33 < var32.size(); ++var33) {
-                    OEntity var34 = (OEntity) var32.get(var33);
-
-                    if (var34 != this.bg && var34.e_() && var34 instanceof OEntityBoat) {
-                        var34.k(this);
+                    for (k = 0; k < 2; ++k) {
+                        this.a(OItem.D.bT, 1, 0.0F);
                     }
                 }
+            } else {
+                this.w *= 0.9900000095367432D;
+                this.x *= 0.949999988079071D;
+                this.y *= 0.9900000095367432D;
             }
 
-            for (var33 = 0; var33 < 4; ++var33) {
-                int var37 = OMathHelper.b(this.bm + ((double) (var33 % 2) - 0.5D) * 0.8D);
-                int var35 = OMathHelper.b(this.bn);
-                int var36 = OMathHelper.b(this.bo + ((double) (var33 / 2) - 0.5D) * 0.8D);
+            this.A = 0.0F;
+            d5 = (double) this.z;
+            d10 = this.q - this.t;
+            d11 = this.s - this.v;
+            if (d10 * d10 + d11 * d11 > 0.001D) {
+                d5 = (double) ((float) (Math.atan2(d11, d10) * 180.0D / 3.141592653589793D));
+            }
 
-                if (this.bi.a(var37, var35, var36) == OBlock.aS.bO) {
-                    this.bi.e(var37, var35, var36, 0);
+            double d12 = OMathHelper.g(d5 - (double) this.z);
+
+            if (d12 > 20.0D) {
+                d12 = 20.0D;
+            }
+
+            if (d12 < -20.0D) {
+                d12 = -20.0D;
+            }
+
+            this.z = (float) ((double) this.z + d12);
+            this.b(this.z, this.A);
+            if (!this.p.K) {
+                // CanaryMod: Change of the boat
+                if ((int) this.q != (int) prevX || (int) this.r != (int) prevY || (int) this.s != (int) prevZ) {
+                    manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, boat, (int) this.q, (int) this.r, (int) this.s);
+                }
+
+                List list = this.p.b((OEntity) this, this.D.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+
+                if (list != null && !list.isEmpty()) {
+                    Iterator iterator = list.iterator();
+
+                    while (iterator.hasNext()) {
+                        OEntity oentity = (OEntity) iterator.next();
+
+                        if (oentity != this.n && oentity.M() && oentity instanceof OEntityBoat) {
+                            oentity.f(this);
+                        }
+                    }
+                }
+
+                for (int l = 0; l < 4; ++l) {
+                    int i1 = OMathHelper.c(this.t + ((double) (l % 2) - 0.5D) * 0.8D);
+                    int j1 = OMathHelper.c(this.v + ((double) (l / 2) - 0.5D) * 0.8D);
+
+                    for (int k1 = 0; k1 < 2; ++k1) {
+                        int l1 = OMathHelper.c(this.u) + k1;
+                        int i2 = this.p.a(i1, l1, j1);
+                        int j2 = this.p.g(i1, l1, j1);
+
+                        if (i2 == OBlock.aS.ca) {
+                            this.p.e(i1, l1, j1, 0);
+                        } else if (i2 == OBlock.bz.ca) {
+                            OBlock.bz.a(this.p, i1, l1, j1, j2, 0.3F, 0);
+                            this.p.e(i1, l1, j1, 0);
+                        }
+                    }
+                }
+
+                if (this.n != null && this.n.L) {
+                    this.n = null;
                 }
             }
-
-            if (this.bg != null && this.bg.bE) {
-                this.bg = null;
-            }
-
         }
     }
 
-    public void i_() {
-        if (this.bg != null) {
-            double var1 = Math.cos((double) this.bs * 3.141592653589793D / 180.0D) * 0.4D;
-            double var3 = Math.sin((double) this.bs * 3.141592653589793D / 180.0D) * 0.4D;
+    public void V() {
+        if (this.n != null) {
+            double d0 = Math.cos((double) this.z * 3.141592653589793D / 180.0D) * 0.4D;
+            double d1 = Math.sin((double) this.z * 3.141592653589793D / 180.0D) * 0.4D;
 
-            this.bg.c(this.bm + var1, this.bn + this.x_() + this.bg.W(), this.bo + var3);
+            this.n.b(this.t + d0, this.u + this.X() + this.n.W(), this.v + d1);
         }
     }
 
-    protected void b(ONBTTagCompound var1) {}
+    protected void b(ONBTTagCompound onbttagcompound) {}
 
-    protected void a(ONBTTagCompound var1) {}
+    protected void a(ONBTTagCompound onbttagcompound) {}
 
-    public boolean b(OEntityPlayer var1) {
+    public boolean c(OEntityPlayer oentityplayer) {
         // CanaryMod: Entering the boat
-        manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, boat, var1.entity);
+        manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, boat, oentityplayer.entity);
         
-        if (this.bg != null && this.bg instanceof OEntityPlayer && this.bg != var1) {
+        if (this.n != null && this.n instanceof OEntityPlayer && this.n != oentityplayer) {
             return true;
         } else {
-            if (!this.bi.F) {
-                var1.b((OEntity) this);
+            if (!this.p.K) {
+                oentityplayer.a((OEntity) this);
             }
 
             return true;
         }
     }
 
-    public void b(int var1) {
-        this.bY.b(19, Integer.valueOf(var1));
+    public void a(int i) {
+        this.af.b(19, Integer.valueOf(i));
     }
 
-    public int k() {
-        return this.bY.c(19);
+    public int g() {
+        return this.af.c(19);
     }
 
-    public void c(int var1) {
-        this.bY.b(17, Integer.valueOf(var1));
+    public void b(int i) {
+        this.af.b(17, Integer.valueOf(i));
     }
 
-    public int l() {
-        return this.bY.c(17);
+    public int h() {
+        return this.af.c(17);
     }
 
-    public void d(int var1) {
-        this.bY.b(18, Integer.valueOf(var1));
+    public void c(int i) {
+        this.af.b(18, Integer.valueOf(i));
     }
 
-    public int m() {
-        return this.bY.c(18);
+    public int i() {
+        return this.af.c(18);
     }
 }

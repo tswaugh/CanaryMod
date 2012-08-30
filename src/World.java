@@ -82,16 +82,16 @@ public class World {
 
     public enum Type {
 
-        DEFAULT(OEnumWorldType.b),
-        FLAT(OEnumWorldType.c),
-        DEFAULT_1_1(OEnumWorldType.d);
-        private OEnumWorldType nativeType;
+        DEFAULT(OWorldType.b),
+        FLAT(OWorldType.c),
+        DEFAULT_1_1(OWorldType.d);
+        private OWorldType nativeType;
 
-        private Type(OEnumWorldType nativeType) {
+        private Type(OWorldType nativeType) {
             this.nativeType = nativeType;
         }
 
-        public OEnumWorldType getNative() {
+        public OWorldType getNative() {
             return nativeType;
         }
     }
@@ -183,7 +183,7 @@ public class World {
         List<Mob> toRet = new ArrayList<Mob>();
 
         for (Object o : world.b) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityLavaSlime) {
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityMagmaCube) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
         }
@@ -199,7 +199,7 @@ public class World {
         List<Mob> toRet = new ArrayList<Mob>();
 
         for (Object o : world.b) {
-            if (o instanceof OEntityAnimal || o instanceof OEntitySquid || o instanceof OEntitySnowMan) {
+            if (o instanceof OEntityAnimal || o instanceof OEntitySquid || o instanceof OEntitySnowman) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
         }
@@ -247,7 +247,7 @@ public class World {
         List<BaseEntity> toRet = new ArrayList<BaseEntity>();
 
         for (Object o : world.b) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowMan) {
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityMagmaCube || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowman) {
                 toRet.add(new Mob((OEntityLiving) o));
             } else if (o instanceof OEntityMinecart) {
                 toRet.add(((OEntityMinecart) o).cart);
@@ -288,7 +288,7 @@ public class World {
         List<LivingEntity> toRet = new ArrayList<LivingEntity>();
 
         for (Object o : world.b) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityLavaSlime || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntityGolem) {
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityMagmaCube || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntityGolem) {
                 toRet.add(new Mob((OEntityLiving) o));
             } else if (o instanceof OEntityPlayerMP) {
                 toRet.add(((OEntityPlayerMP) o).getPlayer());

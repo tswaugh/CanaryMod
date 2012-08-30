@@ -1,95 +1,87 @@
 
 public class OEntityCow extends OEntityAnimal {
 
-    public OEntityCow(OWorld var1) {
-        super(var1);
-        this.ae = "/mob/cow.png";
-        this.b(0.9F, 1.3F);
-        this.al().a(true);
-        this.aL.a(0, new OEntityAISwimming(this));
-        this.aL.a(1, new OEntityAIPanic(this, 0.38F));
-        this.aL.a(2, new OEntityAIMate(this, 0.2F));
-        this.aL.a(3, new OEntityAITempt(this, 0.25F, OItem.S.bP, false));
-        this.aL.a(4, new OEntityAIFollowParent(this, 0.25F));
-        this.aL.a(5, new OEntityAIWander(this, 0.2F));
-        this.aL.a(6, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
-        this.aL.a(7, new OEntityAILookIdle(this));
+    public OEntityCow(OWorld oworld) {
+        super(oworld);
+        this.az = "/mob/cow.png";
+        this.a(0.9F, 1.3F);
+        this.as().a(true);
+        this.bg.a(0, new OEntityAISwimming(this));
+        this.bg.a(1, new OEntityAIPanic(this, 0.38F));
+        this.bg.a(2, new OEntityAIMate(this, 0.2F));
+        this.bg.a(3, new OEntityAITempt(this, 0.25F, OItem.T.bT, false));
+        this.bg.a(4, new OEntityAIFollowParent(this, 0.25F));
+        this.bg.a(5, new OEntityAIWander(this, 0.2F));
+        this.bg.a(6, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
+        this.bg.a(7, new OEntityAILookIdle(this));
     }
 
-    public boolean c_() {
+    public boolean aV() {
         return true;
     }
 
-    public int d() {
+    public int aM() {
         return 10;
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-    }
-
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-    }
-
-    protected String i() {
+    protected String aQ() {
         return "mob.cow";
     }
 
-    protected String j() {
+    protected String aR() {
         return "mob.cowhurt";
     }
 
-    protected String k() {
+    protected String aS() {
         return "mob.cowhurt";
     }
 
-    protected float p() {
+    protected float aP() {
         return 0.4F;
     }
 
-    protected int f() {
-        return OItem.aE.bP;
+    protected int aT() {
+        return OItem.aF.bT;
     }
 
-    protected void a(boolean var1, int var2) {
-        int var3 = this.bS.nextInt(3) + this.bS.nextInt(1 + var2);
+    protected void a(boolean flag, int i) {
+        int j = this.Z.nextInt(3) + this.Z.nextInt(1 + i);
 
-        int var4;
+        int k;
 
-        for (var4 = 0; var4 < var3; ++var4) {
-            this.b(OItem.aE.bP, 1);
+        for (k = 0; k < j; ++k) {
+            this.b(OItem.aF.bT, 1);
         }
 
-        var3 = this.bS.nextInt(3) + 1 + this.bS.nextInt(1 + var2);
+        j = this.Z.nextInt(3) + 1 + this.Z.nextInt(1 + i);
 
-        for (var4 = 0; var4 < var3; ++var4) {
-            if (this.B_()) {
-                this.b(OItem.bi.bP, 1);
+        for (k = 0; k < j; ++k) {
+            if (this.ad()) {
+                this.b(OItem.bj.bT, 1);
             } else {
-                this.b(OItem.bh.bP, 1);
+                this.b(OItem.bi.bT, 1);
             }
         }
 
     }
 
-    public boolean b(OEntityPlayer var1) {
-        OItemStack var2 = var1.k.d();
+    public boolean c(OEntityPlayer oentityplayer) {
+        OItemStack oitemstack = oentityplayer.by.g();
 
-        if (var2 != null && var2.c == OItem.av.bP) {
-            // CanaryMod hook: onCowMilk
-            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) var1).getPlayer(), new Mob(this))) {
-                var1.k.a(var1.k.c, new OItemStack(OItem.aF));
-                return true;
-            } else {
-                return super.b(var1);
+        if (oitemstack != null && oitemstack.c == OItem.aw.bT && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob(this))) {
+            if (--oitemstack.a <= 0) {
+                oentityplayer.by.a(oentityplayer.by.c, new OItemStack(OItem.aG));
+            } else if (!oentityplayer.by.a(new OItemStack(OItem.aG))) {
+                oentityplayer.b(new OItemStack(OItem.aG.bT, 1, 0));
             }
+            
+            return true;
         } else {
-            return super.b(var1);
+            return super.c(oentityplayer);
         }
     }
 
-    public OEntityAnimal a(OEntityAnimal var1) {
-        return new OEntityCow(this.bi);
+    public OEntityAnimal a(OEntityAnimal oentityanimal) {
+        return new OEntityCow(this.p);
     }
 }

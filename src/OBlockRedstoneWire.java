@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -9,364 +10,365 @@ public class OBlockRedstoneWire extends OBlock {
     private boolean a = true;
     private Set b = new HashSet();
 
-    public OBlockRedstoneWire(int var1, int var2) {
-        super(var1, var2, OMaterial.p);
+    public OBlockRedstoneWire(int i, int j) {
+        super(i, j, OMaterial.p);
         this.a(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
     }
 
-    public int a(int var1, int var2) {
-        return this.bN;
+    public int a(int i, int j) {
+        return this.bZ;
     }
 
-    public OAxisAlignedBB e(OWorld var1, int var2, int var3, int var4) {
+    public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
         return null;
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 
-    public int c() {
+    public int b() {
         return 5;
     }
 
-    public boolean c(OWorld var1, int var2, int var3, int var4) {
-        return var1.e(var2, var3 - 1, var4) || var1.a(var2, var3 - 1, var4) == OBlock.bd.bO;
+    public boolean b(OWorld oworld, int i, int j, int k) {
+        return oworld.t(i, j - 1, k) || oworld.a(i, j - 1, k) == OBlock.bd.ca;
     }
 
-    private void g(OWorld var1, int var2, int var3, int var4) {
-        this.a(var1, var2, var3, var4, var2, var3, var4);
-        ArrayList var5 = new ArrayList(this.b);
+    private void l(OWorld oworld, int i, int j, int k) {
+        this.a(oworld, i, j, k, i, j, k);
+        ArrayList arraylist = new ArrayList(this.b);
 
         this.b.clear();
+        Iterator iterator = arraylist.iterator();
 
-        for (int var6 = 0; var6 < var5.size(); ++var6) {
-            OChunkPosition var7 = (OChunkPosition) var5.get(var6);
+        while (iterator.hasNext()) {
+            OChunkPosition ochunkposition = (OChunkPosition) iterator.next();
 
-            var1.h(var7.a, var7.b, var7.c, this.bO);
+            oworld.h(ochunkposition.a, ochunkposition.b, ochunkposition.c, this.ca);
         }
 
     }
 
-    private void a(OWorld var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-        int var8 = var1.c(var2, var3, var4);
-        int var9 = 0;
+    private void a(OWorld oworld, int i, int j, int k, int l, int i1, int j1) {
+        int k1 = oworld.g(i, j, k);
+        int l1 = 0;
 
         this.a = false;
-        boolean var10 = var1.x(var2, var3, var4);
+        boolean flag = oworld.z(i, j, k);
 
         this.a = true;
-        int var11;
-        int var12;
-        int var13;
+        int i2;
+        int j2;
+        int k2;
 
-        if (var10) {
-            var9 = 15;
+        if (flag) {
+            l1 = 15;
         } else {
-            for (var11 = 0; var11 < 4; ++var11) {
-                var12 = var2;
-                var13 = var4;
-                if (var11 == 0) {
-                    var12 = var2 - 1;
+            for (i2 = 0; i2 < 4; ++i2) {
+                j2 = i;
+                k2 = k;
+                if (i2 == 0) {
+                    j2 = i - 1;
                 }
 
-                if (var11 == 1) {
-                    ++var12;
+                if (i2 == 1) {
+                    ++j2;
                 }
 
-                if (var11 == 2) {
-                    var13 = var4 - 1;
+                if (i2 == 2) {
+                    k2 = k - 1;
                 }
 
-                if (var11 == 3) {
-                    ++var13;
+                if (i2 == 3) {
+                    ++k2;
                 }
 
-                if (var12 != var5 || var3 != var6 || var13 != var7) {
-                    var9 = this.f(var1, var12, var3, var13, var9);
+                if (j2 != l || j != i1 || k2 != j1) {
+                    l1 = this.e(oworld, j2, j, k2, l1);
                 }
 
-                if (var1.e(var12, var3, var13) && !var1.e(var2, var3 + 1, var4)) {
-                    if (var12 != var5 || var3 + 1 != var6 || var13 != var7) {
-                        var9 = this.f(var1, var12, var3 + 1, var13, var9);
+                if (oworld.s(j2, j, k2) && !oworld.s(i, j + 1, k)) {
+                    if (j2 != l || j + 1 != i1 || k2 != j1) {
+                        l1 = this.e(oworld, j2, j + 1, k2, l1);
                     }
-                } else if (!var1.e(var12, var3, var13) && (var12 != var5 || var3 - 1 != var6 || var13 != var7)) {
-                    var9 = this.f(var1, var12, var3 - 1, var13, var9);
+                } else if (!oworld.s(j2, j, k2) && (j2 != l || j - 1 != i1 || k2 != j1)) {
+                    l1 = this.e(oworld, j2, j - 1, k2, l1);
                 }
             }
 
-            if (var9 > 0) {
-                --var9;
+            if (l1 > 0) {
+                --l1;
             } else {
-                var9 = 0;
+                l1 = 0;
             }
         }
 		
-		// CanaryMod: Allow redstone wire current changes
-        if (var8 != var9) {
-            var9 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(var1.world, bO, var2, var3, var4), var8, var9);
+        // CanaryMod: Allow redstone wire current changes
+        if (k1 != l1) {
+            l1 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.ca, i, j, k), k1, l1);
         }
 
-        if (var8 != var9) {
-            var1.o = true;
-            var1.c(var2, var3, var4, var9);
-            var1.b(var2, var3, var4, var2, var3, var4);
-            var1.o = false;
+        if (k1 != l1) {
+            oworld.t = true;
+            oworld.c(i, j, k, l1);
+            oworld.d(i, j, k, i, j, k);
+            oworld.t = false;
 
-            for (var11 = 0; var11 < 4; ++var11) {
-                var12 = var2;
-                var13 = var4;
-                int var14 = var3 - 1;
+            for (i2 = 0; i2 < 4; ++i2) {
+                j2 = i;
+                k2 = k;
+                int l2 = j - 1;
 
-                if (var11 == 0) {
-                    var12 = var2 - 1;
+                if (i2 == 0) {
+                    j2 = i - 1;
                 }
 
-                if (var11 == 1) {
-                    ++var12;
+                if (i2 == 1) {
+                    ++j2;
                 }
 
-                if (var11 == 2) {
-                    var13 = var4 - 1;
+                if (i2 == 2) {
+                    k2 = k - 1;
                 }
 
-                if (var11 == 3) {
-                    ++var13;
+                if (i2 == 3) {
+                    ++k2;
                 }
 
-                if (var1.e(var12, var3, var13)) {
-                    var14 += 2;
+                if (oworld.s(j2, j, k2)) {
+                    l2 += 2;
                 }
 
-                boolean var15 = false;
-                int var16 = this.f(var1, var12, var3, var13, -1);
+                boolean flag1 = false;
+                int i3 = this.e(oworld, j2, j, k2, -1);
 
-                var9 = var1.c(var2, var3, var4);
-                if (var9 > 0) {
-                    --var9;
+                l1 = oworld.g(i, j, k);
+                if (l1 > 0) {
+                    --l1;
                 }
 
-                if (var16 >= 0 && var16 != var9) {
-                    this.a(var1, var12, var3, var13, var2, var3, var4);
+                if (i3 >= 0 && i3 != l1) {
+                    this.a(oworld, j2, j, k2, i, j, k);
                 }
 
-                var16 = this.f(var1, var12, var14, var13, -1);
-                var9 = var1.c(var2, var3, var4);
-                if (var9 > 0) {
-                    --var9;
+                i3 = this.e(oworld, j2, l2, k2, -1);
+                l1 = oworld.g(i, j, k);
+                if (l1 > 0) {
+                    --l1;
                 }
 
-                if (var16 >= 0 && var16 != var9) {
-                    this.a(var1, var12, var14, var13, var2, var3, var4);
+                if (i3 >= 0 && i3 != l1) {
+                    this.a(oworld, j2, l2, k2, i, j, k);
                 }
             }
 
-            if (var8 < var9 || var9 == 0) {
-                this.b.add(new OChunkPosition(var2, var3, var4));
-                this.b.add(new OChunkPosition(var2 - 1, var3, var4));
-                this.b.add(new OChunkPosition(var2 + 1, var3, var4));
-                this.b.add(new OChunkPosition(var2, var3 - 1, var4));
-                this.b.add(new OChunkPosition(var2, var3 + 1, var4));
-                this.b.add(new OChunkPosition(var2, var3, var4 - 1));
-                this.b.add(new OChunkPosition(var2, var3, var4 + 1));
+            if (k1 < l1 || l1 == 0) {
+                this.b.add(new OChunkPosition(i, j, k));
+                this.b.add(new OChunkPosition(i - 1, j, k));
+                this.b.add(new OChunkPosition(i + 1, j, k));
+                this.b.add(new OChunkPosition(i, j - 1, k));
+                this.b.add(new OChunkPosition(i, j + 1, k));
+                this.b.add(new OChunkPosition(i, j, k - 1));
+                this.b.add(new OChunkPosition(i, j, k + 1));
             }
         }
 
     }
 
-    private void h(OWorld var1, int var2, int var3, int var4) {
-        if (var1.a(var2, var3, var4) == this.bO) {
-            var1.h(var2, var3, var4, this.bO);
-            var1.h(var2 - 1, var3, var4, this.bO);
-            var1.h(var2 + 1, var3, var4, this.bO);
-            var1.h(var2, var3, var4 - 1, this.bO);
-            var1.h(var2, var3, var4 + 1, this.bO);
-            var1.h(var2, var3 - 1, var4, this.bO);
-            var1.h(var2, var3 + 1, var4, this.bO);
+    private void n(OWorld oworld, int i, int j, int k) {
+        if (oworld.a(i, j, k) == this.ca) {
+            oworld.h(i, j, k, this.ca);
+            oworld.h(i - 1, j, k, this.ca);
+            oworld.h(i + 1, j, k, this.ca);
+            oworld.h(i, j, k - 1, this.ca);
+            oworld.h(i, j, k + 1, this.ca);
+            oworld.h(i, j - 1, k, this.ca);
+            oworld.h(i, j + 1, k, this.ca);
         }
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4) {
-        super.a(var1, var2, var3, var4);
-        if (!var1.F) {
-            this.g(var1, var2, var3, var4);
-            var1.h(var2, var3 + 1, var4, this.bO);
-            var1.h(var2, var3 - 1, var4, this.bO);
-            this.h(var1, var2 - 1, var3, var4);
-            this.h(var1, var2 + 1, var3, var4);
-            this.h(var1, var2, var3, var4 - 1);
-            this.h(var1, var2, var3, var4 + 1);
-            if (var1.e(var2 - 1, var3, var4)) {
-                this.h(var1, var2 - 1, var3 + 1, var4);
+    public void g(OWorld oworld, int i, int j, int k) {
+        super.g(oworld, i, j, k);
+        if (!oworld.K) {
+            this.l(oworld, i, j, k);
+            oworld.h(i, j + 1, k, this.ca);
+            oworld.h(i, j - 1, k, this.ca);
+            this.n(oworld, i - 1, j, k);
+            this.n(oworld, i + 1, j, k);
+            this.n(oworld, i, j, k - 1);
+            this.n(oworld, i, j, k + 1);
+            if (oworld.s(i - 1, j, k)) {
+                this.n(oworld, i - 1, j + 1, k);
             } else {
-                this.h(var1, var2 - 1, var3 - 1, var4);
+                this.n(oworld, i - 1, j - 1, k);
             }
 
-            if (var1.e(var2 + 1, var3, var4)) {
-                this.h(var1, var2 + 1, var3 + 1, var4);
+            if (oworld.s(i + 1, j, k)) {
+                this.n(oworld, i + 1, j + 1, k);
             } else {
-                this.h(var1, var2 + 1, var3 - 1, var4);
+                this.n(oworld, i + 1, j - 1, k);
             }
 
-            if (var1.e(var2, var3, var4 - 1)) {
-                this.h(var1, var2, var3 + 1, var4 - 1);
+            if (oworld.s(i, j, k - 1)) {
+                this.n(oworld, i, j + 1, k - 1);
             } else {
-                this.h(var1, var2, var3 - 1, var4 - 1);
+                this.n(oworld, i, j - 1, k - 1);
             }
 
-            if (var1.e(var2, var3, var4 + 1)) {
-                this.h(var1, var2, var3 + 1, var4 + 1);
+            if (oworld.s(i, j, k + 1)) {
+                this.n(oworld, i, j + 1, k + 1);
             } else {
-                this.h(var1, var2, var3 - 1, var4 + 1);
-            }
-
-        }
-    }
-
-    public void d(OWorld var1, int var2, int var3, int var4) {
-        super.d(var1, var2, var3, var4);
-        if (!var1.F) {
-            var1.h(var2, var3 + 1, var4, this.bO);
-            var1.h(var2, var3 - 1, var4, this.bO);
-            var1.h(var2 + 1, var3, var4, this.bO);
-            var1.h(var2 - 1, var3, var4, this.bO);
-            var1.h(var2, var3, var4 + 1, this.bO);
-            var1.h(var2, var3, var4 - 1, this.bO);
-            this.g(var1, var2, var3, var4);
-            this.h(var1, var2 - 1, var3, var4);
-            this.h(var1, var2 + 1, var3, var4);
-            this.h(var1, var2, var3, var4 - 1);
-            this.h(var1, var2, var3, var4 + 1);
-            if (var1.e(var2 - 1, var3, var4)) {
-                this.h(var1, var2 - 1, var3 + 1, var4);
-            } else {
-                this.h(var1, var2 - 1, var3 - 1, var4);
-            }
-
-            if (var1.e(var2 + 1, var3, var4)) {
-                this.h(var1, var2 + 1, var3 + 1, var4);
-            } else {
-                this.h(var1, var2 + 1, var3 - 1, var4);
-            }
-
-            if (var1.e(var2, var3, var4 - 1)) {
-                this.h(var1, var2, var3 + 1, var4 - 1);
-            } else {
-                this.h(var1, var2, var3 - 1, var4 - 1);
-            }
-
-            if (var1.e(var2, var3, var4 + 1)) {
-                this.h(var1, var2, var3 + 1, var4 + 1);
-            } else {
-                this.h(var1, var2, var3 - 1, var4 + 1);
+                this.n(oworld, i, j - 1, k + 1);
             }
 
         }
     }
 
-    private int f(OWorld var1, int var2, int var3, int var4, int var5) {
-        if (var1.a(var2, var3, var4) != this.bO) {
-            return var5;
+    public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
+        super.a(oworld, i, j, k, l, i1);
+        if (!oworld.K) {
+            oworld.h(i, j + 1, k, this.ca);
+            oworld.h(i, j - 1, k, this.ca);
+            oworld.h(i + 1, j, k, this.ca);
+            oworld.h(i - 1, j, k, this.ca);
+            oworld.h(i, j, k + 1, this.ca);
+            oworld.h(i, j, k - 1, this.ca);
+            this.l(oworld, i, j, k);
+            this.n(oworld, i - 1, j, k);
+            this.n(oworld, i + 1, j, k);
+            this.n(oworld, i, j, k - 1);
+            this.n(oworld, i, j, k + 1);
+            if (oworld.s(i - 1, j, k)) {
+                this.n(oworld, i - 1, j + 1, k);
+            } else {
+                this.n(oworld, i - 1, j - 1, k);
+            }
+
+            if (oworld.s(i + 1, j, k)) {
+                this.n(oworld, i + 1, j + 1, k);
+            } else {
+                this.n(oworld, i + 1, j - 1, k);
+            }
+
+            if (oworld.s(i, j, k - 1)) {
+                this.n(oworld, i, j + 1, k - 1);
+            } else {
+                this.n(oworld, i, j - 1, k - 1);
+            }
+
+            if (oworld.s(i, j, k + 1)) {
+                this.n(oworld, i, j + 1, k + 1);
+            } else {
+                this.n(oworld, i, j - 1, k + 1);
+            }
+
+        }
+    }
+
+    private int e(OWorld oworld, int i, int j, int k, int l) {
+        if (oworld.a(i, j, k) != this.ca) {
+            return l;
         } else {
-            int var6 = var1.c(var2, var3, var4);
+            int i1 = oworld.g(i, j, k);
 
-            return var6 > var5 ? var6 : var5;
+            return i1 > l ? i1 : l;
         }
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, int var5) {
-        if (!var1.F) {
-            int var6 = var1.c(var2, var3, var4);
-            boolean var7 = this.c(var1, var2, var3, var4);
+    public void a(OWorld oworld, int i, int j, int k, int l) {
+        if (!oworld.K) {
+            int i1 = oworld.g(i, j, k);
+            boolean flag = this.b(oworld, i, j, k);
 
-            if (!var7) {
-                this.b(var1, var2, var3, var4, var6, 0);
-                var1.e(var2, var3, var4, 0);
+            if (flag) {
+                this.l(oworld, i, j, k);
             } else {
-                this.g(var1, var2, var3, var4);
+                this.c(oworld, i, j, k, i1, 0);
+                oworld.e(i, j, k, 0);
             }
 
-            super.a(var1, var2, var3, var4, var5);
+            super.a(oworld, i, j, k, l);
         }
     }
 
-    public int a(int var1, Random var2, int var3) {
-        return OItem.aB.bP;
+    public int a(int i, Random random, int j) {
+        return OItem.aC.bT;
     }
 
-    public boolean d(OWorld var1, int var2, int var3, int var4, int var5) {
-        return !this.a ? false : this.a((OIBlockAccess) var1, var2, var3, var4, var5);
+    public boolean c(OWorld oworld, int i, int j, int k, int l) {
+        return !this.a ? false : this.a((OIBlockAccess) oworld, i, j, k, l);
     }
 
-    public boolean a(OIBlockAccess var1, int var2, int var3, int var4, int var5) {
+    public boolean a(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
         if (!this.a) {
             return false;
-        } else if (var1.c(var2, var3, var4) == 0) {
+        } else if (oiblockaccess.g(i, j, k) == 0) {
             return false;
-        } else if (var5 == 1) {
+        } else if (l == 1) {
             return true;
         } else {
-            boolean var6 = d(var1, var2 - 1, var3, var4, 1) || !var1.e(var2 - 1, var3, var4) && d(var1, var2 - 1, var3 - 1, var4, -1);
-            boolean var7 = d(var1, var2 + 1, var3, var4, 3) || !var1.e(var2 + 1, var3, var4) && d(var1, var2 + 1, var3 - 1, var4, -1);
-            boolean var8 = d(var1, var2, var3, var4 - 1, 2) || !var1.e(var2, var3, var4 - 1) && d(var1, var2, var3 - 1, var4 - 1, -1);
-            boolean var9 = d(var1, var2, var3, var4 + 1, 0) || !var1.e(var2, var3, var4 + 1) && d(var1, var2, var3 - 1, var4 + 1, -1);
+            boolean flag = f(oiblockaccess, i - 1, j, k, 1) || !oiblockaccess.s(i - 1, j, k) && f(oiblockaccess, i - 1, j - 1, k, -1);
+            boolean flag1 = f(oiblockaccess, i + 1, j, k, 3) || !oiblockaccess.s(i + 1, j, k) && f(oiblockaccess, i + 1, j - 1, k, -1);
+            boolean flag2 = f(oiblockaccess, i, j, k - 1, 2) || !oiblockaccess.s(i, j, k - 1) && f(oiblockaccess, i, j - 1, k - 1, -1);
+            boolean flag3 = f(oiblockaccess, i, j, k + 1, 0) || !oiblockaccess.s(i, j, k + 1) && f(oiblockaccess, i, j - 1, k + 1, -1);
 
-            if (!var1.e(var2, var3 + 1, var4)) {
-                if (var1.e(var2 - 1, var3, var4) && d(var1, var2 - 1, var3 + 1, var4, -1)) {
-                    var6 = true;
+            if (!oiblockaccess.s(i, j + 1, k)) {
+                if (oiblockaccess.s(i - 1, j, k) && f(oiblockaccess, i - 1, j + 1, k, -1)) {
+                    flag = true;
                 }
 
-                if (var1.e(var2 + 1, var3, var4) && d(var1, var2 + 1, var3 + 1, var4, -1)) {
-                    var7 = true;
+                if (oiblockaccess.s(i + 1, j, k) && f(oiblockaccess, i + 1, j + 1, k, -1)) {
+                    flag1 = true;
                 }
 
-                if (var1.e(var2, var3, var4 - 1) && d(var1, var2, var3 + 1, var4 - 1, -1)) {
-                    var8 = true;
+                if (oiblockaccess.s(i, j, k - 1) && f(oiblockaccess, i, j + 1, k - 1, -1)) {
+                    flag2 = true;
                 }
 
-                if (var1.e(var2, var3, var4 + 1) && d(var1, var2, var3 + 1, var4 + 1, -1)) {
-                    var9 = true;
+                if (oiblockaccess.s(i, j, k + 1) && f(oiblockaccess, i, j + 1, k + 1, -1)) {
+                    flag3 = true;
                 }
             }
 
-            return !var8 && !var7 && !var6 && !var9 && var5 >= 2 && var5 <= 5 ? true : (var5 == 2 && var8 && !var6 && !var7 ? true : (var5 == 3 && var9 && !var6 && !var7 ? true : (var5 == 4 && var6 && !var8 && !var9 ? true : var5 == 5 && var7 && !var8 && !var9)));
+            return !flag2 && !flag1 && !flag && !flag3 && l >= 2 && l <= 5 ? true : (l == 2 && flag2 && !flag && !flag1 ? true : (l == 3 && flag3 && !flag && !flag1 ? true : (l == 4 && flag && !flag2 && !flag3 ? true : l == 5 && flag1 && !flag2 && !flag3)));
         }
     }
 
-    public boolean e() {
+    public boolean i() {
         return this.a;
     }
 
-    public static boolean c(OIBlockAccess var0, int var1, int var2, int var3, int var4) {
-        int var5 = var0.a(var1, var2, var3);
+    public static boolean e(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+        int i1 = oiblockaccess.a(i, j, k);
 
-        if (var5 == OBlock.av.bO) {
+        if (i1 == OBlock.av.ca) {
             return true;
-        } else if (var5 == 0) {
+        } else if (i1 == 0) {
             return false;
-        } else if (var5 != OBlock.bh.bO && var5 != OBlock.bi.bO) {
-            return OBlock.m[var5].e() && var4 != -1;
+        } else if (i1 != OBlock.bh.ca && i1 != OBlock.bi.ca) {
+            return OBlock.m[i1].i() && l != -1;
         } else {
-            int var6 = var0.c(var1, var2, var3);
+            int j1 = oiblockaccess.g(i, j, k);
 
-            return var4 == (var6 & 3) || var4 == ODirection.e[var6 & 3];
+            return l == (j1 & 3) || l == ODirection.e[j1 & 3];
         }
     }
 
-    public static boolean d(OIBlockAccess var0, int var1, int var2, int var3, int var4) {
-        if (c(var0, var1, var2, var3, var4)) {
+    public static boolean f(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+        if (e(oiblockaccess, i, j, k, l)) {
             return true;
         } else {
-            int var5 = var0.a(var1, var2, var3);
+            int i1 = oiblockaccess.a(i, j, k);
 
-            if (var5 == OBlock.bi.bO) {
-                int var6 = var0.c(var1, var2, var3);
+            if (i1 == OBlock.bi.ca) {
+                int j1 = oiblockaccess.g(i, j, k);
 
-                return var4 == (var6 & 3);
+                return l == (j1 & 3);
             } else {
                 return false;
             }

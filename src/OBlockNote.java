@@ -1,82 +1,82 @@
 
 public class OBlockNote extends OBlockContainer {
 
-    public OBlockNote(int var1) {
-        super(var1, 74, OMaterial.d);
+    public OBlockNote(int i) {
+        super(i, 74, OMaterial.d);
+        this.a(OCreativeTabs.d);
     }
 
-    public int a(int var1) {
-        return this.bN;
+    public int a(int i) {
+        return this.bZ;
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, int var5) {
-        if (var5 > 0) {
-            boolean var6 = var1.x(var2, var3, var4);
-            OTileEntityNote var7 = (OTileEntityNote) var1.b(var2, var3, var4);
+    public void a(OWorld oworld, int i, int j, int k, int l) {
+        if (l > 0) {
+            boolean flag = oworld.z(i, j, k);
+            OTileEntityNote otileentitynote = (OTileEntityNote) oworld.p(i, j, k);
 
-            if (var7 != null && var7.b != var6) {
-                if (var6) {
-                    var7.a(var1, var2, var3, var4);
+            if (otileentitynote != null && otileentitynote.b != flag) {
+                if (flag) {
+                    otileentitynote.a(oworld, i, j, k);
                 }
 
-                var7.b = var6;
+                otileentitynote.b = flag;
             }
         }
 
     }
 
-    public boolean a(OWorld var1, int var2, int var3, int var4, OEntityPlayer var5) {
-        if (var1.F) {
+    public boolean a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer, int l, float f, float f1, float f2) {
+        if (oworld.K) {
             return true;
         } else {
-            OTileEntityNote var6 = (OTileEntityNote) var1.b(var2, var3, var4);
+            OTileEntityNote otileentitynote = (OTileEntityNote) oworld.p(i, j, k);
 
-            if (var6 != null) {
-                var6.c();
-                var6.a(var1, var2, var3, var4);
+            if (otileentitynote != null) {
+                otileentitynote.a();
+                otileentitynote.a(oworld, i, j, k);
             }
 
             return true;
         }
     }
 
-    public void b(OWorld var1, int var2, int var3, int var4, OEntityPlayer var5) {
-        if (!var1.F) {
-            OTileEntityNote var6 = (OTileEntityNote) var1.b(var2, var3, var4);
+    public void a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {
+        if (!oworld.K) {
+            OTileEntityNote otileentitynote = (OTileEntityNote) oworld.p(i, j, k);
 
-            if (var6 != null) {
-                var6.a(var1, var2, var3, var4);
+            if (otileentitynote != null) {
+                otileentitynote.a(oworld, i, j, k);
             }
 
         }
     }
 
-    public OTileEntity a_() {
+    public OTileEntity a(OWorld oworld) {
         return new OTileEntityNote();
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, int var5, int var6) {
-        float var7 = (float) Math.pow(2.0D, (double) (var6 - 12) / 12.0D);
-        String var8 = "harp";
+    public void b(OWorld oworld, int i, int j, int k, int l, int i1) {
+        float f = (float) Math.pow(2.0D, (double) (i1 - 12) / 12.0D);
+        String s = "harp";
 
-        if (var5 == 1) {
-            // CanaryMod: bd gets jarjar'd, reverse here
-            var8 = "bd";
+        if (l == 1) {
+            s = "bd";
         }
 
-        if (var5 == 2) {
-            var8 = "snare";
+        if (l == 2) {
+            s = "snare";
         }
 
-        if (var5 == 3) {
-            var8 = "hat";
+        if (l == 3) {
+            s = "hat";
         }
 
-        if (var5 == 4) {
-            var8 = "bassattack";
+        if (l == 4) {
+            s = "bassattack";
         }
 
-        var1.a((double) var2 + 0.5D, (double) var3 + 0.5D, (double) var4 + 0.5D, "note." + var8, 3.0F, var7);
-        var1.a("note", (double) var2 + 0.5D, (double) var3 + 1.2D, (double) var4 + 0.5D, (double) var6 / 24.0D, 0.0D, 0.0D);
+        oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "note." + s, 3.0F, f);
+        oworld.a("note", (double) i + 0.5D, (double) j + 1.2D, (double) k + 0.5D, (double) i1 / 24.0D, 0.0D, 0.0D);
     }
 }

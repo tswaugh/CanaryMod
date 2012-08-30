@@ -850,9 +850,9 @@ public class Player extends HumanEntity implements MessageReceiver {
         String name;
 
         if (etc.getInstance().isPlayerList_colors()) { 
-            name = getFullName() + Colors.LightGreen;
+            name = this.getFullName() + Colors.LightGreen;
         } else {
-            name = getName();
+            name = this.getName();
         }
         PlayerlistEntry entry = new PlayerlistEntry(name, this.getPing(), show);
 
@@ -873,7 +873,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public OEntityPlayerMP getUser() {
-        return getEntity();
+        return this.getEntity();
     }
 
     /**
@@ -894,7 +894,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         if (player.bh != null) {
             player.b(player.bh);
         }
-        player.a.a(x, y, z, rotation, pitch);
+        player.a.a(x, y, z, rotation, pitch, getWorld().getType().getId(), getWorld().getName());
     }
 
     /**
@@ -1036,14 +1036,14 @@ public class Player extends HumanEntity implements MessageReceiver {
             //Change players world reference
             ent.bi = world.getWorld();
             //Add player back to the new world
-            world.addPlayerToWorld(this);
-            world.getEntityTracker().trackPlayer(this);
+//            world.addPlayerToWorld(this);
+//            world.getEntityTracker().trackPlayer(this);
         }
         //Get chunk coordinates...
         OChunkCoordinates var2 = mcServer.getWorld(ent.bi.name, world.getType().getId()).d();
 
         if (var2 != null) {
-            ent.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F);
+            ent.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F, getWorld().getType().getId(), getWorld().getName());
         }
 
         mcServer.h.sendPlayerToOtherDimension(ent, world.getType().getId(), false);

@@ -1,30 +1,37 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
-
 
 public class OBlockRedstoneTorch extends OBlockTorch {
 
     private boolean a = false;
-    private static List b = new ArrayList();
+    private static Map b = new HashMap();
 
-    public int a(int var1, int var2) {
-        return var1 == 1 ? OBlock.av.a(var1, var2) : super.a(var1, var2);
+    public int a(int i, int j) {
+        return i == 1 ? OBlock.av.a(i, j) : super.a(i, j);
     }
 
-    private boolean a(OWorld var1, int var2, int var3, int var4, boolean var5) {
-        if (var5) {
-            b.add(new ORedstoneUpdateInfo(var2, var3, var4, var1.o()));
+    private boolean a(OWorld oworld, int i, int j, int k, boolean flag) {
+        if (!b.containsKey(oworld)) {
+            b.put(oworld, new ArrayList());
         }
 
-        int var6 = 0;
+        if (flag) {
+            ((List) b.get(oworld)).add(new ORedstoneUpdateInfo(i, j, k, oworld.D()));
+        }
 
-        for (int var7 = 0; var7 < b.size(); ++var7) {
-            ORedstoneUpdateInfo var8 = (ORedstoneUpdateInfo) b.get(var7);
+        int l = 0;
+        Iterator iterator = ((List) b.get(oworld)).iterator();
 
-            if (var8.a == var2 && var8.b == var3 && var8.c == var4) {
-                ++var6;
-                if (var6 >= 8) {
+        while (iterator.hasNext()) {
+            ORedstoneUpdateInfo oredstoneupdateinfo = (ORedstoneUpdateInfo) iterator.next();
+
+            if (oredstoneupdateinfo.a == i && oredstoneupdateinfo.b == j && oredstoneupdateinfo.c == k) {
+                ++l;
+                if (l >= 8) {
                     return true;
                 }
             }
@@ -33,111 +40,117 @@ public class OBlockRedstoneTorch extends OBlockTorch {
         return false;
     }
 
-    protected OBlockRedstoneTorch(int var1, int var2, boolean var3) {
-        super(var1, var2);
-        this.a = var3;
-        this.a(true);
+    protected OBlockRedstoneTorch(int i, int j, boolean flag) {
+        super(i, j);
+        this.a = flag;
+        this.b(true);
+        this.a((OCreativeTabs) null);
     }
 
-    public int d() {
+    public int p_() {
         return 2;
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4) {
-        if (var1.c(var2, var3, var4) == 0) {
-            super.a(var1, var2, var3, var4);
+    public void g(OWorld oworld, int i, int j, int k) {
+        if (oworld.g(i, j, k) == 0) {
+            super.g(oworld, i, j, k);
         }
 
         if (this.a) {
-            var1.h(var2, var3 - 1, var4, this.bO);
-            var1.h(var2, var3 + 1, var4, this.bO);
-            var1.h(var2 - 1, var3, var4, this.bO);
-            var1.h(var2 + 1, var3, var4, this.bO);
-            var1.h(var2, var3, var4 - 1, this.bO);
-            var1.h(var2, var3, var4 + 1, this.bO);
+            oworld.h(i, j - 1, k, this.ca);
+            oworld.h(i, j + 1, k, this.ca);
+            oworld.h(i - 1, j, k, this.ca);
+            oworld.h(i + 1, j, k, this.ca);
+            oworld.h(i, j, k - 1, this.ca);
+            oworld.h(i, j, k + 1, this.ca);
         }
-
     }
 
-    public void d(OWorld var1, int var2, int var3, int var4) {
+    public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
         if (this.a) {
-            var1.h(var2, var3 - 1, var4, this.bO);
-            var1.h(var2, var3 + 1, var4, this.bO);
-            var1.h(var2 - 1, var3, var4, this.bO);
-            var1.h(var2 + 1, var3, var4, this.bO);
-            var1.h(var2, var3, var4 - 1, this.bO);
-            var1.h(var2, var3, var4 + 1, this.bO);
+            oworld.h(i, j - 1, k, this.ca);
+            oworld.h(i, j + 1, k, this.ca);
+            oworld.h(i - 1, j, k, this.ca);
+            oworld.h(i + 1, j, k, this.ca);
+            oworld.h(i, j, k - 1, this.ca);
+            oworld.h(i, j, k + 1, this.ca);
         }
-
     }
 
-    public boolean a(OIBlockAccess var1, int var2, int var3, int var4, int var5) {
+    public boolean a(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
         if (!this.a) {
             return false;
         } else {
-            int var6 = var1.c(var2, var3, var4);
+            int i1 = oiblockaccess.g(i, j, k);
 
-            return var6 == 5 && var5 == 1 ? false : (var6 == 3 && var5 == 3 ? false : (var6 == 4 && var5 == 2 ? false : (var6 == 1 && var5 == 5 ? false : var6 != 2 || var5 != 4)));
+            return i1 == 5 && l == 1 ? false : (i1 == 3 && l == 3 ? false : (i1 == 4 && l == 2 ? false : (i1 == 1 && l == 5 ? false : i1 != 2 || l != 4)));
         }
     }
 
-    private boolean g(OWorld var1, int var2, int var3, int var4) {
-        int var5 = var1.c(var2, var3, var4);
+    private boolean l(OWorld oworld, int i, int j, int k) {
+        int l = oworld.g(i, j, k);
 
-        return var5 == 5 && var1.j(var2, var3 - 1, var4, 0) ? true : (var5 == 3 && var1.j(var2, var3, var4 - 1, 2) ? true : (var5 == 4 && var1.j(var2, var3, var4 + 1, 3) ? true : (var5 == 1 && var1.j(var2 - 1, var3, var4, 4) ? true : var5 == 2 && var1.j(var2 + 1, var3, var4, 5))));
+        return l == 5 && oworld.l(i, j - 1, k, 0) ? true : (l == 3 && oworld.l(i, j, k - 1, 2) ? true : (l == 4 && oworld.l(i, j, k + 1, 3) ? true : (l == 1 && oworld.l(i - 1, j, k, 4) ? true : l == 2 && oworld.l(i + 1, j, k, 5))));
     }
-	
-	// Skye's attempt at making sure redstone torches stay lit forever.
-    private int counter = 0;
 
-    public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
-        boolean var6 = this.g(var1, var2, var3, var4);
+    public void b(OWorld oworld, int i, int j, int k, Random random) {
+        boolean flag = this.l(oworld, i, j, k);
+        List list = (List) b.get(oworld);
 
-        while (b.size() > 0 && var1.o() - ((ORedstoneUpdateInfo) b.get(0)).d > 60L) {
-            b.remove(0);
+        while (list != null && !list.isEmpty() && oworld.D() - ((ORedstoneUpdateInfo) list.get(0)).d > 60L) {
+            list.remove(0);
         }
 
         if (this.a) {
-            if (var6) {
-                var1.b(var2, var3, var4, OBlock.aP.bO, var1.c(var2, var3, var4));
-				// CanaryMod: Allow redstone torches to provide power
-                int current = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(var1.world, bO, var2, var3, var4), 1, 0);
+            if (flag) {
+                oworld.d(i, j, k, OBlock.aP.ca, oworld.g(i, j, k));
+                // CanaryMod: Allow redstone torches to provide power
+                int current = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.ca, i, j, k), 1, 0);
 				
-				if (current == 0) {
-					if (this.a(var1, var2, var3, var4, true)) {
-						var1.a((double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), "random.fizz", 0.5F, 2.6F + (var1.r.nextFloat() - var1.r.nextFloat()) * 0.8F);
+                if (current == 0) {
+                    if (this.a(oworld, i, j, k, true)) {
+                        oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (oworld.v.nextFloat() - oworld.v.nextFloat()) * 0.8F);
 	
-						for (int var7 = 0; var7 < 5; ++var7) {
-							double var8 = (double) var2 + var5.nextDouble() * 0.6D + 0.2D;
-							double var10 = (double) var3 + var5.nextDouble() * 0.6D + 0.2D;
-							double var12 = (double) var4 + var5.nextDouble() * 0.6D + 0.2D;
+                        for (int l = 0; l < 5; ++l) {
+                            double d0 = (double) i + random.nextDouble() * 0.6D + 0.2D;
+                            double d1 = (double) j + random.nextDouble() * 0.6D + 0.2D;
+                            double d2 = (double) k + random.nextDouble() * 0.6D + 0.2D;
 		
-							var1.a("smoke", var8, var10, var12, 0.0D, 0.0D, 0.0D);
-						}
-					}
-                }
+                            oworld.a("smoke", d0, d1, d2, 0.0D, 0.0D, 0.0D);
+                        }
+                    }
+                } //
             }
-        } else if (!var6 && !this.a(var1, var2, var3, var4, false)) {
-            var1.b(var2, var3, var4, OBlock.aQ.bO, var1.c(var2, var3, var4));
+        } else if (!flag && !this.a(oworld, i, j, k, false)) {
+            oworld.d(i, j, k, OBlock.aQ.ca, oworld.g(i, j, k));
         }
-
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, int var5) {
-        super.a(var1, var2, var3, var4, var5);
-        var1.c(var2, var3, var4, this.bO, this.d());
+    public void a(OWorld oworld, int i, int j, int k, int l) {
+        super.a(oworld, i, j, k, l);
+        oworld.a(i, j, k, this.ca, this.p_());
     }
 
-    public boolean d(OWorld var1, int var2, int var3, int var4, int var5) {
-        return var5 == 0 ? this.a((OIBlockAccess) var1, var2, var3, var4, var5) : false;
+    public boolean c(OWorld oworld, int i, int j, int k, int l) {
+        return l == 0 ? this.a((OIBlockAccess) oworld, i, j, k, l) : false;
     }
 
-    public int a(int var1, Random var2, int var3) {
-        return OBlock.aQ.bO;
+    public int a(int i, Random random, int j) {
+        return OBlock.aQ.ca;
     }
 
-    public boolean e() {
+    public boolean i() {
         return true;
     }
 
+    public void a(OWorld oworld, long i, long j) {
+        List list = (List) b.get(oworld);
+        ORedstoneUpdateInfo oredstoneupdateinfo;
+
+        if (list != null) {
+            for (Iterator iterator = list.iterator(); iterator.hasNext(); oredstoneupdateinfo.d += i) {
+                oredstoneupdateinfo = (ORedstoneUpdateInfo) iterator.next();
+            }
+        }
+    }
 }

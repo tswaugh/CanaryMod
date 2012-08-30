@@ -23,7 +23,7 @@ public class Main {
 
     public static final long   mysql = 0xb2e59524L;
     public static final long   jarjar = 0x0de915d3L;
-    public static final long   rules = 0xc7aef2a9L;
+    public static final long   rules = 0x7bba334dL;
 
     public static final Logger log = Logger.getLogger("Minecraft");
     

@@ -1,49 +1,57 @@
 
 public class OItemMonsterPlacer extends OItem {
 
-    public OItemMonsterPlacer(int var1) {
-        super(var1);
+    public OItemMonsterPlacer(int i) {
+        super(i);
         this.a(true);
+        this.a(OCreativeTabs.f);
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        if (var3.F || var1.h() < 50 || (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
-                ((OEntityPlayerMP) var2).getPlayer(),
-                this.getBlockInfo(var3, var4, var5, var6, var7), null, new Item(var1))) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
+        // CanaryMod: deny hackish eggs, call onItemUse
+        if (oworld.K || oitemstack.j() < 50 || oitemstack.j() >= 200 || (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), this.getBlockInfo(oworld, i, j, k, l), null, new Item(oitemstack))) {
             return true;
         } else {
-            int var8 = var3.a(var4, var5, var6);
+            int i1 = oworld.a(i, j, k);
 
-            var4 += OFacing.b[var7];
-            var5 += OFacing.c[var7];
-            var6 += OFacing.d[var7];
-            double var9 = 0.0D;
+            i += OFacing.b[l];
+            j += OFacing.c[l];
+            k += OFacing.d[l];
+            double d0 = 0.0D;
 
-            if (var7 == 1 && var8 == OBlock.aZ.bO || var8 == OBlock.bB.bO) {
-                var9 = 0.5D;
+            if (l == 1 && i1 == OBlock.aZ.ca || i1 == OBlock.bB.ca) {
+                d0 = 0.5D;
             }
 
-            if (a(var3, var1.h(), (double) var4 + 0.5D, (double) var5 + var9, (double) var6 + 0.5D) && !var2.L.d) {
-                --var1.a;
+            if (a(oworld, oitemstack.j(), (double) i + 0.5D, (double) j + d0, (double) k + 0.5D) && !oentityplayer.bZ.d) {
+                --oitemstack.a;
             }
 
             return true;
         }
     }
 
-    public static boolean a(OWorld var0, int var1, double var2, double var4, double var6) {
-        if (!OEntityList.a.containsKey(Integer.valueOf(var1))) {
+    public static boolean a(OWorld oworld, int i, double d0, double d1, double d2) {
+        if (!OEntityList.a.containsKey(Integer.valueOf(i))) {
             return false;
         } else {
-            OEntity var8 = OEntityList.a(var1, var0);
+            OEntity oentity = OEntityList.a(i, oworld);
 
-            if (var8 != null) {
-                var8.c(var2, var4, var6, var0.r.nextFloat() * 360.0F, 0.0F);
-                var0.b(var8);
-                ((OEntityLiving) var8).az();
+            if (oentity != null) {
+                oentity.b(d0, d1, d2, oworld.v.nextFloat() * 360.0F, 0.0F);
+                if (oentity instanceof OEntityVillager) {
+                    OEntityVillager oentityvillager = (OEntityVillager) oentity;
+
+                    oentityvillager.b(oentityvillager.au().nextInt(5));
+                    oworld.d((OEntity) oentityvillager);
+                    return true;
+                }
+
+                oworld.d(oentity);
+                ((OEntityLiving) oentity).aH();
             }
 
-            return var8 != null;
+            return oentity != null;
         }
     }
 }

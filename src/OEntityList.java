@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -9,100 +10,92 @@ public class OEntityList {
     private static Map d = new HashMap();
     private static Map e = new HashMap();
     private static Map f = new HashMap();
-    public static HashMap a = new HashMap();
+    public static HashMap a = new LinkedHashMap();
 
-    public OEntityList() {
-        super();
+    private static void a(Class oclass, String s, int i) {
+        b.put(s, oclass);
+        c.put(oclass, s);
+        d.put(Integer.valueOf(i), oclass);
+        e.put(oclass, Integer.valueOf(i));
+        f.put(s, Integer.valueOf(i));
     }
 
-    private static void a(Class var0, String var1, int var2) {
-        b.put(var1, var0);
-        c.put(var0, var1);
-        d.put(Integer.valueOf(var2), var0);
-        e.put(var0, Integer.valueOf(var2));
-        f.put(var1, Integer.valueOf(var2));
+    private static void a(Class oclass, String s, int i, int j, int k) {
+        a(oclass, s, i);
+        a.put(Integer.valueOf(i), new OEntityEggInfo(i, j, k));
     }
 
-    private static void a(Class var0, String var1, int var2, int var3, int var4) {
-        a(var0, var1, var2);
-        a.put(Integer.valueOf(var2), new OEntityEggInfo(var2, var3, var4));
-    }
-
-    public static OEntity a(String var0, OWorld var1) {
-        OEntity var2 = null;
+    public static OEntity a(String s, OWorld oworld) {
+        OEntity oentity = null;
 
         try {
-            Class var3 = (Class) b.get(var0);
+            Class oclass = (Class) b.get(s);
 
-            if (var3 != null) {
-                var2 = (OEntity) var3.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { var1});
+            if (oclass != null) {
+                oentity = (OEntity) oclass.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { oworld});
             }
-        } catch (Exception var4) {
-            var4.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
-        return var2;
+        return oentity;
     }
 
-    public static OEntity a(ONBTTagCompound var0, OWorld var1) {
-        OEntity var2 = null;
+    public static OEntity a(ONBTTagCompound onbttagcompound, OWorld oworld) {
+        OEntity oentity = null;
 
         try {
-            Class var3 = (Class) b.get(var0.j("id"));
+            Class oclass = (Class) b.get(onbttagcompound.i("id"));
 
-            if (var3 != null) {
-                var2 = (OEntity) var3.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { var1});
+            if (oclass != null) {
+                oentity = (OEntity) oclass.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { oworld});
             }
-        } catch (Exception var4) {
-            var4.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
-        if (var2 != null) {
-            var2.e(var0);
+        if (oentity != null) {
+            oentity.e(onbttagcompound);
         } else {
-            System.out.println("Skipping Entity with id " + var0.j("id"));
+            System.out.println("Skipping Entity with id " + onbttagcompound.i("id"));
         }
 
-        return var2;
+        return oentity;
     }
 
-    public static OEntity a(int var0, OWorld var1) {
-        OEntity var2 = null;
+    public static OEntity a(int i, OWorld oworld) {
+        OEntity oentity = null;
 
         try {
-            Class var3 = (Class) d.get(Integer.valueOf(var0));
+            Class oclass = (Class) d.get(Integer.valueOf(i));
 
-            if (var3 != null) {
-                var2 = (OEntity) var3.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { var1});
+            if (oclass != null) {
+                oentity = (OEntity) oclass.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { oworld});
             }
-        } catch (Exception var4) {
-            var4.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
-        if (var2 == null) {
-            System.out.println("Skipping Entity with id " + var0);
+        if (oentity == null) {
+            System.out.println("Skipping Entity with id " + i);
         }
 
-        return var2;
+        return oentity;
     }
 
-    public static int a(OEntity var0) {
-        return ((Integer) e.get(var0.getClass())).intValue();
+    public static int a(OEntity oentity) {
+        Class oclass = oentity.getClass();
+
+        return e.containsKey(oclass) ? ((Integer) e.get(oclass)).intValue() : 0;
     }
 
-    public static String b(OEntity var0) {
-        return (String) c.get(var0.getClass());
+    public static String b(OEntity oentity) {
+        return (String) c.get(oentity.getClass());
     }
 
-    public static int a(String var0) {
-        Integer var1 = (Integer) f.get(var0);
-
-        return var1 == null ? 90 : var1.intValue();
-    }
-    
     // CanaryMod: Let us do a name->class lookup for mob spawning
-    public static Class<?> getEntity(String name) {
-        return (Class<?>) b.get(name);
+    public static Class<?> getEntity(String s) {
+        return (Class<?>) b.get(s);
     }
     
     // CanaryMod: Let us do a class->name lookup for mob spawning
@@ -118,7 +111,7 @@ public class OEntityList {
         a(OEntitySnowball.class, "Snowball", 11);
         a(OEntityFireball.class, "Fireball", 12);
         a(OEntitySmallFireball.class, "SmallFireball", 13);
-        a(OEntityThrownEnderpearl.class, "ThrownEnderpearl", 14);
+        a(OEntityEnderPearl.class, "ThrownEnderpearl", 14);
         a(OEntityEnderEye.class, "EyeOfEnderSignal", 15);
         a(OEntityPotion.class, "ThrownPotion", 16);
         a(OEntityExpBottle.class, "ThrownExpBottle", 17);
@@ -140,7 +133,7 @@ public class OEntityList {
         a(OEntityCaveSpider.class, "CaveSpider", 59, 803406, 11013646);
         a(OEntitySilverfish.class, "Silverfish", 60, 7237230, 3158064);
         a(OEntityBlaze.class, "Blaze", 61, 16167425, 16775294);
-        a(OEntityLavaSlime.class, "LavaSlime", 62, 3407872, 16579584);
+        a(OEntityMagmaCube.class, "LavaSlime", 62, 3407872, 16579584);
         a(OEntityDragon.class, "EnderDragon", 63);
         a(OEntityPig.class, "Pig", 90, 15771042, 14377823);
         a(OEntitySheep.class, "Sheep", 91, 15198183, 16758197);
@@ -148,8 +141,8 @@ public class OEntityList {
         a(OEntityChicken.class, "Chicken", 93, 10592673, 16711680);
         a(OEntitySquid.class, "Squid", 94, 2243405, 7375001);
         a(OEntityWolf.class, "Wolf", 95, 14144467, 13545366);
-        a(OEntityMushroomCow.class, "MushroomCow", 96, 10489616, 12040119);
-        a(OEntitySnowMan.class, "SnowMan", 97);
+        a(OEntityMooshroom.class, "MushroomCow", 96, 10489616, 12040119);
+        a(OEntitySnowman.class, "SnowMan", 97);
         a(OEntityOcelot.class, "Ozelot", 98, 15720061, 5653556);
         a(OEntityIronGolem.class, "VillagerGolem", 99);
         a(OEntityVillager.class, "Villager", 120, 5651507, 12422002);

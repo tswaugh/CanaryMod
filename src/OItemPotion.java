@@ -1,88 +1,99 @@
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class OItemPotion extends OItem {
 
     private HashMap a = new HashMap();
+    private static final Map b = new LinkedHashMap();
 
-    public OItemPotion(int var1) {
-        super(var1);
-        this.e(1);
+    public OItemPotion(int i) {
+        super(i);
+        this.d(1);
         this.a(true);
-        this.f(0);
+        this.e(0);
+        this.a(OCreativeTabs.k);
     }
 
-    public List b(OItemStack var1) {
-        return this.b(var1.h());
+    public List l(OItemStack oitemstack) {
+        return this.f(oitemstack.j());
     }
 
-    public List b(int var1) {
-        List var2 = (List) this.a.get(Integer.valueOf(var1));
+    public List f(int i) {
+        List list = (List) this.a.get(Integer.valueOf(i));
 
-        if (var2 == null) {
-            var2 = OPotionHelper.a(var1, false);
-            this.a.put(Integer.valueOf(var1), var2);
+        if (list == null) {
+            list = OPotionHelper.b(i, false);
+            this.a.put(Integer.valueOf(i), list);
         }
 
-        return var2;
+        return list;
     }
 
-    public OItemStack b(OItemStack var1, OWorld var2, OEntityPlayer var3) {
-        --var1.a;
-        if (!var2.F) {
-            List var4 = this.b(var1);
+    public OItemStack b(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
+        if (!oentityplayer.bZ.d) {
+            --oitemstack.a;
+        }
 
-            if (var4 != null) {
-                Iterator var5 = var4.iterator();
+        if (!oworld.K) {
+            List list = this.l(oitemstack);
 
-                while (var5.hasNext()) {
-                    OPotionEffect var6 = (OPotionEffect) var5.next();
+            if (list != null) {
+                Iterator iterator = list.iterator();
 
-                    var3.e(new OPotionEffect(var6));
+                while (iterator.hasNext()) {
+                    OPotionEffect opotioneffect = (OPotionEffect) iterator.next();
+
+                    oentityplayer.d(new OPotionEffect(opotioneffect));
                 }
             }
         }
 
-        if (var1.a <= 0) {
-            return new OItemStack(OItem.bs);
-        } else {
-            var3.k.a(new OItemStack(OItem.bs));
-            return var1;
+        if (!oentityplayer.bZ.d) {
+            if (oitemstack.a <= 0) {
+                return new OItemStack(OItem.bt);
+            }
+
+            oentityplayer.by.a(new OItemStack(OItem.bt));
         }
+
+        return oitemstack;
     }
 
-    public int c(OItemStack var1) {
+    public int a(OItemStack oitemstack) {
         return 32;
     }
 
-    public OEnumAction d(OItemStack var1) {
+    public OEnumAction b(OItemStack oitemstack) {
         return OEnumAction.c;
     }
 
-    public OItemStack a(OItemStack var1, OWorld var2, OEntityPlayer var3) {
-        if (c(var1.h())) {
-            --var1.a;
-            var2.a(var3, "random.bow", 0.5F, 0.4F / (c.nextFloat() * 0.4F + 0.8F));
-            if (!var2.F) {
-                var2.b((OEntity) (new OEntityPotion(var2, var3, var1.h())));
+    public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
+        if (g(oitemstack.j())) {
+            if (!oentityplayer.bZ.d) {
+                --oitemstack.a;
             }
 
-            return var1;
+            oworld.a(oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
+            if (!oworld.K) {
+                oworld.d((OEntity) (new OEntityPotion(oworld, oentityplayer, oitemstack.j())));
+            }
+
+            return oitemstack;
         } else {
-            var3.a(var1, this.c(var1));
-            return var1;
+            oentityplayer.a(oitemstack, this.a(oitemstack));
+            return oitemstack;
         }
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
-                ((OEntityPlayerMP) var2).getPlayer(), null,
-                this.getBlockInfo(var3, var4, var5, var6, var7), new Item(var1));
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
+        return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, this.getBlockInfo(oworld, i, j, k, l), new Item(oitemstack));
     }
 
-    public static boolean c(int var0) {
-        return (var0 & 16384) != 0;
+    public static boolean g(int i) {
+        return (i & 16384) != 0;
     }
 }

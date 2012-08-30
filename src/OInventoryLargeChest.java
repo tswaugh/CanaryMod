@@ -5,75 +5,75 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
     private OIInventory b;
     private OIInventory c;
 
-    public OInventoryLargeChest(String var1, OIInventory var2, OIInventory var3) {
+    public OInventoryLargeChest(String s, OIInventory oiinventory, OIInventory oiinventory1) {
         super();
-        this.a = var1;
-        if (var2 == null) {
-            var2 = var3;
+        this.a = s;
+        if (oiinventory == null) {
+            oiinventory = oiinventory1;
         }
 
-        if (var3 == null) {
-            var3 = var2;
+        if (oiinventory1 == null) {
+            oiinventory1 = oiinventory;
         }
 
-        this.b = var2;
-        this.c = var3;
+        this.b = oiinventory;
+        this.c = oiinventory1;
     }
 
-    public int c() {
-        return this.b.c() + this.c.c();
+    public int i_() {
+        return this.b.i_() + this.c.i_();
     }
 
-    public String e() {
+    public String b() {
         return this.a;
     }
 
-    public OItemStack g_(int var1) {
-        return var1 >= this.b.c() ? this.c.g_(var1 - this.b.c()) : this.b.g_(var1);
+    public OItemStack a(int i) {
+        return i >= this.b.i_() ? this.c.a(i - this.b.i_()) : this.b.a(i);
     }
 
-    public OItemStack a(int var1, int var2) {
-        return var1 >= this.b.c() ? this.c.a(var1 - this.b.c(), var2) : this.b.a(var1, var2);
+    public OItemStack a(int i, int j) {
+        return i >= this.b.i_() ? this.c.a(i - this.b.i_(), j) : this.b.a(i, j);
     }
 
-    public OItemStack b(int var1) {
-        return var1 >= this.b.c() ? this.c.b(var1 - this.b.c()) : this.b.b(var1);
+    public OItemStack b(int i) {
+        return i >= this.b.i_() ? this.c.b(i - this.b.i_()) : this.b.b(i);
     }
 
-    public void a(int var1, OItemStack var2) {
-        if (var1 >= this.b.c()) {
-            this.c.a(var1 - this.b.c(), var2);
+    public void a(int i, OItemStack oitemstack) {
+        if (i >= this.b.i_()) {
+            this.c.a(i - this.b.i_(), oitemstack);
         } else {
-            this.b.a(var1, var2);
+            this.b.a(i, oitemstack);
         }
 
     }
 
-    public int a() {
-        return this.b.a();
+    public int j_() {
+        return this.b.j_();
     }
 
-    public void G_() {
-        this.b.G_();
-        this.c.G_();
+    public void d() {
+        this.b.d();
+        this.c.d();
     }
 
-    public boolean a(OEntityPlayer var1) {
-        return this.b.a(var1) && this.c.a(var1);
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.b.a(oentityplayer) && this.c.a(oentityplayer);
+    }
+
+    public void k_() {
+        this.b.k_();
+        this.c.k_();
     }
 
     public void f() {
         this.b.f();
         this.c.f();
     }
-
-    public void g() {
-        this.b.g();
-        this.c.g();
-    }
     
     public OItemStack[] getContents() {
-        int size = getContentsSize();
+        int size = this.getContentsSize();
         OItemStack[] result = new OItemStack[size];
 
         for (int i = 0; i < size; i++) {
@@ -82,42 +82,42 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         return result;
     }
 
-    public void setContents(OItemStack[] values) {
-        int size = getContentsSize();
+    public void setContents(OItemStack[] aoitemstack) {
+        int size = this.getContentsSize();
 
         for (int i = 0; i < size; i++) {
-            setContentsAt(i, values[i]);
+            this.setContentsAt(i, aoitemstack[i]);
         }
     }
 
-    public OItemStack getContentsAt(int index) {
-        return g_(index);
+    public OItemStack getContentsAt(int i) {
+        return this.a(i);
     }
 
-    public void setContentsAt(int index, OItemStack value) {
-        a(index, value);
+    public void setContentsAt(int i, OItemStack oitemstack) {
+        this.a(i, oitemstack);
     }
 
     public int getContentsSize() {
-        return c();
+        return this.i_();
     }
 
     public String getName() {
-        return a;
+        return this.a;
     }
 
-    public void setName(String value) {
-        a = value;
+    public void setName(String s) {
+        this.a = s;
     }
 
     public Block getChestBlock() {
-        if (b instanceof OTileEntityChest) {
-            OTileEntityChest block = (OTileEntityChest) b;
+        if (this.b instanceof OTileEntityChest) {
+            OTileEntityChest block = (OTileEntityChest) this.b;
 
             return block.k.world.getBlockAt(block.l, block.m, block.n);
         }
-        if (c instanceof OTileEntityChest) {
-            OTileEntityChest block = (OTileEntityChest) c;
+        if (this.c instanceof OTileEntityChest) {
+            OTileEntityChest block = (OTileEntityChest) this.c;
 
             return block.k.world.getBlockAt(block.l, block.m, block.n);
         }

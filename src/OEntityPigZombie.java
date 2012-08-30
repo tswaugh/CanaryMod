@@ -1,130 +1,135 @@
+import java.util.Iterator;
 import java.util.List;
+
 
 public class OEntityPigZombie extends OEntityZombie {
 
-    private int a = 0;
-    private int b = 0;
-    private static final OItemStack g = new OItemStack(OItem.F, 1);
+    private int d = 0;
+    private int e = 0;
+    private static final OItemStack g = new OItemStack(OItem.G, 1);
 
-    public OEntityPigZombie(OWorld var1) {
-        super(var1);
-        this.ae = "/mob/pigzombie.png";
-        this.bb = 0.5F;
-        this.c = 5;
-        this.bX = true;
+    public OEntityPigZombie(OWorld oworld) {
+        super(oworld);
+        this.az = "/mob/pigzombie.png";
+        this.bw = 0.5F;
+        this.f = 5;
+        this.ae = true;
     }
 
-    protected boolean c_() {
+    protected boolean aV() {
         return false;
     }
 
-    public void F_() {
-        this.bb = this.d != null ? 0.95F : 0.5F;
-        if (this.b > 0 && --this.b == 0) {
-            this.bi.a(this, "mob.zombiepig.zpigangry", this.p() * 2.0F, ( (this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+    public void h_() {
+        this.bw = this.a != null ? 0.95F : 0.5F;
+        if (this.e > 0 && --this.e == 0) {
+            this.p.a(this, "mob.zombiepig.zpigangry", this.aP() * 2.0F, ((this.Z.nextFloat() - this.Z.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
-        super.F_();
+        super.h_();
     }
 
-    public boolean l() {
-        return this.bi.q > 0 && this.bi.a(this.bw) && this.bi.a((OEntity) this, this.bw).size() == 0 && !this.bi.c(this.bw);
+    public boolean bi() {
+        return this.p.u > 0 && this.p.b(this.D) && this.p.a((OEntity) this, this.D).isEmpty() && !this.p.d(this.D);
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-        var1.a("Anger", (short) this.a);
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        onbttagcompound.a("Anger", (short) this.d);
     }
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-        this.a = var1.e("Anger");
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
+        this.d = onbttagcompound.d("Anger");
     }
 
-    protected OEntity o() {
-        return this.a == 0 ? null : super.o();
+    protected OEntity k() {
+        return this.d == 0 ? null : super.k();
     }
 
-    public void e() {
-        super.e();
-    }
+    public boolean a(ODamageSource odamagesource, int i) {
+        OEntity oentity = odamagesource.g();
 
-    public boolean a(ODamageSource var1, int var2) {
-        OEntity var3 = var1.a();
-        if (var3 instanceof OEntityPlayer) {
-            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), this.entity)) { // CanaryMod: MOB_TARGET
+        if (oentity instanceof OEntityPlayer) {
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentity.entity.getPlayer(), this.entity)) { // CanaryMod: MOB_TARGET
 
-                List var4 = this.bi.b((OEntity) this, this.bw.b(32.0D, 32.0D, 32.0D));
+                List list = this.p.b((OEntity) this, this.D.b(32.0D, 32.0D, 32.0D));
+                Iterator iterator = list.iterator();
 
-                for (int var5 = 0; var5 < var4.size(); ++var5) {
-                    OEntity var6 = (OEntity) var4.get(var5);
-                    if (var6 instanceof OEntityPigZombie) {
-                        OEntityPigZombie var7 = (OEntityPigZombie) var6;
-                        var7.e(var3);
+                while (iterator.hasNext()) {
+                    OEntity oentity1 = (OEntity) iterator.next();
+
+                    if (oentity1 instanceof OEntityPigZombie) {
+                        OEntityPigZombie oentitypigzombie = (OEntityPigZombie) oentity1;
+
+                    oentitypigzombie.c(oentity);
                     }
                 }
 
-                this.e(var3);
+                this.c(oentity);
             }
         }
 
-        return super.a(var1, var2);
+        return super.a(odamagesource, i);
     }
 
-    private void e(OEntity var1) {
-        this.d = var1;
-        this.a = 400 + this.bS.nextInt(400);
-        this.b = this.bS.nextInt(40);
+    private void c(OEntity oentity) {
+        this.a = oentity;
+        this.d = 400 + this.Z.nextInt(400);
+        this.e = this.Z.nextInt(40);
     }
 
-    protected String i() {
+    protected String aQ() {
         return "mob.zombiepig.zpig";
     }
 
-    protected String j() {
+    protected String aR() {
         return "mob.zombiepig.zpighurt";
     }
 
-    protected String k() {
+    protected String aS() {
         return "mob.zombiepig.zpigdeath";
     }
 
-    protected void a(boolean var1, int var2) {
-        int var3 = this.bS.nextInt(2 + var2);
+    protected void a(boolean flag, int i) {
+        int j = this.Z.nextInt(2 + i);
 
-        int var4;
-        for (var4 = 0; var4 < var3; ++var4) {
-            this.b(OItem.bl.bP, 1);
+        int k;
+
+        for (k = 0; k < j; ++k) {
+            this.b(OItem.bm.bT, 1);
         }
 
-        var3 = this.bS.nextInt(2 + var2);
+        j = this.Z.nextInt(2 + i);
 
-        for (var4 = 0; var4 < var3; ++var4) {
-            this.b(OItem.bp.bP, 1);
+        for (k = 0; k < j; ++k) {
+            this.b(OItem.bq.bT, 1);
         }
 
     }
 
-    protected void b(int var1) {
-        if (var1 > 0) {
-            OItemStack var2 = new OItemStack(OItem.F);
-            OEnchantmentHelper.a(this.bS, var2, 5);
-            this.a(var2, 0.0F);
+    protected void l(int i) {
+        if (i > 0) {
+            OItemStack oitemstack = new OItemStack(OItem.G);
+
+            OEnchantmentHelper.a(this.Z, oitemstack, 5);
+            this.a(oitemstack, 0.0F);
         } else {
-            int var3 = this.bS.nextInt(3);
-            if (var3 == 0) {
-                this.b(OItem.o.bP, 1);
-            } else if (var3 == 1) {
-                this.b(OItem.F.bP, 1);
-            } else if (var3 == 2) {
-                this.b(OItem.ak.bP, 1);
+            int j = this.Z.nextInt(3);
+
+            if (j == 0) {
+                this.b(OItem.p.bT, 1);
+            } else if (j == 1) {
+                this.b(OItem.G.bT, 1);
+            } else if (j == 2) {
+                this.b(OItem.al.bT, 1);
             }
         }
 
     }
 
-    protected int f() {
-        return OItem.bl.bP;
+    protected int aT() {
+        return OItem.bm.bT;
     }
 
 }

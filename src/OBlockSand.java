@@ -5,68 +5,71 @@ public class OBlockSand extends OBlock {
 
     public static boolean a = false;
 
-    public OBlockSand(int var1, int var2) {
-        super(var1, var2, OMaterial.o);
+    public OBlockSand(int i, int j) {
+        super(i, j, OMaterial.o);
+        this.a(OCreativeTabs.b);
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4) {
-		// CanaryMod: Physics
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(var1.world, bO, var2, var3, var4), true)) {
-			var1.c(var2, var3, var4, this.bO, this.d());
-		}
+    public void g(OWorld oworld, int i, int j, int k) {
+        // CanaryMod: Physics
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(oworld.world, this.ca, i, j, k), true)) {
+            oworld.a(i, j, k, this.ca, this.p_());
+        }
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, int var5) {
-		// CanaryMod: Physics
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(var1.world, bO, var2, var3, var4), true)) {
-			var1.c(var2, var3, var4, this.bO, this.d());
-		}
+    public void a(OWorld oworld, int i, int j, int k, int l) {
+        // CanaryMod: Physics
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(oworld.world, this.ca, i, j, k), true)) {
+            oworld.a(i, j, k, this.ca, this.p_());
+        }
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, Random var5) {
-        this.h(var1, var2, var3, var4);
+    public void b(OWorld oworld, int i, int j, int k, Random random) {
+        if (!oworld.K) {
+            this.l(oworld, i, j, k);
+        }
     }
 
-    private void h(OWorld var1, int var2, int var3, int var4) {
-        if (g(var1, var2, var3 - 1, var4) && var3 >= 0) {
-            byte var8 = 32;
+    private void l(OWorld oworld, int i, int j, int k) {
+        if (e_(oworld, i, j - 1, k) && j >= 0) {
+            byte b0 = 32;
 
-            if (!a && var1.a(var2 - var8, var3 - var8, var4 - var8, var2 + var8, var3 + var8, var4 + var8)) {
-                if (!var1.F) {
-                    OEntityFallingSand var9 = new OEntityFallingSand(var1, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), this.bO);
+            if (!a && oworld.c(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
+                if (!oworld.K) {
+                    OEntityFallingSand oentityfallingsand = new OEntityFallingSand(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.ca);
 
-                    var1.b((OEntity) var9);
+                    oworld.d((OEntity) oentityfallingsand);
                 }
             } else {
-                var1.e(var2, var3, var4, 0);
+                oworld.e(i, j, k, 0);
 
-                while (g(var1, var2, var3 - 1, var4) && var3 > 0) {
-                    --var3;
+                while (e_(oworld, i, j - 1, k) && j > 0) {
+                    --j;
                 }
 
-                if (var3 > 0) {
-                    var1.e(var2, var3, var4, this.bO);
+                if (j > 0) {
+                    oworld.e(i, j, k, this.ca);
                 }
             }
         }
 
     }
 
-    public int d() {
+    public int p_() {
         return 3;
     }
 
-    public static boolean g(OWorld var0, int var1, int var2, int var3) {
-        int var4 = var0.a(var1, var2, var3);
+    public static boolean e_(OWorld oworld, int i, int j, int k) {
+        int l = oworld.a(i, j, k);
 
-        if (var4 == 0) {
+        if (l == 0) {
             return true;
-        } else if (var4 == OBlock.ar.bO) {
+        } else if (l == OBlock.ar.ca) {
             return true;
         } else {
-            OMaterial var5 = OBlock.m[var4].cd;
+            OMaterial omaterial = OBlock.m[l].cp;
 
-            return var5 == OMaterial.g ? true : var5 == OMaterial.h;
+            return omaterial == OMaterial.g ? true : omaterial == OMaterial.h;
         }
     }
 

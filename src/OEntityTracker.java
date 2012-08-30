@@ -7,212 +7,208 @@ import java.util.concurrent.DelayQueue;
 import java.util.logging.Level;
 
 
-
 public class OEntityTracker {
-    // CanaryMod: New fields to store the runnables in.
-    private static final DelayQueue<DelayedTask> delayQueue = new DelayQueue<DelayedTask>();
 
-    private Set a = new HashSet();
-    private OIntHashMap b = new OIntHashMap();
-    private OMinecraftServer c;
+    private final OWorldServer a;
+    private Set b = new HashSet();
+    private OIntHashMap c = new OIntHashMap();
     private int d;
-    private int e;
     
-    private String worldName; // CanaryMod: store worldname for multiworld
-    private EntityTracker canaryEntityTracker; //CanaryMod entity Tracker
+    private EntityTracker entityTracker; // CanaryMod: reference to our EntityTracker
+    private static final DelayQueue<DelayedTask> delayQueue = new DelayQueue<DelayedTask>(); // CanaryMod: New fields to store the runnables in.
 
-    public OEntityTracker(OMinecraftServer var1, int var2, String worldName) {
-        super();
-        this.c = var1;
-        this.e = var2;
-        this.d = var1.h.getMaxTrackingDistance(worldName);
-        this.worldName = worldName; // CanaryMod
-        canaryEntityTracker = new EntityTracker(this);
+    public OEntityTracker(OWorldServer oworldserver) {
+        this.a = oworldserver;
+        this.d = oworldserver.n().ab().a();
+        this.entityTracker = new EntityTracker(this);
     }
-    
+
     /**
      * CanaryMod Get the EntityTracker
      * @return
      */
     public EntityTracker getCanaryEntityTracker() {
-        return canaryEntityTracker;
+        return this.entityTracker;
     }
 
-    public void a(OEntity var1) {
-        if (var1 instanceof OEntityPlayerMP) {
-            this.a(var1, 512, 2);
-            OEntityPlayerMP var2 = (OEntityPlayerMP) var1;
-            Iterator var3 = this.a.iterator();
+    public void a(OEntity oentity) {
+        if (oentity instanceof OEntityPlayerMP) {
+            this.a(oentity, 512, 2);
+            OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) oentity;
+            Iterator iterator = this.b.iterator();
 
-            while (var3.hasNext()) {
-                OEntityTrackerEntry var4 = (OEntityTrackerEntry) var3.next();
+            while (iterator.hasNext()) {
+                OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.next();
 
-                if (var4.a != var2) {
-                    var4.b(var2);
+                if (oentitytrackerentry.a != oentityplayermp) {
+                    oentitytrackerentry.b(oentityplayermp);
                 }
             }
-        } else if (var1 instanceof OEntityFishHook) {
-            this.a(var1, 64, 5, true);
-        } else if (var1 instanceof OEntityArrow) {
-            this.a(var1, 64, 20, false);
-        } else if (var1 instanceof OEntitySmallFireball) {
-            this.a(var1, 64, 10, false);
-        } else if (var1 instanceof OEntityFireball) {
-            this.a(var1, 64, 10, false);
-        } else if (var1 instanceof OEntitySnowball) {
-            this.a(var1, 64, 10, true);
-        } else if (var1 instanceof OEntityThrownEnderpearl) {
-            this.a(var1, 64, 10, true);
-        } else if (var1 instanceof OEntityEnderEye) {
-            this.a(var1, 64, 10, true);
-        } else if (var1 instanceof OEntityEgg) {
-            this.a(var1, 64, 10, true);
-        } else if (var1 instanceof OEntityPotion) {
-            this.a(var1, 64, 10, true);
-        } else if (var1 instanceof OEntityExpBottle) {
-            this.a(var1, 64, 10, true);
-        } else if (var1 instanceof OEntityItem) {
-            this.a(var1, 64, 20, true);
-        } else if (var1 instanceof OEntityMinecart) {
-            this.a(var1, 80, 3, true);
-        } else if (var1 instanceof OEntityBoat) {
-            this.a(var1, 80, 3, true);
-        } else if (var1 instanceof OEntitySquid) {
-            this.a(var1, 64, 3, true);
-        } else if (var1 instanceof OIAnimals) {
-            this.a(var1, 80, 3, true);
-        } else if (var1 instanceof OEntityDragon) {
-            this.a(var1, 160, 3, true);
-        } else if (var1 instanceof OEntityTNTPrimed) {
-            this.a(var1, 160, 10, true);
-        } else if (var1 instanceof OEntityFallingSand) {
-            this.a(var1, 160, 20, true);
-        } else if (var1 instanceof OEntityPainting) {
-            this.a(var1, 160, Integer.MAX_VALUE, false);
-        } else if (var1 instanceof OEntityXPOrb) {
-            this.a(var1, 160, 20, true);
-        } else if (var1 instanceof OEntityEnderCrystal) {
-            this.a(var1, 256, Integer.MAX_VALUE, false);
+        } else if (oentity instanceof OEntityFishHook) {
+            this.a(oentity, 64, 5, true);
+        } else if (oentity instanceof OEntityArrow) {
+            this.a(oentity, 64, 20, false);
+        } else if (oentity instanceof OEntitySmallFireball) {
+            this.a(oentity, 64, 10, false);
+        } else if (oentity instanceof OEntityFireball) {
+            this.a(oentity, 64, 10, false);
+        } else if (oentity instanceof OEntitySnowball) {
+            this.a(oentity, 64, 10, true);
+        } else if (oentity instanceof OEntityEnderPearl) {
+            this.a(oentity, 64, 10, true);
+        } else if (oentity instanceof OEntityEnderEye) {
+            this.a(oentity, 64, 4, true);
+        } else if (oentity instanceof OEntityEgg) {
+            this.a(oentity, 64, 10, true);
+        } else if (oentity instanceof OEntityPotion) {
+            this.a(oentity, 64, 10, true);
+        } else if (oentity instanceof OEntityExpBottle) {
+            this.a(oentity, 64, 10, true);
+        } else if (oentity instanceof OEntityItem) {
+            this.a(oentity, 64, 20, true);
+        } else if (oentity instanceof OEntityMinecart) {
+            this.a(oentity, 80, 3, true);
+        } else if (oentity instanceof OEntityBoat) {
+            this.a(oentity, 80, 3, true);
+        } else if (oentity instanceof OEntitySquid) {
+            this.a(oentity, 64, 3, true);
+        } else if (oentity instanceof OIAnimals) {
+            this.a(oentity, 80, 3, true);
+        } else if (oentity instanceof OEntityDragon) {
+            this.a(oentity, 160, 3, true);
+        } else if (oentity instanceof OEntityTNTPrimed) {
+            this.a(oentity, 160, 10, true);
+        } else if (oentity instanceof OEntityFallingSand) {
+            this.a(oentity, 160, 20, true);
+        } else if (oentity instanceof OEntityPainting) {
+            this.a(oentity, 160, Integer.MAX_VALUE, false);
+        } else if (oentity instanceof OEntityXPOrb) {
+            this.a(oentity, 160, 20, true);
+        } else if (oentity instanceof OEntityEnderCrystal) {
+            this.a(oentity, 256, Integer.MAX_VALUE, false);
         }
 
     }
 
-    public void a(OEntity var1, int var2, int var3) {
-        this.a(var1, var2, var3, false);
+    public void a(OEntity oentity, int i, int j) {
+        this.a(oentity, i, j, false);
     }
 
-    public void a(OEntity var1, int var2, int var3, boolean var4) {
-        if (var2 > this.d) {
-            var2 = this.d;
+    public void a(OEntity oentity, int i, int j, boolean flag) {
+        if (i > this.d) {
+            i = this.d;
         }
 
-        if (this.b.b(var1.bd)) {
+        if (this.c.b(oentity.k)) {
             throw new IllegalStateException("Entity is already tracked!");
         } else {
-            OEntityTrackerEntry var5 = new OEntityTrackerEntry(var1, var2, var3, var4);
+            OEntityTrackerEntry oentitytrackerentry = new OEntityTrackerEntry(oentity, i, j, flag);
 
-            this.a.add(var5);
-            this.b.a(var1.bd, var5);
-            var5.b(this.c.getWorld(this.worldName, this.e).d);
+            this.b.add(oentitytrackerentry);
+            this.c.a(oentity.k, oentitytrackerentry);
+            oentitytrackerentry.b(this.a.i);
         }
     }
 
-    public void b(OEntity var1) {
-        if (var1 instanceof OEntityPlayerMP) {
-            OEntityPlayerMP var2 = (OEntityPlayerMP) var1;
-            Iterator var3 = this.a.iterator();
+    public void b(OEntity oentity) {
+        if (oentity instanceof OEntityPlayerMP) {
+            OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) oentity;
+            Iterator iterator = this.b.iterator();
 
-            while (var3.hasNext()) {
-                OEntityTrackerEntry var4 = (OEntityTrackerEntry) var3.next();
+            while (iterator.hasNext()) {
+                OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.next();
 
-                var4.a(var2);
+                oentitytrackerentry.a(oentityplayermp);
             }
         }
 
-        OEntityTrackerEntry var5 = (OEntityTrackerEntry) this.b.d(var1.bd);
+        OEntityTrackerEntry oentitytrackerentry1 = (OEntityTrackerEntry) this.c.d(oentity.k);
 
-        if (var5 != null) {
-            this.a.remove(var5);
-            var5.a();
+        if (oentitytrackerentry1 != null) {
+            this.b.remove(oentitytrackerentry1);
+            oentitytrackerentry1.a();
         }
 
     }
 
     public void a() {
         try {
-            ArrayList var1 = new ArrayList();
-            Iterator var2 = this.a.iterator();
+            ArrayList arraylist = new ArrayList();
+            Iterator iterator = this.b.iterator();
 
-            while (var2.hasNext()) {
-                OEntityTrackerEntry var3 = (OEntityTrackerEntry) var2.next();
+            while (iterator.hasNext()) {
+                OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.next();
 
-                var3.a(this.c.getWorld(this.worldName, this.e).d);
-                if (var3.n && var3.a instanceof OEntityPlayerMP) {
-                    var1.add((OEntityPlayerMP) var3.a);
+                oentitytrackerentry.a(this.a.i);
+                if (oentitytrackerentry.n && oentitytrackerentry.a instanceof OEntityPlayerMP) {
+                    arraylist.add((OEntityPlayerMP) oentitytrackerentry.a);
                 }
             }
 
-            for (int var6 = 0; var6 < var1.size(); ++var6) {
-                OEntityPlayerMP var7 = (OEntityPlayerMP) var1.get(var6);
-                Iterator var4 = this.a.iterator();
+            iterator = arraylist.iterator();
 
-                while (var4.hasNext()) {
-                    OEntityTrackerEntry var5 = (OEntityTrackerEntry) var4.next();
+            while (iterator.hasNext()) {
+                OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) iterator.next();
+                OEntityPlayerMP oentityplayermp1 = oentityplayermp;
+                Iterator iterator1 = this.b.iterator();
 
-                    if (var5.a != var7) {
-                        var5.b(var7);
+                while (iterator1.hasNext()) {
+                    OEntityTrackerEntry oentitytrackerentry1 = (OEntityTrackerEntry) iterator1.next();
+
+                    if (oentitytrackerentry1.a != oentityplayermp1) {
+                        oentitytrackerentry1.b(oentityplayermp1);
                     }
                 }
             }
-        } catch (ConcurrentModificationException ex) {
-            // people seem to get this exception often, lets just catch so it doesn't crash the server.
-           OMinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", ex);   
+        } catch (ConcurrentModificationException concurrentmodificationexception) {
+            // people seem to get this concurrentmodificationexceptionception often, lets just catch so it doesn't crash the server.
+            OMinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", concurrentmodificationexception);   
         }
         // CanaryMod: Execute runnables contained in eventQueue.
         for (DelayedTask task = delayQueue.poll(); task != null; task = delayQueue.poll()) {
-            // should we catch exceptions here?
+            // should we catch concurrentmodificationexceptionceptions here?
             task.run();
         }
     }
     
     // CanaryMod: Allow adding of tasks to the queue
 
-    public static void add(Runnable task, long delayMillis) {
+    public static void add(Runnable runnable, long i) {
         // j.u.concurent.* classes are thread safe
-        delayQueue.add(new DelayedTask(task, delayMillis));
+        delayQueue.add(new DelayedTask(runnable, i));
     }
 
     // CanaryMod: deprecated. Use server.addToServerQueue().
     @Deprecated
-    public synchronized static void add(Runnable r) {
-        add(r, 0L);
+    public synchronized static void add(Runnable runnable) {
+        add(runnable, 0L);
     }
 
-    public void a(OEntity var1, OPacket var2) {
-        OEntityTrackerEntry var3 = (OEntityTrackerEntry) this.b.a(var1.bd);
+    public void a(OEntity oentity, OPacket opacket) {
+        OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) this.c.a(oentity.k);
 
-        if (var3 != null) {
-            var3.a(var2);
+        if (oentitytrackerentry != null) {
+            oentitytrackerentry.a(opacket);
         }
 
     }
 
-    public void b(OEntity var1, OPacket var2) {
-        OEntityTrackerEntry var3 = (OEntityTrackerEntry) this.b.a(var1.bd);
+    public void b(OEntity oentity, OPacket opacket) {
+        OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) this.c.a(oentity.k);
 
-        if (var3 != null) {
-            var3.b(var2);
+        if (oentitytrackerentry != null) {
+            oentitytrackerentry.b(opacket);
         }
 
     }
 
-    public void a(OEntityPlayerMP var1) {
-        Iterator var2 = this.a.iterator();
+    public void a(OEntityPlayerMP oentityplayermp) {
+        Iterator iterator = this.b.iterator();
 
-        while (var2.hasNext()) {
-            OEntityTrackerEntry var3 = (OEntityTrackerEntry) var2.next();
+        while (iterator.hasNext()) {
+            OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.next();
 
-            var3.c(var1);
+            oentitytrackerentry.c(oentityplayermp);
         }
 
     }

@@ -1,6 +1,5 @@
 import java.util.List;
 
-
 public class OEntityMinecart extends OEntity implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] d;
@@ -13,122 +12,126 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     private int h;
     private double i;
     private double j;
-    private double k;
-    private double l;
-    private double m;
+    private double an;
+    private double ao;
+    private double ap;
+    
     // CanaryMod start
-    private String name = "Minecart";
+    private String name = "container.minecart";
     Minecart cart = new Minecart(this);
-
     // CanaryMod end
 
-    public OEntityMinecart(OWorld var1) {
-        super(var1);
+    public OEntityMinecart(OWorld oworld) {
+        super(oworld);
         this.d = new OItemStack[36];
         this.e = 0;
         this.f = false;
-        this.bf = true;
-        this.b(0.98F, 0.7F);
-        this.bF = this.bH / 2.0F;
+        this.m = true;
+        this.a(0.98F, 0.7F);
+        this.M = this.O / 2.0F;
     }
 
-    protected boolean g_() {
+    protected boolean e_() {
         return false;
     }
 
-    protected void b() {
-        this.bY.a(16, new Byte((byte) 0));
-        this.bY.a(17, new Integer(0));
-        this.bY.a(18, new Integer(1));
-        this.bY.a(19, new Integer(0));
+    protected void a() {
+        this.af.a(16, new Byte((byte) 0));
+        this.af.a(17, new Integer(0));
+        this.af.a(18, new Integer(1));
+        this.af.a(19, new Integer(0));
     }
 
-    public OAxisAlignedBB b_(OEntity var1) {
-        return var1.bw;
+    public OAxisAlignedBB g(OEntity oentity) {
+        return oentity.D;
     }
 
-    public OAxisAlignedBB h() {
+    public OAxisAlignedBB E() {
         return null;
     }
 
-    public boolean e_() {
+    public boolean M() {
         return true;
     }
 
-    public OEntityMinecart(OWorld var1, double var2, double var4, double var6, int var8) {
-        this(var1);
-        this.c(var2, var4 + (double) this.bF, var6);
-        this.bp = 0.0D;
-        this.bq = 0.0D;
-        this.br = 0.0D;
-        this.bj = var2;
-        this.bk = var4;
-        this.bl = var6;
-        this.a = var8;
+    public OEntityMinecart(OWorld oworld, double d0, double d1, double d2, int i) {
+        this(oworld);
+        this.b(d0, d1 + (double) this.M, d2);
+        this.w = 0.0D;
+        this.x = 0.0D;
+        this.y = 0.0D;
+        this.q = d0;
+        this.r = d1;
+        this.s = d2;
+        this.a = i;
         // CanaryMod: Creation of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_CREATE, cart);
     }
 
-    public double x_() {
-        return (double) this.bH * 0.0D - 0.30000001192092896D;
+    public double X() {
+        return (double) this.O * 0.0D - 0.30000001192092896D;
     }
 
-    public boolean a(ODamageSource var1, int var2) {
+    public boolean a(ODamageSource odamagesource, int i) {
         // CanaryMod: Attack of the cart
         BaseEntity entity = null;
 
-        if (var1 != null && var1.a() != null) {
-            entity = new BaseEntity(var1.a());
+        if (odamagesource != null && odamagesource.f() != null) {
+            entity = new BaseEntity(odamagesource.f());
         }
-        if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, cart, entity, var2)) {
+        if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, cart, entity, i)) {
             return true;
         }
 
-        if (!this.bi.F && !this.bE) {
-            this.e(-this.n());
-            this.d(10);
-            this.aW();
-            this.c(this.l() + var2 * 10);
-            if (this.l() > 40) {
-                if (this.bg != null) {
-                    this.bg.b((OEntity) this);
+        if (!this.p.K && !this.L) {
+            this.i(-this.k());
+            this.h(10);
+            this.K();
+            this.c(this.i() + i * 10);
+            if (odamagesource.g() instanceof OEntityPlayer && ((OEntityPlayer) odamagesource.g()).bZ.d) {
+                this.c(100);
+            }
+
+            if (this.i() > 40) {
+                if (this.n != null) {
+                    this.n.a((OEntity) this);
                 }
 
-                this.X();
-                this.a(OItem.ay.bP, 1, 0.0F);
+                this.y();
+                this.a(OItem.az.bT, 1, 0.0F);
                 if (this.a == 1) {
-                    OEntityMinecart var3 = this;
+                    OEntityMinecart oentityminecart = this;
 
-                    for (int var4 = 0; var4 < var3.c(); ++var4) {
-                        OItemStack var5 = var3.g_(var4);
+                    for (int j = 0; j < oentityminecart.i_(); ++j) {
+                        OItemStack oitemstack = oentityminecart.a(j);
 
-                        if (var5 != null) {
-                            float var6 = this.bS.nextFloat() * 0.8F + 0.1F;
-                            float var7 = this.bS.nextFloat() * 0.8F + 0.1F;
-                            float var8 = this.bS.nextFloat() * 0.8F + 0.1F;
+                        if (oitemstack != null) {
+                            float f = this.Z.nextFloat() * 0.8F + 0.1F;
+                            float f1 = this.Z.nextFloat() * 0.8F + 0.1F;
+                            float f2 = this.Z.nextFloat() * 0.8F + 0.1F;
 
-                            while (var5.a > 0) {
-                                int var9 = this.bS.nextInt(21) + 10;
+                            while (oitemstack.a > 0) {
+                                int k = this.Z.nextInt(21) + 10;
 
-                                if (var9 > var5.a) {
-                                    var9 = var5.a;
+                                if (k > oitemstack.a) {
+                                    k = oitemstack.a;
                                 }
 
-                                var5.a -= var9;
-                                OEntityItem var10 = new OEntityItem(this.bi, this.bm + (double) var6, this.bn + (double) var7, this.bo + (double) var8, new OItemStack(var5.c, var9, var5.h()));
-                                float var11 = 0.05F;
+                                oitemstack.a -= k;
+                                OEntityItem oentityitem = new OEntityItem(this.p, this.t + (double) f, this.u + (double) f1, this.v + (double) f2, new OItemStack(oitemstack.c, k, oitemstack.j()));
+                                float f3 = 0.05F;
 
-                                var10.bp = (double) ((float) this.bS.nextGaussian() * var11);
-                                var10.bq = (double) ((float) this.bS.nextGaussian() * var11 + 0.2F);
-                                var10.br = (double) ((float) this.bS.nextGaussian() * var11);
-                                this.bi.b((OEntity) var10);
+                                oentityitem.w = (double) ((float) this.Z.nextGaussian() * f3);
+                                oentityitem.x = (double) ((float) this.Z.nextGaussian() * f3 + 0.2F);
+                                oentityitem.y = (double) ((float) this.Z.nextGaussian() * f3);
+                                this.p.d((OEntity) oentityitem);
                             }
                         }
                     }
 
-                    this.a(OBlock.au.bO, 1, 0.0F);
+                    this.a(OBlock.au.ca, 1, 0.0F);
                 } else if (this.a == 2) {
-                    this.a(OBlock.aB.bO, 1, 0.0F);
+                    this.a(OBlock.aB.ca, 1, 0.0F);
                 }
             }
 
@@ -138,411 +141,407 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         }
     }
 
-    public boolean o_() {
-        return !this.bE;
+    public boolean L() {
+        return !this.L;
     }
 
-    public void X() {
+    public void y() {
         // CanaryMod: Destruction of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_DESTROYED, cart);
-        for (int var1 = 0; var1 < this.c(); ++var1) {
-            OItemStack var2 = this.g_(var1);
+        for (int i = 0; i < this.i_(); ++i) {
+            OItemStack oitemstack = this.a(i);
 
-            if (var2 != null) {
-                float var3 = this.bS.nextFloat() * 0.8F + 0.1F;
-                float var4 = this.bS.nextFloat() * 0.8F + 0.1F;
-                float var5 = this.bS.nextFloat() * 0.8F + 0.1F;
+            if (oitemstack != null) {
+                float f = this.Z.nextFloat() * 0.8F + 0.1F;
+                float f1 = this.Z.nextFloat() * 0.8F + 0.1F;
+                float f2 = this.Z.nextFloat() * 0.8F + 0.1F;
 
-                while (var2.a > 0) {
-                    int var6 = this.bS.nextInt(21) + 10;
+                while (oitemstack.a > 0) {
+                    int j = this.Z.nextInt(21) + 10;
 
-                    if (var6 > var2.a) {
-                        var6 = var2.a;
+                    if (j > oitemstack.a) {
+                        j = oitemstack.a;
                     }
 
-                    var2.a -= var6;
-                    OEntityItem var7 = new OEntityItem(this.bi, this.bm + (double) var3, this.bn + (double) var4, this.bo + (double) var5, new OItemStack(var2.c, var6, var2.h()));
+                    oitemstack.a -= j;
+                    OEntityItem oentityitem = new OEntityItem(this.p, this.t + (double) f, this.u + (double) f1, this.v + (double) f2, new OItemStack(oitemstack.c, j, oitemstack.j()));
                     
-                    if (var2.n()) {
-                        var7.a.d((ONBTTagCompound) var2.o().b());
+                    if (oitemstack.o()) {
+                        oentityitem.a.d((ONBTTagCompound) oitemstack.p().b());
                     }
                     
-                    float var8 = 0.05F;
+                    float f3 = 0.05F;
 
-                    var7.bp = (double) ((float) this.bS.nextGaussian() * var8);
-                    var7.bq = (double) ((float) this.bS.nextGaussian() * var8 + 0.2F);
-                    var7.br = (double) ((float) this.bS.nextGaussian() * var8);
-                    this.bi.b((OEntity) var7);
+                    oentityitem.w = (double) ((float) this.Z.nextGaussian() * f3);
+                    oentityitem.x = (double) ((float) this.Z.nextGaussian() * f3 + 0.2F);
+                    oentityitem.y = (double) ((float) this.Z.nextGaussian() * f3);
+                    this.p.d((OEntity) oentityitem);
                 }
             }
         }
 
-        super.X();
+        super.y();
     }
 
-    public void F_() {
+    public void h_() {
         // CanaryMod: Update of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, cart);
         
-        if (this.m() > 0) {
-            this.d(this.m() - 1);
+        if (this.j() > 0) {
+            this.h(this.j() - 1);
         }
         
-        double prevX = bj;
-        double prevY = bk;
-        double prevZ = bl;
+        double prevX = this.q;
+        double prevY = this.r;
+        double prevZ = this.s;
 
-        if (this.l() > 0) {
-            this.c(this.l() - 1);
+        if (this.i() > 0) {
+            this.c(this.i() - 1);
         }
         
-        if (this.bn < -64.0D) {
-            this.aI();
+        if (this.u < -64.0D) {
+            this.C();
         }
 
-        if (this.k() && this.bS.nextInt(4) == 0) {
-            this.bi.a("largesmoke", this.bm, this.bn + 0.8D, this.bo, 0.0D, 0.0D, 0.0D);
+        if (this.h() && this.Z.nextInt(4) == 0) {
+            this.p.a("largesmoke", this.t, this.u + 0.8D, this.v, 0.0D, 0.0D, 0.0D);
         }
 
-        if (this.bi.F) {
+        if (this.p.K) {
             if (this.h > 0) {
-                double var1 = this.bm + (this.i - this.bm) / (double) this.h;
-                double var3 = this.bn + (this.j - this.bn) / (double) this.h;
-                double var5 = this.bo + (this.k - this.bo) / (double) this.h;
+                double d0 = this.t + (this.i - this.t) / (double) this.h;
+                double d1 = this.u + (this.j - this.u) / (double) this.h;
+                double d2 = this.v + (this.an - this.v) / (double) this.h;
+                double d3 = OMathHelper.g(this.ao - (double) this.z);
 
-                double var7;
-
-                for (var7 = this.l - (double) this.bs; var7 < -180.0D; var7 += 360.0D) {
-                    ;
-                }
-
-                while (var7 >= 180.0D) {
-                    var7 -= 360.0D;
-                }
-
-                this.bs = (float) ((double) this.bs + var7 / (double) this.h);
-                this.bt = (float) ((double) this.bt + (this.m - (double) this.bt) / (double) this.h);
+                this.z = (float) ((double) this.z + d3 / (double) this.h);
+                this.A = (float) ((double) this.A + (this.ap - (double) this.A) / (double) this.h);
                 --this.h;
-                this.c(var1, var3, var5);
-                this.c(this.bs, this.bt);
+                this.b(d0, d1, d2);
+                this.b(this.z, this.A);
             } else {
-                this.c(this.bm, this.bn, this.bo);
-                this.c(this.bs, this.bt);
+                this.b(this.t, this.u, this.v);
+                this.b(this.z, this.A);
             }
-
         } else {
-            this.bj = this.bm;
-            this.bk = this.bn;
-            this.bl = this.bo;
-            this.bq -= 0.03999999910593033D;
-            int var9 = OMathHelper.b(this.bm);
-            int var10 = OMathHelper.b(this.bn);
-            int var11 = OMathHelper.b(this.bo);
+            this.q = this.t;
+            this.r = this.u;
+            this.s = this.v;
+            this.x -= 0.03999999910593033D;
+            int i = OMathHelper.c(this.t);
+            int j = OMathHelper.c(this.u);
+            int k = OMathHelper.c(this.v);
             
             // CanaryMod: Change of the cart
-            if ((int) var9 != (int) prevX || (int) var10 != (int) prevY || (int) var11 != (int) prevZ) {
-                manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, var9, var10, var11);
+            if ((int) i != (int) prevX || (int) j != (int) prevY || (int) k != (int) prevZ) {
+                manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, i, j, k);
             }
 
-            if (OBlockRail.g(this.bi, var9, var10 - 1, var11)) {
-                --var10;
+            if (OBlockRail.d_(this.p, i, j - 1, k)) {
+                --j;
             }
 
-            double var12 = 0.4D;
-            double var14 = 0.0078125D;
-            int var16 = this.bi.a(var9, var10, var11);
+            double d4 = 0.4D;
+            double d5 = 0.0078125D;
+            int l = this.p.a(i, j, k);
 
-            if (OBlockRail.d(var16)) {
-                OVec3D var17 = this.h(this.bm, this.bn, this.bo);
-                int var18 = this.bi.c(var9, var10, var11);
+            if (OBlockRail.d(l)) {
+                OVec3 ovec3 = this.a(this.t, this.u, this.v);
+                int i1 = this.p.g(i, j, k);
 
-                this.bn = (double) var10;
-                boolean var19 = false;
-                boolean var20 = false;
+                this.u = (double) j;
+                boolean flag = false;
+                boolean flag1 = false;
 
-                if (var16 == OBlock.T.bO) {
-                    var19 = (var18 & 8) != 0;
-                    var20 = !var19;
+                if (l == OBlock.T.ca) {
+                    flag = (i1 & 8) != 0;
+                    flag1 = !flag;
                 }
 
-                if (((OBlockRail) OBlock.m[var16]).i()) {
-                    var18 &= 7;
+                if (((OBlockRail) OBlock.m[l]).n()) {
+                    i1 &= 7;
                 }
 
-                if (var18 >= 2 && var18 <= 5) {
-                    this.bn = (double) (var10 + 1);
+                if (i1 >= 2 && i1 <= 5) {
+                    this.u = (double) (j + 1);
                 }
 
-                if (var18 == 2) {
-                    this.bp -= var14;
+                if (i1 == 2) {
+                    this.w -= d5;
                 }
 
-                if (var18 == 3) {
-                    this.bp += var14;
+                if (i1 == 3) {
+                    this.w += d5;
                 }
 
-                if (var18 == 4) {
-                    this.br += var14;
+                if (i1 == 4) {
+                    this.y += d5;
                 }
 
-                if (var18 == 5) {
-                    this.br -= var14;
+                if (i1 == 5) {
+                    this.y -= d5;
                 }
 
-                int[][] var21 = g[var18];
-                double var22 = (double) (var21[1][0] - var21[0][0]);
-                double var24 = (double) (var21[1][2] - var21[0][2]);
-                double var26 = Math.sqrt(var22 * var22 + var24 * var24);
-                double var28 = this.bp * var22 + this.br * var24;
+                int[][] aint = g[i1];
+                double d6 = (double) (aint[1][0] - aint[0][0]);
+                double d7 = (double) (aint[1][2] - aint[0][2]);
+                double d8 = Math.sqrt(d6 * d6 + d7 * d7);
+                double d9 = this.w * d6 + this.y * d7;
 
-                if (var28 < 0.0D) {
-                    var22 = -var22;
-                    var24 = -var24;
+                if (d9 < 0.0D) {
+                    d6 = -d6;
+                    d7 = -d7;
                 }
 
-                double var30 = Math.sqrt(this.bp * this.bp + this.br * this.br);
+                double d10 = Math.sqrt(this.w * this.w + this.y * this.y);
 
-                this.bp = var30 * var22 / var26;
-                this.br = var30 * var24 / var26;
-                double var32;
+                this.w = d10 * d6 / d8;
+                this.y = d10 * d7 / d8;
+                double d11;
+                double d12;
 
-                if (var20) {
-                    var32 = Math.sqrt(this.bp * this.bp + this.br * this.br);
-                    if (var32 < 0.03D) {
-                        this.bp *= 0.0D;
-                        this.bq *= 0.0D;
-                        this.br *= 0.0D;
-                    } else {
-                        this.bp *= 0.5D;
-                        this.bq *= 0.0D;
-                        this.br *= 0.5D;
+                if (this.n != null) {
+                    d12 = this.n.w * this.n.w + this.n.y * this.n.y;
+                    d11 = this.w * this.w + this.y * this.y;
+                    if (d12 > 1.0E-4D && d11 < 0.01D) {
+                        this.w += this.n.w * 0.1D;
+                        this.y += this.n.y * 0.1D;
+                        flag1 = false;
                     }
                 }
 
-                var32 = 0.0D;
-                double var34 = (double) var9 + 0.5D + (double) var21[0][0] * 0.5D;
-                double var36 = (double) var11 + 0.5D + (double) var21[0][2] * 0.5D;
-                double var38 = (double) var9 + 0.5D + (double) var21[1][0] * 0.5D;
-                double var40 = (double) var11 + 0.5D + (double) var21[1][2] * 0.5D;
+                if (flag1) {
+                    d12 = Math.sqrt(this.w * this.w + this.y * this.y);
+                    if (d12 < 0.03D) {
+                        this.w *= 0.0D;
+                        this.x *= 0.0D;
+                        this.y *= 0.0D;
+                    } else {
+                        this.w *= 0.5D;
+                        this.x *= 0.0D;
+                        this.y *= 0.5D;
+                    }
+                }
 
-                var22 = var38 - var34;
-                var24 = var40 - var36;
-                double var42;
-                double var46;
-                double var44;
+                d12 = 0.0D;
+                d11 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
+                double d13 = (double) k + 0.5D + (double) aint[0][2] * 0.5D;
+                double d14 = (double) i + 0.5D + (double) aint[1][0] * 0.5D;
+                double d15 = (double) k + 0.5D + (double) aint[1][2] * 0.5D;
 
-                if (var22 == 0.0D) {
-                    this.bm = (double) var9 + 0.5D;
-                    var32 = this.bo - (double) var11;
-                } else if (var24 == 0.0D) {
-                    this.bo = (double) var11 + 0.5D;
-                    var32 = this.bm - (double) var9;
+                d6 = d14 - d11;
+                d7 = d15 - d13;
+                double d16;
+                double d17;
+
+                if (d6 == 0.0D) {
+                    this.t = (double) i + 0.5D;
+                    d12 = this.v - (double) k;
+                } else if (d7 == 0.0D) {
+                    this.v = (double) k + 0.5D;
+                    d12 = this.t - (double) i;
                 } else {
-                    var42 = this.bm - var34;
-                    var44 = this.bo - var36;
-                    var46 = (var42 * var22 + var44 * var24) * 2.0D;
-                    var32 = var46;
+                    d16 = this.t - d11;
+                    d17 = this.v - d13;
+                    d12 = (d16 * d6 + d17 * d7) * 2.0D;
                 }
 
-                this.bm = var34 + var22 * var32;
-                this.bo = var36 + var24 * var32;
-                this.c(this.bm, this.bn + (double) this.bF, this.bo);
-                var42 = this.bp;
-                var44 = this.br;
-                if (this.bg != null) {
-                    var42 *= 0.75D;
-                    var44 *= 0.75D;
+                this.t = d11 + d6 * d12;
+                this.v = d13 + d7 * d12;
+                this.b(this.t, this.u + (double) this.M, this.v);
+                d16 = this.w;
+                d17 = this.y;
+                if (this.n != null) {
+                    d16 *= 0.75D;
+                    d17 *= 0.75D;
                 }
 
-                if (var42 < -var12) {
-                    var42 = -var12;
+                if (d16 < -d4) {
+                    d16 = -d4;
                 }
 
-                if (var42 > var12) {
-                    var42 = var12;
+                if (d16 > d4) {
+                    d16 = d4;
                 }
 
-                if (var44 < -var12) {
-                    var44 = -var12;
+                if (d17 < -d4) {
+                    d17 = -d4;
                 }
 
-                if (var44 > var12) {
-                    var44 = var12;
+                if (d17 > d4) {
+                    d17 = d4;
                 }
 
-                this.a(var42, 0.0D, var44);
-                if (var21[0][1] != 0 && OMathHelper.b(this.bm) - var9 == var21[0][0] && OMathHelper.b(this.bo) - var11 == var21[0][2]) {
-                    this.c(this.bm, this.bn + (double) var21[0][1], this.bo);
-                } else if (var21[1][1] != 0 && OMathHelper.b(this.bm) - var9 == var21[1][0] && OMathHelper.b(this.bo) - var11 == var21[1][2]) {
-                    this.c(this.bm, this.bn + (double) var21[1][1], this.bo);
+                this.d(d16, 0.0D, d17);
+                if (aint[0][1] != 0 && OMathHelper.c(this.t) - i == aint[0][0] && OMathHelper.c(this.v) - k == aint[0][2]) {
+                    this.b(this.t, this.u + (double) aint[0][1], this.v);
+                } else if (aint[1][1] != 0 && OMathHelper.c(this.t) - i == aint[1][0] && OMathHelper.c(this.v) - k == aint[1][2]) {
+                    this.b(this.t, this.u + (double) aint[1][1], this.v);
                 }
 
-                if (this.bg != null) {
-                    this.bp *= 0.996999979019165D;
-                    this.bq *= 0.0D;
-                    this.br *= 0.996999979019165D;
+                if (this.n != null) {
+                    this.w *= 0.996999979019165D;
+                    this.x *= 0.0D;
+                    this.y *= 0.996999979019165D;
                 } else {
                     if (this.a == 2) {
-                        var46 = (double) OMathHelper.a(this.b * this.b + this.c * this.c);
-                        if (var46 > 0.01D) {
-                            this.b /= var46;
-                            this.c /= var46;
-                            double var48 = 0.04D;
+                        double d18 = this.b * this.b + this.c * this.c;
 
-                            this.bp *= 0.800000011920929D;
-                            this.bq *= 0.0D;
-                            this.br *= 0.800000011920929D;
-                            this.bp += this.b * var48;
-                            this.br += this.c * var48;
+                        if (d18 > 1.0E-4D) {
+                            d18 = (double) OMathHelper.a(d18);
+                            this.b /= d18;
+                            this.c /= d18;
+                            double d19 = 0.04D;
+
+                            this.w *= 0.800000011920929D;
+                            this.x *= 0.0D;
+                            this.y *= 0.800000011920929D;
+                            this.w += this.b * d19;
+                            this.y += this.c * d19;
                         } else {
-                            this.bp *= 0.8999999761581421D;
-                            this.bq *= 0.0D;
-                            this.br *= 0.8999999761581421D;
+                            this.w *= 0.8999999761581421D;
+                            this.x *= 0.0D;
+                            this.y *= 0.8999999761581421D;
                         }
                     }
 
-                    this.bp *= 0.9599999785423279D;
-                    this.bq *= 0.0D;
-                    this.br *= 0.9599999785423279D;
+                    this.w *= 0.9599999785423279D;
+                    this.x *= 0.0D;
+                    this.y *= 0.9599999785423279D;
                 }
 
-                OVec3D var50 = this.h(this.bm, this.bn, this.bo);
+                OVec3 ovec31 = this.a(this.t, this.u, this.v);
 
-                if (var50 != null && var17 != null) {
-                    double var51 = (var17.b - var50.b) * 0.05D;
+                if (ovec31 != null && ovec3 != null) {
+                    double d20 = (ovec3.b - ovec31.b) * 0.05D;
 
-                    var30 = Math.sqrt(this.bp * this.bp + this.br * this.br);
-                    if (var30 > 0.0D) {
-                        this.bp = this.bp / var30 * (var30 + var51);
-                        this.br = this.br / var30 * (var30 + var51);
+                    d10 = Math.sqrt(this.w * this.w + this.y * this.y);
+                    if (d10 > 0.0D) {
+                        this.w = this.w / d10 * (d10 + d20);
+                        this.y = this.y / d10 * (d10 + d20);
                     }
 
-                    this.c(this.bm, var50.b, this.bo);
+                    this.b(this.t, ovec31.b, this.v);
                 }
 
-                int var53 = OMathHelper.b(this.bm);
-                int var54 = OMathHelper.b(this.bo);
+                int j1 = OMathHelper.c(this.t);
+                int k1 = OMathHelper.c(this.v);
 
-                if (var53 != var9 || var54 != var11) {
-                    var30 = Math.sqrt(this.bp * this.bp + this.br * this.br);
-                    this.bp = var30 * (double) (var53 - var9);
-                    this.br = var30 * (double) (var54 - var11);
+                if (j1 != i || k1 != k) {
+                    d10 = Math.sqrt(this.w * this.w + this.y * this.y);
+                    this.w = d10 * (double) (j1 - i);
+                    this.y = d10 * (double) (k1 - k);
                 }
 
-                double var55;
+                double d21;
 
                 if (this.a == 2) {
-                    var55 = (double) OMathHelper.a(this.b * this.b + this.c * this.c);
-                    if (var55 > 0.01D && this.bp * this.bp + this.br * this.br > 0.001D) {
-                        this.b /= var55;
-                        this.c /= var55;
-                        if (this.b * this.bp + this.c * this.br < 0.0D) {
+                    d21 = this.b * this.b + this.c * this.c;
+                    if (d21 > 1.0E-4D && this.w * this.w + this.y * this.y > 0.001D) {
+                        d21 = (double) OMathHelper.a(d21);
+                        this.b /= d21;
+                        this.c /= d21;
+                        if (this.b * this.w + this.c * this.y < 0.0D) {
                             this.b = 0.0D;
                             this.c = 0.0D;
                         } else {
-                            this.b = this.bp;
-                            this.c = this.br;
+                            this.b = this.w;
+                            this.c = this.y;
                         }
                     }
                 }
 
-                if (var19) {
-                    var55 = Math.sqrt(this.bp * this.bp + this.br * this.br);
-                    if (var55 > 0.01D) {
-                        double var57 = 0.06D;
+                if (flag) {
+                    d21 = Math.sqrt(this.w * this.w + this.y * this.y);
+                    if (d21 > 0.01D) {
+                        double d22 = 0.06D;
 
-                        this.bp += this.bp / var55 * var57;
-                        this.br += this.br / var55 * var57;
-                    } else if (var18 == 1) {
-                        if (this.bi.e(var9 - 1, var10, var11)) {
-                            this.bp = 0.02D;
-                        } else if (this.bi.e(var9 + 1, var10, var11)) {
-                            this.bp = -0.02D;
+                        this.w += this.w / d21 * d22;
+                        this.y += this.y / d21 * d22;
+                    } else if (i1 == 1) {
+                        if (this.p.s(i - 1, j, k)) {
+                            this.w = 0.02D;
+                        } else if (this.p.s(i + 1, j, k)) {
+                            this.w = -0.02D;
                         }
-                    } else if (var18 == 0) {
-                        if (this.bi.e(var9, var10, var11 - 1)) {
-                            this.br = 0.02D;
-                        } else if (this.bi.e(var9, var10, var11 + 1)) {
-                            this.br = -0.02D;
+                    } else if (i1 == 0) {
+                        if (this.p.s(i, j, k - 1)) {
+                            this.y = 0.02D;
+                        } else if (this.p.s(i, j, k + 1)) {
+                            this.y = -0.02D;
                         }
                     }
                 }
+
+                this.D();
             } else {
-                if (this.bp < -var12) {
-                    this.bp = -var12;
+                if (this.w < -d4) {
+                    this.w = -d4;
                 }
 
-                if (this.bp > var12) {
-                    this.bp = var12;
+                if (this.w > d4) {
+                    this.w = d4;
                 }
 
-                if (this.br < -var12) {
-                    this.br = -var12;
+                if (this.y < -d4) {
+                    this.y = -d4;
                 }
 
-                if (this.br > var12) {
-                    this.br = var12;
+                if (this.y > d4) {
+                    this.y = d4;
                 }
 
-                if (this.bx) {
-                    this.bp *= 0.5D;
-                    this.bq *= 0.5D;
-                    this.br *= 0.5D;
+                if (this.E) {
+                    this.w *= 0.5D;
+                    this.x *= 0.5D;
+                    this.y *= 0.5D;
                 }
 
-                this.a(this.bp, this.bq, this.br);
-                if (!this.bx) {
-                    this.bp *= 0.949999988079071D;
-                    this.bq *= 0.949999988079071D;
-                    this.br *= 0.949999988079071D;
+                this.d(this.w, this.x, this.y);
+                if (!this.E) {
+                    this.w *= 0.949999988079071D;
+                    this.x *= 0.949999988079071D;
+                    this.y *= 0.949999988079071D;
                 }
             }
 
-            this.bt = 0.0F;
-            double var59 = this.bj - this.bm;
-            double var61 = this.bl - this.bo;
+            this.A = 0.0F;
+            double d23 = this.q - this.t;
+            double d24 = this.s - this.v;
 
-            if (var59 * var59 + var61 * var61 > 0.001D) {
-                this.bs = (float) (Math.atan2(var61, var59) * 180.0D / 3.141592653589793D);
+            if (d23 * d23 + d24 * d24 > 0.001D) {
+                this.z = (float) (Math.atan2(d24, d23) * 180.0D / 3.141592653589793D);
                 if (this.f) {
-                    this.bs += 180.0F;
+                    this.z += 180.0F;
                 }
             }
 
-            double var63;
+            double d25 = (double) OMathHelper.g(this.z - this.B);
 
-            for (var63 = (double) (this.bs - this.bu); var63 >= 180.0D; var63 -= 360.0D) {
-                ;
-            }
-
-            while (var63 < -180.0D) {
-                var63 += 360.0D;
-            }
-
-            if (var63 < -170.0D || var63 >= 170.0D) {
-                this.bs += 180.0F;
+            if (d25 < -170.0D || d25 >= 170.0D) {
+                this.z += 180.0F;
                 this.f = !this.f;
             }
 
-            this.c(this.bs, this.bt);
-            List var65 = this.bi.b((OEntity) this, this.bw.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+            this.b(this.z, this.A);
+            List list = this.p.b((OEntity) this, this.D.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
-            if (var65 != null && var65.size() > 0) {
-                for (int var66 = 0; var66 < var65.size(); ++var66) {
-                    OEntity var67 = (OEntity) var65.get(var66);
+            if (list != null && !list.isEmpty()) {
+                for (int l1 = 0; l1 < list.size(); ++l1) {
+                    OEntity oentity = (OEntity) list.get(l1);
 
-                    if (var67 != this.bg && var67.e_() && var67 instanceof OEntityMinecart) {
-                        var67.k(this);
+                    if (oentity != this.n && oentity.M() && oentity instanceof OEntityMinecart) {
+                        oentity.f(this);
                     }
                 }
             }
 
-            if (this.bg != null && this.bg.bE) {
-                if (this.bg.bh == this) {
-                    this.bg.bh = null;
+            if (this.n != null && this.n.L) {
+                if (this.n.o == this) {
+                    this.n.o = null;
                 }
 
-                this.bg = null;
+                this.n = null;
             }
 
             if (this.e > 0) {
@@ -553,7 +552,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 this.b = this.c = 0.0D;
             }
 
-            this.a(this.e > 0);
+            this.d(this.e > 0);
         }
     }
     
@@ -562,370 +561,371 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     private int lastY = 0;
     private int lastZ = 0;
 
-    public OVec3D h(double var1, double var3, double var5) {
-        int var7 = OMathHelper.b(var1);
-        int var8 = OMathHelper.b(var3);
-        int var9 = OMathHelper.b(var5);
+    public OVec3 a(double d0, double d1, double d2) {
+        int i = OMathHelper.c(d0);
+        int j = OMathHelper.c(d1);
+        int k = OMathHelper.c(d2);
         
         // CanaryMod: Change of the cart
-        if ((int) var7 != (int) lastX || (int) var8 != (int) lastY || (int) var9 != (int) lastZ) {
-            manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, var7, var8, var9);
-            lastX = var7;
-            lastY = var8;
-            lastZ = var9;
+        if ((int) i != (int) lastX || (int) j != (int) lastY || (int) k != (int) lastZ) {
+            manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, i, j, k);
+            lastX = i;
+            lastY = j;
+            lastZ = k;
         }
 
-        if (OBlockRail.g(this.bi, var7, var8 - 1, var9)) {
-            --var8;
+        if (OBlockRail.d_(this.p, i, j - 1, k)) {
+            --j;
         }
 
-        int var10 = this.bi.a(var7, var8, var9);
+        int l = this.p.a(i, j, k);
 
-        if (OBlockRail.d(var10)) {
-            int var11 = this.bi.c(var7, var8, var9);
+        if (OBlockRail.d(l)) {
+            int i1 = this.p.g(i, j, k);
 
-            var3 = (double) var8;
-            if (((OBlockRail) OBlock.m[var10]).i()) {
-                var11 &= 7;
+            d1 = (double) j;
+            if (((OBlockRail) OBlock.m[l]).n()) {
+                i1 &= 7;
             }
 
-            if (var11 >= 2 && var11 <= 5) {
-                var3 = (double) (var8 + 1);
+            if (i1 >= 2 && i1 <= 5) {
+                d1 = (double) (j + 1);
             }
 
-            int[][] var12 = g[var11];
-            double var13 = 0.0D;
-            double var15 = (double) var7 + 0.5D + (double) var12[0][0] * 0.5D;
-            double var17 = (double) var8 + 0.5D + (double) var12[0][1] * 0.5D;
-            double var19 = (double) var9 + 0.5D + (double) var12[0][2] * 0.5D;
-            double var21 = (double) var7 + 0.5D + (double) var12[1][0] * 0.5D;
-            double var23 = (double) var8 + 0.5D + (double) var12[1][1] * 0.5D;
-            double var25 = (double) var9 + 0.5D + (double) var12[1][2] * 0.5D;
-            double var27 = var21 - var15;
-            double var29 = (var23 - var17) * 2.0D;
-            double var31 = var25 - var19;
+            int[][] aint = g[i1];
+            double d3 = 0.0D;
+            double d4 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
+            double d5 = (double) j + 0.5D + (double) aint[0][1] * 0.5D;
+            double d6 = (double) k + 0.5D + (double) aint[0][2] * 0.5D;
+            double d7 = (double) i + 0.5D + (double) aint[1][0] * 0.5D;
+            double d8 = (double) j + 0.5D + (double) aint[1][1] * 0.5D;
+            double d9 = (double) k + 0.5D + (double) aint[1][2] * 0.5D;
+            double d10 = d7 - d4;
+            double d11 = (d8 - d5) * 2.0D;
+            double d12 = d9 - d6;
 
-            if (var27 == 0.0D) {
-                var1 = (double) var7 + 0.5D;
-                var13 = var5 - (double) var9;
-            } else if (var31 == 0.0D) {
-                var5 = (double) var9 + 0.5D;
-                var13 = var1 - (double) var7;
+            if (d10 == 0.0D) {
+                d0 = (double) i + 0.5D;
+                d3 = d2 - (double) k;
+            } else if (d12 == 0.0D) {
+                d2 = (double) k + 0.5D;
+                d3 = d0 - (double) i;
             } else {
-                double var33 = var1 - var15;
-                double var35 = var5 - var19;
-                double var37 = (var33 * var27 + var35 * var31) * 2.0D;
+                double d13 = d0 - d4;
+                double d14 = d2 - d6;
 
-                var13 = var37;
+                d3 = (d13 * d10 + d14 * d12) * 2.0D;
             }
 
-            var1 = var15 + var27 * var13;
-            var3 = var17 + var29 * var13;
-            var5 = var19 + var31 * var13;
-            if (var29 < 0.0D) {
-                ++var3;
+            d0 = d4 + d10 * d3;
+            d1 = d5 + d11 * d3;
+            d2 = d6 + d12 * d3;
+            if (d11 < 0.0D) {
+                ++d1;
             }
 
-            if (var29 > 0.0D) {
-                var3 += 0.5D;
+            if (d11 > 0.0D) {
+                d1 += 0.5D;
             }
 
-            return OVec3D.b(var1, var3, var5);
+            return OVec3.a().a(d0, d1, d2);
         } else {
             return null;
         }
     }
 
-    protected void b(ONBTTagCompound var1) {
-        var1.a("Type", this.a);
+    protected void b(ONBTTagCompound onbttagcompound) {
+        onbttagcompound.a("Type", this.a);
         if (this.a == 2) {
-            var1.a("PushX", this.b);
-            var1.a("PushZ", this.c);
-            var1.a("Fuel", (short) this.e);
+            onbttagcompound.a("PushX", this.b);
+            onbttagcompound.a("PushZ", this.c);
+            onbttagcompound.a("Fuel", (short) this.e);
         } else if (this.a == 1) {
-            ONBTTagList var2 = new ONBTTagList();
+            ONBTTagList onbttaglist = new ONBTTagList();
 
-            for (int var3 = 0; var3 < this.d.length; ++var3) {
-                if (this.d[var3] != null) {
-                    ONBTTagCompound var4 = new ONBTTagCompound();
+            for (int i = 0; i < this.d.length; ++i) {
+                if (this.d[i] != null) {
+                    ONBTTagCompound onbttagcompound1 = new ONBTTagCompound();
 
-                    var4.a("Slot", (byte) var3);
-                    this.d[var3].b(var4);
-                    var2.a((ONBTBase) var4);
+                    onbttagcompound1.a("Slot", (byte) i);
+                    this.d[i].b(onbttagcompound1);
+                    onbttaglist.a((ONBTBase) onbttagcompound1);
                 }
             }
 
-            var1.a("Items", (ONBTBase) var2);
+            onbttagcompound.a("Items", (ONBTBase) onbttaglist);
         }
-
     }
 
-    protected void a(ONBTTagCompound var1) {
-        this.a = var1.f("Type");
+    protected void a(ONBTTagCompound onbttagcompound) {
+        this.a = onbttagcompound.e("Type");
         if (this.a == 2) {
-            this.b = var1.i("PushX");
-            this.c = var1.i("PushZ");
-            this.e = var1.e("Fuel");
+            this.b = onbttagcompound.h("PushX");
+            this.c = onbttagcompound.h("PushZ");
+            this.e = onbttagcompound.d("Fuel");
         } else if (this.a == 1) {
-            ONBTTagList var2 = var1.n("Items");
+            ONBTTagList onbttaglist = onbttagcompound.m("Items");
 
-            this.d = new OItemStack[this.c()];
+            this.d = new OItemStack[this.i_()];
 
-            for (int var3 = 0; var3 < var2.d(); ++var3) {
-                ONBTTagCompound var4 = (ONBTTagCompound) var2.a(var3);
-                int var5 = var4.d("Slot") & 255;
+            for (int i = 0; i < onbttaglist.c(); ++i) {
+                ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(i);
+                int j = onbttagcompound1.c("Slot") & 255;
 
-                if (var5 >= 0 && var5 < this.d.length) {
-                    this.d[var5] = OItemStack.a(var4);
+                if (j >= 0 && j < this.d.length) {
+                    this.d[j] = OItemStack.a(onbttagcompound1);
                 }
             }
         }
-
     }
 
-    public void k(OEntity var1) {
-        if (!this.bi.F) {
-            if (var1 != this.bg) {
+    public void f(OEntity oentity) {
+        if (!this.p.K) {
+            if (oentity != this.n) {
                 // CanaryMod: Collision of a cart
-                if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_COLLISION, cart, var1.entity)) {
+                if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_COLLISION, cart, oentity.entity)) {
                     return;
                 }
                 
-                if (var1 instanceof OEntityLiving && !(var1 instanceof OEntityPlayer) && !(var1 instanceof OEntityIronGolem) && this.a == 0 && this.bp * this.bp + this.br * this.br > 0.01D && this.bg == null && var1.bh == null) {
-                    var1.b((OEntity) this);
+                if (oentity instanceof OEntityLiving && !(oentity instanceof OEntityPlayer) && !(oentity instanceof OEntityIronGolem) && this.a == 0 && this.w * this.w + this.y * this.y > 0.01D && this.n == null && oentity.o == null) {
+                    oentity.a((OEntity) this);
                 }
 
-                double var2 = var1.bm - this.bm;
-                double var4 = var1.bo - this.bo;
-                double var6 = var2 * var2 + var4 * var4;
+                double d0 = oentity.t - this.t;
+                double d1 = oentity.v - this.v;
+                double d2 = d0 * d0 + d1 * d1;
 
-                if (var6 >= 9.999999747378752E-5D) {
-                    var6 = (double) OMathHelper.a(var6);
-                    var2 /= var6;
-                    var4 /= var6;
-                    double var8 = 1.0D / var6;
+                if (d2 >= 9.999999747378752E-5D) {
+                    d2 = (double) OMathHelper.a(d2);
+                    d0 /= d2;
+                    d1 /= d2;
+                    double d3 = 1.0D / d2;
 
-                    if (var8 > 1.0D) {
-                        var8 = 1.0D;
+                    if (d3 > 1.0D) {
+                        d3 = 1.0D;
                     }
 
-                    var2 *= var8;
-                    var4 *= var8;
-                    var2 *= 0.10000000149011612D;
-                    var4 *= 0.10000000149011612D;
-                    var2 *= (double) (1.0F - this.bR);
-                    var4 *= (double) (1.0F - this.bR);
-                    var2 *= 0.5D;
-                    var4 *= 0.5D;
-                    if (var1 instanceof OEntityMinecart) {
-                        double var10 = var1.bm - this.bm;
-                        double var12 = var1.bo - this.bo;
-                        OVec3D var14 = OVec3D.b(var10, 0.0D, var12).b();
-                        OVec3D var15 = OVec3D.b((double) OMathHelper.b(this.bs * 3.1415927F / 180.0F), 0.0D, (double) OMathHelper.a(this.bs * 3.1415927F / 180.0F)).b();
-                        double var16 = Math.abs(var14.a(var15));
+                    d0 *= d3;
+                    d1 *= d3;
+                    d0 *= 0.10000000149011612D;
+                    d1 *= 0.10000000149011612D;
+                    d0 *= (double) (1.0F - this.Y);
+                    d1 *= (double) (1.0F - this.Y);
+                    d0 *= 0.5D;
+                    d1 *= 0.5D;
+                    if (oentity instanceof OEntityMinecart) {
+                        double d4 = oentity.t - this.t;
+                        double d5 = oentity.v - this.v;
+                        OVec3 ovec3 = OVec3.a().a(d4, 0.0D, d5).b();
+                        OVec3 ovec31 = OVec3.a().a((double) OMathHelper.b(this.z * 3.1415927F / 180.0F), 0.0D, (double) OMathHelper.a(this.z * 3.1415927F / 180.0F)).b();
+                        double d6 = Math.abs(ovec3.b(ovec31));
 
-                        if (var16 < 0.800000011920929D) {
+                        if (d6 < 0.800000011920929D) {
                             return;
                         }
 
-                        double var18 = var1.bp + this.bp;
-                        double var20 = var1.br + this.br;
+                        double d7 = oentity.w + this.w;
+                        double d8 = oentity.y + this.y;
 
-                        if (((OEntityMinecart) var1).a == 2 && this.a != 2) {
-                            this.bp *= 0.20000000298023224D;
-                            this.br *= 0.20000000298023224D;
-                            this.b_(var1.bp - var2, 0.0D, var1.br - var4);
-                            var1.bp *= 0.949999988079071D;
-                            var1.br *= 0.949999988079071D;
-                        } else if (((OEntityMinecart) var1).a != 2 && this.a == 2) {
-                            var1.bp *= 0.20000000298023224D;
-                            var1.br *= 0.20000000298023224D;
-                            var1.b_(this.bp + var2, 0.0D, this.br + var4);
-                            this.bp *= 0.949999988079071D;
-                            this.br *= 0.949999988079071D;
+                        if (((OEntityMinecart) oentity).a == 2 && this.a != 2) {
+                            this.w *= 0.20000000298023224D;
+                            this.y *= 0.20000000298023224D;
+                            this.g(oentity.w - d0, 0.0D, oentity.y - d1);
+                            oentity.w *= 0.949999988079071D;
+                            oentity.y *= 0.949999988079071D;
+                        } else if (((OEntityMinecart) oentity).a != 2 && this.a == 2) {
+                            oentity.w *= 0.20000000298023224D;
+                            oentity.y *= 0.20000000298023224D;
+                            oentity.g(this.w + d0, 0.0D, this.y + d1);
+                            this.w *= 0.949999988079071D;
+                            this.y *= 0.949999988079071D;
                         } else {
-                            var18 /= 2.0D;
-                            var20 /= 2.0D;
-                            this.bp *= 0.20000000298023224D;
-                            this.br *= 0.20000000298023224D;
-                            this.b_(var18 - var2, 0.0D, var20 - var4);
-                            var1.bp *= 0.20000000298023224D;
-                            var1.br *= 0.20000000298023224D;
-                            var1.b_(var18 + var2, 0.0D, var20 + var4);
+                            d7 /= 2.0D;
+                            d8 /= 2.0D;
+                            this.w *= 0.20000000298023224D;
+                            this.y *= 0.20000000298023224D;
+                            this.g(d7 - d0, 0.0D, d8 - d1);
+                            oentity.w *= 0.20000000298023224D;
+                            oentity.y *= 0.20000000298023224D;
+                            oentity.g(d7 + d0, 0.0D, d8 + d1);
                         }
                     } else {
-                        this.b_(-var2, 0.0D, -var4);
-                        var1.b_(var2 / 4.0D, 0.0D, var4 / 4.0D);
+                        this.g(-d0, 0.0D, -d1);
+                        oentity.g(d0 / 4.0D, 0.0D, d1 / 4.0D);
                     }
                 }
-
             }
         }
     }
 
-    public int c() {
+    public int i_() {
         return 27;
     }
 
-    public OItemStack g_(int var1) {
-        return this.d[var1];
+    public OItemStack a(int i) {
+        return this.d[i];
     }
 
-    public OItemStack a(int var1, int var2) {
-        if (this.d[var1] != null) {
-            OItemStack var3;
+    public OItemStack a(int i, int j) {
+        if (this.d[i] != null) {
+            OItemStack oitemstack;
 
-            if (this.d[var1].a <= var2) {
-                var3 = this.d[var1];
-                this.d[var1] = null;
-                return var3;
+            if (this.d[i].a <= j) {
+                oitemstack = this.d[i];
+                this.d[i] = null;
+                return oitemstack;
             } else {
-                var3 = this.d[var1].a(var2);
-                if (this.d[var1].a == 0) {
-                    this.d[var1] = null;
+                oitemstack = this.d[i].a(j);
+                if (this.d[i].a == 0) {
+                    this.d[i] = null;
                 }
 
-                return var3;
+                return oitemstack;
             }
         } else {
             return null;
         }
     }
 
-    public OItemStack b(int var1) {
-        if (this.d[var1] != null) {
-            OItemStack var2 = this.d[var1];
+    public OItemStack b(int i) {
+        if (this.d[i] != null) {
+            OItemStack oitemstack = this.d[i];
 
-            this.d[var1] = null;
-            return var2;
+            this.d[i] = null;
+            return oitemstack;
         } else {
             return null;
         }
     }
 
-    public void a(int var1, OItemStack var2) {
-        this.d[var1] = var2;
-        if (var2 != null && var2.a > this.a()) {
-            var2.a = this.a();
+    public void a(int i, OItemStack oitemstack) {
+        this.d[i] = oitemstack;
+        if (oitemstack != null && oitemstack.a > this.j_()) {
+            oitemstack.a = this.j_();
         }
-
     }
 
-    public String e() {
-        return "container.minecart";
+    public String b() {
+        return this.name;
     }
 
-    public int a() {
+    public int j_() {
         return 64;
     }
 
-    public void G_() {}
+    public void d() {}
 
-    public boolean b(OEntityPlayer var1) {
+    public boolean c(OEntityPlayer oentityplayer) {
         // CanaryMod: Entering the cart
-        manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, cart, var1.entity);
-        
+        manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, cart, oentityplayer.entity);
+
         if (this.a == 0) {
-            if (this.bg != null && this.bg instanceof OEntityPlayer && this.bg != var1) {
+            if (this.n != null && this.n instanceof OEntityPlayer && this.n != oentityplayer) {
                 return true;
             }
 
-            if (!this.bi.F) {
-                var1.b((OEntity) this);
+            if (!this.p.K) {
+                oentityplayer.a((OEntity) this);
             }
         } else if (this.a == 1) {
-            if (!this.bi.F) {
-                var1.a((OIInventory) this);
+            if (!this.p.K) {
+                oentityplayer.a((OIInventory) this);
             }
         } else if (this.a == 2) {
-            OItemStack var2 = var1.k.d();
+            OItemStack oitemstack = oentityplayer.by.g();
 
-            if (var2 != null && var2.c == OItem.l.bP) {
-                if (--var2.a == 0) {
-                    var1.k.a(var1.k.c, (OItemStack) null);
+            if (oitemstack != null && oitemstack.c == OItem.m.bT) {
+                if (--oitemstack.a == 0) {
+                    oentityplayer.by.a(oentityplayer.by.c, (OItemStack) null);
                 }
 
                 this.e += 3600;
             }
 
-            this.b = this.bm - var1.bm;
-            this.c = this.bo - var1.bo;
+            this.b = this.t - oentityplayer.t;
+            this.c = this.v - oentityplayer.v;
         }
 
         return true;
     }
 
-    public boolean a(OEntityPlayer var1) {
-        return this.bE ? false : var1.j(this) <= 64.0D;
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.L ? false : oentityplayer.e(this) <= 64.0D;
     }
 
-    protected boolean k() {
-        return (this.bY.a(16) & 1) != 0;
+    protected boolean h() {
+        return (this.af.a(16) & 1) != 0;
     }
 
-    protected void a(boolean var1) {
-        if (var1) {
-            this.bY.b(16, Byte.valueOf((byte) (this.bY.a(16) | 1)));
+    protected void d(boolean flag) {
+        if (flag) {
+            this.af.b(16, Byte.valueOf((byte) (this.af.a(16) | 1)));
         } else {
-            this.bY.b(16, Byte.valueOf((byte) (this.bY.a(16) & -2)));
+            this.af.b(16, Byte.valueOf((byte) (this.af.a(16) & -2)));
         }
-
     }
+
+    public void k_() {}
 
     public void f() {}
 
-    public void g() {}
-
-    public void c(int var1) {
-        this.bY.b(19, Integer.valueOf(var1));
+    public void c(int i) {
+        this.af.b(19, Integer.valueOf(i));
     }
 
-    public int l() {
-        return this.bY.c(19);
+    public int i() {
+        return this.af.c(19);
     }
 
-    public void d(int var1) {
-        this.bY.b(17, Integer.valueOf(var1));
+    public void h(int i) {
+        this.af.b(17, Integer.valueOf(i));
     }
 
-    public int m() {
-        return this.bY.c(17);
+    public int j() {
+        return this.af.c(17);
     }
 
-    public void e(int var1) {
-        this.bY.b(18, Integer.valueOf(var1));
+    public void i(int i) {
+        this.af.b(18, Integer.valueOf(i));
     }
 
-    public int n() {
-        return this.bY.c(18);
+    public int k() {
+        return this.af.c(18);
     }
     
+    @Override
     public OItemStack[] getContents() {
-        return d;
-    }
+        return this.d;
+    } //
 
-    public void setContents(OItemStack[] values) {
-        d = values;
-    }
+    @Override
+    public void setContents(OItemStack[] aoitemstack) {
+        this.d = aoitemstack;
+    } //
 
-    public OItemStack getContentsAt(int index) {
-        return g_(index);
-    }
+    @Override
+    public OItemStack getContentsAt(int i) {
+        return this.a(i);
+    } //
 
-    public void setContentsAt(int index, OItemStack value) {
-        a(index, value);
-    }
+    @Override
+    public void setContentsAt(int i, OItemStack oitemstack) {
+        this.a(i, oitemstack);
+    } //
 
+    @Override
     public int getContentsSize() {
-        return c();
-    }
+        return this.i_();
+    } //
 
+    @Override
     public String getName() {
-        return name;
-    }
+        return this.name;
+    } //
 
-    public void setName(String value) {
-        name = value;
-    }
+    @Override
+    public void setName(String s) {
+        this.name = s;
+    } //
 
 }

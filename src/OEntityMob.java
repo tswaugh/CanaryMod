@@ -1,50 +1,51 @@
 
 public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
-    protected int c = 2;
+    protected int f = 2;
     
     // CanaryMod start
+    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     protected LivingEntity entity = new LivingEntity(this);
     // CanaryMod end
 
-    public OEntityMob(OWorld var1) {
-        super(var1);
-        this.aA = 5;
+    public OEntityMob(OWorld oworld) {
+        super(oworld);
+        this.aV = 5;
     }
 
-    public void e() {
-        float var1 = this.b(1.0F);
+    public void d() {
+        float f = this.c(1.0F);
 
-        if (var1 > 0.5F) {
-            this.aV += 2;
+        if (f > 0.5F) {
+            this.bq += 2;
         }
 
-        super.e();
+        super.d();
     }
 
-    public void F_() {
-        super.F_();
-        if (!this.bi.F && this.bi.q == 0) {
-            this.X();
+    public void h_() {
+        super.h_();
+        if (!this.p.K && this.p.u == 0) {
+            this.y();
         }
 
     }
 
-    protected OEntity o() {
-        OEntityPlayer var1 = this.bi.b(this, 16.0D);
+    protected OEntity k() {
+        OEntityPlayer oentityplayer = this.p.b(this, 16.0D);
 
-        return (var1 != null && this.h(var1) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity)) ? var1 : null; // CanaryMod: MOB_TARGET
+        return oentityplayer != null && this.l(oentityplayer) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), this.entity) ? oentityplayer : null;
     }
 
-    public boolean a(ODamageSource var1, int var2) {
-        if (super.a(var1, var2)) {
-            OEntity var3 = var1.a();
+    public boolean a(ODamageSource odamagesource, int i) {
+        if (super.a(odamagesource, i)) {
+            OEntity oentity = odamagesource.g();
 
-            if (this.bg != var3 && this.bh != var3) {
-                if (var3 != this) {
+            if (this.n != oentity && this.o != oentity) {
+                if (oentity != this) {
                     // CanaryMod start - MOB_TARGET hook
-                    if (var3 instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var3.entity.getPlayer(), entity)) {
-                        this.d = var3;
+                    if (oentity instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentity.entity.getPlayer(), this.entity)) {
+                        this.a = oentity;
                     }
                     // CanaryMod end
                 }
@@ -58,63 +59,55 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         }
     }
 
-    public boolean a(OEntity var1) {
-        int var2 = this.c;
+    public boolean k(OEntity oentity) {
+        int i = this.f;
 
         if (this.a(OPotion.g)) {
-            var2 += 3 << this.b(OPotion.g).c();
+            i += 3 << this.b(OPotion.g).c();
         }
 
         if (this.a(OPotion.t)) {
-            var2 -= 2 << this.b(OPotion.t).c();
+            i -= 2 << this.b(OPotion.t).c();
         }
 
-        return var1.a(ODamageSource.a((OEntityLiving) this), var2);
+        return oentity.a(ODamageSource.a((OEntityLiving) this), i);
     }
 
-    protected void a(OEntity var1, float var2) {
-        if (this.aw <= 0 && var2 < 2.0F && var1.bw.e > this.bw.b && var1.bw.b < this.bw.e) {
-            this.aw = 20;
-            this.a(var1);
+    protected void a(OEntity oentity, float f) {
+        if (this.aR <= 0 && f < 2.0F && oentity.D.e > this.D.b && oentity.D.b < this.D.e) {
+            this.aR = 20;
+            this.k(oentity);
         }
 
     }
 
-    public float a(int var1, int var2, int var3) {
-        return 0.5F - this.bi.p(var1, var2, var3);
+    public float a(int i, int j, int k) {
+        return 0.5F - this.p.o(i, j, k);
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-    }
+    protected boolean o() {
+        int i = OMathHelper.c(this.t);
+        int j = OMathHelper.c(this.D.b);
+        int k = OMathHelper.c(this.v);
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-    }
-
-    protected boolean C() {
-        int var1 = OMathHelper.b(this.bm);
-        int var2 = OMathHelper.b(this.bw.b);
-        int var3 = OMathHelper.b(this.bo);
-
-        if (this.bi.a(OEnumSkyBlock.a, var1, var2, var3) > this.bS.nextInt(32)) {
+        if (this.p.b(OEnumSkyBlock.a, i, j, k) > this.Z.nextInt(32)) {
             return false;
         } else {
-            int var4 = this.bi.n(var1, var2, var3);
+            int l = this.p.l(i, j, k);
 
-            if (this.bi.w()) {
-                int var5 = this.bi.f;
+            if (this.p.I()) {
+                int i1 = this.p.k;
 
-                this.bi.f = 10;
-                var4 = this.bi.n(var1, var2, var3);
-                this.bi.f = var5;
+                this.p.k = 10;
+                l = this.p.l(i, j, k);
+                this.p.k = i1;
             }
 
-            return var4 <= this.bS.nextInt(8);
+            return l <= this.Z.nextInt(8);
         }
     }
 
-    public boolean l() {
-        return this.C() && super.l();
+    public boolean bi() {
+        return this.o() && super.bi();
     }
 }

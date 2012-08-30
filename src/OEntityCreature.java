@@ -1,209 +1,198 @@
 
 public abstract class OEntityCreature extends OEntityLiving {
 
-    private OPathEntity a;
-    protected OEntity d;
-    protected boolean e = false;
-    protected int f = 0;
+    private OPathEntity d;
+    protected OEntity a;
+    protected boolean b = false;
+    protected int c = 0;
 
-    public OEntityCreature(OWorld var1) {
-        super(var1);
+    public OEntityCreature(OWorld oworld) {
+        super(oworld);
     }
 
-    protected boolean F() {
+    protected boolean i() {
         return false;
     }
 
-    protected void d_() {
-        OProfiler.a("ai"); //CanaryMod jarjar fix
-        if (this.f > 0) {
-            --this.f;
+    protected void be() {
+        this.p.F.a("ai");
+        if (this.c > 0) {
+            --this.c;
         }
 
-        this.e = this.F();
-        float var1 = 16.0F;
+        this.b = this.i();
+        float f = 16.0F;
 
-        if (this.d == null) {
-            this.d = this.o();
-            if (this.d != null) {
-                this.a = this.bi.a(this, this.d, var1, true, false, false, true);
+        if (this.a == null) {
+            this.a = this.k();
+            if (this.a != null) {
+                this.d = this.p.a(this, this.a, f, true, false, false, true);
             }
-        } else if (!this.d.aE()) {
-            this.d = null;
+        } else if (this.a.S()) {
+            float f1 = this.a.d((OEntity) this);
+
+            if (this.l(this.a)) {
+                this.a(this.a, f1);
+            }
         } else {
-            float var2 = this.d.i(this);
-
-            if (this.h(this.d)) {
-                this.a(this.d, var2);
-            } else {
-                this.b(this.d, var2);
-            }
-        }
-
-        OProfiler.a();
-        if (!this.e && this.d != null && (this.a == null || this.bS.nextInt(20) == 0)) {
-            this.a = this.bi.a(this, this.d, var1, true, false, false, true);
-        } else if (!this.e && (this.a == null && this.bS.nextInt(180) == 0 || this.bS.nextInt(120) == 0 || this.f > 0) && this.aV < 100) {
-            this.G();
-        }
-
-        int var21 = OMathHelper.b(this.bw.b + 0.5D);
-        boolean var3 = this.aU();
-        boolean var4 = this.aV();
-
-        this.bt = 0.0F;
-        if (this.a != null && this.bS.nextInt(100) != 0) {
-            OProfiler.a("followpath");
-            OVec3D var5 = this.a.a((OEntity) this);
-            double var6 = (double) (this.bG * 2.0F);
-
-            while (var5 != null && var5.d(this.bm, var5.b, this.bo) < var6 * var6) {
-                this.a.a();
-                if (this.a.b()) {
-                    var5 = null;
-                    this.a = null;
-                } else {
-                    var5 = this.a.a((OEntity) this);
-                }
-            }
-
-            this.aZ = false;
-            if (var5 != null) {
-                double var8 = var5.a - this.bm;
-                double var10 = var5.c - this.bo;
-                double var12 = var5.b - (double) var21;
-                float var14 = (float) (Math.atan2(var10, var8) * 180.0D / 3.1415927410125732D) - 90.0F;
-                float var15 = var14 - this.bs;
-
-                for (this.aX = this.bb; var15 < -180.0F; var15 += 360.0F) {
-                    ;
-                }
-
-                while (var15 >= 180.0F) {
-                    var15 -= 360.0F;
-                }
-
-                if (var15 > 30.0F) {
-                    var15 = 30.0F;
-                }
-
-                if (var15 < -30.0F) {
-                    var15 = -30.0F;
-                }
-
-                this.bs += var15;
-                if (this.e && this.d != null) {
-                    double var16 = this.d.bm - this.bm;
-                    double var18 = this.d.bo - this.bo;
-                    float var20 = this.bs;
-
-                    this.bs = (float) (Math.atan2(var18, var16) * 180.0D / 3.1415927410125732D) - 90.0F;
-                    var15 = (var20 - this.bs + 90.0F) * 3.1415927F / 180.0F;
-                    this.aW = -OMathHelper.a(var15) * this.aX * 1.0F;
-                    this.aX = OMathHelper.b(var15) * this.aX * 1.0F;
-                }
-
-                if (var12 > 0.0D) {
-                    this.aZ = true;
-                }
-            }
-
-            if (this.d != null) {
-                this.a(this.d, 30.0F, 30.0F);
-            }
-
-            if (this.by && !this.H()) {
-                this.aZ = true;
-            }
-
-            if (this.bS.nextFloat() < 0.8F && (var3 || var4)) {
-                this.aZ = true;
-            }
-
-            OProfiler.a();
-        } else {
-            super.d_();
             this.a = null;
         }
+
+        this.p.F.b();
+        if (!this.b && this.a != null && (this.d == null || this.Z.nextInt(20) == 0)) {
+            this.d = this.p.a(this, this.a, f, true, false, false, true);
+        } else if (!this.b && (this.d == null && this.Z.nextInt(180) == 0 || this.Z.nextInt(120) == 0 || this.c > 0) && this.bq < 100) {
+            this.j();
+        }
+
+        int i = OMathHelper.c(this.D.b + 0.5D);
+        boolean flag = this.H();
+        boolean flag1 = this.J();
+
+        this.A = 0.0F;
+        if (this.d != null && this.Z.nextInt(100) != 0) {
+            this.p.F.a("followpath");
+            OVec3 ovec3 = this.d.a((OEntity) this);
+            double d0 = (double) (this.N * 2.0F);
+
+            while (ovec3 != null && ovec3.d(this.t, ovec3.b, this.v) < d0 * d0) {
+                this.d.a();
+                if (this.d.b()) {
+                    ovec3 = null;
+                    this.d = null;
+                } else {
+                    ovec3 = this.d.a((OEntity) this);
+                }
+            }
+
+            this.bu = false;
+            if (ovec3 != null) {
+                double d1 = ovec3.a - this.t;
+                double d2 = ovec3.c - this.v;
+                double d3 = ovec3.b - (double) i;
+                float f2 = (float) (Math.atan2(d2, d1) * 180.0D / 3.1415927410125732D) - 90.0F;
+                float f3 = OMathHelper.g(f2 - this.z);
+
+                this.bs = this.bw;
+                if (f3 > 30.0F) {
+                    f3 = 30.0F;
+                }
+
+                if (f3 < -30.0F) {
+                    f3 = -30.0F;
+                }
+
+                this.z += f3;
+                if (this.b && this.a != null) {
+                    double d4 = this.a.t - this.t;
+                    double d5 = this.a.v - this.v;
+                    float f4 = this.z;
+
+                    this.z = (float) (Math.atan2(d5, d4) * 180.0D / 3.1415927410125732D) - 90.0F;
+                    f3 = (f4 - this.z + 90.0F) * 3.1415927F / 180.0F;
+                    this.br = -OMathHelper.a(f3) * this.bs * 1.0F;
+                    this.bs = OMathHelper.b(f3) * this.bs * 1.0F;
+                }
+
+                if (d3 > 0.0D) {
+                    this.bu = true;
+                }
+            }
+
+            if (this.a != null) {
+                this.a(this.a, 30.0F, 30.0F);
+            }
+
+            if (this.F && !this.l()) {
+                this.bu = true;
+            }
+
+            if (this.Z.nextFloat() < 0.8F && (flag || flag1)) {
+                this.bu = true;
+            }
+
+            this.p.F.b();
+        } else {
+            super.be();
+            this.d = null;
+        }
     }
 
-    protected void G() {
-        OProfiler.a("stroll");
-        boolean var1 = false;
-        int var2 = -1;
-        int var3 = -1;
-        int var4 = -1;
-        float var5 = -99999.0F;
+    protected void j() {
+        this.p.F.a("stroll");
+        boolean flag = false;
+        int i = -1;
+        int j = -1;
+        int k = -1;
+        float f = -99999.0F;
 
-        for (int var6 = 0; var6 < 10; ++var6) {
-            int var7 = OMathHelper.b(this.bm + (double) this.bS.nextInt(13) - 6.0D);
-            int var8 = OMathHelper.b(this.bn + (double) this.bS.nextInt(7) - 3.0D);
-            int var9 = OMathHelper.b(this.bo + (double) this.bS.nextInt(13) - 6.0D);
-            float var10 = this.a(var7, var8, var9);
+        for (int l = 0; l < 10; ++l) {
+            int i1 = OMathHelper.c(this.t + (double) this.Z.nextInt(13) - 6.0D);
+            int j1 = OMathHelper.c(this.u + (double) this.Z.nextInt(7) - 3.0D);
+            int k1 = OMathHelper.c(this.v + (double) this.Z.nextInt(13) - 6.0D);
+            float f1 = this.a(i1, j1, k1);
 
-            if (var10 > var5) {
-                var5 = var10;
-                var2 = var7;
-                var3 = var8;
-                var4 = var9;
-                var1 = true;
+            if (f1 > f) {
+                f = f1;
+                i = i1;
+                j = j1;
+                k = k1;
+                flag = true;
             }
         }
 
-        if (var1) {
-            this.a = this.bi.a(this, var2, var3, var4, 10.0F, true, false, false, true);
+        if (flag) {
+            this.d = this.p.a(this, i, j, k, 10.0F, true, false, false, true);
         }
 
-        OProfiler.a();
+        this.p.F.b();
     }
 
-    protected void a(OEntity var1, float var2) {}
+    protected void a(OEntity oentity, float f) {}
 
-    protected void b(OEntity var1, float var2) {}
-
-    public float a(int var1, int var2, int var3) {
+    public float a(int i, int j, int k) {
         return 0.0F;
     }
 
-    protected OEntity o() {
+    protected OEntity k() {
         return null;
     }
 
+    public boolean bi() {
+        int i = OMathHelper.c(this.t);
+        int j = OMathHelper.c(this.D.b);
+        int k = OMathHelper.c(this.v);
+
+        return super.bi() && this.a(i, j, k) >= 0.0F;
+    }
+
     public boolean l() {
-        int var1 = OMathHelper.b(this.bm);
-        int var2 = OMathHelper.b(this.bw.b);
-        int var3 = OMathHelper.b(this.bo);
-
-        return super.l() && this.a(var1, var2, var3) >= 0.0F;
+        return this.d != null;
     }
 
-    public boolean H() {
-        return this.a != null;
+    public void a(OPathEntity opathentity) {
+        this.d = opathentity;
     }
 
-    public void a(OPathEntity var1) {
-        this.a = var1;
+    public OEntity m() {
+        return this.a;
     }
 
-    public OEntity I() {
-        return this.d;
+    public void b(OEntity oentity) {
+        this.a = oentity;
     }
 
-    public void d(OEntity var1) {
-        this.d = var1;
-    }
-
-    protected float J() {
-        if (this.c_()) {
+    protected float bs() {
+        if (this.aV()) {
             return 1.0F;
         } else {
-            float var1 = super.J();
+            float f = super.bs();
 
-            if (this.f > 0) {
-                var1 *= 2.0F;
+            if (this.c > 0) {
+                f *= 2.0F;
             }
 
-            return var1;
+            return f;
         }
     }
 }

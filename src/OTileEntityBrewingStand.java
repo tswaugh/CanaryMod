@@ -15,105 +15,105 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         super();
     }
 
-    public String e() {
+    public String b() {
         return name;
     }
 
-    public int c() {
+    public int i_() {
         return this.a.length;
     }
 
-    public void q_() {
+    public void g() {
         if (this.b > 0) {
             --this.b;
             if (this.b == 0) {
-                this.p();
-                this.G_();
-            } else if (!this.o()) {
+                this.r();
+                this.d();
+            } else if (!this.k()) {
                 this.b = 0;
-                this.G_();
+                this.d();
             } else if (this.d != this.a[3].c) {
                 this.b = 0;
-                this.G_();
+                this.d();
             }
-        } else if (this.o()) {
+        } else if (this.k()) {
             this.b = 400;
             this.d = this.a[3].c;
         }
 
-        int var1 = this.n();
+        int i = this.i();
 
-        if (var1 != this.c) {
-            this.c = var1;
-            this.k.c(this.l, this.m, this.n, var1);
+        if (i != this.c) {
+            this.c = i;
+            this.k.c(this.l, this.m, this.n, i);
         }
 
-        super.q_();
+        super.g();
     }
 
-    public int i() {
+    public int t_() {
         return this.b;
     }
 
-    private boolean o() {
+    private boolean k() {
         if (this.a[3] != null && this.a[3].a > 0) {
-            OItemStack var1 = this.a[3];
+            OItemStack oitemstack = this.a[3];
 
-            if (!OItem.d[var1.c].n()) {
+            if (!OItem.e[oitemstack.c].u()) {
                 return false;
             } else {
-                boolean var2 = false;
+                boolean flag = false;
 
-                for (int var3 = 0; var3 < 3; ++var3) {
-                    if (this.a[var3] != null && this.a[var3].c == OItem.br.bP) {
-                        int var4 = this.a[var3].h();
-                        int var5 = this.b(var4, var1);
+                for (int i = 0; i < 3; ++i) {
+                    if (this.a[i] != null && this.a[i].c == OItem.bs.bT) {
+                        int j = this.a[i].j();
+                        int k = this.b(j, oitemstack);
 
-                        if (!OItemPotion.c(var4) && OItemPotion.c(var5)) {
-                            var2 = true;
+                        if (!OItemPotion.g(j) && OItemPotion.g(k)) {
+                            flag = true;
                             break;
                         }
 
-                        List var6 = OItem.br.b(var4);
-                        List var7 = OItem.br.b(var5);
+                        List list = OItem.bs.f(j);
+                        List list1 = OItem.bs.f(k);
 
-                        if ((var4 <= 0 || var6 != var7) && (var6 == null || !var6.equals(var7) && var7 != null) && var4 != var5) {
-                            var2 = true;
+                        if ((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null) && j != k) {
+                            flag = true;
                             break;
                         }
                     }
                 }
 
-                return var2;
+                return flag;
             }
         } else {
             return false;
         }
     }
 
-    private void p() {
-        if (this.o()) {
-            OItemStack var1 = this.a[3];
+    private void r() {
+        if (this.k()) {
+            OItemStack oitemstack = this.a[3];
 
-            for (int var2 = 0; var2 < 3; ++var2) {
-                if (this.a[var2] != null && this.a[var2].c == OItem.br.bP) {
-                    int var3 = this.a[var2].h();
-                    int var4 = this.b(var3, var1);
-                    List var5 = OItem.br.b(var3);
-                    List var6 = OItem.br.b(var4);
+            for (int i = 0; i < 3; ++i) {
+                if (this.a[i] != null && this.a[i].c == OItem.bs.bT) {
+                    int j = this.a[i].j();
+                    int k = this.b(j, oitemstack);
+                    List list = OItem.bs.f(j);
+                    List list1 = OItem.bs.f(k);
 
-                    if ((var3 <= 0 || var5 != var6) && (var5 == null || !var5.equals(var6) && var6 != null)) {
-                        if (var3 != var4) {
-                            this.a[var2].b(var4);
+                    if ((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null)) {
+                        if (j != k) {
+                            this.a[i].b(k);
                         }
-                    } else if (!OItemPotion.c(var3) && OItemPotion.c(var4)) {
-                        this.a[var2].b(var4);
+                    } else if (!OItemPotion.g(j) && OItemPotion.g(k)) {
+                        this.a[i].b(k);
                     }
                 }
             }
 
-            if (OItem.d[var1.c].k()) {
-                this.a[3] = new OItemStack(OItem.d[var1.c].j());
+            if (OItem.e[oitemstack.c].r()) {
+                this.a[3] = new OItemStack(OItem.e[oitemstack.c].q());
             } else {
                 --this.a[3].a;
                 if (this.a[3].a <= 0) {
@@ -124,135 +124,135 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         }
     }
 
-    private int b(int var1, OItemStack var2) {
-        return var2 == null ? var1 : (OItem.d[var2.c].n() ? OPotionHelper.a(var1, OItem.d[var2.c].m()) : var1);
+    private int b(int i, OItemStack oitemstack) {
+        return oitemstack == null ? i : (OItem.e[oitemstack.c].u() ? OPotionHelper.a(i, OItem.e[oitemstack.c].t()) : i);
     }
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-        ONBTTagList var2 = var1.n("Items");
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
+        ONBTTagList onbttaglist = onbttagcompound.m("Items");
 
-        this.a = new OItemStack[this.c()];
+        this.a = new OItemStack[this.i_()];
 
-        for (int var3 = 0; var3 < var2.d(); ++var3) {
-            ONBTTagCompound var4 = (ONBTTagCompound) var2.a(var3);
-            byte var5 = var4.d("Slot");
+        for (int i = 0; i < onbttaglist.c(); ++i) {
+            ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(i);
+            byte b0 = onbttagcompound1.c("Slot");
 
-            if (var5 >= 0 && var5 < this.a.length) {
-                this.a[var5] = OItemStack.a(var4);
+            if (b0 >= 0 && b0 < this.a.length) {
+                this.a[b0] = OItemStack.a(onbttagcompound1);
             }
         }
 
-        this.b = var1.e("BrewTime");
+        this.b = onbttagcompound.d("BrewTime");
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-        var1.a("BrewTime", (short) this.b);
-        ONBTTagList var2 = new ONBTTagList();
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        onbttagcompound.a("BrewTime", (short) this.b);
+        ONBTTagList onbttaglist = new ONBTTagList();
 
-        for (int var3 = 0; var3 < this.a.length; ++var3) {
-            if (this.a[var3] != null) {
-                ONBTTagCompound var4 = new ONBTTagCompound();
+        for (int i = 0; i < this.a.length; ++i) {
+            if (this.a[i] != null) {
+                ONBTTagCompound onbttagcompound1 = new ONBTTagCompound();
 
-                var4.a("Slot", (byte) var3);
-                this.a[var3].b(var4);
-                var2.a((ONBTBase) var4);
+                onbttagcompound1.a("Slot", (byte) i);
+                this.a[i].b(onbttagcompound1);
+                onbttaglist.a((ONBTBase) onbttagcompound1);
             }
         }
 
-        var1.a("Items", (ONBTBase) var2);
+        onbttagcompound.a("Items", (ONBTBase) onbttaglist);
     }
 
-    public OItemStack g_(int var1) {
-        return var1 >= 0 && var1 < this.a.length ? this.a[var1] : null;
+    public OItemStack a(int i) {
+        return i >= 0 && i < this.a.length ? this.a[i] : null;
     }
 
-    public OItemStack a(int var1, int var2) {
-        if (var1 >= 0 && var1 < this.a.length) {
-            OItemStack var3 = this.a[var1];
+    public OItemStack a(int i, int j) {
+        if (i >= 0 && i < this.a.length) {
+            OItemStack oitemstack = this.a[i];
 
-            this.a[var1] = null;
-            return var3;
+            this.a[i] = null;
+            return oitemstack;
         } else {
             return null;
         }
     }
 
-    public OItemStack b(int var1) {
-        if (var1 >= 0 && var1 < this.a.length) {
-            OItemStack var2 = this.a[var1];
+    public OItemStack b(int i) {
+        if (i >= 0 && i < this.a.length) {
+            OItemStack oitemstack = this.a[i];
 
-            this.a[var1] = null;
-            return var2;
+            this.a[i] = null;
+            return oitemstack;
         } else {
             return null;
         }
     }
 
-    public void a(int var1, OItemStack var2) {
-        if (var1 >= 0 && var1 < this.a.length) {
-            this.a[var1] = var2;
+    public void a(int i, OItemStack oitemstack) {
+        if (i >= 0 && i < this.a.length) {
+            this.a[i] = oitemstack;
         }
 
     }
 
-    public int a() {
+    public int j_() {
         return 1;
     }
 
-    public boolean a(OEntityPlayer var1) {
-        return this.k.b(this.l, this.m, this.n) != this ? false : var1.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.k.p(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
+
+    public void k_() {}
 
     public void f() {}
 
-    public void g() {}
+    public int i() {
+        int i = 0;
 
-    public int n() {
-        int var1 = 0;
-
-        for (int var2 = 0; var2 < 3; ++var2) {
-            if (this.a[var2] != null) {
-                var1 |= 1 << var2;
+        for (int j = 0; j < 3; ++j) {
+            if (this.a[j] != null) {
+                i |= 1 << j;
             }
         }
 
-        return var1;
+        return i;
     }
 
     @Override
     public OItemStack[] getContents() {
-        return Arrays.copyOf(a, getContentsSize());
+        return Arrays.copyOf(this.a, this.getContentsSize());
     }
 
     @Override
-    public void setContents(OItemStack[] values) {
-        a = Arrays.copyOf(values, getContentsSize());
+    public void setContents(OItemStack[] aoitemstack) {
+        this.a = Arrays.copyOf(aoitemstack, this.getContentsSize());
     }
 
     @Override
-    public OItemStack getContentsAt(int index) {
-        return g_(index);
+    public OItemStack getContentsAt(int i) {
+        return this.a(i);
     }
 
     @Override
-    public void setContentsAt(int index, OItemStack value) {
-        a(index, value);
+    public void setContentsAt(int i, OItemStack oitemstack) {
+        this.a(i, oitemstack);
     }
 
     @Override
     public int getContentsSize() {
-        return c();
+        return this.i_();
     }
 
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
-    public void setName(String value) {
-        name = value;
+    public void setName(String s) {
+        this.name = s;
     }
 }

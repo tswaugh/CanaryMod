@@ -15,9 +15,9 @@ public class OGuiStatsComponent extends JComponent {
     private String[] d = new String[10];
     private final OMinecraftServer e;
 
-    public OGuiStatsComponent(OMinecraftServer var1) {
+    public OGuiStatsComponent(OMinecraftServer ominecraftserver) {
         super();
-        this.e = var1;
+        this.e = ominecraftserver;
         this.setPreferredSize(new Dimension(356, 246));
         this.setMinimumSize(new Dimension(356, 246));
         this.setMaximumSize(new Dimension(356, 246));
@@ -26,71 +26,76 @@ public class OGuiStatsComponent extends JComponent {
     }
 
     private void a() {
-        long var1 = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        long i = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
         System.gc();
-        this.d[0] = "Memory use: " + var1 / 1024L / 1024L + " mb (" + Runtime.getRuntime().freeMemory() * 100L / Runtime.getRuntime().maxMemory() + "% free)";
-        this.d[1] = "Threads: " + ONetworkManager.b + " + " + ONetworkManager.c;
-        this.d[2] = "Avg tick: " + a.format(this.a(this.e.f) * 1.0E-6D) + " ms";
-        this.d[3] = "Avg sent: " + (int) this.a(this.e.u) + ", Avg size: " + (int) this.a(this.e.v);
-        this.d[4] = "Avg rec: " + (int) this.a(this.e.w) + ", Avg size: " + (int) this.a(this.e.x);
+        this.d[0] = "Memory use: " + i / 1024L / 1024L + " mb (" + Runtime.getRuntime().freeMemory() * 100L / Runtime.getRuntime().maxMemory() + "% free)";
+        this.d[1] = "Threads: " + OTcpConnection.a.get() + " + " + OTcpConnection.b.get();
+        this.d[2] = "Avg tick: " + a.format(this.a(this.e.j) * 1.0E-6D) + " ms";
+        this.d[3] = "Avg sent: " + (int) this.a(this.e.f) + ", Avg size: " + (int) this.a(this.e.g);
+        this.d[4] = "Avg rec: " + (int) this.a(this.e.h) + ", Avg size: " + (int) this.a(this.e.i);
         if (this.e.worlds != null) {
             // CanaryMod start: Multiworld
             for (Map.Entry<String, OWorldServer[]> entry : this.e.worlds.entrySet()) {
                 String worldName = entry.getKey();
                 OWorldServer[] level = entry.getValue();
-                for (int var3 = 0; var3 < level.length; ++var3) {
-                    this.d[5 + var3] = "World " + worldName + " lvl " + var3 + " tick: " + a.format(this.a(this.e.worldTickNanos.get(worldName)[var3]) * 1.0E-6D) + " ms";
-                    if (level[var3] != null && level[var3].G != null) {
-                        this.d[5 + var3] += ", " + level[var3].G.d();
+
+                for (int j = 0; j < level.length; ++j) {
+                    this.d[5 + j] = "World " + worldName + " lvl " + j + " tick: " + a.format(this.a(this.e.worldTickNanos.get(worldName)[j]) * 1.0E-6D) + " ms";
+                    if (level[j] != null && level[j].b != null) {
+                        this.d[5 + j] += ", " + level[j].b.d();
                     }
                 }
             }
             // CanaryMod end
         }
 
-        this.b[this.c++ & 255] = (int) (this.a(this.e.v) * 100.0D / 12500.0D);
+        this.b[this.c++ & 255] = (int) (this.a(this.e.g) * 100.0D / 12500.0D);
         this.repaint();
     }
 
-    private double a(long[] var1) {
-        long var2 = 0L;
+    private double a(long[] along) {
+        long i = 0L;
+        long[] along1 = along;
+        int j = along.length;
 
-        for (int var4 = 0; var4 < var1.length; ++var4) {
-            var2 += var1[var4];
+        for (int k = 0; k < j; ++k) {
+            long l = along1[k];
+
+            i += l;
         }
 
-        return (double) var2 / (double) var1.length;
+        return (double) i / (double) along.length;
     }
 
-    public void paint(Graphics var1) {
-        var1.setColor(new Color(16777215));
-        var1.fillRect(0, 0, 356, 246);
+    public void paint(Graphics graphics) {
+        graphics.setColor(new Color(16777215));
+        graphics.fillRect(0, 0, 356, 246);
 
-        int var2;
+        int i;
 
-        for (var2 = 0; var2 < 256; ++var2) {
-            int var3 = this.b[var2 + this.c & 255];
+        for (i = 0; i < 256; ++i) {
+            int j = this.b[i + this.c & 255];
 
-            var1.setColor(new Color(var3 + 28 << 16));
-            var1.fillRect(var2, 100 - var3, 1, var3);
+            graphics.setColor(new Color(j + 28 << 16));
+            graphics.fillRect(i, 100 - j, 1, j);
         }
 
-        var1.setColor(Color.BLACK);
+        graphics.setColor(Color.BLACK);
 
-        for (var2 = 0; var2 < this.d.length; ++var2) {
-            String var4 = this.d[var2];
+        for (i = 0; i < this.d.length; ++i) {
+            String s = this.d[i];
 
-            if (var4 != null) {
-                var1.drawString(var4, 32, 116 + var2 * 16);
+            if (s != null) {
+                graphics.drawString(s, 32, 116 + i * 16);
             }
         }
 
     }
 
     // $FF: synthetic method
-    static void a(OGuiStatsComponent var0) {
-        var0.a();
+    static void a(OGuiStatsComponent oguistatscomponent) {
+        oguistatscomponent.a();
     }
 
 }

@@ -3,24 +3,24 @@ public class OItemRecord extends OItem {
 
     public final String a;
 
-    protected OItemRecord(int var1, String var2) {
-        super(var1);
-        this.a = var2;
-        this.bQ = 1;
+    protected OItemRecord(int i, String s) {
+        super(i);
+        this.a = s;
+        this.bU = 1;
+        this.a(OCreativeTabs.f);
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
-                ((OEntityPlayerMP) var2).getPlayer(), null,
-                this.getBlockInfo(var3, var4, var5, var6, var7), new Item(var1)))
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
+        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, this.getBlockInfo(oworld, i, j, k, l), new Item(oitemstack))) {
             return true;
-        if (var3.a(var4, var5, var6) == OBlock.aY.bO && var3.c(var4, var5, var6) == 0) {
-            if (var3.F) {
+        }
+        if (oworld.a(i, j, k) == OBlock.aY.ca && oworld.g(i, j, k) == 0) {
+            if (oworld.K) {
                 return true;
             } else {
-                ((OBlockJukeBox) OBlock.aY).f(var3, var4, var5, var6, this.bP);
-                var3.a((OEntityPlayer) null, 1005, var4, var5, var6, this.bP);
-                --var1.a;
+                ((OBlockJukeBox) OBlock.aY).e(oworld, i, j, k, this.bT);
+                oworld.a((OEntityPlayer) null, 1005, i, j, k, this.bT);
+                --oitemstack.a;
                 return true;
             }
         } else {

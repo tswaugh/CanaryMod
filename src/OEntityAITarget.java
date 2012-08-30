@@ -1,46 +1,44 @@
 
 public abstract class OEntityAITarget extends OEntityAIBase {
 
-    protected OEntityLiving c;
-    protected float d;
-    protected boolean e;
+    protected OEntityLiving d;
+    protected float e;
+    protected boolean f;
     private boolean a;
     private int b;
-    private int f;
+    private int c;
     private int g;
 
-
-    public OEntityAITarget(OEntityLiving var1, float var2, boolean var3) {
-        this(var1, var2, var3, false);
+    public OEntityAITarget(OEntityLiving oentityliving, float f, boolean flag) {
+        this(oentityliving, f, flag, false);
     }
 
-    public OEntityAITarget(OEntityLiving var1, float var2, boolean var3, boolean var4) {
+    public OEntityAITarget(OEntityLiving oentityliving, float f, boolean flag, boolean flag1) {
         super();
         this.b = 0;
-        this.f = 0;
+        this.c = 0;
         this.g = 0;
-        this.c = var1;
-        this.d = var2;
-        this.e = var3;
-        this.a = var4;
+        this.d = oentityliving;
+        this.e = f;
+        this.f = flag;
+        this.a = flag1;
     }
 
     public boolean b() {
-        OEntityLiving var1 = this.c.at();
-        if (var1 == null) {
+        OEntityLiving oentityliving = this.d.az();
+
+        if (oentityliving == null) {
             return false;
-        } else if (!var1.aE()) {
+        } else if (!oentityliving.S()) {
             return false;
-        } else if (this.c.j(var1) > (double) (this.d * this.d)) {
+        } else if (this.d.e(oentityliving) > (double) (this.e * this.e)) {
             return false;
         } else {
-            if (this.e) {
-                if (!this.c.am().a(var1)) {
-                    if (++this.g > 60) {
-                        return false;
-                    }
-                } else {
+            if (this.f) {
+                if (this.d.at().a(oentityliving)) {
                     this.g = 0;
+                } else if (++this.g > 60) {
+                    return false;
                 }
             }
 
@@ -48,51 +46,51 @@ public abstract class OEntityAITarget extends OEntityAIBase {
         }
     }
 
-    public void c() {
+    public void e() {
         this.b = 0;
-        this.f = 0;
+        this.c = 0;
         this.g = 0;
     }
 
-    public void d() {
-        this.c.b((OEntityLiving) null);
+    public void c() {
+        this.d.b((OEntityLiving) null);
     }
 
-    protected boolean a(OEntityLiving var1, boolean var2) {
-        if (var1 == null) {
+    protected boolean a(OEntityLiving oentityliving, boolean flag) {
+        if (oentityliving == null) {
             return false;
-        } else if (var1 == this.c) {
+        } else if (oentityliving == this.d) {
             return false;
-        } else if (!var1.aE()) {
+        } else if (!oentityliving.S()) {
             return false;
-        } else if (var1.bw.e > this.c.bw.b && var1.bw.b < this.c.bw.e) {
-            if (!this.c.a(var1.getClass())) {
+        } else if (oentityliving.D.e > this.d.D.b && oentityliving.D.b < this.d.D.e) {
+            if (!this.d.a(oentityliving.getClass())) {
                 return false;
             } else {
-                if (this.c instanceof OEntityTamable && ((OEntityTamable) this.c).u_()) {
-                    if (var1 instanceof OEntityTamable && ((OEntityTamable) var1).u_()) {
+                if (this.d instanceof OEntityTameable && ((OEntityTameable) this.d).n()) {
+                    if (oentityliving instanceof OEntityTameable && ((OEntityTameable) oentityliving).n()) {
                         return false;
                     }
 
-                    if (var1 == ((OEntityTamable) this.c).w_()) {
+                    if (oentityliving == ((OEntityTameable) this.d).q()) {
                         return false;
                     }
-                } else if (var1 instanceof OEntityPlayer && !var2 && ((OEntityPlayer) var1).L.a) {
+                } else if (oentityliving instanceof OEntityPlayer && !flag && ((OEntityPlayer) oentityliving).bZ.a) {
                     return false;
                 }
 
-                if (!this.c.e(OMathHelper.b(var1.bm), OMathHelper.b(var1.bn), OMathHelper.b(var1.bo))) {
+                if (!this.d.d(OMathHelper.c(oentityliving.t), OMathHelper.c(oentityliving.u), OMathHelper.c(oentityliving.v))) {
                     return false;
-                } else if (this.e && !this.c.am().a(var1)) {
+                } else if (this.f && !this.d.at().a(oentityliving)) {
                     return false;
                 } else {
                     if (this.a) {
-                        if (--this.f <= 0) {
+                        if (--this.c <= 0) {
                             this.b = 0;
                         }
 
                         if (this.b == 0) {
-                            this.b = this.a(var1) ? 1 : 2;
+                            this.b = this.a(oentityliving) ? 1 : 2;
                         }
 
                         if (this.b == 2) {
@@ -100,13 +98,13 @@ public abstract class OEntityAITarget extends OEntityAIBase {
                         }
                     }
 
-                    //CanaryMod - MOB_TARGET
-                    if (var1.entity.isPlayer()) {
-                        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, var1.entity.getPlayer(), this.c.entity)) {
+                    // CanaryMod - MOB_TARGET
+                    if (oentityliving.entity.isPlayer()) {
+                        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityliving.entity.getPlayer(), this.d.entity)) {
                             return false;
                         }
                     }
-                    //CanaryMod end
+                    // CanaryMod end
 
                     return true;
                 }
@@ -116,19 +114,22 @@ public abstract class OEntityAITarget extends OEntityAIBase {
         }
     }
 
-    private boolean a(OEntityLiving var1) {
-        this.f = 10 + this.c.an().nextInt(5);
-        OPathEntity var2 = this.c.al().a(var1);
-        if (var2 == null) {
+    private boolean a(OEntityLiving oentityliving) {
+        this.c = 10 + this.d.au().nextInt(5);
+        OPathEntity opathentity = this.d.as().a(oentityliving);
+
+        if (opathentity == null) {
             return false;
         } else {
-            OPathPoint var3 = var2.c();
-            if (var3 == null) {
+            OPathPoint opathpoint = opathentity.c();
+
+            if (opathpoint == null) {
                 return false;
             } else {
-                int var4 = var3.a - OMathHelper.b(var1.bm);
-                int var5 = var3.c - OMathHelper.b(var1.bo);
-                return (double) (var4 * var4 + var5 * var5) <= 2.25D;
+                int i = opathpoint.a - OMathHelper.c(oentityliving.t);
+                int j = opathpoint.c - OMathHelper.c(oentityliving.v);
+
+                return (double) (i * i + j * j) <= 2.25D;
             }
         }
     }

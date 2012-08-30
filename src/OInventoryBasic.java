@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -9,88 +10,92 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
     private OItemStack[] c;
     private List d;
 
-    public OInventoryBasic(String var1, int var2) {
+    public OInventoryBasic(String s, int i) {
         super();
-        this.a = var1;
-        this.b = var2;
-        this.c = new OItemStack[var2];
+        this.a = s;
+        this.b = i;
+        this.c = new OItemStack[i];
     }
 
-    public OItemStack g_(int var1) {
-        return this.c[var1];
+    public OItemStack a(int i) {
+        return this.c[i];
     }
 
-    public OItemStack a(int var1, int var2) {
-        if (this.c[var1] != null) {
-            OItemStack var3;
+    public OItemStack a(int i, int j) {
+        if (this.c[i] != null) {
+            OItemStack oitemstack;
 
-            if (this.c[var1].a <= var2) {
-                var3 = this.c[var1];
-                this.c[var1] = null;
-                this.G_();
-                return var3;
+            if (this.c[i].a <= j) {
+                oitemstack = this.c[i];
+                this.c[i] = null;
+                this.d();
+                return oitemstack;
             } else {
-                var3 = this.c[var1].a(var2);
-                if (this.c[var1].a == 0) {
-                    this.c[var1] = null;
+                oitemstack = this.c[i].a(j);
+                if (this.c[i].a == 0) {
+                    this.c[i] = null;
                 }
 
-                this.G_();
-                return var3;
+                this.d();
+                return oitemstack;
             }
         } else {
             return null;
         }
     }
 
-    public OItemStack b(int var1) {
-        if (this.c[var1] != null) {
-            OItemStack var2 = this.c[var1];
+    public OItemStack b(int i) {
+        if (this.c[i] != null) {
+            OItemStack oitemstack = this.c[i];
 
-            this.c[var1] = null;
-            return var2;
+            this.c[i] = null;
+            return oitemstack;
         } else {
             return null;
         }
     }
 
-    public void a(int var1, OItemStack var2) {
-        this.c[var1] = var2;
-        if (var2 != null && var2.a > this.a()) {
-            var2.a = this.a();
+    public void a(int i, OItemStack oitemstack) {
+        this.c[i] = oitemstack;
+        if (oitemstack != null && oitemstack.a > this.j_()) {
+            oitemstack.a = this.j_();
         }
 
-        this.G_();
+        this.d();
     }
 
-    public int c() {
+    public int i_() {
         return this.b;
     }
 
-    public String e() {
+    public String b() {
         return this.a;
     }
 
-    public int a() {
+    public int j_() {
         return 64;
     }
 
-    public void G_() {
+    public void d() {
         if (this.d != null) {
-            for (int var1 = 0; var1 < this.d.size(); ++var1) {
-                ((OIInvBasic) this.d.get(var1)).a(this);
+            Iterator iterator = this.d.iterator();
+
+            while (iterator.hasNext()) {
+                OIInvBasic oiinvbasic = (OIInvBasic) iterator.next();
+
+                oiinvbasic.a(this);
             }
         }
 
     }
 
-    public boolean a(OEntityPlayer var1) {
+    public boolean a(OEntityPlayer oentityplayer) {
         return true;
     }
 
-    public void f() {}
+    public void k_() {}
 
-    public void g() {}
+    public void f() {}
     
     @Override
     public OItemStack[] getContents() {
@@ -98,23 +103,23 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
     }
 
     @Override
-    public void setContents(OItemStack[] values) {
-        this.c = Arrays.copyOf(values, getContentsSize());
+    public void setContents(OItemStack[] aoitemstack) {
+        this.c = Arrays.copyOf(aoitemstack, getContentsSize());
     }
 
     @Override
-    public OItemStack getContentsAt(int index) {
-        return this.g_(index);
+    public OItemStack getContentsAt(int i) {
+        return this.a(i);
     }
 
     @Override
-    public void setContentsAt(int index, OItemStack value) {
-        this.a(b, value);
+    public void setContentsAt(int i, OItemStack oitemstack) {
+        this.a(b, oitemstack);
     }
 
     @Override
     public int getContentsSize() {
-        return this.c();
+        return this.i_();
     }
 
     @Override
@@ -123,7 +128,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
     }
 
     @Override
-    public void setName(String value) {
-        this.a = value;
+    public void setName(String s) {
+        this.a = s;
     }
 }

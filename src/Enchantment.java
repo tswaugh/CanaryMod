@@ -17,26 +17,26 @@ public class Enchantment {
      * 
      */
     public enum Type {
-        Protection(0),
-        FireProtection(1),
-        FeatherFalling(2),
-        BlastProtection(3),
-        ProjectileProtection(4),
-        Respiration(5),
-        AquaAffinity(6),
-        Sharpness(16),
-        Smite(17),
-        BaneOfArthropods(18),
-        Knockback(19),
-        FireAspect(20),
-        Looting(21),
-        Efficiency(32),
-        SilkTouch(33),
-        Unbreaking(34),
-        Fortune(35),
-        ArrowDamage(48),
-        ArrowKnockback(49),
-        ArrowFire(50),
+        Protection(0), //
+        FireProtection(1), //
+        FeatherFalling(2), //
+        BlastProtection(3), //
+        ProjectileProtection(4), //
+        Respiration(5), //
+        AquaAffinity(6), //
+        Sharpness(16), //
+        Smite(17), //
+        BaneOfArthropods(18), //
+        Knockback(19), //
+        FireAspect(20), //
+        Looting(21), //
+        Efficiency(32), //
+        SilkTouch(33), //
+        Unbreaking(34), //
+        Fortune(35), //
+        ArrowDamage(48), //
+        ArrowKnockback(49), //
+        ArrowFire(50), //
         ArrowInfinite(51);
 
         private int                       id;

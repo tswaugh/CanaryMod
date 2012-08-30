@@ -9,57 +9,57 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
         super();
     }
 
-    public int c() {
+    public int i_() {
         return 1;
     }
 
-    public OItemStack g_(int var1) {
-        return this.a[var1];
+    public OItemStack a(int i) {
+        return this.a[i];
     }
 
-    public String e() {
+    public String b() {
         return name;
     }
 
-    public OItemStack a(int var1, int var2) {
-        if (this.a[var1] != null) {
-            OItemStack var3 = this.a[var1];
+    public OItemStack a(int i, int j) {
+        if (this.a[i] != null) {
+            OItemStack oitemstack = this.a[i];
 
-            this.a[var1] = null;
-            return var3;
+            this.a[i] = null;
+            return oitemstack;
         } else {
             return null;
         }
     }
 
-    public OItemStack b(int var1) {
-        if (this.a[var1] != null) {
-            OItemStack var2 = this.a[var1];
+    public OItemStack b(int i) {
+        if (this.a[i] != null) {
+            OItemStack oitemstack = this.a[i];
 
-            this.a[var1] = null;
-            return var2;
+            this.a[i] = null;
+            return oitemstack;
         } else {
             return null;
         }
     }
 
-    public void a(int var1, OItemStack var2) {
-        this.a[var1] = var2;
+    public void a(int i, OItemStack oitemstack) {
+        this.a[i] = oitemstack;
     }
 
-    public int a() {
+    public int j_() {
         return 64;
     }
 
-    public void G_() {}
+    public void d() {}
 
-    public boolean a(OEntityPlayer var1) {
+    public boolean a(OEntityPlayer oentityplayer) {
         return true;
     }
 
-    public void f() {}
+    public void k_() {}
 
-    public void g() {}
+    public void f() {}
     
     @Override
     public OItemStack[] getContents() {
@@ -73,27 +73,27 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
     }
 
     @Override
-    public void setContents(OItemStack[] values) {
+    public void setContents(OItemStack[] aoitemstack) {
         int size = getContentsSize();
 
         for (int i = 0; i < size; i++) {
-            setContentsAt(i, values[i]);
+            setContentsAt(i, aoitemstack[i]);
         }
     }
 
     @Override
-    public OItemStack getContentsAt(int index) {
-        return this.g_(index);
+    public OItemStack getContentsAt(int i) {
+        return this.a(i);
     }
 
     @Override
-    public void setContentsAt(int index, OItemStack value) {
-        this.a(index, value);
+    public void setContentsAt(int i, OItemStack oitemstack) {
+        this.a(i, oitemstack);
     }
 
     @Override
     public int getContentsSize() {
-        return this.c();
+        return this.i_();
     }
 
     @Override
@@ -102,7 +102,7 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
     }
 
     @Override
-    public void setName(String value) {
-        this.name = value;
+    public void setName(String s) {
+        this.name = s;
     }
 }

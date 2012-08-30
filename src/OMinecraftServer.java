@@ -1,713 +1,972 @@
 import java.awt.GraphicsEnvironment;
 import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.security.KeyPair;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * CANARYMOD OLD SERVER
- */
-public class OMinecraftServer implements Runnable, OICommandListener, OIServer {
+public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICommandSender {
 
     public static Logger a = Logger.getLogger("Minecraft");
-    public static HashMap<String, Integer> b = new HashMap<String, Integer>();
-    private String y;
-    private int z;
-    public ONetworkListenThread c;
-    public OPropertyManager d;
-    // public OWorldServer[] e;
-    public long[] f = new long[100];
-    //public long[][] g;
-    public OServerConfigurationManager h;
-    private OConsoleCommandHandler A;
-    private boolean B = true;
-    public boolean i = false;
-    int j = 0;
-    public String k;
-    public int l;
-    private List<OIUpdatePlayerListBox> C = new ArrayList<OIUpdatePlayerListBox>();
-    private List<OServerCommand> D = Collections.synchronizedList(new ArrayList<OServerCommand>());
-    // public OEntityTracker[] m = new OEntityTracker[3];
-    public boolean n;
-    public boolean o;
-    public boolean p;
-    public boolean q;
-    public boolean r;
-    public String s;
-    public int t;
+    private static OMinecraftServer l = null;
+    private final OISaveFormat m;
+    private final OPlayerUsageSnooper n = new OPlayerUsageSnooper("server", this);
+    private final File o;
+    private final List p = new ArrayList();
+    private final OICommandManager q;
+    public final OProfiler b = new OProfiler();
+    private String r;
+    private int s = -1;
+    //public OWorldServer[] c;
+    private OServerConfigurationManager t;
+    private boolean u = true;
+    private boolean v = false;
+    private int w = 0;
+    public String d;
+    public int e;
+    private boolean x;
+    private boolean y;
+    private boolean z;
+    private boolean A;
+    private boolean B;
+    private String C;
+    private int D;
     private long E;
     private long F;
     private long G;
     private long H;
-    public long[] u = new long[100];
-    public long[] v = new long[100];
-    public long[] w = new long[100];
-    public long[] x = new long[100];
-    private ORConThreadQuery I;
-    private ORConThreadMain J;
+    public final long[] f = new long[100];
+    public final long[] g = new long[100];
+    public final long[] h = new long[100];
+    public final long[] i = new long[100];
+    public final long[] j = new long[100];
+    //public long[][] k;
+    private KeyPair I;
+    private String J;
+    private String K;
+    private boolean M;
+    private boolean N;
+    private boolean O;
+    private String P = "";
+    private boolean Q = false;
+    private long R;
+    private String S;
+    private boolean T;
 
     // CanaryMod start: Multiworld \o/
     public Map<String, OWorldServer[]> worlds = new HashMap<String, OWorldServer[]>(1);
     public Map<String, long[][]> worldTickNanos = new HashMap<String, long[][]>(1);
     // CanaryMod end
 
-    public OMinecraftServer() {
-        super();
-        new OThreadSleepForever(this);
+    public OMinecraftServer(File file1) {
+        l = this;
+        this.o = file1;
+        this.q = new OServerCommandManager();
+        this.m = new OAnvilSaveConverter(file1);
     }
 
-    private boolean s() throws IOException {
-        this.A = new OConsoleCommandHandler(this);
-        OThreadCommandReader var1 = new OThreadCommandReader(this);
+    protected abstract boolean b();
 
-        var1.setDaemon(true);
-        var1.start();
-        OConsoleLogManager.a();
-        a.info("Starting minecraft server version 1.2.5");
-        if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
-            a.warning("To start the server with more ram, launch it as \"java -Xmx1024M -Xms1024M -jar minecraft_server.jar\"");
-        }
-
-        a.info("Loading properties");
-        this.d = new OPropertyManager(new File("server.properties"));
-        this.y = this.d.a("server-ip", "");
-        this.n = this.d.a("online-mode", true);
-        this.o = this.d.a("spawn-animals", true);
-        this.p = this.d.a("spawn-npcs", true);
-        this.q = this.d.a("pvp", true);
-        this.r = this.d.a("allow-flight", false);
-        this.s = this.d.a("motd", "A Minecraft Server");
-        this.s.replace('\u00a7', '$');
-        InetAddress var2 = null;
-
-        if (this.y.length() > 0) {
-            var2 = InetAddress.getByName(this.y);
-        }
-
-        this.z = this.d.a("server-port", 25565);
-        a.info("Starting Minecraft server on " + (this.y.length() == 0 ? "*" : this.y) + ":" + this.z);
-
-        try {
-            this.c = new ONetworkListenThread(this, var2, this.z);
-        } catch (IOException var18) {
-            a.warning("**** FAILED TO BIND TO PORT!");
-            a.log(Level.WARNING, "The exception was: " + var18.toString());
-            a.warning("Perhaps a server is already running on that port?");
-            return false;
-        }
-
-        if (!this.n) {
-            a.warning("**** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!");
-            a.warning("The server will make no attempt to authenticate usernames. Beware.");
-            a.warning("While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.");
-            a.warning("To change this, set \"online-mode\" to \"true\" in the server.settings file.");
-        }
-
-        this.h = new OServerConfigurationManager(this);
-        long var4 = System.nanoTime();
-        String var6 = this.d.a("level-name", "world");
-        String var7 = this.d.a("level-seed", "");
-        String var8 = this.d.a("level-type", "DEFAULT");
-        long var9 = (new Random()).nextLong();
-
-        if (var7.length() > 0) {
-            try {
-                long var11 = Long.parseLong(var7);
-
-                if (var11 != 0L) {
-                    var9 = var11;
-                }
-            } catch (NumberFormatException var17) {
-                var9 = (long) var7.hashCode();
-            }
-        }
-
-        OEnumWorldType var13 = OEnumWorldType.a(var8);
-
-        if (var13 == null) {
-            var13 = OEnumWorldType.b;
-        }
-
-        this.t = this.d.a("max-build-height", 256);
-        this.t = (this.t + 8) / 16 * 16;
-        this.t = OMathHelper.a(this.t, 64, 256);
-        this.d.a("max-build-height", (Object) Integer.valueOf(this.t));
-        a.info("Preparing level \"" + var6 + "\"");
-        this.a(new OAnvilSaveConverter(new File(".")), var6, var9, var13);
-        long var14 = System.nanoTime() - var4;
-        String var16 = String.format("%.3fs", new Object[] { Double.valueOf((double) var14 / 1.0E9D)});
-
-        a.info("Done (" + var16 + ")! For help, type \"help\" or \"?\"");
-        if (this.d.a("enable-query", false)) {
-            a.info("Starting GS4 status listener");
-            this.I = new ORConThreadQuery(this);
-            this.I.a();
-        }
-
-        if (this.d.a("enable-rcon", false)) {
-            a.info("Starting remote control listener");
-            this.J = new ORConThreadMain(this);
-            this.J.a();
-        }
-
-        return true;
-    }
-
-    protected void loadWorld(String name, long seed, World.Type worldType) {
-        this.a(new OAnvilSaveConverter(new File(".")), name, seed, worldType.getNative());
-    }
-
-    
-    
-    
-    private void a(OISaveFormat var1, String var2, long var3, OEnumWorldType var5) {
-        if (var1.a(var2)) {
+    protected void c(String s) {
+        if (this.M().b(s)) {
             a.info("Converting map!");
-            var1.a(var2, new OConvertProgressUpdater(this));
+            this.d("menu.convertingLevel");
+            this.M().a(s, new OConvertProgressUpdater(this));
         }
+    }
 
+    protected synchronized void d(String s) {
+        this.S = s;
+    }
+
+    protected void a(String s, String s1, long i, OWorldType oworldtype) {
+        this.c(s);
+        this.d("menu.loadingLevel");
+        
         OWorldServer[] toLoad = new OWorldServer[3];
 
-        this.worlds.put(var2, toLoad);
-        this.worldTickNanos.put(var2, new long[toLoad.length][100]);
-        int var6 = this.d.a("gamemode", 0);
+        this.worlds.put(s, toLoad);
+        this.worldTickNanos.put(s, new long[toLoad.length][100]);
+        
+        OISaveHandler oisavehandler = this.m.a(s, true);
+        OWorldInfo oworldinfo = oisavehandler.d();
+        OWorldSettings oworldsettings;
 
-        var6 = OWorldSettings.a(var6);
-        a.info("Default game type: " + var6);
-        boolean var7 = this.d.a("generate-structures", true);
-        OWorldSettings var8 = new OWorldSettings(var3, var6, var7, false, var5);
-        OAnvilSaveHandler var9 = new OAnvilSaveHandler(new File("."), var2, true);
-
-        for (int var10 = 0; var10 < toLoad.length; ++var10) {
-            byte var11 = 0;
-
-            if (var10 == 1) {
-                var11 = -1;
-            }
-
-            if (var10 == 2) {
-                var11 = 1;
-            }
-
-            if (var10 == 0) {
-                toLoad[var10] = new OWorldServer(this, var9, var2, var11, var8);
-            } else {
-                toLoad[var10] = new OWorldServerMulti(this, var9, var2, var11, var8, toLoad[0]);
-            }
-
-            this.h.newWorld(var2);
-            toLoad[var10].a(new OWorldManager(this, toLoad[var10]));
-            toLoad[var10].setEntityTracker(new OEntityTracker(this, var11, var2));
-            toLoad[var10].q = this.d.a("difficulty", 1);
-            toLoad[var10].a(this.d.a("spawn-monsters", true), this.o);
-            toLoad[var10].s().d(var6);
-            this.h.a(toLoad);
+        if (oworldinfo == null) {
+            oworldsettings = new OWorldSettings(i, this.f(), this.e(), this.h(), oworldtype);
+        } else {
+            oworldsettings = new OWorldSettings(oworldinfo);
         }
 
-        short var23 = 196;
-        long var12 = System.currentTimeMillis();
+        if (this.N) {
+            oworldsettings.a();
+        }
 
-        for (int var14 = 0; var14 < 1; ++var14) {
-            a.info("Preparing start region for level " + var14);
-            OWorldServer var15 = toLoad[var14];
-            OChunkCoordinates var16 = var15.p();
+        for (int j = 0; j < toLoad.length; ++j) {
+            byte b0 = 0;
 
-            for (int var17 = -var23; var17 <= var23 && this.B; var17 += 16) {
-                for (int var18 = -var23; var18 <= var23 && this.B; var18 += 16) {
-                    long var19 = System.currentTimeMillis();
+            if (j == 1) {
+                b0 = -1;
+            }
 
-                    if (var19 < var12) {
-                        var12 = var19;
+            if (j == 2) {
+                b0 = 1;
+            }
+
+            if (j == 0) {
+                if (this.L()) {
+                    toLoad[j] = new ODemoWorldServer(this, oisavehandler, s1, b0, this.b);
+                } else {
+                    toLoad[j] = new OWorldServer(this, oisavehandler, s1, b0, oworldsettings, this.b);
+                }
+            } else {
+                toLoad[j] = new OWorldServerMulti(this, oisavehandler, s1, b0, oworldsettings, toLoad[0], this.b);
+            }
+
+            toLoad[j].a((OIWorldAccess) (new OWorldManager(this, toLoad[j])));
+            if (!this.H()) {
+                toLoad[j].H().a(this.f());
+            }
+
+            this.t.a(toLoad);
+        }
+
+        this.c(this.g());
+        this.d(toLoad);
+    }
+
+    protected void d(OWorldServer[] toLoad) { // CanaryMod: add world array as parameter
+        short short1 = 196;
+        long i = System.currentTimeMillis();
+
+        this.d("menu.generatingTerrain");
+
+        for (int j = 0; j < 1; ++j) {
+            a.info("Preparing start region for level " + j);
+            OWorldServer oworldserver = toLoad[j];
+            OChunkCoordinates ochunkcoordinates = oworldserver.E();
+
+            for (int k = -short1; k <= short1 && this.l(); k += 16) {
+                for (int l = -short1; l <= short1 && this.l(); l += 16) {
+                    long i1 = System.currentTimeMillis();
+
+                    if (i1 < i) {
+                        i = i1;
                     }
 
-                    if (var19 > var12 + 1000L) {
-                        int var21 = (var23 * 2 + 1) * (var23 * 2 + 1);
-                        int var22 = (var17 + var23) * (var23 * 2 + 1) + var18 + 1;
+                    if (i1 > i + 1000L) {
+                        int j1 = (short1 * 2 + 1) * (short1 * 2 + 1);
+                        int k1 = (k + short1) * (short1 * 2 + 1) + l + 1;
 
-                        this.b("Preparing spawn area", var22 * 100 / var21);
-                        var12 = var19;
+                        this.a_("Preparing spawn area", k1 * 100 / j1);
+                        i = i1;
                     }
 
-                    var15.G.c(var16.a + var17 >> 4, var16.c + var18 >> 4);
+                    oworldserver.b.c(ochunkcoordinates.a + k >> 4, ochunkcoordinates.c + l >> 4);
 
-                    while (var15.z() && this.B) {
+                    while (oworldserver.M() && this.l()) {
                         ;
                     }
                 }
             }
         }
 
-        this.t();
+        this.i();
     }
 
-    private void b(String var1, int var2) {
-        this.k = var1;
-        this.l = var2;
-        a.info(var1 + ": " + var2 + "%");
+    public abstract boolean e();
+
+    public abstract OEnumGameType f();
+
+    public abstract int g();
+
+    public abstract boolean h();
+
+    protected void a_(String s, int i) {
+        this.d = s;
+        this.e = i;
+        a.info(s + ": " + i + "%");
     }
 
-    private void t() {
-        this.k = null;
-        this.l = 0;
+    protected void i() {
+        this.d = null;
+        this.e = 0;
     }
 
-    private void u(OWorldServer var1) {
-        a.info("Saving chunks for level " + var1.t.g);
+    protected void a(boolean flag) {
+        if (!this.O) {
+            for (OWorldServer[] aoworldserver : this.worlds.values()) {
+                int i = aoworldserver.length;
 
-        var1.a(true, (OIProgressUpdate) null);
-        var1.A();
-    }
+                for (int j = 0; j < i; ++j) {
+                    OWorldServer oworldserver = aoworldserver[j];
 
-    private void v() {
-        a.info("Stopping server");
-        if (this.h != null) {
-            this.h.g();
-        }
+                    if (oworldserver != null) {
+                        if (!flag) {
+                            a.info("Saving chunks for level \'" + oworldserver.H().j() + "\'/" + oworldserver.w.l());
+                        }
 
-        for (Map.Entry<String, OWorldServer[]> entrySet : worlds.entrySet()) {
-            a.info("Saving chunks for world " + entrySet.getKey());
-            OWorldServer[] level = entrySet.getValue();
-
-            for (int var1 = 0; var1 < level.length; ++var1) {
-                OWorldServer var2 = level[var1];
-
-                if (var2 != null) {
-                    this.u(var2);
+                        oworldserver.a(true, (OIProgressUpdate) null);
+                    }
                 }
             }
         }
     }
 
-    public void a() {
-        this.B = false;
+    public void j() {
+        if (!this.O) {
+            a.info("Stopping server");
+            if (this.ac() != null) {
+                this.ac().a();
+            }
+
+            if (this.t != null) {
+                a.info("Saving players");
+                this.t.g();
+                this.t.r();
+            }
+
+            a.info("Saving worlds");
+            this.a(false);
+            for (OWorldServer[] aoworldserver : this.worlds.values()) {
+                int i = aoworldserver.length;
+
+                for (int j = 0; j < i; ++j) {
+                    OWorldServer oworldserver = aoworldserver[j];
+
+                    oworldserver.l();
+                }
+            } // CanaryMod: diff visibility
+
+            if (this.n != null && this.n.d()) {
+                this.n.e();
+            }
+        }
+    }
+
+    public String k() {
+        return this.r;
+    }
+
+    public void e(String s) {
+        this.r = s;
+    }
+
+    public boolean l() {
+        return this.u;
+    }
+
+    public void m() {
+        this.u = false;
     }
 
     public void run() {
-        boolean var59 = false;
+        try {
+            if (this.b()) {
+                long i = System.currentTimeMillis();
 
-        label595: {
+                for (long j = 0L; this.u; this.Q = true) {
+                    long k = System.currentTimeMillis();
+                    long l = k - i;
+
+                    if (l > 2000L && i - this.R >= 15000L) {
+                        a.warning("Can\'t keep up! Did the system time change, or is the server overloaded?");
+                        l = 2000L;
+                        this.R = i;
+                    }
+
+                    if (l < 0L) {
+                        a.warning("Time ran backwards! Did the system time change?");
+                        l = 0L;
+                    }
+
+                    j += l;
+                    i = k;
+                    // CanaryMod start: multiworld sleeping
+                    boolean allSleeping = true;
+
+                    for (OWorldServer[] level : this.worlds.values()) {
+                        allSleeping &= level[0].e();
+                    }
+                    // CanaryMod end
+                    if (allSleeping) {
+                        this.p();
+                        j = 0L;
+                    } else {
+                        while (j > 50L) {
+                            j -= 50L;
+                            this.p();
+                        }
+                    }
+
+                    Thread.sleep(1L);
+                }
+            } else {
+                this.a((OCrashReport) null);
+            }
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            a.log(Level.SEVERE, "Encountered an unexpected exception " + throwable.getClass().getSimpleName(), throwable);
+            OCrashReport ocrashreport = null;
+
+            if (throwable instanceof OReportedException) {
+                ocrashreport = this.b(((OReportedException) throwable).a());
+            } else {
+                ocrashreport = this.b(new OCrashReport("Exception in server tick loop", throwable));
+            }
+
+            File file1 = new File(new File(this.n(), "crash-reports"), "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-server.txt");
+
+            if (ocrashreport.a(file1)) {
+                a.severe("This crash report has been saved to: " + file1.getAbsolutePath());
+            } else {
+                a.severe("We were unable to save this crash report to disk.");
+            }
+
+            this.a(ocrashreport);
+        } finally {
             try {
-                var59 = true;
-                if (this.s()) {
-                    long var1 = System.currentTimeMillis();
-
-                    for (long var3 = 0L; this.B; Thread.sleep(1L)) {
-                        long var5 = System.currentTimeMillis();
-                        long var7 = var5 - var1;
-
-                        if (var7 > 2000L) {
-                            a.warning("Can\'t keep up! Did the system time change, or is the server overloaded?");
-                            var7 = 2000L;
-                        }
-
-                        if (var7 < 0L) {
-                            a.warning("Time ran backwards! Did the system time change?");
-                            var7 = 0L;
-                        }
-
-                        var3 += var7;
-                        var1 = var5;
-                        // CanaryMod start: multiworld sleeping
-                        boolean allSleeping = true;
-
-                        for (OWorldServer[] level : this.worlds.values()) {
-                            allSleeping &= level[0].v();
-                        }
-                        // CanaryMod end
-                        
-                        if (allSleeping) { // CanaryMod: multiworld sleeping
-                            this.w();
-                            var3 = 0L;
-                        } else {
-                            while (var3 > 50L) {
-                                var3 -= 50L;
-                                this.w();
-                            }
-                        }
-                    }
-
-                    var59 = false;
-                } else {
-                    while (this.B) {
-                        this.b();
-
-                        try {
-                            Thread.sleep(10L);
-                        } catch (InterruptedException var61) {
-                            var61.printStackTrace();
-                        }
-                    }
-
-                    var59 = false;
-                }
-                break label595;
-            } catch (Throwable var68) {
-                var68.printStackTrace();
-                a.log(Level.SEVERE, "Unexpected exception", var68);
-
-                while (true) {
-                    if (!this.B) {
-                        var59 = false;
-                        break;
-                    }
-
-                    this.b();
-
-                    try {
-                        Thread.sleep(10L);
-                    } catch (InterruptedException var60) {
-                        var60.printStackTrace();
-                    }
-                }
+                this.j();
+                this.v = true;
+            } catch (Throwable throwable1) {
+                throwable1.printStackTrace();
             } finally {
-                if (var59) {
-                    boolean var48 = false;
-
-                    label523: {
-                        label522: {
-                            try {
-                                var48 = true;
-                                this.v();
-                                this.i = true;
-                                var48 = false;
-                                break label522;
-                            } catch (Throwable var62) {
-                                var62.printStackTrace();
-                                var48 = false;
-                            } finally {
-                                if (var48) {
-                                    System.exit(0);
-                                }
-                            }
-
-                            System.exit(0);
-                            break label523;
-                        }
-
-                        System.exit(0);
-                    }
-
-                }
+                this.o();
             }
-
-            boolean var37 = false;
-
-            label596: {
-                try {
-                    var37 = true;
-                    this.v();
-                    this.i = true;
-                    var37 = false;
-                    break label596;
-                } catch (Throwable var64) {
-                    var64.printStackTrace();
-                    var37 = false;
-                } finally {
-                    if (var37) {
-                        System.exit(0);
-                    }
-                }
-
-                System.exit(0);
-                return;
-            }
-
-            System.exit(0);
-            return;
         }
-
-        boolean var26 = false;
-
-        label597: {
-            try {
-                var26 = true;
-                this.v();
-                this.i = true;
-                var26 = false;
-                break label597;
-            } catch (Throwable var66) {
-                var66.printStackTrace();
-                var26 = false;
-            } finally {
-                if (var26) {
-                    System.exit(0);
-                }
-            }
-
-            System.exit(0);
-            return;
-        }
-
-        System.exit(0);
     }
 
-    private void w() {
-        long var1 = System.nanoTime();
-        ArrayList<String> var3 = new ArrayList<String>();
-        Iterator<String> var4 = b.keySet().iterator();
+    protected File n() {
+        return new File(".");
+    }
 
-        while (var4.hasNext()) {
-            String var5 = var4.next();
-            int var6 = b.get(var5).intValue();
+    protected void a(OCrashReport ocrashreport) {}
 
-            if (var6 > 0) {
-                b.put(var5, Integer.valueOf(var6 - 1));
-            } else {
-                var3.add(var5);
-            }
+    protected void o() {}
+
+    protected void p() {
+        long i = System.nanoTime();
+
+        OAxisAlignedBB.a().a();
+        OVec3.a().a();
+        ++this.w;
+        if (this.T) {
+            this.T = false;
+            this.b.a = true;
+            this.b.a();
         }
 
-        int var11;
-
-        for (var11 = 0; var11 < var3.size(); ++var11) {
-            b.remove(var3.get(var11));
+        this.b.a("root");
+        this.q();
+        if (this.w % 900 == 0) {
+            this.b.a("save");
+            this.t.g();
+            this.a(true);
+            this.b.b();
         }
 
-        OAxisAlignedBB.a();
-        OVec3D.a();
-        ++this.j;
+        this.b.a("tallying");
+        this.j[this.w % 100] = System.nanoTime() - i;
+        this.f[this.w % 100] = OPacket.p - this.E;
+        this.E = OPacket.p;
+        this.g[this.w % 100] = OPacket.q - this.F;
+        this.F = OPacket.q;
+        this.h[this.w % 100] = OPacket.n - this.G;
+        this.G = OPacket.n;
+        this.i[this.w % 100] = OPacket.o - this.H;
+        this.H = OPacket.o;
+        this.b.b();
+        this.b.a("snooper");
+        if (!this.n.d() && this.w > 100) {
+            this.n.a();
+        }
+
+        if (this.w % 6000 == 0) {
+            this.n.b();
+        }
+
+        this.b.b();
+        this.b.b();
+    }
+
+    public void q() {
+        this.b.a("levels");
 
         for (Map.Entry<String, OWorldServer[]> entry : this.worlds.entrySet()) {
             OWorldServer[] level = entry.getValue();
+            String worldName = entry.getKey();
+            for (int i = 0; i < level.length; ++i) {
+                long j = System.nanoTime();
 
-            for (var11 = 0; var11 < level.length; ++var11) {
-                long var7 = System.nanoTime();
+                if (i == 0 || this.r()) {
+                    OWorldServer oworldserver = level[i];
 
-                if (var11 == 0 || this.d.a("allow-nether", true)) {
-                    OWorldServer var9 = level[var11];
-
-                    if (this.j % 20 == 0) {
-                        // this.h.a((OPacket) (new
-                        // OPacket4UpdateTime(var9.o())), var9.t.g);
-                        // }
-                        // this.h.a((OPacket) (new
-                        // OPacket4UpdateTime(var9.o())), var9.t.g);
-                        for (int var12 = 0; var12 < h.b.size(); ++var12) {
-                            OEntityPlayerMP var13 = (OEntityPlayerMP) h.b.get(var12);
-                            if (var13.bi.hashCode() == var9.hashCode()) {
-                                var13.a.b((OPacket) (new OPacket4UpdateTime(var9.o())));
-                            }
-                        }
+                    this.b.a(oworldserver.H().j());
+                    if (this.w % 20 == 0) {
+                        this.b.a("timeSync");
+                        this.t.sendPacketToDimension((OPacket) (new OPacket4UpdateTime(oworldserver.D())), worldName, oworldserver.w.g);
+                        this.b.b();
                     }
 
-                    var9.h();
+                    this.b.a("tick");
+                    oworldserver.b();
+                    this.b.c("lights");
 
                     while (true) {
-                        if (!var9.z()) {
-                            var9.f();
+                        if (!oworldserver.M()) {
+                            this.b.b();
+                            oworldserver.h();
+                            this.b.a("tracker");
+                            oworldserver.o().a();
+                            this.b.b();
+                            this.b.b();
                             break;
                         }
                     }
                 }
 
-                this.worldTickNanos.get(entry.getKey())[var11][this.j % 100] = System.nanoTime() - var7;
+                this.worldTickNanos.get(worldName)[i][this.w % 100] = System.nanoTime() - j;
             }
         }
 
-        this.c.a();
-        this.h.b();
+        this.b.c("connection");
+        this.ac().b();
+        this.b.c("players");
+        this.t.b();
+        this.b.c("tickables");
+        Iterator iterator = this.p.iterator();
 
-        
-        for (OWorldServer[] aows : this.worlds.values())
-            for (var11 = 0; var11 < aows.length; ++var11) {
-                aows[var11].getEntityTracker().updateTrackedEntities();
-            }
+        while (iterator.hasNext()) {
+            OIUpdatePlayerListBox oiupdateplayerlistbox = (OIUpdatePlayerListBox) iterator.next();
 
-        for (var11 = 0; var11 < this.C.size(); ++var11) {
-            this.C.get(var11).a();
+            oiupdateplayerlistbox.a();
         }
 
-        try {
-            this.b();
-        } catch (Exception var10) {
-            a.log(Level.WARNING, "Unexpected exception while parsing console command", var10);
-        }
-
-        this.f[this.j % 100] = System.nanoTime() - var1;
-        this.u[this.j % 100] = OPacket.n - this.E;
-        this.E = OPacket.n;
-        this.v[this.j % 100] = OPacket.o - this.F;
-        this.F = OPacket.o;
-        this.w[this.j % 100] = OPacket.l - this.G;
-        this.G = OPacket.l;
-        this.x[this.j % 100] = OPacket.m - this.H;
-        this.H = OPacket.m;
+        this.b.b();
     }
 
-    public void a(String var1, OICommandListener var2) {
-        this.D.add(new OServerCommand(var1, var2));
+    public boolean r() {
+        return true;
     }
 
-    public void b() {
-        while (this.D.size() > 0) {
-            OServerCommand var1 = this.D.remove(0);
-
-            this.A.a(var1);
-        }
-
+    public void a(OIUpdatePlayerListBox oiupdateplayerlistbox) {
+        this.p.add(oiupdateplayerlistbox);
     }
 
-    public void a(OIUpdatePlayerListBox var1) {
-        this.C.add(var1);
-    }
-
-    public static void main(String[] var0) {
+    public static void main(String[] astring) {
         OStatList.a();
 
         try {
-            OMinecraftServer var1 = new OMinecraftServer();
+            boolean flag = !GraphicsEnvironment.isHeadless();
+            String s = null;
+            String s1 = ".";
+            String s2 = null;
+            boolean flag1 = false;
+            boolean flag2 = false;
+            int i = -1;
 
-            if (!GraphicsEnvironment.isHeadless() && (var0.length <= 0 || !var0[0].equals("nogui"))) {
-                OServerGUI.a(var1);
+            for (int j = 0; j < astring.length; ++j) {
+                String s3 = astring[j];
+                String s4 = j == astring.length - 1 ? null : astring[j + 1];
+                boolean flag3 = false;
+
+                if (!s3.equals("nogui") && !s3.equals("--nogui")) {
+                    if (s3.equals("--port") && s4 != null) {
+                        flag3 = true;
+
+                        try {
+                            i = Integer.parseInt(s4);
+                        } catch (NumberFormatException numberformatexception) {
+                            ;
+                        }
+                    } else if (s3.equals("--singleplayer") && s4 != null) {
+                        flag3 = true;
+                        s = s4;
+                    } else if (s3.equals("--universe") && s4 != null) {
+                        flag3 = true;
+                        s1 = s4;
+                    } else if (s3.equals("--world") && s4 != null) {
+                        flag3 = true;
+                        s2 = s4;
+                    } else if (s3.equals("--demo")) {
+                        flag1 = true;
+                    } else if (s3.equals("--bonusChest")) {
+                        flag2 = true;
+                    }
+                } else {
+                    flag = false;
+                }
+
+                if (flag3) {
+                    ++j;
+                }
             }
 
-            (new OThreadServerApplication("Server thread", var1)).start();
-        } catch (Exception var2) {
-            a.log(Level.SEVERE, "Failed to start the minecraft server", var2);
+            ODedicatedServer odedicatedserver = new ODedicatedServer(new File(s1));
+
+            if (s != null) {
+                odedicatedserver.l(s);
+            }
+
+            if (s2 != null) {
+                odedicatedserver.m(s2);
+            }
+
+            if (i >= 0) {
+                odedicatedserver.b(i);
+            }
+
+            if (flag1) {
+                odedicatedserver.b(true);
+            }
+
+            if (flag2) {
+                odedicatedserver.c(true);
+            }
+
+            if (flag) {
+                odedicatedserver.ak();
+            }
+
+            odedicatedserver.s();
+            Runtime.getRuntime().addShutdownHook(new OThreadDedicatedServer(odedicatedserver));
+        } catch (Exception exception) {
+            a.log(Level.SEVERE, "Failed to start the minecraft server", exception);
         }
-
     }
 
-    public File a(String var1) {
-        return new File(var1);
+    public void s() {
+        (new OThreadServerApplication(this, "Server thread")).start();
     }
 
-    public void b(String var1) {
-        a.info(var1);
+    public File f(String s) {
+        return new File(this.n(), s);
     }
 
-    public void c(String var1) {
-        a.warning(var1);
+    public void g(String s) {
+        a.info(s);
     }
 
-    public String d() {
-        return "CONSOLE";
+    public void h(String s) {
+        a.warning(s);
     }
 
-    public OWorldServer a(int var1) {
-        throw new UnsupportedOperationException("OMinecraftServer.a(int) has"
-                + " been replaced by OMinecraftServer.getWorld(String, int).");
+    public OWorldServer a(int i) {
+        throw new UnsupportedOperationException("OMinecraftServer.a(int) has" +
+                " been replaced by OMinecraftServer.getWorld(String, int).");
     }
     
-    public OWorldServer getWorld(String levelName, int dimension) {
-        int index = dimension == 0 ? 0 : dimension == -1 ? 1 : 2;
+    public OWorldServer getWorld(String s, int i) {
+        int index = i == 0 ? 0 : i == -1 ? 1 : 2;
 
-        return this.worlds.get(levelName)[index];
+        return this.worlds.get(s)[index];
     }
 
-    public OEntityTracker b(int var1) {
-        throw new UnsupportedOperationException("OMinecraftServer.b(int) has"
-                + " been replaced by OWorld.getEntityTracker()");
+    public String t() {
+        return this.r;
     }
 
-    public int a(String var1, int var2) {
-        return this.d.a(var1, var2);
-    }
-
-    public String a(String var1, String var2) {
-        return this.d.a(var1, var2);
-    }
-
-    public void a(String var1, Object var2) {
-        this.d.a(var1, var2);
-    }
-
-    public void c() {
-        this.d.b();
-    }
-
-    public String e() {
-        File var1 = this.d.c();
-
-        return var1 != null ? var1.getAbsolutePath() : "No settings file";
-    }
-
-    public String f() {
-        return this.y;
-    }
-
-    public int g() {
-        return this.z;
-    }
-
-    public String h() {
+    public int u() {
         return this.s;
     }
 
-    public String i() {
-        return "1.2.5";
+    public String v() {
+        return this.C;
     }
 
-    public int j() {
-        return this.h.j();
+    public String w() {
+        return "1.3.2";
     }
 
-    public int k() {
-        return this.h.k();
+    public int x() {
+        return this.t.k();
     }
 
-    public String[] l() {
-        return this.h.d();
+    public int y() {
+        return this.t.l();
     }
 
-    public String m() {
-        return this.d.a("level-name", "world");
+    public String[] z() {
+        return this.t.d();
     }
 
-    public String n() {
-        // CanaryMod: return our own stuff for RCon
-        etc e = etc.getInstance();
-        return (e.isCrow() ? "Crow " : "CanaryMod ") + e.getVersionStr() + ": "
-                + etc.getLoader().getPluginList();
+    public String A() {
+        return "";
     }
 
-    public void o() {}
-
-    public String d(String var1) {
-        ORConConsoleSource.a.a();
-        this.A.a(new OServerCommand(var1, ORConConsoleSource.a));
-        return ORConConsoleSource.a.b();
+    public String i(String s) {
+        ORConConsoleSource.a.b();
+        this.q.a(ORConConsoleSource.a, s);
+        return ORConConsoleSource.a.c();
     }
 
-    public boolean p() {
+    public boolean B() {
         return false;
     }
 
-    public void e(String var1) {
-        a.log(Level.SEVERE, var1);
+    public void j(String s) {
+        a.log(Level.SEVERE, s);
     }
 
-    public void f(String var1) {
-        if (this.p()) {
-            a.log(Level.INFO, var1);
+    public void k(String s) {
+        if (this.B()) {
+            a.log(Level.INFO, s);
         }
-
-    }
-
-    public String[] q() {
-        return (String[]) this.h.f().toArray(new String[0]);
-    }
-
-    public String[] r() {
-        return (String[]) this.h.e().toArray(new String[0]);
     }
 
     public String getServerModName() {
         return "CanaryMod";
     }
 
-    // $FF: synthetic method
-    public static boolean a(OMinecraftServer var0) {
-        return var0.B;
+    public OCrashReport b(OCrashReport ocrashreport) {
+        ocrashreport.a("Is Modded", (Callable) (new OCallableIsServerModded(this)));
+        ocrashreport.a("Profiler Position", (Callable) (new OCallableServerProfiler(this)));
+        if (this.t != null) {
+            ocrashreport.a("Player Count", (Callable) (new OCallablePlayers(this)));
+        }
+
+        if (this.worlds != null) {
+            for (OWorldServer[] level : this.worlds.values()) {
+                OWorldServer[] aoworldserver = level;
+                int i = aoworldserver.length;
+
+                for (int j = 0; j < i; ++j) {
+                    OWorldServer oworldserver = aoworldserver[j];
+
+                    if (oworldserver != null) {
+                        oworldserver.a(ocrashreport);
+                    }
+                }
+            }
+        }
+
+        return ocrashreport;
     }
 
+    public List a(OICommandSender oicommandsender, String s) {
+        ArrayList arraylist = new ArrayList();
+
+        if (s.startsWith("/")) {
+            s = s.substring(1);
+            boolean flag = !s.contains(" ");
+            List list = this.q.b(oicommandsender, s);
+
+            if (list != null) {
+                Iterator iterator = list.iterator();
+
+                while (iterator.hasNext()) {
+                    String s1 = (String) iterator.next();
+
+                    if (flag) {
+                        arraylist.add("/" + s1);
+                    } else {
+                        arraylist.add(s1);
+                    }
+                }
+            }
+
+            return arraylist;
+        } else {
+            String[] astring = s.split(" ", -1);
+            String s2 = astring[astring.length - 1];
+            String[] astring1 = this.t.d();
+            int i = astring1.length;
+
+            for (int j = 0; j < i; ++j) {
+                String s3 = astring1[j];
+
+                if (OCommandBase.a(s2, s3)) {
+                    arraylist.add(s3);
+                }
+            }
+
+            return arraylist;
+        }
+    }
+
+    public static OMinecraftServer C() {
+        return l;
+    }
+
+    public String c_() {
+        return "Server";
+    }
+
+    public void a(String s) {
+        a.info(OStringUtils.a(s));
+    }
+
+    public boolean b(String s) {
+        return true;
+    }
+
+    public String a(String s, Object... aobject) {
+        return OStringTranslate.a().a(s, aobject);
+    }
+
+    public OICommandManager D() {
+        return this.q;
+    }
+
+    public KeyPair E() {
+        return this.I;
+    }
+
+    public int F() {
+        return this.s;
+    }
+
+    public void b(int i) {
+        this.s = i;
+    }
+
+    public String G() {
+        return this.J;
+    }
+
+    public void l(String s) {
+        this.J = s;
+    }
+
+    public boolean H() {
+        return this.J != null;
+    }
+
+    public String I() {
+        return this.K;
+    }
+
+    public void m(String s) {
+        this.K = s;
+    }
+
+    public void a(KeyPair keypair) {
+        this.I = keypair;
+    }
+
+    public void c(int i) {
+        for (OWorldServer[] aworld : this.worlds.values()) {
+            for (int j = 0; j < aworld.length; ++j) {
+                OWorldServer oworldserver = aworld[j];
+
+                if (oworldserver != null) {
+                    if (oworldserver.H().s()) {
+                        oworldserver.u = 3;
+                        oworldserver.a(true, true);
+                    } else if (this.H()) {
+                        oworldserver.u = i;
+                        oworldserver.a(oworldserver.u > 0, true);
+                    } else {
+                        oworldserver.u = i;
+                        oworldserver.a(this.K(), this.y);
+                    }
+                }
+            }
+        }
+    }
+
+    protected boolean K() {
+        return true;
+    }
+
+    public boolean L() {
+        return this.M;
+    }
+
+    public void b(boolean flag) {
+        this.M = flag;
+    }
+
+    public void c(boolean flag) {
+        this.N = flag;
+    }
+
+    public OISaveFormat M() {
+        return this.m;
+    }
+
+    public void O() {
+        this.O = true;
+        this.M().d();
+
+        for (OWorldServer[] level : this.worlds.values()) {
+            
+            for (int i = 0; i < level.length; ++i) {
+                OWorldServer oworldserver = level[i];
+
+                if (oworldserver != null) {
+                    oworldserver.l();
+                }
+            }
+
+            this.M().e(level[0].G().g());
+        }
+        this.m();
+    }
+
+    public String P() {
+        return this.P;
+    }
+
+    public void o(String s) {
+        this.P = s;
+    }
+
+    public void a(OPlayerUsageSnooper oplayerusagesnooper) {
+        oplayerusagesnooper.a("whitelist_enabled", Boolean.valueOf(false));
+        oplayerusagesnooper.a("whitelist_count", Integer.valueOf(0));
+        oplayerusagesnooper.a("players_current", Integer.valueOf(this.x()));
+        oplayerusagesnooper.a("players_max", Integer.valueOf(this.y()));
+        oplayerusagesnooper.a("players_seen", Integer.valueOf(this.t.m().length));
+        oplayerusagesnooper.a("uses_auth", Boolean.valueOf(this.x));
+        oplayerusagesnooper.a("gui_state", this.ae() ? "enabled" : "disabled");
+        oplayerusagesnooper.a("avg_tick_ms", Integer.valueOf((int) (OMathHelper.a(this.j) * 1.0E-6D)));
+        oplayerusagesnooper.a("avg_sent_packet_count", Integer.valueOf((int) OMathHelper.a(this.f)));
+        oplayerusagesnooper.a("avg_sent_packet_size", Integer.valueOf((int) OMathHelper.a(this.g)));
+        oplayerusagesnooper.a("avg_rec_packet_count", Integer.valueOf((int) OMathHelper.a(this.h)));
+        oplayerusagesnooper.a("avg_rec_packet_size", Integer.valueOf((int) OMathHelper.a(this.i)));
+        int i = 0;
+
+        for (Map.Entry<String, OWorldServer[]> entry : this.worlds.entrySet()) {
+            OWorldServer[] level = entry.getValue();
+            String levelName = entry.getKey();
+            for (int j = 0; j < level.length; ++j) {
+                if (level[j] != null) {
+                    OWorldServer oworldserver = level[j];
+                    OWorldInfo oworldinfo = oworldserver.H();
+
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][dimension]", Integer.valueOf(oworldserver.w.g));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][mode]", oworldinfo.q());
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][difficulty]", Integer.valueOf(oworldserver.u));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][hardcore]", Boolean.valueOf(oworldinfo.s()));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][generator_name]", oworldinfo.t().a());
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][generator_version]", Integer.valueOf(oworldinfo.t().c()));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][height]", Integer.valueOf(this.D));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][chunks_loaded]", Integer.valueOf(oworldserver.F().e()));
+                    ++i;
+                }
+            }
+        }
+
+        oplayerusagesnooper.a("worlds", Integer.valueOf(i));
+    }
+
+    public void b(OPlayerUsageSnooper oplayerusagesnooper) {
+        oplayerusagesnooper.a("singleplayer", Boolean.valueOf(this.H()));
+        oplayerusagesnooper.a("server_brand", this.getServerModName());
+        oplayerusagesnooper.a("gui_supported", GraphicsEnvironment.isHeadless() ? "headless" : "supported");
+        oplayerusagesnooper.a("dedicated", Boolean.valueOf(this.S()));
+    }
+
+    public boolean Q() {
+        return true;
+    }
+
+    public int R() {
+        return 16;
+    }
+
+    public abstract boolean S();
+
+    public boolean T() {
+        return this.x;
+    }
+
+    public void d(boolean flag) {
+        this.x = flag;
+    }
+
+    public boolean U() {
+        return this.y;
+    }
+
+    public void e(boolean flag) {
+        this.y = flag;
+    }
+
+    public boolean V() {
+        return this.z;
+    }
+
+    public void f(boolean flag) {
+        this.z = flag;
+    }
+
+    public boolean W() {
+        return this.A;
+    }
+
+    public void g(boolean flag) {
+        this.A = flag;
+    }
+
+    public boolean X() {
+        return this.B;
+    }
+
+    public void h(boolean flag) {
+        this.B = flag;
+    }
+
+    public String Y() {
+        return this.C;
+    }
+
+    public void p(String s) {
+        this.C = s;
+    }
+
+    public int Z() {
+        return this.D;
+    }
+
+    public void d(int i) {
+        this.D = i;
+    }
+
+    public boolean aa() {
+        return this.v;
+    }
+
+    public OServerConfigurationManager ab() {
+        return this.t;
+    }
+
+    public void a(OServerConfigurationManager oserverconfigurationmanager) {
+        this.t = oserverconfigurationmanager;
+    }
+
+    public void a(OEnumGameType oenumgametype) {
+        OWorldServer[] level = C().worlds.get(this.I());
+        for (int i = 0; i < level.length; ++i) {
+            level[i].H().a(oenumgametype);
+        }
+    }
+
+    public abstract ONetworkListenThread ac();
+
+    public boolean ae() {
+        return false;
+    }
+
+    public abstract String a(OEnumGameType oenumgametype, boolean flag);
+
+    public int af() {
+        return this.w;
+    }
+
+    public void ag() {
+        this.T = true;
+    }
+
+    public static OServerConfigurationManager a(OMinecraftServer ominecraftserver) {
+        return ominecraftserver.t;
+    }
 }

@@ -16,19 +16,19 @@ public class PluginListener {
         /**
          * Highly critical for hooks that absolutely must occur before any others. Use carefully.
          */
-        CRITICAL,
+        CRITICAL, //
         /**
          * May block/interrupt/undo the action, but prefer MEDIUM
          */
-        HIGH,
+        HIGH, //
         /**
          * Preferred priority for blocking/interrupting/undoing the action
          */
-        MEDIUM,
+        MEDIUM, //
         /**
          * Must not block/interrupt/undo the action
          */
-        LOW
+        LOW;
     }
 
     /**
@@ -78,10 +78,26 @@ public class PluginListener {
      * @param user
      * @param IP
      * @return kick reason. null if you don't want to kick the player.
+     * @deprecated Use onLoginChecks(HookParametersLogincheck) instead!
      *
      */
+    @Deprecated
     public String onLoginChecks(String user, String IP){
         return onLoginChecks(user);
+    }
+    
+    /**
+     * Called during the early login process to check whether or not to kick the player
+     * and optionally set his world to spawn in (for multiworld plugins!)
+     * @param hook Use setKickReason(String) to specify a kick reason or leave/set it null to not kick the player
+     * @return
+     */
+    public HookParametersLogincheck onLoginChecks(HookParametersLogincheck hook) {
+        String kickReason = onLoginChecks(hook.getPlayerName(), hook.getIp());
+        if(kickReason != null) {
+            hook.setKickReason(kickReason);
+        }
+        return hook;
     }
 
     /**
@@ -397,6 +413,8 @@ public class PluginListener {
      * 
      * @param blocksaffected
      *            The blocks affected by the explosion in a list.
+     *            Removing the blocks from the list marks them as unaffected,
+     *            thus not being destroyed.
      * 
      * @return true if you don't want the explosion to occur.
      */

@@ -1,204 +1,205 @@
 
-public class OEntityOcelot extends OEntityTamable {
+public class OEntityOcelot extends OEntityTameable {
 
-    private OEntityAITempt b;
+    private OEntityAITempt e;
 
-    public OEntityOcelot(OWorld var1) {
-        super(var1);
-        this.ae = "/mob/ozelot.png";
-        this.b(0.6F, 0.8F);
-        this.al().a(true);
-        this.aL.a(1, new OEntityAISwimming(this));
-        this.aL.a(2, this.a);
-        this.aL.a(3, this.b = new OEntityAITempt(this, 0.18F, OItem.aT.bP, true));
-        this.aL.a(4, new OEntityAIAvoidEntity(this, OEntityPlayer.class, 16.0F, 0.23F, 0.4F));
-        this.aL.a(5, new OEntityAICatBehavior(this, 0.4F));
-        this.aL.a(6, new OEntityAIFollowOwner(this, 0.3F, 10.0F, 5.0F));
-        this.aL.a(7, new OEntityAILeapAtTarget(this, 0.3F));
-        this.aL.a(8, new OEntityAIOcelotAttack(this));
-        this.aL.a(9, new OEntityAIMate(this, 0.23F));
-        this.aL.a(10, new OEntityAIWander(this, 0.23F));
-        this.aL.a(11, new OEntityAIWatchClosest(this, OEntityPlayer.class, 10.0F));
-        this.aM.a(1, new OEntityAITargetNonTamed(this, OEntityChicken.class, 14.0F, 750, false));
+    public OEntityOcelot(OWorld oworld) {
+        super(oworld);
+        this.az = "/mob/ozelot.png";
+        this.a(0.6F, 0.8F);
+        this.as().a(true);
+        this.bg.a(1, new OEntityAISwimming(this));
+        this.bg.a(2, this.d);
+        this.bg.a(3, this.e = new OEntityAITempt(this, 0.18F, OItem.aU.bT, true));
+        this.bg.a(4, new OEntityAIAvoidEntity(this, OEntityPlayer.class, 16.0F, 0.23F, 0.4F));
+        this.bg.a(5, new OEntityAIFollowOwner(this, 0.3F, 10.0F, 5.0F));
+        this.bg.a(6, new OEntityAIOcelotSit(this, 0.4F));
+        this.bg.a(7, new OEntityAILeapAtTarget(this, 0.3F));
+        this.bg.a(8, new OEntityAIOcelotAttack(this));
+        this.bg.a(9, new OEntityAIMate(this, 0.23F));
+        this.bg.a(10, new OEntityAIWander(this, 0.23F));
+        this.bg.a(11, new OEntityAIWatchClosest(this, OEntityPlayer.class, 10.0F));
+        this.bh.a(1, new OEntityAITargetNonTamed(this, OEntityChicken.class, 14.0F, 750, false));
     }
 
-    protected void b() {
-        super.b();
-        this.bY.a(18, Byte.valueOf((byte) 0));
+    protected void a() {
+        super.a();
+        this.af.a(18, Byte.valueOf((byte) 0));
     }
 
-    public void g() {
-        if (!this.aj().a()) {
-            this.g(false);
-            this.h(false);
-        } else {
-            float var1 = this.aj().b();
+    public void bd() {
+        if (this.aq().a()) {
+            float f = this.aq().b();
 
-            if (var1 == 0.18F) {
-                this.g(true);
-                this.h(false);
-            } else if (var1 == 0.4F) {
-                this.g(false);
-                this.h(true);
+            if (f == 0.18F) {
+                this.a(true);
+                this.b(false);
+            } else if (f == 0.4F) {
+                this.a(false);
+                this.b(true);
             } else {
-                this.g(false);
-                this.h(false);
+                this.a(false);
+                this.b(false);
             }
+        } else {
+            this.a(false);
+            this.b(false);
         }
 
     }
 
-    protected boolean n() {
-        return !this.u_();
+    protected boolean ba() {
+        return !this.n();
     }
 
-    public boolean c_() {
+    public boolean aV() {
         return true;
     }
 
-    public int d() {
+    public int aM() {
         return 10;
     }
 
-    protected void a(float var1) {}
+    protected void a(float f) {}
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-        var1.a("CatType", this.r());
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        onbttagcompound.a("CatType", this.u());
     }
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-        this.c_(var1.f("CatType"));
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
+        this.b(onbttagcompound.e("CatType"));
     }
 
-    protected String i() {
-        return this.u_() ? (this.r_() ? "mob.cat.purr" : (this.bS.nextInt(4) == 0 ? "mob.cat.purreow" : "mob.cat.meow")) : "";
+    protected String aQ() {
+        return this.n() ? (this.s() ? "mob.cat.purr" : (this.Z.nextInt(4) == 0 ? "mob.cat.purreow" : "mob.cat.meow")) : "";
     }
 
-    protected String j() {
+    protected String aR() {
         return "mob.cat.hitt";
     }
 
-    protected String k() {
+    protected String aS() {
         return "mob.cat.hitt";
     }
 
-    protected float p() {
+    protected float aP() {
         return 0.4F;
     }
 
-    protected int f() {
-        return OItem.aE.bP;
+    protected int aT() {
+        return OItem.aF.bT;
     }
 
-    public boolean a(OEntity var1) {
-        return var1.a(ODamageSource.a((OEntityLiving) this), 3);
+    public boolean k(OEntity oentity) {
+        return oentity.a(ODamageSource.a((OEntityLiving) this), 3);
     }
 
-    public boolean a(ODamageSource var1, int var2) {
-        this.a.a(false);
-        return super.a(var1, var2);
+    public boolean a(ODamageSource odamagesource, int i) {
+        this.d.a(false);
+        return super.a(odamagesource, i);
     }
 
-    protected void a(boolean var1, int var2) {}
+    protected void a(boolean flag, int i) {}
 
-    public boolean b(OEntityPlayer var1) {
-        OItemStack var2 = var1.k.d();
+    public boolean c(OEntityPlayer oentityplayer) {
+        OItemStack oitemstack = oentityplayer.by.g();
 
-        if (!this.u_()) {
-            if (this.b.f() && var2 != null && var2.c == OItem.aT.bP && var1.j(this) < 9.0D) {
-                --var2.a;
-                if (var2.a <= 0) {
-                    var1.k.a(var1.k.c, (OItemStack) null);
-                }
+        if (this.n()) {
+            if (oentityplayer.bJ.equalsIgnoreCase(this.p()) && !this.p.K && !this.b(oitemstack)) {
+                this.d.a(!this.o());
+            }
+        } else if (this.e.f() && oitemstack != null && oitemstack.c == OItem.aU.bT && oentityplayer.e(this) < 9.0D) {
+            if (!oentityplayer.bZ.d) {
+                --oitemstack.a;
+            }
+            
+            if (oitemstack.a <= 0) {
+                oentityplayer.by.a(oentityplayer.by.c, (OItemStack) null);
+            }
 
-                if (!this.bi.F) {
-                    // CanaryMod hook: onTame
-                    // randomize the tame result. if its 0 - tame success.
-                    int tameResult = this.bS.nextInt(3);
-                    // Call hook
-                    PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.TAME, manager.getServer().getPlayer(var1.v), new Mob(this), tameResult == 0);
+            if (!this.p.K) {
+                // CanaryMod hook: onTame
+                // randomize the tame result. if its 0 - tame success.
+                int tameResult = this.Z.nextInt(3);
+                // Call hook
+                PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.TAME, oentityplayer.entity.getPlayer(), new Mob(this), tameResult == 0);
 
-                    // if taming succeeded normally (tameResult == 0) or plugin hook result is allow (force taming)
-                    if (tameResult == 0 && res == PluginLoader.HookResult.DEFAULT_ACTION || res == PluginLoader.HookResult.ALLOW_ACTION) {
-                        this.b(true);
-                        this.c_(1 + this.bi.r.nextInt(3));
-                        this.a(var1.v);
-                        this.a(true);
-                        this.a.a(true);
-                        this.bi.a(this, (byte) 7);
-                    } else {
-                        this.a(false);
-                        this.bi.a(this, (byte) 6);
-                    }
+                // if taming succeeded normally (tameResult == 0) or plugin hook result is allow (force taming)
+                if (tameResult == 0 && res == PluginLoader.HookResult.DEFAULT_ACTION || res == PluginLoader.HookResult.ALLOW_ACTION) {
+                    this.f(true);
+                    this.b(1 + this.p.v.nextInt(3));
+                    this.a(oentityplayer.bJ);
+                    this.e(true);
+                    this.d.a(true);
+                    this.p.a(this, (byte) 7);
+                } else {
+                    this.e(false);
+                    this.p.a(this, (byte) 6);
                 }
             }
 
             return true;
-        } else {
-            if (var1.v.equalsIgnoreCase(this.A()) && !this.bi.F && !this.a(var2)) {
-                this.a.a(!this.v_());
-            }
+        }
 
-            return super.b(var1);
+        return super.c(oentityplayer);
+    }
+
+    public OEntityAnimal a(OEntityAnimal oentityanimal) {
+        OEntityOcelot oentityocelot = new OEntityOcelot(this.p);
+
+        if (this.n()) {
+            oentityocelot.a(this.p());
+            oentityocelot.f(true);
+            oentityocelot.b(this.u());
+        }
+
+        return oentityocelot;
+    }
+
+    public boolean b(OItemStack oitemstack) {
+        return oitemstack != null && oitemstack.c == OItem.aU.bT;
+    }
+
+    public boolean b(OEntityAnimal oentityanimal) {
+        if (oentityanimal == this) {
+            return false;
+        } else if (!this.n()) {
+            return false;
+        } else if (!(oentityanimal instanceof OEntityOcelot)) {
+            return false;
+        } else {
+            OEntityOcelot oentityocelot = (OEntityOcelot) oentityanimal;
+
+            return !oentityocelot.n() ? false : this.s() && oentityocelot.s();
         }
     }
 
-    public OEntityAnimal a(OEntityAnimal var1) {
-        OEntityOcelot var2 = new OEntityOcelot(this.bi);
-
-        if (this.u_()) {
-            var2.a(this.A());
-            var2.b(true);
-            var2.c_(this.r());
-        }
-
-        return var2;
+    public int u() {
+        return this.af.a(18);
     }
 
-    public boolean a(OItemStack var1) {
-        return var1 != null && var1.c == OItem.aT.bP;
+    public void b(int i) {
+        this.af.b(18, Byte.valueOf((byte) i));
     }
 
-    public boolean b(OEntityAnimal var1) {
-        if (var1 == this) {
-            return false;
-        } else if (!this.u_()) {
-            return false;
-        } else if (!(var1 instanceof OEntityOcelot)) {
+    public boolean bi() {
+        if (this.p.v.nextInt(3) == 0) {
             return false;
         } else {
-            OEntityOcelot var2 = (OEntityOcelot) var1;
+            if (this.p.b(this.D) && this.p.a((OEntity) this, this.D).isEmpty() && !this.p.d(this.D)) {
+                int i = OMathHelper.c(this.t);
+                int j = OMathHelper.c(this.D.b);
+                int k = OMathHelper.c(this.v);
 
-            return !var2.u_() ? false : this.r_() && var2.r_();
-        }
-    }
-
-    public int r() {
-        return this.bY.a(18);
-    }
-
-    public void c_(int var1) {
-        this.bY.b(18, Byte.valueOf((byte) var1));
-    }
-
-    public boolean l() {
-        if (this.bi.r.nextInt(3) == 0) {
-            return false;
-        } else {
-            if (this.bi.a(this.bw) && this.bi.a((OEntity) this, this.bw).size() == 0 && !this.bi.c(this.bw)) {
-                int var1 = OMathHelper.b(this.bm);
-                int var2 = OMathHelper.b(this.bw.b);
-                int var3 = OMathHelper.b(this.bo);
-
-                if (var2 < 63) {
+                if (j < 63) {
                     return false;
                 }
 
-                int var4 = this.bi.a(var1, var2 - 1, var3);
+                int l = this.p.a(i, j - 1, k);
 
-                if (var4 == OBlock.u.bO || var4 == OBlock.K.bO) {
+                if (l == OBlock.u.ca || l == OBlock.K.ca) {
                     return true;
                 }
             }
@@ -207,7 +208,7 @@ public class OEntityOcelot extends OEntityTamable {
         }
     }
 
-    public String s() {
-        return this.u_() ? "entity.Cat.name" : super.s();
+    public String ak() {
+        return this.n() ? "entity.Cat.name" : super.ak();
     }
 }

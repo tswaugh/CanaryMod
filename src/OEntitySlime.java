@@ -6,197 +6,203 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
     public float c;
     private int d = 0;
 
-    // CanaryMod start
-    protected LivingEntity entity = new LivingEntity(this);
-    // CanaryMod end
+    public OEntitySlime(OWorld oworld) {
+        super(oworld);
+        this.az = "/mob/slime.png";
+        int i = 1 << this.Z.nextInt(3);
 
-    public OEntitySlime(OWorld var1) {
-        super(var1);
-        this.ae = "/mob/slime.png";
-        int var2 = 1 << this.bS.nextInt(3);
-        this.bF = 0.0F;
-        this.d = this.bS.nextInt(20) + 10;
-        this.c(var2);
+        this.M = 0.0F;
+        this.d = this.Z.nextInt(20) + 10;
+        this.a(i);
     }
 
-    protected void b() {
-        super.b();
-        this.bY.a(16, new Byte((byte) 1));
+    protected void a() {
+        super.a();
+        this.af.a(16, new Byte((byte) 1));
     }
 
-    public void c(int var1) {
-        this.bY.b(16, new Byte((byte) var1));
-        this.b(0.6F * (float) var1, 0.6F * (float) var1);
-        this.c(this.bm, this.bn, this.bo);
-        this.h(this.d());
-        this.aA = var1;
+    public void a(int i) {
+        this.af.b(16, new Byte((byte) i));
+        this.a(0.6F * (float) i, 0.6F * (float) i);
+        this.b(this.t, this.u, this.v);
+        this.j(this.aM());
+        this.aV = i;
     }
 
-    public int d() {
-        int var1 = this.L();
-        return var1 * var1;
+    public int aM() {
+        int i = this.q();
+
+        return i * i;
     }
 
-    public int L() {
-        return this.bY.a(16);
+    public int q() {
+        return this.af.a(16);
     }
 
-    public void b(ONBTTagCompound var1) {
-        super.b(var1);
-        var1.a("Size", this.L() - 1);
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        onbttagcompound.a("Size", this.q() - 1);
     }
 
-    public void a(ONBTTagCompound var1) {
-        super.a(var1);
-        this.c(var1.f("Size") + 1);
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
+        this.a(onbttagcompound.e("Size") + 1);
     }
 
-    protected String A() {
+    protected String i() {
         return "slime";
     }
 
-    protected String I() {
+    protected String o() {
         return "mob.slime";
     }
 
-    public void F_() {
-        if (!this.bi.F && this.bi.q == 0 && this.L() > 0) {
-            this.bE = true;
+    public void h_() {
+        if (!this.p.K && this.p.u == 0 && this.q() > 0) {
+            this.L = true;
         }
 
         this.b += (this.a - this.b) * 0.5F;
         this.c = this.b;
-        boolean var1 = this.bx;
-        super.F_();
-        if (this.bx && !var1) {
-            int var2 = this.L();
+        boolean flag = this.E;
 
-            for (int var3 = 0; var3 < var2 * 8; ++var3) {
-                float var4 = this.bS.nextFloat() * 3.1415927F * 2.0F;
-                float var5 = this.bS.nextFloat() * 0.5F + 0.5F;
-                float var6 = OMathHelper.a(var4) * (float) var2 * 0.5F * var5;
-                float var7 = OMathHelper.b(var4) * (float) var2 * 0.5F * var5;
-                this.bi.a(this.A(), this.bm + (double) var6, this.bw.b, this.bo + (double) var7, 0.0D, 0.0D, 0.0D);
+        super.h_();
+        if (this.E && !flag) {
+            int i = this.q();
+
+            for (int j = 0; j < i * 8; ++j) {
+                float f = this.Z.nextFloat() * 3.1415927F * 2.0F;
+                float f1 = this.Z.nextFloat() * 0.5F + 0.5F;
+                float f2 = OMathHelper.a(f) * (float) i * 0.5F * f1;
+                float f3 = OMathHelper.b(f) * (float) i * 0.5F * f1;
+
+                this.p.a(this.i(), this.t + (double) f2, this.D.b, this.v + (double) f3, 0.0D, 0.0D, 0.0D);
             }
 
-            if (this.K()) {
-                this.bi.a(this, this.I(), this.p(), ( (this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+            if (this.p()) {
+                this.p.a(this, this.o(), this.aP(), ((this.Z.nextFloat() - this.Z.nextFloat()) * 0.2F + 1.0F) / 0.8F);
             }
 
             this.a = -0.5F;
+        } else if (!this.E && flag) {
+            this.a = 1.0F;
         }
 
-        this.F();
+        this.l();
     }
 
-    protected void d_() {
-        this.aG();
-        OEntityPlayer var1 = this.bi.b(this, 16.0D);
-        if (var1 != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) var1.entity.getPlayer(), entity)) { //CanaryMod - MOB_TARGET
-            this.a(var1, 10.0F, 20.0F);
+    protected void be() {
+        this.bb();
+        OEntityPlayer oentityplayer = this.p.b(this, 16.0D);
+
+        if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), this.entity)) { // CanaryMod - MOB_TARGET
+            this.a(oentityplayer, 10.0F, 20.0F);
         }
 
-        if (this.bx && this.d-- <= 0) {
-            this.d = this.E();
-            if (var1 != null) {
+        if (this.E && this.d-- <= 0) {
+            this.d = this.k();
+            if (oentityplayer != null) {
                 this.d /= 3;
             }
 
-            this.aZ = true;
-            if (this.M()) {
-                this.bi.a(this, this.I(), this.p(), ( (this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+            this.bu = true;
+            if (this.r()) {
+                this.p.a(this, this.o(), this.aP(), ((this.Z.nextFloat() - this.Z.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.a = 1.0F;
-            this.aW = 1.0F - this.bS.nextFloat() * 2.0F;
-            this.aX = (float) (1 * this.L());
+            this.br = 1.0F - this.Z.nextFloat() * 2.0F;
+            this.bs = (float) (1 * this.q());
         } else {
-            this.aZ = false;
-            if (this.bx) {
-                this.aW = this.aX = 0.0F;
+            this.bu = false;
+            if (this.E) {
+                this.br = this.bs = 0.0F;
             }
         }
 
     }
 
-    protected void F() {
+    protected void l() {
         this.a *= 0.6F;
     }
 
-    protected int E() {
-        return this.bS.nextInt(20) + 10;
+    protected int k() {
+        return this.Z.nextInt(20) + 10;
     }
 
-    protected OEntitySlime C() {
-        return new OEntitySlime(this.bi);
+    protected OEntitySlime j() {
+        return new OEntitySlime(this.p);
     }
 
-    public void X() {
-        int var1 = this.L();
-        if (!this.bi.F && var1 > 1 && this.aD() <= 0) {
-            int var2 = 2 + this.bS.nextInt(3);
+    public void y() {
+        int i = this.q();
 
-            for (int var3 = 0; var3 < var2; ++var3) {
-                float var4 = ((float) (var3 % 2) - 0.5F) * (float) var1 / 4.0F;
-                float var5 = ((float) (var3 / 2) - 0.5F) * (float) var1 / 4.0F;
-                OEntitySlime var6 = this.C();
-                var6.c(var1 / 2);
-                var6.c(this.bm + (double) var4, this.bn + 0.5D, this.bo + (double) var5, this.bS.nextFloat() * 360.0F, 0.0F);
-                this.bi.b((OEntity) var6);
+        if (!this.p.K && i > 1 && this.aN() <= 0) {
+            int j = 2 + this.Z.nextInt(3);
+
+            for (int k = 0; k < j; ++k) {
+                float f = ((float) (k % 2) - 0.5F) * (float) i / 4.0F;
+                float f1 = ((float) (k / 2) - 0.5F) * (float) i / 4.0F;
+                OEntitySlime oentityslime = this.j();
+
+                oentityslime.a(i / 2);
+                oentityslime.b(this.t + (double) f, this.u + 0.5D, this.v + (double) f1, this.Z.nextFloat() * 360.0F, 0.0F);
+                this.p.d((OEntity) oentityslime);
             }
         }
 
-        super.X();
+        super.y();
     }
 
-    public void a_(OEntityPlayer var1) {
-        if (this.G()) {
-            int var2 = this.L();
-            if (this.h(var1) && (double) this.i(var1) < 0.6D * (double) var2 && var1.a(ODamageSource.a((OEntityLiving) this), this.H())) {
-                this.bi.a(this, "mob.slimeattack", 1.0F, (this.bS.nextFloat() - this.bS.nextFloat()) * 0.2F + 1.0F);
+    public void b_(OEntityPlayer oentityplayer) {
+        if (this.m()) {
+            int i = this.q();
+
+            if (this.l(oentityplayer) && this.e(oentityplayer) < 0.6D * (double) i * 0.6D * (double) i && oentityplayer.a(ODamageSource.a((OEntityLiving) this), this.n())) {
+                this.p.a(this, "mob.slimeattack", 1.0F, (this.Z.nextFloat() - this.Z.nextFloat()) * 0.2F + 1.0F);
             }
         }
 
     }
 
-    protected boolean G() {
-        return this.L() > 1;
+    protected boolean m() {
+        return this.q() > 1;
     }
 
-    protected int H() {
-        return this.L();
+    protected int n() {
+        return this.q();
     }
 
-    protected String j() {
+    protected String aR() {
         return "mob.slime";
     }
 
-    protected String k() {
+    protected String aS() {
         return "mob.slime";
     }
 
-    protected int f() {
-        return this.L() == 1 ? OItem.aL.bP : 0;
+    protected int aT() {
+        return this.q() == 1 ? OItem.aM.bT : 0;
     }
 
-    public boolean l() {
-        OChunk var1 = this.bi.c(OMathHelper.b(this.bm), OMathHelper.b(this.bo));
-        return (this.L() == 1 || this.bi.q > 0) && this.bS.nextInt(10) == 0 && var1.a(987234911L).nextInt(10) == 0 && this.bn < 40.0D ? super.l() : false;
+    public boolean bi() {
+        OChunk ochunk = this.p.d(OMathHelper.c(this.t), OMathHelper.c(this.v));
+
+        return this.p.H().t() == OWorldType.c && this.Z.nextInt(4) != 1 ? false : ((this.q() == 1 || this.p.u > 0) && this.Z.nextInt(10) == 0 && ochunk.a(987234911L).nextInt(10) == 0 && this.u < 40.0D ? super.bi() : false);
     }
 
-    protected float p() {
-        return 0.4F * (float) this.L();
+    protected float aP() {
+        return 0.4F * (float) this.q();
     }
 
-    public int D() {
+    public int bf() {
         return 0;
     }
 
-    protected boolean M() {
-        return this.L() > 1;
+    protected boolean r() {
+        return this.q() > 1;
     }
 
-    protected boolean K() {
-        return this.L() > 2;
+    protected boolean p() {
+        return this.q() > 2;
     }
 }

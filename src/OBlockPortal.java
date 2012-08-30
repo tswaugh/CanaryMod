@@ -3,149 +3,167 @@ import java.util.Random;
 
 public class OBlockPortal extends OBlockBreakable {
 
-    public OBlockPortal(int var1, int var2) {
-        super(var1, var2, OMaterial.B, false);
+    public OBlockPortal(int i, int j) {
+        super(i, j, OMaterial.B, false);
+        this.b(true);
     }
 
-    public OAxisAlignedBB e(OWorld var1, int var2, int var3, int var4) {
+    public void b(OWorld oworld, int i, int j, int k, Random random) {
+        super.b(oworld, i, j, k, random);
+        if (oworld.w.d() && random.nextInt(2000) < oworld.u) {
+            int l;
+
+            for (l = j; !oworld.t(i, l, k) && l > 0; --l) {
+                ;
+            }
+
+            if (l > 0 && !oworld.s(i, l + 1, k)) {
+                OItemMonsterPlacer.a(oworld, 57, (double) i + 0.5D, (double) l + 1.1D, (double) k + 0.5D);
+            }
+        }
+    }
+
+    public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
         return null;
     }
 
-    public void a(OIBlockAccess var1, int var2, int var3, int var4) {
-        float var5;
-        float var6;
+    public void a(OIBlockAccess oiblockaccess, int i, int j, int k) {
+        float f;
+        float f1;
 
-        if (var1.a(var2 - 1, var3, var4) != this.bO && var1.a(var2 + 1, var3, var4) != this.bO) {
-            var5 = 0.125F;
-            var6 = 0.5F;
-            this.a(0.5F - var5, 0.0F, 0.5F - var6, 0.5F + var5, 1.0F, 0.5F + var6);
+        if (oiblockaccess.a(i - 1, j, k) != this.ca && oiblockaccess.a(i + 1, j, k) != this.ca) {
+            f = 0.125F;
+            f1 = 0.5F;
+            this.a(0.5F - f, 0.0F, 0.5F - f1, 0.5F + f, 1.0F, 0.5F + f1);
         } else {
-            var5 = 0.5F;
-            var6 = 0.125F;
-            this.a(0.5F - var5, 0.0F, 0.5F - var6, 0.5F + var5, 1.0F, 0.5F + var6);
+            f = 0.5F;
+            f1 = 0.125F;
+            this.a(0.5F - f, 0.0F, 0.5F - f1, 0.5F + f, 1.0F, 0.5F + f1);
         }
 
     }
 
-    public boolean a() {
+    public boolean d() {
         return false;
     }
 
-    public boolean b() {
+    public boolean c() {
         return false;
     }
 
-    public boolean b_(OWorld var1, int var2, int var3, int var4) {
-        byte var5 = 0;
-        byte var6 = 0;
+    public boolean i_(OWorld oworld, int i, int j, int k) {
+        byte b0 = 0;
+        byte b1 = 0;
 
-        if (var1.a(var2 - 1, var3, var4) == OBlock.ap.bO || var1.a(var2 + 1, var3, var4) == OBlock.ap.bO) {
-            var5 = 1;
+        if (oworld.a(i - 1, j, k) == OBlock.ap.ca || oworld.a(i + 1, j, k) == OBlock.ap.ca) {
+            b0 = 1;
         }
 
-        if (var1.a(var2, var3, var4 - 1) == OBlock.ap.bO || var1.a(var2, var3, var4 + 1) == OBlock.ap.bO) {
-            var6 = 1;
+        if (oworld.a(i, j, k - 1) == OBlock.ap.ca || oworld.a(i, j, k + 1) == OBlock.ap.ca) {
+            b1 = 1;
         }
 
-        if (var5 == var6) {
+        if (b0 == b1) {
             return false;
         } else {
-            if (var1.a(var2 - var5, var3, var4 - var6) == 0) {
-                var2 -= var5;
-                var4 -= var6;
+            if (oworld.a(i - b0, j, k - b1) == 0) {
+                i -= b0;
+                k -= b1;
             }
 
-            int var7;
-            int var8;
+            int l;
+            int i1;
 
-            for (var7 = -1; var7 <= 2; ++var7) {
-                for (var8 = -1; var8 <= 3; ++var8) {
-                    boolean var9 = var7 == -1 || var7 == 2 || var8 == -1 || var8 == 3;
+            for (l = -1; l <= 2; ++l) {
+                for (i1 = -1; i1 <= 3; ++i1) {
+                    boolean flag = l == -1 || l == 2 || i1 == -1 || i1 == 3;
 
-                    if (var7 != -1 && var7 != 2 || var8 != -1 && var8 != 3) {
-                        int var10 = var1.a(var2 + var5 * var7, var3 + var8, var4 + var6 * var7);
+                    if (l != -1 && l != 2 || i1 != -1 && i1 != 3) {
+                        int j1 = oworld.a(i + b0 * l, j + i1, k + b1 * l);
 
-                        if (var9) {
-                            if (var10 != OBlock.ap.bO) {
+                        if (flag) {
+                            if (j1 != OBlock.ap.ca) {
                                 return false;
                             }
-                        } else if (var10 != 0 && var10 != OBlock.ar.bO) {
+                        } else if (j1 != 0 && j1 != OBlock.ar.ca) {
                             return false;
                         }
                     }
                 }
             }
 
-			// CanaryMod hook onPortalCreate
+            // CanaryMod hook onPortalCreate
             Block[][] portalBlocks = new Block[3][2];
 
-            for (var8 = 0; var8 < 3; ++var8) {
-                for (var7 = 0; var7 < 2; ++var7) {
-                    portalBlocks[var8][var7] = new Block(var1.world, Block.Type.Portal.getType(), var2 + var5 * var7, var3 + 2 - var8, var4 + var6 * var7);
+            for (i1 = 0; i1 < 3; ++i1) {
+                for (l = 0; l < 2; ++l) {
+                    portalBlocks[i1][l] = new Block(oworld.world, Block.Type.Portal.getType(), i + b0 * l, j + 2 - i1, k + b1 * l);
                 }
             }
-            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_CREATE, (Object) portalBlocks)) {
-				var1.o = true;
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_CREATE, (Object) portalBlocks)) { // Cast to make single argument
+                oworld.t = true;
 
-				for (var7 = 0; var7 < 2; ++var7) {
-					for (var8 = 0; var8 < 3; ++var8) {
-						var1.e(var2 + var5 * var7, var3 + var8, var4 + var6 * var7, OBlock.be.bO);
-					}
-				}
+                for (l = 0; l < 2; ++l) {
+                    for (i1 = 0; i1 < 3; ++i1) {
+                        oworld.e(i + b0 * l, j + i1, k + b1 * l, OBlock.be.ca);
+                    }
+                }
 
-				var1.o = false;
-				return true;
-			}
-			return false;
+                oworld.t = false;
+                return true;
+            }
+            return false;
         }
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, int var5) {
-        byte var6 = 0;
-        byte var7 = 1;
+    public void a(OWorld oworld, int i, int j, int k, int l) {
+        byte b0 = 0;
+        byte b1 = 1;
 
-        if (var1.a(var2 - 1, var3, var4) == this.bO || var1.a(var2 + 1, var3, var4) == this.bO) {
-            var6 = 1;
-            var7 = 0;
+        if (oworld.a(i - 1, j, k) == this.ca || oworld.a(i + 1, j, k) == this.ca) {
+            b0 = 1;
+            b1 = 0;
         }
 
-        int var8;
+        int i1;
 
-        for (var8 = var3; var1.a(var2, var8 - 1, var4) == this.bO; --var8) {
+        for (i1 = j; oworld.a(i, i1 - 1, k) == this.ca; --i1) {
             ;
         }
 
-        if (var1.a(var2, var8 - 1, var4) != OBlock.ap.bO) {
-            var1.e(var2, var3, var4, 0);
+        if (oworld.a(i, i1 - 1, k) != OBlock.ap.ca) {
+            oworld.e(i, j, k, 0);
         } else {
-            int var9;
+            int j1;
 
-            for (var9 = 1; var9 < 4 && var1.a(var2, var8 + var9, var4) == this.bO; ++var9) {
+            for (j1 = 1; j1 < 4 && oworld.a(i, i1 + j1, k) == this.ca; ++j1) {
                 ;
             }
 
-            if (var9 == 3 && var1.a(var2, var8 + var9, var4) == OBlock.ap.bO) {
-                boolean var10 = var1.a(var2 - 1, var3, var4) == this.bO || var1.a(var2 + 1, var3, var4) == this.bO;
-                boolean var11 = var1.a(var2, var3, var4 - 1) == this.bO || var1.a(var2, var3, var4 + 1) == this.bO;
+            if (j1 == 3 && oworld.a(i, i1 + j1, k) == OBlock.ap.ca) {
+                boolean flag = oworld.a(i - 1, j, k) == this.ca || oworld.a(i + 1, j, k) == this.ca;
+                boolean flag1 = oworld.a(i, j, k - 1) == this.ca || oworld.a(i, j, k + 1) == this.ca;
 
-                if (var10 && var11) {
-                    var1.e(var2, var3, var4, 0);
-                } else if ((var1.a(var2 + var6, var3, var4 + var7) != OBlock.ap.bO || var1.a(var2 - var6, var3, var4 - var7) != this.bO) && (var1.a(var2 - var6, var3, var4 - var7) != OBlock.ap.bO || var1.a(var2 + var6, var3, var4 + var7) != this.bO)) {
-                    var1.e(var2, var3, var4, 0);
+                if (flag && flag1) {
+                    oworld.e(i, j, k, 0);
+                } else {
+                    if ((oworld.a(i + b0, j, k + b1) != OBlock.ap.ca || oworld.a(i - b0, j, k - b1) != this.ca) && (oworld.a(i - b0, j, k - b1) != OBlock.ap.ca || oworld.a(i + b0, j, k + b1) != this.ca)) {
+                        oworld.e(i, j, k, 0);
+                    }
                 }
             } else {
-                var1.e(var2, var3, var4, 0);
+                oworld.e(i, j, k, 0);
             }
         }
     }
 
-    public int a(Random var1) {
+    public int a(Random random) {
         return 0;
     }
 
-    public void a(OWorld var1, int var2, int var3, int var4, OEntity var5) {
-        if (var5.bh == null && var5.bg == null) {
-            var5.ad();
+    public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
+        if (oentity.o == null && oentity.n == null) {
+            oentity.aa();
         }
 
     }

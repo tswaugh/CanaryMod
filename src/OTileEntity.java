@@ -6,7 +6,7 @@ public class OTileEntity {
 
     private static Map a = new HashMap();
     private static Map b = new HashMap();
-    public OWorld k;
+    protected OWorld k;
     public int l;
     public int m;
     public int n;
@@ -18,80 +18,87 @@ public class OTileEntity {
         super();
     }
 
-    private static void a(Class var0, String var1) {
-        if (b.containsKey(var1)) {
-            throw new IllegalArgumentException("Duplicate id: " + var1);
+    private static void a(Class oclass, String s) {
+        if (a.containsKey(s)) {
+            throw new IllegalArgumentException("Duplicate id: " + s);
         } else {
-            a.put(var1, var0);
-            b.put(var0, var1);
+            a.put(s, oclass);
+            b.put(oclass, s);
         }
     }
 
-    public void a(ONBTTagCompound var1) {
-        this.l = var1.f("x");
-        this.m = var1.f("y");
-        this.n = var1.f("z");
+    public void a(OWorld oworld) {
+        this.k = oworld;
     }
 
-    public void b(ONBTTagCompound var1) {
-        String var2 = (String) b.get(this.getClass());
+    public boolean m() {
+        return this.k != null;
+    }
 
-        if (var2 == null) {
+    public void a(ONBTTagCompound onbttagcompound) {
+        this.l = onbttagcompound.e("x");
+        this.m = onbttagcompound.e("y");
+        this.n = onbttagcompound.e("z");
+    }
+
+    public void b(ONBTTagCompound onbttagcompound) {
+        String s = (String) b.get(this.getClass());
+
+        if (s == null) {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
         } else {
-            var1.a("id", var2);
-            var1.a("x", this.l);
-            var1.a("y", this.m);
-            var1.a("z", this.n);
+            onbttagcompound.a("id", s);
+            onbttagcompound.a("x", this.l);
+            onbttagcompound.a("y", this.m);
+            onbttagcompound.a("z", this.n);
         }
     }
 
-    public void q_() {
-    }
+    public void g() {}
 
-    public static OTileEntity c(ONBTTagCompound var0) {
-        OTileEntity var1 = null;
+    public static OTileEntity c(ONBTTagCompound onbttagcompound) {
+        OTileEntity otileentity = null;
 
         try {
-            Class var2 = (Class) a.get(var0.j("id"));
+            Class oclass = (Class) a.get(onbttagcompound.i("id"));
 
-            if (var2 != null) {
-                var1 = (OTileEntity) var2.newInstance();
+            if (oclass != null) {
+                otileentity = (OTileEntity) oclass.newInstance();
             }
-        } catch (Exception var3) {
-            var3.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
-        if (var1 != null) {
-            var1.a(var0);
+        if (otileentity != null) {
+            otileentity.a(onbttagcompound);
         } else {
-            System.out.println("Skipping TileEntity with id " + var0.j("id"));
+            System.out.println("Skipping TileEntity with id " + onbttagcompound.i("id"));
         }
 
-        return var1;
+        return otileentity;
     }
 
-    public int k() {
+    public int n() {
         if (this.p == -1) {
-            this.p = this.k.c(this.l, this.m, this.n);
+            this.p = this.k.g(this.l, this.m, this.n);
         }
 
         return this.p;
     }
 
-    public void G_() {
+    public void d() {
         if (this.k != null) {
-            this.p = this.k.c(this.l, this.m, this.n);
+            this.p = this.k.g(this.l, this.m, this.n);
             this.k.b(this.l, this.m, this.n, this);
         }
 
     }
 
-    public OPacket d() {
+    public OPacket e() {
         return null;
     }
 
-    public boolean l() {
+    public boolean p() {
         return this.o;
     }
 
@@ -99,11 +106,11 @@ public class OTileEntity {
         this.o = true;
     }
 
-    public void m() {
+    public void q() {
         this.o = false;
     }
 
-    public void b(int var1, int var2) {}
+    public void b(int i, int j) {}
 
     public void h() {
         this.q = null;
@@ -113,6 +120,7 @@ public class OTileEntity {
     static {
         a(OTileEntityFurnace.class, "Furnace");
         a(OTileEntityChest.class, "Chest");
+        a(OTileEntityEnderChest.class, "EnderChest");
         a(OTileEntityRecordPlayer.class, "RecordPlayer");
         a(OTileEntityDispenser.class, "Trap");
         a(OTileEntitySign.class, "Sign");

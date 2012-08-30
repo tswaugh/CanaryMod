@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -84,8 +85,8 @@ public class etc {
     //CanaryMod: Allow End
     private boolean                       allowEnd = true;
     // Playerlist options (tab)
-    private boolean                       playerList_autoupdate = false;
-    private int                           playerList_ticks = 500;
+    private boolean                       playerList_autoupdate = true;
+    private int                           playerList_ticks = 600;
     private boolean                       playerList_colors = true;
     private boolean                       playerList_enabled = true;
     
@@ -133,8 +134,8 @@ public class etc {
             loadIds(allowedItems, properties.getString("alloweditems", ""));
             loadIds(disallowedItems, properties.getString("disalloweditems", ""));
             loadIds(itemSpawnBlacklist, properties.getString("itemspawnblacklist", ""));
-            playerList_autoupdate = properties.getBoolean("playerlist-autoupdate", false);
-            playerList_ticks = properties.getInt("playerlist-ticks", 500);
+            playerList_autoupdate = properties.getBoolean("playerlist-autoupdate", true);
+            playerList_ticks = properties.getInt("playerlist-ticks", 600);
             playerList_colors = properties.getBoolean("playerlist-usecolors", true);
             playerList_enabled = properties.getBoolean("playerlist-enabled", true);
             motd = properties.getString("motd", "My Canary Server.");
@@ -242,7 +243,7 @@ public class etc {
                     versionStr = versionParam.substring(5); // and back to a string.
                     tainted = false; // looks official. We hope.
                 } else {
-                    version = Integer.parseInt(versionParam);
+                    version = (int) Double.parseDouble(versionParam);
                     versionStr = Integer.toString(version); // and back to a string.
                     tainted = false; // looks official. We hope.
                 }
@@ -645,6 +646,28 @@ public class etc {
             builder.append(string[i]);
         }
         return builder.toString();
+    }
+    
+    /**
+     * Splits a string into an array at the given separator, without removing empty ones like .split() does.
+     * @author Jos Kuijpers
+     * @param in The string to split
+     * @param seperator The string to split at
+     * @return an array containing all components
+     */
+    public static String[] realSplit(String in, String seperator) {
+        String[] res = {};
+        ArrayList<String> items = new ArrayList<String>();
+        
+        int pos = 0;
+        int last = 0;
+        while((pos = in.indexOf(seperator, last)) != -1) {
+            items.add(in.substring(last, pos));
+            last = pos+seperator.length();
+        }
+        items.add(in.substring(last));
+        
+        return items.toArray(res);
     }
 
     /**

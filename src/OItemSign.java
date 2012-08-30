@@ -1,67 +1,66 @@
 
 public class OItemSign extends OItem {
 
-    public OItemSign(int var1) {
-        super(var1);
-        this.bQ = 1;
+    public OItemSign(int i) {
+        super(i);
+        this.bU = 16;
+        this.a(OCreativeTabs.c);
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        if (var7 == 0) {
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
+        if (l == 0) {
             return false;
-        } else if (!var3.d(var4, var5, var6).a()) {
+        } else if (!oworld.f(i, j, k).a()) {
             return false;
         } else {
             // CanaryMod: Store block data clicked
-            Block blockClicked = new Block(var3.world, var3.a(var4, var5, var6), var4, var5, var6);
-
-            blockClicked.setFaceClicked(Block.Face.fromId(var7));
+            Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
             
-            if (var7 == 1) {
-                ++var5;
+            if (l == 1) {
+                ++j;
             }
 
-            if (var7 == 2) {
-                --var6;
+            if (l == 2) {
+                --k;
             }
 
-            if (var7 == 3) {
-                ++var6;
+            if (l == 3) {
+                ++k;
             }
 
-            if (var7 == 4) {
-                --var4;
+            if (l == 4) {
+                --i;
             }
 
-            if (var7 == 5) {
-                ++var4;
+            if (l == 5) {
+                ++i;
             }
 
-            if (!var2.d(var4, var5, var6)) {
+            if (!oentityplayer.e(i, j, k)) {
                 return false;
-            } else if (!OBlock.aD.c(var3, var4, var5, var6)) {
+            } else if (!OBlock.aD.b(oworld, i, j, k)) {
                 return false;
             } else {
                 // CanaryMod: Now we can call itemUse :)
-                Block blockPlaced = new Block(var3.world, (var7 == 1 ? 63 : 68), var4, var5, var6);
+                Block blockPlaced = new Block(oworld.world, (l == 1 ? 63 : 68), i, j, k);
 
-                if (var2 instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) var2).getPlayer(), blockPlaced, blockClicked, new Item(var1))) {
+                if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
                     return false;
                 }
                 
-                if (var7 == 1) {
-                    int var8 = OMathHelper.b((double) ((var2.bs + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
+                if (l == 1) {
+                    int i1 = OMathHelper.c((double) ((oentityplayer.z + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
 
-                    var3.b(var4, var5, var6, OBlock.aD.bO, var8);
+                    oworld.d(i, j, k, OBlock.aD.ca, i1);
                 } else {
-                    var3.b(var4, var5, var6, OBlock.aI.bO, var7);
+                    oworld.d(i, j, k, OBlock.aI.ca, l);
                 }
 
-                --var1.a;
-                OTileEntitySign var9 = (OTileEntitySign) var3.b(var4, var5, var6);
+                --oitemstack.a;
+                OTileEntitySign otileentitysign = (OTileEntitySign) oworld.p(i, j, k);
 
-                if (var9 != null) {
-                    var2.a(var9);
+                if (otileentitysign != null) {
+                    oentityplayer.a(otileentitysign);
                 }
 
                 return true;

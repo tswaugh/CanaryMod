@@ -1,111 +1,109 @@
 
 public class OItemEnderEye extends OItem {
 
-    public OItemEnderEye(int var1) {
-        super(var1);
+    public OItemEnderEye(int i) {
+        super(i);
+        this.a(OCreativeTabs.f);
     }
 
-    public boolean a(OItemStack var1, OEntityPlayer var2, OWorld var3, int var4, int var5, int var6, int var7) {
-        int var8 = var3.a(var4, var5, var6);
-        int var9 = var3.c(var4, var5, var6);
+    public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
+        int i1 = oworld.a(i, j, k);
+        int j1 = oworld.g(i, j, k);
         
-        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE,
-                ((OEntityPlayerMP) var2).getPlayer(),
-                this.getBlockInfo(var3, var4, var5, var6, var7), null, new Item(var1)))
+        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), this.getBlockInfo(oworld, i, j, k, l), null, new Item(oitemstack))) {
             return true;
+        }
 
-        if (var2.d(var4, var5, var6) && var8 == OBlock.bI.bO && !OBlockEndPortalFrame.d(var9)) {
-            if (var3.F) {
+        if (oentityplayer.e(i, j, k) && i1 == OBlock.bI.ca && !OBlockEndPortalFrame.e(j1)) {
+            if (oworld.K) {
                 return true;
             } else {
-                var3.c(var4, var5, var6, var9 + 4);
-                --var1.a;
+                oworld.c(i, j, k, j1 + 4);
+                --oitemstack.a;
 
-                int var10;
+                int k1;
 
-                for (var10 = 0; var10 < 16; ++var10) {
-                    double var11 = (double) ((float) var4 + (5.0F + c.nextFloat() * 6.0F) / 16.0F);
-                    double var13 = (double) ((float) var5 + 0.8125F);
-                    double var15 = (double) ((float) var6 + (5.0F + c.nextFloat() * 6.0F) / 16.0F);
-                    double var17 = 0.0D;
-                    double var19 = 0.0D;
-                    double var21 = 0.0D;
+                for (k1 = 0; k1 < 16; ++k1) {
+                    double d0 = (double) ((float) i + (5.0F + d.nextFloat() * 6.0F) / 16.0F);
+                    double d1 = (double) ((float) j + 0.8125F);
+                    double d2 = (double) ((float) k + (5.0F + d.nextFloat() * 6.0F) / 16.0F);
+                    double d3 = 0.0D;
+                    double d4 = 0.0D;
+                    double d5 = 0.0D;
 
-                    var3.a("smoke", var11, var13, var15, var17, var19, var21);
+                    oworld.a("smoke", d0, d1, d2, d3, d4, d5);
                 }
 
-                var10 = var9 & 3;
-                int var23 = 0;
-                int var24 = 0;
-                boolean var25 = false;
-                boolean var26 = true;
-                int var27 = ODirection.f[var10];
+                k1 = j1 & 3;
+                int l1 = 0;
+                int i2 = 0;
+                boolean flag = false;
+                boolean flag1 = true;
+                int j2 = ODirection.f[k1];
 
-                int var29;
-                int var28;
-                int var31;
-                int var30;
-                int var32;
+                int k2;
+                int l2;
+                int i3;
+                int j3;
+                int k3;
 
-                for (var28 = -2; var28 <= 2; ++var28) {
-                    var29 = var4 + ODirection.a[var27] * var28;
-                    var30 = var6 + ODirection.b[var27] * var28;
-                    var31 = var3.a(var29, var5, var30);
-                    if (var31 == OBlock.bI.bO) {
-                        var32 = var3.c(var29, var5, var30);
-                        if (!OBlockEndPortalFrame.d(var32)) {
-                            var26 = false;
+                for (k2 = -2; k2 <= 2; ++k2) {
+                    j3 = i + ODirection.a[j2] * k2;
+                    k3 = k + ODirection.b[j2] * k2;
+                    l2 = oworld.a(j3, j, k3);
+                    if (l2 == OBlock.bI.ca) {
+                        i3 = oworld.g(j3, j, k3);
+                        if (!OBlockEndPortalFrame.e(i3)) {
+                            flag1 = false;
                             break;
                         }
 
-                        if (!var25) {
-                            var23 = var28;
-                            var24 = var28;
-                            var25 = true;
-                        } else {
-                            var24 = var28;
+                        i2 = k2;
+                        if (!flag) {
+                            l1 = k2;
+                            flag = true;
                         }
                     }
                 }
 
-                if (var26 && var24 == var23 + 2) {
-                    for (var28 = var23; var28 <= var24; ++var28) {
-                        var29 = var4 + ODirection.a[var27] * var28;
-                        var30 = var6 + ODirection.b[var27] * var28;
-                        var29 += ODirection.a[var10] * 4;
-                        var30 += ODirection.b[var10] * 4;
-                        var31 = var3.a(var29, var5, var30);
-                        var32 = var3.c(var29, var5, var30);
-                        if (var31 != OBlock.bI.bO || !OBlockEndPortalFrame.d(var32)) {
-                            var26 = false;
+                if (flag1 && i2 == l1 + 2) {
+                    for (k2 = l1; k2 <= i2; ++k2) {
+                        j3 = i + ODirection.a[j2] * k2;
+                        k3 = k + ODirection.b[j2] * k2;
+                        j3 += ODirection.a[k1] * 4;
+                        k3 += ODirection.b[k1] * 4;
+                        l2 = oworld.a(j3, j, k3);
+                        i3 = oworld.g(j3, j, k3);
+                        if (l2 != OBlock.bI.ca || !OBlockEndPortalFrame.e(i3)) {
+                            flag1 = false;
                             break;
                         }
                     }
 
-                    for (var28 = var23 - 1; var28 <= var24 + 1; var28 += 4) {
-                        for (var29 = 1; var29 <= 3; ++var29) {
-                            var30 = var4 + ODirection.a[var27] * var28;
-                            var31 = var6 + ODirection.b[var27] * var28;
-                            var30 += ODirection.a[var10] * var29;
-                            var31 += ODirection.b[var10] * var29;
-                            var32 = var3.a(var30, var5, var31);
-                            int var33 = var3.c(var30, var5, var31);
+                    for (k2 = l1 - 1; k2 <= i2 + 1; k2 += 4) {
+                        for (j3 = 1; j3 <= 3; ++j3) {
+                            k3 = i + ODirection.a[j2] * k2;
+                            l2 = k + ODirection.b[j2] * k2;
+                            k3 += ODirection.a[k1] * j3;
+                            l2 += ODirection.b[k1] * j3;
+                            i3 = oworld.a(k3, j, l2);
+                            int l3 = oworld.g(k3, j, l2);
 
-                            if (var32 != OBlock.bI.bO || !OBlockEndPortalFrame.d(var33)) {
-                                var26 = false;
+                            if (i3 != OBlock.bI.ca || !OBlockEndPortalFrame.e(l3)) {
+                                flag1 = false;
                                 break;
                             }
                         }
                     }
 
-                    if (var26) {
-                        for (var28 = var23; var28 <= var24; ++var28) {
-                            for (var29 = 1; var29 <= 3; ++var29) {
-                                var30 = var4 + ODirection.a[var27] * var28;
-                                var31 = var6 + ODirection.b[var27] * var28;
-                                var30 += ODirection.a[var10] * var29;
-                                var31 += ODirection.b[var10] * var29;
-                                var3.e(var30, var5, var31, OBlock.bH.bO);
+                    if (flag1) {
+                        for (k2 = l1; k2 <= i2; ++k2) {
+                            for (j3 = 1; j3 <= 3; ++j3) {
+                                k3 = i + ODirection.a[j2] * k2;
+                                l2 = k + ODirection.b[j2] * k2;
+                                k3 += ODirection.a[k1] * j3;
+                                l2 += ODirection.b[k1] * j3;
+                                oworld.e(k3, j, l2, OBlock.bH.ca);
                             }
                         }
                     }
@@ -118,33 +116,33 @@ public class OItemEnderEye extends OItem {
         }
     }
 
-    public OItemStack a(OItemStack var1, OWorld var2, OEntityPlayer var3) {
-        OMovingObjectPosition var4 = this.a(var2, var3, false);
+    public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
+        OMovingObjectPosition omovingobjectposition = this.a(oworld, oentityplayer, false);
 
-        if (var4 != null && var4.a == OEnumMovingObjectType.a) {
-            int var5 = var2.a(var4.b, var4.c, var4.d);
+        if (omovingobjectposition != null && omovingobjectposition.a == OEnumMovingObjectType.a) {
+            int i = oworld.a(omovingobjectposition.b, omovingobjectposition.c, omovingobjectposition.d);
 
-            if (var5 == OBlock.bI.bO) {
-                return var1;
+            if (i == OBlock.bI.ca) {
+                return oitemstack;
             }
         }
 
-        if (!var2.F) {
-            OChunkPosition var7 = var2.b("Stronghold", (int) var3.bm, (int) var3.bn, (int) var3.bo);
+        if (!oworld.K) {
+            OChunkPosition ochunkposition = oworld.b("Stronghold", (int) oentityplayer.t, (int) oentityplayer.u, (int) oentityplayer.v);
 
-            if (var7 != null) {
-                OEntityEnderEye var6 = new OEntityEnderEye(var2, var3.bm, var3.bn + 1.62D - (double) var3.bF, var3.bo);
+            if (ochunkposition != null) {
+                OEntityEnderEye oentityendereye = new OEntityEnderEye(oworld, oentityplayer.t, oentityplayer.u + 1.62D - (double) oentityplayer.M, oentityplayer.v);
 
-                var6.a((double) var7.a, var7.b, (double) var7.c);
-                var2.b((OEntity) var6);
-                var2.a(var3, "random.bow", 0.5F, 0.4F / (c.nextFloat() * 0.4F + 0.8F));
-                var2.a((OEntityPlayer) null, 1002, (int) var3.bm, (int) var3.bn, (int) var3.bo, 0);
-                if (!var3.L.d) {
-                    --var1.a;
+                oentityendereye.a((double) ochunkposition.a, ochunkposition.b, (double) ochunkposition.c);
+                oworld.d((OEntity) oentityendereye);
+                oworld.a(oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
+                oworld.a((OEntityPlayer) null, 1002, (int) oentityplayer.t, (int) oentityplayer.u, (int) oentityplayer.v, 0);
+                if (!oentityplayer.bZ.d) {
+                    --oitemstack.a;
                 }
             }
         }
 
-        return var1;
+        return oitemstack;
     }
 }
