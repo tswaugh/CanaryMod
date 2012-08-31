@@ -788,7 +788,7 @@ public class Server {
      * @return the default dimension
      */
     public World getDefaultWorld() {
-        return server.getWorld(server.m(), 0).world;
+        return server.getWorld(server.I(), 0).world;
     }
 
     /**
