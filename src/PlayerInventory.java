@@ -72,7 +72,7 @@ public class PlayerInventory extends ItemArray implements Inventory {
     }
 
     public void update() {
-        user.F_();
+        user.h_();
     }
 
     /**
