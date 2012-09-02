@@ -156,7 +156,7 @@ public class World {
         // World info for each world overwrites the other on save,
         // make sure they're the same. (Like you see it in the nether or end)
         for (World w : etc.getServer().getWorld(this.getName()))
-            w.getWorld().a(time);
+            w.getWorld().b(time);
     }
 
     /**
@@ -628,7 +628,7 @@ public class World {
         OEntityItem oei = new OEntityItem(world, x + d1, y + d2, z + d3, item.getBaseItem() != null ? item.getBaseItem() : new OItemStack(item.getItemId(), item.getAmount(), item.getDamage()));
 
         oei.c = 10;
-        world.b(oei);
+        world.d(oei);
         return oei.item;
     }
 
@@ -987,7 +987,7 @@ public class World {
     }
     
     public void addPlayerToWorld(Player player) {
-        world.b((OEntity)player.getEntity());
+        world.d((OEntity)player.getEntity());
     }
     
     /**
