@@ -31,7 +31,7 @@ public class Server {
      * @param msg Message text to send
      */
     public void messageAll(String msg) {
-        server.h.a(new OPacket3Chat(msg));
+        server.t.a(new OPacket3Chat(msg));
     }
 
     /**
@@ -52,7 +52,7 @@ public class Server {
      *
      */
     public void unban(String player) {
-        server.h.b(player);
+        server.t.c(player);
         etc.getDataSource().expireBan(new Ban(player));
     }
 
@@ -82,7 +82,7 @@ public class Server {
      * @param time time till it expires (6000 roughly equals 5 minutes)
      */
     public void setTimer(String uniqueString, int time) {
-        OMinecraftServer.b.put(uniqueString, time);
+        OMinecraftServer.b.put(uniqueString, time);// WWOL: Not sure what happened here, seams to have gone to ODedicatedServer or something
     }
 
     /**
@@ -159,8 +159,8 @@ public class Server {
 
         name = name.toLowerCase();
 
-        for (OEntityPlayerMP player : (List<OEntityPlayerMP>) server.h.b) {
-            String playerName = player.v;
+        for (OEntityPlayerMP player : (List<OEntityPlayerMP>) server.t.b) {
+            String playerName = player.bJ;
 
             if (playerName.toLowerCase().equals(name)) {
                 // Perfect match found
@@ -187,7 +187,7 @@ public class Server {
      * @return
      */
     public Player getPlayer(String name) {
-        OEntityPlayerMP user = server.h.i(name);
+        OEntityPlayerMP user = server.t.f(name);
 
         return user == null ? null : user.getPlayer();
     }
@@ -200,7 +200,7 @@ public class Server {
     public List<Player> getPlayerList() {
         List<Player> toRet = new ArrayList<Player>();
 
-        for (OEntityPlayerMP oepmp : (List<OEntityPlayerMP>) server.h.b) {
+        for (OEntityPlayerMP oepmp : (List<OEntityPlayerMP>) server.t.b) {
             toRet.add(oepmp.getPlayer());
         }
         return toRet;
@@ -212,7 +212,7 @@ public class Server {
      * @return list of player names
      */
     public String getPlayerNames() {
-        return server.h.c();
+        return server.t.c();
     }
 
     /**
@@ -571,7 +571,7 @@ public class Server {
      * Saves all player inventories to file
      */
     public void saveInventories() {
-        server.h.g();
+        server.t.g();
     }
 
     /**
@@ -821,7 +821,7 @@ public class Server {
             if (recipe[i] instanceof Block.Type) {
                 recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
-                recipe[i] = OItem.d[((Item.Type) recipe[i]).getId()];
+                recipe[i] = OItem.e[((Item.Type) recipe[i]).getId()];
             }
         }
         OCraftingManager.a().a(item.getBaseItem(), recipe);
@@ -840,7 +840,7 @@ public class Server {
             if (recipe[i] instanceof Block.Type) {
                 recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
-                recipe[i] = OItem.d[((Item.Type) recipe[i]).getId()];
+                recipe[i] = OItem.e[((Item.Type) recipe[i]).getId()];
             }
         }
         OCraftingManager.a().b(item.getBaseItem(), recipe);
@@ -860,7 +860,7 @@ public class Server {
         if (from.getAmount() != 1) {
             throw new IllegalArgumentException("The 'from' amount should be 1");
         }
-        OFurnaceRecipes.a().a(from.getItemId(), to.getBaseItem());
+        OFurnaceRecipes.a().a(from.getItemId(), to.getBaseItem());// WWOL: This has changed in 1.3, method now has an extra float.
     }
 
     /**
