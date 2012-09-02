@@ -69,7 +69,7 @@ public class OBlockDispenser extends OBlockContainer {
         }
     }
 
-    private void c(OWorld oworld, int i, int j, int k, Random random) {
+    protected void c(OWorld oworld, int i, int j, int k, Random random) { // CanaryMod: private -> protected
         int l = oworld.g(i, j, k);
         byte b0 = 0;
         byte b1 = 0;
