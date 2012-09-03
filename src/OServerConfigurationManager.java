@@ -348,10 +348,10 @@ public abstract class OServerConfigurationManager {
 
     public void sendPlayerToOtherDimension(OEntityPlayerMP oentityplayermp, int i, boolean flag) {
         int j = oentityplayermp.bK;
-        OWorldServer oworldserver = this.f.a(oentityplayermp.bK);
+        OWorldServer oworldserver = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.bK);
 
         oentityplayermp.bK = i;
-        OWorldServer oworldserver1 = this.f.a(oentityplayermp.bK);
+        OWorldServer oworldserver1 = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.bK);
 
         oentityplayermp.a.b(new OPacket9Respawn(oentityplayermp.bK, (byte) oentityplayermp.p.u, oworldserver1.H().t(), oworldserver1.K(), oentityplayermp.c.b()));
         oworldserver.f(oentityplayermp);
@@ -451,7 +451,7 @@ public abstract class OServerConfigurationManager {
     public void a(OPacket opacket, int i) {
         throw new UnsupportedOperationException("OServerConfigurationManager"
                 + ".a(OPacket, int) has been replaced by OServerConfiguration"
-                + "Manager.a(OPacket, int, String).");
+                + "Manager.sendPacketToDimension(OPacket, String, int).");
     }
 
     public String c() {
