@@ -55,6 +55,13 @@ public class LivingEntity extends BaseEntity {
      */
     public void setHealth(int health) {
         getEntity().j(health);
+        if (health < -1) {
+            health = -1;
+        }
+        if (health > 20) {
+            health = 20;
+        }
+        getEntity().aK = health;
     }
 
     /**
