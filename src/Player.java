@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -13,6 +10,7 @@ import java.util.regex.Pattern;
  * 
  * @author James
  */
+@SuppressWarnings("LoggerStringConcat")
 public class Player extends HumanEntity implements MessageReceiver {
 
     private static final Logger log = Logger.getLogger("Minecraft");
@@ -27,6 +25,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     private boolean muted = false;
     private PlayerInventory inventory;
     private List<String> onlyOneUseKits = new ArrayList<String>();
+    private Map<Kit, Long> cooldownKits = new HashMap<Kit, Long>();
     private Pattern badChatPattern = Pattern.compile("[\u00a7\u2302\u00D7\u00AA\u00BA\u00AE\u00AC\u00BD\u00BC\u00A1\u00AB\u00BB]");
     private String offlineName = ""; // Allows modify command to work on offline players
     private long lastMessage;
@@ -137,26 +136,26 @@ public class Player extends HumanEntity implements MessageReceiver {
                 this.kick("Spamming.");
 
             List<Player> receivers = etc.getServer().getPlayerList();
-            StringBuilder prefix = new StringBuilder("<" + getColor() + getName() + Colors.White + ">");
+            StringBuilder chatPrefix = new StringBuilder("<" + getColor() + getName() + Colors.White + ">");
             StringBuilder sbMessage = new StringBuilder(message);
-            HookParametersChat parametersChat = (HookParametersChat) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[]{new HookParametersChat(this, prefix, sbMessage, receivers)});
+            HookParametersChat parametersChat = (HookParametersChat) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[]{new HookParametersChat(this, chatPrefix, sbMessage, receivers)});
 
             if ((parametersChat.isCanceled())) {
                 return;
             }
 
             receivers = parametersChat.getReceivers();
-            prefix = parametersChat.getPrefix();
+            chatPrefix = parametersChat.getPrefix();
             sbMessage = parametersChat.getMessage();
 
-            String chat = prefix.toString() + " " + sbMessage.toString();
+            String chat = chatPrefix.toString() + " " + sbMessage.toString();
 
             log.log(Level.INFO, "<" + getName() + "> " + sbMessage.toString());
 
             //etc.getServer().messageAll(chat);
             for (Player player : receivers) {
-                if (prefix.length() + message.length() >= 119) {
-                    player.sendMessage(prefix.toString());
+                if (chatPrefix.length() + message.length() >= 119) {
+                    player.sendMessage(chatPrefix.toString());
                     player.sendMessage(sbMessage.toString());
                 } else {
                     player.sendMessage(chat);
@@ -248,7 +247,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     /**
      * Gives the player this item by dropping it in front of them
      * 
-     * @param itemid
+     * @param itemId
      * @param amount
      * @param damage
      */
@@ -996,6 +995,22 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public List<String> getOnlyOneUseKits() {
         return new ArrayList(onlyOneUseKits);
+    }
+    
+    public void addCooldownKit(Kit kit, int delay) {
+        this.cooldownKits.put(kit, System.currentTimeMillis() + delay * 50);
+    }
+    
+    public void removeCooldownKit(Kit kit) {
+        this.cooldownKits.remove(kit);
+    }
+    
+    public boolean canUseCooldownKit(Kit kit) {
+        boolean allow = this.cooldownKits.get(kit) > System.currentTimeMillis();
+        if (allow) {
+            this.removeCooldownKit(kit);
+        }
+        return allow;
     }
     
     /**

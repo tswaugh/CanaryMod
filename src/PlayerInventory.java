@@ -38,7 +38,7 @@ public class PlayerInventory extends ItemArray implements Inventory {
     				
     				if (i != null) {
     					int freeSpace = 64 - i.getAmount();
-    					int toAdd = 0;
+    					int toAdd;
     					if (remaining > freeSpace) {
     						toAdd = freeSpace;
     						remaining -= freeSpace;
@@ -71,6 +71,7 @@ public class PlayerInventory extends ItemArray implements Inventory {
     	} while (remaining > 0);
     }
 
+    @Override
     public void update() {
         user.h_();
     }
@@ -94,10 +95,12 @@ public class PlayerInventory extends ItemArray implements Inventory {
         return user.getPlayer();
     }
 
+    @Override
     public String getName() {
         return container.getName();
     }
 
+    @Override
     public void setName(String value) {
         container.setName(value);
     }

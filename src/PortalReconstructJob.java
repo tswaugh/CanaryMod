@@ -33,6 +33,7 @@ public class PortalReconstructJob implements Runnable {
         portalBlocks.add(new Integer[] { portalX + portalXOffset, portalY - 3, portalZ + portalZOffset, obsidianId});
     }
 
+    @Override
     public void run() {
         ArrayList<Player> updatedPlayers = new ArrayList<Player>();
 

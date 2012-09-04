@@ -2,12 +2,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +12,7 @@ import java.util.logging.Logger;
  * 
  * @author James
  */
+@SuppressWarnings("LoggerStringConcat")
 public class PluginLoader {
 
     /**
@@ -578,7 +574,6 @@ public class PluginLoader {
                 }
             }
         }
-        toNull = null;
 
         return load(fileName);
     }
@@ -591,7 +586,7 @@ public class PluginLoader {
                 log.log(Level.SEVERE, "Failed to find plugin file: plugins/" + fileName + ".jar. Please ensure the file exists");
                 return false;
             }
-            URLClassLoader child = null;
+            URLClassLoader child;
 
             try {
                 child = new MyClassLoader(new URL[] { file.toURI().toURL()}, Thread.currentThread().getContextClassLoader());

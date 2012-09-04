@@ -1,7 +1,9 @@
-
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
+@SuppressWarnings("LoggerStringConcat")
 public class ServerConsoleCommands {
 
     private static final Logger log = Logger.getLogger("Minecraft");
@@ -348,9 +350,9 @@ public class ServerConsoleCommands {
             }
 
             if (!ips) {
-                caller.notify(Colors.Blue + "Ban list:" + Colors.White + " " + etc.getMCServer().h.getBans());
+                caller.notify(Colors.Blue + "Ban list:" + Colors.White + " " + etc.getMCServer().ab().getBans());
             } else {
-                caller.notify(Colors.Blue + "IP Ban list:" + Colors.White + " " + etc.getMCServer().h.getIpBans());
+                caller.notify(Colors.Blue + "IP Ban list:" + Colors.White + " " + etc.getMCServer().ab().getIpBans());
             }
         }
     };

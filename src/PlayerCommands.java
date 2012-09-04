@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("LoggerStringConcat")
 public class PlayerCommands {
 
     private static final Logger log = Logger.getLogger("Minecraft");
@@ -218,9 +219,10 @@ public class PlayerCommands {
                 return;
             }
             Player toGive = (Player) caller;
+            Player player = toGive;
 
             if (args.length > 2) {
-                if (caller instanceof Player && !((Player) caller).canIgnoreRestrictions()) {
+                if (!player.canIgnoreRestrictions()) {
                     onBadSyntax(caller, args);
                 } else {
                     toGive = etc.getServer().matchPlayer(args[2]);
@@ -231,19 +233,19 @@ public class PlayerCommands {
 
             if (toGive != null) {
                 if (kit != null) {
-                    if (!((Player) caller).isInGroup(kit.Group) && !kit.Group.equals("")) {
+                    if (!player.isInGroup(kit.Group) && !kit.Group.equals("")) {
                         caller.notify("That kit does not exist.");
-                    } else if (((Player) caller).getOnlyOneUseKits().contains(kit.Name)) {
+                    } else if (player.getOnlyOneUseKits().contains(kit.Name)) {
                         caller.notify("You can only get this kit once per login.");
-                    } else if (OMinecraftServer.b.containsKey(caller.getName() + " " + kit.Name)) {
+                    } else if (!player.canUseCooldownKit(kit)) {
                         caller.notify("You can't get this kit again for a while.");
                     } else {
                         {
                             if (!((Player) caller).canIgnoreRestrictions()) {
                                 if (kit.Delay >= 0) {
-                                    OMinecraftServer.b.put(caller.getName() + " " + kit.Name, kit.Delay);
+                                    player.addCooldownKit(kit, kit.Delay);
                                 } else {
-                                    ((Player) caller).getOnlyOneUseKits().add(kit.Name);
+                                    player.getOnlyOneUseKits().add(kit.Name);
                                 }
                             }
 
@@ -251,7 +253,7 @@ public class PlayerCommands {
                             toGive.notify("Enjoy this kit!");
                             for (Entry<String, Integer> entry : kit.IDs.entrySet()) {
                                 try {
-                                    int itemId = 0;
+                                    int itemId;
 
                                     try {
                                         itemId = Integer.parseInt(entry.getKey());
@@ -259,7 +261,7 @@ public class PlayerCommands {
                                         itemId = etc.getDataSource().getItem(entry.getKey());
                                     }
 
-                                    toGive.giveItem(itemId, kit.IDs.get(entry.getKey()));
+                                    toGive.giveItem(itemId, entry.getValue());
                                 } catch (Exception e1) {
                                     log.info("Got an exception while giving out a kit (Kit name \"" + kit.Name + "\"). Are you sure all the Ids are numbers?");
                                     caller.notify("The server encountered a problem while giving the kit :(");
@@ -637,15 +639,6 @@ public class PlayerCommands {
                 caller.notify("Could not find player.");
                 return;
             }
-//            World.Dimension worldType = player.getWorld().getType();
-//            if (worldType != World.Dimension.NORMAL) {
-//                if (player.canIgnoreRestrictions()) {
-//                    player.switchWorlds(World.Dimension.NORMAL.getId());
-//                } else {
-//                    player.notify("You cannot set a home in the " + worldType + ", mortal.");
-//                    return;
-//                }
-//            }
             World world = player.getWorld();
             if (world.getType() != World.Dimension.NORMAL) {
                 if (player.canIgnoreRestrictions()) {
@@ -732,8 +725,8 @@ public class PlayerCommands {
                 return;
             }
 
-            for (World w : etc.getServer().getWorld(player.getWorld().getName())) {
-                w.getWorld().s().a((int) player.getX(), (int) player.getY(), (int) player.getZ());
+            for (World world : etc.getServer().getWorld(player.getWorld().getName())) {
+                world.setSpawnLocation(player.getLocation());
             }
 
             log.info("Spawn position changed.");
@@ -921,7 +914,7 @@ public class PlayerCommands {
                     try {
                         int mode = Integer.parseInt(args[1]);
 
-                        mode = OWorldSettings.a(mode);
+                        mode = OEnumGameType.a(mode).e;
                         if (player.getCreativeMode() != mode) {
                             caller.notify(Colors.Yellow + "Setting " + player.getName() + " to game mode " + mode);
                             player.setCreativeMode(mode);
@@ -938,7 +931,7 @@ public class PlayerCommands {
                         Player player = ((Player) caller);
                         int mode = Integer.parseInt(args[1]);
 
-                        mode = OWorldSettings.a(mode);
+                        mode = OEnumGameType.a(mode).e;
                         if (player.getCreativeMode() != mode) {
                             player.notify(Colors.Yellow + "Setting your game mode to " + mode);
                             player.setCreativeMode(mode);
@@ -1070,7 +1063,7 @@ public class PlayerCommands {
                         for (int i = 0; i < mobnumber; i++) {
                             Mob mob = new Mob(args[1], loc);
 
-                            mob.spawn(new Mob(args[2]));
+                            mob.spawn(new Mob(args[2], mob.getWorld()));
                         }
                     }
                 } catch (NumberFormatException nfe) {
@@ -1110,6 +1103,7 @@ public class PlayerCommands {
     @Command
     public static final BaseCommand mspawn = new BaseCommand("<Mob> - Change the looked at mob spawner's mob", "Correct usage is: /mspawn <name>.", 1, 2) {
 
+        @Override
         void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
@@ -1127,7 +1121,6 @@ public class PlayerCommands {
                     } else {
                         if (!Mob.isValid(args[1])) {
                             caller.notify(String.format("%s is not a valid mob name.", args[1]));
-                            return;
                         } else {
                             ms.setSpawn(args[1]);
                             caller.notify("Mob spawner set to " + args[1]);
@@ -1157,7 +1150,6 @@ public class PlayerCommands {
 
                     if (p == null) {
                         player.notify(args[2] + " does not exist!");
-                        return;
                     } else {
                         if (args[1].equalsIgnoreCase("level")) {
                             player.sendMessage(p.getName() + " is level " + Colors.Yellow + p.getLevel());
@@ -1185,7 +1177,6 @@ public class PlayerCommands {
 
                 if (p == null) {
                     player.notify(args[2] + " does not exist!");
-                    return;
                 } else {
                     try {
                         int xp = Integer.parseInt(args[3]);
@@ -1339,7 +1330,7 @@ public class PlayerCommands {
                 sendData(caller, "Food Saturation: ", String.format("%.2f", subject.getFoodSaturationLevel()));
                 sendData(caller, "Experience: ", subject.getXP());
                 sendData(caller, "Level: ", subject.getLevel());
-                sendData(caller, "Mode: ", subject.getEntity().c.a());
+                sendData(caller, "Mode: ", OEnumGameType.a(subject.getCreativeMode()).b());
                 Location l = subject.getLocation();
 
                 sendData(caller, "Position: ", String.format("X: %.2f Y: %.2f Z: %.2f Pitch: %.2f Yawn: %.2f", l.x, l.y, l.z, l.rotX, l.rotY));

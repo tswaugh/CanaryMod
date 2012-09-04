@@ -326,13 +326,31 @@ public class World {
         Location spawn = new Location();
 
         spawn.x = info.c() + 0.5D;
-        spawn.y = world.f(info.c(), info.e()) + 1.5D;
+        spawn.y = info.d() + 0.5D;
         spawn.z = info.e() + 0.5D;
         spawn.rotX = 0.0F;
         spawn.rotY = 0.0F;
         spawn.dimension = 0;
         spawn.world = world.name;
         return spawn;
+    }
+    
+    /**
+     * Sets the spawn location for this level, NOT only this world.
+     * @param x The spawn's new x location
+     * @param y The spawn's new y location
+     * @param z The spawn's new z location
+     */
+    public void setSpawnLocation(int x, int y, int z) {
+        this.getWorld().H().a(x, y, z);
+    }
+    
+    /**
+     * Sets the spawn location for this level, NOT only this world.
+     * @param location The new spawn location.
+     */
+    public void setSpawnLocation(Location location) {
+        this.setSpawnLocation(etc.floor(location.x), etc.floor(location.y), etc.floor(location.z));
     }
 
     /**
@@ -381,7 +399,7 @@ public class World {
     public boolean setBlockData(int x, int y, int z, int data) {
         boolean toRet = world.d(x, y, z, data);
 
-        etc.getMCServer().h.a(new OPacket53BlockChange(x, y, z, world), getType().getId());
+        etc.getMCServer().ab().sendPacketToDimension(new OPacket53BlockChange(x, y, z, world), getName(), getType().getId());
         ComplexBlock block = getComplexBlock(x, y, z);
 
         if (block != null) {
@@ -980,6 +998,10 @@ public class World {
     
     public EntityTracker getEntityTracker() {
        return world.getEntityTracker();
+    }
+    
+    public PlayerManager getPlayerManager() {
+        return world.q().getCanaryPlayerManager();
     }
     
     public void removePlayerFromWorld(Player player) {
