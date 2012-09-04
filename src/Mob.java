@@ -65,21 +65,15 @@ public class Mob extends LivingEntity {
      */
     public void spawn(LivingEntity rider) {
         OWorld world = entity.p;
-//        OWorld world = entity.p; //etc.getMCServer().a(0);
 
         entity.b(getX() + 0.5d, getY(), getZ() + 0.5d, getRotation(), 0f);
         world.d(entity);
-        entity.b(getX() + 0.5d, getY(), getZ() + 0.5d, getRotation(), 0f);
-        world.b(entity);
 
         if (rider != null) {
             OEntityLiving mob2 = rider.getEntity();
 
             mob2.b(getX(), getY(), getZ(), getRotation(), 0f);
             world.d(mob2);
-            mob2.a(entity);
-            mob2.b(getX(), getY(), getZ(), getRotation(), 0f);
-            world.b(mob2);
             mob2.a(entity);
         }
     }

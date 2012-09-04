@@ -32,8 +32,6 @@ public class JukeBox implements ComplexBlock {
 	@Override
 	public void update() {
 		oRP.g();
-
-		oRP.g();
 	}
 
 	@Override
