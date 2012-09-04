@@ -66,7 +66,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param reason
      */
     public void kick(String reason) {
-        getEntity().a.a(reason);
+        getEntity().a.c(reason);
     }
 
     /**
@@ -560,6 +560,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
             if (group != null) {
                 if (group.Administrator) {
+                    this.admin = true;
                     return true;
                 }
             }
@@ -600,6 +601,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
             if (group != null) {
                 if (group.CanModifyWorld) {
+                    this.canModifyWorld = true;
                     return true;
                 }
             }
@@ -891,10 +893,10 @@ public class Player extends HumanEntity implements MessageReceiver {
         OEntityPlayerMP player = getEntity();
 
         // If player is in vehicle - eject them before they are teleported.
-        if (player.bh != null) {
-            player.b(player.bh);
+        if (player.o != null) {
+            player.a(player.o);
         }
-        player.a.a(x, y, z, rotation, pitch, getWorld().getType().getId(), getWorld().getName());
+        player.a.a(x, y, z, rotation, pitch);
     }
 
     /**
@@ -946,10 +948,10 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return Item
      */
     public Item getItemStackInHand() {
-        OItemStack result = getEntity().k.d();
+        OItemStack result = getEntity().by.g();
 
         if (result != null) {
-            return new Item(result, getEntity().k.c);
+            return new Item(result, getEntity().by.c);
         }
         return null;
     }
@@ -969,7 +971,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().aY();
+        return getEntity().af();
     }
 
     /**
@@ -979,12 +981,12 @@ public class Player extends HumanEntity implements MessageReceiver {
      *            true if sneaking
      */
     public void setSneaking(boolean sneaking) {
-        getEntity().f(sneaking);
+        getEntity().a(sneaking);
         OPacket19EntityAction sneakUpdate = new OPacket19EntityAction();
 
         sneakUpdate.a = getId();
         sneakUpdate.b = sneaking ? 1 : 2;
-        etc.getMCServer().h.a(sneakUpdate, getWorld().getType().getId());
+        this.getWorld().getEntityTracker().sendPacketToPlayersAndEntity(this.getEntity(), sneakUpdate);
     }
 
     /**
@@ -1001,28 +1003,30 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param world The world to switch to
      */
     public void switchWorlds(World world) {
-        OMinecraftServer mcServer = etc.getMCServer();
+        ODedicatedServer mcServer = (ODedicatedServer) etc.getMCServer();
         OEntityPlayerMP ent = getEntity();
-        
+                
         // Nether is not allowed, so shush
-        if (world.getType() == World.Dimension.NETHER && !mcServer.d.a("allow-nether", true)) {
+        if (world.getType() == World.Dimension.NETHER && !mcServer.a("allow-nether", true)) {
             return;
         }
         // The End is not allowed, so shush
-        if (world.getType() == World.Dimension.END && !mcServer.d.a("allow-end", true)) {
+        if (world.getType() == World.Dimension.END && !mcServer.a("allow-end", true)) {
             return;
         }
         // Dismount first or get buggy
-        if (ent.bh != null) {
-            ent.b(ent.bh);
+        if (ent.o != null) {
+            ent.a(ent.o);
         }
 
         //Collect world switch achievement ?
-        ent.a((OStatBase) OAchievementList.B);
+        if (world.getType() != World.Dimension.NORMAL) {
+            ent.a((OStatBase) (world.getType() == World.Dimension.END ? OAchievementList.B : OAchievementList.x));
+        }
         
         //switch world if needed
-        if (!world.getName().equals(ent.bi.world.getName())) {
-            World oldWorld = ent.bi.world;
+        if (!world.getName().equals(ent.p.world.getName())) {
+            World oldWorld = ent.p.world;
             //remove player from entity tracker
             oldWorld.getEntityTracker().untrackPlayerSymmetrics(ent);
             oldWorld.getEntityTracker().untrackEntity(ent);
@@ -1031,22 +1035,16 @@ public class Player extends HumanEntity implements MessageReceiver {
             oldWorld.removePlayerFromWorld(this);
             
             //Remove player from player manager for the old world
-            etc.getServer().getPlayerManager(ent.bi.world).removePlayer(ent);
+            etc.getServer().getPlayerManager(oldWorld).removePlayer(ent);
             
             //Change players world reference
-            ent.bi = world.getWorld();
+            ent.p = world.getWorld();
             //Add player back to the new world
-//            world.addPlayerToWorld(this);
-//            world.getEntityTracker().trackPlayer(this);
-        }
-        //Get chunk coordinates...
-        OChunkCoordinates var2 = mcServer.getWorld(ent.bi.name, world.getType().getId()).d();
-
-        if (var2 != null) {
-            ent.a.a((double) var2.a, (double) var2.b, (double) var2.c, 0.0F, 0.0F, getWorld().getType().getId(), getWorld().getName());
+            world.addPlayerToWorld(this);
+            world.getEntityTracker().trackPlayer(this);
         }
 
-        mcServer.h.sendPlayerToOtherDimension(ent, world.getType().getId(), false);
+        mcServer.ab().sendPlayerToOtherDimension(ent, world.getType().getId(), false);
         
         refreshCreativeMode();
     }
@@ -1098,10 +1096,10 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param i
      */
     public void setCreativeMode(int i) {
-        i = OWorldSettings.a(i);
-        if (getEntity().c.a() != i) {
-            getEntity().c.a(i);
-            getEntity().a.b((OPacket) (new OPacket70Bed(3, i)));
+        OEnumGameType gameType = OEnumGameType.a(i);
+        if (getEntity().c.b() != gameType) {
+            getEntity().c.a(gameType);
+            getEntity().a.b((OPacket) (new OPacket70GameEvent(3, gameType.e)));
         }
     }
 
@@ -1111,11 +1109,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return i
      */
     public int getCreativeMode() {
-        int i = 0;
-        if (getEntity().c.a() != 0) {
-            i = getEntity().c.a();
-        }
-        return i;
+        return this.getEntity().c.b().e;
     }
 
     /**
@@ -1123,9 +1117,10 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      * @return <tt>true</tt> if the given Player is in creative mode,
      *          <tt>null</tt> otherwise.
+     * @deprecated Depend on {@link #getCreativeMode()} instead
      */
     public boolean getMode() {
-        if (getEntity().c.a() == 1) {
+        if (getEntity().c.b().e == 1) {
             return true;
         } else {
             return false;
@@ -1136,11 +1131,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Refresh this Player's mode
      */
     public void refreshCreativeMode() {
-        if (getMode() || etc.getMCServer().d.a("gamemode", 0) == 1) {
-            getEntity().c.a(1);
-        } else {
-            getEntity().c.a(0);
-        }
+        this.getEntity().c.a(this.getWorld().getWorld().A.q());
     }
 
     /**
@@ -1149,7 +1140,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public int getXP() {
-        return getEntity().N;
+        return getEntity().cb;
     }
 
     /**
@@ -1158,7 +1149,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public int getLevel() {
-        return getEntity().M;
+        return getEntity().ca;
     }
 
     /**
@@ -1204,7 +1195,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      */
     public void updateXP() {
-        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().O, getEntity().N, getEntity().M)));
+        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().cc, getEntity().cb, getEntity().ca)));
     }
 
     /**
@@ -1223,7 +1214,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return player food level
      */
     public int getFoodLevel() {
-        return getEntity().n.a;
+        return getEntity().bB.a;
     }
     
     /**
@@ -1233,7 +1224,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *         new food level, between 1 and 20
      */
     public void setFoodLevel(int foodLevel) {
-        getEntity().n.a = Math.min(foodLevel, 20);
+        getEntity().bB.a = Math.min(foodLevel, 20);
         updateLevels();
     }
     
@@ -1242,7 +1233,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public float getFoodExhaustionLevel() {
-        return getEntity().n.c;
+        return getEntity().bB.c;
     }
 
     /**
@@ -1251,7 +1242,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param foodExhaustionLevel
      */
     public void setFoodExhaustionLevel(float foodExhaustionLevel) {
-        getEntity().n.c = Math.min(foodExhaustionLevel, 40F);
+        getEntity().bB.c = Math.min(foodExhaustionLevel, 40F);
         updateLevels();
     }
     
@@ -1260,14 +1251,14 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      */
     public void updateInventory() {
-        OContainer l = getEntity().l;
-        ArrayList var3 = new ArrayList();
+        OContainer container = getEntity().bz;
+        ArrayList list = new ArrayList();
 
-        for (int var4 = 0; var4 < l.e.size(); ++var4) {
-            var3.add(((OSlot) l.e.get(var4)).b());
+        for (OSlot slot : (ArrayList<OSlot>) container.b) {
+            list.add(slot.c());
         }
         
-        getEntity().a(l, var3);
+        getEntity().a(container, list);
     }
 
     /**
@@ -1275,7 +1266,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public float getFoodSaturationLevel() {
-        return getEntity().n.b;
+        return getEntity().bB.b;
     }
     
     /**
@@ -1284,7 +1275,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param foodSaturationLevel
      */
     public void setFoodSaturationLevel(float foodSaturationLevel) {
-        getEntity().n.b = Math.min(foodSaturationLevel, getFoodLevel());
+        getEntity().bB.b = Math.min(foodSaturationLevel, getFoodLevel());
         updateLevels();
     }
     
@@ -1303,9 +1294,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param effect The potion effect to remove
      */
     public void removePotionEffect(PotionEffect effect) {     
-        OPotionEffect var3 = (OPotionEffect) getEntity().aK.get(effect.getType().getId());
+        OPotionEffect var3 = (OPotionEffect) getEntity().bf.get(effect.getType().getId());
 
-        getEntity().aK.remove(Integer.valueOf(effect.getType().getId()));
+        getEntity().bf.remove(Integer.valueOf(effect.getType().getId()));
         getEntity().d(var3);
     }
 
@@ -1315,11 +1306,11 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return List of potion effects 
      */
     public List<PotionEffect> getPotionEffects() {
-        Collection ay = getEntity().aM();
+        Collection<OPotionEffect> potionEffects = getEntity().bq();
         ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
 
-        for (Iterator<OPotionEffect> iterator = ay.iterator(); iterator.hasNext();) {
-            list.add(((OPotionEffect) iterator.next()).potionEffect);
+        for (OPotionEffect potionEffect : potionEffects) {
+            list.add(potionEffect.potionEffect);
         }
         return list;
     }
@@ -1329,7 +1320,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the disableDamage state
      */
     public boolean isDamageDisabled() {
-        return getEntity().L.a;
+        return getEntity().bZ.a;
     }
 
     /**
@@ -1337,7 +1328,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param disabled the new value.
      */
     public void setDamageDisabled(boolean disabled) {
-        getEntity().L.a = disabled;
+        getEntity().bZ.a = disabled;
     }
 
     /**
@@ -1345,7 +1336,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the flying state
      */
     public boolean isFlying() {
-        return getEntity().L.b;
+        return getEntity().bZ.b;
     }
     
     /**
@@ -1353,7 +1344,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param flying the flying state.
      */
     public void setFlying(boolean flying) {
-        getEntity().L.b = flying;
+        getEntity().bZ.b = flying;
     }
 
     /**
@@ -1361,7 +1352,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the disableFalling state
      */
     public boolean isFallingDisabled() {
-        return getEntity().L.c;
+        return getEntity().bZ.c;
     }
 
     /**
@@ -1369,7 +1360,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param disabled the new value
      */
     public void setFallingDisabled(boolean disabled) {
-        getEntity().L.c = disabled;
+        getEntity().bZ.c = disabled;
     }
 
     /**
@@ -1378,7 +1369,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return whether buckets are always full.
      */
     public boolean isBucketAlwaysFull() {
-        return getEntity().L.d;
+        return getEntity().bZ.d;
     }
 
     /**
@@ -1387,7 +1378,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param alwaysFull the new state
      */
     public void setBucketAlwaysFull(boolean alwaysFull) {
-        getEntity().L.d = alwaysFull;
+        getEntity().bZ.d = alwaysFull;
     }
     
     /**
@@ -1397,7 +1388,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public Location getRespawnLocation() {
         Location spawn = etc.getServer().getDefaultWorld().getSpawnLocation();
-        OChunkCoordinates loc = getEntity().ab();
+        OChunkCoordinates loc = getEntity().bJ();
         if (loc != null) {
             spawn = new Location(etc.getServer().getDefaultWorld(), loc.a, loc.b, loc.c);
         }
@@ -1432,7 +1423,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return {@code true} if the player is op.
      */
     public boolean isOp() {
-        return etc.getMCServer().h.h(getName());
+        return etc.getMCServer().ab().e(getName());
     }
     
     /**
@@ -1441,7 +1432,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return {@code true} if the player is op.
      */
     public static boolean isOp(String playerName) {
-        return etc.getMCServer().h.h(playerName);
+        return etc.getMCServer().ab().e(playerName);
     }
 
     private boolean checkSpam() {

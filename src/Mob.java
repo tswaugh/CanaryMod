@@ -26,7 +26,7 @@ public class Mob extends LivingEntity {
      * @deprecated Use {@link #Mob(java.lang.String, World)} instead.
      */
     public Mob(String mob) {
-        this((OEntityLiving) OEntityList.a(mob, etc.getMCServer().a(0)));
+        this((OEntityLiving) OEntityList.a(mob, etc.getServer().getDefaultWorld().getWorld()));
     }
     
     /**
@@ -64,14 +64,20 @@ public class Mob extends LivingEntity {
      * @param rider
      */
     public void spawn(LivingEntity rider) {
+        OWorld world = entity.p;
         OWorld world = entity.p; //etc.getMCServer().a(0);
 
+        entity.b(getX() + 0.5d, getY(), getZ() + 0.5d, getRotation(), 0f);
+        world.d(entity);
         entity.b(getX() + 0.5d, getY(), getZ() + 0.5d, getRotation(), 0f);
         world.b(entity);
 
         if (rider != null) {
             OEntityLiving mob2 = rider.getEntity();
 
+            mob2.b(getX(), getY(), getZ(), getRotation(), 0f);
+            world.d(mob2);
+            mob2.a(entity);
             mob2.b(getX(), getY(), getZ(), getRotation(), 0f);
             world.b(mob2);
             mob2.a(entity);
@@ -102,9 +108,9 @@ public class Mob extends LivingEntity {
      */
     public OEntity getTarget() {
         if (getEntity() instanceof OEntityGhast) {
-            OEntityGhast var1 = (OEntityGhast) getEntity();
+            OEntityGhast ghast = (OEntityGhast) getEntity();
 
-            return var1.getTarget();
+            return ghast.getTarget();
         }
         return ((OEntityCreature) getEntity()).a;
     }
@@ -116,9 +122,9 @@ public class Mob extends LivingEntity {
      */
     public void setTarget(OEntity target) {
         if (getEntity() instanceof OEntityGhast) {
-            OEntityGhast var1 = (OEntityGhast) getEntity();
+            OEntityGhast ghast = (OEntityGhast) getEntity();
 
-            var1.setTarget(target);
+            ghast.setTarget(target);
             return;
         }
         ((OEntityCreature) getEntity()).a = target; 
@@ -152,7 +158,7 @@ public class Mob extends LivingEntity {
         if (mob == null) {
             return false;
         }
-        OEntity c = OEntityList.a(mob, etc.getServer().getWorld(0).getWorld());
+        OEntity c = OEntityList.a(mob, etc.getServer().getDefaultWorld().getWorld());
 
         return c instanceof OIMob || c instanceof OIAnimals;
     }

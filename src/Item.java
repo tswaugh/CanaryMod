@@ -139,6 +139,18 @@ public class Item {
         EnderDragonEgg(122), //
         RedstoneLampOff(123), //
         RedstoneLampOn(124), //
+        WoodDoubleStep(125), //
+        WoodStep(126), //
+        CocoaPlant(127), //
+        SandstoneStairs(128), //
+        EmeraldOre(129), //
+        EnderChest(130), //
+        TripwireHook(131), //
+        Tripwire(132), //
+        EmeraldBlock(133), //
+        SpruceWoodStairs(134), //
+        BirchWoodStairs(135), //
+        JungleWoodStairs(136), //
         IronSpade(256), //
         IronPickaxe(257), //
         IronAxe(258), //
@@ -269,6 +281,9 @@ public class Item {
         SpawnEgg(383), //
         BottleOEnchanting(384), //
         FireCharge(385), //
+        BookAndQuill(386), //
+        WrittenBook(387), //
+        Emerald(388), //
         GoldRecord(2256), //
         GreenRecord(2257), //
         BlocksRecord(2258), //
