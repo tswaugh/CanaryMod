@@ -45,7 +45,7 @@ public class MobSpawner implements ComplexBlock {
 
     @Override
     public void update() {
-        etc.getMCServer().h.a(spawner.d());
+        etc.getMCServer().t.a(spawner.e());
     }
 
     /**

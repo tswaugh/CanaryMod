@@ -47,7 +47,7 @@ public class Mob extends LivingEntity {
      *            location of mob
      */
     public Mob(String mobName, Location location) {
-        this(mobName,  location.getWorld());
+        this(mobName, location.getWorld());
         teleportTo(location);
     }
 
@@ -64,17 +64,17 @@ public class Mob extends LivingEntity {
      * @param rider
      */
     public void spawn(LivingEntity rider) {
-        OWorld world = entity.bi; //etc.getMCServer().a(0);
+        OWorld world = entity.p; //etc.getMCServer().a(0);
 
-        entity.c(getX() + 0.5d, getY(), getZ() + 0.5d, getRotation(), 0f);
+        entity.b(getX() + 0.5d, getY(), getZ() + 0.5d, getRotation(), 0f);
         world.b(entity);
 
         if (rider != null) {
             OEntityLiving mob2 = rider.getEntity();
 
-            mob2.c(getX(), getY(), getZ(), getRotation(), 0f);
+            mob2.b(getX(), getY(), getZ(), getRotation(), 0f);
             world.b(mob2);
-            mob2.b(entity);
+            mob2.a(entity);
         }
     }
     
@@ -106,7 +106,7 @@ public class Mob extends LivingEntity {
 
             return var1.getTarget();
         }
-        return ((OEntityCreature) getEntity()).d;
+        return ((OEntityCreature) getEntity()).a;
     }
     
     /**
@@ -121,7 +121,7 @@ public class Mob extends LivingEntity {
             var1.setTarget(target);
             return;
         }
-        ((OEntityCreature) getEntity()).d = target; 
+        ((OEntityCreature) getEntity()).a = target; 
     }
 
     @Override
@@ -175,7 +175,7 @@ public class Mob extends LivingEntity {
     
     public boolean isInLove(){
     	if (getEntity() instanceof OEntityAnimal){
-    		return ((OEntityAnimal) getEntity()).r_();
+    		return ((OEntityAnimal) getEntity()).s();
     	}
     	return false;
     }
