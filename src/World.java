@@ -65,7 +65,7 @@ public class World {
         }
 
         /**
-         * Returns the array index for use with, 
+         * Returns the array index for use with,
          * e.g., {@link Server#getWorld(java.lang.String)}
          * @return The array index for this <tt>Dimension</tt>
          */
@@ -381,7 +381,7 @@ public class World {
     public boolean setBlockData(int x, int y, int z, int data) {
         boolean toRet = world.d(x, y, z, data);
 
-        etc.getMCServer().h.a(new OPacket53BlockChange(x, y, z, world), getType().getId());
+        etc.getMCServer().ab().sendPacketToDimension(new OPacket53BlockChange(x, y, z, world), getName(),getType().getId());
         ComplexBlock block = getComplexBlock(x, y, z);
 
         if (block != null) {
@@ -591,7 +591,7 @@ public class World {
      * @param z
      * @param itemId
      * @param quantity
-     * @param damage 
+     * @param damage
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity, int damage) {
@@ -600,10 +600,10 @@ public class World {
 
     /**
      * Drops an item with desired quantity at the specified location
-     * 
+     *
      * @param loc
      * @param item
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(Location loc, Item item) {
@@ -613,7 +613,7 @@ public class World {
     /**
      * Drops an item with desired quantity and damage value at the specified
      * location
-     * 
+     *
      * @param x
      * @param y
      * @param z
@@ -977,19 +977,19 @@ public class World {
             }
         }
     }
-    
+
     public EntityTracker getEntityTracker() {
        return world.getEntityTracker();
     }
-    
+
     public void removePlayerFromWorld(Player player) {
         world.f((OEntity)player.getEntity());
     }
-    
+
     public void addPlayerToWorld(Player player) {
         world.d((OEntity)player.getEntity());
     }
-    
+
     /**
      * Gets this world's name.
      * @return This world's name.
