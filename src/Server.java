@@ -31,7 +31,7 @@ public class Server {
      * @param msg Message text to send
      */
     public void messageAll(String msg) {
-        server.t.a(new OPacket3Chat(msg));
+        server.ab().a(new OPacket3Chat(msg));
     }
 
     /**
@@ -52,7 +52,7 @@ public class Server {
      *
      */
     public void unban(String player) {
-        server.t.c(player);
+        server.ab().c(player);
         etc.getDataSource().expireBan(new Ban(player));
     }
 
@@ -159,7 +159,7 @@ public class Server {
 
         name = name.toLowerCase();
 
-        for (OEntityPlayerMP player : (List<OEntityPlayerMP>) server.t.b) {
+        for (OEntityPlayerMP player : (List<OEntityPlayerMP>) server.ab().b) {
             String playerName = player.bJ;
 
             if (playerName.toLowerCase().equals(name)) {
@@ -187,7 +187,7 @@ public class Server {
      * @return
      */
     public Player getPlayer(String name) {
-        OEntityPlayerMP user = server.t.f(name);
+        OEntityPlayerMP user = server.ab().f(name);
 
         return user == null ? null : user.getPlayer();
     }
@@ -200,7 +200,7 @@ public class Server {
     public List<Player> getPlayerList() {
         List<Player> toRet = new ArrayList<Player>();
 
-        for (OEntityPlayerMP oepmp : (List<OEntityPlayerMP>) server.t.b) {
+        for (OEntityPlayerMP oepmp : (List<OEntityPlayerMP>) server.ab().b) {
             toRet.add(oepmp.getPlayer());
         }
         return toRet;
@@ -212,7 +212,7 @@ public class Server {
      * @return list of player names
      */
     public String getPlayerNames() {
-        return server.t.c();
+        return server.ab().c();
     }
 
     /**
@@ -571,7 +571,7 @@ public class Server {
      * Saves all player inventories to file
      */
     public void saveInventories() {
-        server.t.g();
+        server.ab().g();
     }
 
     /**
@@ -943,7 +943,7 @@ public class Server {
     public World[] getWorld(String name) {
         return this.isWorldLoaded(name) ? this.loadWorld(name) : null;
     }
-    
+
     /**
      * Get the configuration manager for the given world
      * @param world
