@@ -444,7 +444,7 @@ public class ServerConsoleCommands {
             caller.notify("This command is going to be phased out.");
             caller.notify("For new bans, you can just use /unban to unban IPs.");
             etc.getDataSource().expireBan(new Ban(parameters[1]));
-            etc.getMCServer().h.d(parameters[1]);
+            etc.getMCServer().ab().f().b(parameters[1]);
             caller.notify("Unbanned " + parameters[1]);
         }
     };

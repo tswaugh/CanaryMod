@@ -645,4 +645,57 @@ public abstract class OServerConfigurationManager {
             ((OEntityPlayerMP) this.b.get(0)).a.c("Server closed");
         }
     }
+    
+    /**
+     * Returns the list of bans
+     * 
+     * @return bans
+     */
+    public String getBans() {
+        List<String> list = new ArrayList<String>(this.g.c().keySet());
+
+        java.util.Collections.sort(list);
+        StringBuilder builder = new StringBuilder();       
+        int len = 0;
+
+        for (String name : list) {
+            if (len > 0) {
+                builder.append(", ");
+            }
+            builder.append(name);
+            len++;
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Returns the list of IP bans
+     * 
+     * @return ip bans
+     */
+    public String getIpBans() {
+        List<String> list = new ArrayList<String>(this.h.c().keySet());
+
+        java.util.Collections.sort(list);
+        StringBuilder builder = new StringBuilder();       
+        int len = 0;
+
+        for (String name : list) {
+            if (len > 0) {
+                builder.append(", ");
+            }
+            builder.append(name);
+            len++;
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Returns player ban status
+     * @param name player name
+     * @return true if player is banned from server
+     */
+    public boolean isBanned(String name) {
+        return this.g.a(name);
+    }
 }

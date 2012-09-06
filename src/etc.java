@@ -5,14 +5,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +16,7 @@ import java.util.logging.Logger;
  * 
  * @author James
  */
+@SuppressWarnings("LoggerStringConcat")
 public class etc {
     private static final Logger           log = Logger.getLogger("Minecraft");
     private static final etc              instance = new etc();
@@ -647,28 +641,6 @@ public class etc {
         }
         return builder.toString();
     }
-    
-    /**
-     * Splits a string into an array at the given separator, without removing empty ones like .split() does.
-     * @author Jos Kuijpers
-     * @param in The string to split
-     * @param seperator The string to split at
-     * @return an array containing all components
-     */
-    public static String[] realSplit(String in, String seperator) {
-        String[] res = {};
-        ArrayList<String> items = new ArrayList<String>();
-        
-        int pos = 0;
-        int last = 0;
-        while((pos = in.indexOf(seperator, last)) != -1) {
-            items.add(in.substring(last, pos));
-            last = pos+seperator.length();
-        }
-        items.add(in.substring(last));
-        
-        return items.toArray(res);
-    }
 
     /**
      * Returns a list of allowed items for /item
@@ -1199,7 +1171,7 @@ public class etc {
         if (!it.hasNext())
             return toRet;
         for (OSpawnListEntry en = it.next(); it.hasNext(); en = it.next()) {
-            if (!allowed.contains(OEntityList.getName(en.a)))
+            if (!allowed.contains(OEntityList.getName(en.b)))
                 it.remove();
         }
         
@@ -1214,7 +1186,7 @@ public class etc {
         if (!it.hasNext())
             return toRet;
         for (OSpawnListEntry en = it.next(); it.hasNext(); en = it.next()) {
-            if (!allowed.contains(OEntityList.getName(en.a)))
+            if (!allowed.contains(OEntityList.getName(en.b)))
                 it.remove();
         }
         
@@ -1229,7 +1201,7 @@ public class etc {
         if (!it.hasNext())
             return toRet;
         for (OSpawnListEntry en = it.next(); it.hasNext(); en = it.next()) {
-            if (!allowed.contains(OEntityList.getName(en.a)))
+            if (!allowed.contains(OEntityList.getName(en.b)))
                 it.remove();
         }
         

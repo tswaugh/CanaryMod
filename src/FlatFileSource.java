@@ -131,7 +131,7 @@ public class FlatFileSource extends DataSource {
                         continue;
                     }
 
-                    String[] split = etc.realSplit(line, ":");
+                    String[] split = line.split(":", -1);
 
                     if (split.length < 3) {
                         log.log(Level.SEVERE, String.format("Problem while reading %s (Line %d violates the syntax)", location, linenum));
@@ -212,7 +212,7 @@ public class FlatFileSource extends DataSource {
                     if (line.startsWith("#") || line.equals("")) {
                         continue;
                     }
-                    String[] split = etc.realSplit(line, ":");
+                    String[] split = line.split(":", -1);
 
                     if (split.length < 4) {
                         log.log(Level.SEVERE, String.format("Problem while reading %s (Line %d violates the syntax)", location, linenum));
@@ -285,7 +285,7 @@ public class FlatFileSource extends DataSource {
                         if (line.startsWith("#") || line.equals("")) {
                             continue;
                         }
-                        String[] split = etc.realSplit(line, ":");
+                        String[] split = line.split(":", -1);
 
                         if (split.length < 4) {
                             continue;
@@ -730,7 +730,7 @@ public class FlatFileSource extends DataSource {
                     if (line.equals("")) {
                         continue;
                     }
-                    String[] split = etc.realSplit(line, ":");
+                    String[] split = line.split(":", -1);
 
                     if (split.length < 2) {
                         log.log(Level.SEVERE, String.format("Problem while reading %s (Line %d violates the syntax)", location, linenum));
@@ -796,7 +796,7 @@ public class FlatFileSource extends DataSource {
                     if (line.startsWith("#") || line.equals("")) {
                         continue;
                     }
-                    String[] split = etc.realSplit(line, ":");
+                    String[] split = line.split(":", -1);
                     Ban ban = new Ban();
 
 
@@ -1106,7 +1106,7 @@ public class FlatFileSource extends DataSource {
                 if (line.startsWith("#") || line.equals("") || line.startsWith(" ")) {
                     continue;
                 }
-                String[] split = etc.realSplit(line, ":");
+                String[] split = line.split(":", -1);
 
                 if (!split[0].equalsIgnoreCase(player)) {
                     continue;
@@ -1136,7 +1136,7 @@ public class FlatFileSource extends DataSource {
                 if (line.startsWith("#") || line.equals("") || line.startsWith(" ")) {
                     continue;
                 }
-                String[] split = etc.realSplit(line, ":");
+                String[] split = line.split(":", -1);
 
                 if (!split[0].equalsIgnoreCase(name)) {
                     continue;

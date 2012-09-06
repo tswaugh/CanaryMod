@@ -52,7 +52,7 @@ public class Server {
      *
      */
     public void unban(String player) {
-        server.ab().c(player);
+        server.ab().e().b(player);
         etc.getDataSource().expireBan(new Ban(player));
     }
 
