@@ -21,7 +21,7 @@ public abstract class OServerConfigurationManager {
     private OEnumGameType m;
     private boolean n;
     private int o = 0;
-    
+
     private Map<String, OIPlayerFileData> saveHandlers = new HashMap<String, OIPlayerFileData>(1);
     private Map<String, String> playerWorld = new HashMap<String, String>(1);
 
@@ -35,7 +35,7 @@ public abstract class OServerConfigurationManager {
         } else {
             a.info("Tainted Build Information: " + etc.getInstance().getVersionStr());
         }
-        
+
         this.f = ominecraftserver;
         this.g.a(false);
         this.h.a(false);
@@ -68,16 +68,16 @@ public abstract class OServerConfigurationManager {
         HookParametersConnect hookResult = new HookParametersConnect(String.format(Colors.Yellow + "%s joined the game.", oentityplayermp.v), true);
 
         hookResult = (HookParametersConnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_CONNECT, oentityplayermp.getPlayer(), hookResult);
-        if (!hookResult.isHidden()) { 
+        if (!hookResult.isHidden()) {
             this.a((OPacket) (new OPacket3Chat(hookResult.getJoinMessage())));
         }
-        
+
         // CanaryMod - Check if player is listed as muted, and mute him
         if (etc.getDataSource().isPlayerOnMuteList(oentityplayermp.getPlayer().getName())) {
             oentityplayermp.getPlayer().toggleMute();
         }
         // CanaryMod END
-        
+
         this.c(oentityplayermp);
         onetserverhandler.a(oentityplayermp.t, oentityplayermp.u, oentityplayermp.v, oentityplayermp.z, oentityplayermp.A);
         this.f.ac().a(onetserverhandler);
@@ -171,33 +171,33 @@ public abstract class OServerConfigurationManager {
         if (!etc.getLoader().isLoaded()) {
             return "The server is not finished loading yet!";
         }
-        
+
         // Move up IP
         String s2 = socketaddress.toString();
 
         s2 = s2.substring(s2.indexOf("/") + 1);
         s2 = s2.substring(0, s2.indexOf(":"));
-        
-        
+
+
         HookParametersLogincheck hook = (HookParametersLogincheck) etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, new HookParametersLogincheck(f.getWorld(f.I(), 0).name, s, s2));
-        
+
         if (hook.getKickReason() != null) {
             return hook.getKickReason();
         }
-        
+
         // CanaryMod: Store for later usage.
         this.playerWorld.put(hook.getPlayerName(), hook.getWorldName());
-        
+
         Player player = etc.getDataSource().getPlayer(s);
-        
+
         if (etc.getDataSource().isOnBanList(s, s2)) {
             Ban ban = etc.getDataSource().getBan(s, s2);
-            
+
             String msg = etc.getInstance().getDefaultBanMessage() + "\nReason: " + ban.getReason();
             if (ban.getTimestamp() != -1) {
                 msg += "\nYour ban will be removed on " + e.format(new Date(ban.getTimestamp() * 1000));
             }
-            
+
             return msg;
         } else if (this.g.a(s)) {
             OBanEntry obanentry = (OBanEntry) this.g.c().get(s);
@@ -268,15 +268,15 @@ public abstract class OServerConfigurationManager {
         Object object;
 
         if (this.f.L()) {
-            object = new ODemoWorldManager(this.f.a(0));
+            object = new ODemoWorldManager(this.f.getWorld(this.playerWorld.get(s), 0));
         } else {
-            object = new OItemInWorldManager(this.f.a(0));
+            object = new OItemInWorldManager(this.f.getWorld(this.playerWorld.get(s), 0));
         }
 
         // CanaryMod: custom world
         return new OEntityPlayerMP(this.f, this.f.getWorld(this.playerWorld.get(s), 0), s, (OItemInWorldManager) object);
     }
-    
+
     public OEntityPlayerMP a(OEntityPlayerMP oentityplayermp, int i, boolean flag) {
         return this.a(oentityplayermp, i, flag, null);
     }
@@ -318,7 +318,7 @@ public abstract class OServerConfigurationManager {
                 oentityplayermp1.a.b(new OPacket70GameEvent(0, 0));
             }
         }
-        
+
         // CanaryMod set player location and angle if a spawn location is defined
         if (location != null) {
             oentityplayermp1.b(location.x, location.y, location.z, location.rotX, location.rotY);
@@ -341,7 +341,7 @@ public abstract class OServerConfigurationManager {
         oentityplayermp1.b();
         return oentityplayermp1;
     }
-    
+
     public void a(OEntityPlayerMP oentityplayermp, int i) {
         this.sendPlayerToOtherDimension(oentityplayermp, i, true);
     }
@@ -444,9 +444,9 @@ public abstract class OServerConfigurationManager {
                 oentityplayermp.a.b(opacket);
             }
         }
-        
+
     }
-    
+
     @Deprecated
     public void a(OPacket opacket, int i) {
         throw new UnsupportedOperationException("OServerConfigurationManager"
@@ -645,17 +645,17 @@ public abstract class OServerConfigurationManager {
             ((OEntityPlayerMP) this.b.get(0)).a.c("Server closed");
         }
     }
-    
+
     /**
      * Returns the list of bans
-     * 
+     *
      * @return bans
      */
     public String getBans() {
         List<String> list = new ArrayList<String>(this.g.c().keySet());
 
         java.util.Collections.sort(list);
-        StringBuilder builder = new StringBuilder();       
+        StringBuilder builder = new StringBuilder();
         int len = 0;
 
         for (String name : list) {
@@ -670,14 +670,14 @@ public abstract class OServerConfigurationManager {
 
     /**
      * Returns the list of IP bans
-     * 
+     *
      * @return ip bans
      */
     public String getIpBans() {
         List<String> list = new ArrayList<String>(this.h.c().keySet());
 
         java.util.Collections.sort(list);
-        StringBuilder builder = new StringBuilder();       
+        StringBuilder builder = new StringBuilder();
         int len = 0;
 
         for (String name : list) {
