@@ -31,6 +31,7 @@ public class ServerConsoleCommands {
         add("kickall", kickall);
         add("time", time);
         add("weather", weather);
+        add("toggledownfall", weather);
         add("thunder", thunder);
     }
 
