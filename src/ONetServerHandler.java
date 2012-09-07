@@ -473,7 +473,9 @@ public class ONetServerHandler extends ONetHandler {
         // block
         if (blockClicked != null && oitemstack != null) {
             blockPlaced = blockClicked.getFace(Block.Face.fromId(opacket15place.h()));
-            blockPlaced.setType(oitemstack.c);
+            if (blockPlaced != null) {
+                blockPlaced.setType(oitemstack.c);
+            }
         }
 
         // CanaryMod: END
