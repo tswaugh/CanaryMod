@@ -136,7 +136,7 @@ public abstract class OServerConfigurationManager {
     public void c(OEntityPlayerMP oentityplayermp) {
         this.a((OPacket) (new OPacket201PlayerInfo(oentityplayermp.bJ, true, 1000)));
         this.b.add(oentityplayermp);
-        OWorldServer oworldserver = this.f.a(oentityplayermp.bK);
+        OWorldServer oworldserver = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.bK);
 
         while (!oworldserver.a(oentityplayermp, oentityplayermp.D).isEmpty()) {
             oentityplayermp.b(oentityplayermp.t, oentityplayermp.u + 1.0D, oentityplayermp.v);
@@ -264,17 +264,19 @@ public abstract class OServerConfigurationManager {
             oentityplayermp = (OEntityPlayerMP) iterator.next();
             oentityplayermp.a.c("You logged in from another location");
         }
+        
+        OWorldServer world = this.f.getWorld(this.playerWorld.get(s), 0);
 
         Object object;
 
         if (this.f.L()) {
-            object = new ODemoWorldManager(this.f.a(0));
+            object = new ODemoWorldManager(world);
         } else {
-            object = new OItemInWorldManager(this.f.a(0));
+            object = new OItemInWorldManager(world);
         }
 
         // CanaryMod: custom world
-        return new OEntityPlayerMP(this.f, this.f.getWorld(this.playerWorld.get(s), 0), s, (OItemInWorldManager) object);
+        return new OEntityPlayerMP(this.f, world, s, (OItemInWorldManager) object);
     }
     
     public OEntityPlayerMP a(OEntityPlayerMP oentityplayermp, int i, boolean flag) {

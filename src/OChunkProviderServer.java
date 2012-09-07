@@ -17,7 +17,6 @@ public class OChunkProviderServer implements OIChunkProvider {
     private List g = new ArrayList();
     private OWorldServer h;
     // CanaryMod: load status
-    boolean loaded = false;
     boolean loadedpreload = false;
 
     public OChunkProviderServer(OWorldServer oworldserver, OIChunkLoader oichunkloader, OIChunkProvider oichunkprovider) {
@@ -166,12 +165,6 @@ public class OChunkProviderServer implements OIChunkProvider {
     }
 
     public boolean a(boolean flag, OIProgressUpdate oiprogressupdate) {
-        // CanaryMod: load once!
-        if (!loaded) {
-            etc.getLoader().loadPlugins();
-            loaded = true;
-        }
-		
         int i = 0;
         Iterator iterator = this.g.iterator();
 

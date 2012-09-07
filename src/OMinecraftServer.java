@@ -270,6 +270,11 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
     public void run() {
         try {
             if (this.b()) {
+                // CanaryMod: load once!
+                if (!etc.getLoader().isLoaded()) {
+                    etc.getLoader().loadPlugins();
+                }
+
                 long i = System.currentTimeMillis();
 
                 for (long j = 0L; this.u; this.Q = true) {

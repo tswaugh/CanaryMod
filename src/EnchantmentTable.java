@@ -6,7 +6,7 @@ public class EnchantmentTable extends ItemArray<OInventoryBasic> implements Inve
     private final OContainerEnchantment enchantTable;
     
     public EnchantmentTable(OContainerEnchantment block) {
-        super(block.e);
+        super((OInventoryBasic) block.e);
         enchantTable = block;
     }
 

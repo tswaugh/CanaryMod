@@ -1115,7 +1115,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         }
     }
 
-    public void g(int i) {
+    public void q(int i) {
         addXP(i);
     }
     

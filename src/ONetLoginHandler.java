@@ -101,54 +101,6 @@ public class ONetLoginHandler extends ONetHandler {
 
     public void a(OPacket1Login opacket1login) {}
 
-/*      TODO: put this in ServerConfigurationManager
-        if (oentityplayermp != null) { // Is not null, lets go on!
-            this.e.h.b(oentityplayermp);
-            // The world the player will spawn in is set here.
-            // We had the LoginChecks hook in this.e.h.a(this, opacket1login.b); so we have a specific world
-            // already specified and only get the right dimension here if that's needed.
-            oentityplayermp.a((OWorld) this.e.getWorld(oentityplayermp.bi.name, oentityplayermp.w)); 
-            oentityplayermp.c.a((OWorldServer) oentityplayermp.bi);
-            a.info(this.b() + " logged in with entity id " + oentityplayermp.bd + " at (" + oentityplayermp.bm + ", " + oentityplayermp.bn + ", " + oentityplayermp.bo + " in world " + oentityplayermp.bi.name + ". Dimension: " + oentityplayermp.w + ")");
-            OWorldServer oworldserver = this.e.getWorld(oentityplayermp.bi.name, oentityplayermp.w);
-            OChunkCoordinates ochunkcoordinates = oworldserver.p();
-
-            oentityplayermp.c.b(oworldserver.s().m());
-            ONetServerHandler onetserverhandler = new ONetServerHandler(this.e, this.b, oentityplayermp);
-            
-            // CanaryMod - if seed is hidden send 0 instead.
-            onetserverhandler.b((OPacket) (new OPacket1Login("", oentityplayermp.bd, oworldserver.s().p(), oentityplayermp.c.a(), oworldserver.t.g, (byte) oworldserver.q, (byte) oworldserver.y(), (byte) this.e.h.k())));
-            onetserverhandler.b((OPacket) (new OPacket6SpawnPosition(ochunkcoordinates.a, ochunkcoordinates.b, ochunkcoordinates.c)));
-            this.e.h.a(oentityplayermp, oworldserver);
-            // CanaryMod - onPlayerConnect Hook
-            HookParametersConnect hookResult = new HookParametersConnect(String.format(Colors.Yellow + "%s joined the game.", oentityplayermp.v), true);
-
-            hookResult = (HookParametersConnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_CONNECT, oentityplayermp.getPlayer(), hookResult);
-            if (!hookResult.isHidden()) { 
-                this.e.h.a((OPacket) (new OPacket3Chat(hookResult.getJoinMessage())));
-            }
-            
-            // CanaryMod - Check Creative Mode
-            oentityplayermp.getPlayer().refreshCreativeMode();
-            
-            // CanaryMod - Check if player is listed as muted, and mute him
-            if (etc.getDataSource().isPlayerOnMuteList(oentityplayermp.getPlayer().getName())) {
-                oentityplayermp.getPlayer().toggleMute();
-            }
-            // CanaryMod END
-
-            this.e.h.a(oentityplayermp, oworldserver);
-            // this.e.h.a((OPacket) (new OPacket3Chat("\u00a7e" + oentityplayermp.v + " joined the game.")));
-            this.e.h.c(oentityplayermp);
-            onetserverhandler.a(oentityplayermp.bm, oentityplayermp.bn, oentityplayermp.bo, oentityplayermp.bs, oentityplayermp.bt, oentityplayermp.w, oentityplayermp.bi.name);
-            this.e.c.a(onetserverhandler);
-            onetserverhandler.b((OPacket) (new OPacket4UpdateTime(oworldserver.o())));
-
-            // CanaryMod - enable/disable potion effects on login
-            if (hookResult.applyPotionsEffects()) {
-                Iterator iterator = oentityplayermp.aM().iterator();
-*/
-
     public void d() {
         String s = this.f.ab().a(this.b.c(), this.h);
 

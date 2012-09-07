@@ -716,7 +716,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public boolean b(String s) {
-        // TODO: check this.
         return "seed".equals(s) && !this.b.S() ? true : (!"tell".equals(s) && !"help".equals(s) && !"me".equals(s) ? this.b.ab().e(this.bJ) : true);
     }
 
