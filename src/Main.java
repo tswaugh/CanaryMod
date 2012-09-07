@@ -19,7 +19,7 @@ public class Main {
 
     public static final long   minecraft_server = 0xc6e569f8L;
 
-    public static final long   minecraft_servero = 0x3349a702L;
+    public static final long   minecraft_servero = 0x51a5b8faL;
 
     public static final long   mysql = 0xb2e59524L;
     public static final long   jarjar = 0x0de915d3L;
