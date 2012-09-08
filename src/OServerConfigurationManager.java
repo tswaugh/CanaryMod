@@ -65,7 +65,7 @@ public abstract class OServerConfigurationManager {
         onetserverhandler.b(new OPacket202PlayerAbilities(oentityplayermp.bZ));
         this.b(oentityplayermp, oworldserver);
         // CanaryMod - onPlayerConnect Hook
-        HookParametersConnect hookResult = new HookParametersConnect(String.format(Colors.Yellow + "%s joined the game.", oentityplayermp.v), true);
+        HookParametersConnect hookResult = new HookParametersConnect(String.format(Colors.Yellow + "%s joined the game.", oentityplayermp.bJ), true);
 
         hookResult = (HookParametersConnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_CONNECT, oentityplayermp.getPlayer(), hookResult);
         if (!hookResult.isHidden()) {
@@ -289,30 +289,30 @@ public abstract class OServerConfigurationManager {
         oentityplayermp.q().o().b(oentityplayermp);
         oentityplayermp.q().q().c(oentityplayermp);
         this.b.remove(oentityplayermp);
-        this.f.a(oentityplayermp.bK).f(oentityplayermp);
+        this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK).f(oentityplayermp);
         OChunkCoordinates ochunkcoordinates = oentityplayermp.bJ();
 
         oentityplayermp.bK = i;
         Object object;
 
         if (this.f.L()) {
-            object = new ODemoWorldManager(this.f.a(oentityplayermp.bK));
+            object = new ODemoWorldManager(this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK));
         } else {
-            object = new OItemInWorldManager(this.f.a(oentityplayermp.bK));
+            object = new OItemInWorldManager(this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK));
         }
 
-        OEntityPlayerMP oentityplayermp1 = new OEntityPlayerMP(this.f, this.f.a(oentityplayermp.bK), oentityplayermp.bJ, (OItemInWorldManager) object);
+        OEntityPlayerMP oentityplayermp1 = new OEntityPlayerMP(this.f, this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK), oentityplayermp.bJ, (OItemInWorldManager) object);
 
         oentityplayermp1.a(oentityplayermp, flag);
         oentityplayermp1.k = oentityplayermp.k;
         oentityplayermp1.a = oentityplayermp.a;
-        OWorldServer oworldserver = this.f.a(oentityplayermp.bK);
+        OWorldServer oworldserver = this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK);
 
         this.a(oentityplayermp1, oentityplayermp, oworldserver);
         OChunkCoordinates ochunkcoordinates1;
 
         if (ochunkcoordinates != null) {
-            ochunkcoordinates1 = OEntityPlayer.a((OWorld) this.f.a(oentityplayermp.bK), ochunkcoordinates);
+            ochunkcoordinates1 = OEntityPlayer.a((OWorld) this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK), ochunkcoordinates);
             if (ochunkcoordinates1 != null) {
                 oentityplayermp1.b((double) ((float) ochunkcoordinates1.a + 0.5F), (double) ((float) ochunkcoordinates1.b + 0.1F), (double) ((float) ochunkcoordinates1.c + 0.5F), 0.0F, 0.0F);
                 oentityplayermp1.a(ochunkcoordinates);
