@@ -7,7 +7,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     private OInventoryEnderChest a = new OInventoryEnderChest();
     public OContainer bz;
     public OContainer bA;
-    protected OFoodStats bB = new OFoodStats();
+    protected OFoodStats bB = new OFoodStats(this);
     protected int bC = 0;
     public byte bD = 0;
     public int bE = 0;

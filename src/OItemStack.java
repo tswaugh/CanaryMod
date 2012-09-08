@@ -89,7 +89,7 @@ public final class OItemStack {
     }
 
     public ONBTTagCompound b(ONBTTagCompound onbttagcompound) {
-        onbttagcompound.a("id", (short) this.c);
+        onbttagcompound.a("id", (short) this.c); // CanaryMod: fix jarjar
         onbttagcompound.a("Count", (byte) this.a);
         onbttagcompound.a("Damage", (short) this.e);
         if (this.d != null) {
@@ -100,7 +100,7 @@ public final class OItemStack {
     }
 
     public void c(ONBTTagCompound onbttagcompound) {
-        this.c = onbttagcompound.d("id");
+        this.c = onbttagcompound.d("id"); // CanaryMod: fix jarjar
         this.a = onbttagcompound.c("Count");
         this.e = onbttagcompound.d("Damage");
         if (onbttagcompound.b("tag")) {
