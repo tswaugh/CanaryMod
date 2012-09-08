@@ -68,7 +68,7 @@ public final class PropertiesFile {
                 save();
             }
         } catch (IOException ex) {
-            log.severe("[PropertiesFile] Unable to load " + fileName + "!");
+            log.severe("[PropertiesFile] Unable to load " + this.fileName + "!");
         }
     }
 
