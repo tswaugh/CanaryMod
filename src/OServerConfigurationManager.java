@@ -134,7 +134,10 @@ public abstract class OServerConfigurationManager {
     }
 
     public void c(OEntityPlayerMP oentityplayermp) {
-        this.a((OPacket) (new OPacket201PlayerInfo(oentityplayermp.bJ, true, 1000)));
+        // CanaryMod: Playername with color and Prefix
+        PlayerlistEntry entry = oentityplayermp.getPlayer().getPlayerlistEntry(true);
+        
+        this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000)));
         this.b.add(oentityplayermp);
         OWorldServer oworldserver = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.bK);
 
@@ -149,8 +152,14 @@ public abstract class OServerConfigurationManager {
         while (iterator.hasNext()) {
             OEntityPlayerMP oentityplayermp1 = (OEntityPlayerMP) iterator.next();
 
-            oentityplayermp.a.b(new OPacket201PlayerInfo(oentityplayermp1.bJ, true, oentityplayermp1.i));
+            entry = oentityplayermp1.getPlayer().getPlayerlistEntry(true);
+            oentityplayermp.a.b(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
         }
+
+        // CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
+        etc.getInstance().getMotd(oentityplayermp.getPlayer());
+        etc.getLoader().callHook(PluginLoader.Hook.LOGIN, oentityplayermp.getPlayer());
+        // oentityplayermp.getPlayer().refreshCreativeMode(); // TODO: check usefulness
     }
 
     public void d(OEntityPlayerMP oentityplayermp) {
@@ -164,7 +173,13 @@ public abstract class OServerConfigurationManager {
         oworldserver.e(oentityplayermp);
         oworldserver.q().c(oentityplayermp);
         this.b.remove(oentityplayermp);
-        this.a((OPacket) (new OPacket201PlayerInfo(oentityplayermp.bJ, false, 9999)));
+        
+        // CanaryMod: Player color and Prefix
+        if (etc.getInstance().isPlayerList_enabled()) {
+            PlayerlistEntry entry = oentityplayermp.getPlayer().getPlayerlistEntry(false);
+
+            this.a(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
+        }
     }
 
     public String a(SocketAddress socketaddress, String s) {
@@ -179,7 +194,7 @@ public abstract class OServerConfigurationManager {
         s2 = s2.substring(0, s2.indexOf(":"));
 
 
-        HookParametersLogincheck hook = (HookParametersLogincheck) etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, new HookParametersLogincheck(f.getWorld(f.I(), 0).name, s, s2));
+        HookParametersLogincheck hook = (HookParametersLogincheck) etc.getLoader().callHook(PluginLoader.Hook.LOGINCHECK, new HookParametersLogincheck(etc.getServer().getDefaultWorld().getName(), s, s2));
 
         if (hook.getKickReason() != null) {
             return hook.getKickReason();
@@ -265,7 +280,8 @@ public abstract class OServerConfigurationManager {
             oentityplayermp.a.c("You logged in from another location");
         }
         
-        OWorldServer world = this.f.getWorld(this.playerWorld.get(s), 0);
+        // CanaryMod: make sure the world is loaded into memory.
+        OWorldServer world = etc.getServer().loadWorld(this.playerWorld.get(s))[0].getWorld();
 
         Object object;
 
@@ -344,6 +360,7 @@ public abstract class OServerConfigurationManager {
         return oentityplayermp1;
     }
 
+    // CanaryMod: add flag to allow overriding portal creation
     public void a(OEntityPlayerMP oentityplayermp, int i) {
         this.sendPlayerToOtherDimension(oentityplayermp, i, true);
     }
