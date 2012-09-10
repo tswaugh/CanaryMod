@@ -889,18 +889,9 @@ public class ONetServerHandler extends ONetHandler {
     }
 
     public void a(OPacket203AutoComplete opacket203autocomplete) {
-        StringBuilder stringbuilder = new StringBuilder();
+        String result = this.getPlayer().autoComplete(opacket203autocomplete.d());
 
-        String s;
-
-        for (Iterator iterator = this.d.a((OICommandSender) this.e, opacket203autocomplete.d()).iterator(); iterator.hasNext(); stringbuilder.append(s)) {
-            s = (String) iterator.next();
-            if (stringbuilder.length() > 0) {
-                stringbuilder.append("");
-            }
-        }
-
-        this.e.a.b(new OPacket203AutoComplete(stringbuilder.toString()));
+        this.e.a.b(new OPacket203AutoComplete(result));
     }
 
     public void a(OPacket204ClientInfo opacket204clientinfo) {

@@ -192,7 +192,7 @@ public class Player extends HumanEntity implements MessageReceiver {
                 String str = command.substring(2);
 
                 log.info(getName() + " issued server command: " + str);
-                etc.getMCServer().a(str, getEntity().a);
+                etc.getMCServer().D().a(this.getEntity(), str);
                 return;
             }
 
@@ -1466,5 +1466,64 @@ public class Player extends HumanEntity implements MessageReceiver {
         this.lastMessage = System.currentTimeMillis();
 
         return false;
+    }
+
+    /**
+     * Returns a <tt>String</tt> containing possible completions for
+     * <tt>currentText</tt>.
+     * @param currentText The text to be autocompleted.
+     * @return A null-char-separated String of options.
+     */
+    public String autoComplete(String currentText) {
+        List<String> options = new ArrayList<String>();
+
+        if (currentText.length() == 0 || currentText.charAt(0) != '/' && currentText.indexOf(' ') == -1) {
+            // Start of line, add a colon to completed names
+            for (Player p : etc.getServer().getPlayerList()) {
+                if (p.getName().startsWith(currentText)) {
+                    options.add(p.getName() + ": ");
+                }
+            }
+        } else if (currentText.charAt(0) == '/') {
+            if (currentText.indexOf(' ') > 0) {
+                String commandName = currentText.split("\\s+")[0];
+                if (this.canUseCommand(commandName)) {
+                    // Remove leading '/'
+                    commandName = commandName.substring(1);
+                    BaseCommand command = ServerConsoleCommands.getInstance().getCommand(commandName);
+                    if (command == null) { // Not a server command? Try player commands.
+                        command = PlayerCommands.getInstance().getCommand(commandName);
+                    }
+                    if (command != null) {
+                        // Call command's autoComplete method
+                        List<String> commandOptions = command.autoComplete(currentText);
+                        if (commandOptions != null) {
+                            options.addAll(commandOptions);
+                        }
+                    }
+                }
+            } else {
+                // Access ServerConsoleCommands and PlayerCommands to initialize
+                ServerConsoleCommands.getInstance();
+                PlayerCommands.getInstance();
+                // Generate a list with possible commands.
+                for (String command : etc.getInstance().getCommands().keySet()) {
+                    if (command.startsWith(currentText) && this.canUseCommand(command)) {
+                        options.add(command);
+                    }
+                }
+            }
+        } else {
+            String[] splitText = currentText.split("\\s+");
+            String toComplete = splitText[splitText.length - 1];
+
+            for (Player p : etc.getServer().getPlayerList()) {
+                if (p.getName().startsWith(toComplete)) {
+                    options.add(p.getName());
+                }
+            }
+        }
+
+        return etc.combineSplit(0, options.toArray(new String[options.size()]), "\u0000");
     }
 }

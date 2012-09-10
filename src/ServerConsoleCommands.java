@@ -72,10 +72,6 @@ public class ServerConsoleCommands {
      * @return
      */
     public static boolean parseServerConsoleCommand(MessageReceiver caller, String command, String[] args) {
-        if (instance == null) {
-            instance = new ServerConsoleCommands();
-        }
-
         BaseCommand cmd = instance.getCommand(command);
 
         if (cmd != null) {
@@ -86,9 +82,25 @@ public class ServerConsoleCommands {
         return false;
     }
 
+    /**
+     * Searches for and returns {@code command} if found, {@code null}
+     * otherwise.
+     *
+     * @param command The command to search for
+     * @return {@code command} if found, {@code null} otherwise
+     */
     public BaseCommand getCommand(String command) {
         return commands.get(command);
     }
+
+    /**
+     * Returns the <tt>ServerConsoleCommands</tt> instance.
+     * @return the <tt>ServerConsoleCommands</tt> as used by the server.
+     */
+    public static ServerConsoleCommands getInstance() {
+        return instance;
+    }
+
     public static final BaseCommand reload = new BaseCommand("- Reloads CanaryMod") {
 
         @Override
@@ -686,4 +698,9 @@ public class ServerConsoleCommands {
             }
         }
     };
+
+    static {
+        // CanaryMod: Initialize *after* all the commands
+        instance = new ServerConsoleCommands();
+    }
 }

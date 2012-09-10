@@ -66,10 +66,6 @@ public class PlayerCommands {
      * @return true if {@code command} was found, false otherwise
      */
     public static boolean parsePlayerCommand(MessageReceiver caller, String command, String[] args) {
-        if (instance == null) {
-            instance = new PlayerCommands();
-        }
-
         BaseCommand cmd = instance.getCommand(command);
 
         if (cmd != null) {
@@ -90,6 +86,15 @@ public class PlayerCommands {
     public BaseCommand getCommand(String command) {
         return commands.get(command);
     }
+
+    /**
+     * Returns the <tt>PlayerCommands</tt> instance.
+     * @return the <tt>PlayerCommands</tt> as used by the server.
+     */
+    public static PlayerCommands getInstance() {
+        return instance;
+    }
+
     @Command
     public static final BaseCommand help = new BaseCommand("<Page|Pattern> - Shows a list of commands. 7 per page.") {
 
@@ -422,26 +427,26 @@ public class PlayerCommands {
                     	// probably be rewritten to use .giveItem()
                     	if (!toGive.isAdmin() &&
                     		!etc.getInstance().allowEnchantableItemStacking &&
-                    		((itemId >= 256 && itemId <= 258) || 
-                             (itemId >= 267 && itemId <= 279) || 
+                    		((itemId >= 256 && itemId <= 258) ||
+                             (itemId >= 267 && itemId <= 279) ||
                              (itemId >= 283 && itemId <= 286) ||
                              (itemId >= 298 && itemId <= 317) ||
                              (itemId == 261))) {
                     		toGive.giveItem(itemId, amount);
                     	} else {
 	                    	Item i = new Item(itemId, amount, -1, damage);
-	
+
 	                        log.info("Giving " + toGive.getName() + " some " + i.toString());
 	                        // toGive.giveItem(itemId, amount);
 	                        Inventory inv = toGive.getInventory();
 	                        ArrayList<Item> list = new ArrayList<Item>();
-	
+
 	                        for (Item it : inv.getContents()) {
 	                            if (it != null && it.getItemId() == i.getItemId() && it.getDamage() == i.getDamage()) {
 	                                list.add(it);
 	                            }
 	                        }
-	
+
 	                        for (Item it : list) {
 	                            if (it.getAmount() < 64) {
 	                                if (amount >= 64 - it.getAmount()) {
@@ -821,7 +826,7 @@ public class PlayerCommands {
                                 return;
                             }
                         }
-                        
+
 
                         toWarp.teleportTo(warp.Location);
                         toWarp.sendMessage(Colors.Rose + "Woosh!");
@@ -1348,4 +1353,9 @@ public class PlayerCommands {
             }
         }
     };
+
+    static {
+        // CanaryMod: Initialize *after* all the commands
+        instance = new PlayerCommands();
+    }
 }
