@@ -177,7 +177,7 @@ public class OPlayerManager {
             if (j1 != 0 || k1 != 0) {
                 // CanaryMod speed up teleporting.
                 if (j1 > this.e || j1 < -this.e || k1 > this.e || k1 < -this.e) {
-                    this.b(oentityplayermp);
+                    this.c(oentityplayermp);
                     this.a(oentityplayermp);
                     return;
                 }
