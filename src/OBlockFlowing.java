@@ -22,7 +22,7 @@ public class OBlockFlowing extends OBlockFluid {
         return this.cp != OMaterial.h;
     }
 
-    public void a(OWorld oworld, int i, int j, int k, Random random) {
+    public void b(OWorld oworld, int i, int j, int k, Random random) {
         // CanaryMod: Store originating block
         World world = oworld.world;
         Block blockFrom = new Block(world, this.ca, i, j, k);
