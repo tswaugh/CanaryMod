@@ -99,7 +99,7 @@ public class PlayerCommands {
     public static final BaseCommand help = new BaseCommand("<Page|Pattern> - Shows a list of commands. 7 per page.") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             // Meh, not the greatest way, but not the worst either.
             List<String> availableCommands = new ArrayList<String>();
 
@@ -170,7 +170,7 @@ public class PlayerCommands {
     public static final BaseCommand mute = new BaseCommand("<Player> - Mutes the player", "Correct usage is: /mute <player>", 2, 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             Player player = etc.getServer().matchPlayer(args[1]);
 
             if (player != null) {
@@ -194,7 +194,7 @@ public class PlayerCommands {
     public static final BaseCommand tell = new BaseCommand("<Player> <Message> - Sends a message to player", "Correct usage is: /msg <player> <message>", 3) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if ((caller instanceof Player) && ((Player) caller).isMuted()) {
                 caller.notify("You are currently muted.");
                 return;
@@ -219,7 +219,7 @@ public class PlayerCommands {
     public static final BaseCommand kit = new BaseCommand("<Kit> - Gives a kit. To get a list of kits type /kit", "Available kits (overridden)", 2, 3) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -293,7 +293,7 @@ public class PlayerCommands {
     public static final BaseCommand tp = new BaseCommand("<Player> - Teleports to player.", "Correct usage is: /tp <player>", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -321,7 +321,7 @@ public class PlayerCommands {
     public static final BaseCommand tphere = new BaseCommand("<Player> - Teleports the player to you", "Correct usage is: /tphere <player>", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -349,7 +349,7 @@ public class PlayerCommands {
     public static final BaseCommand playerlist = new BaseCommand("- Shows a list of players") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             caller.notify("Player list (" + etc.getServer().getPlayerList().size() + "/" + etc.getInstance().getPlayerLimit() + "): " + Colors.White + etc.getServer().getPlayerNames());
         }
     };
@@ -357,7 +357,7 @@ public class PlayerCommands {
     public static final BaseCommand item = new BaseCommand("<ID> [Amount] [Damage] [Player] - Gives items", "Correct usage is: /item <itemid> [amount] [damage] [player]", 2, 5) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -493,7 +493,7 @@ public class PlayerCommands {
     public static final BaseCommand clothdye = new BaseCommand("<Color> [Amount] - Gives you the specified dye/cloth", "Overridden", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             try {
                 String color = args[1];
 
@@ -609,7 +609,7 @@ public class PlayerCommands {
     public static final BaseCommand me = new BaseCommand("<Message> - * hey0 says hi!") {
 
         @Override
-        void execute(MessageReceiver caller, String[] split) {
+        protected void execute(MessageReceiver caller, String[] split) {
             if (caller instanceof Player && ((Player) caller).isMuted()) {
                 caller.notify("You are currently muted.");
                 return;
@@ -627,7 +627,7 @@ public class PlayerCommands {
     public static final BaseCommand sethome = new BaseCommand("- Sets your home") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player) && args.length < 2) {
                 return;
             }
@@ -672,7 +672,7 @@ public class PlayerCommands {
     public static final BaseCommand spawn = new BaseCommand("- Teleports you to spawn") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player) && args.length < 2) {
                 return;
             }
@@ -707,7 +707,7 @@ public class PlayerCommands {
     public static final BaseCommand setspawn = new BaseCommand("- Sets the spawn point to your position.") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player) && args.length < 2) {
                 return;
             }
@@ -746,7 +746,7 @@ public class PlayerCommands {
     public static final BaseCommand home = new BaseCommand("- Teleports you home") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -784,7 +784,7 @@ public class PlayerCommands {
     public static final BaseCommand warp = new BaseCommand("<Warp> - Warps to the specified warp.", "Correct usage is: /warp <warpname>", 2, 3) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             Player toWarp;
             Warp warp = etc.getDataSource().getWarp(args[1]);
 
@@ -843,7 +843,7 @@ public class PlayerCommands {
     public static final BaseCommand listwarps = new BaseCommand("- Gives a list of available warps") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -863,7 +863,7 @@ public class PlayerCommands {
     public static final BaseCommand setwarp = new BaseCommand("<Warp> - Sets the warp to your current position.", "Overridden", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -894,7 +894,7 @@ public class PlayerCommands {
     public static final BaseCommand removewarp = new BaseCommand("<Warp> - Removes the specified warp.", "Correct usage is: /removewarp <warpname>", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             Warp warp = etc.getDataSource().getWarp(args[1]);
 
             if (warp != null) {
@@ -909,7 +909,7 @@ public class PlayerCommands {
     public static final BaseCommand mode = new BaseCommand("- Changes your gamemode") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (args.length == 3 && (!(caller instanceof Player) || ((Player) caller).isAdmin())) {
                 Player player = etc.getServer().matchPlayer(args[2]);
 
@@ -966,7 +966,7 @@ public class PlayerCommands {
     public static final BaseCommand getpos = new BaseCommand("- Displays your current position.") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -987,7 +987,7 @@ public class PlayerCommands {
     public static final BaseCommand compass = new BaseCommand("- Gives you a compass reading.") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -1005,7 +1005,7 @@ public class PlayerCommands {
     public static final BaseCommand motd = new BaseCommand("- Displays the MOTD") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             etc.getInstance().getMotd(caller);
         }
     };
@@ -1013,7 +1013,7 @@ public class PlayerCommands {
     public static final BaseCommand spawnmob = new BaseCommand("<Name> [Amount] - Spawns a mob at the looked-at position", "Correct usage is: /spawnmob <name> [amount]", 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -1081,7 +1081,7 @@ public class PlayerCommands {
     public static final BaseCommand clearinventory = new BaseCommand("- Clears your inventory") {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
 
             Player target;
 
@@ -1109,7 +1109,7 @@ public class PlayerCommands {
     public static final BaseCommand mspawn = new BaseCommand("<Mob> - Change the looked at mob spawner's mob", "Correct usage is: /mspawn <name>.", 1, 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -1142,7 +1142,7 @@ public class PlayerCommands {
     public static final BaseCommand xp = new BaseCommand("<level|total|add|remove> [Player] [value] - XP status", "Usage: /xp <level|total|add|remove> [Player] <value>", 2, 4) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             if (!(caller instanceof Player)) {
                 return;
             }
@@ -1209,7 +1209,7 @@ public class PlayerCommands {
     public static final BaseCommand foodlevel = new BaseCommand("<add|remove|set> [Player] [value] - Sets player food level", "Correct usage is: /foodlevel <add|remove|set> [player] <value>", 2, 4) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             Player subject = (Player) caller;
             String command = "add";
             int foodLevel = 20;
@@ -1250,7 +1250,7 @@ public class PlayerCommands {
     public static final BaseCommand god = new BaseCommand("<Player> - Makes player invulnerable", "Correct usage is: /god <player>", 1, 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             Player subject = (Player) caller;
             String info = Colors.Yellow + "You are";
 
@@ -1278,7 +1278,7 @@ public class PlayerCommands {
     public static final BaseCommand kill = new BaseCommand("<Player> - Kill the specified player", "Correct usage is: /kill <player>", 1, 2) {
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             Player killer = (Player) caller;
             if (args.length == 2) {
                 Player victim = etc.getServer().matchPlayer(args[1]);
@@ -1314,7 +1314,7 @@ public class PlayerCommands {
         }
 
         @Override
-        void execute(MessageReceiver caller, String[] args) {
+        protected void execute(MessageReceiver caller, String[] args) {
             Player subject = null;
             if (args.length == 2) {
                 subject = etc.getServer().matchPlayer(args[1]);

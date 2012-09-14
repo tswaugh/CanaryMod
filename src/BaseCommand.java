@@ -50,7 +50,7 @@ public abstract class BaseCommand {
      * @param player
      * @param parameters
      */
-    abstract void execute(MessageReceiver caller, String[] parameters);
+    protected abstract void execute(MessageReceiver caller, String[] parameters);
 
     /**
      * Called by the server to autocomplete this command's options.
