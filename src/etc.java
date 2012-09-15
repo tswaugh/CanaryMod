@@ -56,7 +56,7 @@ public class etc {
     private PluginLoader                  loader;
     private boolean                       logging = false;
     private boolean                       enableHealth = true;
-    private boolean                       enableExperience = false;
+    private boolean                       enableExperience = true;
     //private boolean                       enableAntiXRay = false;
     //private boolean                       enableAntiXRayLighting = false;
     //private int[]                         opaqueAntiXRayBlocks = new int[] { 1, 2, 3, 4, 5, 7, 12, 13, 14, 15, 16, 17, 19, 21, 22, 23, 24, 25, 29, 33, 35, 36, 41, 42, 43, 45, 46, 47, 48, 49, 54, 56, 57, 58, 60, 61, 62, 73, 74, 80, 82, 84, 86, 87, 88, 89, 91, 95, 97, 98, 99, 100, 103, 110, 112, 120, 121};

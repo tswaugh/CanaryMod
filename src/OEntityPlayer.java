@@ -1133,14 +1133,14 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     }
 
     public void removeXP(int i) {
-        this.q -= i;
+        this.bE -= i;
         this.cc -= (float) i / (float) this.bK();
         this.cb -= i;
         levelUp();
     }
 
     public void setXP(int i) {
-        this.q = i;
+        this.bE = i;
         this.cc = (float) i / (float) this.bK();
         this.cb = i;
         levelUp();
