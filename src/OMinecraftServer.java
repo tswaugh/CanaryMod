@@ -25,7 +25,7 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
     private String r;
     private int s = -1;
     //public OWorldServer[] c;
-    private OServerConfigurationManager t;
+    protected OServerConfigurationManager t;
     private boolean u = true;
     private boolean v = false;
     private int w = 0;
