@@ -1139,7 +1139,7 @@ public class PlayerCommands {
         }
     };
     @Command
-    public static final BaseCommand xp = new BaseCommand("<level|total|add|remove> [Player] [value] - XP status", "Usage: /xp <level|total|add|remove> [Player] <value>", 2, 4) {
+    public static final BaseCommand xp = new BaseCommand("<level|total|add|remove> [Player] [value] - XP status", "Usage: /xp <level|total|add|remove> [Player] <value>", 1, 4) {
 
         @Override
         protected void execute(MessageReceiver caller, String[] args) {
@@ -1202,6 +1202,12 @@ public class PlayerCommands {
                 } else if (args[1].equalsIgnoreCase("total")) {
                     player.sendMessage("You have " + Colors.Yellow + player.getXP() + Colors.White + " Total EXP");
                 }
+            } else {
+            	player.sendMessage(player.getName() + ": " + Colors.Yellow + "Lvl. " + player.getLevel() + Colors.White + "");
+            	player.sendMessage("Total Experience: " + Colors.Yellow + player.getXP() + Colors.White + " / " + Colors.Yellow + player.getEntity().bK() + Colors.White);
+            	if(player.isAdmin()) {
+            		player.sendMessage(Colors.Yellow + (etc.getInstance().isOldExperience() ? "Pre-":"Post ") + "1.3.2 Experience System" + Colors.White);
+            	}
             }
         }
     };

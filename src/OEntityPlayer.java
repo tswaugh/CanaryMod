@@ -1115,6 +1115,13 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         }
     }
 
+    public void a(int i) {
+        this.ca -= i;
+        if (this.ca < 0) {
+            this.ca = 0;
+        }
+    }
+
     public void q(int i) {
         addXP(i);
     }
@@ -1125,50 +1132,44 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         if (i > j) {
             i = j;
         }
-        
+
         this.bE += i;
         this.cc += (float) i / (float) this.bK();
         this.cb += i;
-        levelUp();
+        levelUp(i);
     }
 
     public void removeXP(int i) {
         this.bE -= i;
         this.cc -= (float) i / (float) this.bK();
         this.cb -= i;
-        levelUp();
+        levelUp(i);
     }
 
     public void setXP(int i) {
         this.bE = i;
         this.cc = (float) i / (float) this.bK();
         this.cb = i;
-        levelUp();
+        levelUp(i);
     }
     
-    public void levelUp() {
+    public void levelUp(int i) {
         // CanaryMod: Make sure levels are right, even when removing XP.
-        int oldLevel = this.ca;
-        for (this.ca = 0, this.cc = this.cb; this.cc >= 1.0F; this.cc /= (float) this.bK()) {
-            this.cc = (this.cc - 1.0F) * (float) this.bK();
-            this.m();
-            
-            if (this.ca > oldLevel) {
-                manager.callHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
-            }
-        }
-    }
-
-    public void a(int i) {
-        this.ca -= i;
-        if (this.ca < 0) {
-            this.ca = 0;
-        }
-
+    	int oldLevel = this.ca;
+   		for (this.cb += i; this.cc >= 1.0F; this.cc /= (float) this.bK()) {
+   			this.cc = (this.cc - 1.0F) * (float) this.bK();
+   			this.m();
+   		}
+    	if (this.ca > oldLevel) {
+			manager.callHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
+		}
     }
 
     public int bK() {
-        return this.ca >= 30 ? 62 + (this.ca - 30) * 7 : (this.ca >= 15 ? 17 + (this.ca - 15) * 3 : 17);
+    	if(etc.getInstance().isOldExperience()) {
+    		return 7 + (this.ca * 7 >> 1);
+    	}
+   		return this.ca >= 30 ? 62 + (this.ca - 30) * 7 : (this.ca >= 15 ? 17 + (this.ca - 15) * 3 : 17);
     }
 
     private void m() {

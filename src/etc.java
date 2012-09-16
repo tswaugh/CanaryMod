@@ -57,6 +57,7 @@ public class etc {
     private boolean                       logging = false;
     private boolean                       enableHealth = true;
     private boolean                       enableExperience = true;
+    private boolean                       oldExperience = true;
     //private boolean                       enableAntiXRay = false;
     //private boolean                       enableAntiXRayLighting = false;
     //private int[]                         opaqueAntiXRayBlocks = new int[] { 1, 2, 3, 4, 5, 7, 12, 13, 14, 15, 16, 17, 19, 21, 22, 23, 24, 25, 29, 33, 35, 36, 41, 42, 43, 45, 46, 47, 48, 49, 54, 56, 57, 58, 60, 61, 62, 73, 74, 80, 82, 84, 86, 87, 88, 89, 91, 95, 97, 98, 99, 100, 103, 110, 112, 120, 121};
@@ -174,6 +175,7 @@ public class etc {
             allowEnd = properties.getBoolean("allow-end", true);
             enableHealth = properties.getBoolean("enable-health", true);
             enableExperience = properties.getBoolean("enable-experience", true);
+            oldExperience = properties.getBoolean("old-experience", false);
             //enableAntiXRay = properties.getBoolean("enable-antixray", false);
             //enableAntiXRayLighting = properties.getBoolean("enable-antixray-lighting", false);
             deathMessages = properties.getBoolean("death-message", true);
@@ -483,6 +485,16 @@ public class etc {
             }
         }*/
         return false;
+    }
+    
+    /**
+     * Returns true if using the older experience system
+     * 
+     * @return
+     */
+    
+    public boolean isOldExperience() {
+    	return oldExperience;
     }
 
     /**
