@@ -43,7 +43,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     protected float cd = 0.1F;
     protected float ce = 0.02F;
     public OEntityFishHook cf = null;
-    
+
     // CanaryMod start
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     HumanEntity entity = new HumanEntity(this);
@@ -280,7 +280,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         if (this.bC > 0) {
             --this.bC;
         }
-        
+
         // CanaryMod: adjust 'healing over time' independent of monster-spawn=true/false (nice notchup!)
         PluginLoader.HookResult autoHeal = etc.getInstance().autoHeal();
 
@@ -660,7 +660,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     public void a(OTileEntitySign otileentitysign) {}
 
     public void a(OTileEntityBrewingStand otileentitybrewingstand) {}
-    
+
     public void a(OIMerchant oimerchant) {}
 
     public void c(OItemStack oitemstack) {}
@@ -1125,7 +1125,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     public void q(int i) {
         addXP(i);
     }
-    
+
     public void addXP(int i) {
         int j = Integer.MAX_VALUE - this.cb;
 
@@ -1152,11 +1152,11 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         this.cb = i;
         levelUp(i);
     }
-    
+
     public void levelUp(int i) {
         // CanaryMod: Make sure levels are right, even when removing XP.
     	int oldLevel = this.ca;
-   		for (this.cb += i; this.cc >= 1.0F; this.cc /= (float) this.bK()) {
+   		for (; this.cc >= 1.0F; this.cc /= (float) this.bK()) {
    			this.cc = (this.cc - 1.0F) * (float) this.bK();
    			this.m();
    		}
