@@ -1116,7 +1116,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     }
 
     public void a(int i) {
-        if((Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, etc.getDataSource().getPlayer(bJ), cb, cb)){
+        if(!(Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, etc.getDataSource().getPlayer(bJ), cb, cb)){
             this.ca -= i;
             if (this.ca < 0) {
                 this.ca = 0;
