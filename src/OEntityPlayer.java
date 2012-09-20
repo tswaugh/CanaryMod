@@ -1138,24 +1138,24 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         this.bE += i;
         this.cc += (float) i / (float) this.bK();
         this.cb += i;
-        levelUp(i);
+        levelUp();
     }
 
     public void removeXP(int i) {
         this.bE -= i;
         this.cc -= (float) i / (float) this.bK();
         this.cb -= i;
-        levelUp(i);
+        levelUp();
     }
 
     public void setXP(int i) {
         this.bE = i;
         this.cc = (float) i / (float) this.bK();
         this.cb = i;
-        levelUp(i);
+        levelUp();
     }
 
-    public void levelUp(int i) {
+    public void levelUp() {
         // CanaryMod: Make sure levels are right, even when removing XP.
     	int oldLevel = this.ca;
    		for (; this.cc >= 1.0F; this.cc /= (float) this.bK()) {

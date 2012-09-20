@@ -1203,14 +1203,62 @@ public class PlayerCommands {
                     player.sendMessage("You have " + Colors.Yellow + player.getXP() + Colors.White + " Total EXP");
                 }
             } else {
-            	player.sendMessage(player.getName() + ": " + Colors.Yellow + "Lvl. " + player.getLevel() + Colors.White + "");
-            	player.sendMessage("Total Experience: " + Colors.Yellow + player.getXP() + Colors.White + " / " + Colors.Yellow + player.getEntity().bK() + Colors.White);
+            	int req = 0;
+            	int total = 0;
+            	
+            	if(etc.getInstance().isOldExperience()) {
+            		req = 7 + (player.getLevel() * 7 >> 1);
+            	} else {
+	            	if(player.getLevel() < 15) {
+	            		req = 17;
+	            	} else if(player.getLevel() >= 15 && player.getLevel() < 30) {
+	            		req = (3 * player.getLevel()) - 28;
+	            	} else if(player.getLevel() >= 30) {
+	            		req = (7 * player.getLevel()) - 148;
+	            	}
+            	}
+            	
+            	int currentLevel = player.getLevel();
+                int targetLevel = currentLevel + 1;
+                int targetXp = calcXp(targetLevel);
+                
+            	total = (int) Math.ceil(targetXp);
+            	
+            	player.sendMessage("User: " + Colors.Yellow + player.getName() + Colors.White); 
+            	player.sendMessage("Lvl: " + Colors.Yellow + player.getLevel() + Colors.White);
+            	player.sendMessage("Exp: " + Colors.Yellow + player.getXP() + Colors.White + " / " + Colors.Yellow + total + Colors.White);
             	if(player.isAdmin()) {
             		player.sendMessage(Colors.Yellow + (etc.getInstance().isOldExperience() ? "Pre-":"Post ") + "1.3.2 Experience System" + Colors.White);
             	}
             }
         }
     };
+    
+    private static int calcXp(int level) {
+        double whole = Math.floor((float) level);
+        double partial = (float) level - whole;
+        
+        double wholeXp = 0;
+        double partialXp = 0;
+        
+        if(!etc.getInstance().isOldExperience()) {
+	        double low = whole;
+	        double mid = Math.max(0, whole - 15);
+	        double high = Math.max(0, whole - 30);
+	        wholeXp = low * 17 + (mid * (mid - 1) / 2) * 3 + (high * (high - 1) / 2) * 7;
+	        double nextXp = (low * 17 + (mid * (mid - 1) / 2) * 3 + (high * (high - 1) / 2) * 7) - wholeXp;
+	        partialXp = nextXp * partial;
+        } else {
+        	double odd = Math.ceil(whole/2);
+        	double even = Math.floor(whole/2);
+        	double oddXp = (odd * (odd + 1) / 2) * 7;
+        	double evenXp = (even * (even + 1) / 2) * 7 + even * 3;
+            wholeXp = oddXp + evenXp;
+            partialXp = (7 + Math.floor((whole + 1) * 7 / 2)) * partial;
+        }
+
+        return (int) (wholeXp + partialXp); 
+    }
     @Command
     public static final BaseCommand foodlevel = new BaseCommand("<add|remove|set> [Player] [value] - Sets player food level", "Correct usage is: /foodlevel <add|remove|set> [player] <value>", 2, 4) {
 
