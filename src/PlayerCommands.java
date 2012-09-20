@@ -1203,39 +1203,39 @@ public class PlayerCommands {
                     player.sendMessage("You have " + Colors.Yellow + player.getXP() + Colors.White + " Total EXP");
                 }
             } else {
-            	int currentLevel = player.getLevel();
+                int currentLevel = player.getLevel();
                 int targetLevel = currentLevel + 1;
-                
+
                 double whole = Math.floor((float) targetLevel);
                 double partial = (float) targetLevel - whole;
-                
+
                 double wholeXp = 0;
                 double partialXp = 0;
-                
+
                 if(!etc.getInstance().isOldExperience()) {
-        	        double low = whole;
-        	        double mid = Math.max(0, whole - 15);
-        	        double high = Math.max(0, whole - 30);
-        	        wholeXp = low * 17 + (mid * (mid - 1) / 2) * 3 + (high * (high - 1) / 2) * 7;
-        	        double nextXp = (low * 17 + (mid * (mid - 1) / 2) * 3 + (high * (high - 1) / 2) * 7) - wholeXp;
-        	        partialXp = nextXp * partial;
+                    double low = whole;
+                    double mid = Math.max(0, whole - 15);
+                    double high = Math.max(0, whole - 30);
+                    wholeXp = low * 17 + (mid * (mid - 1) / 2) * 3 + (high * (high - 1) / 2) * 7;
+                    double nextXp = (low * 17 + (mid * (mid - 1) / 2) * 3 + (high * (high - 1) / 2) * 7) - wholeXp;
+                    partialXp = nextXp * partial;
                 } else {
-                	double odd = Math.ceil(whole/2);
-                	double even = Math.floor(whole/2);
-                	double oddXp = (odd * (odd + 1) / 2) * 7;
-                	double evenXp = (even * (even + 1) / 2) * 7 + even * 3;
+                    double odd = Math.ceil(whole/2);
+                    double even = Math.floor(whole/2);
+                    double oddXp = (odd * (odd + 1) / 2) * 7;
+                    double evenXp = (even * (even + 1) / 2) * 7 + even * 3;
                     wholeXp = oddXp + evenXp;
                     partialXp = (7 + Math.floor((whole + 1) * 7 / 2)) * partial;
                 }
 
-                int targetXp = (int) (wholeXp + partialXp); 
-                
-            	player.sendMessage("User: " + Colors.Yellow + player.getName() + Colors.White); 
-            	player.sendMessage("Lvl: " + Colors.Yellow + player.getLevel() + Colors.White);
-            	player.sendMessage("Exp: " + Colors.Yellow + player.getXP() + Colors.White + " / " + Colors.Yellow + (int) Math.ceil(targetXp) + Colors.White);
-            	if(player.isAdmin()) {
-            		player.sendMessage(Colors.Yellow + (etc.getInstance().isOldExperience() ? "Pre-":"Post ") + "1.3.2 Experience System" + Colors.White);
-            	}
+                int targetXp = (int) (wholeXp + partialXp);
+
+                player.sendMessage("User: " + Colors.Yellow + player.getName() + Colors.White);
+                player.sendMessage("Lvl: " + Colors.Yellow + player.getLevel() + Colors.White);
+                player.sendMessage("Exp: " + Colors.Yellow + player.getXP() + Colors.White + " / " + Colors.Yellow + (int) Math.ceil(targetXp) + Colors.White);
+                if(player.isAdmin()) {
+                    player.sendMessage(Colors.Yellow + (etc.getInstance().isOldExperience() ? "Pre-":"Post ") + "1.3.2 Experience System" + Colors.White);
+                }
             }
         }
     };
