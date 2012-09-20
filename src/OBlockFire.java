@@ -184,7 +184,7 @@ public class OBlockFire extends OBlock {
     }
 
     private boolean l(OWorld oworld, int i, int j, int k) {
-        return this.d(oworld, i + 1, j, k) ? true : (this.d(oworld, i - 1, j, k) ? true : (this.d(oworld, i, j - 1, k) ? true : (this.d(oworld, i, j + 1, k) ? true : (this.d(oworld, i, j, k - 1) ? true : this.d(oworld, i, j, k + 1)))));
+        return this.d((OIBlockAccess) oworld, i + 1, j, k) ? true : (this.d((OIBlockAccess) oworld, i - 1, j, k) ? true : (this.d((OIBlockAccess) oworld, i, j - 1, k) ? true : (this.d((OIBlockAccess) oworld, i, j + 1, k) ? true : (this.d((OIBlockAccess) oworld, i, j, k - 1) ? true : this.d((OIBlockAccess) oworld, i, j, k + 1)))));
     }
 
     private int n(OWorld oworld, int i, int j, int k) {
