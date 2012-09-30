@@ -154,6 +154,7 @@ public class etc {
                 groupLoc = properties.getString("group-txt-location", "config/groups.txt");
                 whitelistLoc = properties.getString("whitelist-txt-location", "config/whitelist.txt");
                 reservelistLoc = properties.getString("reservelist-txt-location", "config/reservelist.txt");
+                enderBlocksLoc = properties.getString("endermanblocks-txt-location", "config/endermanblocks.txt");
                 //antiXRayBlocksLoc = properties.getString("antixray-txt-location", "config/antixray.txt");
                 muteListLoc = properties.getString("muted-players-location", "config/muted-players.txt");
                 banListLoc = properties.getString("banned-players-location", "config/bans.txt");

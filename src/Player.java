@@ -1006,6 +1006,10 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
     
     public boolean canUseCooldownKit(Kit kit) {
+        if (!this.cooldownKits.containsKey(kit)) {
+            return true;
+        }
+
         boolean allow = this.cooldownKits.get(kit) > System.currentTimeMillis();
         if (allow) {
             this.removeCooldownKit(kit);
