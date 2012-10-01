@@ -706,7 +706,9 @@ public class ONetServerHandler extends ONetHandler {
 
             // TODO: this needs checking.
             // Location respawnLocation = new Location(e.p.world, defaultSpawnCoords.a, defaultSpawnCoords.b, defaultSpawnCoords.c, 0, 0);
-            Location respawnLocation = this.e.p.world.getSpawnLocation();
+            //Location respawnLocation = this.e.p.world.getSpawnLocation();
+            OChunkCoordinates loc = this.e.bJ();
+            Location respawnLocation = new Location(e.p.world, loc.a, loc.b, loc.c);
             
             if (this.e.j) {
                 etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, this.getPlayer(), respawnLocation);
