@@ -80,10 +80,10 @@ public class ONetServerHandler extends ONetHandler {
             HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.e.bJ), s); // XXX
 
             hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult);
-            if (!hookResult.isHidden()) { 
+            if (!hookResult.isHidden()) {
                 this.d.ab().a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
             }
-            
+
             this.d.ab().e(this.e);
             this.c = true;
         }
@@ -102,7 +102,7 @@ public class ONetServerHandler extends ONetHandler {
                     this.r = true;
                 }
             }
-            
+
             // CanaryMod: Notice player movement
             Player player = this.getPlayer();
 
@@ -291,7 +291,7 @@ public class ONetServerHandler extends ONetHandler {
     }
 
     public void a(double d0, double d1, double d2, float f, float f1) {
-        // CanaryMod: Teleportation hook 
+        // CanaryMod: Teleportation hook
         Location to = new Location();
 
         to.x = d0;
@@ -306,7 +306,7 @@ public class ONetServerHandler extends ONetHandler {
         if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.TELEPORT, player, player.getLocation(), to)) {
             return;
         }
-        
+
         this.r = false;
         this.o = d0;
         this.p = d1;
@@ -314,7 +314,7 @@ public class ONetServerHandler extends ONetHandler {
         this.e.a(d0, d1, d2, f, f1);
         this.e.a.b(new OPacket13PlayerLookMove(d0, d1 + 1.6200000047683716D, d1, d2, f, f1, false));
     }
-    
+
     // CanaryMod: Store x/y/z
     int x, y, z, type;
 
@@ -364,7 +364,7 @@ public class ONetServerHandler extends ONetHandler {
             if (l > i1) {
                 i1 = l;
             }
-            
+
             // CanaryMod: the player
             Player player = this.getPlayer();
 
@@ -398,7 +398,7 @@ public class ONetServerHandler extends ONetHandler {
 
                 block.setStatus(2); // Block broken
                 OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
-                
+
                 this.e.c.a(i, j, k);
                 if (oworldserver.a(i, j, k) != 0) {
                     this.e.a.b(new OPacket53BlockChange(i, j, k, oworldserver));
@@ -409,7 +409,7 @@ public class ONetServerHandler extends ONetHandler {
 
                 block.setStatus(1); // Stopped digging
                 OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
-                
+
                 this.e.c.c(i, j, k);
                 if (oworldserver.a(i, j, k) != 0) {
                     this.e.a.b(new OPacket53BlockChange(i, j, k, oworldserver));
@@ -420,7 +420,7 @@ public class ONetServerHandler extends ONetHandler {
 
                 block.setStatus(3); // Send update for block
                 OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
-                
+
                 double d4 = this.e.t - ((double) i + 0.5D);
                 double d5 = this.e.u - ((double) j + 0.5D);
                 double d6 = this.e.v - ((double) k + 0.5D);
@@ -434,20 +434,20 @@ public class ONetServerHandler extends ONetHandler {
             oworldserver.c = false;
         }
     }
-    
+
     // CanaryMod: Store the blocks between blockPlaced packets
     Block lastRightClicked;
 
     public void a(OPacket15Place opacket15place) {
         OWorldServer oworldserver = this.d.getWorld(this.e.p.name, this.e.bK);
         OItemStack oitemstack = this.e.by.g();
-        
+
         // CanaryMod: Store block data to call hooks
         // CanaryMod START
         Block blockClicked;
         Block blockPlaced = null;
 
-        
+
         boolean flag = false;
         int i = opacket15place.d();
         int j = opacket15place.f();
@@ -455,7 +455,7 @@ public class ONetServerHandler extends ONetHandler {
         int l = opacket15place.h();
         // We allow admins and ops to build!
         boolean flag1 = oworldserver.c = oworldserver.w.g != 0 || this.d.ab().e(this.e.bJ) || this.d.H() || this.getPlayer().isAdmin();
-        
+
         if (opacket15place.h() == 255) {
             // ITEM_USE -- if we have a lastRightClicked then it could be a
             // usable location
@@ -465,7 +465,7 @@ public class ONetServerHandler extends ONetHandler {
             // RIGHTCLICK or BLOCK_PLACE .. or nothing
             blockClicked = oworldserver.world.getBlockAt(i, j, k);
             blockClicked.setFaceClicked(Block.Face.fromId(opacket15place.h()));
-            
+
             this.lastRightClicked = blockClicked;
         }
 
@@ -486,7 +486,7 @@ public class ONetServerHandler extends ONetHandler {
                 // Set the type of block to what it currently is
                 blockPlaced.setType(oworldserver.world.getBlockIdAt(blockPlaced.getX(), blockPlaced.getY(), blockPlaced.getZ()));
             }
-            
+
             if (oitemstack == null) {
                 return;
             }
@@ -504,12 +504,12 @@ public class ONetServerHandler extends ONetHandler {
             if (i1 > j1) {
                 j1 = i1;
             }
-            
+
             // CanaryMod: call BLOCK_RIGHTCLICKED
             Item item = (oitemstack != null) ? new Item(oitemstack) : new Item(Item.Type.Air);
             Player player = this.getPlayer();
             boolean cancelled = (Boolean) OEntity.manager.callHook(PluginLoader.Hook.BLOCK_RIGHTCLICKED, player, blockClicked, item);
-         
+
             // CanaryMod: call original BLOCK_CREATED
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_CREATED, player, blockPlaced, blockClicked, item.getItemId());
             // CanaryMod: If we were building inside spawn, bail! (unless ops/admin)
@@ -580,12 +580,12 @@ public class ONetServerHandler extends ONetHandler {
         // CanaryMod: disconnect!
         OEntity.manager.callHook(PluginLoader.Hook.DISCONNECT, this.getPlayer());
         a.info(this.e.bJ + " lost connection: " + s);
-        
+
         // CanaryMod - onPlayerDisconnect Hook
         HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the server.", this.e.bJ), s);
 
         hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult); // XXX
-        if (!hookResult.isHidden()) { 
+        if (!hookResult.isHidden()) {
             this.d.ab().a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
         }
         this.d.ab().e(this.e);
@@ -628,9 +628,9 @@ public class ONetServerHandler extends ONetHandler {
 
     public void a(OPacket3Chat opacket3chat) {
         String s = opacket3chat.b;
-        
+
         // CanaryMod - disable native spam protection
-            
+
         // CanaryMod: redirect chathandling to player class
         getPlayer().chat(s);
     }
@@ -704,12 +704,11 @@ public class ONetServerHandler extends ONetHandler {
                 defaultSpawnCoords = this.e.p.E();
             }
 
-            // TODO: this needs checking.
-            // Location respawnLocation = new Location(e.p.world, defaultSpawnCoords.a, defaultSpawnCoords.b, defaultSpawnCoords.c, 0, 0);
-            //Location respawnLocation = this.e.p.world.getSpawnLocation();
+            // CanaryMod: check if your bed location exists before trying to respawn you there upon death
             OChunkCoordinates loc = this.e.bJ();
-            Location respawnLocation = new Location(e.p.world, loc.a, loc.b, loc.c);
-            
+            Location respawnLocation = loc == null ? this.e.p.world.getSpawnLocation() :  new Location(e.p.world, loc.a, loc.b, loc.c);
+
+
             if (this.e.j) {
                 etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, this.getPlayer(), respawnLocation);
                 this.e = this.d.ab().a(this.e, respawnLocation.dimension, true, respawnLocation);
@@ -855,12 +854,12 @@ public class ONetServerHandler extends ONetHandler {
 
                 i = opacket130updatesign.c;
                 OTileEntitySign otileentitysign1 = (OTileEntitySign) otileentity;
-                
+
                 // CanaryMod: Copy the old line text
                 String[] old = Arrays.copyOf(otileentitysign1.a, otileentitysign1.a.length);
 
                 System.arraycopy(opacket130updatesign.d, 0, otileentitysign1.a, 0, 4);
-                
+
                 // CanaryMod: Check if we can change it
                 Sign sign = new Sign(otileentitysign1);
 
@@ -885,7 +884,7 @@ public class ONetServerHandler extends ONetHandler {
     public boolean a() {
         return true;
     }
-    
+
     public void a(OPacket202PlayerAbilities opacket202playerabilities) {
         this.e.bZ.b = opacket202playerabilities.f() && this.e.bZ.c;
     }
@@ -950,10 +949,10 @@ public class ONetServerHandler extends ONetHandler {
             }
         }
     }
-    
+
     /**
      * Returns the item in player's hand
-     * 
+     *
      * @return item
      */
     public int getItemInHand() {
@@ -965,13 +964,13 @@ public class ONetServerHandler extends ONetHandler {
 
     /**
      * Returns the player
-     * 
+     *
      * @return player
      */
     public Player getPlayer() {
         return this.e.getPlayer();
     }
-    
+
     /**
      * Override player entity
      * @param player
@@ -979,7 +978,7 @@ public class ONetServerHandler extends ONetHandler {
     public void setPlayer(OEntityPlayerMP oentityplayermp) {
         this.e = oentityplayermp;
     }
-    
+
     /**
      * Override player entity
      * @param player
@@ -987,10 +986,10 @@ public class ONetServerHandler extends ONetHandler {
     public void setPlayer(Player player) {
         this.e = player.getEntity();
     }
-    
+
     /**
      * Sends a message to the player
-     * 
+     *
      * @param msg
      */
     public void msg(String msg) {
