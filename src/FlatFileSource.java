@@ -312,7 +312,8 @@ public class FlatFileSource extends DataSource {
                             home.Location.world = split[8];
                             home.Location.dimension = Integer.parseInt(split[7]);
                         } else {
-                            home.Location.world = etc.getServer().getDefaultWorld().getName();
+                            // Don't use Server.getDefaultWorld().getName() here as the worlds may not yet be loaded.
+                            home.Location.world = etc.getMCServer().I();
                         }
                         homes.add(home);
                     }
@@ -378,7 +379,8 @@ public class FlatFileSource extends DataSource {
                         if (split.length >= 7 + posShift) {
                             warp.Location.world = split[6 + posShift];
                         } else {
-                            warp.Location.world = etc.getServer().getDefaultWorld().getName();
+                            // Don't use Server.getDefaultWorld().getName() here as the worlds may not yet be loaded.
+                            warp.Location.world = etc.getMCServer().I();
                         }
 
                         warps.add(warp);

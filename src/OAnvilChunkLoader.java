@@ -257,7 +257,8 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
 
             oextendedblockstorage.a(onbttagcompound1.j("Blocks"));
             if (onbttagcompound1.b("Add")) {
-                oextendedblockstorage.a(new ONibbleArray(onbttagcompound1.j("Add"), 4));
+                // CanaryMod: "fix" crashing bug. Nobody uses block IDs over 255 anyway.
+                // oextendedblockstorage.a(new ONibbleArray(onbttagcompound1.j("Add"), 4));
             }
 
             oextendedblockstorage.b(new ONibbleArray(onbttagcompound1.j("Data"), 4));
