@@ -1485,7 +1485,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             // Start of line, add a colon to completed names
             for (Player p : etc.getServer().getPlayerList()) {
                 if (p.getName().startsWith(currentText)) {
-                    options.add(p.getName() + ": ");
+                    options.add(p.getName() + ":");
                 }
             }
         } else if (currentText.charAt(0) == '/') {
