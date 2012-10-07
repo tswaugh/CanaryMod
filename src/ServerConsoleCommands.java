@@ -107,6 +107,7 @@ public class ServerConsoleCommands {
         protected void execute(MessageReceiver caller, String[] parameters) {
             etc.getInstance().load();
             etc.getInstance().loadData();
+            etc.getDataSource().loadGroups();
             for (Player p : etc.getServer().getPlayerList()) {
                 p.getUser().reloadPlayer();
             }
