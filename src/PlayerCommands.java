@@ -245,32 +245,30 @@ public class PlayerCommands {
                     } else if (!player.canUseCooldownKit(kit)) {
                         caller.notify("You can't get this kit again for a while.");
                     } else {
-                        {
-                            if (!((Player) caller).canIgnoreRestrictions()) {
-                                if (kit.Delay >= 0) {
-                                    player.addCooldownKit(kit, kit.Delay);
-                                } else {
-                                    player.getOnlyOneUseKits().add(kit.Name);
-                                }
+                        if (!((Player) caller).canIgnoreRestrictions()) {
+                            if (kit.Delay >= 0) {
+                                player.addCooldownKit(kit, kit.Delay);
+                            } else {
+                                player.getOnlyOneUseKits().add(kit.Name);
                             }
+                        }
 
-                            log.info(caller.getName() + " got a kit!");
-                            toGive.notify("Enjoy this kit!");
-                            for (Entry<String, Integer> entry : kit.IDs.entrySet()) {
+                        log.info(caller.getName() + " got a kit!");
+                        toGive.notify("Enjoy this kit!");
+                        for (Entry<String, Integer> entry : kit.IDs.entrySet()) {
+                            try {
+                                int itemId;
+
                                 try {
-                                    int itemId;
-
-                                    try {
-                                        itemId = Integer.parseInt(entry.getKey());
-                                    } catch (NumberFormatException n) {
-                                        itemId = etc.getDataSource().getItem(entry.getKey());
-                                    }
-
-                                    toGive.giveItem(itemId, entry.getValue());
-                                } catch (Exception e1) {
-                                    log.info("Got an exception while giving out a kit (Kit name \"" + kit.Name + "\"). Are you sure all the Ids are numbers?");
-                                    caller.notify("The server encountered a problem while giving the kit :(");
+                                    itemId = Integer.parseInt(entry.getKey());
+                                } catch (NumberFormatException n) {
+                                    itemId = etc.getDataSource().getItem(entry.getKey());
                                 }
+
+                                toGive.giveItem(itemId, entry.getValue());
+                            } catch (Exception e1) {
+                                log.info("Got an exception while giving out a kit (Kit name \"" + kit.Name + "\"). Are you sure all the Ids are numbers?");
+                                caller.notify("The server encountered a problem while giving the kit :(");
                             }
                         }
                     }
