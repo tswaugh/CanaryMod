@@ -994,7 +994,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return List of kit names
      */
     public List<String> getOnlyOneUseKits() {
-        return new ArrayList(onlyOneUseKits);
+        return new ArrayList<String>(onlyOneUseKits);
     }
 
     public void addCooldownKit(Kit kit, int delay) {
@@ -1010,7 +1010,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             return true;
         }
 
-        boolean allow = this.cooldownKits.get(kit) > System.currentTimeMillis();
+        boolean allow = this.cooldownKits.get(kit) < System.currentTimeMillis();
         if (allow) {
             this.removeCooldownKit(kit);
         }
@@ -1494,7 +1494,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             // Start of line, add a colon to completed names
             for (Player p : etc.getServer().getPlayerList()) {
                 if (p.getName().startsWith(currentText)) {
-                    options.add(p.getName() + ": ");
+                    options.add(p.getName() + ":");
                 }
             }
         } else if (currentText.charAt(0) == '/') {
