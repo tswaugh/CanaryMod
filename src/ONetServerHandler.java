@@ -229,7 +229,7 @@ public class ONetServerHandler extends ONetHandler {
 
                 if (d11 > 100.0D && (!this.d.H() || !this.d.G().equals(this.e.bJ))) {
                     a.warning(this.e.bJ + " moved too quickly! " + d4 + "," + d6 + "," + d7 + " (" + d8 + ", " + d9 + ", " + d10 + ")");
-                    this.a(this.o, this.p, this.q, this.e.z, this.e.A);
+                    this.a(this.o, this.p, this.q, this.e.z, this.e.A,this.e.bK,this.e.p.name);
                     return;
                 }
 
@@ -264,7 +264,7 @@ public class ONetServerHandler extends ONetHandler {
                 boolean flag2 = oworldserver.a(this.e, this.e.D.c().e((double) f4, (double) f4, (double) f4)).isEmpty();
 
                 if (flag && (flag1 || !flag2) && !this.e.bn()) {
-                    this.a(this.o, this.p, this.q, f2, f3);
+                    this.a(this.o, this.p, this.q, f2, f3,this.e.bK,this.e.p.name);
                     return;
                 }
 
@@ -290,7 +290,7 @@ public class ONetServerHandler extends ONetHandler {
         }
     }
 
-    public void a(double d0, double d1, double d2, float f, float f1) {
+    public void a(double d0, double d1, double d2, float f, float f1, int i, String s) {//int world id string world name
         // CanaryMod: Teleportation hook
         Location to = new Location();
 
@@ -299,8 +299,10 @@ public class ONetServerHandler extends ONetHandler {
         to.z = d2;
         to.rotX = f;
         to.rotY = f1;
-        to.dimension = this.e.bK;
-        to.world = this.e.p.name;
+//        to.dimension = this.e.bK;
+//        to.world = this.e.p.name;
+        to.dimension = i;
+        to.world = s;
         Player player = this.getPlayer();
 
         if ((Boolean) OEntity.manager.callHook(PluginLoader.Hook.TELEPORT, player, player.getLocation(), to)) {
@@ -312,7 +314,8 @@ public class ONetServerHandler extends ONetHandler {
         this.p = d1;
         this.q = d2;
         this.e.a(d0, d1, d2, f, f1);
-        this.e.a.b(new OPacket13PlayerLookMove(d0, d1 + 1.6200000047683716D, d1, d2, f, f1, false));
+        this.e.a.b((OPacket) new OPacket13PlayerLookMove(d0, d1 + 1.6200000047683716D, d1, d2, f, f1, false));
+//        player.refreshCreativeMode();
     }
 
     // CanaryMod: Store x/y/z
