@@ -48,7 +48,7 @@ public class WrittenBook {
 
     public void setTitle(String title) {
     	if (book.d == null) {
-        	book.d = new ONBTTagCompound();
+        	book.d = new ONBTTagCompound("tag");
         }
         book.d.a("title", title);
     }
@@ -75,7 +75,7 @@ public class WrittenBook {
      */
     public void setAuthor(String author) {
     	if (book.d == null) {
-        	book.d = new ONBTTagCompound();
+        	book.d = new ONBTTagCompound("tag");
         }
         book.d.a("author", author);
     }
@@ -107,11 +107,11 @@ public class WrittenBook {
      */
     public void setPages(List<String> pages) {
         if (book.d == null) {
-        	book.d = new ONBTTagCompound();
+        	book.d = new ONBTTagCompound("tag");
         }
     	ONBTTagList nbtPages = new ONBTTagList("pages");
         for (String page : pages) {
-            nbtPages.a(new ONBTTagString(page));
+            nbtPages.a(new ONBTTagString("", page));
         }
         book.d.a("pages", nbtPages);
     }
