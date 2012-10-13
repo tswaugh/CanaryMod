@@ -79,7 +79,7 @@ public abstract class OServerConfigurationManager {
         // CanaryMod END
 
         this.c(oentityplayermp);
-        onetserverhandler.a(oentityplayermp.t, oentityplayermp.u, oentityplayermp.v, oentityplayermp.z, oentityplayermp.A, oentityplayermp.bK, oentityplayermp.p.name);
+        onetserverhandler.a(oentityplayermp.t, oentityplayermp.u, oentityplayermp.v, oentityplayermp.z, oentityplayermp.A);
         this.f.ac().a(onetserverhandler);
         onetserverhandler.b(new OPacket4UpdateTime(oworldserver.D()));
         if (this.f.P().length() > 0) {
@@ -136,7 +136,7 @@ public abstract class OServerConfigurationManager {
     public void c(OEntityPlayerMP oentityplayermp) {
         // CanaryMod: Playername with color and Prefix
         PlayerlistEntry entry = oentityplayermp.getPlayer().getPlayerlistEntry(true);
-
+        
         this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000)));
         this.b.add(oentityplayermp);
         OWorldServer oworldserver = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.bK);
@@ -173,7 +173,7 @@ public abstract class OServerConfigurationManager {
         oworldserver.e(oentityplayermp);
         oworldserver.q().c(oentityplayermp);
         this.b.remove(oentityplayermp);
-
+        
         // CanaryMod: Player color and Prefix
         if (etc.getInstance().isPlayerList_enabled()) {
             PlayerlistEntry entry = oentityplayermp.getPlayer().getPlayerlistEntry(false);
@@ -279,7 +279,7 @@ public abstract class OServerConfigurationManager {
             oentityplayermp = (OEntityPlayerMP) iterator.next();
             oentityplayermp.a.c("You logged in from another location");
         }
-
+        
         // CanaryMod: make sure the world is loaded into memory.
         OWorldServer world = etc.getServer().loadWorld(this.playerWorld.get(s))[0].getWorld();
 
@@ -302,33 +302,24 @@ public abstract class OServerConfigurationManager {
     // CanaryMod: alias to set location when spawning
     public OEntityPlayerMP a(OEntityPlayerMP oentityplayermp, int i, boolean flag, Location location) {
         oentityplayermp.q().o().a(oentityplayermp);
-        oentityplayermp.q().o().b(oentityplayermp);
+        //oentityplayermp.q().o().b(oentityplayermp);
         oentityplayermp.q().q().c(oentityplayermp);
         this.b.remove(oentityplayermp);
         this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK).f(oentityplayermp);
         OChunkCoordinates ochunkcoordinates = oentityplayermp.bJ();
 
         oentityplayermp.bK = i;
-        Object object;
-
-        if (this.f.L()) {
-            object = new ODemoWorldManager(this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK));
-        } else {
-            object = new OItemInWorldManager(this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK));
-        }
-
-        OEntityPlayerMP oentityplayermp1 = new OEntityPlayerMP(this.f, this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK), oentityplayermp.bJ, (OItemInWorldManager) object);
-
+        OEntityPlayerMP oentityplayermp1 = oentityplayermp;
+        oentityplayermp1.j = false;
         oentityplayermp1.a(oentityplayermp, flag);
-        oentityplayermp1.k = oentityplayermp.k;
-        oentityplayermp1.a = oentityplayermp.a;
-        OWorldServer oworldserver = this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK);
+
+        OWorldServer oworldserver = location.getWorld().getWorld();
 
         this.a(oentityplayermp1, oentityplayermp, oworldserver);
         OChunkCoordinates ochunkcoordinates1;
 
         if (ochunkcoordinates != null) {
-            ochunkcoordinates1 = OEntityPlayer.a((OWorld) this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.bK), ochunkcoordinates);
+            ochunkcoordinates1 = OEntityPlayer.a((OWorld) oworldserver, ochunkcoordinates);
             if (ochunkcoordinates1 != null) {
                 oentityplayermp1.b((double) ((float) ochunkcoordinates1.a + 0.5F), (double) ((float) ochunkcoordinates1.b + 0.1F), (double) ((float) ochunkcoordinates1.c + 0.5F), 0.0F, 0.0F);
                 oentityplayermp1.a(ochunkcoordinates);
@@ -348,15 +339,20 @@ public abstract class OServerConfigurationManager {
             oentityplayermp1.b(oentityplayermp1.t, oentityplayermp1.u + 1.0D, oentityplayermp1.v);
         }
 
-        oentityplayermp1.a.b(new OPacket9Respawn(oentityplayermp1.bK, (byte) oentityplayermp1.p.u, oentityplayermp1.p.H().t(), oentityplayermp1.p.K(), oentityplayermp1.c.b()));
+        // Force chunk cache reload on the client
+        oentityplayermp1.a.b(new OPacket9Respawn(oentityplayermp1.bK >= 0 ? -1 : 0, (byte) oworldserver.u, oworldserver.H().t(), oworldserver.K(), oentityplayermp1.c.b()));
+        oentityplayermp1.a.b(new OPacket9Respawn(oentityplayermp1.bK, (byte) oworldserver.u, oworldserver.H().t(), oworldserver.K(), oentityplayermp1.c.b()));
+        oentityplayermp1.a(oworldserver);
+        oentityplayermp1.L = false;
+
         ochunkcoordinates1 = oworldserver.E();
-        oentityplayermp1.a.a(oentityplayermp1.t, oentityplayermp1.u, oentityplayermp1.v, oentityplayermp1.z, oentityplayermp1.A, oentityplayermp1.bK, oentityplayermp1.p.name);
+        oentityplayermp1.a.a(oentityplayermp1.t, oentityplayermp1.u, oentityplayermp1.v, oentityplayermp1.z, oentityplayermp1.A);
         oentityplayermp1.a.b(new OPacket6SpawnPosition(ochunkcoordinates1.a, ochunkcoordinates1.b, ochunkcoordinates1.c));
         this.b(oentityplayermp1, oworldserver);
         oworldserver.q().a(oentityplayermp1);
         oworldserver.d(oentityplayermp1);
         this.b.add(oentityplayermp1);
-        oentityplayermp1.b();
+        //oentityplayermp1.b();
         return oentityplayermp1;
     }
 
@@ -420,7 +416,7 @@ public abstract class OServerConfigurationManager {
 
         oentityplayermp.a((OWorld) oworldserver1);
         this.a(oentityplayermp, oworldserver);
-        oentityplayermp.a.a(oentityplayermp.t, oentityplayermp.u, oentityplayermp.v, oentityplayermp.z, oentityplayermp.A, oentityplayermp.bK, oentityplayermp.p.name);
+        oentityplayermp.a.a(oentityplayermp.t, oentityplayermp.u, oentityplayermp.v, oentityplayermp.z, oentityplayermp.A);
         oentityplayermp.c.a(oworldserver1);
         this.b(oentityplayermp, oworldserver1);
         this.f(oentityplayermp);

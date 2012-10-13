@@ -1147,15 +1147,15 @@ public class PluginLoader {
                             break;
 
                         case FOODLEVEL_CHANGE:
-                            toRet = (Integer) listener.onFoodLevelChange((Player) parameters[0], (Integer) parameters[1], (Integer) parameters[2]);
+                            toRet = listener.onFoodLevelChange((Player) parameters[0], (Integer) parameters[1], (Integer) parameters[2]);
                             break;
 
                         case FOODEXHAUSTION_CHANGE:
-                            toRet = (Float) listener.onFoodExhaustionChange((Player) parameters[0], (Float) parameters[1], (Float) parameters[2]);
+                            toRet = listener.onFoodExhaustionChange((Player) parameters[0], (Float) parameters[1], (Float) parameters[2]);
                             break;
 
                         case FOODSATURATION_CHANGE:
-                            toRet = (Float) listener.onFoodSaturationChange((Player) parameters[0], (Float) parameters[1], (Float) parameters[2]);
+                            toRet = listener.onFoodSaturationChange((Player) parameters[0], (Float) parameters[1], (Float) parameters[2]);
                             break;
 
                         case POTION_EFFECT:
