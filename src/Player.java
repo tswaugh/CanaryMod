@@ -981,11 +981,6 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public void setSneaking(boolean sneaking) {
         getEntity().a(sneaking);
-        OPacket19EntityAction sneakUpdate = new OPacket19EntityAction();
-
-        sneakUpdate.a = getId();
-        sneakUpdate.b = sneaking ? 1 : 2;
-        this.getWorld().getEntityTracker().sendPacketToPlayersAndEntity(this.getEntity(), sneakUpdate);
     }
 
     /**
