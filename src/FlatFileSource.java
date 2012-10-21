@@ -509,7 +509,7 @@ public class FlatFileSource extends DataSource {
                 writer.write("pumpkin:86" + LINE_SEP);
                 writer.write("netherstone:87" + LINE_SEP);
                 writer.write("slowsand:88" + LINE_SEP);
-                writer.write("lightstone:89" + LINE_SEP);
+                writer.write("glowstone:89" + LINE_SEP);
                 writer.write("portal:90" + LINE_SEP);
                 writer.write("jackolantern:91" + LINE_SEP);
                 writer.write("jacko:91" + LINE_SEP);

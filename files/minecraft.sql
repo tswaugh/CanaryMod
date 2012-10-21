@@ -1,4 +1,4 @@
-﻿-- MySQL dump 10.13  Distrib 5.1.32, for Win32 (ia32)
+-- MySQL dump 10.13  Distrib 5.1.32, for Win32 (ia32)
 --
 -- Host: localhost    Database: minecraft
 -- ------------------------------------------------------
@@ -118,7 +118,7 @@ INSERT INTO `items` VALUES
 ('redstonetorchoff',75),('redstonetorchon',76),('button',77),('snow',78),
 ('ice',79),('snowblock',80),('cactus',81),('clayblock',82),
 ('reedblock',83),('jukebox',84),('fence',85),('pumpkin',86),
-('netherstone',87),('slowsand',88),('lightstone',89),('portal',90),
+('netherstone',87),('slowsand',88),('glowstone',89),('portal',90),
 ('jackolantern',91),('jacko',91),('lockedchest',95),('trapdoor',96),
 ('silverblock',97),('stonebrick',98),('hugebrownmushroom',99),
 ('hugeredmushroom',100),('ironbars',101),('glasspane',102),('melonblock',103),
