@@ -78,7 +78,7 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
     }
 
     public void a(OWorld oworld, OChunk ochunk) {
-        oworld.B();
+        oworld.C();
 
         try {
             ONBTTagCompound onbttagcompound = new ONBTTagCompound();
