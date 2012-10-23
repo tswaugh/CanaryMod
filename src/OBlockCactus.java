@@ -1,27 +1,23 @@
 import java.util.Random;
 
-
 public class OBlockCactus extends OBlock {
 
-    protected OBlockCactus(int i, int j) {
-        super(i, j, OMaterial.x);
-        this.b(true);
-        this.a(OCreativeTabs.c);
+    protected OBlockCactus(int i, int j)
+    {
+        super(i, j, OMaterial.y);
+        b(true);
+        a(OCreativeTabs.c);
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
         if (oworld.c(i, j + 1, k)) {
             int l;
-
-            for (l = 1; oworld.a(i, j - l, k) == this.ca; ++l) {
-                ;
-            }
-
-            if (l < 3) {
+            for(l = 1; oworld.a(i, j - l, k) == cm; l++);
+            if(l < 3){
                 int i1 = oworld.g(i, j, k);
 
                 if (i1 == 15) {
-                    oworld.e(i, j + 1, k, this.ca);
+                    oworld.e(i, j + 1, k, cm);
                     oworld.c(i, j, k, 0);
                 } else {
                     oworld.c(i, j, k, i1 + 1);
@@ -34,22 +30,22 @@ public class OBlockCactus extends OBlock {
     public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
         float f = 0.0625F;
 
-        return OAxisAlignedBB.a().a((double) ((float) i + f), (double) j, (double) ((float) k + f), (double) ((float) (i + 1) - f), (double) ((float) (j + 1) - f), (double) ((float) (k + 1) - f));
+        return OAxisAlignedBB.a().a((float)i + f, j, (float)k + f, (float)(i + 1) - f, (float)(j + 1) - f, (float)(k + 1) - f);
     }
 
     public int a(int i) {
-        return i == 1 ? this.bZ - 1 : (i == 0 ? this.bZ + 1 : this.bZ);
+        return i == 1 ? cl - 1 : (i == 0 ? cl + 1 : cl);
+    }
+
+    public boolean b() {
+        return false;
     }
 
     public boolean c() {
         return false;
     }
 
-    public boolean d() {
-        return false;
-    }
-
-    public int b() {
+    public int d() {
         return 13;
     }
 
@@ -77,7 +73,7 @@ public class OBlockCactus extends OBlock {
         } else {
             int l = oworld.a(i, j - 1, k);
 
-            return l == OBlock.aV.ca || l == OBlock.E.ca;
+            return l == OBlock.aY.cm || l == OBlock.H.cm;
         }
     }
 
