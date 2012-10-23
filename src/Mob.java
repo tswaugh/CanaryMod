@@ -175,7 +175,7 @@ public class Mob extends LivingEntity {
 
     public boolean isInLove(){
     	if (getEntity() instanceof OEntityAnimal){
-    		return ((OEntityAnimal) getEntity()).s();
+    		return ((OEntityAnimal) getEntity()).r();
     	}
     	return false;
     }

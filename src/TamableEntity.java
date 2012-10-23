@@ -36,7 +36,7 @@ public class TamableEntity extends Mob{
 	 * @return The name of the player who owns this animal.
 	 */
 	public String getOwnerName(){
-		return getEntity().p();
+		return getEntity().o();
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class TamableEntity extends Mob{
 	 * @return A Player instance of this animals owner, else null.
 	 */
 	public Player getOwner(){
-		LivingEntity le = new LivingEntity(getEntity().q());
+		LivingEntity le = new LivingEntity(getEntity().p());
 		if (le.isPlayer()){
 			return le.getPlayer();
 		} else {

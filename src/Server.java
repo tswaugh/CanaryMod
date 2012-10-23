@@ -801,7 +801,7 @@ public class Server {
     public void addRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
             if (recipe[i] instanceof Block.Type) {
-                recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
+                recipe[i] = OBlock.p[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
                 recipe[i] = OItem.e[((Item.Type) recipe[i]).getId()];
             }
@@ -820,7 +820,7 @@ public class Server {
     public void addShapelessRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
             if (recipe[i] instanceof Block.Type) {
-                recipe[i] = OBlock.m[((Block.Type) recipe[i]).getType()];
+                recipe[i] = OBlock.p[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
                 recipe[i] = OItem.e[((Item.Type) recipe[i]).getId()];
             }
