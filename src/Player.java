@@ -19,9 +19,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     private String[] commands = new String[] { "" };
     private ArrayList<String> groups = new ArrayList<String>();
     private String[] ips = new String[] { "" };
-    private boolean ignoreRestrictions = false;
-    private boolean admin = false;
-    private boolean canModifyWorld = false;
+    private int restrictions = 0;
     private boolean muted = false;
     private PlayerInventory inventory;
     private List<String> onlyOneUseKits = new ArrayList<String>();
@@ -550,21 +548,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public boolean isAdmin() {
-        if (admin) {
-            return true;
-        }
-
-        for (String str : groups) {
-            Group group = etc.getDataSource().getGroup(str);
-
-            if (group != null) {
-                if (group.Administrator) {
-                    this.admin = true;
-                    return true;
-                }
-            }
-        }
-        return false;
+        return restrictions >= 2;
     }
 
     /**
@@ -572,8 +556,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      * @return
      */
+    @Deprecated
     public boolean getAdmin() {
-        return admin;
+        return isAdmin();
     }
 
     /**
@@ -582,7 +567,11 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param admin
      */
     public void setAdmin(boolean admin) {
-        this.admin = admin;
+        if(admin) {
+        	restrictions = 2;
+        } else if(restrictions >= 2) {
+        	restrictions = 1;
+        }
     }
 
     /**
@@ -591,28 +580,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public boolean canBuild() {
-        if (canModifyWorld) {
-            return true;
-        }
-
-        for (String str : groups) {
-            Group group = etc.getDataSource().getGroup(str);
-
-            if (group != null) {
-                if (group.CanModifyWorld) {
-                    this.canModifyWorld = true;
-                    return true;
-                }
-            }
-        }
-
-        if (hasNoGroups()) {
-            if (etc.getInstance().getDefaultGroup().CanModifyWorld) {
-                return true;
-            }
-        }
-
-        return false;
+    	return restrictions >= 0;
     }
 
     /**
@@ -620,8 +588,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      * @return
      */
+    @Deprecated
     public boolean canModifyWorld() {
-        return canModifyWorld;
+        return canBuild();
     }
 
     /**
@@ -630,7 +599,13 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param canModifyWorld
      */
     public void setCanModifyWorld(boolean canModifyWorld) {
-        this.canModifyWorld = canModifyWorld;
+    	if(canModifyWorld) {
+    		if(restrictions < 0) {
+            	restrictions = 0;
+            }
+    	} else {
+    		restrictions = -1;
+    	}
     }
 
     /**
@@ -721,20 +696,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public boolean canIgnoreRestrictions() {
-        if (admin || ignoreRestrictions) {
-            return true;
-        }
-
-        for (String str : groups) {
-            Group group = etc.getDataSource().getGroup(str);
-
-            if (group != null) {
-                if (group.Administrator || group.IgnoreRestrictions) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    	return restrictions >= 1;
     }
 
     /**
@@ -742,8 +704,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * 
      * @return
      */
+    @Deprecated
     public boolean ignoreRestrictions() {
-        return ignoreRestrictions;
+        return canIgnoreRestrictions();
     }
 
     /**
@@ -752,7 +715,13 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param ignoreRestrictions
      */
     public void setIgnoreRestrictions(boolean ignoreRestrictions) {
-        this.ignoreRestrictions = ignoreRestrictions;
+        if(ignoreRestrictions) {
+        	if(restrictions < 1) {
+        		restrictions = 1;
+        	}
+        } else if(restrictions > 0) {
+        	restrictions = 0;
+        }
     }
 
     /**
@@ -1513,5 +1482,23 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
 
         return etc.combineSplit(0, options.toArray(new String[options.size()]), "\u0000");
+    }
+    
+    /**
+     * Don't use. Use setCanModifyWorld(), setIgnoreRestrictions(), and setAdmin()
+     * 
+     * @param restrictions
+     */
+    protected void setRestrictions(int restrictions) {
+    	this.restrictions = restrictions;
+    }
+    
+    /**
+     * Don't use. Use canModifyWorld(), canIgnoreRestrictions(), and isAdmin()
+     * 
+     * @return
+     */
+    protected int getRestrictions() {
+    	return this.restrictions;
     }
 }

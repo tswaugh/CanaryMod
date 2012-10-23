@@ -206,9 +206,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `groups` varchar(64) NOT NULL,
   `prefix` varchar(10) NOT NULL DEFAULT '',
   `commands` LONGTEXT DEFAULT '',
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `canmodifyworld` tinyint(1) NOT NULL DEFAULT '1',
-  `ignoresrestrictions` tinyint(1) NOT NULL DEFAULT '0',
+  `admin/unrestricted` tinyint(1) DEFAULT NULL,
   `ip` VARCHAR(128) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;

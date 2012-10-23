@@ -1023,15 +1023,7 @@ public class FlatFileSource extends DataSource {
             builder.append(":");
             builder.append(etc.combineSplit(0, player.getGroups(), ","));
             builder.append(":");
-            if (player.getAdmin()) {
-                builder.append("2");
-            } else if (player.ignoreRestrictions()) {
-                builder.append("1");
-            } else if (!player.canModifyWorld()) {
-                builder.append("-1");
-            } else {
-                builder.append("0");
-            }
+            builder.append(player.getRestrictions());
             builder.append(":");
             builder.append(player.getPrefix());
             builder.append(":");
@@ -1066,15 +1058,7 @@ public class FlatFileSource extends DataSource {
                     builder.append(":");
                     builder.append(etc.combineSplit(0, player.getGroups(), ","));
                     builder.append(":");
-                    if (player.getAdmin()) {
-                        builder.append("2");
-                    } else if (player.ignoreRestrictions()) {
-                        builder.append("1");
-                    } else if (!player.canModifyWorld()) {
-                        builder.append("-1");
-                    } else {
-                        builder.append("0");
-                    }
+                    builder.append(player.getRestrictions());
                     builder.append(":");
                     builder.append(player.getPrefix());
                     builder.append(":");
@@ -1151,12 +1135,25 @@ public class FlatFileSource extends DataSource {
                 player.setGroups(split[1].split(","));
 
                 if (split.length >= 3) {
-                    if (split[2].equals("1")) {
-                        player.setIgnoreRestrictions(true);
-                    } else if (split[2].equals("2")) {
-                        player.setAdmin(true);
-                    } else if (split[2].equals("-1")) {
-                        player.setCanModifyWorld(false);
+                	try {
+                		player.setRestrictions(Integer.parseInt(split[2]));
+                	} catch (NumberFormatException e) {
+                		log.log(Level.SEVERE, "The value 'ADMIN/UNRESTRICTED' for player '" + name + "' in " + location + " is not a number.");
+                	}
+                } else {
+                	for (String str : player.getGroups()) {
+                        Group group = etc.getDataSource().getGroup(str);
+
+                        if (group != null) {
+                            if (group.Administrator) {
+                                player.setRestrictions(2);
+                                break;
+                            } else if (group.IgnoreRestrictions) {
+                            	player.setRestrictions(1);
+                            } else if (!group.CanModifyWorld && !player.canIgnoreRestrictions()) {
+                            	player.setRestrictions(-1);
+                            }
+                        }
                     }
                 }
 
