@@ -1,5 +1,6 @@
-public class TamableEntity extends Mob{
-	public TamableEntity(OEntityTameable entity){
+public class TamableEntity extends Mob {
+	
+	public TamableEntity(OEntityTameable entity) {
 		super(entity);
 	}
 
@@ -8,8 +9,8 @@ public class TamableEntity extends Mob{
 	 * 
 	 * @return True if tamed.
 	 */
-	public boolean isTame(){
-		return getEntity().n();
+	public boolean isTame() {
+		return getEntity().m();
 	}
 
 	/**
@@ -17,7 +18,7 @@ public class TamableEntity extends Mob{
 	 * 
 	 * @param player The new player who is the owner of this animal.
 	 */
-	public void setOwner(Player player){
+	public void setOwner(Player player) {
 		setOwnerName(player.getName());
 	}
 
@@ -26,7 +27,7 @@ public class TamableEntity extends Mob{
 	 * 
 	 * @param name The name of the player who owns this animal.
 	 */
-	public void setOwnerName(String name){
+	public void setOwnerName(String name) {
 		getEntity().a(name);
 	}
 
@@ -35,7 +36,7 @@ public class TamableEntity extends Mob{
 	 * 
 	 * @return The name of the player who owns this animal.
 	 */
-	public String getOwnerName(){
+	public String getOwnerName() {
 		return getEntity().o();
 	}
 
@@ -44,9 +45,9 @@ public class TamableEntity extends Mob{
 	 * 
 	 * @return A Player instance of this animals owner, else null.
 	 */
-	public Player getOwner(){
+	public Player getOwner() {
 		LivingEntity le = new LivingEntity(getEntity().p());
-		if (le.isPlayer()){
+		if (le.isPlayer()) {
 			return le.getPlayer();
 		} else {
 			return null;
@@ -58,8 +59,8 @@ public class TamableEntity extends Mob{
 	 * 
 	 * @param tame True if the animal should be tame.
 	 */
-	public void setTame(boolean tame){
-		getEntity().b(tame);
+	public void setTame(boolean tame) {
+		getEntity().g(tame);
 	}
 
 	/**
@@ -67,12 +68,8 @@ public class TamableEntity extends Mob{
 	 * 
 	 * @param sitting If this animal should be sitting.
 	 */
-	public void setSitting(boolean sitting){
-		int i = getEntity().af.a(16);
-		if (sitting)
-			getEntity().af.b(16, Byte.valueOf((byte)(i | 0x1)));
-		else
-			getEntity().af.b(16, Byte.valueOf((byte)(i & 0xFFFFFFFE)));
+	public void setSitting(boolean sitting) {
+		getEntity().h(sitting);
 	}
 
 	/**
@@ -80,8 +77,8 @@ public class TamableEntity extends Mob{
 	 * 
 	 * @return Sitting or not.
 	 */
-	public boolean isSitting(){
-		return getEntity().o();
+	public boolean isSitting() {
+		return getEntity().n();
 	}
 
     @Override
