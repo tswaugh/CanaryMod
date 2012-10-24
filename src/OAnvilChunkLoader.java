@@ -78,7 +78,7 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
     }
 
     public void a(OWorld oworld, OChunk ochunk) {
-        oworld.B();
+        oworld.C();
 
         try {
             ONBTTagCompound onbttagcompound = new ONBTTagCompound();
@@ -152,7 +152,7 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
     private void a(OChunk ochunk, OWorld oworld, ONBTTagCompound onbttagcompound) {
         onbttagcompound.a("xPos", ochunk.g);
         onbttagcompound.a("zPos", ochunk.h);
-        onbttagcompound.a("LastUpdate", oworld.D());
+        onbttagcompound.a("LastUpdate", oworld.E());
         onbttagcompound.a("HeightMap", ochunk.f);
         onbttagcompound.a("TerrainPopulated", ochunk.k);
         OExtendedBlockStorage[] aoextendedblockstorage = ochunk.i();
@@ -218,7 +218,7 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
         List list = oworld.a(ochunk, false);
 
         if (list != null) {
-            long k = oworld.D();
+            long k = oworld.E();
             ONBTTagList onbttaglist3 = new ONBTTagList();
             Iterator iterator1 = list.iterator();
 

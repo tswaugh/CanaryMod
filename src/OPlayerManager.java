@@ -45,7 +45,7 @@ public class OPlayerManager {
 
         this.d.clear();
         if (this.b.isEmpty()) {
-            OWorldProvider oworldprovider = this.a.w;
+            OWorldProvider oworldprovider = this.a.v;
 
             if (!oworldprovider.e()) {
                 this.a.b.a();

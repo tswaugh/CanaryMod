@@ -20,8 +20,8 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         this.c = oiinventory1;
     }
 
-    public int i_() {
-        return this.b.i_() + this.c.i_();
+    public int k_() {
+        return this.b.k_() + this.c.k_();
     }
 
     public String b() {
@@ -29,28 +29,28 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
     }
 
     public OItemStack a(int i) {
-        return i >= this.b.i_() ? this.c.a(i - this.b.i_()) : this.b.a(i);
+        return i >= this.b.k_() ? this.c.a(i - this.b.k_()) : this.b.a(i);
     }
 
     public OItemStack a(int i, int j) {
-        return i >= this.b.i_() ? this.c.a(i - this.b.i_(), j) : this.b.a(i, j);
+        return i >= this.b.k_() ? this.c.a(i - this.b.k_(), j) : this.b.a(i, j);
     }
 
-    public OItemStack b(int i) {
-        return i >= this.b.i_() ? this.c.b(i - this.b.i_()) : this.b.b(i);
+    public OItemStack a_(int i) {
+        return i >= this.b.k_() ? this.c.a_(i - this.b.k_()) : this.b.a_(i);
     }
 
     public void a(int i, OItemStack oitemstack) {
-        if (i >= this.b.i_()) {
-            this.c.a(i - this.b.i_(), oitemstack);
+        if (i >= this.b.k_()) {
+            this.c.a(i - this.b.k_(), oitemstack);
         } else {
             this.b.a(i, oitemstack);
         }
 
     }
 
-    public int j_() {
-        return this.b.j_();
+    public int c() {
+        return this.b.c();
     }
 
     public void d() {
@@ -62,9 +62,9 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         return this.b.a(oentityplayer) && this.c.a(oentityplayer);
     }
 
-    public void k_() {
-        this.b.k_();
-        this.c.k_();
+    public void l_() {
+        this.b.l_();
+        this.c.l_();
     }
 
     public void f() {

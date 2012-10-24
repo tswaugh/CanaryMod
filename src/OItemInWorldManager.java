@@ -27,8 +27,8 @@ public class OItemInWorldManager {
 
     public void a(OEnumGameType oenumgametype) {
         this.c = oenumgametype;
-        oenumgametype.a(this.b.bZ);
-        this.b.p();
+        oenumgametype.a(this.b.cf);
+        this.b.o();
     }
 
     public OEnumGameType b() {
@@ -60,12 +60,12 @@ public class OItemInWorldManager {
             if (k == 0) {
                 this.j = false;
             } else {
-                OBlock oblock = OBlock.m[k];
+                OBlock oblock = OBlock.p[k];
 
                 f = oblock.a(this.b, this.b.p, this.k, this.l, this.m) * (float) (i + 1);
                 j = (int) (f * 10.0F);
                 if (j != this.o) {
-                    this.a.f(this.b.k, this.k, this.l, this.m, j);
+                    this.a.g(this.b.k, this.k, this.l, this.m, j);
                     this.o = j;
                 }
 
@@ -76,10 +76,10 @@ public class OItemInWorldManager {
             }
         } else if (this.d) {
             i = this.a.a(this.f, this.g, this.h);
-            OBlock oblock1 = OBlock.m[i];
+            OBlock oblock1 = OBlock.p[i];
 
             if (oblock1 == null) {
-                this.a.f(this.b.k, this.f, this.g, this.h, -1);
+                this.a.g(this.b.k, this.f, this.g, this.h, -1);
                 this.o = -1;
                 this.d = false;
             } else {
@@ -88,7 +88,7 @@ public class OItemInWorldManager {
                 f = oblock1.a(this.b, this.b.p, this.f, this.g, this.h) * (float) (l + 1);
                 j = (int) (f * 10.0F);
                 if (j != this.o) {
-                    this.a.f(this.b.k, this.f, this.g, this.h, j);
+                    this.a.g(this.b.k, this.f, this.g, this.h, j);
                     this.o = j;
                 }
             }
@@ -96,7 +96,7 @@ public class OItemInWorldManager {
     }
 
     public void a(int i, int j, int k, int l) {
-        if (!this.c.c()) {
+        if (!this.c.c() || this.b.f(i, j, k)) {
             if (this.d()) {
                 if (!this.a.a((OEntityPlayer) null, i, j, k, l)) {
                     this.b(i, j, k);
@@ -108,8 +108,8 @@ public class OItemInWorldManager {
                 int i1 = this.a.a(i, j, k);
 
                 if (i1 > 0) {
-                    OBlock.m[i1].a(this.a, i, j, k, (OEntityPlayer) this.b);
-                    f = OBlock.m[i1].a(this.b, this.b.p, i, j, k);
+                    OBlock.p[i1].a(this.a, i, j, k, (OEntityPlayer) this.b);
+                    f = OBlock.p[i1].a(this.b, this.b.p, i, j, k);
                 }
 
                 if (i1 > 0 && f >= 1.0F) {
@@ -121,7 +121,7 @@ public class OItemInWorldManager {
                     this.h = k;
                     int j1 = (int) (f * 10.0F);
 
-                    this.a.f(this.b.k, i, j, k, j1);
+                    this.a.g(this.b.k, i, j, k, j1);
                     this.o = j1;
                 }
             }
@@ -134,12 +134,12 @@ public class OItemInWorldManager {
             int i1 = this.a.a(i, j, k);
 
             if (i1 != 0) {
-                OBlock oblock = OBlock.m[i1];
+                OBlock oblock = OBlock.p[i1];
                 float f = oblock.a(this.b, this.b.p, i, j, k) * (float) (l + 1);
 
                 if (f >= 0.7F) {
                     this.d = false;
-                    this.a.f(this.b.k, i, j, k, -1);
+                    this.a.g(this.b.k, i, j, k, -1);
                     this.b(i, j, k);
                 } else if (!this.j) {
                     this.d = false;
@@ -155,11 +155,11 @@ public class OItemInWorldManager {
 
     public void c(int i, int j, int k) {
         this.d = false;
-        this.a.f(this.b.k, this.f, this.g, this.h, -1);
+        this.a.g(this.b.k, this.f, this.g, this.h, -1);
     }
 
     private boolean d(int i, int j, int k) {
-        OBlock oblock = OBlock.m[this.a.a(i, j, k)];
+        OBlock oblock = OBlock.p[this.a.a(i, j, k)];
         int l = this.a.g(i, j, k);
         
         if (oblock != null) {
@@ -169,14 +169,14 @@ public class OItemInWorldManager {
         boolean flag = this.a.e(i, j, k, 0);
 
         if (oblock != null && flag) {
-            oblock.d(this.a, i, j, k, l);
+            oblock.c(this.a, i, j, k, l);
         }
 
         return flag;
     }
     
     public boolean b(int i, int j, int k) {
-        if (this.c.c()) {
+        if (this.c.c() && !this.b.f(i, j, k)) {
             return false;
         } else {
             // CanaryMod start - portal destroy
@@ -232,18 +232,18 @@ public class OItemInWorldManager {
             if (this.d()) {
                 this.b.a.b(new OPacket53BlockChange(i, j, k, this.a));
             } else {
-                OItemStack oitemstack = this.b.bC();
-                boolean flag1 = this.b.b(OBlock.m[l]);
+                OItemStack oitemstack = this.b.bP();
+                boolean flag1 = this.b.b(OBlock.p[l]);
 
                 if (oitemstack != null) {
                     oitemstack.a(this.a, l, i, j, k, this.b);
                     if (oitemstack.a == 0) {
-                        this.b.bD();
+                        this.b.bQ();
                     }
                 }
 
                 if (flag && flag1) {
-                    OBlock.m[l].a(this.a, this.b, i, j, k, i1);
+                    OBlock.p[l].a(this.a, this.b, i, j, k, i1);
                 }
             }
 
@@ -256,17 +256,23 @@ public class OItemInWorldManager {
         int j = oitemstack.j();
         OItemStack oitemstack1 = oitemstack.a(oworld, oentityplayer);
 
-        if (oitemstack1 == oitemstack && (oitemstack1 == null || oitemstack1.a == i) && (oitemstack1 == null || oitemstack1.m() <= 0)) {
+        if (oitemstack1 == oitemstack && (oitemstack1 == null || oitemstack1.a == i && oitemstack1.m() <= 0 && oitemstack1.j() == j)) {
             return false;
         } else {
-            oentityplayer.by.a[oentityplayer.by.c] = oitemstack1;
+            oentityplayer.bK.a[oentityplayer.bK.c] = oitemstack1;
             if (this.d()) {
                 oitemstack1.a = i;
+                if (oitemstack1.f()) {
                 oitemstack1.b(j);
+            }
             }
 
             if (oitemstack1.a == 0) {
-                oentityplayer.by.a[oentityplayer.by.c] = null;
+                oentityplayer.bK.a[oentityplayer.bK.c] = null;
+            }
+
+            if (!oentityplayer.bI()) {
+                ((OEntityPlayerMP) oentityplayer).a(oentityplayer.bL);
             }
 
             return true;
@@ -299,7 +305,7 @@ public class OItemInWorldManager {
     public boolean a(OEntityPlayer oentityplayer, OWorld oworld, OItemStack oitemstack, int i, int j, int k, int l, float f, float f1, float f2) {
         int i1 = oworld.a(i, j, k);
 
-        if (i1 > 0 && OBlock.m[i1].a(oworld, i, j, k, oentityplayer, l, f, f1, f2)) {
+        if (i1 > 0 && OBlock.p[i1].a(oworld, i, j, k, oentityplayer, l, f, f1, f2)) {
             return true;
         } else if (oitemstack == null) {
             return false;

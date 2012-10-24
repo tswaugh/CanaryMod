@@ -14,7 +14,7 @@ public class OItemSeeds extends OItem {
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         if (l != 1) {
             return false;
-        } else if (oentityplayer.e(i, j, k) && oentityplayer.e(i, j + 1, k)) {
+        } else if (oentityplayer.a(i, j, k, l, oitemstack) && oentityplayer.a(i, j + 1, k, l, oitemstack)) {
             int i1 = oworld.a(i, j, k);
 
             if (i1 == this.b && oworld.c(i, j + 1, k)) {

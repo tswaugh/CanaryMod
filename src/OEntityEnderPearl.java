@@ -26,21 +26,21 @@ public class OEntityEnderPearl extends OEntityThrowable {
         // CanaryMod end
         
         for (int i = 0; i < 32; ++i) {
-            this.p.a("portal", this.t, this.u + this.Z.nextDouble() * 2.0D, this.v, this.Z.nextGaussian(), 0.0D, this.Z.nextGaussian());
+            this.p.a("portal", this.t, this.u + this.aa.nextDouble() * 2.0D, this.v, this.aa.nextGaussian(), 0.0D, this.aa.nextGaussian());
         }
 
-        if (!this.p.K) {
+        if (!this.p.J) {
             if (this.c != null && this.c instanceof OEntityPlayerMP) {
                 OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.c;
 
                 if (!oentityplayermp.a.c && oentityplayermp.p == this.p) {
                     this.c.a(this.t, this.u, this.v);
-                    this.c.R = 0.0F;
+                    this.c.S = 0.0F;
                     this.c.a(ODamageSource.h, 5);
                 }
             }
 
-            this.y();
+            this.x();
         }
 
     }

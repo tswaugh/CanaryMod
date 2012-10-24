@@ -7,7 +7,7 @@ public class OBlockNote extends OBlockContainer {
     }
 
     public int a(int i) {
-        return this.bZ;
+        return this.cl;
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
@@ -27,7 +27,7 @@ public class OBlockNote extends OBlockContainer {
     }
 
     public boolean a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer, int l, float f, float f1, float f2) {
-        if (oworld.K) {
+        if (oworld.J) {
             return true;
         } else {
             OTileEntityNote otileentitynote = (OTileEntityNote) oworld.p(i, j, k);
@@ -42,7 +42,7 @@ public class OBlockNote extends OBlockContainer {
     }
 
     public void a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {
-        if (!oworld.K) {
+        if (!oworld.J) {
             OTileEntityNote otileentitynote = (OTileEntityNote) oworld.p(i, j, k);
 
             if (otileentitynote != null) {

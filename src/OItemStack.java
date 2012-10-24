@@ -6,34 +6,36 @@ public final class OItemStack {
     public int c;
     public ONBTTagCompound d;
     private int e;
+    private OEntityItemFrame f;
 
     public OItemStack(OBlock oblock) {
         this(oblock, 1);
     }
 
     public OItemStack(OBlock oblock, int i) {
-        this(oblock.ca, i, 0);
+        this(oblock.cm, i, 0);
     }
 
     public OItemStack(OBlock oblock, int i, int j) {
-        this(oblock.ca, i, j);
+        this(oblock.cm, i, j);
     }
 
     public OItemStack(OItem oitem) {
-        this(oitem.bT, 1, 0);
+        this(oitem.cf, 1, 0);
     }
 
     public OItemStack(OItem oitem, int i) {
-        this(oitem.bT, i, 0);
+        this(oitem.cf, i, 0);
     }
 
     public OItemStack(OItem oitem, int i, int j) {
-        this(oitem.bT, i, j);
+        this(oitem.cf, i, j);
     }
 
     public OItemStack(int i, int j, int k) {
         super();
         this.a = 0;
+        this.f = null;
         this.c = i;
         this.a = j;
         this.e = k;
@@ -49,6 +51,7 @@ public final class OItemStack {
     private OItemStack() {
         super();
         this.a = 0;
+        this.f = null;
     }
 
     public OItemStack a(int i) {
@@ -110,7 +113,7 @@ public final class OItemStack {
     }
 
     public int d() {
-        return this.b().j();
+        return this.b().k();
     }
 
     public boolean e() {
@@ -118,11 +121,11 @@ public final class OItemStack {
     }
 
     public boolean f() {
-        return OItem.e[this.c].l() > 0;
+        return OItem.e[this.c].m() > 0;
     }
 
     public boolean g() {
-        return OItem.e[this.c].k();
+        return OItem.e[this.c].l();
     }
 
     public boolean h() {
@@ -142,20 +145,20 @@ public final class OItemStack {
     }
 
     public int k() {
-        return OItem.e[this.c].l();
+        return OItem.e[this.c].m();
     }
 
     public void a(int i, OEntityLiving oentityliving) {
         if (this.f()) {
             if (i > 0 && oentityliving instanceof OEntityPlayer) {
-                int j = OEnchantmentHelper.c(((OEntityPlayer) oentityliving).by);
+                int j = OEnchantmentHelper.c(oentityliving);
 
-                if (j > 0 && oentityliving.p.v.nextInt(j + 1) > 0) {
+                if (j > 0 && oentityliving.p.u.nextInt(j + 1) > 0) {
                     return;
                 }
             }
 
-            if (!(oentityliving instanceof OEntityPlayer) || !((OEntityPlayer) oentityliving).bZ.d) {
+            if (!(oentityliving instanceof OEntityPlayer) || !((OEntityPlayer) oentityliving).cf.d) {
                 this.e += i;
             }
 
@@ -233,7 +236,7 @@ public final class OItemStack {
     }
 
     public String a() {
-        return OItem.e[this.c].c(this);
+        return OItem.e[this.c].c_(this);
     }
 
     public static OItemStack b(OItemStack oitemstack) {
@@ -257,16 +260,12 @@ public final class OItemStack {
         OItem.e[this.c].d(this, oworld, oentityplayer);
     }
 
-    public boolean c(OItemStack oitemstack) {
-        return this.c == oitemstack.c && this.a == oitemstack.a && this.e == oitemstack.e;
-    }
-
     public int m() {
         return this.b().a(this);
     }
 
     public OEnumAction n() {
-        return this.b().b(this);
+        return this.b().d_(this);
     }
 
     public void b(OWorld oworld, OEntityPlayer oentityplayer, int i) {
@@ -289,8 +288,38 @@ public final class OItemStack {
         this.d = onbttagcompound;
     }
 
-    public boolean u() {
-        return !this.b().k(this) ? false : !this.v();
+    public String r() {
+        String s = this.b().j(this);
+
+        if (this.d != null && this.d.b("display")) {
+            ONBTTagCompound onbttagcompound = this.d.l("display");
+
+            if (onbttagcompound.b("Name")) {
+                s = onbttagcompound.i("Name");
+            }
+        }
+
+        return s;
+    }
+
+    public void c(String s) {
+        if (this.d == null) {
+            this.d = new ONBTTagCompound();
+        }
+
+        if (!this.d.b("display")) {
+            this.d.a("display", new ONBTTagCompound());
+        }
+
+        this.d.l("display").a("Name", s);
+    }
+
+    public boolean s() {
+        return this.d == null ? false : (!this.d.b("display") ? false : this.d.l("display").b("Name"));
+    }
+
+    public boolean v() {
+        return !this.b().k(this) ? false : !this.w();
     }
 
     public void a(OEnchantment oenchantment, int i) {
@@ -310,7 +339,43 @@ public final class OItemStack {
         onbttaglist.a((ONBTBase) onbttagcompound);
     }
 
-    public boolean v() {
+    public boolean w() {
         return this.d != null && this.d.b("ench");
+    }
+
+    public void a(String s, ONBTBase onbtbase) {
+        if (this.d == null) {
+            this.d(new ONBTTagCompound());
+        }
+
+        this.d.a(s, onbtbase);
+    }
+
+    public boolean x() {
+        return this.b().x();
+    }
+
+    public boolean y() {
+        return this.f != null;
+    }
+
+    public void a(OEntityItemFrame oentityitemframe) {
+        this.f = oentityitemframe;
+    }
+
+    public OEntityItemFrame z() {
+        return this.f;
+    }
+
+    public int A() {
+        return this.o() && this.d.b("RepairCost") ? this.d.e("RepairCost") : 0;
+    }
+
+    public void c(int i) {
+        if (!this.o()) {
+            this.d = new ONBTTagCompound();
+        }
+
+        this.d.a("RepairCost", i);
     }
 }

@@ -44,7 +44,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         }
     }
 
-    public OItemStack b(int i) {
+    public OItemStack a_(int i) {
         if (this.c[i] != null) {
             OItemStack oitemstack = this.c[i];
 
@@ -57,14 +57,14 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
 
     public void a(int i, OItemStack oitemstack) {
         this.c[i] = oitemstack;
-        if (oitemstack != null && oitemstack.a > this.j_()) {
-            oitemstack.a = this.j_();
+        if (oitemstack != null && oitemstack.a > this.c()) {
+            oitemstack.a = this.c();
         }
 
         this.d();
     }
 
-    public int i_() {
+    public int k_() {
         return this.b;
     }
 
@@ -72,7 +72,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         return this.a;
     }
 
-    public int j_() {
+    public int c() {
         return 64;
     }
 
@@ -93,7 +93,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         return true;
     }
 
-    public void k_() {}
+    public void l_() {}
 
     public void f() {}
     

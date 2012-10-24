@@ -23,11 +23,11 @@ public class OBlockEndPortal extends OBlockContainer {
 
     public void a(OWorld oworld, int i, int j, int k, OAxisAlignedBB oaxisalignedbb, List list, OEntity oentity) {}
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
 
@@ -36,21 +36,29 @@ public class OBlockEndPortal extends OBlockContainer {
     }
 
     public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
+<<<<<<<
         if (oentity.o == null && oentity.n == null && oentity instanceof OEntityPlayer && !oworld.K) {
             // CanaryMod: Check if end is enabled
             if (etc.getInstance().isEndEnabled()) {
                 ((OEntityPlayer) oentity).c(1);
             }
+|||||||
+        if (oentity.o == null && oentity.n == null && oentity instanceof OEntityPlayer && !oworld.K) {
+            ((OEntityPlayer) oentity).c(1);
+=======
+        if (oentity.o == null && oentity.n == null && !oworld.J) {
+            oentity.b(1);
+>>>>>>>
         }
     }
 
-    public int b() {
+    public int d() {
         return -1;
     }
 
     public void g(OWorld oworld, int i, int j, int k) {
         if (!a) {
-            if (oworld.w.g != 0) {
+            if (oworld.v.h != 0) {
                 oworld.e(i, j, k, 0);
             }
         }

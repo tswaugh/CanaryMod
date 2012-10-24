@@ -19,8 +19,14 @@ public class OEntityTracker {
 
     public OEntityTracker(OWorldServer oworldserver) {
         this.a = oworldserver;
+<<<<<<<
         this.d = oworldserver.n().ab().a();
         this.entityTracker = new EntityTracker(this);
+|||||||
+        this.d = oworldserver.n().ab().a();
+=======
+        this.d = oworldserver.o().ad().a();
+>>>>>>>
     }
 
     /**
@@ -72,6 +78,10 @@ public class OEntityTracker {
             this.a(oentity, 80, 3, true);
         } else if (oentity instanceof OEntitySquid) {
             this.a(oentity, 64, 3, true);
+        } else if (oentity instanceof OEntityWither) {
+            this.a(oentity, 80, 3, false);
+        } else if (oentity instanceof OEntityBat) {
+            this.a(oentity, 80, 3, false);
         } else if (oentity instanceof OIAnimals) {
             this.a(oentity, 80, 3, true);
         } else if (oentity instanceof OEntityDragon) {
@@ -86,6 +96,8 @@ public class OEntityTracker {
             this.a(oentity, 160, 20, true);
         } else if (oentity instanceof OEntityEnderCrystal) {
             this.a(oentity, 256, Integer.MAX_VALUE, false);
+        } else if (oentity instanceof OEntityItemFrame) {
+            this.a(oentity, 160, Integer.MAX_VALUE, false);
         }
 
     }
@@ -106,7 +118,7 @@ public class OEntityTracker {
 
             this.b.add(oentitytrackerentry);
             this.c.a(oentity.k, oentitytrackerentry);
-            oentitytrackerentry.b(this.a.i);
+            oentitytrackerentry.b(this.a.h);
         }
     }
 
@@ -139,7 +151,7 @@ public class OEntityTracker {
             while (iterator.hasNext()) {
                 OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.next();
 
-                oentitytrackerentry.a(this.a.i);
+            oentitytrackerentry.a(this.a.h);
                 if (oentitytrackerentry.n && oentitytrackerentry.a instanceof OEntityPlayerMP) {
                     arraylist.add((OEntityPlayerMP) oentitytrackerentry.a);
                 }

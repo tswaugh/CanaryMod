@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class ONetServerHandler extends ONetHandler {
 
     public static Logger a = Logger.getLogger("Minecraft");
-    public ONetworkManager b;
+    public OINetworkManager b;
     public boolean c = false;
     private OMinecraftServer d;
     private OEntityPlayerMP e;
@@ -29,10 +29,10 @@ public class ONetServerHandler extends ONetHandler {
     private boolean r = true;
     private OIntHashMap s = new OIntHashMap();
 
-    public ONetServerHandler(OMinecraftServer ominecraftserver, ONetworkManager onetworkmanager, OEntityPlayerMP oentityplayermp) {
+    public ONetServerHandler(OMinecraftServer ominecraftserver, OINetworkManager oinetworkmanager, OEntityPlayerMP oentityplayermp) {
         this.d = ominecraftserver;
-        this.b = onetworkmanager;
-        onetworkmanager.a((ONetHandler) this);
+        this.b = oinetworkmanager;
+        oinetworkmanager.a((ONetHandler) this);
         this.e = oentityplayermp;
         oentityplayermp.a = this;
     }
@@ -73,9 +73,10 @@ public class ONetServerHandler extends ONetHandler {
 
     public void c(String s) {
         if (!this.c) {
-            this.e.m();
+            this.e.l();
             this.b(new OPacket255KickDisconnect(s));
             this.b.d();
+<<<<<<<
             // CanaryMod - onPlayerDisconnect Hook
             HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.e.bJ), s); // XXX
 
@@ -85,12 +86,25 @@ public class ONetServerHandler extends ONetHandler {
             }
 
             this.d.ab().e(this.e);
+|||||||
+            this.d.ab().a((OPacket) (new OPacket3Chat("\u00A7e" + this.e.bJ + " left the game.")));
+            this.d.ab().e(this.e);
+=======
+            this.d.ad().a((OPacket) (new OPacket3Chat("\u00A7e" + this.e.bT + " left the game.")));
+            this.d.ad().e(this.e);
+>>>>>>>
             this.c = true;
         }
     }
 
     public void a(OPacket10Flying opacket10flying) {
+<<<<<<<
         OWorldServer oworldserver = this.d.getWorld(this.e.p.name, this.e.bK);
+|||||||
+        OWorldServer oworldserver = this.d.a(this.e.bK);
+=======
+        OWorldServer oworldserver = this.d.a(this.e.ap);
+>>>>>>>
 
         this.h = true;
         if (!this.e.j) {
@@ -138,7 +152,7 @@ public class ONetServerHandler extends ONetHandler {
 
                     if (opacket10flying.h && opacket10flying.b == -999.0D && opacket10flying.d == -999.0D) {
                         if (Math.abs(opacket10flying.a) > 1.0D || Math.abs(opacket10flying.c) > 1.0D) {
-                            System.err.println(this.e.bJ + " was caught trying to crash the server with an invalid position.");
+                            System.err.println(this.e.bT + " was caught trying to crash the server with an invalid position.");
                             this.c("Nope!");
                             return;
                         }
@@ -161,7 +175,7 @@ public class ONetServerHandler extends ONetHandler {
                         this.e.o.V();
                     }
 
-                    this.d.ab().d(this.e);
+                    this.d.ad().d(this.e);
                     this.o = this.e.t;
                     this.p = this.e.u;
                     this.q = this.e.v;
@@ -169,7 +183,7 @@ public class ONetServerHandler extends ONetHandler {
                     return;
                 }
 
-                if (this.e.bn()) {
+                if (this.e.bt()) {
                     this.e.g();
                     this.e.a(this.o, this.p, this.q, this.e.z, this.e.A);
                     oworldserver.g(this.e);
@@ -195,9 +209,9 @@ public class ONetServerHandler extends ONetHandler {
                     d2 = opacket10flying.b;
                     d3 = opacket10flying.c;
                     d4 = opacket10flying.d - opacket10flying.b;
-                    if (!this.e.bn() && (d4 > 1.65D || d4 < 0.1D)) {
+                    if (!this.e.bt() && (d4 > 1.65D || d4 < 0.1D)) {
                         this.c("Illegal stance");
-                        a.warning(this.e.bJ + " had an illegal stance: " + d4);
+                        a.warning(this.e.bT + " had an illegal stance: " + d4);
                         return;
                     }
 
@@ -213,7 +227,7 @@ public class ONetServerHandler extends ONetHandler {
                 }
 
                 this.e.g();
-                this.e.V = 0.0F;
+                this.e.W = 0.0F;
                 this.e.a(this.o, this.p, this.q, f2, f3);
                 if (!this.r) {
                     return;
@@ -227,8 +241,8 @@ public class ONetServerHandler extends ONetHandler {
                 double d10 = Math.min(Math.abs(d7), Math.abs(this.e.y));
                 double d11 = d8 * d8 + d9 * d9 + d10 * d10;
 
-                if (d11 > 100.0D && (!this.d.H() || !this.d.G().equals(this.e.bJ))) {
-                    a.warning(this.e.bJ + " moved too quickly! " + d4 + "," + d6 + "," + d7 + " (" + d8 + ", " + d9 + ", " + d10 + ")");
+                if (d11 > 100.0D && (!this.d.I() || !this.d.H().equals(this.e.bT))) {
+                    a.warning(this.e.bT + " moved too quickly! " + d4 + "," + d6 + "," + d7 + " (" + d8 + ", " + d9 + ", " + d10 + ")");
                     this.a(this.o, this.p, this.q, this.e.z, this.e.A);
                     return;
                 }
@@ -255,26 +269,26 @@ public class ONetServerHandler extends ONetHandler {
                 d11 = d4 * d4 + d6 * d6 + d7 * d7;
                 boolean flag1 = false;
 
-                if (d11 > 0.0625D && !this.e.bn() && !this.e.c.d()) {
+                if (d11 > 0.0625D && !this.e.bt() && !this.e.c.d()) {
                     flag1 = true;
-                    a.warning(this.e.bJ + " moved wrongly!");
+                    a.warning(this.e.bT + " moved wrongly!");
                 }
 
                 this.e.a(d1, d2, d3, f2, f3);
                 boolean flag2 = oworldserver.a(this.e, this.e.D.c().e((double) f4, (double) f4, (double) f4)).isEmpty();
 
-                if (flag && (flag1 || !flag2) && !this.e.bn()) {
+                if (flag && (flag1 || !flag2) && !this.e.bt()) {
                     this.a(this.o, this.p, this.q, f2, f3);
                     return;
                 }
 
                 OAxisAlignedBB oaxisalignedbb = this.e.D.c().b((double) f4, (double) f4, (double) f4).a(0.0D, -0.55D, 0.0D);
 
-                if (!this.d.X() && !this.e.c.d() && !oworldserver.c(oaxisalignedbb)) {
+                if (!this.d.Y() && !this.e.c.d() && !oworldserver.c(oaxisalignedbb)) {
                     if (d12 >= -0.03125D) {
                         ++this.g;
                         if (this.g > 80) {
-                            a.warning(this.e.bJ + " was kicked for floating too long!");
+                            a.warning(this.e.bT + " was kicked for floating too long!");
                             this.c("Flying is not enabled on this server");
                             return;
                         }
@@ -284,7 +298,7 @@ public class ONetServerHandler extends ONetHandler {
                 }
 
                 this.e.E = opacket10flying.g;
-                this.d.ab().d(this.e);
+                this.d.ad().d(this.e);
                 this.e.b(this.e.u - d0, opacket10flying.g);
             }
         }
@@ -319,15 +333,27 @@ public class ONetServerHandler extends ONetHandler {
     int x, y, z, type;
 
     public void a(OPacket14BlockDig opacket14blockdig) {
+<<<<<<<
         OWorldServer oworldserver = this.d.getWorld(this.e.p.name, this.e.bK);
+|||||||
+        OWorldServer oworldserver = this.d.a(this.e.bK);
+=======
+        OWorldServer oworldserver = this.d.a(this.e.ap);
+>>>>>>>
 
         if (opacket14blockdig.e == 4) {
-            this.e.bB();
+            this.e.bN();
         } else if (opacket14blockdig.e == 5) {
-            this.e.by();
+            this.e.bK();
         } else {
+<<<<<<<
             // CanaryMod: We allow admins and ops to dig!
             boolean flag = oworldserver.c = oworldserver.w.g != 0 || this.d.ab().e(this.e.bJ) || this.d.H() || this.getPlayer().isAdmin();
+|||||||
+            boolean flag = oworldserver.c = oworldserver.w.g != 0 || this.d.ab().e(this.e.bJ) || this.d.H();
+=======
+            boolean flag = oworldserver.v.h != 0 || this.d.ad().i().isEmpty() || this.d.ad().e(this.e.bT) || this.d.I();
+>>>>>>>
             boolean flag1 = false;
 
             if (opacket14blockdig.e == 0) {
@@ -352,12 +378,12 @@ public class ONetServerHandler extends ONetHandler {
                     return;
                 }
 
-                if (j >= this.d.Z()) {
+                if (j >= this.d.ab()) {
                     return;
                 }
             }
 
-            OChunkCoordinates ochunkcoordinates = oworldserver.E();
+            OChunkCoordinates ochunkcoordinates = oworldserver.G();
             int l = OMathHelper.a(i - ochunkcoordinates.a);
             int i1 = OMathHelper.a(k - ochunkcoordinates.c);
 
@@ -552,6 +578,14 @@ public class ONetServerHandler extends ONetHandler {
                 ++i;
             }
 
+<<<<<<<
+|||||||
+            if (opacket14blockdig.e == 0) {
+                if (i1 <= 16 && !flag) {
+=======
+            if (opacket14blockdig.e == 0) {
+                if (i1 <= this.d.ak() && !flag) {
+>>>>>>>
             this.e.a.b(new OPacket53BlockChange(i, j, k, oworldserver));
         }
 
@@ -560,6 +594,7 @@ public class ONetServerHandler extends ONetHandler {
             this.e.by.a[this.e.by.c] = null;
             oitemstack = null;
         }
+<<<<<<<
 
         if (oitemstack == null || oitemstack.m() == 0) {
             this.e.h = true;
@@ -570,23 +605,84 @@ public class ONetServerHandler extends ONetHandler {
             this.e.h = false;
             if (!OItemStack.b(this.e.by.g(), opacket15place.i())) {
                 this.b(new OPacket103SetSlot(this.e.bA.c, oslot.d, this.e.by.g()));
+|||||||
+
+            oworldserver.c = false;
+=======
+>>>>>>>
             }
         }
 
+<<<<<<<
         oworldserver.c = false;
     }
+|||||||
+    public void a(OPacket15Place opacket15place) {
+        OWorldServer oworldserver = this.d.a(this.e.bK);
+        OItemStack oitemstack = this.e.by.g();
+        boolean flag = false;
+        int i = opacket15place.d();
+        int j = opacket15place.f();
+        int k = opacket15place.g();
+        int l = opacket15place.h();
+        boolean flag1 = oworldserver.c = oworldserver.w.g != 0 || this.d.ab().e(this.e.bJ) || this.d.H();
+=======
+    public void a(OPacket15Place opacket15place) {
+        OWorldServer oworldserver = this.d.a(this.e.ap);
+        OItemStack oitemstack = this.e.bK.g();
+        boolean flag = false;
+        int i = opacket15place.d();
+        int j = opacket15place.f();
+        int k = opacket15place.g();
+        int l = opacket15place.h();
+        boolean flag1 = oworldserver.v.h != 0 || this.d.ad().i().isEmpty() || this.d.ad().e(this.e.bT) || this.d.I();
+>>>>>>>
 
     public void a(String s, Object[] aobject) {
         // CanaryMod: disconnect!
         OEntity.manager.callHook(PluginLoader.Hook.DISCONNECT, this.getPlayer());
         a.info(this.e.bJ + " lost connection: " + s);
 
+<<<<<<<
         // CanaryMod - onPlayerDisconnect Hook
         HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the server.", this.e.bJ), s);
+|||||||
+            this.e.c.a(this.e, oworldserver, oitemstack);
+        } else if (opacket15place.f() >= this.d.Z() - 1 && (opacket15place.h() == 1 || opacket15place.f() >= this.d.Z())) {
+            this.e.a.b(new OPacket3Chat("\u00A77Height limit for building is " + this.d.Z()));
+            flag = true;
+        } else {
+            OChunkCoordinates ochunkcoordinates = oworldserver.E();
+            int i1 = OMathHelper.a(i - ochunkcoordinates.a);
+            int j1 = OMathHelper.a(k - ochunkcoordinates.c);
+=======
+            this.e.c.a(this.e, oworldserver, oitemstack);
+        } else if (opacket15place.f() >= this.d.ab() - 1 && (opacket15place.h() == 1 || opacket15place.f() >= this.d.ab())) {
+            this.e.a.b(new OPacket3Chat("\u00A77Height limit for building is " + this.d.ab()));
+            flag = true;
+        } else {
+            OChunkCoordinates ochunkcoordinates = oworldserver.G();
+            int i1 = OMathHelper.a(i - ochunkcoordinates.a);
+            int j1 = OMathHelper.a(k - ochunkcoordinates.c);
+>>>>>>>
 
+<<<<<<<
         hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.e.getPlayer(), hookResult); // XXX
         if (!hookResult.isHidden()) {
             this.d.ab().a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
+|||||||
+                j1 = i1;
+            }
+
+            if (this.r && this.e.e((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D) < 64.0D && (j1 > 16 || flag1)) {
+                this.e.c.a(this.e, oworldserver, oitemstack, i, j, k, l, opacket15place.j(), opacket15place.l(), opacket15place.m());
+=======
+                j1 = i1;
+            }
+
+            if (this.r && this.e.e((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D) < 64.0D && (j1 > this.d.ak() || flag1)) {
+                this.e.c.a(this.e, oworldserver, oitemstack, i, j, k, l, opacket15place.j(), opacket15place.l(), opacket15place.m());
+>>>>>>>
         }
         this.d.ab().e(this.e);
         this.c = true;
@@ -596,34 +692,96 @@ public class ONetServerHandler extends ONetHandler {
         }
     }
 
+<<<<<<<
     public void a(OPacket opacket) {
         a.warning(this.getClass() + " wasn\'t prepared to deal with a " + opacket.getClass());
         this.c("Protocol error, unexpected packet");
+|||||||
+        oitemstack = this.e.by.g();
+        if (oitemstack != null && oitemstack.a == 0) {
+            this.e.by.a[this.e.by.c] = null;
+            oitemstack = null;
+=======
+        oitemstack = this.e.bK.g();
+        if (oitemstack != null && oitemstack.a == 0) {
+            this.e.bK.a[this.e.bK.c] = null;
+            oitemstack = null;
+>>>>>>>
     }
 
+<<<<<<<
     public void b(OPacket opacket) {
         if (opacket instanceof OPacket3Chat) {
             OPacket3Chat opacket3chat = (OPacket3Chat) opacket;
             int i = this.e.v();
+|||||||
+        if (oitemstack == null || oitemstack.m() == 0) {
+            this.e.h = true;
+            this.e.by.a[this.e.by.c] = OItemStack.b(this.e.by.a[this.e.by.c]);
+            OSlot oslot = this.e.bA.a((OIInventory) this.e.by, this.e.by.c);
+=======
+        if (oitemstack == null || oitemstack.m() == 0) {
+            this.e.h = true;
+            this.e.bK.a[this.e.bK.c] = OItemStack.b(this.e.bK.a[this.e.bK.c]);
+            OSlot oslot = this.e.bM.a((OIInventory) this.e.bK, this.e.bK.c);
+>>>>>>>
 
+<<<<<<<
             if (i == 2) {
                 return;
             }
 
             if (i == 1 && !opacket3chat.d()) {
                 return;
+|||||||
+            this.e.bA.b();
+            this.e.h = false;
+            if (!OItemStack.b(this.e.by.g(), opacket15place.i())) {
+                this.b(new OPacket103SetSlot(this.e.bA.c, oslot.d, this.e.by.g()));
+=======
+            this.e.bM.b();
+            this.e.h = false;
+            if (!OItemStack.b(this.e.bK.g(), opacket15place.i())) {
+                this.b(new OPacket103SetSlot(this.e.bM.c, oslot.g, this.e.bK.g()));
+>>>>>>>
             }
         }
+<<<<<<<
 
         this.b.a(opacket);
+|||||||
+
+        oworldserver.c = false;
+=======
+>>>>>>>
     }
 
+<<<<<<<
     public void a(OPacket16BlockItemSwitch opacket16blockitemswitch) {
         if (opacket16blockitemswitch.a >= 0 && opacket16blockitemswitch.a < OInventoryPlayer.h()) {
             this.e.by.c = opacket16blockitemswitch.a;
         } else {
             a.warning(this.e.bJ + " tried to set an invalid carried item");
         }
+|||||||
+    public void a(String s, Object[] aobject) {
+        a.info(this.e.bJ + " lost connection: " + s);
+        this.d.ab().a((OPacket) (new OPacket3Chat("\u00A7e" + this.e.bJ + " left the game.")));
+        this.d.ab().e(this.e);
+        this.c = true;
+        if (this.d.H() && this.e.bJ.equals(this.d.G())) {
+            a.info("Stopping singleplayer server as player logged out");
+            this.d.m();
+=======
+    public void a(String s, Object[] aobject) {
+        a.info(this.e.bT + " lost connection: " + s);
+        this.d.ad().a((OPacket) (new OPacket3Chat("\u00A7e" + this.e.bT + " left the game.")));
+        this.d.ad().e(this.e);
+        this.c = true;
+        if (this.d.I() && this.e.bT.equals(this.d.H())) {
+            a.info("Stopping singleplayer server as player logged out");
+            this.d.n();
+>>>>>>>
     }
 
     public void a(OPacket3Chat opacket3chat) {
@@ -635,17 +793,49 @@ public class ONetServerHandler extends ONetHandler {
         getPlayer().chat(s);
     }
 
+<<<<<<<
     // Handled by PlayerCommands class
     private void d(String s) {
         //this.d.D().a(this.e, s);
+|||||||
+
+    public void a(OPacket16BlockItemSwitch opacket16blockitemswitch) {
+        if (opacket16blockitemswitch.a >= 0 && opacket16blockitemswitch.a < OInventoryPlayer.h()) {
+            this.e.by.c = opacket16blockitemswitch.a;
+        } else {
+            a.warning(this.e.bJ + " tried to set an invalid carried item");
+        }
+=======
+
+    public void a(OPacket16BlockItemSwitch opacket16blockitemswitch) {
+        if (opacket16blockitemswitch.a >= 0 && opacket16blockitemswitch.a < OInventoryPlayer.h()) {
+            this.e.bK.c = opacket16blockitemswitch.a;
+        } else {
+            a.warning(this.e.bT + " tried to set an invalid carried item");
+        }
+>>>>>>>
     }
 
+<<<<<<<
     public void a(OPacket18Animation opacket18animation) {
         if (opacket18animation.b == 1) {
             // CanaryMod: Swing the arm!
             if (!this.e.bH) { // Only call hook once per actual swing
                 OEntity.manager.callHook(PluginLoader.Hook.ARM_SWING, getPlayer());
             }
+|||||||
+    public void a(OPacket3Chat opacket3chat) {
+        if (this.e.v() == 2) {
+            this.b(new OPacket3Chat("Cannot send chat message."));
+        } else {
+            String s = opacket3chat.b;
+=======
+    public void a(OPacket3Chat opacket3chat) {
+        if (this.e.u() == 2) {
+            this.b(new OPacket3Chat("Cannot send chat message."));
+        } else {
+            String s = opacket3chat.b;
+>>>>>>>
             this.e.i();
         }
     }
@@ -724,20 +914,192 @@ public class ONetServerHandler extends ONetHandler {
                     this.e.a.c("You have died. Game over, man, it\'s game over!");
                 }
             } else {
+<<<<<<<
                 if (this.e.aN() > 0) {
+|||||||
+                    if (this.e.v() == 1) {
+                        this.b(new OPacket3Chat("Cannot send chat message."));
+=======
+                    if (this.e.u() == 1) {
+                        this.b(new OPacket3Chat("Cannot send chat message."));
+>>>>>>>
                     return;
                 }
 
+<<<<<<<
                 etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, this.getPlayer(), respawnLocation);
                 this.e = this.d.ab().a(this.e, respawnLocation.dimension, false, respawnLocation);
+|||||||
+                    s = "<" + this.e.bJ + "> " + s;
+                    a.info(s);
+                    this.d.ab().a((OPacket) (new OPacket3Chat(s, false)));
+=======
+                    s = "<" + this.e.bT + "> " + s;
+                    a.info(s);
+                    this.d.ad().a((OPacket) (new OPacket3Chat(s, false)));
+>>>>>>>
             }
+<<<<<<<
+|||||||
+
+                this.m += 20;
+                if (this.m > 200 && !this.d.ab().e(this.e.bJ)) {
+                    this.c("disconnect.spam");
+=======
+
+                this.m += 20;
+                if (this.m > 200 && !this.d.ad().e(this.e.bT)) {
+                    this.c("disconnect.spam");
+>>>>>>>
         }
     }
 
+<<<<<<<
     public boolean b() {
         return true;
+|||||||
+    private void d(String s) {
+        this.d.D().a(this.e, s);
+=======
+    private void d(String s) {
+        this.d.E().a(this.e, s);
+>>>>>>>
     }
 
+<<<<<<<
+    public void a(OPacket9Respawn opacket9respawn) {}
+|||||||
+    public void a(OPacket18Animation opacket18animation) {
+        if (opacket18animation.b == 1) {
+            this.e.i();
+        }
+    }
+=======
+    public void a(OPacket18Animation opacket18animation) {
+        if (opacket18animation.b == 1) {
+            this.e.bE();
+        }
+    }
+>>>>>>>
+
+    public void a(OPacket101CloseWindow opacket101closewindow) {
+        this.e.l();
+    }
+
+<<<<<<<
+    public void a(OPacket102WindowClick opacket102windowclick) {
+        if (this.e.bA.c == opacket102windowclick.a && this.e.bA.b(this.e)) {
+            OItemStack oitemstack = this.e.bA.a(opacket102windowclick.b, opacket102windowclick.c, opacket102windowclick.f, this.e);
+|||||||
+    public void a(OPacket7UseEntity opacket7useentity) {
+        OWorldServer oworldserver = this.d.a(this.e.bK);
+        OEntity oentity = oworldserver.a(opacket7useentity.b);
+
+        if (oentity != null) {
+            boolean flag = this.e.l(oentity);
+            double d0 = 36.0D;
+=======
+    public void a(OPacket7UseEntity opacket7useentity) {
+        OWorldServer oworldserver = this.d.a(this.e.ap);
+        OEntity oentity = oworldserver.a(opacket7useentity.b);
+
+        if (oentity != null) {
+            boolean flag = this.e.m(oentity);
+            double d0 = 36.0D;
+>>>>>>>
+
+<<<<<<<
+            if (OItemStack.b(opacket102windowclick.e, oitemstack)) {
+                this.e.a.b(new OPacket106Transaction(opacket102windowclick.a, opacket102windowclick.d, true));
+                this.e.h = true;
+                this.e.bA.b();
+                this.e.k();
+                this.e.h = false;
+            } else {
+                this.s.a(this.e.bA.c, Short.valueOf(opacket102windowclick.d));
+|||||||
+
+            if (this.e.e(oentity) < d0) {
+                if (opacket7useentity.c == 0) {
+                    this.e.m(oentity);
+                } else if (opacket7useentity.c == 1) {
+                    this.e.n(oentity);
+                }
+            }
+        }
+=======
+
+            if (this.e.e(oentity) < d0) {
+                if (opacket7useentity.c == 0) {
+                    this.e.o(oentity);
+                } else if (opacket7useentity.c == 1) {
+                    this.e.p(oentity);
+                }
+            }
+        }
+>>>>>>>
+<<<<<<<
+                this.e.a.b(new OPacket106Transaction(opacket102windowclick.a, opacket102windowclick.d, false));
+                this.e.bA.a(this.e, false);
+                ArrayList arraylist = new ArrayList();
+|||||||
+    public void a(OPacket205ClientCommand opacket205clientcommand) {
+        if (opacket205clientcommand.a == 1) {
+            if (this.e.j) {
+                this.e = this.d.ab().a(this.e, 0, true);
+            } else if (this.e.q().H().s()) {
+                if (this.d.H() && this.e.bJ.equals(this.d.G())) {
+                    this.e.a.c("You have died. Game over, man, it\'s game over!");
+                    this.d.O();
+                } else {
+                    OBanEntry obanentry = new OBanEntry(this.e.bJ);
+=======
+    public void a(OPacket205ClientCommand opacket205clientcommand) {
+        if (opacket205clientcommand.a == 1) {
+            if (this.e.j) {
+                this.e = this.d.ad().a(this.e, 0, true);
+            } else if (this.e.p().J().t()) {
+                if (this.d.I() && this.e.bT.equals(this.d.H())) {
+                    this.e.a.c("You have died. Game over, man, it\'s game over!");
+                    this.d.P();
+                } else {
+                    OBanEntry obanentry = new OBanEntry(this.e.bT);
+>>>>>>>
+
+<<<<<<<
+                for (int i = 0; i < this.e.bA.b.size(); ++i) {
+                    arraylist.add(((OSlot) this.e.bA.b.get(i)).c());
+|||||||
+                    obanentry.b("Death in Hardcore");
+                    this.d.ab().e().a(obanentry);
+                    this.e.a.c("You have died. Game over, man, it\'s game over!");
+                }
+            } else {
+                if (this.e.aN() > 0) {
+                    return;
+=======
+                    obanentry.b("Death in Hardcore");
+                    this.d.ad().e().a(obanentry);
+                    this.e.a.c("You have died. Game over, man, it\'s game over!");
+                }
+            } else {
+                if (this.e.aT() > 0) {
+                    return;
+>>>>>>>
+                }
+
+<<<<<<<
+                this.e.a(this.e.bA, arraylist);
+|||||||
+                this.e = this.d.ab().a(this.e, 0, false);
+=======
+                this.e = this.d.ad().a(this.e, 0, false);
+>>>>>>>
+            }
+        }
+    }
+<<<<<<<
+|||||||
     public void a(OPacket9Respawn opacket9respawn) {}
 
     public void a(OPacket101CloseWindow opacket101closewindow) {
@@ -763,17 +1125,63 @@ public class ONetServerHandler extends ONetHandler {
                 for (int i = 0; i < this.e.bA.b.size(); ++i) {
                     arraylist.add(((OSlot) this.e.bA.b.get(i)).c());
                 }
+=======
+    public void a(OPacket9Respawn opacket9respawn) {}
 
+    public void a(OPacket101CloseWindow opacket101closewindow) {
+        this.e.k();
+    }
+
+    public void a(OPacket102WindowClick opacket102windowclick) {
+        if (this.e.bM.c == opacket102windowclick.a && this.e.bM.b(this.e)) {
+            OItemStack oitemstack = this.e.bM.a(opacket102windowclick.b, opacket102windowclick.c, opacket102windowclick.f, this.e);
+
+            if (OItemStack.b(opacket102windowclick.e, oitemstack)) {
+                this.e.a.b(new OPacket106Transaction(opacket102windowclick.a, opacket102windowclick.d, true));
+                this.e.h = true;
+                this.e.bM.b();
+                this.e.j();
+                this.e.h = false;
+            } else {
+                this.s.a(this.e.bM.c, Short.valueOf(opacket102windowclick.d));
+                this.e.a.b(new OPacket106Transaction(opacket102windowclick.a, opacket102windowclick.d, false));
+                this.e.bM.a(this.e, false);
+                ArrayList arraylist = new ArrayList();
+
+                for (int i = 0; i < this.e.bM.b.size(); ++i) {
+                    arraylist.add(((OSlot) this.e.bM.b.get(i)).c());
+                }
+>>>>>>>
+
+<<<<<<<
+|||||||
                 this.e.a(this.e.bA, arraylist);
             }
         }
     }
 
+=======
+                this.e.a(this.e.bM, arraylist);
+            }
+        }
+    }
+
+>>>>>>>
     public void a(OPacket108EnchantItem opacket108enchantitem) {
+<<<<<<<
         if (this.e.bA.c == opacket108enchantitem.a && this.e.bA.b(this.e)) {
             this.e.bA.a((OEntityPlayer) this.e, opacket108enchantitem.b);
             this.e.bA.b();
         }
+|||||||
+        if (this.e.bA.c == opacket108enchantitem.a && this.e.bA.b(this.e)) {
+            this.e.bA.a((OEntityPlayer) this.e, opacket108enchantitem.b);
+            this.e.bA.b();
+=======
+        if (this.e.bM.c == opacket108enchantitem.a && this.e.bM.b(this.e)) {
+            this.e.bM.a((OEntityPlayer) this.e, opacket108enchantitem.b);
+            this.e.bM.b();
+>>>>>>>
     }
 
     public void a(OPacket107CreativeSetSlot opacket107creativesetslot) {
@@ -791,28 +1199,56 @@ public class ONetServerHandler extends ONetHandler {
                     this.e.bz.a(opacket107creativesetslot.a, oitemstack);
                 }
 
+<<<<<<<
                 this.e.bz.a(this.e, true);
+|||||||
+
+            if (flag1 && flag2 && flag3) {
+                if (oitemstack == null) {
+                    this.e.bz.a(opacket107creativesetslot.a, (OItemStack) null);
+                } else {
+                    this.e.bz.a(opacket107creativesetslot.a, oitemstack);
+                }
+
+                this.e.bz.a(this.e, true);
+=======
+
+            if (flag1 && flag2 && flag3) {
+                if (oitemstack == null) {
+                    this.e.bL.a(opacket107creativesetslot.a, (OItemStack) null);
+                } else {
+                    this.e.bL.a(opacket107creativesetslot.a, oitemstack);
+                }
+
+                this.e.bL.a(this.e, true);
+>>>>>>>
             } else if (flag && flag2 && flag3 && this.n < 200) {
                 this.n += 20;
-                OEntityItem oentityitem = this.e.b(oitemstack);
+                OEntityItem oentityitem = this.e.c(oitemstack);
 
                 if (oentityitem != null) {
-                    oentityitem.d();
+                    oentityitem.c();
                 }
             }
         }
     }
 
     public void a(OPacket106Transaction opacket106transaction) {
-        Short oshort = (Short) this.s.a(this.e.bA.c);
+        Short oshort = (Short) this.s.a(this.e.bM.c);
 
-        if (oshort != null && opacket106transaction.b == oshort.shortValue() && this.e.bA.c == opacket106transaction.a && !this.e.bA.b(this.e)) {
-            this.e.bA.a(this.e, true);
+        if (oshort != null && opacket106transaction.b == oshort.shortValue() && this.e.bM.c == opacket106transaction.a && !this.e.bM.b(this.e)) {
+            this.e.bM.a(this.e, true);
         }
     }
 
     public void a(OPacket130UpdateSign opacket130updatesign) {
+<<<<<<<
         OWorldServer oworldserver = this.d.getWorld(this.e.p.name, this.e.bK);
+|||||||
+        OWorldServer oworldserver = this.d.a(this.e.bK);
+=======
+        OWorldServer oworldserver = this.d.a(this.e.ap);
+>>>>>>>
 
         if (oworldserver.e(opacket130updatesign.a, opacket130updatesign.b, opacket130updatesign.c)) {
             OTileEntity otileentity = oworldserver.p(opacket130updatesign.a, opacket130updatesign.b, opacket130updatesign.c);
@@ -821,7 +1257,7 @@ public class ONetServerHandler extends ONetHandler {
                 OTileEntitySign otileentitysign = (OTileEntitySign) otileentity;
 
                 if (!otileentitysign.a()) {
-                    this.d.h("Player " + this.e.bJ + " just tried to change non-editable sign");
+                    this.d.g("Player " + this.e.bT + " just tried to change non-editable sign");
                     return;
                 }
             }
@@ -886,7 +1322,7 @@ public class ONetServerHandler extends ONetHandler {
     }
 
     public void a(OPacket202PlayerAbilities opacket202playerabilities) {
-        this.e.bZ.b = opacket202playerabilities.f() && this.e.bZ.c;
+        this.e.cf.b = opacket202playerabilities.f() && this.e.cf.c;
     }
 
     public void a(OPacket203AutoComplete opacket203autocomplete) {
@@ -912,8 +1348,8 @@ public class ONetServerHandler extends ONetHandler {
                     throw new IOException("Invalid book tag!");
                 }
 
-                oitemstack1 = this.e.by.g();
-                if (oitemstack != null && oitemstack.c == OItem.bF.bT && oitemstack.c == oitemstack1.c) {
+                oitemstack1 = this.e.bK.g();
+                if (oitemstack != null && oitemstack.c == OItem.bF.cf && oitemstack.c == oitemstack1.c) {
                     oitemstack1.d(oitemstack.p());
                 }
             } catch (Exception exception) {
@@ -927,25 +1363,89 @@ public class ONetServerHandler extends ONetHandler {
                     throw new IOException("Invalid book tag!");
                 }
 
-                oitemstack1 = this.e.by.g();
-                if (oitemstack != null && oitemstack.c == OItem.bG.bT && oitemstack1.c == OItem.bF.bT) {
+                oitemstack1 = this.e.bK.g();
+                if (oitemstack != null && oitemstack.c == OItem.bG.cf && oitemstack1.c == OItem.bF.cf) {
                     oitemstack1.d(oitemstack.p());
-                    oitemstack1.c = OItem.bG.bT;
+                    oitemstack1.c = OItem.bG.cf;
                 }
             } catch (Exception exception1) {
                 exception1.printStackTrace();
             }
-        } else if ("MC|TrSel".equals(opacket250custompayload.a)) {
+        } else {
+            int i;
+
+            if ("MC|TrSel".equals(opacket250custompayload.a)) {
             try {
                 datainputstream = new DataInputStream(new ByteArrayInputStream(opacket250custompayload.c));
-                int i = datainputstream.readInt();
-                OContainer ocontainer = this.e.bA;
+                    i = datainputstream.readInt();
+                    OContainer ocontainer = this.e.bM;
 
                 if (ocontainer instanceof OContainerMerchant) {
-                    ((OContainerMerchant) ocontainer).c(i);
+                        ((OContainerMerchant) ocontainer).b(i);
                 }
             } catch (Exception exception2) {
                 exception2.printStackTrace();
+            }
+            } else {
+                int j;
+
+                if ("MC|AdvCdm".equals(opacket250custompayload.a)) {
+                    if (!this.d.Z()) {
+                        this.e.a(this.e.a("advMode.notEnabled", new Object[0]));
+                    } else if (this.e.a(2, "") && this.e.cf.d) {
+                        try {
+                            datainputstream = new DataInputStream(new ByteArrayInputStream(opacket250custompayload.c));
+                            i = datainputstream.readInt();
+                            j = datainputstream.readInt();
+                            int k = datainputstream.readInt();
+                            String s = OPacket.a(datainputstream, 256);
+                            OTileEntity otileentity = this.e.p.p(i, j, k);
+
+                            if (otileentity != null && otileentity instanceof OTileEntityCommandBlock) {
+                                ((OTileEntityCommandBlock) otileentity).b(s);
+                                this.e.p.h(i, j, k);
+                                this.e.a("Command set: " + s);
+                            }
+                        } catch (Exception exception3) {
+                            exception3.printStackTrace();
+                        }
+                    } else {
+                        this.e.a(this.e.a("advMode.notAllowed", new Object[0]));
+                    }
+                } else if ("MC|Beacon".equals(opacket250custompayload.a)) {
+                    if (this.e.bM instanceof OContainerBeacon) {
+                        try {
+                            datainputstream = new DataInputStream(new ByteArrayInputStream(opacket250custompayload.c));
+                            i = datainputstream.readInt();
+                            j = datainputstream.readInt();
+                            OContainerBeacon ocontainerbeacon = (OContainerBeacon) this.e.bM;
+                            OSlot oslot = ocontainerbeacon.a(0);
+
+                            if (oslot.d()) {
+                                oslot.a(1);
+                                OTileEntityBeacon otileentitybeacon = ocontainerbeacon.d();
+
+                                otileentitybeacon.d(i);
+                                otileentitybeacon.e(j);
+                                otileentitybeacon.d();
+                            }
+                        } catch (Exception exception4) {
+                            exception4.printStackTrace();
+                        }
+                    }
+                } else if ("MC|ItemName".equals(opacket250custompayload.a) && this.e.bM instanceof OContainerRepair) {
+                    OContainerRepair ocontainerrepair = (OContainerRepair) this.e.bM;
+
+                    if (opacket250custompayload.c != null && opacket250custompayload.c.length >= 1) {
+                        String s1 = OChatAllowedCharacters.a(new String(opacket250custompayload.c));
+
+                        if (s1.length() <= 30) {
+                            ocontainerrepair.a(s1);
+                        }
+                    } else {
+                        ocontainerrepair.a("");
+                    }
+                }
             }
         }
     }

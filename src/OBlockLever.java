@@ -2,7 +2,7 @@
 public class OBlockLever extends OBlock {
 
     protected OBlockLever(int i, int j) {
-        super(i, j, OMaterial.p);
+        super(i, j, OMaterial.q);
         this.a(OCreativeTabs.d);
     }
 
@@ -10,19 +10,19 @@ public class OBlockLever extends OBlock {
         return null;
     }
 
-    public boolean d() {
-        return false;
-    }
-
     public boolean c() {
         return false;
     }
 
-    public int b() {
+    public boolean b() {
+        return false;
+    }
+
+    public int d() {
         return 12;
     }
 
-    public boolean a_(OWorld oworld, int i, int j, int k, int l) {
+    public boolean b_(OWorld oworld, int i, int j, int k, int l) {
         return l == 0 && oworld.s(i, j + 1, k) ? true : (l == 1 && oworld.t(i, j - 1, k) ? true : (l == 2 && oworld.s(i, j, k + 1) ? true : (l == 3 && oworld.s(i, j, k - 1) ? true : (l == 4 && oworld.s(i + 1, j, k) ? true : l == 5 && oworld.s(i - 1, j, k)))));
     }
 
@@ -37,11 +37,11 @@ public class OBlockLever extends OBlock {
         i1 &= 7;
         i1 = -1;
         if (l == 0 && oworld.s(i, j + 1, k)) {
-            i1 = oworld.v.nextBoolean() ? 0 : 7;
+            i1 = oworld.u.nextBoolean() ? 0 : 7;
         }
 
         if (l == 1 && oworld.t(i, j - 1, k)) {
-            i1 = 5 + oworld.v.nextInt(2);
+            i1 = 5 + oworld.u.nextInt(2);
         }
 
         if (l == 2 && oworld.s(i, j, k + 1)) {
@@ -172,12 +172,10 @@ public class OBlockLever extends OBlock {
 
     }
 
-    public void a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {
-        this.a(oworld, i, j, k, oentityplayer, 0, 0.0F, 0.0F, 0.0F);
-    }
+    public void a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {}
 
     public boolean a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer, int l, float f, float f1, float f2) {
-        if (oworld.K) {
+        if (oworld.J) {
             return true;
         } else {
             int i1 = oworld.g(i, j, k);
@@ -191,23 +189,23 @@ public class OBlockLever extends OBlock {
             k1 = (current > 0) ? 8 : 0;
 
             oworld.c(i, j, k, j1 + k1);
-            oworld.d(i, j, k, i, j, k);
+            oworld.e(i, j, k, i, j, k);
             oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, k1 > 0 ? 0.6F : 0.5F);
-            oworld.h(i, j, k, this.ca);
+            oworld.h(i, j, k, this.cm);
             if (j1 == 1) {
-                oworld.h(i - 1, j, k, this.ca);
+                oworld.h(i - 1, j, k, this.cm);
             } else if (j1 == 2) {
-                oworld.h(i + 1, j, k, this.ca);
+                oworld.h(i + 1, j, k, this.cm);
             } else if (j1 == 3) {
-                oworld.h(i, j, k - 1, this.ca);
+                oworld.h(i, j, k - 1, this.cm);
             } else if (j1 == 4) {
-                oworld.h(i, j, k + 1, this.ca);
+                oworld.h(i, j, k + 1, this.cm);
             } else if (j1 != 5 && j1 != 6) {
                 if (j1 == 0 || j1 == 7) {
-                    oworld.h(i, j + 1, k, this.ca);
+                    oworld.h(i, j + 1, k, this.cm);
                 }
             } else {
-                oworld.h(i, j - 1, k, this.ca);
+                oworld.h(i, j - 1, k, this.cm);
             }
 
             return true;
@@ -216,35 +214,35 @@ public class OBlockLever extends OBlock {
 
     public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
         if ((i1 & 8) > 0) {
-            oworld.h(i, j, k, this.ca);
+            oworld.h(i, j, k, this.cm);
             int j1 = i1 & 7;
 
             if (j1 == 1) {
-                oworld.h(i - 1, j, k, this.ca);
+                oworld.h(i - 1, j, k, this.cm);
             } else if (j1 == 2) {
-                oworld.h(i + 1, j, k, this.ca);
+                oworld.h(i + 1, j, k, this.cm);
             } else if (j1 == 3) {
-                oworld.h(i, j, k - 1, this.ca);
+                oworld.h(i, j, k - 1, this.cm);
             } else if (j1 == 4) {
-                oworld.h(i, j, k + 1, this.ca);
+                oworld.h(i, j, k + 1, this.cm);
             } else if (j1 != 5 && j1 != 6) {
                 if (j1 == 0 || j1 == 7) {
-                    oworld.h(i, j + 1, k, this.ca);
+                    oworld.h(i, j + 1, k, this.cm);
                 }
             } else {
-                oworld.h(i, j - 1, k, this.ca);
+                oworld.h(i, j - 1, k, this.cm);
             }
         }
 
         super.a(oworld, i, j, k, l, i1);
     }
 
-    public boolean a(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+    public boolean b(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
         return (oiblockaccess.g(i, j, k) & 8) > 0;
     }
 
-    public boolean c(OWorld oworld, int i, int j, int k, int l) {
-        int i1 = oworld.g(i, j, k);
+    public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+        int i1 = oiblockaccess.g(i, j, k);
 
         if ((i1 & 8) == 0) {
             return false;

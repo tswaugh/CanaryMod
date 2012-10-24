@@ -43,17 +43,18 @@ public abstract class OBiomeGenBase {
     protected List J;
     protected List K;
     protected List L;
-    private boolean R;
+    protected List M;
     private boolean S;
-    public final int M;
-    protected OWorldGenTrees N;
-    protected OWorldGenBigTree O;
-    protected OWorldGenForest P;
-    protected OWorldGenSwamp Q;
+    private boolean T;
+    public final int N;
+    protected OWorldGenTrees O;
+    protected OWorldGenBigTree P;
+    protected OWorldGenForest Q;
+    protected OWorldGenSwamp R;
 
     protected OBiomeGenBase(int i) {
-        this.A = (byte) OBlock.u.ca;
-        this.B = (byte) OBlock.v.ca;
+        this.A = (byte) OBlock.x.cm;
+        this.B = (byte) OBlock.y.cm;
         this.C = 5169201;
         this.D = 0.1F;
         this.E = 0.3F;
@@ -63,12 +64,13 @@ public abstract class OBiomeGenBase {
         this.J = new ArrayList();
         this.K = new ArrayList();
         this.L = new ArrayList();
-        this.S = true;
-        this.N = new OWorldGenTrees(false);
-        this.O = new OWorldGenBigTree(false);
-        this.P = new OWorldGenForest(false);
-        this.Q = new OWorldGenSwamp();
-        this.M = i;
+        this.M = new ArrayList();
+        this.T = true;
+        this.O = new OWorldGenTrees(false);
+        this.P = new OWorldGenBigTree(false);
+        this.Q = new OWorldGenForest(false);
+        this.R = new OWorldGenSwamp();
+        this.N = i;
         a[i] = this;
         this.I = this.a();
         this.K.add(new OSpawnListEntry(OEntitySheep.class, 12, 4, 4));
@@ -82,6 +84,7 @@ public abstract class OBiomeGenBase {
         this.J.add(new OSpawnListEntry(OEntitySlime.class, 10, 4, 4));
         this.J.add(new OSpawnListEntry(OEntityEnderman.class, 1, 1, 4));
         this.L.add(new OSpawnListEntry(OEntitySquid.class, 10, 4, 4));
+        this.M.add(new OSpawnListEntry(OEntityBat.class, 10, 8, 8));
     }
 
     protected OBiomeDecorator a() {
@@ -105,20 +108,20 @@ public abstract class OBiomeGenBase {
     }
 
     private OBiomeGenBase m() {
-        this.S = false;
+        this.T = false;
         return this;
     }
 
     public OWorldGenerator a(Random random) {
-        return (OWorldGenerator) (random.nextInt(10) == 0 ? this.O : this.N);
+        return (OWorldGenerator) (random.nextInt(10) == 0 ? this.P : this.O);
     }
 
     public OWorldGenerator b(Random random) {
-        return new OWorldGenTallGrass(OBlock.X.ca, 1);
+        return new OWorldGenTallGrass(OBlock.aa.cm, 1);
     }
 
     protected OBiomeGenBase b() {
-        this.R = true;
+        this.S = true;
         return this;
     }
 
@@ -147,8 +150,11 @@ public abstract class OBiomeGenBase {
         if (oenumcreaturetype == OEnumCreatureType.b) {
             return config.getAnimalsClass(this);
         }
-        if (oenumcreaturetype == OEnumCreatureType.c) {
+        if (oenumcreaturetype == OEnumCreatureType.d) {
             return config.getWaterAnimalsClass(this);
+        }
+        if (oenumcreaturetype == OEnumCreatureType.c) {
+            // TODO: flying stuff
         }
         return null;
     }
@@ -156,11 +162,11 @@ public abstract class OBiomeGenBase {
     // CanaryMod end
 
     public boolean c() {
-        return this.R;
+        return this.S;
     }
 
     public boolean d() {
-        return this.R ? false : this.S;
+        return this.S ? false : this.T;
     }
 
     public boolean e() {

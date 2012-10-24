@@ -19,7 +19,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         return name;
     }
 
-    public int i_() {
+    public int k_() {
         return this.a.length;
     }
 
@@ -27,7 +27,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         if (this.b > 0) {
             --this.b;
             if (this.b == 0) {
-                this.r();
+                this.t();
                 this.d();
             } else if (!this.k()) {
                 this.b = 0;
@@ -51,7 +51,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         super.g();
     }
 
-    public int t_() {
+    public int x_() {
         return this.b;
     }
 
@@ -59,13 +59,13 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         if (this.a[3] != null && this.a[3].a > 0) {
             OItemStack oitemstack = this.a[3];
 
-            if (!OItem.e[oitemstack.c].u()) {
+            if (!OItem.e[oitemstack.c].v()) {
                 return false;
             } else {
                 boolean flag = false;
 
                 for (int i = 0; i < 3; ++i) {
-                    if (this.a[i] != null && this.a[i].c == OItem.bs.bT) {
+                    if (this.a[i] != null && this.a[i].c == OItem.bs.cf) {
                         int j = this.a[i].j();
                         int k = this.b(j, oitemstack);
 
@@ -91,12 +91,12 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         }
     }
 
-    private void r() {
+    private void t() {
         if (this.k()) {
             OItemStack oitemstack = this.a[3];
 
             for (int i = 0; i < 3; ++i) {
-                if (this.a[i] != null && this.a[i].c == OItem.bs.bT) {
+                if (this.a[i] != null && this.a[i].c == OItem.bs.cf) {
                     int j = this.a[i].j();
                     int k = this.b(j, oitemstack);
                     List list = OItem.bs.f(j);
@@ -112,8 +112,8 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
                 }
             }
 
-            if (OItem.e[oitemstack.c].r()) {
-                this.a[3] = new OItemStack(OItem.e[oitemstack.c].q());
+            if (OItem.e[oitemstack.c].s()) {
+                this.a[3] = new OItemStack(OItem.e[oitemstack.c].r());
             } else {
                 --this.a[3].a;
                 if (this.a[3].a <= 0) {
@@ -125,14 +125,14 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
     }
 
     private int b(int i, OItemStack oitemstack) {
-        return oitemstack == null ? i : (OItem.e[oitemstack.c].u() ? OPotionHelper.a(i, OItem.e[oitemstack.c].t()) : i);
+        return oitemstack == null ? i : (OItem.e[oitemstack.c].v() ? OPotionHelper.a(i, OItem.e[oitemstack.c].u()) : i);
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
         super.a(onbttagcompound);
         ONBTTagList onbttaglist = onbttagcompound.m("Items");
 
-        this.a = new OItemStack[this.i_()];
+        this.a = new OItemStack[this.k_()];
 
         for (int i = 0; i < onbttaglist.c(); ++i) {
             ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(i);
@@ -179,7 +179,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         }
     }
 
-    public OItemStack b(int i) {
+    public OItemStack a_(int i) {
         if (i >= 0 && i < this.a.length) {
             OItemStack oitemstack = this.a[i];
 
@@ -197,7 +197,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
 
     }
 
-    public int j_() {
+    public int c() {
         return 1;
     }
 
@@ -205,7 +205,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         return this.k.p(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
 
-    public void k_() {}
+    public void l_() {}
 
     public void f() {}
 

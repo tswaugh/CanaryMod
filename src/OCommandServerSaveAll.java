@@ -2,27 +2,45 @@ public class OCommandServerSaveAll extends OCommandBase {
 
     public OCommandServerSaveAll() {}
 
-    public String b() {
+    public String c() {
         return "save-all";
     }
 
+    public int a() {
+        return 4;
+    }
+
     public void b(OICommandSender oicommandsender, String[] astring) {
-        OMinecraftServer ominecraftserver = OMinecraftServer.C();
+        OMinecraftServer ominecraftserver = OMinecraftServer.D();
 
         oicommandsender.a(oicommandsender.a("commands.save.start", new Object[0]));
-        if (ominecraftserver.ab() != null) {
-            ominecraftserver.ab().g();
+        if (ominecraftserver.ad() != null) {
+            ominecraftserver.ad().g();
         }
 
+<<<<<<<
         for (OWorldServer[] level: ominecraftserver.worlds.values()) { // CanaryMod: multiworld
             for (int i = 0; i < level.length; ++i) {
                 if (level[i] != null) {
                     OWorldServer oworldserver = level[i];
                     boolean flag = oworldserver.d;
+|||||||
+        try {
+            for (int i = 0; i < ominecraftserver.c.length; ++i) {
+                if (ominecraftserver.c[i] != null) {
+                    OWorldServer oworldserver = ominecraftserver.c[i];
+                    boolean flag = oworldserver.d;
+=======
+        try {
+            for (int i = 0; i < ominecraftserver.c.length; ++i) {
+                if (ominecraftserver.c[i] != null) {
+                    OWorldServer oworldserver = ominecraftserver.c[i];
+                    boolean flag = oworldserver.c;
+>>>>>>>
 
-                    oworldserver.d = false;
+                    oworldserver.c = false;
                     oworldserver.a(true, (OIProgressUpdate) null);
-                    oworldserver.d = flag;
+                    oworldserver.c = flag;
                 }
             }
         }

@@ -14,11 +14,11 @@ public class OItemSlab extends OItemBlock {
         this.a(true);
     }
 
-    public int b(int i) {
+    public int a(int i) {
         return i;
     }
 
-    public String c(OItemStack oitemstack) {
+    public String c_(OItemStack oitemstack) {
         return this.b.d(oitemstack.j());
     }
 
@@ -32,7 +32,7 @@ public class OItemSlab extends OItemBlock {
             return super.a(oitemstack, oentityplayer, oworld, i, j, k, l, f, f1, f2);
         } else if (oitemstack.a == 0) {
             return false;
-        } else if (!oentityplayer.e(i, j, k)) {
+        } else if (!oentityplayer.a(i, j, k, l, oitemstack)) {
             return false;
         } else {
             int i1 = oworld.a(i, j, k);
@@ -40,9 +40,9 @@ public class OItemSlab extends OItemBlock {
             int k1 = j1 & 7;
             boolean flag = (j1 & 8) != 0;
 
-            if ((l == 1 && !flag || l == 0 && flag) && i1 == this.b.ca && k1 == oitemstack.j()) {
-                if (oworld.b(this.c.e(oworld, i, j, k)) && oworld.d(i, j, k, this.c.ca, k1)) {
-                    oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.c.cn.d(), (this.c.cn.b() + 1.0F) / 2.0F, this.c.cn.c() * 0.8F);
+            if ((l == 1 && !flag || l == 0 && flag) && i1 == this.b.cm && k1 == oitemstack.j()) {
+                if (oworld.b(this.c.e(oworld, i, j, k)) && oworld.d(i, j, k, this.c.cm, k1)) {
+                    oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.c.cz.e(), (this.c.cz.c() + 1.0F) / 2.0F, this.c.cz.d() * 0.8F);
                     --oitemstack.a;
                 }
 
@@ -82,9 +82,9 @@ public class OItemSlab extends OItemBlock {
         int j1 = oworld.g(i, j, k);
         int k1 = j1 & 7;
 
-        if (i1 == this.b.ca && k1 == oitemstack.j()) {
-            if (oworld.b(this.c.e(oworld, i, j, k)) && oworld.d(i, j, k, this.c.ca, k1)) {
-                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.c.cn.d(), (this.c.cn.b() + 1.0F) / 2.0F, this.c.cn.c() * 0.8F);
+        if (i1 == this.b.cm && k1 == oitemstack.j()) {
+            if (oworld.b(this.c.e(oworld, i, j, k)) && oworld.d(i, j, k, this.c.cm, k1)) {
+                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.c.cz.e(), (this.c.cz.c() + 1.0F) / 2.0F, this.c.cz.d() * 0.8F);
                 --oitemstack.a;
             }
 

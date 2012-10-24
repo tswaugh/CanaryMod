@@ -25,7 +25,7 @@ public abstract class OEntityAITarget extends OEntityAIBase {
     }
 
     public boolean b() {
-        OEntityLiving oentityliving = this.d.az();
+        OEntityLiving oentityliving = this.d.aF();
 
         if (oentityliving == null) {
             return false;
@@ -35,7 +35,7 @@ public abstract class OEntityAITarget extends OEntityAIBase {
             return false;
         } else {
             if (this.f) {
-                if (this.d.at().a(oentityliving)) {
+                if (this.d.az().a(oentityliving)) {
                     this.g = 0;
                 } else if (++this.g > 60) {
                     return false;
@@ -46,13 +46,13 @@ public abstract class OEntityAITarget extends OEntityAIBase {
         }
     }
 
-    public void e() {
+    public void c() {
         this.b = 0;
         this.c = 0;
         this.g = 0;
     }
 
-    public void c() {
+    public void d() {
         this.d.b((OEntityLiving) null);
     }
 
@@ -63,25 +63,24 @@ public abstract class OEntityAITarget extends OEntityAIBase {
             return false;
         } else if (!oentityliving.S()) {
             return false;
-        } else if (oentityliving.D.e > this.d.D.b && oentityliving.D.b < this.d.D.e) {
-            if (!this.d.a(oentityliving.getClass())) {
+        } else if (!this.d.a(oentityliving.getClass())) {
                 return false;
             } else {
-                if (this.d instanceof OEntityTameable && ((OEntityTameable) this.d).n()) {
-                    if (oentityliving instanceof OEntityTameable && ((OEntityTameable) oentityliving).n()) {
+            if (this.d instanceof OEntityTameable && ((OEntityTameable) this.d).m()) {
+                if (oentityliving instanceof OEntityTameable && ((OEntityTameable) oentityliving).m()) {
                         return false;
                     }
 
-                    if (oentityliving == ((OEntityTameable) this.d).q()) {
+                if (oentityliving == ((OEntityTameable) this.d).p()) {
                         return false;
                     }
-                } else if (oentityliving instanceof OEntityPlayer && !flag && ((OEntityPlayer) oentityliving).bZ.a) {
+            } else if (oentityliving instanceof OEntityPlayer && !flag && ((OEntityPlayer) oentityliving).cf.a) {
                     return false;
                 }
 
-                if (!this.d.d(OMathHelper.c(oentityliving.t), OMathHelper.c(oentityliving.u), OMathHelper.c(oentityliving.v))) {
+            if (!this.d.e(OMathHelper.c(oentityliving.t), OMathHelper.c(oentityliving.u), OMathHelper.c(oentityliving.v))) {
                     return false;
-                } else if (this.f && !this.d.at().a(oentityliving)) {
+            } else if (this.f && !this.d.az().a(oentityliving)) {
                     return false;
                 } else {
                     if (this.a) {
@@ -109,14 +108,11 @@ public abstract class OEntityAITarget extends OEntityAIBase {
                     return true;
                 }
             }
-        } else {
-            return false;
-        }
     }
 
     private boolean a(OEntityLiving oentityliving) {
-        this.c = 10 + this.d.au().nextInt(5);
-        OPathEntity opathentity = this.d.as().a(oentityliving);
+        this.c = 10 + this.d.aA().nextInt(5);
+        OPathEntity opathentity = this.d.ay().a(oentityliving);
 
         if (opathentity == null) {
             return false;

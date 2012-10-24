@@ -3,7 +3,7 @@ public class OItemSign extends OItem {
 
     public OItemSign(int i) {
         super(i);
-        this.bU = 16;
+        this.cg = 16;
         this.a(OCreativeTabs.c);
     }
 
@@ -36,9 +36,9 @@ public class OItemSign extends OItem {
                 ++i;
             }
 
-            if (!oentityplayer.e(i, j, k)) {
+            if (!oentityplayer.a(i, j, k, l, oitemstack)) {
                 return false;
-            } else if (!OBlock.aD.b(oworld, i, j, k)) {
+            } else if (!OBlock.aG.b(oworld, i, j, k)) {
                 return false;
             } else {
                 // CanaryMod: Now we can call itemUse :)
@@ -51,16 +51,16 @@ public class OItemSign extends OItem {
                 if (l == 1) {
                     int i1 = OMathHelper.c((double) ((oentityplayer.z + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
 
-                    oworld.d(i, j, k, OBlock.aD.ca, i1);
+                    oworld.d(i, j, k, OBlock.aG.cm, i1);
                 } else {
-                    oworld.d(i, j, k, OBlock.aI.ca, l);
+                    oworld.d(i, j, k, OBlock.aL.cm, l);
                 }
 
                 --oitemstack.a;
                 OTileEntitySign otileentitysign = (OTileEntitySign) oworld.p(i, j, k);
 
                 if (otileentitysign != null) {
-                    oentityplayer.a(otileentitysign);
+                    oentityplayer.a((OTileEntity) otileentitysign);
                 }
 
                 return true;

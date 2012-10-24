@@ -27,11 +27,11 @@ public class OTileEntity {
         }
     }
 
-    public void a(OWorld oworld) {
+    public void b(OWorld oworld) {
         this.k = oworld;
     }
 
-    public boolean m() {
+    public boolean o() {
         return this.k != null;
     }
 
@@ -78,7 +78,7 @@ public class OTileEntity {
         return otileentity;
     }
 
-    public int n() {
+    public int p() {
         if (this.p == -1) {
             this.p = this.k.g(this.l, this.m, this.n);
         }
@@ -94,19 +94,27 @@ public class OTileEntity {
 
     }
 
-    public OPacket e() {
+    public OBlock q() {
+        if (this.q == null) {
+            this.q = OBlock.p[this.k.a(this.l, this.m, this.n)];
+        }
+
+        return this.q;
+    }
+
+    public OPacket l() {
         return null;
     }
 
-    public boolean p() {
+    public boolean r() {
         return this.o;
     }
 
-    public void j() {
+    public void w_() {
         this.o = true;
     }
 
-    public void q() {
+    public void s() {
         this.o = false;
     }
 
@@ -130,5 +138,8 @@ public class OTileEntity {
         a(OTileEntityBrewingStand.class, "Cauldron");
         a(OTileEntityEnchantmentTable.class, "EnchantTable");
         a(OTileEntityEndPortal.class, "Airportal");
+        a(OTileEntityCommandBlock.class, "Control");
+        a(OTileEntityBeacon.class, "Beacon");
+        a(OTileEntitySkull.class, "Skull");
     }
 }

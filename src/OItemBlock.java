@@ -6,10 +6,10 @@ public class OItemBlock extends OItem {
     public OItemBlock(int i) {
         super(i);
         this.a = i + 256;
-        this.c(OBlock.m[i + 256].a(2));
+        this.c(OBlock.p[i + 256].a(2));
     }
 
-    public int f() {
+    public int g() {
         return this.a;
     }
 
@@ -23,9 +23,9 @@ public class OItemBlock extends OItem {
         
         int i1 = oworld.a(i, j, k);
 
-        if (i1 == OBlock.aS.ca) {
+        if (i1 == OBlock.aV.cm) {
             l = 1;
-        } else if (i1 != OBlock.bu.ca && i1 != OBlock.X.ca && i1 != OBlock.Y.ca) {
+        } else if (i1 != OBlock.bx.cm && i1 != OBlock.aa.cm && i1 != OBlock.ab.cm) {
             if (l == 0) {
                 --j;
             }
@@ -58,21 +58,29 @@ public class OItemBlock extends OItem {
 
         if (oitemstack.a == 0) {
             return false;
-        } else if (!oentityplayer.e(i, j, k)) {
+        } else if (!oentityplayer.a(i, j, k, l, oitemstack)) {
             return false;
-        } else if (j == 255 && OBlock.m[this.a].cp.a()) {
+        } else if (j == 255 && OBlock.p[this.a].cB.a()) {
             return false;
+<<<<<<<
         } else if (oworld.a(this.a, i, j, k, false, l, oentityplayer) // CanaryMod: prevent unwanted blocks from getting placed.
                 && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PLACE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
             OBlock oblock = OBlock.m[this.a];
+|||||||
+        } else if (oworld.a(this.a, i, j, k, false, l, oentityplayer)) {
+            OBlock oblock = OBlock.m[this.a];
+=======
+        } else if (oworld.a(this.a, i, j, k, false, l, oentityplayer)) {
+            OBlock oblock = OBlock.p[this.a];
+>>>>>>>
 
-            if (oworld.d(i, j, k, this.a, this.b(oitemstack.j()))) {
+            if (oworld.d(i, j, k, this.a, this.a(oitemstack.j()))) {
                 if (oworld.a(i, j, k) == this.a) {
-                    OBlock.m[this.a].a(oworld, i, j, k, l, f, f1, f2);
-                    OBlock.m[this.a].a(oworld, i, j, k, (OEntityLiving) oentityplayer);
+                    OBlock.p[this.a].a(oworld, i, j, k, l, f, f1, f2);
+                    OBlock.p[this.a].a(oworld, i, j, k, (OEntityLiving) oentityplayer);
                 }
 
-                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cn.d(), (oblock.cn.b() + 1.0F) / 2.0F, oblock.cn.c() * 0.8F);
+                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cz.b(), (oblock.cz.c() + 1.0F) / 2.0F, oblock.cz.d() * 0.8F);
                 --oitemstack.a;
             }
 
@@ -82,11 +90,11 @@ public class OItemBlock extends OItem {
         }
     }
 
-    public String c(OItemStack oitemstack) {
-        return OBlock.m[this.a].a();
+    public String c_(OItemStack oitemstack) {
+        return OBlock.p[this.a].a();
     }
 
     public String a() {
-        return OBlock.m[this.a].a();
+        return OBlock.p[this.a].a();
     }
 }

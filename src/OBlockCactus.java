@@ -4,7 +4,7 @@ import java.util.Random;
 public class OBlockCactus extends OBlock {
 
     protected OBlockCactus(int i, int j) {
-        super(i, j, OMaterial.x);
+        super(i, j, OMaterial.y);
         this.b(true);
         this.a(OCreativeTabs.c);
     }
@@ -13,7 +13,7 @@ public class OBlockCactus extends OBlock {
         if (oworld.c(i, j + 1, k)) {
             int l;
 
-            for (l = 1; oworld.a(i, j - l, k) == this.ca; ++l) {
+            for (l = 1; oworld.a(i, j - l, k) == this.cm; ++l) {
                 ;
             }
 
@@ -21,7 +21,7 @@ public class OBlockCactus extends OBlock {
                 int i1 = oworld.g(i, j, k);
 
                 if (i1 == 15) {
-                    oworld.e(i, j + 1, k, this.ca);
+                    oworld.e(i, j + 1, k, this.cm);
                     oworld.c(i, j, k, 0);
                 } else {
                     oworld.c(i, j, k, i1 + 1);
@@ -38,18 +38,18 @@ public class OBlockCactus extends OBlock {
     }
 
     public int a(int i) {
-        return i == 1 ? this.bZ - 1 : (i == 0 ? this.bZ + 1 : this.bZ);
+        return i == 1 ? this.cl - 1 : (i == 0 ? this.cl + 1 : this.cl);
+    }
+
+    public boolean b() {
+        return false;
     }
 
     public boolean c() {
         return false;
     }
 
-    public boolean d() {
-        return false;
-    }
-
-    public int b() {
+    public int d() {
         return 13;
     }
 
@@ -77,7 +77,7 @@ public class OBlockCactus extends OBlock {
         } else {
             int l = oworld.a(i, j - 1, k);
 
-            return l == OBlock.aV.ca || l == OBlock.E.ca;
+            return l == OBlock.aY.cm || l == OBlock.H.cm;
         }
     }
 

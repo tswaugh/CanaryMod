@@ -1,8 +1,17 @@
+<<<<<<<
 
 public class OItemPainting extends OItem {
+|||||||
+public class OItemPainting extends OItem {
+=======
+public class OItemHangingEntity extends OItem {
+>>>>>>>
 
-    public OItemPainting(int i) {
+    private final Class a;
+
+    public OItemHangingEntity(int i, Class oclass) {
         super(i);
+        this.a = oclass;
         this.a(OCreativeTabs.c);
     }
 
@@ -15,23 +24,13 @@ public class OItemPainting extends OItem {
         } else if (l == 1) {
             return false;
         } else {
-            byte b0 = 0;
+            int i1 = ODirection.e[l];
+            OEntityHanging oentityhanging = this.a(oworld, i, j, k, i1);
 
-            if (l == 4) {
-                b0 = 1;
-            }
-
-            if (l == 3) {
-                b0 = 2;
-            }
-
-            if (l == 5) {
-                b0 = 3;
-            }
-
-            if (!oentityplayer.e(i, j, k)) {
+            if (!oentityplayer.a(i, j, k, l, oitemstack)) {
                 return false;
             } else {
+<<<<<<<
                 OEntityPainting oentitypainting = new OEntityPainting(oworld, i, j, k, b0);
 
                 if (oentitypainting.d()) {
@@ -41,6 +40,17 @@ public class OItemPainting extends OItem {
                             return false;
                         }
                         oworld.d((OEntity) oentitypainting);
+|||||||
+                OEntityPainting oentitypainting = new OEntityPainting(oworld, i, j, k, b0);
+
+                if (oentitypainting.d()) {
+                    if (!oworld.K) {
+                        oworld.d((OEntity) oentitypainting);
+=======
+                if (oentityhanging != null && oentityhanging.c()) {
+                    if (!oworld.J) {
+                        oworld.d((OEntity) oentityhanging);
+>>>>>>>
                     }
 
                     --oitemstack.a;
@@ -49,5 +59,9 @@ public class OItemPainting extends OItem {
                 return true;
             }
         }
+    }
+
+    private OEntityHanging a(OWorld oworld, int i, int j, int k, int l) {
+        return (OEntityHanging) (this.a == OEntityPainting.class ? new OEntityPainting(oworld, i, j, k, l) : (this.a == OEntityItemFrame.class ? new OEntityItemFrame(oworld, i, j, k, l) : null));
     }
 }

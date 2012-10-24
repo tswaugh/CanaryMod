@@ -6,7 +6,7 @@ public class OItemDoor extends OItem {
     public OItemDoor(int i, OMaterial omaterial) {
         super(i);
         this.a = omaterial;
-        this.bU = 1;
+        this.cg = 1;
         this.a(OCreativeTabs.d);
     }
 
@@ -18,12 +18,12 @@ public class OItemDoor extends OItem {
             OBlock oblock;
 
             if (this.a == OMaterial.d) {
-                oblock = OBlock.aE;
+                oblock = OBlock.aH;
             } else {
-                oblock = OBlock.aL;
+                oblock = OBlock.aO;
             }
 
-            if (oentityplayer.e(i, j, k) && oentityplayer.e(i, j + 1, k)) {
+            if (oentityplayer.a(i, j, k, l, oitemstack) && oentityplayer.a(i, j + 1, k, l, oitemstack)) {
                 if (!oblock.b(oworld, i, j, k)) {
                     return false;
                 } else {
@@ -74,8 +74,8 @@ public class OItemDoor extends OItem {
 
         int i1 = (oworld.s(i - b0, j, k - b1) ? 1 : 0) + (oworld.s(i - b0, j + 1, k - b1) ? 1 : 0);
         int j1 = (oworld.s(i + b0, j, k + b1) ? 1 : 0) + (oworld.s(i + b0, j + 1, k + b1) ? 1 : 0);
-        boolean flag = oworld.a(i - b0, j, k - b1) == oblock.ca || oworld.a(i - b0, j + 1, k - b1) == oblock.ca;
-        boolean flag1 = oworld.a(i + b0, j, k + b1) == oblock.ca || oworld.a(i + b0, j + 1, k + b1) == oblock.ca;
+        boolean flag = oworld.a(i - b0, j, k - b1) == oblock.cm || oworld.a(i - b0, j + 1, k - b1) == oblock.cm;
+        boolean flag1 = oworld.a(i + b0, j, k + b1) == oblock.cm || oworld.a(i + b0, j + 1, k + b1) == oblock.cm;
         boolean flag2 = false;
 
         if (flag && !flag1) {
@@ -84,11 +84,11 @@ public class OItemDoor extends OItem {
             flag2 = true;
         }
 
-        oworld.t = true;
-        oworld.d(i, j, k, oblock.ca, l);
-        oworld.d(i, j + 1, k, oblock.ca, 8 | (flag2 ? 1 : 0));
-        oworld.t = false;
-        oworld.h(i, j, k, oblock.ca);
-        oworld.h(i, j + 1, k, oblock.ca);
+        oworld.s = true;
+        oworld.d(i, j, k, oblock.cm, l);
+        oworld.d(i, j + 1, k, oblock.cm, 8 | (flag2 ? 1 : 0));
+        oworld.s = false;
+        oworld.h(i, j, k, oblock.cm);
+        oworld.h(i, j + 1, k, oblock.cm);
     }
 }
