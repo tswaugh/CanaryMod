@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 
 public abstract class OWorld implements OIBlockAccess {
-    
+
     public boolean d = false;
     public List e = new ArrayList();
     protected List f = new ArrayList();
@@ -52,7 +52,7 @@ public abstract class OWorld implements OIBlockAccess {
     int[] I;
     private List P;
     public boolean J;
-    
+
     // CanaryMod
     public final World world = new World((OWorldServer) this);
     boolean loadedpreload = false;
@@ -116,7 +116,7 @@ public abstract class OWorld implements OIBlockAccess {
 
         this.w();
         this.a();
-        
+
         this.name = s; // CanaryMod: store world name in an accessible place.
     }
 
@@ -184,13 +184,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     protected boolean c(int i, int j) {
-<<<<<<<
-        return (this.y != null ? this.y.a(i, j) : false); // CanaryMod: fix NPE
-|||||||
-        return this.y.a(i, j);
-=======
-        return this.x.a(i, j);
->>>>>>>
+        return (this.x != null ? this.x.a(i, j) : false); // CanaryMod: fix NPE
     }
 
     public OChunk d(int i, int j) {
@@ -213,7 +207,6 @@ public abstract class OWorld implements OIBlockAccess {
                 return false;
             } else {
                 OChunk ochunk = this.e(i >> 4, k >> 4);
-<<<<<<<
                 boolean flag1 = false;
                 // CanaryMod: Get Block Info
                 Block block = this.world.getBlockAt(i, j, k);
@@ -221,16 +214,7 @@ public abstract class OWorld implements OIBlockAccess {
                 if (l == 0 || !(Boolean) OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block, l)) {
                     flag1 = ochunk.a(i & 15, j, k & 15, l, i1);
                 }
-                this.F.a("checkLight");
-|||||||
-                boolean flag1 = ochunk.a(i & 15, j, k & 15, l, i1);
-
-                this.F.a("checkLight");
-=======
-                boolean flag1 = ochunk.a(i & 15, j, k & 15, l, i1);
-
                 this.E.a("checkLight");
->>>>>>>
                 this.x(i, j, k);
                 this.E.b();
                 if (flag && flag1 && (this.J || ochunk.o)) {
@@ -258,16 +242,10 @@ public abstract class OWorld implements OIBlockAccess {
                 // ignore if new block is air
                 boolean flag = false;
 
-<<<<<<<
                 if (l == 0 || !(Boolean) OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block, l)) {
                     flag = ochunk.a(i & 15, j, k & 15, l);
                 }
-                this.F.a("checkLight");
-|||||||
-                this.F.a("checkLight");
-=======
                 this.E.a("checkLight");
->>>>>>>
                 this.x(i, j, k);
                 this.E.b();
                 if (flag && (this.J || ochunk.o)) {
@@ -554,14 +532,10 @@ public abstract class OWorld implements OIBlockAccess {
                         OChunk ochunk = this.e(i >> 4, k >> 4);
 
                         ochunk.a(oenumskyblock, i & 15, j, k & 15, l);
-<<<<<<<
+                        //CanaryMod: fire light change hook
                         etc.getLoader().callHook(PluginLoader.Hook.LIGHT_CHANGE, i, j, k, l);
-                        Iterator iterator = this.x.iterator();
-|||||||
-                        Iterator iterator = this.x.iterator();
-=======
+                        //CanaryMod: End
                         Iterator iterator = this.w.iterator();
->>>>>>>
 
                         while (iterator.hasNext()) {
                             OIWorldAccess oiworldaccess = (OIWorldAccess) iterator.next();
@@ -813,11 +787,11 @@ public abstract class OWorld implements OIBlockAccess {
     public boolean d(OEntity oentity) {
         // CanaryMod: mob spawn hook
         if (oentity instanceof OEntityLiving && !(oentity instanceof OEntityPlayer)) {
-            if ((etc.getInstance().getMobSpawnRate() < 100 && etc.getInstance().getMobSpawnRate() > 0 && etc.getInstance().getMobSpawnRate() <= this.v.nextInt(101)) || etc.getInstance().getMobSpawnRate() <= 0 || (Boolean) (etc.getLoader().callHook(PluginLoader.Hook.MOB_SPAWN, new Mob((OEntityLiving) oentity)))) {
+            if ((etc.getInstance().getMobSpawnRate() < 100 && etc.getInstance().getMobSpawnRate() > 0 && etc.getInstance().getMobSpawnRate() <= this.u.nextInt(101)) || etc.getInstance().getMobSpawnRate() <= 0 || (Boolean) (etc.getLoader().callHook(PluginLoader.Hook.MOB_SPAWN, new Mob((OEntityLiving) oentity)))) {
                 return false;
             }
         }
-        
+
         int i = OMathHelper.c(oentity.t / 16.0D);
         int j = OMathHelper.c(oentity.v / 16.0D);
         boolean flag = false;
@@ -940,36 +914,24 @@ public abstract class OWorld implements OIBlockAccess {
         while (iterator.hasNext()) {
             OEntity oentity1 = (OEntity) iterator.next();
             OAxisAlignedBB oaxisalignedbb1 = oentity1.E();
-            
+
             if (oaxisalignedbb1 != null && oaxisalignedbb1.a(oaxisalignedbb)) {
-<<<<<<<
                 // CanaryMod: this collided with a boat
                 if (vehicle != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, vehicle, oentity1.entity)) {
                     continue;
                 }
-                
-                this.d.add(oaxisalignedbb1);
-|||||||
-                this.d.add(oaxisalignedbb1);
-=======
+                // CanaryMod: End
                 this.M.add(oaxisalignedbb1);
->>>>>>>
             }
 
             oaxisalignedbb1 = oentity.g(oentity1);
             if (oaxisalignedbb1 != null && oaxisalignedbb1.a(oaxisalignedbb)) {
-<<<<<<<
                 // CanaryMod: this collided with entity
                 if (vehicle != null && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.VEHICLE_COLLISION, vehicle, oentity1.entity)) {
                     continue;
                 }
-                
-                this.d.add(oaxisalignedbb1);
-|||||||
-                this.d.add(oaxisalignedbb1);
-=======
+                // CanaryMod: End
                 this.M.add(oaxisalignedbb1);
->>>>>>>
             }
         }
 
@@ -998,7 +960,7 @@ public abstract class OWorld implements OIBlockAccess {
                 }
             }
         }
-        
+
         return this.M;
     }
 
@@ -1702,16 +1664,10 @@ public abstract class OWorld implements OIBlockAccess {
                 --i;
                 this.z.f(i);
                 if (i <= 0) {
-<<<<<<<
                     // CanaryMod: Thunder hook
-                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, this.world, !this.A.m())) {
-                        this.A.a(!this.A.m());
+                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, this.world, !this.z.n())) {
+                        this.z.a(!this.z.n());
                     } // CanaryMod: diff visibility
-|||||||
-                    this.A.a(!this.A.m());
-=======
-                    this.z.a(!this.z.n());
->>>>>>>
                 }
             }
 
@@ -1727,16 +1683,10 @@ public abstract class OWorld implements OIBlockAccess {
                 --j;
                 this.z.g(j);
                 if (j <= 0) {
-<<<<<<<
                     // CanaryMod: Weather hook
-                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, this.world, !this.A.o())) {
-                        this.A.b(!this.A.o());
+                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, this.world, !this.z.p())) {
+                        this.z.b(!this.z.p());
                     } // CanaryMod: diff visibility
-|||||||
-                    this.A.b(!this.A.o());
-=======
-                    this.z.b(!this.z.p());
->>>>>>>
                 }
             }
 
@@ -2435,18 +2385,8 @@ public abstract class OWorld implements OIBlockAccess {
         this.y.c();
     }
 
-<<<<<<<
-    public void b(long i) {
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, this.world, i)) {
-            this.A.b(i);
-        } // CanaryMod: diff visibility
-|||||||
-    public void b(long i) {
-        this.A.b(i);
-=======
     public long D() {
         return this.z.b();
->>>>>>>
     }
 
     public long E() {
@@ -2458,7 +2398,9 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void b(long i) {
-        this.z.c(i);
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, this.world, i)) {
+            this.z.c(i);
+        } // CanaryMod: diff visibility
     }
 
     public OChunkCoordinates G() {

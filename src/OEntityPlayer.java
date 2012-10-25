@@ -5,51 +5,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
 
     public OInventoryPlayer bK = new OInventoryPlayer(this);
     private OInventoryEnderChest a = new OInventoryEnderChest();
-<<<<<<<
-    public OContainer bz;
-    public OContainer bA;
-    protected OFoodStats bB = new OFoodStats(this);
-    protected int bC = 0;
-    public byte bD = 0;
-    public int bE = 0;
-    public float bF;
-    public float bG;
-    public boolean bH = false;
-    public int bI = 0;
-    public String bJ;
-    public int bK;
-    public int bL = 0;
-    public double bM;
-    public double bN;
-    public double bO;
-    public double bP;
-    public double bQ;
-    public double bR;
-    protected boolean bS;
-    public OChunkCoordinates bT;
-|||||||
-    public OContainer bz;
-    public OContainer bA;
-    protected OFoodStats bB = new OFoodStats();
-    protected int bC = 0;
-    public byte bD = 0;
-    public int bE = 0;
-    public float bF;
-    public float bG;
-    public boolean bH = false;
-    public int bI = 0;
-    public String bJ;
-    public int bK;
-    public int bL = 0;
-    public double bM;
-    public double bN;
-    public double bO;
-    public double bP;
-    public double bQ;
-    public double bR;
-    protected boolean bS;
-    public OChunkCoordinates bT;
-=======
+
     public OContainer bL;
     public OContainer bM;
     protected OFoodStats bN = new OFoodStats();
@@ -68,45 +24,10 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     public double ca;
     protected boolean cb;
     public OChunkCoordinates cc;
->>>>>>>
     private int b;
     public float cd;
     public float ce;
     private OChunkCoordinates c;
-<<<<<<<
-    private OChunkCoordinates d;
-    public int bW = 20;
-    protected boolean bX = false;
-    public float bY;
-    public OPlayerCapabilities bZ = new OPlayerCapabilities();
-    public int ca;
-    public int cb;
-    public float cc;
-    private OItemStack e;
-    private int f;
-    protected float cd = 0.1F;
-    protected float ce = 0.02F;
-    public OEntityFishHook cf = null;
-
-    // CanaryMod start
-    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
-    HumanEntity entity = new HumanEntity(this);
-    // CanaryMod end
-|||||||
-    private OChunkCoordinates d;
-    public int bW = 20;
-    protected boolean bX = false;
-    public float bY;
-    public OPlayerCapabilities bZ = new OPlayerCapabilities();
-    public int ca;
-    public int cb;
-    public float cc;
-    private OItemStack e;
-    private int f;
-    protected float cd = 0.1F;
-    protected float ce = 0.02F;
-    public OEntityFishHook cf = null;
-=======
     private boolean d;
     private OChunkCoordinates e;
     public OPlayerCapabilities cf = new OPlayerCapabilities();
@@ -119,7 +40,10 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     protected float ck = 0.02F;
     private int h = 0;
     public OEntityFishHook cl = null;
->>>>>>>
+// CanaryMod start
+    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
+    HumanEntity entity = new HumanEntity(this);
+    // CanaryMod end
 
     public OEntityPlayer(OWorld oworld) {
         super(oworld);
@@ -352,17 +276,11 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
             --this.bO;
         }
 
-<<<<<<<
         // CanaryMod: adjust 'healing over time' independent of monster-spawn=true/false (nice notchup!)
         PluginLoader.HookResult autoHeal = etc.getInstance().autoHeal();
 
-        if (this.p.u == 0 && autoHeal == PluginLoader.HookResult.DEFAULT_ACTION || autoHeal == PluginLoader.HookResult.ALLOW_ACTION) {
-            if (this.aN() < this.aM() && this.aa % 20 * 12 == 0) {
-|||||||
-        if (this.p.u == 0 && this.aN() < this.aM() && this.aa % 20 * 12 == 0) {
-=======
-        if (this.p.t == 0 && this.aT() < this.aS() && this.ab % 20 * 12 == 0) {
->>>>>>>
+        if (this.p.t == 0 && autoHeal == PluginLoader.HookResult.DEFAULT_ACTION || autoHeal == PluginLoader.HookResult.ALLOW_ACTION) {
+            if (this.aT() < this.aS() && this.ab % 20 * 12 == 0) {
                 this.i(1);
             }
         }
@@ -761,8 +679,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         if (oentity.c(this)) {
             return true;
         } else {
-<<<<<<<
-            OItemStack oitemstack = this.bC();
+            OItemStack oitemstack = this.bP();
             PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.ENTITY_RIGHTCLICKED, ((OEntityPlayerMP) this).getPlayer(), oentity.entity, (oitemstack == null) ? null : new Item(oitemstack));
 
             if (res != PluginLoader.HookResult.PREVENT_ACTION) {
@@ -770,20 +687,15 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
                 // For example sheep can interact by shearing and cows by milking, and the item stack changes from this interaction if it returns true.
                 // Players on the other hand won't interact normally, but if we want to update the item stack anyways, we will ALLOW the action.
                 if (res == PluginLoader.HookResult.ALLOW_ACTION) {
-|||||||
-            OItemStack oitemstack = this.bC();
-=======
-            OItemStack oitemstack = this.bP();
->>>>>>>
 
                     if (oitemstack != null && oentity instanceof OEntityLiving) {
-                if (this.cf.d) {
+                        if (this.cf.d) {
                             oitemstack = oitemstack.l();
                         }
 
                         if (oitemstack.a((OEntityLiving) oentity)) {
-                    if (oitemstack.a <= 0 && !this.cf.d) {
-                        this.bQ();
+                            if (oitemstack.a <= 0 && !this.cf.d) {
+                                this.bQ();
                             }
 
                             return true;
@@ -808,34 +720,9 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         return (double) (this.M - 0.5F);
     }
 
-<<<<<<<
-    public void i() {
-        if (!this.bH || this.bI >= this.k() / 2 || this.bI < 0) {
-            this.bI = -1;
-            this.bH = true;
-        }
-
-    }
-
-    public void n(OEntity oentity) {
-        if (oentity.an()) {
-            int i = this.by.a(oentity);
-|||||||
-    public void i() {
-        if (!this.bH || this.bI >= this.k() / 2 || this.bI < 0) {
-            this.bI = -1;
-            this.bH = true;
-        }
-    }
-
-    public void n(OEntity oentity) {
-        if (oentity.an()) {
-            int i = this.by.a(oentity);
-=======
     public void p(OEntity oentity) {
         if (oentity.aq()) {
             int i = this.bK.a(oentity);
->>>>>>>
 
             if (this.a(OPotion.g)) {
                 i += 3 << this.b(OPotion.g).c();
@@ -1119,7 +1006,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
             this.c = null;
             this.d = false;
         }
-
     }
 
     public void a(OStatBase ostatbase) {
@@ -1136,7 +1022,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         } else {
             this.j(0.2F);
         }
-
     }
 
     public void e(float f, float f1) {
@@ -1195,7 +1080,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
                     this.a(OStatList.p, i);
                 }
             }
-
         }
     }
 
@@ -1218,7 +1102,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
                 }
             }
         }
-
     }
 
     protected void a(float f) {
@@ -1235,128 +1118,81 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         if (oentityliving instanceof OIMob) {
             this.a((OStatBase) OAchievementList.s);
         }
-
     }
 
     public OItemStack q(int i) {
         return this.bK.f(i);
     }
 
-<<<<<<<
-    public void a(int i) {
-        if(!(Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, etc.getDataSource().getPlayer(bJ), cb, cb)){
-            this.ca -= i;
-            if (this.ca < 0) {
-                this.ca = 0;
-            }
-        }
-    }
-
-    public void q(int i) {
-        addXP(i);
-    }
-
-    public void addXP(int i) {
-        int j = Integer.MAX_VALUE - this.cb;
-|||||||
-    public void q(int i) {
-        this.bE += i;
-        int j = Integer.MAX_VALUE - this.cb;
-=======
     protected void bB() {}
 
     protected void bC() {}
 
     public void t(int i) {
-        this.bQ += i;
-        int j = Integer.MAX_VALUE - this.ch;
->>>>>>>
-
-        if (i > j) {
-            i = j;
-        }
-
-<<<<<<<
-        this.bE += i;
-        this.cc += (float) i / (float) this.bK();
-        this.cb += i;
-        levelUp();
-    }
-|||||||
-        this.cc += (float) i / (float) this.bK();
-=======
-        this.ci += (float) i / (float) this.bY();
->>>>>>>
-
-<<<<<<<
-    public void removeXP(int i) {
-        this.bE -= i;
-        this.cc -= (float) i / (float) this.bK();
-        this.cb -= i;
-        levelUp();
-|||||||
-        for (this.cb += i; this.cc >= 1.0F; this.cc /= (float) this.bK()) {
-            this.cc = (this.cc - 1.0F) * (float) this.bK();
-            this.m();
-=======
-        for (this.ch += i; this.ci >= 1.0F; this.ci /= (float) this.bY()) {
-            this.ci = (this.ci - 1.0F) * (float) this.bY();
-            this.a(1);
->>>>>>>
+        //CanaryMod: lets use our method.
+        addXP(i);
+        //CanaryMod: end
     }
 
-    public void setXP(int i) {
-        this.bE = i;
-        this.cc = (float) i / (float) this.bK();
-        this.cb = i;
-        levelUp();
-    }
-
-<<<<<<<
-    public void levelUp() {
-        // CanaryMod: Make sure levels are right, even when removing XP.
-    	int oldLevel = this.ca;
-   		for (; this.cc >= 1.0F; this.cc /= (float) this.bK()) {
-   			this.cc = (this.cc - 1.0F) * (float) this.bK();
-   			this.m();
-   		}
-    	if (this.ca > oldLevel) {
-			manager.callHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
-		}
-|||||||
-    public void a(int i) {
-        this.ca -= i;
-        if (this.ca < 0) {
-            this.ca = 0;
-        }
-=======
     public void a(int i) {
         this.cg += i;
         if (this.cg < 0) {
             this.cg = 0;
->>>>>>>
-    }
+        }
 
-<<<<<<<
-    public int bK() {
-    	if(etc.getInstance().isOldExperience()) {
-    		return 7 + (this.ca * 7 >> 1);
-    	}
-   		return this.ca >= 30 ? 62 + (this.ca - 30) * 7 : (this.ca >= 15 ? 17 + (this.ca - 15) * 3 : 17);
-|||||||
-    public int bK() {
-        return this.ca >= 30 ? 62 + (this.ca - 30) * 7 : (this.ca >= 15 ? 17 + (this.ca - 15) * 3 : 17);
-=======
         if (i > 0 && this.cg % 5 == 0 && (float) this.h < (float) this.ab - 100.0F) {
             float f = this.cg > 30 ? 1.0F : (float) this.cg / 30.0F;
 
             this.p.a(this, "random.levelup", f * 0.75F, 1.0F);
             this.h = this.ab;
         }
->>>>>>>
+    }
+
+    public void addXP(int i) {
+        int j = Integer.MAX_VALUE - this.ch;
+
+        if (i > j) {
+            i = j;
+        }
+
+        this.bE += i;
+        this.ci += (float) i / (float) this.bY();
+        this.ch += i;
+        levelUp();
+    }
+
+    public void removeXP(int i) {
+        this.bE -= i;
+        this.ci -= (float) i / (float) this.bY();
+        this.ch -= i;
+        levelUp();
+    }
+
+    public void setXP(int i) {
+        this.bE = i;
+        this.ci = (float) i / (float) this.bY();
+        this.ch = i;
+        levelUp();
+    }
+
+    public void levelUp() {
+        // CanaryMod: Make sure levels are right, even when removing XP.
+    	int oldLevel = this.cg;
+   		for (; this.ci >= 1.0F; this.ci /= (float) this.bY()) {
+   			this.ci = (this.ci - 1.0F) * (float) this.bY();
+   			++this.cg;
+   		}
+    	if (this.cg > oldLevel) {
+			manager.cgllHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
+		}
     }
 
     public int bY() {
+        // CanaryMod: Old Experience OPtion
+        if(etc.getInstance().isOldExperience()) {
+    		return 7 + (this.cg * 7 >> 1);
+    	}
+        // CanaryMod: End
         return this.cg >= 30 ? 62 + (this.cg - 30) * 7 : (this.cg >= 15 ? 17 + (this.cg - 15) * 3 : 17);
     }
 

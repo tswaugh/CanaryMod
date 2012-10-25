@@ -27,32 +27,16 @@ public class OChunk {
     public boolean m;
     public long n;
     public boolean o;
-<<<<<<<
-    private int t;
-    boolean p;
-    // CanaryMod
-    public final Chunk chunk = new Chunk(this);
-|||||||
-    private int t;
-    boolean p;
-=======
     public int p;
     private int u;
     boolean q;
->>>>>>>
+    // CanaryMod
+    public final Chunk chunk = new Chunk(this);
 
     public OChunk(OWorld oworld, int i, int j) {
-<<<<<<<
-        super();
-        this.q = new OExtendedBlockStorage[16];
-        this.r = new byte[256];
-|||||||
-        this.q = new OExtendedBlockStorage[16];
-        this.r = new byte[256];
-=======
+//        super(); @todo TODO I don't know why super is called
         this.r = new OExtendedBlockStorage[16];
         this.s = new byte[256];
->>>>>>>
         this.b = new int[256];
         this.c = new boolean[256];
         this.t = false;
@@ -297,18 +281,8 @@ public class OChunk {
                             ONetServerHandler.a.warning("Chunk location: " + j1 + ", " + k1);
                             l1 = 0;
                         }
-<<<<<<<
                         // CanaryMod end
-                        oextendedblockstorage = this.q[l1 >> 4];
-|||||||
-                } else {
-                    for (l1 = l; l1 < i1; ++l1) {
-                        oextendedblockstorage = this.q[l1 >> 4];
-=======
-                } else {
-                    for (l1 = l; l1 < i1; ++l1) {
                         oextendedblockstorage = this.r[l1 >> 4];
->>>>>>>
                         if (oextendedblockstorage != null) {
                             oextendedblockstorage.c(i, l1 & 15, k, 0);
                             this.e.n((this.g << 4) + i, l1, (this.h << 4) + k);
@@ -394,7 +368,7 @@ public class OChunk {
     public boolean a(int i, int j, int k, int l, int i1) {
         return a(i, j, k, l, i1, true);
     }
-   
+
     public boolean a(int i, int j, int k, int l, int i1, boolean checkPortal) {
         int j1 = k << 4 | i;
 
@@ -409,16 +383,9 @@ public class OChunk {
         if (l1 == l && i2 == i1) {
             return false;
         } else {
-<<<<<<<
+
             int portalPointX = this.g * 16 + i;
             int portalPointZ = this.h * 16 + k;
-|||||||
-            OExtendedBlockStorage oextendedblockstorage = this.q[j >> 4];
-            boolean flag = false;
-=======
-            OExtendedBlockStorage oextendedblockstorage = this.r[j >> 4];
-            boolean flag = false;
->>>>>>>
 
             if (checkPortal == true) {
                 int portalPointY = j;
@@ -466,8 +433,8 @@ public class OChunk {
                     }
                 }
             }
-		
-            OExtendedBlockStorage oextendedblockstorage = this.q[j >> 4];
+
+            OExtendedBlockStorage oextendedblockstorage = this.r[j >> 4];
             boolean flag = false;
 
             if (oextendedblockstorage == null) {
@@ -546,17 +513,11 @@ public class OChunk {
     }
 
     public boolean b(int i, int j, int k, int l) {
-<<<<<<<
         return b(i, j, k, l, true);
     }
-   
+
     public boolean b(int i, int j, int k, int l, boolean checkPortal) {
-        OExtendedBlockStorage oextendedblockstorage = this.q[j >> 4];
-|||||||
-        OExtendedBlockStorage oextendedblockstorage = this.q[j >> 4];
-=======
         OExtendedBlockStorage oextendedblockstorage = this.r[j >> 4];
->>>>>>>
 
         if (oextendedblockstorage == null) {
             return false;
@@ -612,7 +573,7 @@ public class OChunk {
                     }
                 }
             }
-			
+
             int k1 = oextendedblockstorage.b(i, j & 15, k);
 
             if (k1 == l) {
@@ -622,13 +583,7 @@ public class OChunk {
                 oextendedblockstorage.b(i, j & 15, k, l);
                 int l1 = oextendedblockstorage.a(i, j & 15, k);
 
-<<<<<<<
-                if (l1 > 0 && OBlock.m[l1] instanceof OBlockContainer) {
-|||||||
-                if (j1 > 0 && OBlock.m[j1] instanceof OBlockContainer) {
-=======
-                if (j1 > 0 && OBlock.p[j1] instanceof OBlockContainer) {
->>>>>>>
+                if (l1 > 0 && OBlock.p[l1] instanceof OBlockContainer) {
                     OTileEntity otileentity = this.e(i, j, k);
 
                     if (otileentity != null) {

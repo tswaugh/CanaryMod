@@ -51,31 +51,13 @@ public abstract class OEntity {
     public float Z;
     protected Random aa;
     public int ab;
-<<<<<<<
-    protected int c; // CanaryMod: private -> protected
-    protected boolean ac;
-    public int ad;
-    private boolean d;
-    protected boolean ae;
-    protected ODataWatcher af;
-    private double e;
-|||||||
-    private int c;
-    protected boolean ac;
-    public int ad;
-    private boolean d;
-    protected boolean ae;
-    protected ODataWatcher af;
-    private double e;
-=======
     public int ac;
-    private int d;
+    protected int d; // CanaryMod: private -> protected
     protected boolean ad;
     public int ae;
     private boolean e;
     protected boolean af;
     protected ODataWatcher ag;
->>>>>>>
     private double f;
     private double g;
     public boolean ah;
@@ -83,16 +65,6 @@ public abstract class OEntity {
     public int aj;
     public int ak;
     public boolean al;
-<<<<<<<
-    public OEnumEntitySize am;
-    
-    // CanaryMod Start
-    BaseEntity entity = new BaseEntity(this);
-    public static PluginLoader manager = etc.getLoader();
-    // CanaryMod end
-|||||||
-    public OEnumEntitySize am;
-=======
     public boolean am;
     public int an;
     protected boolean ao;
@@ -100,7 +72,11 @@ public abstract class OEntity {
     public int ap;
     protected int aq;
     public OEnumEntitySize ar;
->>>>>>>
+    // CanaryMod Start
+    BaseEntity entity = new BaseEntity(this);
+    public static PluginLoader manager = etc.getLoader();
+    // CanaryMod end
+
 
     public OEntity(OWorld oworld) {
         this.k = b++;
@@ -313,15 +289,9 @@ public abstract class OEntity {
                     this.d = 0;
                 }
             } else {
-<<<<<<<
-                if (this.c % 20 == 0) {
+                if (this.d % 20 == 0) {
                     // CanaryMod Damage hook: Periodic burn damage
                     if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE_TICK, null, entity, 1)) {
-|||||||
-                if (this.c % 20 == 0) {
-=======
-                if (this.d % 20 == 0) {
->>>>>>>
                         this.a(ODamageSource.b, 1);
                     }
                 }
@@ -353,19 +323,13 @@ public abstract class OEntity {
     }
 
     protected void A() {
-<<<<<<<
-        if (!this.ae) {
+        if (!this.af) {
             // CanaryMod Damage hook: Lava
             if (this instanceof OEntityLiving) {
                 if ((Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.LAVA, null, entity, 4)) {
                     return;
                 }
             }
-|||||||
-        if (!this.ae) {
-=======
-        if (!this.af) {
->>>>>>>
             this.a(ODamageSource.c, 4);
             this.c(15);
         }
@@ -729,18 +693,10 @@ public abstract class OEntity {
         return null;
     }
 
-<<<<<<<
-    protected void e(int i) {
-        if (!this.ae) {
-            // CanaryMod Damage Hook: Fire
-            if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE, null, entity, i)) {
-|||||||
-    protected void e(int i) {
-        if (!this.ae) {
-=======
     protected void d(int i) {
         if (!this.af) {
->>>>>>>
+            // CanaryMod Damage Hook: Fire
+            if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE, null, entity, i)) {
                 this.a(ODamageSource.a, i);
             }
         }
@@ -1317,26 +1273,14 @@ public abstract class OEntity {
     }
 
     public void a(OEntityLightningBolt oentitylightningbolt) {
-<<<<<<<
         // CanaryMod Damage Hook: Lightning
         if ((Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.LIGHTNING, null, entity, 5)) {
             return;
         }
-        this.e(5);
-        ++this.c;
-        if (this.c == 0) {
-            this.d(8);
-|||||||
-        this.e(5);
-        ++this.c;
-        if (this.c == 0) {
-            this.d(8);
-=======
         this.d(5);
         ++this.d;
         if (this.d == 0) {
             this.c(8);
->>>>>>>
         }
 
     }

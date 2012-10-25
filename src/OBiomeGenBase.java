@@ -154,7 +154,7 @@ public abstract class OBiomeGenBase {
             return config.getWaterAnimalsClass(this);
         }
         if (oenumcreaturetype == OEnumCreatureType.c) {
-            // TODO: flying stuff
+            return config.getAmbientAnimalsClass(this);
         }
         return null;
     }
