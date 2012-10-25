@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OBlockLeaves extends OBlockLeavesBase {
 
     private int cD;
@@ -18,7 +17,7 @@ public class OBlockLeaves extends OBlockLeavesBase {
         byte b0 = 1;
         int j1 = b0 + 1;
 
-        if (oworld.c(i - j1, j - j1, k - j1, i + j1, j + j1, k + j1)) {
+        if (oworld.d(i - j1, j - j1, k - j1, i + j1, j + j1, k + j1)) {
             for (int k1 = -b0; k1 <= b0; ++k1) {
                 for (int l1 = -b0; l1 <= b0; ++l1) {
                     for (int i2 = -b0; i2 <= b0; ++i2) {

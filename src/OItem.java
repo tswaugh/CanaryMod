@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OItem {
 
     private OCreativeTabs a = null;
@@ -30,14 +29,14 @@ public class OItem {
     public static OItem A = (new OItemSpade(21, OEnumToolMaterial.d)).b(3, 5).b("shovelDiamond");
     public static OItem B = (new OItemPickaxe(22, OEnumToolMaterial.d)).b(3, 6).b("pickaxeDiamond");
     public static OItem C = (new OItemAxe(23, OEnumToolMaterial.d)).b(3, 7).b("hatchetDiamond");
-    public static OItem D = (new OItem(24)).b(5, 3).n().b("stick").a(OCreativeTabs.l);
+    public static OItem D = (new OItem(24)).b(5, 3).o().b("stick").a(OCreativeTabs.l);
     public static OItem E = (new OItem(25)).b(7, 4).b("bowl").a(OCreativeTabs.l);
-    public static OItem F = (new OItemSoup(26, 8)).b(8, 4).b("mushroomStew");
+    public static OItem F = (new OItemSoup(26, 6)).b(8, 4).b("mushroomStew");
     public static OItem G = (new OItemSword(27, OEnumToolMaterial.e)).b(4, 4).b("swordGold");
     public static OItem H = (new OItemSpade(28, OEnumToolMaterial.e)).b(4, 5).b("shovelGold");
     public static OItem I = (new OItemPickaxe(29, OEnumToolMaterial.e)).b(4, 6).b("pickaxeGold");
     public static OItem J = (new OItemAxe(30, OEnumToolMaterial.e)).b(4, 7).b("hatchetGold");
-    public static OItem K = (new OItemReed(31, OBlock.bU)).b(8, 0).b("string").a(OCreativeTabs.l);
+    public static OItem K = (new OItemReed(31, OBlock.bX)).b(8, 0).b("string").a(OCreativeTabs.l);
     public static OItem L = (new OItem(32)).b(8, 1).b("feather").a(OCreativeTabs.l);
     public static OItem M = (new OItem(33)).b(8, 2).b("sulphur").c(OPotionHelper.k).a(OCreativeTabs.l);
     public static OItem N = (new OItemHoe(34, OEnumToolMaterial.a)).b(0, 8).b("hoeWood");
@@ -45,7 +44,7 @@ public class OItem {
     public static OItem P = (new OItemHoe(36, OEnumToolMaterial.c)).b(2, 8).b("hoeIron");
     public static OItem Q = (new OItemHoe(37, OEnumToolMaterial.d)).b(3, 8).b("hoeDiamond");
     public static OItem R = (new OItemHoe(38, OEnumToolMaterial.e)).b(4, 8).b("hoeGold");
-    public static OItem S = (new OItemSeeds(39, OBlock.az.ca, OBlock.aA.ca)).b(9, 0).b("seeds");
+    public static OItem S = (new OItemSeeds(39, OBlock.aC.cm, OBlock.aD.cm)).b(9, 0).b("seeds");
     public static OItem T = (new OItem(40)).b(9, 1).b("wheat").a(OCreativeTabs.l);
     public static OItem U = (new OItemFood(41, 5, 0.6F, false)).b(9, 2).b("bread");
     public static OItem V = (new OItemArmor(42, OEnumArmorMaterial.a, 0, 0)).b(0, 0).b("helmetCloth");
@@ -71,13 +70,13 @@ public class OItem {
     public static OItem ap = (new OItem(62)).b(6, 0).b("flint").a(OCreativeTabs.l);
     public static OItem aq = (new OItemFood(63, 3, 0.3F, true)).b(7, 5).b("porkchopRaw");
     public static OItem ar = (new OItemFood(64, 8, 0.8F, true)).b(8, 5).b("porkchopCooked");
-    public static OItem as = (new OItemPainting(65)).b(10, 1).b("painting");
-    public static OItem at = (new OItemAppleGold(66, 4, 1.2F, false)).i().a(OPotion.l.H, 5, 0, 1.0F).b(11, 0).b("appleGold");
+    public static OItem as = (new OItemHangingEntity(65, OEntityPainting.class)).b(10, 1).b("painting");
+    public static OItem at = (new OItemAppleGold(66, 4, 1.2F, false)).j().a(OPotion.l.H, 5, 0, 1.0F).b(11, 0).b("appleGold");
     public static OItem au = (new OItemSign(67)).b(10, 2).b("sign");
     public static OItem av = (new OItemDoor(68, OMaterial.d)).b(11, 2).b("doorWood");
     public static OItem aw = (new OItemBucket(69, 0)).b(10, 4).b("bucket").d(16);
-    public static OItem ax = (new OItemBucket(70, OBlock.A.ca)).b(11, 4).b("bucketWater").a(aw);
-    public static OItem ay = (new OItemBucket(71, OBlock.C.ca)).b(12, 4).b("bucketLava").a(aw);
+    public static OItem ax = (new OItemBucket(70, OBlock.D.cm)).b(11, 4).b("bucketWater").a(aw);
+    public static OItem ay = (new OItemBucket(71, OBlock.F.cm)).b(12, 4).b("bucketLava").a(aw);
     public static OItem az = (new OItemMinecart(72, 0)).b(7, 8).b("minecart");
     public static OItem aA = (new OItemSaddle(73)).b(8, 6).b("saddle");
     public static OItem aB = (new OItemDoor(74, OMaterial.f)).b(12, 2).b("doorIron");
@@ -88,7 +87,7 @@ public class OItem {
     public static OItem aG = (new OItemBucketMilk(79)).b(13, 4).b("milk").a(aw);
     public static OItem aH = (new OItem(80)).b(6, 1).b("brick").a(OCreativeTabs.l);
     public static OItem aI = (new OItem(81)).b(9, 3).b("clay").a(OCreativeTabs.l);
-    public static OItem aJ = (new OItemReed(82, OBlock.aX)).b(11, 1).b("reeds").a(OCreativeTabs.l);
+    public static OItem aJ = (new OItemReed(82, OBlock.ba)).b(11, 1).b("reeds").a(OCreativeTabs.l);
     public static OItem aK = (new OItem(83)).b(10, 3).b("paper").a(OCreativeTabs.f);
     public static OItem aL = (new OItem(84)).b(11, 3).b("book").a(OCreativeTabs.f);
     public static OItem aM = (new OItem(85)).b(14, 1).b("slimeball").a(OCreativeTabs.f);
@@ -102,17 +101,17 @@ public class OItem {
     public static OItem aU = (new OItemFood(93, 2, 0.3F, false)).b(9, 5).b("fishRaw");
     public static OItem aV = (new OItemFood(94, 5, 0.6F, false)).b(10, 5).b("fishCooked");
     public static OItem aW = (new OItemDye(95)).b(14, 4).b("dyePowder");
-    public static OItem aX = (new OItem(96)).b(12, 1).b("bone").n().a(OCreativeTabs.f);
+    public static OItem aX = (new OItem(96)).b(12, 1).b("bone").o().a(OCreativeTabs.f);
     public static OItem aY = (new OItem(97)).b(13, 0).b("sugar").c(OPotionHelper.b).a(OCreativeTabs.l);
-    public static OItem aZ = (new OItemReed(98, OBlock.bg)).d(1).b(13, 1).b("cake").a(OCreativeTabs.h);
+    public static OItem aZ = (new OItemReed(98, OBlock.bj)).d(1).b(13, 1).b("cake").a(OCreativeTabs.h);
     public static OItem ba = (new OItemBed(99)).d(1).b(13, 2).b("bed");
-    public static OItem bb = (new OItemReed(100, OBlock.bh)).b(6, 5).b("diode").a(OCreativeTabs.d);
+    public static OItem bb = (new OItemReed(100, OBlock.bk)).b(6, 5).b("diode").a(OCreativeTabs.d);
     public static OItem bc = (new OItemFood(101, 2, 0.1F, false)).b(12, 5).b("cookie");
     public static OItemMap bd = (OItemMap) (new OItemMap(102)).b(12, 3).b("map");
     public static OItemShears be = (OItemShears) (new OItemShears(103)).b(13, 5).b("shears");
     public static OItem bf = (new OItemFood(104, 2, 0.3F, false)).b(13, 6).b("melon");
-    public static OItem bg = (new OItemSeeds(105, OBlock.bs.ca, OBlock.aA.ca)).b(13, 3).b("seeds_pumpkin");
-    public static OItem bh = (new OItemSeeds(106, OBlock.bt.ca, OBlock.aA.ca)).b(14, 3).b("seeds_melon");
+    public static OItem bg = (new OItemSeeds(105, OBlock.bv.cm, OBlock.aD.cm)).b(13, 3).b("seeds_pumpkin");
+    public static OItem bh = (new OItemSeeds(106, OBlock.bw.cm, OBlock.aD.cm)).b(14, 3).b("seeds_melon");
     public static OItem bi = (new OItemFood(107, 3, 0.3F, true)).b(9, 6).b("beefRaw");
     public static OItem bj = (new OItemFood(108, 8, 0.8F, true)).b(10, 6).b("beefCooked");
     public static OItem bk = (new OItemFood(109, 2, 0.3F, true)).a(OPotion.s.H, 30, 0, 0.3F).b(9, 7).b("chickenRaw");
@@ -122,15 +121,15 @@ public class OItem {
     public static OItem bo = (new OItem(113)).b(12, 6).b("blazeRod").a(OCreativeTabs.l);
     public static OItem bp = (new OItem(114)).b(11, 7).b("ghastTear").c(OPotionHelper.c).a(OCreativeTabs.k);
     public static OItem bq = (new OItem(115)).b(12, 7).b("goldNugget").a(OCreativeTabs.l);
-    public static OItem br = (new OItemSeeds(116, OBlock.bD.ca, OBlock.bc.ca)).b(13, 7).b("netherStalkSeeds").c("+4");
+    public static OItem br = (new OItemSeeds(116, OBlock.bG.cm, OBlock.bf.cm)).b(13, 7).b("netherStalkSeeds").c("+4");
     public static OItemPotion bs = (OItemPotion) (new OItemPotion(117)).b(13, 8).b("potion");
     public static OItem bt = (new OItemGlassBottle(118)).b(12, 8).b("glassBottle");
     public static OItem bu = (new OItemFood(119, 2, 0.8F, false)).a(OPotion.u.H, 5, 0, 1.0F).b(11, 8).b("spiderEye").c(OPotionHelper.d);
     public static OItem bv = (new OItem(120)).b(10, 8).b("fermentedSpiderEye").c(OPotionHelper.e).a(OCreativeTabs.k);
     public static OItem bw = (new OItem(121)).b(13, 9).b("blazePowder").c(OPotionHelper.g).a(OCreativeTabs.k);
     public static OItem bx = (new OItem(122)).b(13, 10).b("magmaCream").c(OPotionHelper.h).a(OCreativeTabs.k);
-    public static OItem by = (new OItemReed(123, OBlock.bF)).b(12, 10).b("brewingStand").a(OCreativeTabs.k);
-    public static OItem bz = (new OItemReed(124, OBlock.bG)).b(12, 9).b("cauldron").a(OCreativeTabs.k);
+    public static OItem by = (new OItemReed(123, OBlock.bI)).b(12, 10).b("brewingStand").a(OCreativeTabs.k);
+    public static OItem bz = (new OItemReed(124, OBlock.bJ)).b(12, 9).b("cauldron").a(OCreativeTabs.k);
     public static OItem bA = (new OItemEnderEye(125)).b(11, 9).b("eyeOfEnder");
     public static OItem bB = (new OItem(126)).b(9, 8).b("speckledMelon").c(OPotionHelper.f).a(OCreativeTabs.k);
     public static OItem bC = (new OItemMonsterPlacer(127)).b(9, 9).b("monsterPlacer");
@@ -139,29 +138,41 @@ public class OItem {
     public static OItem bF = (new OItemWritableBook(130)).b(11, 11).b("writingBook").a(OCreativeTabs.f);
     public static OItem bG = (new OItemEditableBook(131)).b(12, 11).b("writtenBook");
     public static OItem bH = (new OItem(132)).b(10, 11).b("emerald").a(OCreativeTabs.l);
-    public static OItem bI = (new OItemRecord(2000, "13")).b(0, 15).b("record");
-    public static OItem bJ = (new OItemRecord(2001, "cat")).b(1, 15).b("record");
-    public static OItem bK = (new OItemRecord(2002, "blocks")).b(2, 15).b("record");
-    public static OItem bL = (new OItemRecord(2003, "chirp")).b(3, 15).b("record");
-    public static OItem bM = (new OItemRecord(2004, "far")).b(4, 15).b("record");
-    public static OItem bN = (new OItemRecord(2005, "mall")).b(5, 15).b("record");
-    public static OItem bO = (new OItemRecord(2006, "mellohi")).b(6, 15).b("record");
-    public static OItem bP = (new OItemRecord(2007, "stal")).b(7, 15).b("record");
-    public static OItem bQ = (new OItemRecord(2008, "strad")).b(8, 15).b("record");
-    public static OItem bR = (new OItemRecord(2009, "ward")).b(9, 15).b("record");
-    public static OItem bS = (new OItemRecord(2010, "11")).b(10, 15).b("record");
-    public final int bT;
-    protected int bU = 64;
+    public static OItem bI = (new OItemHangingEntity(133, OEntityItemFrame.class)).b(14, 12).b("frame");
+    public static OItem bJ = (new OItemReed(134, OBlock.cf)).b(13, 11).b("flowerPot").a(OCreativeTabs.c);
+    public static OItem bK = (new OItemSeedFood(135, 4, 0.6F, OBlock.cg.cm, OBlock.aD.cm)).b(8, 7).b("carrots");
+    public static OItem bL = (new OItemSeedFood(136, 1, 0.3F, OBlock.ch.cm, OBlock.aD.cm)).b(7, 7).b("potato");
+    public static OItem bM = (new OItemFood(137, 6, 0.6F, false)).b(6, 7).b("potatoBaked");
+    public static OItem bN = (new OItemFood(138, 2, 0.3F, false)).a(OPotion.u.H, 5, 0, 0.6F).b(6, 8).b("potatoPoisonous");
+    public static OItemEmptyMap bO = (OItemEmptyMap) (new OItemEmptyMap(139)).b(13, 12).b("emptyMap");
+    public static OItem bP = (new OItemFood(140, 6, 1.2F, false)).b(6, 9).b("carrotGolden").c(OPotionHelper.l);
+    public static OItem bQ = (new OItemSkull(141)).b("skull");
+    public static OItem bR = (new OItemCarrotOnAStick(142)).b(6, 6).b("carrotOnAStick");
+    public static OItem bS = (new OItemSimpleFoiled(143)).b(9, 11).b("netherStar").a(OCreativeTabs.l);
+    public static OItem bT = (new OItemFood(144, 8, 0.3F, false)).b(8, 9).b("pumpkinPie").a(OCreativeTabs.h);
+    public static OItem bU = (new OItemRecord(2000, "13")).b(0, 15).b("record");
+    public static OItem bV = (new OItemRecord(2001, "cat")).b(1, 15).b("record");
+    public static OItem bW = (new OItemRecord(2002, "blocks")).b(2, 15).b("record");
+    public static OItem bX = (new OItemRecord(2003, "chirp")).b(3, 15).b("record");
+    public static OItem bY = (new OItemRecord(2004, "far")).b(4, 15).b("record");
+    public static OItem bZ = (new OItemRecord(2005, "mall")).b(5, 15).b("record");
+    public static OItem ca = (new OItemRecord(2006, "mellohi")).b(6, 15).b("record");
+    public static OItem cb = (new OItemRecord(2007, "stal")).b(7, 15).b("record");
+    public static OItem cc = (new OItemRecord(2008, "strad")).b(8, 15).b("record");
+    public static OItem cd = (new OItemRecord(2009, "ward")).b(9, 15).b("record");
+    public static OItem ce = (new OItemRecord(2010, "11")).b(10, 15).b("record");
+    public final int cf;
+    protected int cg = 64;
     private int b = 0;
-    protected int bV;
-    protected boolean bW = false;
-    protected boolean bX = false;
+    protected int ch;
+    protected boolean ci = false;
+    protected boolean cj = false;
     private OItem c = null;
-    private String bY = null;
-    private String bZ;
+    private String ck = null;
+    private String cl;
 
     protected OItem(int i) {
-        this.bT = 256 + i;
+        this.cf = 256 + i;
         if (e[256 + i] != null) {
             System.out.println("CONFLICT @ " + i);
         }
@@ -170,18 +181,18 @@ public class OItem {
     }
 
     public OItem c(int i) {
-        this.bV = i;
+        this.ch = i;
         return this;
     }
-    
+
     // CanaryMod set max stack size
     public OItem d(int i) {
-        this.bU = i;
+        this.cg = i;
         return this;
     }
 
     public OItem b(int i, int j) {
-        this.bV = i + j * 16;
+        this.ch = i + j * 16;
         return this;
     }
 
@@ -204,24 +215,24 @@ public class OItem {
         return oitemstack;
     }
 
-    public int j() { // CanaryMod - get max stacksize
-        return this.bU;
+    public int k() { // CanaryMod - get max stacksize
+        return this.cg;
     }
 
-    public int b(int i) {
+    public int a(int i) {
         return 0;
     }
 
-    public boolean k() {
-        return this.bX;
+    public boolean l() {
+        return this.cj;
     }
 
     protected OItem a(boolean flag) {
-        this.bX = flag;
+        this.cj = flag;
         return this;
     }
 
-    public int l() {
+    public int m() {
         return this.b;
     }
 
@@ -230,8 +241,8 @@ public class OItem {
         return this;
     }
 
-    public boolean m() {
-        return this.b > 0 && !this.bX;
+    public boolean n() {
+        return this.b > 0 && !this.cj;
     }
 
     public boolean a(OItemStack oitemstack, OEntityLiving oentityliving, OEntityLiving oentityliving1) {
@@ -254,22 +265,28 @@ public class OItem {
         return false;
     }
 
-    public OItem n() {
-        this.bW = true;
+    public OItem o() {
+        this.ci = true;
         return this;
     }
 
     public OItem b(String s) {
-        this.bZ = "item." + s;
+        this.cl = "item." + s;
         return this;
     }
 
-    public String a() {
-        return this.bZ;
+    public String g(OItemStack oitemstack) {
+        String s = this.c_(oitemstack);
+
+        return s == null ? "" : OStatCollector.a(s);
     }
 
-    public String c(OItemStack oitemstack) {
-        return this.bZ;
+    public String a() {
+        return this.cl;
+    }
+
+    public String c_(OItemStack oitemstack) {
+        return this.cl;
     }
 
     public OItem a(OItem oitem) {
@@ -281,35 +298,35 @@ public class OItem {
         return true;
     }
 
-    public boolean p() {
-        return false;
+    public boolean q() {
+        return true;
     }
 
-    public OItem q() {
+    public OItem r() {
         return this.c;
     }
 
-    public boolean r() {
+    public boolean s() {
         return this.c != null;
     }
 
-    public String s() {
+    public String t() {
         return OStatCollector.a(this.a() + ".name");
     }
 
     public String i(OItemStack oitemstack) {
-        return OStatCollector.a(this.c(oitemstack) + ".name");
+        return OStatCollector.a(this.c_(oitemstack) + ".name");
     }
 
     public void a(OItemStack oitemstack, OWorld oworld, OEntity oentity, int i, boolean flag) {}
 
     public void d(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {}
 
-    public boolean m_() {
+    public boolean f() {
         return false;
     }
 
-    public OEnumAction b(OItemStack oitemstack) {
+    public OEnumAction d_(OItemStack oitemstack) {
         return OEnumAction.a;
     }
 
@@ -320,20 +337,24 @@ public class OItem {
     public void a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer, int i) {}
 
     protected OItem c(String s) {
-        this.bY = s;
+        this.ck = s;
         return this;
     }
 
-    public String t() {
-        return this.bY;
+    public String u() {
+        return this.ck;
     }
 
-    public boolean u() {
-        return this.bY != null;
+    public boolean v() {
+        return this.ck != null;
+    }
+
+    public String j(OItemStack oitemstack) {
+        return ("" + OStringTranslate.a().c(this.g(oitemstack))).trim();
     }
 
     public boolean k(OItemStack oitemstack) {
-        return this.j() == 1 && this.m();
+        return this.k() == 1 && this.n();
     }
 
     protected OMovingObjectPosition a(OWorld oworld, OEntityPlayer oentityplayer, boolean flag) {
@@ -343,7 +364,7 @@ public class OItem {
         double d0 = oentityplayer.q + (oentityplayer.t - oentityplayer.q) * (double) f;
         double d1 = oentityplayer.r + (oentityplayer.u - oentityplayer.r) * (double) f + 1.62D - (double) oentityplayer.M;
         double d2 = oentityplayer.s + (oentityplayer.v - oentityplayer.s) * (double) f;
-        OVec3 ovec3 = OVec3.a().a(d0, d1, d2);
+        OVec3 ovec3 = oworld.R().a(d0, d1, d2);
         float f3 = OMathHelper.b(-f2 * 0.017453292F - 3.1415927F);
         float f4 = OMathHelper.a(-f2 * 0.017453292F - 3.1415927F);
         float f5 = -OMathHelper.b(-f1 * 0.017453292F);
@@ -356,7 +377,7 @@ public class OItem {
         return oworld.a(ovec3, ovec31, flag, !flag);
     }
 
-    public int b() {
+    public int c() {
         return 0;
     }
 
@@ -365,10 +386,18 @@ public class OItem {
         return this;
     }
 
+    public boolean x() {
+        return true;
+    }
+
+    public boolean a(OItemStack oitemstack, OItemStack oitemstack1) {
+        return false;
+    }
+
     static {
         OStatList.c();
     }
-    
+
     // CanaryMod start - Add convenience method to get block clicked.
     protected Block getBlockInfo(OWorld oworld, int i, int j, int k, int l) {
         Block b = oworld.world.getBlockAt(i, j, k);
