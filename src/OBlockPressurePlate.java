@@ -24,11 +24,11 @@ public class OBlockPressurePlate extends OBlock {
         return null;
     }
 
-    public boolean d() {
+    public boolean c() {
         return false;
     }
 
-    public boolean c() {
+    public boolean b() {
         return false;
     }
     
@@ -55,7 +55,7 @@ public class OBlockPressurePlate extends OBlock {
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (!oworld.K) {
+        if (!oworld.J) {
             if (oworld.g(i, j, k) != 0) {
                 this.l(oworld, i, j, k);
             }
@@ -63,7 +63,7 @@ public class OBlockPressurePlate extends OBlock {
     }
 
     public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
-        if (!oworld.K) {
+        if (!oworld.J) {
             if (oworld.g(i, j, k) != 1) {
                 this.l(oworld, i, j, k);
             }
@@ -94,35 +94,36 @@ public class OBlockPressurePlate extends OBlock {
       
         // CanaryMod: Allow pressure plate interaction to power redstone
         if (flag1 != flag) {
-            flag1 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.ca, i, j, k), flag ? 1 : 0, flag1 ? 1 : 0) > 0;
+            flag1 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), flag ? 1 : 0, flag1 ? 1 : 0) > 0;
         }
-
+        // CanaryMod: End
+        
         if (flag1 && !flag) {
             oworld.c(i, j, k, 1);
-            oworld.h(i, j, k, this.ca);
-            oworld.h(i, j - 1, k, this.ca);
+            oworld.h(i, j, k, this.cm);
+            oworld.h(i, j - 1, k, this.cm);
             oworld.d(i, j, k, i, j, k);
             oworld.a((double) i + 0.5D, (double) j + 0.1D, (double) k + 0.5D, "random.click", 0.3F, 0.6F);
         }
 
         if (!flag1 && flag) {
             oworld.c(i, j, k, 0);
-            oworld.h(i, j, k, this.ca);
-            oworld.h(i, j - 1, k, this.ca);
+            oworld.h(i, j, k, this.cm);
+            oworld.h(i, j - 1, k, this.cm);
             oworld.d(i, j, k, i, j, k);
             oworld.a((double) i + 0.5D, (double) j + 0.1D, (double) k + 0.5D, "random.click", 0.3F, 0.5F);
         }
 
         if (flag1) {
-            oworld.a(i, j, k, this.ca, this.p_());
+            oworld.a(i, j, k, this.cm, this.p_());
         }
 
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
         if (i1 > 0) {
-            oworld.h(i, j, k, this.ca);
-            oworld.h(i, j - 1, k, this.ca);
+            oworld.h(i, j, k, this.cm);
+            oworld.h(i, j - 1, k, this.cm);
         }
 
         super.a(oworld, i, j, k, l, i1);
@@ -140,12 +141,12 @@ public class OBlockPressurePlate extends OBlock {
 
     }
 
-    public boolean a(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+    public boolean b(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
         return oiblockaccess.g(i, j, k) > 0;
     }
 
-    public boolean c(OWorld oworld, int i, int j, int k, int l) {
-        return oworld.g(i, j, k) == 0 ? false : l == 1;
+    public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+        return oiblockaccess.g(i, j, k) == 0 ? false : l == 1;
     }
 
     public boolean i() {
@@ -160,7 +161,7 @@ public class OBlockPressurePlate extends OBlock {
         this.a(0.5F - f, 0.5F - f1, 0.5F - f2, 0.5F + f, 0.5F + f1, 0.5F + f2);
     }
 
-    public int e() {
+    public int q_() {
         return 1;
     }
 }

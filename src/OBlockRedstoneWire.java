@@ -16,27 +16,27 @@ public class OBlockRedstoneWire extends OBlock {
     }
 
     public int a(int i, int j) {
-        return this.bZ;
+        return this.cl;
     }
 
     public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
         return null;
     }
 
-    public boolean d() {
-        return false;
-    }
-
     public boolean c() {
         return false;
     }
 
-    public int b() {
+    public boolean b() {
+        return false;
+    }
+
+    public int d() {
         return 5;
     }
 
     public boolean b(OWorld oworld, int i, int j, int k) {
-        return oworld.t(i, j - 1, k) || oworld.a(i, j - 1, k) == OBlock.bd.ca;
+        return oworld.t(i, j - 1, k) || oworld.a(i, j - 1, k) == OBlock.bg.cm;
     }
 
     private void l(OWorld oworld, int i, int j, int k) {
@@ -49,7 +49,7 @@ public class OBlockRedstoneWire extends OBlock {
         while (iterator.hasNext()) {
             OChunkPosition ochunkposition = (OChunkPosition) iterator.next();
 
-            oworld.h(ochunkposition.a, ochunkposition.b, ochunkposition.c, this.ca);
+            oworld.h(ochunkposition.a, ochunkposition.b, ochunkposition.c, this.cm);
         }
 
     }
@@ -110,14 +110,14 @@ public class OBlockRedstoneWire extends OBlock {
 		
         // CanaryMod: Allow redstone wire current changes
         if (k1 != l1) {
-            l1 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.ca, i, j, k), k1, l1);
+            l1 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), k1, l1);
         }
 
         if (k1 != l1) {
-            oworld.t = true;
+            oworld.s = true;
             oworld.c(i, j, k, l1);
             oworld.d(i, j, k, i, j, k);
-            oworld.t = false;
+            oworld.s = false;
 
             for (i2 = 0; i2 < 4; ++i2) {
                 j2 = i;
@@ -181,23 +181,23 @@ public class OBlockRedstoneWire extends OBlock {
     }
 
     private void n(OWorld oworld, int i, int j, int k) {
-        if (oworld.a(i, j, k) == this.ca) {
-            oworld.h(i, j, k, this.ca);
-            oworld.h(i - 1, j, k, this.ca);
-            oworld.h(i + 1, j, k, this.ca);
-            oworld.h(i, j, k - 1, this.ca);
-            oworld.h(i, j, k + 1, this.ca);
-            oworld.h(i, j - 1, k, this.ca);
-            oworld.h(i, j + 1, k, this.ca);
+        if (oworld.a(i, j, k) == this.cm) {
+            oworld.h(i, j, k, this.cm);
+            oworld.h(i - 1, j, k, this.cm);
+            oworld.h(i + 1, j, k, this.cm);
+            oworld.h(i, j, k - 1, this.cm);
+            oworld.h(i, j, k + 1, this.cm);
+            oworld.h(i, j - 1, k, this.cm);
+            oworld.h(i, j + 1, k, this.cm);
         }
     }
 
     public void g(OWorld oworld, int i, int j, int k) {
         super.g(oworld, i, j, k);
-        if (!oworld.K) {
+        if (!oworld.J) {
             this.l(oworld, i, j, k);
-            oworld.h(i, j + 1, k, this.ca);
-            oworld.h(i, j - 1, k, this.ca);
+            oworld.h(i, j + 1, k, this.cm);
+            oworld.h(i, j - 1, k, this.cm);
             this.n(oworld, i - 1, j, k);
             this.n(oworld, i + 1, j, k);
             this.n(oworld, i, j, k - 1);
@@ -231,13 +231,13 @@ public class OBlockRedstoneWire extends OBlock {
 
     public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
         super.a(oworld, i, j, k, l, i1);
-        if (!oworld.K) {
-            oworld.h(i, j + 1, k, this.ca);
-            oworld.h(i, j - 1, k, this.ca);
-            oworld.h(i + 1, j, k, this.ca);
-            oworld.h(i - 1, j, k, this.ca);
-            oworld.h(i, j, k + 1, this.ca);
-            oworld.h(i, j, k - 1, this.ca);
+        if (!oworld.J) {
+            oworld.h(i, j + 1, k, this.cm);
+            oworld.h(i, j - 1, k, this.cm);
+            oworld.h(i + 1, j, k, this.cm);
+            oworld.h(i - 1, j, k, this.cm);
+            oworld.h(i, j, k + 1, this.cm);
+            oworld.h(i, j, k - 1, this.cm);
             this.l(oworld, i, j, k);
             this.n(oworld, i - 1, j, k);
             this.n(oworld, i + 1, j, k);
@@ -271,7 +271,7 @@ public class OBlockRedstoneWire extends OBlock {
     }
 
     private int e(OWorld oworld, int i, int j, int k, int l) {
-        if (oworld.a(i, j, k) != this.ca) {
+        if (oworld.a(i, j, k) != this.cm) {
             return l;
         } else {
             int i1 = oworld.g(i, j, k);
@@ -281,7 +281,7 @@ public class OBlockRedstoneWire extends OBlock {
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
-        if (!oworld.K) {
+        if (!oworld.J) {
             int i1 = oworld.g(i, j, k);
             boolean flag = this.b(oworld, i, j, k);
 
@@ -297,11 +297,11 @@ public class OBlockRedstoneWire extends OBlock {
     }
 
     public int a(int i, Random random, int j) {
-        return OItem.aC.bT;
+        return OItem.aC.cf;
     }
 
-    public boolean c(OWorld oworld, int i, int j, int k, int l) {
-        return !this.a ? false : this.a((OIBlockAccess) oworld, i, j, k, l);
+    public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+        return !this.a ? false : this.a(oiblockaccess, i, j, k, l);
     }
 
     public boolean a(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
@@ -346,12 +346,12 @@ public class OBlockRedstoneWire extends OBlock {
     public static boolean e(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
         int i1 = oiblockaccess.a(i, j, k);
 
-        if (i1 == OBlock.av.ca) {
+        if (i1 == OBlock.ay.cm) {
             return true;
         } else if (i1 == 0) {
             return false;
-        } else if (i1 != OBlock.bh.ca && i1 != OBlock.bi.ca) {
-            return OBlock.m[i1].i() && l != -1;
+        } else if (i1 != OBlock.bk.cm && i1 != OBlock.bl.cm) {
+            return OBlock.p[i1].i() && l != -1;
         } else {
             int j1 = oiblockaccess.g(i, j, k);
 
@@ -365,7 +365,7 @@ public class OBlockRedstoneWire extends OBlock {
         } else {
             int i1 = oiblockaccess.a(i, j, k);
 
-            if (i1 == OBlock.bi.ca) {
+            if (i1 == OBlock.bl.cm) {
                 int j1 = oiblockaccess.g(i, j, k);
 
                 return l == (j1 & 3);

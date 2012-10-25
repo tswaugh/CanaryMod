@@ -13,12 +13,12 @@ public class OBlockStationary extends OBlockFluid {
     }
 
     public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k) {
-        return this.cp != OMaterial.h;
+        return this.cB != OMaterial.i;
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
         super.a(oworld, i, j, k, l);
-        if (oworld.a(i, j, k) == this.ca) {
+        if (oworld.a(i, j, k) == this.cm) {
             this.l(oworld, i, j, k);
         }
 
@@ -27,15 +27,15 @@ public class OBlockStationary extends OBlockFluid {
     private void l(OWorld oworld, int i, int j, int k) {
         int l = oworld.g(i, j, k);
 
-        oworld.t = true;
-        oworld.c(i, j, k, this.ca - 1, l);
+        oworld.s = true;
+        oworld.c(i, j, k, this.cm - 1, l);
         oworld.d(i, j, k, i, j, k);
-        oworld.a(i, j, k, this.ca - 1, this.p_());
-        oworld.t = false;
+        oworld.a(i, j, k, this.cm - 1, this.r_());
+        oworld.s = false;
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (this.cp == OMaterial.h) {
+        if (this.cB == OMaterial.i) {
             int l = random.nextInt(3);
 
             // CanaryMod: prevent lava from putting something on fire.
@@ -57,10 +57,10 @@ public class OBlockStationary extends OBlockFluid {
                 j1 = oworld.a(i, j, k);
                 if (j1 == 0) {
                     if (this.n(oworld, i - 1, j, k) || this.n(oworld, i + 1, j, k) || this.n(oworld, i, j, k - 1) || this.n(oworld, i, j, k + 1) || this.n(oworld, i, j - 1, k) || this.n(oworld, i, j + 1, k)) {
-                        oworld.e(i, j, k, OBlock.ar.ca);
+                        oworld.e(i, j, k, OBlock.au.cm);
                         return;
                     }
-                } else if (OBlock.m[j1].cp.c()) {
+                } else if (OBlock.p[j1].cB.c()) {
                     return;
                 }
             }
@@ -73,7 +73,7 @@ public class OBlockStationary extends OBlockFluid {
                     i = i1 + random.nextInt(3) - 1;
                     k = j1 + random.nextInt(3) - 1;
                     if (oworld.c(i, j + 1, k) && this.n(oworld, i, j, k)) {
-                        oworld.e(i, j + 1, k, OBlock.ar.ca);
+                        oworld.e(i, j + 1, k, OBlock.au.cm);
                     }
                 }
             }

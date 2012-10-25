@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class OBlockSand extends OBlock {
 
-    public static boolean a = false;
+    public static boolean c = false;
 
     public OBlockSand(int i, int j) {
         super(i, j, OMaterial.o);
@@ -12,20 +12,20 @@ public class OBlockSand extends OBlock {
 
     public void g(OWorld oworld, int i, int j, int k) {
         // CanaryMod: Physics
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(oworld.world, this.ca, i, j, k), true)) {
-            oworld.a(i, j, k, this.ca, this.p_());
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(oworld.world, this.cm, i, j, k), true)) {
+            oworld.a(i, j, k, this.cm, this.r_());
         }
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
         // CanaryMod: Physics
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(oworld.world, this.ca, i, j, k), true)) {
-            oworld.a(i, j, k, this.ca, this.p_());
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(oworld.world, this.cm, i, j, k), true)) {
+            oworld.a(i, j, k, this.cm, this.r_());
         }
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (!oworld.K) {
+        if (!oworld.J) {
             this.l(oworld, i, j, k);
         }
     }
@@ -34,9 +34,9 @@ public class OBlockSand extends OBlock {
         if (e_(oworld, i, j - 1, k) && j >= 0) {
             byte b0 = 32;
 
-            if (!a && oworld.c(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
-                if (!oworld.K) {
-                    OEntityFallingSand oentityfallingsand = new OEntityFallingSand(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.ca);
+            if (!c && oworld.d(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
+                if (!oworld.J) {
+                    OEntityFallingSand oentityfallingsand = new OEntityFallingSand(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.cm, oworld.g(i, j, k));
 
                     oworld.d((OEntity) oentityfallingsand);
                 }
@@ -48,7 +48,7 @@ public class OBlockSand extends OBlock {
                 }
 
                 if (j > 0) {
-                    oworld.e(i, j, k, this.ca);
+                    oworld.e(i, j, k, this.cm);
                 }
             }
         }
@@ -64,12 +64,12 @@ public class OBlockSand extends OBlock {
 
         if (l == 0) {
             return true;
-        } else if (l == OBlock.ar.ca) {
+        } else if (l == OBlock.au.cm) {
             return true;
         } else {
-            OMaterial omaterial = OBlock.m[l].cp;
+            OMaterial omaterial = OBlock.p[l].cB;
 
-            return omaterial == OMaterial.g ? true : omaterial == OMaterial.h;
+            return omaterial == OMaterial.h ? true : omaterial == OMaterial.i;
         }
     }
 
