@@ -115,7 +115,7 @@ public abstract class OWorld implements OIBlockAccess {
             this.C.a(this);
         }
 
-        this.v();
+        this.w();
         this.a();
 
         this.name = s; // CanaryMod: store world name in an accessible place.
@@ -163,7 +163,7 @@ public abstract class OWorld implements OIBlockAccess {
         return this.c(i - l, j - l, k - l, i + l, j + l, k + l);
     }
 
-    public boolean c(int i, int j, int k, int l, int i1, int j1) {
+    public boolean d(int i, int j, int k, int l, int i1, int j1) {
         if (i1 >= 0 && j < 256) {
             i >>= 4;
             k >>= 4;
@@ -373,7 +373,7 @@ public abstract class OWorld implements OIBlockAccess {
         }
     }
 
-    public void d(int i, int j, int k, int l, int i1, int j1) {
+    public void e(int i, int j, int k, int l, int i1, int j1) {
         Iterator iterator = this.w.iterator();
 
         while (iterator.hasNext()) {
@@ -486,6 +486,20 @@ public abstract class OWorld implements OIBlockAccess {
         }
     }
 
+    public int g(int i, int j) {
+        if (i >= -30000000 && j >= -30000000 && i < 30000000 && j < 30000000) {
+            if (!this.c(i >> 4, j >> 4)) {
+                return 0;
+            } else {
+                OChunk ochunk = this.e(i >> 4, j >> 4);
+
+                return ochunk.p;
+            }
+        } else {
+            return 0;
+        }
+    }
+
     public int b(OEnumSkyBlock oenumskyblock, int i, int j, int k) {
         if (j < 0) {
             j = 0;
@@ -549,7 +563,7 @@ public abstract class OWorld implements OIBlockAccess {
         return this.v.g[this.l(i, j, k)];
     }
 
-    public boolean s() {
+    public boolean t() {
         return this.j < 4;
     }
 
@@ -678,7 +692,7 @@ public abstract class OWorld implements OIBlockAccess {
                         ovec3.e = d2;
                     }
 
-                    OVec3 ovec32 = OVec3.a().a(ovec3.c, ovec3.d, ovec3.e);
+                    OVec3 ovec32 = this.R().a(ovec3.c, ovec3.d, ovec3.e);
 
                     l = (int) (ovec32.c = (double) OMathHelper.c(ovec3.c));
                     if (b0 == 5) {
@@ -743,6 +757,8 @@ public abstract class OWorld implements OIBlockAccess {
             }
         }
     }
+
+    public void b(double d0, double d1, double d2, String s, float f, float f1) {}
 
     public void a(String s, int i, int j, int k) {
         Iterator iterator = this.w.iterator();
@@ -995,6 +1011,8 @@ public abstract class OWorld implements OIBlockAccess {
 
     public void a(int i, int j, int k, int l, int i1) {}
 
+    public void a(int i, int j, int k, int l, int i1, int j1) {}
+
     public void b(int i, int j, int k, int l, int i1) {}
 
     public void h() {
@@ -1008,7 +1026,7 @@ public abstract class OWorld implements OIBlockAccess {
             oentity = (OEntity) this.i.get(i);
             oentity.h_();
             if (oentity.L) {
-                this.I.remove(i--);
+                this.i.remove(i--);
             }
         }
 
@@ -1310,7 +1328,7 @@ public abstract class OWorld implements OIBlockAccess {
         int i1 = OMathHelper.c(oaxisalignedbb.c);
         int j1 = OMathHelper.c(oaxisalignedbb.f + 1.0D);
 
-        if (this.c(i, k, i1, j, l, j1)) {
+        if (this.d(i, k, i1, j, l, j1)) {
             for (int k1 = i; k1 < j; ++k1) {
                 for (int l1 = k; l1 < l; ++l1) {
                     for (int i2 = i1; i2 < j1; ++i2) {
@@ -1335,7 +1353,7 @@ public abstract class OWorld implements OIBlockAccess {
         int i1 = OMathHelper.c(oaxisalignedbb.c);
         int j1 = OMathHelper.c(oaxisalignedbb.f + 1.0D);
 
-        if (!this.c(i, k, i1, j, l, j1)) {
+        if (!this.d(i, k, i1, j, l, j1)) {
             return false;
         } else {
             boolean flag = false;
@@ -2200,7 +2218,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void a(List list) {
-        this.e.addAll(list);
+        this.f.addAll(list);
 
         for (int i = 0; i < list.size(); ++i) {
             this.a((OEntity) list.get(i));
@@ -2208,7 +2226,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void b(List list) {
-        this.f.addAll(list);
+        this.g.addAll(list);
     }
 
     public boolean a(int i, int j, int k, int l, boolean flag, int i1, OEntity oentity) {
