@@ -25,8 +25,8 @@ public class OBlockFlowing extends OBlockFluid {
     public void b(OWorld oworld, int i, int j, int k, Random random) {
         // CanaryMod: Store originating block
         World world = oworld.world;
-        Block blockFrom = new Block(world, this.ca, i, j, k);
-		
+        Block blockFrom = new Block(world, this.cm, i, j, k);
+
        int l = this.f_(oworld, i, j, k);
         byte b0 = 1;
 
@@ -105,14 +105,8 @@ public class OBlockFlowing extends OBlockFluid {
                 if (l >= 8) {
                 this.h(oworld, i, j - 1, k, l);
                 } else {
-<<<<<<<
-                    this.i(oworld, i, j - 1, k, l + 8);
+                    this.h(oworld, i, j - 1, k, l + 8);
                 }
-|||||||
-                this.i(oworld, i, j - 1, k, l + 8);
-=======
-                this.h(oworld, i, j - 1, k, l + 8);
->>>>>>>
             }
         } else if (l >= 0 && (l == 0 || this.o(oworld, i, j - 1, k))) {
             boolean[] aboolean = this.n(oworld, i, j, k);
@@ -128,58 +122,34 @@ public class OBlockFlowing extends OBlockFluid {
 
             // CanaryMod: sidewards flow.
             if (aboolean[0]) {
-<<<<<<<
                 Block blockTo = new Block(world, 0, i - 1, j, k);
 
                 if (!((Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))) {
-                    this.i(oworld, i - 1, j, k, i1);
+                    this.h(oworld, i - 1, j, k, i1);
                 }
-|||||||
-                this.i(oworld, i - 1, j, k, i1);
-=======
-                this.h(oworld, i - 1, j, k, i1);
->>>>>>>
             }
 
             if (aboolean[1]) {
-<<<<<<<
                 Block blockTo = new Block(world, 0, i + 1, j, k);
 
                 if (!((Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))) {
-                    this.i(oworld, i + 1, j, k, i1);
+                    this.h(oworld, i + 1, j, k, i1);
                 }
-|||||||
-                this.i(oworld, i + 1, j, k, i1);
-=======
-                this.h(oworld, i + 1, j, k, i1);
->>>>>>>
             }
 
             if (aboolean[2]) {
-<<<<<<<
                 Block blockTo = new Block(world, 0, i, j, k - 1);
 
                 if (!((Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))) {
-                    this.i(oworld, i, j, k - 1, i1);
+                    this.h(oworld, i, j, k - 1, i1);
                 }
-|||||||
-                this.i(oworld, i, j, k - 1, i1);
-=======
-                this.h(oworld, i, j, k - 1, i1);
->>>>>>>
             }
 
             if (aboolean[3]) {
-<<<<<<<
                 Block blockTo = new Block(world, 0, i, j, k + 1);
 
                 if (!((Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))) {
-                    this.i(oworld, i, j, k + 1, i1);
-|||||||
-                this.i(oworld, i, j, k + 1, i1);
-=======
                 this.h(oworld, i, j, k + 1, i1);
->>>>>>>
                 }
             }
         }

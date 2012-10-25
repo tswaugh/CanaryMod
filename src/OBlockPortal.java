@@ -96,7 +96,6 @@ public class OBlockPortal extends OBlockBreakable {
                 }
             }
 
-<<<<<<<
             // CanaryMod hook onPortalCreate
             Block[][] portalBlocks = new Block[3][2];
 
@@ -106,12 +105,7 @@ public class OBlockPortal extends OBlockBreakable {
                 }
             }
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_CREATE, (Object) portalBlocks)) { // Cast to make single argument
-                oworld.t = true;
-|||||||
-            oworld.t = true;
-=======
-            oworld.s = true;
->>>>>>>
+                oworld.s = true;
 
                 for (l = 0; l < 2; ++l) {
                     for (i1 = 0; i1 < 3; ++i1) {

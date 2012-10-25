@@ -103,25 +103,20 @@ public class OBlockRedstoneTorch extends OBlockTorch {
 
         if (this.a) {
             if (flag) {
-<<<<<<<
-                oworld.d(i, j, k, OBlock.aP.ca, oworld.g(i, j, k));
-                // CanaryMod: Allow redstone torches to provide power
-                int current = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.ca, i, j, k), 1, 0);
-				
-                if (current == 0) {
-|||||||
-                oworld.d(i, j, k, OBlock.aP.ca, oworld.g(i, j, k));
-=======
                 oworld.d(i, j, k, OBlock.aS.cm, oworld.g(i, j, k));
->>>>>>>
+                // CanaryMod: Allow redstone torches to provide power
+                int current = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), 1, 0);
+
+                if (current == 0) {
+                oworld.d(i, j, k, OBlock.aS.cm, oworld.g(i, j, k));
                     if (this.a(oworld, i, j, k, true)) {
                     oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (oworld.u.nextFloat() - oworld.u.nextFloat()) * 0.8F);
-	
+
                         for (int l = 0; l < 5; ++l) {
                             double d0 = (double) i + random.nextDouble() * 0.6D + 0.2D;
                             double d1 = (double) j + random.nextDouble() * 0.6D + 0.2D;
                             double d2 = (double) k + random.nextDouble() * 0.6D + 0.2D;
-		
+
                             oworld.a("smoke", d0, d1, d2, 0.0D, 0.0D, 0.0D);
                         }
                     }

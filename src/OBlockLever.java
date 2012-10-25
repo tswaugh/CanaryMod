@@ -185,7 +185,7 @@ public class OBlockLever extends OBlock {
             int old = (k1 != 8) ? 1 : 0;
             int current = (k1 == 8) ? 1 : 0;
 
-            current = ((Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.ca, i, j, k), old, current)).intValue();
+            current = ((Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), old, current)).intValue();
             k1 = (current > 0) ? 8 : 0;
 
             oworld.c(i, j, k, j1 + k1);

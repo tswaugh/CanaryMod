@@ -32,7 +32,7 @@ public class OBlockPressurePlate extends OBlock {
     public boolean b() {
         return false;
     }
-    
+
     public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k) {
         return true;
     }
@@ -101,10 +101,10 @@ public class OBlockPressurePlate extends OBlock {
                 }
             }
         }
-      
+
         // CanaryMod: Allow pressure plate interaction to power redstone
         if (flag1 != flag) {
-            flag1 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.ca, i, j, k), flag ? 1 : 0, flag1 ? 1 : 0) > 0;
+            flag1 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), flag ? 1 : 0, flag1 ? 1 : 0) > 0;
         }
 
         if (flag1 && !flag) {

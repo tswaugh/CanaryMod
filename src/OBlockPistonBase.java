@@ -64,34 +64,21 @@ public class OBlockPistonBase extends OBlock {
             boolean flag = this.d(oworld, i, j, k, i1);
 
             if (flag && !f(l)) {
-<<<<<<<
-                if (i(oworld, i, j, k, i1)) {
+
+                if (h(oworld, i, j, k, i1)) {
                     // CanaryMod hook onPistonExtend
                     boolean allowExtension = !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PISTON_EXTEND, new Block(oworld.world, (this.a) ? Block.Type.StickyPiston.getType() : Block.Type.Piston.getType(), i, j, k, l));
 
                     if (allowExtension) {
-                        oworld.b(i, j, k, this.ca, 0, i1);
-|||||||
-                if (i(oworld, i, j, k, i1)) {
-                    oworld.b(i, j, k, this.ca, 0, i1);
-=======
-                if (h(oworld, i, j, k, i1)) {
-                    oworld.c(i, j, k, this.cm, 0, i1);
->>>>>>>
+                        oworld.c(i, j, k, this.cm, 0, i1);
                     }
                 }
             } else if (!flag && f(l)) {
-<<<<<<<
                 // CanaryMod hook onPistonRetract
                 // hook result is saved in attemptRetractBlock because later in the code the block is actually moved, and only there we should deny retraction.
                 this.attemptRetractBlock = !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PISTON_RETRACT, new Block(oworld.world, (this.a) ? Block.Type.StickyPiston.getType() : Block.Type.Piston.getType(), i, j, k, l));
 
-                oworld.b(i, j, k, this.ca, 1, i1);
-|||||||
-                oworld.b(i, j, k, this.ca, 1, i1);
-=======
                 oworld.c(i, j, k, this.cm, 1, i1);
->>>>>>>
             }
 
         }
@@ -147,13 +134,7 @@ public class OBlockPistonBase extends OBlock {
                     }
                 }
 
-<<<<<<<
-                if (this.attemptRetractBlock && !flag && i2 > 0 && a(i2, oworld, j1, k1, l1, false) && (OBlock.m[i2].e() == 0 || i2 == OBlock.Z.ca || i2 == OBlock.V.ca)) {
-|||||||
-                if (!flag && i2 > 0 && a(i2, oworld, j1, k1, l1, false) && (OBlock.m[i2].e() == 0 || i2 == OBlock.Z.ca || i2 == OBlock.V.ca)) {
-=======
-                if (!flag && i2 > 0 && a(i2, oworld, j1, k1, l1, false) && (OBlock.p[i2].q_() == 0 || i2 == OBlock.ac.cm || i2 == OBlock.Y.cm)) {
->>>>>>>
+                if (this.attemptRetractBlock && !flag && i2 > 0 && a(i2, oworld, j1, k1, l1, false) && (OBlock.p[i2].q_() == 0 || i2 == OBlock.ac.cm || i2 == OBlock.Y.cm)) {
                     i += OFacing.b[i1];
                     j += OFacing.c[i1];
                     k += OFacing.d[i1];

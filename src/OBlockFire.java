@@ -121,41 +121,28 @@ public class OBlockFire extends OBlock {
                                     }
 
                                         if (j2 > 0 && random.nextInt(l1) <= j2 && (!oworld.M() || !oworld.B(i1, k1, j1)) && !oworld.B(i1 - 1, k1, k) && !oworld.B(i1 + 1, k1, j1) && !oworld.B(i1, k1, j1 - 1) && !oworld.B(i1, k1, j1 + 1)) {
-                                        int k2 = l + random.nextInt(5) / 4;
+                                            int k2 = l + random.nextInt(5) / 4;
 
-                                        if (k2 > 15) {
-                                            k2 = 15;
+                                            if (k2 > 15) {
+                                                k2 = 15;
+                                            }
+
+                                            // CanaryMod: dynamic spreading of fire.
+                                            // avg call amount per placed block of fire ~ 4
+                                            Block block = new Block(oworld.world, oworld.world.getBlockIdAt(i1, k1, j1), i1, k1, j1);
+
+                                            block.setStatus(3);
+                                            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
+                                                oworld.d(i1, k1, j1, this.cm, k2);
+                                            }
+
                                         }
-
-<<<<<<<
-|||||||
-                                        oworld.d(i1, k1, j1, this.ca, k2);
-                                    }
                                 }
-                            }
-=======
-                                            oworld.d(i1, k1, j1, this.cm, k2);
-                                        }
-                                    }
-                                }
-                            }
->>>>>>>
-                                        // CanaryMod: dynamic spreading of fire.
-                                        // avg call amount per placed block of fire ~ 4
-                                        Block block = new Block(oworld.world, oworld.world.getBlockIdAt(i1, k1, j1), i1, k1, j1);
-
-                                        block.setStatus(3);
-                                        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                                            oworld.d(i1, k1, j1, this.ca, k2);
-                                        }
-
-                                    }
                                 }
                             }
                         }
                     }
                 }
-
             }
         }
     }
@@ -182,22 +169,13 @@ public class OBlockFire extends OBlock {
 
                 block.setStatus(3);
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                    oworld.d(i, j, k, this.ca, k1);
+                    oworld.d(i, j, k, this.cm, k1);
                 }
             } else {
                 // CanaryMod: fire destroying a block.
                 Block block = new Block(oworld.world, oworld.a(i, j, k), i, j, k);
-
-<<<<<<<
                 block.setStatus(4);
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
-|||||||
-                oworld.d(i, j, k, this.ca, k1);
-            } else {
-=======
-                oworld.d(i, j, k, this.cm, k1);
-            } else {
->>>>>>>
                     oworld.e(i, j, k, 0);
                 }
             }
