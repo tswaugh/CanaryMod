@@ -42,7 +42,7 @@ public class OEntityItem extends OEntity {
         if (this.c > 0) {
             --this.c;
         }
-        
+
         // CanaryMod start
         boolean tmpTouchesGround = this.E;
         // CanaryMod end
@@ -83,12 +83,12 @@ public class OEntityItem extends OEntity {
             if (i > 0) {
                 f = OBlock.p[i].cC * 0.98F;
             }
-            
+
             // CanaryMod start
             // It does touch the ground now, but didn't in last tick
             if (!tmpTouchesGround) {
                 if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_TOUCH_GROUND, item)) {
-                    this.y(); // kill the item
+                    this.x(); // kill the item
                 }
             }
             // CanaryMod end
@@ -102,10 +102,10 @@ public class OEntityItem extends OEntity {
         }
 
         ++this.b;
-        if (this.b >= 6000) {
+        if (!this.p.J && this.b >= 6000) {
             // CanaryMod onEntityDespawn
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENTITY_DESPAWN, item)) {
-                this.y();
+                this.x();
             } else {
                 this.b = 0;
             }
@@ -118,34 +118,37 @@ public class OEntityItem extends OEntity {
         } else if (oentityitem.S() && this.S()) {
             if (oentityitem.a.b() != this.a.b()) {
                 return false;
-            } else if (oentityitem.a.b().k() && oentityitem.a.j() != this.a.j()) {
-                return false;
-            } else if (oentityitem.a.a < this.a.a) {
-                return oentityitem.a(this);
-            } else if (oentityitem.a.a + this.a.a > oentityitem.a.d()) {
-                return false;
+            } else if (!oentityitem.a.o() && !this.a.o()) {
+                if (oentityitem.a.b().l() && oentityitem.a.j() != this.a.j()) {
+                    return false;
+                } else if (oentityitem.a.a < this.a.a) {
+                    return oentityitem.a(this);
+                } else if (oentityitem.a.a + this.a.a > oentityitem.a.d()) {
+                    return false;
+                } else {
+                    oentityitem.a.a += this.a.a;
+                    oentityitem.c = Math.max(oentityitem.c, this.c);
+                    oentityitem.b = Math.min(oentityitem.b, this.b);
+                    this.x();
+                    return true;
+                }
             } else {
-                oentityitem.a.a += this.a.a;
-                oentityitem.c = Math.max(oentityitem.c, this.c);
-                oentityitem.b = Math.min(oentityitem.b, this.b);
-                this.y();
-                return true;
+                return false;
             }
         } else {
             return false;
         }
-
     }
 
-    public void d() {
+    public void c() {
         this.b = 4800;
     }
 
     public boolean I() {
-        return this.p.a(this.D, OMaterial.g, this);
+        return this.p.a(this.D, OMaterial.h, this);
     }
 
-    protected void e(int i) {
+    protected void d(int i) {
         this.a(ODamageSource.a, i);
     }
 
@@ -153,7 +156,7 @@ public class OEntityItem extends OEntity {
         this.K();
         this.e -= i;
         if (this.e <= 0) {
-            this.y();
+            this.x();
         }
 
         return false;
@@ -174,190 +177,39 @@ public class OEntityItem extends OEntity {
 
         this.a = OItemStack.a(onbttagcompound1);
         if (this.a == null) {
-            this.y();
-        }
-
-    }
-
-    public void b_(OEntityPlayer oentityplayer) {
-        if (!this.p.K) {
-            int i = this.a.a;
-
-            // CanaryMod: First simulate the pickup and call the hooks
-            if (this.c == 0 && oentityplayer.by.canPickup(this)) {
-                if (oentityplayer.by.a(this.a)) {
-                    if (this.a.c == OBlock.J.ca) {
-                        oentityplayer.a((OStatBase) OAchievementList.g);
-                    }
-
-                    if (this.a.c == OItem.aF.bT) {
-                        oentityplayer.a((OStatBase) OAchievementList.t);
-                    }
-
-                    if (this.a.c == OItem.n.bT) {
-                        oentityplayer.a((OStatBase) OAchievementList.w);
-                    }
-
-                    if (this.a.c == OItem.bo.bT) {
-                        oentityplayer.a((OStatBase) OAchievementList.z);
-                    }
-
-                    this.p.a(this, "random.pop", 0.2F, ((this.Z.nextFloat() - this.Z.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                    oentityplayer.a((OEntity) this, i);
-                    if (this.a.a <= 0) {
-                        this.y();
-                    }
-                }
-            }
-
-<<<<<<<
-|||||||
-        ++this.b;
-        if (this.b >= 6000) {
-            this.y();
-=======
-        ++this.b;
-        if (!this.p.J && this.b >= 6000) {
-            this.x();
->>>>>>>
-        }
-    }
-
-<<<<<<<
-    public String ak() {
-        return OStatCollector.a("item." + this.a.a());
-|||||||
-                oentityitem.a.a += this.a.a;
-                oentityitem.c = Math.max(oentityitem.c, this.c);
-                oentityitem.b = Math.min(oentityitem.b, this.b);
-                this.y();
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    public void d() {
-        this.b = 4800;
-    }
-
-    public boolean I() {
-        return this.p.a(this.D, OMaterial.g, this);
-=======
-                oentityitem.a.a += this.a.a;
-                oentityitem.c = Math.max(oentityitem.c, this.c);
-                oentityitem.b = Math.min(oentityitem.b, this.b);
-                    this.x();
-                return true;
-            }
-        } else {
-            return false;
-        }
-        } else {
-            return false;
-        }
-    }
-
-    public void c() {
-        this.b = 4800;
-    }
-
-    public boolean I() {
-        return this.p.a(this.D, OMaterial.h, (OEntity) this);
->>>>>>>
-    }
-
-<<<<<<<
-    public boolean an() {
-        return false;
-|||||||
-    protected void e(int i) {
-        this.a(ODamageSource.a, i);
-=======
-    protected void d(int i) {
-        this.a(ODamageSource.a, i);
->>>>>>>
-    }
-<<<<<<<
-|||||||
-
-        this.a = OItemStack.a(onbttagcompound1);
-        if (this.a == null) {
-            this.y();
-        }
-    }
-
-    public void b_(OEntityPlayer oentityplayer) {
-        if (!this.p.K) {
-            int i = this.a.a;
-
-            if (this.c == 0 && oentityplayer.by.a(this.a)) {
-                if (this.a.c == OBlock.J.ca) {
-                    oentityplayer.a((OStatBase) OAchievementList.g);
-                }
-
-                if (this.a.c == OItem.aF.bT) {
-                    oentityplayer.a((OStatBase) OAchievementList.t);
-                }
-
-                if (this.a.c == OItem.n.bT) {
-                    oentityplayer.a((OStatBase) OAchievementList.w);
-                }
-
-                if (this.a.c == OItem.bo.bT) {
-                    oentityplayer.a((OStatBase) OAchievementList.z);
-                }
-
-                this.p.a(this, "random.pop", 0.2F, ((this.Z.nextFloat() - this.Z.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                oentityplayer.a((OEntity) this, i);
-                if (this.a.a <= 0) {
-                    this.y();
-                }
-            }
-        }
-    }
-
-    public String ak() {
-        return OStatCollector.a("item." + this.a.a());
-    }
-
-    public boolean an() {
-        return false;
-    }
-=======
-
-        this.a = OItemStack.a(onbttagcompound1);
-        if (this.a == null) {
             this.x();
         }
+
     }
 
     public void b_(OEntityPlayer oentityplayer) {
         if (!this.p.J) {
             int i = this.a.a;
 
-            if (this.c == 0 && oentityplayer.bK.a(this.a)) {
-                if (this.a.c == OBlock.M.cm) {
-                    oentityplayer.a((OStatBase) OAchievementList.g);
-                }
+            // CanaryMod: First simulate the pickup and call the hooks
+            if (this.c == 0 && oentityplayer.bK.canPickup(this)) {
+                if (oentityplayer.bK.a(this.a)) {
+                    if (this.a.c == OBlock.M.cm) {
+                        oentityplayer.a((OStatBase) OAchievementList.g);
+                    }
 
-                if (this.a.c == OItem.aF.cf) {
-                    oentityplayer.a((OStatBase) OAchievementList.t);
-                }
+                    if (this.a.c == OItem.aF.cf) {
+                        oentityplayer.a((OStatBase) OAchievementList.t);
+                    }
 
-                if (this.a.c == OItem.n.cf) {
-                    oentityplayer.a((OStatBase) OAchievementList.w);
-                }
+                    if (this.a.c == OItem.n.cf) {
+                        oentityplayer.a((OStatBase) OAchievementList.w);
+                    }
 
-                if (this.a.c == OItem.bo.cf) {
-                    oentityplayer.a((OStatBase) OAchievementList.z);
-                }
+                    if (this.a.c == OItem.bo.cf) {
+                        oentityplayer.a((OStatBase) OAchievementList.z);
+                    }
 
-                this.p.a(this, "random.pop", 0.2F, ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                oentityplayer.a((OEntity) this, i);
-                if (this.a.a <= 0) {
-                    this.x();
+                    this.p.a(this, "random.pop", 0.2F, ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    oentityplayer.a((OEntity) this, i);
+                    if (this.a.a <= 0) {
+                        this.x();
+                    }
                 }
             }
         }
@@ -370,5 +222,4 @@ public class OEntityItem extends OEntity {
     public boolean aq() {
         return false;
     }
->>>>>>>
 }
