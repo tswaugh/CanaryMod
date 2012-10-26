@@ -54,7 +54,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.X = 0.0F;
         this.bT = s;
         this.M = 0.0F;
-        
+
         // CanaryMod: Store player
         player = etc.getDataSource().getPlayer(s);
         player.setUser(this);
@@ -150,177 +150,48 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             }
         }
 
-<<<<<<<
-        if (this.bX) {
-            if (this.b.r()) {
-                if (this.bA != this.bz) {
-                    this.j();
-                }
-
-                if (this.o != null) {
-                    this.a(this.o);
-                } else {
-                    this.bY += 0.0125F;
-                    if (this.bY >= 1.0F) {
-                        this.bY = 1.0F;
-                        this.bW = 10;
-                        boolean flag = false;
-                        byte b0;
-
-                        if (this.bK == -1) {
-                            b0 = 0;
-                        } else {
-                            b0 = -1;
-                        }
-                        
-                        // CanaryMod onPortalUse
-                        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_USE, player, player.getWorld())) {
-                            this.b.ab().a(this, b0);
-                            this.ck = -1;
-                            this.ch = -1;
-                            this.ci = -1;
-                            this.a((OStatBase) OAchievementList.x);
-                        }
-                    }
-                }
-
-                this.bX = false;
-            }
-        } else {
-            if (this.bY > 0.0F) {
-                this.bY -= 0.05F;
-            }
-
-            if (this.bY < 0.0F) {
-                this.bY = 0.0F;
-            }
-        }
-
-        if (this.bW > 0) {
-            --this.bW;
-        }
-
         // CanaryMod: Update the health
-        if (this.aN() != this.ch) {
+        if (this.aT() != this.cn) {
             // updates your health when it is changed.
             if (!etc.getInstance().isHealthEnabled()) {
-                this.aK = this.aM();
-                this.aU = false;
-            } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), ch, aK)) {
-                this.aK = this.ch;
-            }
-        }
-        
-        if (this.aN() != this.ch || this.ci != this.bB.a() || this.bB.e() == 0.0F != this.cj) {
-            this.a.b(new OPacket8UpdateHealth(this.aN(), this.bB.a(), this.bB.e()));
-            this.ch = this.aN();
-            this.ci = this.bB.a();
-            this.cj = this.bB.e() == 0.0F;
-|||||||
-        if (this.bX) {
-            if (this.b.r()) {
-                if (this.bA != this.bz) {
-                    this.j();
-                }
-
-                if (this.o != null) {
-                    this.a(this.o);
-                } else {
-                    this.bY += 0.0125F;
-                    if (this.bY >= 1.0F) {
-                        this.bY = 1.0F;
-                        this.bW = 10;
-                        boolean flag = false;
-                        byte b0;
-
-                        if (this.bK == -1) {
-                            b0 = 0;
-                        } else {
-                            b0 = -1;
-                        }
-
-                        this.b.ab().a(this, b0);
-                        this.ck = -1;
-                        this.ch = -1;
-                        this.ci = -1;
-                        this.a((OStatBase) OAchievementList.x);
-                    }
-                }
-
-                this.bX = false;
-            }
-        } else {
-            if (this.bY > 0.0F) {
-                this.bY -= 0.05F;
-            }
-
-            if (this.bY < 0.0F) {
-                this.bY = 0.0F;
+                this.aQ = this.aS();
+                this.bb = false;
+            } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cn, aQ)) {
+                this.aQ = this.cn;
             }
         }
 
-        if (this.bW > 0) {
-            --this.bW;
-        }
-
-        if (this.aN() != this.ch || this.ci != this.bB.a() || this.bB.e() == 0.0F != this.cj) {
-            this.a.b(new OPacket8UpdateHealth(this.aN(), this.bB.a(), this.bB.e()));
-            this.ch = this.aN();
-            this.ci = this.bB.a();
-            this.cj = this.bB.e() == 0.0F;
-=======
         if (this.aT() != this.cn || this.co != this.bN.a() || this.bN.e() == 0.0F != this.cp) {
             this.a.b(new OPacket8UpdateHealth(this.aT(), this.bN.a(), this.bN.e()));
             this.cn = this.aT();
             this.co = this.bN.a();
             this.cp = this.bN.e() == 0.0F;
->>>>>>>
         }
-            
-<<<<<<<
+
         // CanaryMod: Update experience
-        if (this.cb != this.ck) {
+        if (this.ch != this.cq) {
             // updates your experience when it is changed.
             if (!etc.getInstance().isExpEnabled()) {
-                this.cb = 0;
-                this.ca = 0;
-            } else if ((Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, getPlayer(), this.ck, cb)) {
-                this.cb = this.ck;
+                this.ch = 0;
+                this.cg = 0;
+            } else if ((Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, getPlayer(), this.cq, ch)) {
+                this.ch = this.cq;
             }
         }
-    
-        if (this.cb != this.ck) {
-            this.ck = this.cb;
-            this.a.b(new OPacket43Experience(this.cc, this.cb, this.ca));
-        }
-|||||||
-        if (this.cb != this.ck) {
-            this.ck = this.cb;
-            this.a.b(new OPacket43Experience(this.cc, this.cb, this.ca));
-        }
-=======
+
         if (this.ch != this.cq) {
             this.cq = this.ch;
             this.a.b(new OPacket43Experience(this.ci, this.ch, this.cg));
->>>>>>>
-    }
+        }
     }
 
     public void a(ODamageSource odamagesource) {
-<<<<<<<
         if (etc.getInstance().deathMessages) {
-            this.b.ab().a((OPacket) (new OPacket3Chat(odamagesource.b(this))));
+            this.b.ad().a((OPacket) (new OPacket3Chat(odamagesource.b(this))));
         }
-        this.by.m();
-|||||||
-        this.b.ab().a((OPacket) (new OPacket3Chat(odamagesource.b(this))));
-        this.by.m();
-=======
-        this.b.ad().a((OPacket) (new OPacket3Chat(odamagesource.b(this))));
         if (!this.p.K().b("keepInventory")) {
             this.bK.l();
         }
->>>>>>>
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
@@ -360,13 +231,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         } else {
             if (this.ap == 1 && i == 0) {
             this.a((OStatBase) OAchievementList.B);
-<<<<<<<
-            OChunkCoordinates ochunkcoordinates = this.b.getWorld(this.p.name, i).k();
-|||||||
-            OChunkCoordinates ochunkcoordinates = this.b.a(i).k();
-=======
-                OChunkCoordinates ochunkcoordinates = this.b.a(i).l();
->>>>>>>
+            OChunkCoordinates ochunkcoordinates = this.b.getWorld(this.p.name, i).l();
 
             if (ochunkcoordinates != null) {
                 this.a.a((double) ochunkcoordinates.a, (double) ochunkcoordinates.b, (double) ochunkcoordinates.c, 0.0F, 0.0F);
@@ -377,29 +242,26 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
                 this.a((OStatBase) OAchievementList.x);
             }
 
-            this.b.ad().a(this, i);
-            this.cq = -1;
-            this.cn = -1;
-            this.co = -1;
+            // CanaryMod onPortalUse
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_USE, player, player.getWorld())) {
+                this.b.ad().a(this, i);
+                this.cq = -1;
+                this.cn = -1;
+                this.co = -1;
+            }
         }
 
     }
 
     private void b(OTileEntity otileentity) {
         if (otileentity != null) {
-<<<<<<<
             // CanaryMod: Let plugins know we're showing a sign
             if (otileentity instanceof OTileEntitySign) {
                 Sign sign = new Sign((OTileEntitySign) otileentity);
 
                 manager.callHook(PluginLoader.Hook.SIGN_SHOW, getPlayer(), sign);
             }
-            OPacket opacket = otileentity.e();
-|||||||
-            OPacket opacket = otileentity.e();
-=======
             OPacket opacket = otileentity.l();
->>>>>>>
 
             if (opacket != null) {
                 this.a.b(opacket);
@@ -417,7 +279,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
         if (oenumstatus == OEnumStatus.a) {
             OPacket17Sleep opacket17sleep = new OPacket17Sleep(this, 0, i, j, k);
-            
+
             this.p().p().a(this, opacket17sleep);
             this.a.a(this.t, this.u, this.v, this.z, this.A);
             this.a.b(opacket17sleep);
@@ -449,54 +311,54 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         super.a(d0, flag);
     }
 
-    private void bO() {
-        this.cq = this.cq % 100 + 1;
+    private void cd() {
+        this.cv = this.cv % 100 + 1;
     }
 
     public void b(int i, int j, int k) {
         // CanaryMod: Check if we can open this
-        OContainerWorkbench container = new OContainerWorkbench(this.by, this.p, i, j, k);
+        OContainerWorkbench container = new OContainerWorkbench(this.bK, this.p, i, j, k);
         Inventory inv = new Workbench(container);
 
         container.setInventory(inv);
         String name = "Crafting";
-        
+
         if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
-        
+
         if (inv != null) {
             name = inv.getName();
         }
-    
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 1, name, 9));
-        this.bA = container;
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
+        //CanaryMod: end
+        this.cd();
+        this.a.b(new OPacket100OpenWindow(this.cv, 1, name, 9));//CanaryMod: "Crafting" to name
+        this.bM = new OContainerWorkbench(this.bK, this.p, i, j, k);
+        this.bM.c = this.cv;
+        this.bM.a((OICrafting) this);
     }
 
     public void c(int i, int j, int k) {
         // CanaryMod: Check if we can open this
-        OContainerEnchantment container = new OContainerEnchantment(this.by, this.p, i, j, k);
+        OContainerEnchantment container = new OContainerEnchantment(this.bK, this.p, i, j, k);
         Inventory inv = new EnchantmentTable(container);
 
         container.setInventory(inv);
         String name = "Enchant";
-        
+
         if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
-        
+
         if (inv != null) {
             name = inv.getName();
         }
-        
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 4, name, 9));
-        this.bA = container;
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
+
+        this.cd();
+        this.a.b(new OPacket100OpenWindow(this.cv, 4, name, 9));//CanaryMod: "Enchanting" to name
+        this.bM = new OContainerEnchantment(this.bK, this.p, i, j, k);
+        this.bM.c = this.cv;
+        this.bM.a((OICrafting) this);
     }
 
     public void a(OIInventory oiinventory) {
@@ -524,200 +386,75 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
 
-        if (this.bA != this.bz) {
-            this.j();
+        if (this.bM != this.bL) {
+            this.i();
         }
 
         this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 0, name, oiinventory.i_()));
+        this.a.b(new OPacket100OpenWindow(this.cv, 0, name, oiinventory.k_()));
         // CanaryMod: Check if openend the chest in silence mode.
-        this.bA = new OContainerChest(this.by, oiinventory, (openInventoryParameters == null) ? false : openInventoryParameters.isSilenced());
-        this.bA.setInventory(inv);
+        this.bM = new OContainerChest(this.bK, oiinventory, (openInventoryParameters == null) ? false : openInventoryParameters.isSilenced());
+        this.bM.setInventory(inv);
         // CanaryMod end
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
+        this.bM.c = this.cv;
+        this.bM.a((OICrafting) this);
     }
 
     public void a(OTileEntityFurnace otileentityfurnace) {
         // CanaryMod: Check if we can open this
         Inventory inv = new Furnace(otileentityfurnace);
         String name = otileentityfurnace.getName();
-        
+
         if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
-        
+
         if (inv != null) {
             name = inv.getName();
         }
-        
+
         this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 2, name, otileentityfurnace.i_()));
-        this.bA = new OContainerFurnace(this.by, otileentityfurnace);
+        this.a.b(new OPacket100OpenWindow(this.cv, 2, name, otileentityfurnace.k_()));
+        this.bM = new OContainerFurnace(this.bK, otileentityfurnace);
         // CanaryMod: Set the inventory for the GUI
-        this.bA.setInventory(inv);
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
+        this.bM.setInventory(inv);
+        this.bM.c = this.cv;
+        this.bM.a((OICrafting) this);
     }
 
     public void a(OTileEntityDispenser otileentitydispenser) {
-        // CanaryMod: Check if we can open this
+         // CanaryMod: Check if we can open this
         Inventory inv = new Dispenser(otileentitydispenser);
         String name = otileentitydispenser.getName();
-        
-<<<<<<<
+
         if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
-|||||||
-    private void bO() {
-        this.cq = this.cq % 100 + 1;
-=======
-    private void cd() {
-        this.cv = this.cv % 100 + 1;
->>>>>>>
         }
-        
-<<<<<<<
+
         if (inv != null) {
             name = inv.getName();
-|||||||
-    public void b(int i, int j, int k) {
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 1, "Crafting", 9));
-        this.bA = new OContainerWorkbench(this.by, this.p, i, j, k);
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
-=======
-    public void b(int i, int j, int k) {
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 1, "Crafting", 9));
-        this.bM = new OContainerWorkbench(this.bK, this.p, i, j, k);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
->>>>>>>
-        }
-        
-<<<<<<<
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 3, name, otileentitydispenser.i_()));
-        this.bA = new OContainerDispenser(this.by, otileentitydispenser);
-        // CanaryMod: Set the inventory for the GUI
-        this.bA.setInventory(inv);
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
-|||||||
-    public void c(int i, int j, int k) {
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 4, "Enchanting", 9));
-        this.bA = new OContainerEnchantment(this.by, this.p, i, j, k);
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
-=======
-    public void c(int i, int j, int k) {
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 4, "Enchanting", 9));
-        this.bM = new OContainerEnchantment(this.bK, this.p, i, j, k);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
-    }
-
-    public void d(int i, int j, int k) {
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 8, "Repairing", 9));
-        this.bM = new OContainerRepair(this.bK, this.p, i, j, k, this);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
->>>>>>>
-    }
-
-<<<<<<<
-    public void a(OTileEntityBrewingStand otileentitybrewingstand) {
-        // CanaryMod: Check if we can open this
-        Inventory inv = new BrewingStand(otileentitybrewingstand);
-        String name = otileentitybrewingstand.getName();
-|||||||
-    public void a(OIInventory oiinventory) {
-        if (this.bA != this.bz) {
-            this.j();
         }
 
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 0, oiinventory.b(), oiinventory.i_()));
-        this.bA = new OContainerChest(this.by, oiinventory);
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
-    }
-=======
-    public void a(OIInventory oiinventory) {
-        if (this.bM != this.bL) {
-            this.i();
-        }
-
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 0, oiinventory.b(), oiinventory.k_()));
-        this.bM = new OContainerChest(this.bK, oiinventory);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
-    }
->>>>>>>
-        
-<<<<<<<
-        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
-            return;
-|||||||
-    public void a(OTileEntityFurnace otileentityfurnace) {
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 2, otileentityfurnace.b(), otileentityfurnace.i_()));
-        this.bA = new OContainerFurnace(this.by, otileentityfurnace);
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
-=======
-    public void a(OTileEntityFurnace otileentityfurnace) {
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 2, otileentityfurnace.b(), otileentityfurnace.k_()));
-        this.bM = new OContainerFurnace(this.bK, otileentityfurnace);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
->>>>>>>
-        }
-        
-<<<<<<<
-        if (inv != null) {
-            name = inv.getName();
-|||||||
-    public void a(OTileEntityDispenser otileentitydispenser) {
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 3, otileentitydispenser.b(), otileentitydispenser.i_()));
-        this.bA = new OContainerDispenser(this.by, otileentitydispenser);
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
-=======
-    public void a(OTileEntityDispenser otileentitydispenser) {
         this.cd();
         this.a.b(new OPacket100OpenWindow(this.cv, 3, otileentitydispenser.b(), otileentitydispenser.k_()));
         this.bM = new OContainerDispenser(this.bK, otileentitydispenser);
         this.bM.c = this.cv;
         this.bM.a((OICrafting) this);
->>>>>>>
+    }
+
+    public void a(OTileEntityBrewingStand otileentitybrewingstand) {
+        // CanaryMod: Check if we can open this
+        Inventory inv = new BrewingStand(otileentitybrewingstand);
+        String name = otileentitybrewingstand.getName();
+
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
+            return;
         }
-        
-<<<<<<<
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 5, name, otileentitybrewingstand.i_()));
-        this.bA = new OContainerBrewingStand(this.by, otileentitybrewingstand);
-        // CanaryMod: Set the inventory for the GUI
-        this.bA.setInventory(inv);
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
-|||||||
-    public void a(OTileEntityBrewingStand otileentitybrewingstand) {
-        this.bO();
-        this.a.b(new OPacket100OpenWindow(this.cq, 5, otileentitybrewingstand.b(), otileentitybrewingstand.i_()));
-        this.bA = new OContainerBrewingStand(this.by, otileentitybrewingstand);
-        this.bA.c = this.cq;
-        this.bA.a((OICrafting) this);
-=======
-    public void a(OTileEntityBrewingStand otileentitybrewingstand) {
+
+        if (inv != null) {
+            name = inv.getName();
+        }
+
         this.cd();
         this.a.b(new OPacket100OpenWindow(this.cv, 5, otileentitybrewingstand.b(), otileentitybrewingstand.k_()));
         this.bM = new OContainerBrewingStand(this.bK, otileentitybrewingstand);
@@ -726,12 +463,12 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(OTileEntityBeacon otileentitybeacon) {
+        // @todo TODO add this stuff to Canary --somners
         this.cd();
         this.a.b(new OPacket100OpenWindow(this.cv, 7, otileentitybeacon.b(), otileentitybeacon.k_()));
         this.bM = new OContainerBeacon(this.bK, otileentitybeacon);
         this.bM.c = this.cv;
         this.bM.a((OICrafting) this);
->>>>>>>
     }
 
     public void a(OIMerchant oimerchant) {
@@ -840,21 +577,18 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(OItemStack oitemstack, int i) {
         super.a(oitemstack, i);
-<<<<<<<
         // CanaryMod: Call EAT Hook
-        if (oitemstack != null && oitemstack.b() != null && oitemstack.b().b(oitemstack) == OEnumAction.b) {
-|||||||
-        if (oitemstack != null && oitemstack.b() != null && oitemstack.b().b(oitemstack) == OEnumAction.b) {
-            this.q().o().b(this, new OPacket18Animation(this, 5));
-        }
-    }
-
-    protected void a(OPotionEffect opotioneffect) {
-        super.a(opotioneffect);
-        this.a.b(new OPacket41EntityEffect(this.k, opotioneffect));
-=======
         if (oitemstack != null && oitemstack.b() != null && oitemstack.b().d_(oitemstack) == OEnumAction.b) {
-            this.p().p().b(this, new OPacket18Animation(this, 5));
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.EAT, ((OEntityPlayerMP) this).getPlayer(), new Item(oitemstack))) {
+                super.a(oitemstack, i);
+                this.p().p().b(this, new OPacket18Animation(this, 5));
+            } else {
+                this.a.b((OPacket) (new OPacket38EntityStatus(this.at, (byte) 9)));
+                this.getPlayer().updateLevels();
+                this.getPlayer().updateInventory();
+            }
+        } else { // CanaryMod: Bow, or block action
+            super.a(oitemstack, i);
         }
     }
 
@@ -864,24 +598,6 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.cn = -1;
         this.co = -1;
         this.g.addAll(((OEntityPlayerMP) oentityplayer).g);
-    }
-
-    protected void a(OPotionEffect opotioneffect) {
-        super.a(opotioneffect);
-        this.a.b(new OPacket41EntityEffect(this.k, opotioneffect));
->>>>>>>
-            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.EAT, ((OEntityPlayerMP) this).getPlayer(), new Item(oitemstack))) {
-                super.a(oitemstack, i);
-                this.q().o().b(this, new OPacket18Animation(this, 5));
-            } else {
-                this.a.b((OPacket) (new OPacket38EntityStatus(this.an, (byte) 9)));
-                this.getPlayer().updateLevels();
-                this.getPlayer().updateInventory();
-            }
-        } else { // CanaryMod: Bow, or block action
-            super.a(oitemstack, i);
-        }
-
     }
 
     protected void a(OPotionEffect opotioneffect) {
@@ -925,7 +641,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.c.a(oenumgametype);
         this.a.b(new OPacket70GameEvent(3, oenumgametype.a()));
     }
-    
+
     public void a(String s) {
         this.a.b(new OPacket3Chat(s));
     }
@@ -975,17 +691,11 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
         this.a.b(new OPacket250CustomPayload("MC|TPack", s1.getBytes()));
     }
-<<<<<<<
-|||||||
-}
-=======
 
     public OChunkCoordinates b() {
         return new OChunkCoordinates(OMathHelper.c(this.t), OMathHelper.c(this.u + 0.5D), OMathHelper.c(this.v));
     }
-}
->>>>>>>
-    
+
     public Player getPlayer() {
         return player;
     }
@@ -994,7 +704,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
      * Reloads the player
      */
     public void reloadPlayer() {
-        player = etc.getDataSource().getPlayer(this.bJ);
+        player = etc.getDataSource().getPlayer(this.bT);
         player.setUser(this);
     }
 }
