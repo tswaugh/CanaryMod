@@ -15,29 +15,17 @@ public class OBlockSand extends OBlock {
     }
 
     public void g(OWorld oworld, int i, int j, int k) {
-<<<<<<<
         // CanaryMod: Physics
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(oworld.world, this.ca, i, j, k), true)) {
-            oworld.a(i, j, k, this.ca, this.p_());
-|||||||
-        oworld.a(i, j, k, this.ca, this.p_());
-=======
         oworld.a(i, j, k, this.cm, this.r_());
->>>>>>>
         }
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
-<<<<<<<
         // CanaryMod: Physics
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(oworld.world, this.ca, i, j, k), true)) {
-            oworld.a(i, j, k, this.ca, this.p_());
-        }
-|||||||
-        oworld.a(i, j, k, this.ca, this.p_());
-=======
-        oworld.a(i, j, k, this.cm, this.r_());
->>>>>>>
+			oworld.a(i, j, k, this.cm, this.r_());
+		}
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
@@ -91,11 +79,7 @@ public class OBlockSand extends OBlock {
             return omaterial == OMaterial.h ? true : omaterial == OMaterial.i;
         }
     }
-<<<<<<<
-
-|||||||
-=======
 
     public void a_(OWorld oworld, int i, int j, int k, int l) {}
->>>>>>>
+	
 }
