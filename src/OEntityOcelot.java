@@ -114,31 +114,23 @@ public class OEntityOcelot extends OEntityTameable {
             if (!oentityplayer.cf.d) {
                 --oitemstack.a;
             }
-            
+
             if (oitemstack.a <= 0) {
                 oentityplayer.bK.a(oentityplayer.bK.c, (OItemStack) null);
             }
 
-<<<<<<<
-            if (!this.p.K) {
+            if (!this.p.J) {
                 // CanaryMod hook: onTame
                 // randomize the tame result. if its 0 - tame success.
-                int tameResult = this.Z.nextInt(3);
+                int tameResult = this.aa.nextInt(3);
                 // Call hook
                 PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.TAME, oentityplayer.entity.getPlayer(), new Mob(this), tameResult == 0);
 
                 // if taming succeeded normally (tameResult == 0) or plugin hook result is allow (force taming)
                 if (tameResult == 0 && res == PluginLoader.HookResult.DEFAULT_ACTION || res == PluginLoader.HookResult.ALLOW_ACTION) {
-|||||||
-            if (!this.p.K) {
-                if (this.Z.nextInt(3) == 0) {
-=======
-            if (!this.p.J) {
-                if (this.aa.nextInt(3) == 0) {
                     this.g(true);
                     this.r(1 + this.p.u.nextInt(3));
                     this.a(oentityplayer.bT);
->>>>>>>
                     this.f(true);
                     this.d.a(true);
                     this.p.a(this, (byte) 7);

@@ -1,19 +1,13 @@
 
 public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
-<<<<<<<
     protected int f = 2;
-    
+
     // CanaryMod start
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     protected LivingEntity entity = new LivingEntity(this);
     // CanaryMod end
 
-|||||||
-    protected int f = 2;
-
-=======
->>>>>>>
     public OEntityMob(OWorld oworld) {
         super(oworld);
         this.bc = 5;
@@ -41,13 +35,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     protected OEntity j() {
         OEntityPlayer oentityplayer = this.p.b(this, 16.0D);
 
-<<<<<<<
-        return oentityplayer != null && this.l(oentityplayer) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), this.entity) ? oentityplayer : null;
-|||||||
-        return oentityplayer != null && this.l(oentityplayer) ? oentityplayer : null;
-=======
-        return oentityplayer != null && this.m(oentityplayer) ? oentityplayer : null;
->>>>>>>
+        return oentityplayer != null && this.m(oentityplayer) && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), this.entity) ? oentityplayer : null;
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
@@ -56,17 +44,12 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
             if (this.n != oentity && this.o != oentity) {
                 if (oentity != this) {
-<<<<<<<
                     // CanaryMod start - MOB_TARGET hook
                     if (oentity instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentity.entity.getPlayer(), this.entity)) {
-                        this.a = oentity;
+                        this.a_ = oentity;
                     }
                     // CanaryMod end
-|||||||
-                    this.a = oentity;
-=======
-                    this.a_ = oentity;
->>>>>>>
+
                 }
 
                 return true;

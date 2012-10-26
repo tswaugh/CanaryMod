@@ -13,20 +13,14 @@ public class OEntityTracker {
     private Set b = new HashSet();
     private OIntHashMap c = new OIntHashMap();
     private int d;
-    
+
     private EntityTracker entityTracker; // CanaryMod: reference to our EntityTracker
     private static final DelayQueue<DelayedTask> delayQueue = new DelayQueue<DelayedTask>(); // CanaryMod: New fields to store the runnables in.
 
     public OEntityTracker(OWorldServer oworldserver) {
         this.a = oworldserver;
-<<<<<<<
-        this.d = oworldserver.n().ab().a();
-        this.entityTracker = new EntityTracker(this);
-|||||||
-        this.d = oworldserver.n().ab().a();
-=======
         this.d = oworldserver.o().ad().a();
->>>>>>>
+        this.entityTracker = new EntityTracker(this);
     }
 
     /**
@@ -174,7 +168,7 @@ public class OEntityTracker {
             }
         } catch (ConcurrentModificationException concurrentmodificationexception) {
             // people seem to get this concurrentmodificationexceptionception often, lets just catch so it doesn't crash the server.
-            OMinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", concurrentmodificationexception);   
+            OMinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", concurrentmodificationexception);
         }
         // CanaryMod: Execute runnables contained in eventQueue.
         for (DelayedTask task = delayQueue.poll(); task != null; task = delayQueue.poll()) {
@@ -182,7 +176,7 @@ public class OEntityTracker {
             task.run();
         }
     }
-    
+
     // CanaryMod: Allow adding of tasks to the queue
 
     public static void add(Runnable runnable, long i) {

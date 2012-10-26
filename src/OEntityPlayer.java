@@ -1183,7 +1183,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
    			++this.cg;
    		}
     	if (this.cg > oldLevel) {
-			manager.cgllHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
+			manager.callHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
 		}
     }
 

@@ -17,7 +17,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     private double au;
     private double av;
     private double aw;
-    
+
     // CanaryMod start
     private String name = "container.minecart";
     Minecart cart = new Minecart(this);
@@ -77,7 +77,6 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
-<<<<<<<
         // CanaryMod: Attack of the cart
         BaseEntity entity = null;
 
@@ -88,12 +87,8 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             return true;
         }
 
-        if (!this.p.K && !this.L) {
-|||||||
-        if (!this.p.K && !this.L) {
-=======
         if (!this.p.J && !this.L) {
->>>>>>>
+
             this.i(-this.k());
             this.h(10);
             this.K();
@@ -155,19 +150,11 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         return !this.L;
     }
 
-<<<<<<<
-    public void y() {
-        // CanaryMod: Destruction of the cart
-        manager.callHook(PluginLoader.Hook.VEHICLE_DESTROYED, cart);
-        for (int i = 0; i < this.i_(); ++i) {
-|||||||
-    public void y() {
-        for (int i = 0; i < this.i_(); ++i) {
-=======
     public void x() {
         if (this.h) {
+            // CanaryMod: Destruction of the cart
+            manager.callHook(PluginLoader.Hook.VEHICLE_DESTROYED, cart);
             for (int i = 0; i < this.k_(); ++i) {
->>>>>>>
             OItemStack oitemstack = this.a(i);
 
             if (oitemstack != null) {
@@ -184,11 +171,11 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
 
                     oitemstack.a -= j;
                     OEntityItem oentityitem = new OEntityItem(this.p, this.t + (double) f, this.u + (double) f1, this.v + (double) f2, new OItemStack(oitemstack.c, j, oitemstack.j()));
-                    
+
                     if (oitemstack.o()) {
                         oentityitem.a.d((ONBTTagCompound) oitemstack.p().b());
                     }
-                    
+
                     float f3 = 0.05F;
 
                         oentityitem.w = (double) ((float) this.aa.nextGaussian() * f3);
@@ -212,23 +199,17 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     }
 
     public void j_() {
-        if (this.g != null) {
-            this.g.a();
-    }
-
-<<<<<<<
-    public void h_() {
         // CanaryMod: Update of the cart
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, cart);
-        
-|||||||
-    public void h_() {
-=======
->>>>>>>
+
+        if (this.g != null) {
+            this.g.a();
+        }
+
         if (this.j() > 0) {
             this.h(this.j() - 1);
         }
-        
+
         double prevX = this.q;
         double prevY = this.r;
         double prevZ = this.s;
@@ -236,7 +217,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         if (this.i() > 0) {
             this.g(this.i() - 1);
         }
-        
+
         if (this.u < -64.0D) {
             this.C();
         }
@@ -269,7 +250,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             int i = OMathHelper.c(this.t);
             int j = OMathHelper.c(this.u);
             int k = OMathHelper.c(this.v);
-            
+
             // CanaryMod: Change of the cart
             if ((int) i != (int) prevX || (int) j != (int) prevY || (int) k != (int) prevZ) {
                 manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, i, j, k);
@@ -320,7 +301,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                     this.y -= d5;
                 }
 
-                int[][] aint = i[i1];
+                int[][] aint = this.i[i1];
                 double d6 = (double) (aint[1][0] - aint[0][0]);
                 double d7 = (double) (aint[1][2] - aint[0][2]);
                 double d8 = Math.sqrt(d6 * d6 + d7 * d7);
@@ -592,7 +573,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             this.e(this.e > 0);
         }
     }
-    
+
     // CanaryMod: Store last position, avoids Hook spaming
     private int lastX = 0;
     private int lastY = 0;
@@ -602,7 +583,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
         int i = OMathHelper.c(d0);
         int j = OMathHelper.c(d1);
         int k = OMathHelper.c(d2);
-        
+
         // CanaryMod: Change of the cart
         if ((int) i != (int) lastX || (int) j != (int) lastY || (int) k != (int) lastZ) {
             manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, i, j, k);
@@ -629,7 +610,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 d1 = (double) (j + 1);
             }
 
-            int[][] aint = i[i1];
+            int[][] aint = this.i[i1];
             double d3 = 0.0D;
             double d4 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
             double d5 = (double) j + 0.5D + (double) aint[0][1] * 0.5D;
@@ -723,7 +704,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_COLLISION, cart, oentity.entity)) {
                     return;
                 }
-                
+
                 if (oentity instanceof OEntityLiving && !(oentity instanceof OEntityPlayer) && !(oentity instanceof OEntityIronGolem) && this.a == 0 && this.w * this.w + this.y * this.y > 0.01D && this.n == null && oentity.o == null) {
                     oentity.a((OEntity) this);
                 }
@@ -929,7 +910,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     public int k() {
         return this.ag.c(18);
     }
-    
+
     @Override
     public OItemStack[] getContents() {
         return this.d;
@@ -952,7 +933,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
 
     @Override
     public int getContentsSize() {
-        return this.i_();
+        return this.k_();
     } //
 
     @Override

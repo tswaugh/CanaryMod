@@ -63,15 +63,9 @@ public class OEntityPigZombie extends OEntityZombie {
                     oentitypigzombie.o(oentity);
                     }
                 }
-
-<<<<<<<
-                this.c(oentity);
+                this.o(oentity);
             }
-|||||||
-            this.c(oentity);
-=======
-            this.o(oentity);
->>>>>>>
+
         }
 
         return super.a(odamagesource, i);
@@ -109,15 +103,10 @@ public class OEntityPigZombie extends OEntityZombie {
         for (k = 0; k < j; ++k) {
             this.b(OItem.bq.cf, 1);
         }
-        }
-<<<<<<<
-
-|||||||
-=======
+    }
 
     public boolean c(OEntityPlayer oentityplayer) {
         return false;
->>>>>>>
     }
 
     protected void l(int i) {
@@ -136,10 +125,6 @@ public class OEntityPigZombie extends OEntityZombie {
         super.bD();
         this.g(false);
         }
-<<<<<<<
-
-|||||||
-=======
 
     public int c(OEntity oentity) {
         OItemStack oitemstack = this.bA();
@@ -147,9 +132,8 @@ public class OEntityPigZombie extends OEntityZombie {
 
         if (oitemstack != null) {
             i += oitemstack.a((OEntity) this);
->>>>>>>
-    }
-
+        }
+        
         return i;
     }
 
