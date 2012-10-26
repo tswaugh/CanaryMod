@@ -58,16 +58,11 @@ public class OWorldServer extends OWorld {
             if (!flag) {
                 long i = this.z.g() + 24000L;
 
-<<<<<<<
                 // CanaryMod: Time hook
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, i - i % 24000L)) {
-                    this.A.b(i - i % 24000L);
+                    this.z.c(i - i % 24000L);
                 }
-|||||||
-                this.A.b(i - i % 24000L);
-=======
-                this.z.c(i - i % 24000L);
->>>>>>>
+                
                 this.d();
             }
         }
@@ -85,23 +80,15 @@ public class OWorldServer extends OWorld {
             this.j = j;
         }
 
-<<<<<<<
-        this.Q();
+
+        this.U();
         // CanaryMod: Time hook
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, this.A.f() + 1L)) {
-            this.A.b(this.A.f() + 1L);
+            this.z.b(this.z.f() + 1L);
+			this.z.c(this.z.g() + 1L);
         }
-        this.F.c("tickPending");
-|||||||
-        this.Q();
-        this.A.b(this.A.f() + 1L);
-        this.F.c("tickPending");
-=======
-        this.U();
-        this.z.b(this.z.f() + 1L);
-        this.z.c(this.z.g() + 1L);
+		
         this.E.c("tickPending");
->>>>>>>
         this.a(false);
         this.E.c("tickTiles");
         this.g();
@@ -149,31 +136,17 @@ public class OWorldServer extends OWorld {
         this.T();
     }
 
-<<<<<<<
-    private void P() {
+    private void T() {
         // CanaryMod: Weather hook
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, world, false)) {
-            this.A.g(0);
-            this.A.b(false);
+            this.z.g(0);
+			this.z.b(false);
         }
         // CanaryMod: Thunder hook
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, world, false)) {
-            this.A.f(0);
-            this.A.a(false);
+            this.z.f(0);
+			this.z.a(false);
         } // CanaryMod: diff visibility
-|||||||
-    private void P() {
-        this.A.g(0);
-        this.A.b(false);
-        this.A.f(0);
-        this.A.a(false);
-=======
-    private void T() {
-        this.z.g(0);
-        this.z.b(false);
-        this.z.f(0);
-        this.z.a(false);
->>>>>>>
     }
 
     public boolean e() {
@@ -490,7 +463,6 @@ public class OWorldServer extends OWorld {
     }
 
     protected void b(OWorldSettings oworldsettings) {
-<<<<<<<
         // CanaryMod: load preload plugins once!
         if (!loadedpreload) {
             etc.getLoader().loadPreloadPlugins();
@@ -500,16 +472,9 @@ public class OWorldServer extends OWorld {
         Location point = (Location) etc.getLoader().callHook(PluginLoader.Hook.SPAWNPOINT_CREATE, world);
     
         if (point != null) {
-            this.A.a((int) point.x, (int) point.y, (int) point.z);
-        } else if (!this.w.e()) {
-            this.A.a(0, this.w.i(), 0);
-|||||||
-        if (!this.w.e()) {
-            this.A.a(0, this.w.i(), 0);
-=======
-        if (!this.v.e()) {
-            this.z.a(0, this.v.i(), 0);
->>>>>>>
+            this.z.a((int) point.x, (int) point.y, (int) point.z);
+        } else if (!this.v.e()) {
+            this.z.a(0, this.v.i() 0);
         } else {
             this.A = true;
             OWorldChunkManager oworldchunkmanager = this.v.d;
@@ -626,13 +591,7 @@ public class OWorldServer extends OWorld {
 
     public boolean c(OEntity oentity) {
         if (super.c(oentity)) {
-<<<<<<<
-            this.a.ab().a(oentity.t, oentity.u, oentity.v, 512.0D, this.w.g, new OPacket71Weather(oentity), this.name); // CanaryMod: multiworld
-|||||||
-            this.a.ab().a(oentity.t, oentity.u, oentity.v, 512.0D, this.w.g, new OPacket71Weather(oentity));
-=======
-            this.a.ad().a(oentity.t, oentity.u, oentity.v, 512.0D, this.v.h, new OPacket71Weather(oentity));
->>>>>>>
+            this.a.ab().a(oentity.t, oentity.u, oentity.v, 512.0D, this.v.h, new OPacket71Weather(oentity), this.name); // CanaryMod: multiworld
             return true;
         } else {
             return false;
@@ -697,13 +656,7 @@ public class OWorldServer extends OWorld {
                 OBlockEventData oblockeventdata = (OBlockEventData) iterator.next();
 
                 if (this.a(oblockeventdata)) {
-<<<<<<<
-                    this.a.ab().a((double) oblockeventdata.a(), (double) oblockeventdata.b(), (double) oblockeventdata.c(), 64.0D, this.w.g, new OPacket54PlayNoteBlock(oblockeventdata.a(), oblockeventdata.b(), oblockeventdata.c(), oblockeventdata.f(), oblockeventdata.d(), oblockeventdata.e()), this.name); // CanaryMod: multiworld
-|||||||
-                    this.a.ab().a((double) oblockeventdata.a(), (double) oblockeventdata.b(), (double) oblockeventdata.c(), 64.0D, this.w.g, new OPacket54PlayNoteBlock(oblockeventdata.a(), oblockeventdata.b(), oblockeventdata.c(), oblockeventdata.f(), oblockeventdata.d(), oblockeventdata.e()));
-=======
-                    this.a.ad().a((double) oblockeventdata.a(), (double) oblockeventdata.b(), (double) oblockeventdata.c(), 64.0D, this.v.h, new OPacket54PlayNoteBlock(oblockeventdata.a(), oblockeventdata.b(), oblockeventdata.c(), oblockeventdata.f(), oblockeventdata.d(), oblockeventdata.e()));
->>>>>>>
+                    this.a.ad().a((double) oblockeventdata.a(), (double) oblockeventdata.b(), (double) oblockeventdata.c(), 64.0D, this.v.h, new OPacket54PlayNoteBlock(oblockeventdata.a(), oblockeventdata.b(), oblockeventdata.c(), oblockeventdata.f(), oblockeventdata.d(), oblockeventdata.e()), this.name); // CanaryMod: multiworld);
                 }
             }
 
