@@ -21,30 +21,6 @@ public class OItemHoe extends OItem {
             if ((l == 0 || j1 != 0 || i1 != OBlock.x.cm) && i1 != OBlock.y.cm) {
                 return false;
             } else {
-<<<<<<<
-|||||||
-                OBlock oblock = OBlock.aA;
-
-                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cn.d(), (oblock.cn.b() + 1.0F) / 2.0F, oblock.cn.c() * 0.8F);
-                if (oworld.K) {
-                    return true;
-                } else {
-                    oworld.e(i, j, k, oblock.ca);
-                    oitemstack.a(1, oentityplayer);
-                    return true;
-                }
-=======
-                OBlock oblock = OBlock.aD;
-
-                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cz.e(), (oblock.cz.c() + 1.0F) / 2.0F, oblock.cz.d() * 0.8F);
-                if (oworld.J) {
-                    return true;
-                } else {
-                    oworld.e(i, j, k, oblock.cm);
-                    oitemstack.a(1, oentityplayer);
-                    return true;
-                }
->>>>>>>
                 // CanaryMod: Hoes
                 Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
                 Block blockPlaced = oworld.world.getBlockAt(i, j+i, k);
@@ -57,14 +33,14 @@ public class OItemHoe extends OItem {
                         return false;
                     }
                 }
-                
-                OBlock oblock = OBlock.aA;
 
-                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cn.d(), (oblock.cn.b() + 1.0F) / 2.0F, oblock.cn.c() * 0.8F);
-                if (oworld.K) {
+                OBlock oblock = OBlock.aD;
+
+                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cz.e(), (oblock.cz.c() + 1.0F) / 2.0F, oblock.cz.d() * 0.8F);
+                if (oworld.J) {
                     return true;
                 } else {
-                    oworld.e(i, j, k, oblock.ca);
+                    oworld.e(i, j, k, oblock.cm);
                     oitemstack.a(1, oentityplayer);
                     return true;
                 }

@@ -20,7 +20,7 @@ public class OItemBlock extends OItem {
         }
         // CanaryMod: Store blockInfo of the one we clicked
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
-        
+
         int i1 = oworld.a(i, j, k);
 
         if (i1 == OBlock.aV.cm) {
@@ -50,7 +50,7 @@ public class OItemBlock extends OItem {
                 ++i;
             }
         }
-        
+
         // CanaryMod: Store faceClicked (must be here to have the 'snow' special case).
         blockClicked.setFaceClicked(Block.Face.fromId(l));
         // CanaryMod: And the block we're about to place
@@ -62,17 +62,10 @@ public class OItemBlock extends OItem {
             return false;
         } else if (j == 255 && OBlock.p[this.a].cB.a()) {
             return false;
-<<<<<<<
         } else if (oworld.a(this.a, i, j, k, false, l, oentityplayer) // CanaryMod: prevent unwanted blocks from getting placed.
                 && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PLACE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
-            OBlock oblock = OBlock.m[this.a];
-|||||||
-        } else if (oworld.a(this.a, i, j, k, false, l, oentityplayer)) {
-            OBlock oblock = OBlock.m[this.a];
-=======
-        } else if (oworld.a(this.a, i, j, k, false, l, oentityplayer)) {
             OBlock oblock = OBlock.p[this.a];
->>>>>>>
+
 
             if (oworld.d(i, j, k, this.a, this.a(oitemstack.j()))) {
                 if (oworld.a(i, j, k) == this.a) {

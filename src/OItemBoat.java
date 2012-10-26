@@ -58,11 +58,11 @@ public class OItemBoat extends OItem {
                     int j = omovingobjectposition.c;
                     int k = omovingobjectposition.d;
 
-                    if (!oworld.K) {
-                        if (oworld.a(i, j, k) == OBlock.aS.ca) {
+                    if (!oworld.J) {
+                        if (oworld.a(i, j, k) == OBlock.aV.cm) {
                             --j;
                         }
-                        
+
                         // CanaryMod: placing of a boat
                         Block blockClicked = this.getBlockInfo(oworld, i, j, k, omovingobjectposition.e);
                         Block blockPlaced = new Block(oworld.world, 0, i, j, k);
@@ -70,24 +70,7 @@ public class OItemBoat extends OItem {
                         // CanaryMod: Call hook
                         if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
                             return oitemstack;
-<<<<<<<
-|||||||
-                    int j = omovingobjectposition.c;
-                    int k = omovingobjectposition.d;
-
-                    if (!oworld.K) {
-                        if (oworld.a(i, j, k) == OBlock.aS.ca) {
-                            --j;
-=======
-                    int j = omovingobjectposition.c;
-                    int k = omovingobjectposition.d;
-
-                    if (!oworld.J) {
-                        if (oworld.a(i, j, k) == OBlock.aV.cm) {
-                            --j;
->>>>>>>
                         }
-
                         oworld.d((OEntity) (new OEntityBoat(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 1.0F), (double) ((float) k + 0.5F))));
                     }
 
@@ -101,3 +84,4 @@ public class OItemBoat extends OItem {
         }
     }
 }
+

@@ -29,7 +29,7 @@ public class OItemDoor extends OItem {
                 } else {
                     // CanaryMod hook: onItemUse
                     Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
-                    Block blockPlaced = new Block(oworld.world, oblock.ca, i, j, k);
+                    Block blockPlaced = new Block(oworld.world, oblock.cm, i, j, k);
 
                     // Call the hook
                     if (oentityplayer instanceof OEntityPlayerMP) {
@@ -39,7 +39,7 @@ public class OItemDoor extends OItem {
                             return false;
                         }
                     }
-                    
+
                     int i1 = OMathHelper.c((double) ((oentityplayer.z + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
 
                     a(oworld, i, j, k, i1, oblock);

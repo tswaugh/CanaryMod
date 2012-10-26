@@ -9,7 +9,7 @@ public class OItemBed extends OItem {
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         // CanaryMod: store the block that was clicked
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
-        
+
         if (l != 1) {
             return false;
         } else {
@@ -34,19 +34,13 @@ public class OItemBed extends OItem {
             if (i1 == 3) {
                 b0 = 1;
             }
-            
-<<<<<<<
+
             // CanaryMod: onItemUse hook
             if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Block(oworld.world, Block.Type.Bed.getType(), i, j, k), blockClicked, new Item(oitemstack))) {
                 return false;
             }
 
-            if (oentityplayer.e(i, j, k) && oentityplayer.e(i + b0, j, k + b1)) {
-|||||||
-            if (oentityplayer.e(i, j, k) && oentityplayer.e(i + b0, j, k + b1)) {
-=======
             if (oentityplayer.a(i, j, k, l, oitemstack) && oentityplayer.a(i + b0, j, k + b1, l, oitemstack)) {
->>>>>>>
                 if (oworld.c(i, j, k) && oworld.c(i + b0, j, k + b1) && oworld.t(i, j - 1, k) && oworld.t(i + b0, j - 1, k + b1)) {
                     oworld.d(i, j, k, oblockbed.cm, i1);
                     if (oworld.a(i, j, k) == oblockbed.cm) {

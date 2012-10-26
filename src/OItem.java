@@ -185,7 +185,7 @@ public class OItem {
         this.ch = i;
         return this;
     }
-    
+
     // CanaryMod set max stack size
     public OItem d(int i) {
         this.cg = i;
@@ -212,20 +212,12 @@ public class OItem {
         return oitemstack;
     }
 
-<<<<<<<
     public OItemStack b(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
         return oitemstack;
     }
 
-    public int j() { // CanaryMod - get max stacksize
-        return this.bU;
-|||||||
-    public int j() {
-        return this.bU;
-=======
-    public int k() {
+    public int k() { // CanaryMod - get max stacksize
         return this.cg;
->>>>>>>
     }
 
     public int a(int i) {
@@ -406,7 +398,7 @@ public class OItem {
     static {
         OStatList.c();
     }
-    
+
     // CanaryMod start - Add convenience method to get block clicked.
     protected Block getBlockInfo(OWorld oworld, int i, int j, int k, int l) {
         Block b = oworld.world.getBlockAt(i, j, k);

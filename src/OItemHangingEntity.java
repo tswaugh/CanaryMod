@@ -1,11 +1,6 @@
-<<<<<<<
 
-public class OItemPainting extends OItem {
-|||||||
-public class OItemPainting extends OItem {
-=======
 public class OItemHangingEntity extends OItem {
->>>>>>>
+
 
     private final Class a;
 
@@ -18,7 +13,7 @@ public class OItemHangingEntity extends OItem {
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         // CanaryMod: store clicked block data
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
-        
+
         if (l == 0) {
             return false;
         } else if (l == 1) {
@@ -30,27 +25,15 @@ public class OItemHangingEntity extends OItem {
             if (!oentityplayer.a(i, j, k, l, oitemstack)) {
                 return false;
             } else {
-<<<<<<<
-                OEntityPainting oentitypainting = new OEntityPainting(oworld, i, j, k, b0);
 
-                if (oentitypainting.d()) {
-                    if (!oworld.K) {
+                if (oentityhanging != null && oentityhanging.c()) {
+                    if (!oworld.J) {
                         // CanaryMod: Painting place hook
                         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, blockClicked, new Item(oitemstack))) {
                             return false;
                         }
-                        oworld.d((OEntity) oentitypainting);
-|||||||
-                OEntityPainting oentitypainting = new OEntityPainting(oworld, i, j, k, b0);
-
-                if (oentitypainting.d()) {
-                    if (!oworld.K) {
-                        oworld.d((OEntity) oentitypainting);
-=======
-                if (oentityhanging != null && oentityhanging.c()) {
-                    if (!oworld.J) {
                         oworld.d((OEntity) oentityhanging);
->>>>>>>
+
                     }
 
                     --oitemstack.a;
