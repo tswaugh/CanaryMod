@@ -47,22 +47,16 @@ public class OItemReed extends OItem {
             return false;
         } else {
             if (oworld.a(this.a, i, j, k, false, l, (OEntity) null)) {
-<<<<<<<
                 // CanaryMod: Reed placement
                 Block blockPlaced = new Block(oworld.world, this.a, i, j, k);
-                
+
                 Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();
 
                 if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(oitemstack))) {
                     return false;
                 }
 
-                OBlock oblock = OBlock.m[this.a];
-|||||||
-                OBlock oblock = OBlock.m[this.a];
-=======
                 OBlock oblock = OBlock.p[this.a];
->>>>>>>
 
                 if (oworld.e(i, j, k, this.a)) {
                     if (oworld.a(i, j, k) == this.a) {

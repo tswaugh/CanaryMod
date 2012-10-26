@@ -80,27 +80,15 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
             this.h = null;
         }
 
-<<<<<<<
-        if (this.g == null || this.h-- <= 0) {
+        if (this.h == null || this.i-- <= 0) {
             OEntityPlayer oentityplayer = this.p.b(this, 100.0D);
-            
+
             // CanaryMod: MOB_TARGET Hook for ghasts.
             if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityplayer.entity.getPlayer(), this.entity)) {
-                this.g = oentityplayer;
+                this.h = oentityplayer;
             }
-            if (this.g != null) {
-                this.h = 20;
-|||||||
-        if (this.g == null || this.h-- <= 0) {
-            this.g = this.p.b(this, 100.0D);
-            if (this.g != null) {
-                this.h = 20;
-=======
-        if (this.h == null || this.i-- <= 0) {
-            this.h = this.p.b(this, 100.0D);
             if (this.h != null) {
                 this.i = 20;
->>>>>>>
             }
         }
 
@@ -211,12 +199,12 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
     public int bs() {
         return 1;
     }
-    
+
     public void setTarget(OEntity oentity) {
-        this.g = oentity;
+        this.h = oentity;
     }
-    
+
     public OEntity getTarget() {
-        return this.g;
+        return this.h;
     }
 }

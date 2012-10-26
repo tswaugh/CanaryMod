@@ -11,7 +11,7 @@ public class OEntityBoat extends OEntity {
     private double f;
     private double g;
     private double h;
-    
+
     // CanaryMod Start
     Boat boat = new Boat(this);
 
@@ -57,7 +57,7 @@ public class OEntityBoat extends OEntity {
         this.q = d0;
         this.r = d1;
         this.s = d2;
-        
+
         // CanaryMod: Creation of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_CREATE, boat);
     }
@@ -67,32 +67,20 @@ public class OEntityBoat extends OEntity {
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
-<<<<<<<
         // CanaryMod: Attack of the boat
         BaseEntity entity = null;
-        
+
         if (odamagesource != null && odamagesource.g() != null) {
             entity = new BaseEntity(odamagesource.g());
         }
         if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_DAMAGE, boat, entity, i)) {
             return true;
         }
-        
-        if (!this.p.K && !this.L) {
-            this.c(-this.i());
-            this.b(10);
-            this.a(this.g() + i * 10);
-|||||||
-        if (!this.p.K && !this.L) {
-            this.c(-this.i());
-            this.b(10);
-            this.a(this.g() + i * 10);
-=======
+
         if (!this.p.J && !this.L) {
             this.h(-this.h());
             this.g(10);
             this.a(this.d() + i * 10);
->>>>>>>
             this.K();
             if (odamagesource.g() instanceof OEntityPlayer && ((OEntityPlayer) odamagesource.g()).cf.d) {
                 this.a(100);
@@ -117,29 +105,18 @@ public class OEntityBoat extends OEntity {
         return !this.L;
     }
 
-<<<<<<<
-    public void h_() {
-        super.h_();
+    public void j_() {
+        super.j_();
         // CanaryMod: Update of the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, boat);
-        
+
         double prevX = this.q;
         double prevY = this.r;
         double prevZ = this.s;
-        
-        if (this.h() > 0) {
-            this.b(this.h() - 1);
-|||||||
-    public void h_() {
-        super.h_();
-        if (this.h() > 0) {
-            this.b(this.h() - 1);
-=======
-    public void j_() {
-        super.j_();
+
+
         if (this.g() > 0) {
             this.g(this.g() - 1);
->>>>>>>
         }
 
         if (this.d() > 0) {
@@ -301,19 +278,8 @@ public class OEntityBoat extends OEntity {
 
             this.z = (float) ((double) this.z + d12);
             this.b(this.z, this.A);
-<<<<<<<
-            if (!this.p.K) {
-|||||||
-            if (!this.p.K) {
-                List list = this.p.b((OEntity) this, this.D.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
-                if (list != null && !list.isEmpty()) {
-=======
             if (!this.p.J) {
-                List list = this.p.b((OEntity) this, this.D.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
-
-                if (list != null && !list.isEmpty()) {
->>>>>>>
                 // CanaryMod: Change of the boat
                 if ((int) this.q != (int) prevX || (int) this.r != (int) prevY || (int) this.s != (int) prevZ) {
                     manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, boat, (int) this.q, (int) this.r, (int) this.s);
@@ -374,7 +340,7 @@ public class OEntityBoat extends OEntity {
     public boolean c(OEntityPlayer oentityplayer) {
         // CanaryMod: Entering the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, boat, oentityplayer.entity);
-        
+
         if (this.n != null && this.n instanceof OEntityPlayer && this.n != oentityplayer) {
             return true;
         } else {

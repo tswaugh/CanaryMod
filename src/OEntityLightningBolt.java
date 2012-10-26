@@ -19,22 +19,14 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
             int j = OMathHelper.c(d1);
             int k = OMathHelper.c(d2);
 
-<<<<<<<
-            if (oworld.a(i, j, k) == 0 && OBlock.ar.b(oworld, i, j, k)) {
+            if (oworld.a(i, j, k) == 0 && OBlock.au.b(oworld, i, j, k)) {
                 // CanaryMod: Ignite hook
                 Block block = this.entity.getWorld().getBlockAt(i, j, k);
 
                 block.setStatus(5); // lightning
                 if (!(Boolean) manager.callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                    oworld.e(i, j, k, OBlock.ar.ca);
+                    oworld.e(i, j, k, OBlock.au.cm);
                 }
-|||||||
-            if (oworld.a(i, j, k) == 0 && OBlock.ar.b(oworld, i, j, k)) {
-                oworld.e(i, j, k, OBlock.ar.ca);
-=======
-            if (oworld.a(i, j, k) == 0 && OBlock.au.b(oworld, i, j, k)) {
-                oworld.e(i, j, k, OBlock.au.cm);
->>>>>>>
             }
 
             for (i = 0; i < 4; ++i) {
@@ -42,21 +34,13 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
                 k = OMathHelper.c(d1) + this.aa.nextInt(3) - 1;
                 int l = OMathHelper.c(d2) + this.aa.nextInt(3) - 1;
 
-<<<<<<<
-                if (oworld.a(j, k, l) == 0 && OBlock.ar.b(oworld, j, k, l)) {
+                if (oworld.a(j, k, l) == 0 && OBlock.au.b(oworld, j, k, l)) {
                     // CanaryMod: Ignite hook
                     Block block = this.entity.getWorld().getBlockAt(j, k, l);
 
                     block.setStatus(5); // lightning
                     if (!(Boolean) manager.callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                        oworld.e(j, k, l, OBlock.ar.ca);
-|||||||
-                if (oworld.a(j, k, l) == 0 && OBlock.ar.b(oworld, j, k, l)) {
-                    oworld.e(j, k, l, OBlock.ar.ca);
-=======
-                if (oworld.a(j, k, l) == 0 && OBlock.au.b(oworld, j, k, l)) {
-                    oworld.e(j, k, l, OBlock.au.cm);
->>>>>>>
+                        oworld.e(j, k, l, OBlock.au.cm);
                     }
                 }
             }
@@ -83,28 +67,13 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
                     int i = OMathHelper.c(this.t);
                     int j = OMathHelper.c(this.u);
                     int k = OMathHelper.c(this.v);
-
-<<<<<<<
-                    if (this.p.a(i, j, k) == 0 && OBlock.ar.b(this.p, i, j, k)) {
-|||||||
-                    if (this.p.a(i, j, k) == 0 && OBlock.ar.b(this.p, i, j, k)) {
-                        this.p.e(i, j, k, OBlock.ar.ca);
-                    }
-                }
-            }
-=======
                     if (this.p.a(i, j, k) == 0 && OBlock.au.b(this.p, i, j, k)) {
-                        this.p.e(i, j, k, OBlock.au.cm);
-                    }
-                }
-            }
->>>>>>>
                         // CanaryMod: Ignite hook
                         Block block = this.entity.getWorld().getBlockAt(i, j, k);
 
                         block.setStatus(5); // lightning
                         if (!(Boolean) manager.callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                        this.p.e(i, j, k, OBlock.ar.ca);
+                        this.p.e(i, j, k, OBlock.au.cm);
                         }
                     }
                 }

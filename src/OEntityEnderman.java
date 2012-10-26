@@ -3,18 +3,12 @@ public class OEntityEnderman extends OEntityMob {
 
     private static boolean[] d = new boolean[256];
     private int e = 0;
-<<<<<<<
-    private int g = 0;
-    
+    private int f = 0;
+
     // CanaryMod Start
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     Enderman entity = new Enderman(this);
     // CanaryMod End
-|||||||
-    private int g = 0;
-=======
-    private int f = 0;
->>>>>>>
 
     public OEntityEnderman(OWorld oworld) {
         super(oworld);
@@ -118,16 +112,8 @@ public class OEntityEnderman extends OEntityMob {
                 l = this.p.a(i, j, k);
                 int i1 = this.p.a(i, j - 1, k);
 
-<<<<<<<
-                if (l == 0 && i1 > 0 && OBlock.m[i1].c() && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_DROP, entity, new Block(entity.getWorld(), i1, i, j, k, entity.getWorld().getBlockIdAt(i, j, k)))) {
-                    this.p.d(i, j, k, this.p(), this.q());
-|||||||
-                if (l == 0 && i1 > 0 && OBlock.m[i1].c()) {
-                    this.p.d(i, j, k, this.p(), this.q());
-=======
-                if (l == 0 && i1 > 0 && OBlock.p[i1].b()) {
+                if (l == 0 && i1 > 0 && OBlock.p[i1].b() && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_DROP, entity, new Block(entity.getWorld(), i1, i, j, k, entity.getWorld().getBlockIdAt(i, j, k)))) {
                     this.p.d(i, j, k, this.o(), this.p());
->>>>>>>
                     this.a(0);
                 }
             }
@@ -320,7 +306,7 @@ public class OEntityEnderman extends OEntityMob {
             return super.a(odamagesource, i);
         }
     }
-    
+
     public boolean q() {
         return this.ag.a(18) > 0;
     }

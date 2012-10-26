@@ -105,7 +105,7 @@ public abstract class OEntityLiving extends OEntity {
     LivingEntity entity = new LivingEntity(this);
     protected MobSpawner spawner = null;
     // CanaryMod end
-    
+
     public OEntityLiving(OWorld oworld) {
         super(oworld);
         this.m = true;
@@ -312,26 +312,13 @@ public abstract class OEntityLiving extends OEntity {
             this.B();
         }
 
-<<<<<<<
-        if (this.S() && this.a(OMaterial.g) && !this.aU() && !this.bf.containsKey(Integer.valueOf(OPotion.o.H))) {
-            this.g(this.h(this.ai()));
-            if (this.ai() == -20) {
-                this.g(0);
-                // CanaryMod Damage hook: Drowning
-                if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.WATER, null, entity, 2)) {
-|||||||
-        if (this.S() && this.a(OMaterial.g) && !this.aU() && !this.bf.containsKey(Integer.valueOf(OPotion.o.H))) {
-            this.g(this.h(this.ai()));
-            if (this.ai() == -20) {
-                this.g(0);
-
-=======
         if (this.S() && this.a(OMaterial.h) && !this.ba() && !this.bm.containsKey(Integer.valueOf(OPotion.o.H))) {
             this.f(this.g(this.al()));
             if (this.al() == -20) {
                 this.f(0);
+                // CanaryMod Damage hook: Drowning
+                if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.WATER, null, entity, 2)) {
 
->>>>>>>
                     for (int i = 0; i < 8; ++i) {
                     float f = this.aa.nextFloat() - this.aa.nextFloat();
                     float f1 = this.aa.nextFloat() - this.aa.nextFloat();
@@ -608,107 +595,48 @@ public abstract class OEntityLiving extends OEntity {
             } else if (odamagesource.k() && this.a(OPotion.n)) {
                 return false;
             } else {
-<<<<<<<
-                this.aZ = 1.5F;
-|||||||
-                this.aZ = 1.5F;
-                boolean flag = true;
-
-                if ((float) this.ad > (float) this.an / 2.0F) {
-                    if (i <= this.bp) {
-                        return false;
-                    }
-
-                    this.d(odamagesource, i - this.bp);
-                    this.bp = i;
-                    flag = false;
-                } else {
-                    this.bp = i;
-                    this.aL = this.aK;
-                    this.ad = this.an;
-                    this.d(odamagesource, i);
-                    this.aN = this.aO = 10;
-                }
-=======
                 if ((odamagesource == ODamageSource.o || odamagesource == ODamageSource.p) && this.p(4) != null) {
                     i = (int) ((float) i * 0.55F);
                 }
 
                 this.bg = 1.5F;
+
+                LivingEntity attacker = null;
+
+                if ((odamagesource != null) && ((odamagesource instanceof OEntityDamageSource)) && ((((OEntityDamageSource)odamagesource).g() instanceof OEntityLiving))) {
+                    OEntity ent = ((OEntityDamageSource)odamagesource).g();
+                    attacker = new LivingEntity((OEntityLiving)ent);
+                }
+                if (attacker != null) if (((Boolean)manager.callHook(PluginLoader.Hook.ATTACK, new Object[] { attacker, this.entity, Integer.valueOf(i) })).booleanValue()) {
+                      if ((this instanceof OEntityCreature)) {
+                        ((OEntityCreature)this).c = 0;
+                      }
+                      return false;
+                  }
                 boolean flag = true;
 
                 if ((float) this.ae > (float) this.at / 2.0F) {
                     if (i <= this.bB) {
                         return false;
                     }
-
+                    if (attacker != null) if (((Boolean)manager.callHook(PluginLoader.Hook.DAMAGE, new Object[] { PluginLoader.DamageType.ENTITY, attacker, this.entity, Integer.valueOf(i - this.bB) })).booleanValue()) {
+                        return false;
+                    }
                     this.d(odamagesource, i - this.bB);
                     this.bB = i;
                     flag = false;
                 } else {
+                    if (attacker != null) if (((Boolean)manager.callHook(PluginLoader.Hook.DAMAGE, new Object[] { PluginLoader.DamageType.ENTITY, attacker, this.entity, Integer.valueOf(i) })).booleanValue()) {
+                        return false;
+                    }
                     this.bB = i;
                     this.aR = this.aQ;
                     this.ae = this.at;
                     this.d(odamagesource, i);
                     this.aU = this.aV = 10;
                 }
->>>>>>>
 
-<<<<<<<
-|||||||
-                this.aP = 0.0F;
-                OEntity oentity = odamagesource.g();
-
-                if (oentity != null) {
-=======
                 this.aW = 0.0F;
-                OEntity oentity = odamagesource.g();
-
-                if (oentity != null) {
->>>>>>>
-                // CanaryMod damage entities.
-                LivingEntity attacker = null;
-
-                if (odamagesource != null && odamagesource instanceof OEntityDamageSource && ((OEntityDamageSource) odamagesource).g() instanceof OEntityLiving) {
-                    OEntity ent = ((OEntityDamageSource) odamagesource).g();
-
-                    attacker = new LivingEntity((OEntityLiving) ent);
-                }
-
-                // CanaryMod attack by entity, but it might not do damage!
-                if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.ATTACK, attacker, entity, i)) {
-                    if (this instanceof OEntityCreature) {
-                        ((OEntityCreature) this).c = 0;
-                    }
-                    return false;
-                }
-                boolean flag = true;
-
-                if ((float) this.ad > (float) this.an / 2.0F) {
-                    if (i <= this.bp) {
-                        return false;
-                    }
-
-                    // CanaryMod: partial damage
-                    if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENTITY, attacker, entity, i - this.bp)) {
-                        return false;
-                    }
-                    this.d(odamagesource, i - this.bp);
-                    this.bp = i;
-                    flag = false;
-                } else {
-                    // CanaryMod: full damage
-                    if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENTITY, attacker, entity, i)) {
-                        return false;
-                    }
-                    this.bp = i;
-                    this.aL = this.aK;
-                    this.ad = this.an;
-                    this.d(odamagesource, i);
-                    this.aN = this.aO = 10;
-                }
-
-                this.aP = 0.0F;
                 OEntity oentity = odamagesource.g();
 
                 if (oentity != null) {
@@ -1109,13 +1037,7 @@ public abstract class OEntityLiving extends OEntity {
         for (int j = 0; j < this.bp.length; ++j) {
             onbttaglist1.a((ONBTBase) (new ONBTTagFloat(j + "", this.bp[j])));
         }
-<<<<<<<
-
-|||||||
-=======
-
         onbttagcompound.a("DropChances", (ONBTBase) onbttaglist1);
->>>>>>>
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
@@ -1386,50 +1308,34 @@ public abstract class OEntityLiving extends OEntity {
 
     protected void bh() {
         if (!this.bV) {
-        OEntityPlayer oentityplayer = this.p.a(this, -1.0D);
+            OEntityPlayer oentityplayer = this.p.a(this, -1.0D);
 
-        if (oentityplayer != null) {
-            double d0 = oentityplayer.t - this.t;
-            double d1 = oentityplayer.u - this.u;
-            double d2 = oentityplayer.v - this.v;
-            double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+            if (oentityplayer != null) {
+                double d0 = oentityplayer.t - this.t;
+                double d1 = oentityplayer.u - this.u;
+                double d2 = oentityplayer.v - this.v;
+                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-<<<<<<<
-            if (this.ba() && d3 > 16384.0D) {
-                // CanaryMod hook onEntityDespawn
-                if (!(Boolean) OEntityLiving.manager.callHook(PluginLoader.Hook.ENTITY_DESPAWN, this.entity)) {
-                    this.y();
-                }
-|||||||
-            if (this.ba() && d3 > 16384.0D) {
-                this.y();
-=======
                 if (this.bg() && d3 > 16384.0D) {
-                    this.x();
->>>>>>>
-            }
+                    // CanaryMod hook onEntityDespawn
+                    if (!(Boolean) OEntityLiving.manager.callHook(PluginLoader.Hook.ENTITY_DESPAWN, this.entity)) {
+                        this.x();
+                    }
+                }
 
-<<<<<<<
-            if (this.bq > 600 && this.Z.nextInt(800) == 0 && d3 > 1024.0D && this.ba()) {
-                // CanaryMod hook onEntityDespawn
-                if (!(Boolean) OEntityLiving.manager.callHook(PluginLoader.Hook.ENTITY_DESPAWN, this.entity)) {
-                    this.y();
-                } else {
-                    this.bq = 0;
-                }
-|||||||
-            if (this.bq > 600 && this.Z.nextInt(800) == 0 && d3 > 1024.0D && this.ba()) {
-                this.y();
-=======
                 if (this.bC > 600 && this.aa.nextInt(800) == 0 && d3 > 1024.0D && this.bg()) {
-                    this.x();
->>>>>>>
-            } else if (d3 < 1024.0D) {
-                    this.bC = 0;
+                    // CanaryMod hook onEntityDespawn
+                    if (!(Boolean) OEntityLiving.manager.callHook(PluginLoader.Hook.ENTITY_DESPAWN, this.entity)) {
+                        this.x();
+                    } else {
+                        this.bC = 0;
+                    }
                 }
+                else if (d3 < 1024.0D) {
+                        this.bC = 0;
+                    }
             }
         }
-
     }
 
     protected void bi() {
@@ -1931,10 +1837,6 @@ public abstract class OEntityLiving extends OEntity {
             return 4;
         }
         }
-<<<<<<<
-
-|||||||
-=======
 
     public static OItem a(int i, int j) {
         switch (i) {
@@ -2027,6 +1929,5 @@ public abstract class OEntityLiving extends OEntity {
 
     public boolean bF() {
         return false;
->>>>>>>
     }
 }

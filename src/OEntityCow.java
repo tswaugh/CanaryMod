@@ -72,19 +72,14 @@ public class OEntityCow extends OEntityAnimal {
     public boolean c(OEntityPlayer oentityplayer) {
         OItemStack oitemstack = oentityplayer.bK.g();
 
-<<<<<<<
-        if (oitemstack != null && oitemstack.c == OItem.aw.bT && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob(this))) {
-|||||||
-        if (oitemstack != null && oitemstack.c == OItem.aw.bT) {
-=======
-        if (oitemstack != null && oitemstack.c == OItem.aw.cf) {
->>>>>>>
+        if (oitemstack != null && oitemstack.c == OItem.aw.cf && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob(this))) {
+
             if (--oitemstack.a <= 0) {
                 oentityplayer.bK.a(oentityplayer.bK.c, new OItemStack(OItem.aG));
             } else if (!oentityplayer.bK.a(new OItemStack(OItem.aG))) {
                 oentityplayer.c(new OItemStack(OItem.aG.cf, 1, 0));
             }
-            
+
             return true;
         } else {
             return super.c(oentityplayer);
