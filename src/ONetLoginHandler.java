@@ -1,9 +1,5 @@
-<<<<<<<
 import java.io.IOException;
-|||||||
-=======
 import java.io.Serializable;
->>>>>>>
 import java.net.InetAddress;
 import java.net.Socket;
 import java.security.PrivateKey;
@@ -142,12 +138,12 @@ public class ONetLoginHandler extends ONetHandler {
 
                 Object object;
 
-                for (Iterator iterator = list.iterator(); iterator.hasNext(); s = s + object.toString().replaceAll(", "")) {
+                for (Iterator iterator = list.iterator(); iterator.hasNext(); s = s + object.toString().replaceAll("\u0000", "")) {
                     object = iterator.next();
                     if (s == null) {
                         s = "\u00A7";
                     } else {
-                        s = s + ";
+                        s = s + "\u0000";
                     }
                 }
             } else {
@@ -160,21 +156,11 @@ public class ONetLoginHandler extends ONetHandler {
                 inetaddress = this.b.g().getInetAddress();
             }
             this.b.a((OPacket) (new OPacket255KickDisconnect(s)));
-<<<<<<<
             // CanaryMod: swapped lines below. The network connection should be terminated AFTER removing the socket from the connection list.
-            if (inetaddress != null && this.f.ac() instanceof ODedicatedServerListenThread) {
-                ((ODedicatedServerListenThread) this.f.ac()).a(inetaddress);
-|||||||
-            this.b.d();
-            if (inetaddress != null && this.f.ac() instanceof ODedicatedServerListenThread) {
-                ((ODedicatedServerListenThread) this.f.ac()).a(inetaddress);
-=======
             this.b.d();
             if (inetaddress != null && this.f.ae() instanceof ODedicatedServerListenThread) {
                 ((ODedicatedServerListenThread) this.f.ae()).a(inetaddress);
->>>>>>>
             }
-            this.b.d();
             
             this.c = true;
         } catch (Exception exception) {

@@ -41,9 +41,9 @@ public class OGuiStatsComponent extends JComponent {
                 OWorldServer[] level = entry.getValue();
 
                 for (int j = 0; j < level.length; ++j) {
-                this.d[5 + j] = "Lvl " + j + " tick: " + a.format(this.a(this.e.k[j]) * 1.0E-6D) + " ms";
-                if (this.e.c[j] != null && this.e.c[j].b != null) {
-                    this.d[5 + j] = this.d[5 + j] + ", Vec3: " + this.e.c[j].R().d() + " / " + this.e.c[j].R().c();
+                    this.d[5 + j] = "Lvl " + j + " tick: " + a.format(this.a(this.e.worldTickNanos.get(worldName)[j]) * 1.0E-6D) + " ms";
+                    if (level[j] != null && level[j].b != null) {
+                        this.d[5 + j] = this.d[5 + j] + ", Vec3: " + level[j].R().d() + " / " + level[j].R().c();
                     }
                 }
             }

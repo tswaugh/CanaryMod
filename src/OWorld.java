@@ -2543,7 +2543,7 @@ public abstract class OWorld implements OIBlockAccess {
 
     public OVec3Pool R() {
         return this.K;
-        }
+    }
 
     public Calendar S() {
         this.L.setTimeInMillis(System.currentTimeMillis());

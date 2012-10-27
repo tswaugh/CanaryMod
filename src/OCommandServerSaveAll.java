@@ -18,25 +18,11 @@ public class OCommandServerSaveAll extends OCommandBase {
             ominecraftserver.ad().g();
         }
 
-<<<<<<<
         for (OWorldServer[] level: ominecraftserver.worlds.values()) { // CanaryMod: multiworld
             for (int i = 0; i < level.length; ++i) {
                 if (level[i] != null) {
                     OWorldServer oworldserver = level[i];
-                    boolean flag = oworldserver.d;
-|||||||
-        try {
-            for (int i = 0; i < ominecraftserver.c.length; ++i) {
-                if (ominecraftserver.c[i] != null) {
-                    OWorldServer oworldserver = ominecraftserver.c[i];
-                    boolean flag = oworldserver.d;
-=======
-        try {
-            for (int i = 0; i < ominecraftserver.c.length; ++i) {
-                if (ominecraftserver.c[i] != null) {
-                    OWorldServer oworldserver = ominecraftserver.c[i];
                     boolean flag = oworldserver.c;
->>>>>>>
 
                     oworldserver.c = false;
                     oworldserver.a(true, (OIProgressUpdate) null);

@@ -125,18 +125,6 @@ public class OContainerEnchantment extends OContainer {
                 List list = OEnchantmentHelper.b(this.l, oitemstack, this.g[i]);
 
                 if (list != null) {
-<<<<<<<
-|||||||
-                    oentityplayer.a(this.g[i]);
-                    Iterator iterator = list.iterator();
-
-                    while (iterator.hasNext()) {
-=======
-                    oentityplayer.a(-this.g[i]);
-                    Iterator iterator = list.iterator();
-
-                    while (iterator.hasNext()) {
->>>>>>>
                     // CanaryMod hook: onEnchant
                     HookParametersEnchant enchantParameters = (HookParametersEnchant) etc.getLoader().callHook(PluginLoader.Hook.ENCHANT, new HookParametersEnchant(((OEntityPlayerMP) oentityplayer).getPlayer(), oitemstack.c, list));
 
@@ -148,7 +136,7 @@ public class OContainerEnchantment extends OContainer {
                             list.add(new OEnchantmentData(enchantment.getEnchantment(), enchantment.getLevel()));
                         }
 
-                        oentityplayer.a(this.g[i]);
+                        oentityplayer.a(-this.g[i]);
                         Iterator iterator = list.iterator();
 
                         while (iterator.hasNext()) {

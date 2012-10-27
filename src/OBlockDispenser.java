@@ -86,6 +86,7 @@ public class OBlockDispenser extends OBlockContainer {
                 OIBehaviorDispenseItem oibehaviordispenseitem = (OIBehaviorDispenseItem) a.a(oitemstack.b());
 
                 if (oibehaviordispenseitem != OIBehaviorDispenseItem.a) {
+                    // TODO Add dispense hook in oibehaviordispenseitem implementations
                     OItemStack oitemstack1 = oibehaviordispenseitem.a(oblocksourceimpl, oitemstack);
 
                     otileentitydispenser.a(l, oitemstack1.a == 0 ? null : oitemstack1);
