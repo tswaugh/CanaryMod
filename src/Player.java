@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 /**
  * Player.java - Interface so mods don't have to update often.
- * 
+ *
  * @author James
  */
 @SuppressWarnings("LoggerStringConcat")
@@ -28,7 +28,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     private String offlineName = ""; // Allows modify command to work on offline players
     private long lastMessage;
     private int spamTicker;
-    
+
     /**
      * Creates an empty player. Add the player by calling {@link #setUser(OEntityPlayerMP)}
      */
@@ -40,7 +40,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns the entity we're wrapping.
-     * 
+     *
      * @return
      */
     @Override
@@ -50,7 +50,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns if the player is still connected
-     * 
+     *
      * @return
      */
     public boolean isConnected() {
@@ -59,7 +59,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Kicks player with the specified reason
-     * 
+     *
      * @param reason
      */
     public void kick(String reason) {
@@ -68,7 +68,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sends player a notification
-     * 
+     *
      * @param message
      */
     @Override
@@ -80,7 +80,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sends a message to the player
-     * 
+     *
      * @param message
      */
     public void sendMessage(String message) {
@@ -89,7 +89,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Gives an item to the player
-     * 
+     *
      * @param item
      */
     public void giveItem(Item item) {
@@ -99,7 +99,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Makes player send message.
-     * 
+     *
      * @param message
      */
     public void chat(String message) {
@@ -114,13 +114,13 @@ public class Player extends HumanEntity implements MessageReceiver {
             out = message.replaceAll(m.group(), "");
         }
         message = out;
-        
+
         PluginLoader.HookResult protectFromSpam = etc.getInstance().getProtectFromSpam();
-        
+
         if (protectFromSpam == PluginLoader.HookResult.ALLOW_ACTION
                 && this.checkSpam())
             this.kick("Spamming.");
-        
+
         if (message.startsWith("/")) {
             command(message);
         } else {
@@ -128,7 +128,7 @@ public class Player extends HumanEntity implements MessageReceiver {
                 sendMessage(Colors.Rose + "You are currently muted.");
                 return;
             }
-            
+
             if (protectFromSpam == PluginLoader.HookResult.DEFAULT_ACTION
                     && this.checkSpam())
                 this.kick("Spamming.");
@@ -164,9 +164,9 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Makes player use command.
-     * 
+     *
      * @param command
-     * 
+     *
      */
     public void command(String command) {
         try {
@@ -214,7 +214,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Gives an item to the player
-     * 
+     *
      * @param itemId
      * @param amount
      */
@@ -225,7 +225,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Gives the player this item by dropping it in front of them
-     * 
+     *
      * @param item
      */
     public void giveItemDrop(Item item) {
@@ -234,7 +234,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Gives the player this item by dropping it in front of them
-     * 
+     *
      * @param itemId
      * @param amount
      */
@@ -244,7 +244,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Gives the player this item by dropping it in front of them
-     * 
+     *
      * @param itemId
      * @param amount
      * @param damage
@@ -267,7 +267,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             } while (temp > 0);
         }
     }
-    
+
     /**
      * Drop the player inventory
      */
@@ -281,7 +281,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
         inventory.clearContents();
     }
-    
+
     /**
      * Drop the player inventory at the specified Location
      * @param location the location to drop the inventory at
@@ -296,7 +296,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
         inventory.clearContents();
     }
-    
+
     /**
      * Drop the player inventory at the specified coordinate
      * @param x
@@ -313,7 +313,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
         inventory.clearContents();
     }
-    
+
     /**
      * Drop item form specified slot
      * @param slot
@@ -325,7 +325,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             inventory.removeItem(slot);
         }
     }
-    
+
     /**
      * Drop item form specified slot at the specified Location
      * @param slot
@@ -338,7 +338,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             inventory.removeItem(slot);
         }
     }
-    
+
     /**
      * Drop item form specified slot at the specified coordinate
      * @param slot
@@ -353,7 +353,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             inventory.removeItem(slot);
         }
     }
-    
+
     public boolean hasItem(Item item) {
         Item i = inventory.getItemFromId(item.getItemId());
         if(i == null) {
@@ -364,7 +364,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns true if this player can use the specified command
-     * 
+     *
      * @param command
      * @return
      */
@@ -385,7 +385,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns true if this player can use the specified command This method ignores permission management plugins and shouldn't be used by other plugins.
-     * 
+     *
      * @param command
      * @return
      */
@@ -443,7 +443,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Checks to see if this player is in the specified group
-     * 
+     *
      * @param group
      * @return
      */
@@ -492,7 +492,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns true if this player has control over the other player
-     * 
+     *
      * @param player
      * @return true if player has control
      */
@@ -516,7 +516,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns the player's current location
-     * 
+     *
      * @return
      */
     public Location getLocation() {
@@ -534,7 +534,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns the IP of this player
-     * 
+     *
      * @return
      */
     public String getIP() {
@@ -544,7 +544,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns true if this player is an admin.
-     * 
+     *
      * @return
      */
     public boolean isAdmin() {
@@ -553,7 +553,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Don't use this! Use isAdmin
-     * 
+     *
      * @return
      */
     @Deprecated
@@ -563,7 +563,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets whether or not this player is an administrator
-     * 
+     *
      * @param admin
      */
     public void setAdmin(boolean admin) {
@@ -576,7 +576,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns false if this player can not modify terrain, edit chests, etc.
-     * 
+     *
      * @return
      */
     public boolean canBuild() {
@@ -585,7 +585,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Don't use this, use canBuild()
-     * 
+     *
      * @return
      */
     @Deprecated
@@ -595,7 +595,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets whether or not this player can modify the dimension terrain
-     * 
+     *
      * @param canModifyWorld
      */
     public void setCanModifyWorld(boolean canModifyWorld) {
@@ -610,7 +610,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Set allowed commands
-     * 
+     *
      * @return
      */
     public String[] getCommands() {
@@ -619,7 +619,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets this player's allowed commands
-     * 
+     *
      * @param commands
      */
     public void setCommands(String[] commands) {
@@ -628,7 +628,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns this player's groups
-     * 
+     *
      * @return
      */
     public String[] getGroups() {
@@ -640,7 +640,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets this player's groups
-     * 
+     *
      * @param groups
      */
     public void setGroups(String[] groups) {
@@ -654,7 +654,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Adds the player to the specified group
-     * 
+     *
      * @param group
      *            group to add player to
      */
@@ -664,7 +664,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Removes specified group from list of groups
-     * 
+     *
      * @param group
      *            group to remove
      */
@@ -674,7 +674,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns the sql ID.
-     * 
+     *
      * @return
      */
     public int getSqlId() {
@@ -683,7 +683,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets the sql ID. Don't touch this.
-     * 
+     *
      * @param id
      */
     public void setSqlId(int id) {
@@ -692,7 +692,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * If the user can ignore restrictions this will return true. Things like item amounts and such are unlimited, etc.
-     * 
+     *
      * @return
      */
     public boolean canIgnoreRestrictions() {
@@ -701,7 +701,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Don't use. Use canIgnoreRestrictions()
-     * 
+     *
      * @return
      */
     @Deprecated
@@ -711,7 +711,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets ignore restrictions
-     * 
+     *
      * @param ignoreRestrictions
      */
     public void setIgnoreRestrictions(boolean ignoreRestrictions) {
@@ -726,7 +726,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns allowed IPs
-     * 
+     *
      * @return
      */
     public String[] getIps() {
@@ -735,7 +735,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets allowed IPs
-     * 
+     *
      * @param ips
      */
     public void setIps(String[] ips) {
@@ -744,7 +744,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns the correct color/prefix for this player
-     * 
+     *
      * @return
      */
     public String getColor() {
@@ -767,7 +767,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns the prefix. NOTE: Don't use this, use getColor() instead.
-     * 
+     *
      * @return
      */
     public String getPrefix() {
@@ -776,13 +776,13 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets the prefix.
-     * 
+     *
      * @param prefix
      */
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
-	
+
     /**
      * Get players name.
      * @return The offline name
@@ -790,8 +790,8 @@ public class Player extends HumanEntity implements MessageReceiver {
     public String getOfflineName() {
         if (getEntity() != null) {
             return getName();
-        } else { 
-            return offlineName; 
+        } else {
+            return offlineName;
         }
     }
 
@@ -819,16 +819,16 @@ public class Player extends HumanEntity implements MessageReceiver {
     public PlayerlistEntry getPlayerlistEntry(boolean show) {
         String name;
 
-        if (etc.getInstance().isPlayerList_colors()) { 
+        if (etc.getInstance().isPlayerList_colors()) {
             name = this.getFullName() + Colors.LightGreen;
         } else {
             name = this.getName();
         }
         PlayerlistEntry entry = new PlayerlistEntry(name, this.getPing(), show);
 
-        return (PlayerlistEntry) etc.getLoader().callHook(PluginLoader.Hook.GET_PLAYERLISTENTRY, this, entry); 
+        return (PlayerlistEntry) etc.getLoader().callHook(PluginLoader.Hook.GET_PLAYERLISTENTRY, this, entry);
     }
-    
+
     /**
      * Gets player ping (as shown in playerlist).
      * @return The ping
@@ -836,10 +836,10 @@ public class Player extends HumanEntity implements MessageReceiver {
     public int getPing() {
         return this.getEntity().i;
     }
-    
+
     /**
      * Gets the actual user class.
-     * 
+     *
      * @return
      */
     public OEntityPlayerMP getUser() {
@@ -848,7 +848,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets the user. Don't use this.
-     * 
+     *
      * @param player
      */
     protected void setUser(OEntityPlayerMP player) {
@@ -869,7 +869,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns true if the player is muted.
-     * 
+     *
      * @return Whether the player is muted.
      */
     public boolean isMuted() {
@@ -878,7 +878,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Toggles mute.
-     * 
+     *
      * @return Whether the player is now muted.
      */
     public boolean toggleMute() {
@@ -888,7 +888,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Checks to see if this player is in any groups.
-     * 
+     *
      * @return true if this player isn't in any group.
      */
     public boolean hasNoGroups() {
@@ -903,7 +903,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns item id in player's hand
-     * 
+     *
      * @return item id
      */
     public int getItemInHand() {
@@ -912,21 +912,21 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns the item stack in the player's hand.
-     * 
+     *
      * @return Item
      */
     public Item getItemStackInHand() {
-        OItemStack result = getEntity().by.g();
+        OItemStack result = getEntity().bK.g();
 
         if (result != null) {
-            return new Item(result, getEntity().by.c);
+            return new Item(result, getEntity().bK.c);
         }
         return null;
     }
 
     /**
      * Returns this player's inventory.
-     * 
+     *
      * @return inventory
      */
     public Inventory getInventory() {
@@ -935,7 +935,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns whether or not this Player is currently sneaking (crouching).
-     * 
+     *
      * @return true if sneaking
      */
     public boolean getSneaking() {
@@ -944,7 +944,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Force this Player to be sneaking or not
-     * 
+     *
      * @param sneaking
      *            true if sneaking
      */
@@ -954,21 +954,21 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns the one-use only kits
-     * 
+     *
      * @return List of kit names
      */
     public List<String> getOnlyOneUseKits() {
         return new ArrayList<String>(onlyOneUseKits);
     }
-    
+
     public void addCooldownKit(Kit kit, int delay) {
         this.cooldownKits.put(kit, System.currentTimeMillis() + delay * 50);
     }
-    
+
     public void removeCooldownKit(Kit kit) {
         this.cooldownKits.remove(kit);
     }
-    
+
     public boolean canUseCooldownKit(Kit kit) {
         if (!this.cooldownKits.containsKey(kit)) {
             return true;
@@ -980,7 +980,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
         return allow;
     }
-    
+
     /**
      * Switch to the specified dimension at the according position.
      * @param world The world to switch to
@@ -988,7 +988,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void switchWorlds(World world) {
         ODedicatedServer mcServer = (ODedicatedServer) etc.getMCServer();
         OEntityPlayerMP ent = this.getEntity();
-                
+
         // Nether is not allowed, so shush
         if (world.getType() == World.Dimension.NETHER && !mcServer.a("allow-nether", true)) {
             return;
@@ -1006,18 +1006,18 @@ public class Player extends HumanEntity implements MessageReceiver {
         if (world.getType() != World.Dimension.NORMAL) {
             ent.a((OStatBase) (world.getType() == World.Dimension.END ? OAchievementList.B : OAchievementList.x));
         }
-        
+
         //switch world if needed
         if (!world.equals(this.getWorld())) {
             Location loc = this.getLocation();
             loc.world = world.getName(); // teleport to new world
 
-            mcServer.ab().a(ent, loc.dimension, true, loc); // Respawn with location
+            mcServer.ad().a(ent, loc.dimension, true, loc); // Respawn with location
         } else {
-            mcServer.ab().sendPlayerToOtherDimension(ent, world.getType().getId(), false);
+            mcServer.ad().sendPlayerToOtherDimension(ent, world.getType().getId(), false);
         }
     }
-    
+
     @Override
     public void teleportTo(BaseEntity ent) {
         if (!(getWorld().hashCode() == ent.getWorld().hashCode())) {
@@ -1028,7 +1028,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     @Override
     public void teleportTo(Location location) {
-        
+
         if (!(getWorld().hashCode() == location.getWorld().hashCode())) {
             switchWorlds(location.getWorld());
         }
@@ -1061,7 +1061,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Set creative mode for this Player
-     * 
+     *
      * @param i
      */
     public void setCreativeMode(int i) {
@@ -1074,7 +1074,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Get creative mode for this Player
-     * 
+     *
      * @return i
      */
     public int getCreativeMode() {
@@ -1082,8 +1082,32 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
+     * check if the player is in adventure mode
+     * @return true = it is in this mode<br>false = it is not in this mode
+     */
+    public boolean isAdventureMode(){
+        return getCreativeMode() == 2;
+    }
+
+    /**
+     * Check if the player is in survival mode
+     * @return true = it is in this mode<br>false = it is not in this mode
+     */
+    public boolean isSurvivalMode(){
+        return getCreativeMode() == 0;
+    }
+
+    /**
+     * Check if the player is in creative mode
+     * @return true = it is in this mode<br>false = it is not in this mode
+     */
+    public boolean isCreativeMode(){
+        return getCreativeMode() == 1;
+    }
+
+    /**
      * Check to see if this Player is in creative mode
-     * 
+     *
      * @return <tt>true</tt> if the given Player is in creative mode,
      *          <tt>null</tt> otherwise.
      * @deprecated Depend on {@link #getCreativeMode()} instead
@@ -1101,30 +1125,30 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Refresh this Player's mode
      */
     public void refreshCreativeMode() {
-        this.getEntity().c.a(this.getWorld().getWorld().A.q());
+        this.getEntity().c.a(this.getWorld().getWorld().z.r());
     }
 
     /**
      * Get total experience amount for this Player.
-     * 
+     *
      * @return
      */
     public int getXP() {
-        return getEntity().cb;
+        return getEntity().ch;
     }
 
     /**
      * Get experience level for this Player.
-     * 
+     *
      * @return
      */
     public int getLevel() {
-        return getEntity().ca;
+        return getEntity().cg;
     }
 
     /**
      * Add experience points to total for this Player.
-     * 
+     *
      * @param i the amount of experience points to add.
      */
     public void addXP(int i) {
@@ -1134,7 +1158,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Remove experience points from total for this Player.
-     * 
+     *
      * @param i the amount of experience points to remove.
      */
     public void removeXP(int i) {
@@ -1148,7 +1172,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Set total experience points for this Player.
-     * 
+     *
      * @param i the new amount of experience points.
      */
     public void setXP(int i) {
@@ -1165,70 +1189,70 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      */
     public void updateXP() {
-        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().cc, getEntity().cb, getEntity().ca)));
+        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().ci, getEntity().ch, getEntity().cg)));
     }
 
     /**
      * Send update food and health to client
-     * 
+     *
      */
     public void updateLevels() {
         OEntityPlayerMP entityMP = getEntity();
 
         entityMP.a.b((OPacket) (new OPacket8UpdateHealth(getHealth(), getFoodLevel(), getFoodSaturationLevel())));
     }
-    
+
     /**
      * Get player Food Level
-     * 
+     *
      * @return player food level
      */
     public int getFoodLevel() {
-        return getEntity().bB.a;
+        return getEntity().bN.a;
     }
-    
+
     /**
      * Set Player food level
-     * 
+     *
      * @param foodLevel
      *         new food level, between 1 and 20
      */
     public void setFoodLevel(int foodLevel) {
-        getEntity().bB.a = Math.min(foodLevel, 20);
+        getEntity().bN.a = Math.min(foodLevel, 20);
         updateLevels();
     }
-    
+
     /**
      * Get Players food ExhaustionLevel
      * @return
      */
     public float getFoodExhaustionLevel() {
-        return getEntity().bB.c;
+        return getEntity().bN.c;
     }
 
     /**
      * Set player food exhaustion level
-     * 
+     *
      * @param foodExhaustionLevel
      */
     public void setFoodExhaustionLevel(float foodExhaustionLevel) {
-        getEntity().bB.c = Math.min(foodExhaustionLevel, 40F);
+        getEntity().bN.c = Math.min(foodExhaustionLevel, 40F);
         updateLevels();
     }
-    
+
     /**
      * Updates the inventory on the client
-     * 
+     *
      */
     @SuppressWarnings("unchecked")
     public void updateInventory() {
-        OContainer container = getEntity().bz;
+        OContainer container = getEntity().bL;
         ArrayList list = new ArrayList();
 
         for (OSlot slot : (List<OSlot>) container.b) {
             list.add(slot.c());
         }
-        
+
         getEntity().a(container, list);
     }
 
@@ -1237,34 +1261,34 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public float getFoodSaturationLevel() {
-        return getEntity().bB.b;
+        return getEntity().bN.b;
     }
-    
+
     /**
      * Set player food saturation level
-     * 
+     *
      * @param foodSaturationLevel
      */
     public void setFoodSaturationLevel(float foodSaturationLevel) {
-        getEntity().bB.b = Math.min(foodSaturationLevel, getFoodLevel());
+        getEntity().bN.b = Math.min(foodSaturationLevel, getFoodLevel());
         updateLevels();
     }
-    
+
     /**
      * Adds a potion Effect to the player
-     * 
+     *
      * @param effect the effect to add.
      */
     public void addPotionEffect(PotionEffect effect) {
         getEntity().e(effect.potionEffect);
     }
-    
+
     /**
      * Removes a potion Effect from player
-     * 
+     *
      * @param effect The potion effect to remove
      */
-    public void removePotionEffect(PotionEffect effect) {     
+    public void removePotionEffect(PotionEffect effect) {
         OPotionEffect var3 = (OPotionEffect) getEntity().bf.get(effect.getType().getId());
 
         getEntity().bf.remove(Integer.valueOf(effect.getType().getId()));
@@ -1273,8 +1297,8 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns a Collection of potion effects active on the player
-     * 
-     * @return List of potion effects 
+     *
+     * @return List of potion effects
      */
     @SuppressWarnings("unchecked")
     public List<PotionEffect> getPotionEffects() {
@@ -1286,13 +1310,13 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
         return list;
     }
-    
+
     /**
      * Returns whether this player can receive damage.
      * @return the disableDamage state
      */
     public boolean isDamageDisabled() {
-        return getEntity().bZ.a;
+        return getEntity().cf.a;
     }
 
     /**
@@ -1300,7 +1324,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param disabled the new value.
      */
     public void setDamageDisabled(boolean disabled) {
-        getEntity().bZ.a = disabled;
+        getEntity().cf.a = disabled;
     }
 
     /**
@@ -1308,15 +1332,15 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the flying state
      */
     public boolean isFlying() {
-        return getEntity().bZ.b;
+        return getEntity().cf.b;
     }
-    
+
     /**
      * Sets whether the player is flying.
      * @param flying the flying state.
      */
     public void setFlying(boolean flying) {
-        getEntity().bZ.b = flying;
+        getEntity().cf.b = flying;
     }
 
     /**
@@ -1324,7 +1348,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the disableFalling state
      */
     public boolean isFallingDisabled() {
-        return getEntity().bZ.c;
+        return getEntity().cf.c;
     }
 
     /**
@@ -1332,7 +1356,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param disabled the new value
      */
     public void setFallingDisabled(boolean disabled) {
-        getEntity().bZ.c = disabled;
+        getEntity().cf.c = disabled;
     }
 
     /**
@@ -1341,7 +1365,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return whether buckets are always full.
      */
     public boolean isBucketAlwaysFull() {
-        return getEntity().bZ.d;
+        return getEntity().cf.d;
     }
 
     /**
@@ -1350,17 +1374,17 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param alwaysFull the new state
      */
     public void setBucketAlwaysFull(boolean alwaysFull) {
-        getEntity().bZ.d = alwaysFull;
+        getEntity().cf.d = alwaysFull;
     }
-    
+
     /**
      * Returns a player's respawn location
-     * 
+     *
      * @return spawn location
      */
     public Location getRespawnLocation() {
         Location spawn = etc.getServer().getDefaultWorld().getSpawnLocation();
-        OChunkCoordinates loc = getEntity().bJ();
+        OChunkCoordinates loc = getEntity().b();
         if (loc != null) {
             spawn = new Location(etc.getServer().getDefaultWorld(), loc.a, loc.b, loc.c);
         }
@@ -1369,7 +1393,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets a player's respawn location
-     * 
+     *
      * @param x
      * @param y
      * @param z
@@ -1381,7 +1405,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Sets a player's respawn location
-     * 
+     *
      * @param location
      */
     public void setRespawnLocation(Location location) {
@@ -1391,13 +1415,13 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     /**
      * Returns whether this player is an op.
-     * 
+     *
      * @return {@code true} if the player is op.
      */
     public boolean isOp() {
         return etc.getMCServer().ab().e(getName());
     }
-    
+
     /**
      * Static method to determine whether a player is op.
      * @param playerName The name of the player to check.
@@ -1409,17 +1433,17 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     private boolean checkSpam() {
         long diff = System.currentTimeMillis() - this.lastMessage;
-        
+
         if (this.spamTicker >= diff / 50)
             this.spamTicker = 0;
         else
             this.spamTicker -= diff / 50;
-        
+
         this.spamTicker += 20;
         if (this.spamTicker > 200) {
             this.kick("Spamming.");
         }
-        
+
         this.lastMessage = System.currentTimeMillis();
 
         return false;
@@ -1483,19 +1507,19 @@ public class Player extends HumanEntity implements MessageReceiver {
 
         return etc.combineSplit(0, options.toArray(new String[options.size()]), "\u0000");
     }
-    
+
     /**
      * Don't use. Use setCanModifyWorld(), setIgnoreRestrictions(), and setAdmin()
-     * 
+     *
      * @param restrictions
      */
     protected void setRestrictions(int restrictions) {
     	this.restrictions = restrictions;
     }
-    
+
     /**
      * Don't use. Use canModifyWorld(), canIgnoreRestrictions(), and isAdmin()
-     * 
+     *
      * @return
      */
     protected int getRestrictions() {
