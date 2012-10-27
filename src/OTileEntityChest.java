@@ -248,7 +248,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
         this.i();
         super.w_();
     }
-   
+
     @Override
     public OItemStack[] getContents() {
         return Arrays.copyOf(this.i, this.getContentsSize());
@@ -271,7 +271,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
 
     @Override
     public int getContentsSize() {
-        return this.i_();
+        return this.k_();
     }
 
     @Override

@@ -72,18 +72,10 @@ public class OTileEntityMobSpawner extends OTileEntity {
                         double d5 = (double) this.n + (this.k.u.nextDouble() - this.k.u.nextDouble()) * (double) this.s;
                         OEntityLiving oentityliving = oentity instanceof OEntityLiving ? (OEntityLiving) oentity : null;
 
-<<<<<<<
-                        oentity.b(d3, d4, d5, this.k.v.nextFloat() * 360.0F, 0.0F);
-                        if (oentityliving == null || oentityliving.bi()) {
-                            // CanaryMod - set spawner block for spawned entity
-                            oentityliving.spawner = (MobSpawner) this.k.world.getComplexBlock(this.l, this.m, this.n);
-|||||||
-                        oentity.b(d3, d4, d5, this.k.v.nextFloat() * 360.0F, 0.0F);
-                        if (oentityliving == null || oentityliving.bi()) {
-=======
                         oentity.b(d3, d4, d5, this.k.u.nextFloat() * 360.0F, 0.0F);
                         if (oentityliving == null || oentityliving.bp()) {
->>>>>>>
+                            // CanaryMod - set spawner block for spawned entity
+                            oentityliving.spawner = (MobSpawner) this.k.world.getComplexBlock(this.l, this.m, this.n);
                             this.a(oentity);
                             this.k.d(oentity);
                             this.k.f(2004, this.l, this.m, this.n, 0);

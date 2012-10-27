@@ -8,7 +8,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
     private int b;
     private int c;
     private int d;
-    
+
     private String name = "container.brewing"; // CanaryMod
 
     public OTileEntityBrewingStand() {
@@ -243,7 +243,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
 
     @Override
     public int getContentsSize() {
-        return this.i_();
+        return this.k_();
     }
 
     @Override

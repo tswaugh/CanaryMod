@@ -62,7 +62,7 @@ public class OWorldServer extends OWorld {
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, i - i % 24000L)) {
                     this.z.c(i - i % 24000L);
                 }
-                
+
                 this.d();
             }
         }
@@ -83,11 +83,11 @@ public class OWorldServer extends OWorld {
 
         this.U();
         // CanaryMod: Time hook
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, this.A.f() + 1L)) {
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, this.z.g() + 1L)) {
             this.z.b(this.z.f() + 1L);
 			this.z.c(this.z.g() + 1L);
         }
-		
+
         this.E.c("tickPending");
         this.a(false);
         this.E.c("tickTiles");
@@ -470,11 +470,11 @@ public class OWorldServer extends OWorld {
         }
         // CanaryMod onSpawnpointCreate hook
         Location point = (Location) etc.getLoader().callHook(PluginLoader.Hook.SPAWNPOINT_CREATE, world);
-    
+
         if (point != null) {
             this.z.a((int) point.x, (int) point.y, (int) point.z);
         } else if (!this.v.e()) {
-            this.z.a(0, this.v.i() 0);
+            this.z.a(0, this.v.i(), 0);
         } else {
             this.A = true;
             OWorldChunkManager oworldchunkmanager = this.v.d;
@@ -591,7 +591,7 @@ public class OWorldServer extends OWorld {
 
     public boolean c(OEntity oentity) {
         if (super.c(oentity)) {
-            this.a.ab().a(oentity.t, oentity.u, oentity.v, 512.0D, this.v.h, new OPacket71Weather(oentity), this.name); // CanaryMod: multiworld
+            this.a.ad().a(oentity.t, oentity.u, oentity.v, 512.0D, this.v.h, new OPacket71Weather(oentity), this.name); // CanaryMod: multiworld
             return true;
         } else {
             return false;
@@ -703,12 +703,12 @@ public class OWorldServer extends OWorld {
     public OPlayerManager r() {
         return this.L;
     }
-    
+
     /**
      * Get this worlds entity tracker to track and untrack players
      * @return
      */
     public EntityTracker getEntityTracker() {
-        return this.o().getCanaryEntityTracker();
+        return this.p().getCanaryEntityTracker();
     }
 }

@@ -244,7 +244,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     @Override
     public int getContentsSize() {
-        return this.i_();
+        return this.k_();
     }
 
     @Override

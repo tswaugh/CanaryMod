@@ -136,7 +136,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
     public void l_() {}
 
     public void f() {}
-   
+
     @Override
     public OItemStack[] getContents() {
         return Arrays.copyOf(this.a, this.getContentsSize());
@@ -159,7 +159,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
 
     @Override
     public int getContentsSize() {
-        return this.i_();
+        return this.k_();
     }
 
     @Override
