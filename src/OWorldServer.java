@@ -62,7 +62,7 @@ public class OWorldServer extends OWorld {
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, i - i % 24000L)) {
                     this.z.c(i - i % 24000L);
                 }
-
+                
                 this.d();
             }
         }
@@ -83,11 +83,11 @@ public class OWorldServer extends OWorld {
 
         this.U();
         // CanaryMod: Time hook
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, this.z.g() + 1L)) {
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, this.z.f() + 1L)) {
             this.z.b(this.z.f() + 1L);
 			this.z.c(this.z.g() + 1L);
         }
-
+		
         this.E.c("tickPending");
         this.a(false);
         this.E.c("tickTiles");
@@ -470,7 +470,7 @@ public class OWorldServer extends OWorld {
         }
         // CanaryMod onSpawnpointCreate hook
         Location point = (Location) etc.getLoader().callHook(PluginLoader.Hook.SPAWNPOINT_CREATE, world);
-
+    
         if (point != null) {
             this.z.a((int) point.x, (int) point.y, (int) point.z);
         } else if (!this.v.e()) {
@@ -703,7 +703,7 @@ public class OWorldServer extends OWorld {
     public OPlayerManager r() {
         return this.L;
     }
-
+    
     /**
      * Get this worlds entity tracker to track and untrack players
      * @return
