@@ -430,7 +430,11 @@ public class PluginLoader {
         /**
          * Damage caused by poison (1) (Potions, Poison)
          */
-         POTION;
+         POTION, //
+         /**
+          * Damage caused by the "Wither" effect (1)
+          */
+         WITHER;
          
          public static DamageType fromDamageSource(ODamageSource source) {
              if (source == ODamageSource.b)

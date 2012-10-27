@@ -34,7 +34,6 @@ public class OChunk {
     public final Chunk chunk = new Chunk(this);
 
     public OChunk(OWorld oworld, int i, int j) {
-        super();
         this.r = new OExtendedBlockStorage[16];
         this.s = new byte[256];
         this.b = new int[256];

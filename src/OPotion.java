@@ -71,46 +71,25 @@ public class OPotion {
                 oentityliving.i(1);
             }
         } else if (this.H == u.H) {
-<<<<<<<
-            if (oentityliving.aN() > 1) {
+            if (oentityliving.aT() > 1) {
                 // Canarymod: DAMAGE From Poison
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, oentityliving.entity, 1)) {
-|||||||
-            if (oentityliving.aN() > 1) {
-=======
-            if (oentityliving.aT() > 1) {
->>>>>>>
                     oentityliving.a(ODamageSource.m, 1);
-                }
-<<<<<<<
+                } //
             }
-|||||||
-=======
         } else if (this.H == v.H) {
-            oentityliving.a(ODamageSource.n, 1);
->>>>>>>
+            // CanaryMod: Wither effect damage
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.WITHER, null, oentityliving.entity, 1)) {
+                oentityliving.a(ODamageSource.n, 1);
+            } //
         } else if (this.H == s.H && oentityliving instanceof OEntityPlayer) {
             ((OEntityPlayer) oentityliving).j(0.025F * (float) (i + 1));
-<<<<<<<
-|||||||
-        } else if ((this.H != h.H || oentityliving.br()) && (this.H != i.H || !oentityliving.br())) {
-            if (this.H == i.H && !oentityliving.br() || this.H == h.H && oentityliving.br()) {
-                oentityliving.a(ODamageSource.m, 6 << i);
-            }
-        } else {
-=======
-        } else if ((this.H != h.H || oentityliving.bx()) && (this.H != i.H || !oentityliving.bx())) {
-            if (this.H == i.H && !oentityliving.bx() || this.H == h.H && oentityliving.bx()) {
-                oentityliving.a(ODamageSource.m, 6 << i);
-            }
-        } else {
->>>>>>>
-        } else if ((this.H != h.H || oentityliving.br()) && (this.H != OPotion.i.H || !oentityliving.br())) {
-            if (this.H == OPotion.i.H && !oentityliving.br() || this.H == h.H && oentityliving.br()) {
-                // Canarymod: call to DAMAGE on 1.9?
+        } else if ((this.H != h.H || oentityliving.bx()) && (this.H != OPotion.i.H || !oentityliving.bx())) {
+            if (this.H == OPotion.i.H && !oentityliving.bx() || this.H == h.H && oentityliving.bx()) {
+                // Canarymod: harm/heal potion
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, oentityliving.entity, 4 << i)) {
                     oentityliving.a(ODamageSource.m, 6 << i);
-                }
+                } //
             }
         } else {
             oentityliving.i(6 << i);
@@ -121,16 +100,8 @@ public class OPotion {
     public void a(OEntityLiving oentityliving, OEntityLiving oentityliving1, int i, double d0) {
         int j;
 
-<<<<<<<
-        if ((this.H != h.H || oentityliving1.br()) && (this.H != OPotion.i.H || !oentityliving1.br())) {
-            if (this.H == OPotion.i.H && !oentityliving1.br() || this.H == h.H && oentityliving1.br()) {
-|||||||
-        if ((this.H != h.H || oentityliving1.br()) && (this.H != i.H || !oentityliving1.br())) {
-            if (this.H == i.H && !oentityliving1.br() || this.H == h.H && oentityliving1.br()) {
-=======
-        if ((this.H != h.H || oentityliving1.bx()) && (this.H != i.H || !oentityliving1.bx())) {
-            if (this.H == i.H && !oentityliving1.bx() || this.H == h.H && oentityliving1.bx()) {
->>>>>>>
+        if ((this.H != h.H || oentityliving1.bx()) && (this.H != OPotion.i.H || !oentityliving1.bx())) {
+            if (this.H == OPotion.i.H && !oentityliving1.bx() || this.H == h.H && oentityliving1.bx()) {
                 j = (int) (d0 * (double) (6 << i) + 0.5D);
                 if (oentityliving == null) {
                     oentityliving1.a(ODamageSource.m, j);

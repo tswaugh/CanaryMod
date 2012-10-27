@@ -1,39 +1,23 @@
-
 public class OPotionEffect {
 
-    // CanaryMod made public
-<<<<<<<
-    public int a;
-    public int b;
-    public int c;
-    public boolean permanent = false;
-    public PotionEffect potionEffect = new PotionEffect(this);
-|||||||
-    private int a;
-    private int b;
-    private int c;
-=======
-    private int a;
-    private int b;
-    private int c;
+    // CanaryMod: private -> package-private
+    int a;
+    int b;
+    int c;
     private boolean d;
     private boolean e;
+    public boolean permanent = false;
+    public PotionEffect potionEffect = new PotionEffect(this);
 
     public OPotionEffect(int i, int j) {
         this(i, j, 0);
     }
->>>>>>>
 
     public OPotionEffect(int i, int j, int k) {
-<<<<<<<
-        super();
-|||||||
-=======
         this(i, j, k, false);
     }
 
     public OPotionEffect(int i, int j, int k, boolean flag) {
->>>>>>>
         this.a = i;
         this.b = j;
         this.c = k;
@@ -41,7 +25,6 @@ public class OPotionEffect {
     }
 
     public OPotionEffect(OPotionEffect opotioneffect) {
-        super();
         this.a = opotioneffect.a;
         this.b = opotioneffect.b;
         this.c = opotioneffect.c;
@@ -60,7 +43,6 @@ public class OPotionEffect {
         } else if (!opotioneffect.e && this.e) {
             this.e = opotioneffect.e;
         }
-
     }
 
     public int a() {
@@ -95,23 +77,14 @@ public class OPotionEffect {
         return this.b > 0;
     }
 
-<<<<<<<
-    private int e() {
-        return this.permanent ? this.b : --this.b;
-|||||||
-    private int e() {
-        return --this.b;
-=======
     private int g() {
-        return --this.b;
->>>>>>>
+        return this.permanent ? this.b : --this.b;
     }
 
     public void b(OEntityLiving oentityliving) {
         if (this.b > 0) {
             OPotion.a[this.a].a(oentityliving, this.c);
         }
-
     }
 
     public String f() {

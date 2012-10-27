@@ -916,10 +916,10 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return Item
      */
     public Item getItemStackInHand() {
-        OItemStack result = getEntity().by.g();
+        OItemStack result = getEntity().bK.g();
 
         if (result != null) {
-            return new Item(result, getEntity().by.c);
+            return new Item(result, getEntity().bK.c);
         }
         return null;
     }
@@ -1012,9 +1012,9 @@ public class Player extends HumanEntity implements MessageReceiver {
             Location loc = this.getLocation();
             loc.world = world.getName(); // teleport to new world
 
-            mcServer.ab().a(ent, loc.dimension, true, loc); // Respawn with location
+            mcServer.ad().a(ent, loc.dimension, true, loc); // Respawn with location
         } else {
-            mcServer.ab().sendPlayerToOtherDimension(ent, world.getType().getId(), false);
+            mcServer.ad().sendPlayerToOtherDimension(ent, world.getType().getId(), false);
         }
     }
     
@@ -1101,7 +1101,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Refresh this Player's mode
      */
     public void refreshCreativeMode() {
-        this.getEntity().c.a(this.getWorld().getWorld().A.q());
+        this.getEntity().c.a(this.getWorld().getWorld().z.r());
     }
 
     /**
@@ -1110,7 +1110,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public int getXP() {
-        return getEntity().cb;
+        return getEntity().ch;
     }
 
     /**
@@ -1119,7 +1119,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public int getLevel() {
-        return getEntity().ca;
+        return getEntity().cg;
     }
 
     /**
@@ -1165,7 +1165,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      */
     public void updateXP() {
-        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().cc, getEntity().cb, getEntity().ca)));
+        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().ci, getEntity().ch, getEntity().cg)));
     }
 
     /**
@@ -1184,7 +1184,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return player food level
      */
     public int getFoodLevel() {
-        return getEntity().bB.a;
+        return getEntity().bN.a;
     }
     
     /**
@@ -1194,7 +1194,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *         new food level, between 1 and 20
      */
     public void setFoodLevel(int foodLevel) {
-        getEntity().bB.a = Math.min(foodLevel, 20);
+        getEntity().bN.a = Math.min(foodLevel, 20);
         updateLevels();
     }
     
@@ -1203,7 +1203,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public float getFoodExhaustionLevel() {
-        return getEntity().bB.c;
+        return getEntity().bN.c;
     }
 
     /**
@@ -1212,7 +1212,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param foodExhaustionLevel
      */
     public void setFoodExhaustionLevel(float foodExhaustionLevel) {
-        getEntity().bB.c = Math.min(foodExhaustionLevel, 40F);
+        getEntity().bN.c = Math.min(foodExhaustionLevel, 40F);
         updateLevels();
     }
     
@@ -1222,7 +1222,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     @SuppressWarnings("unchecked")
     public void updateInventory() {
-        OContainer container = getEntity().bz;
+        OContainer container = getEntity().bL;
         ArrayList list = new ArrayList();
 
         for (OSlot slot : (List<OSlot>) container.b) {
@@ -1237,7 +1237,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public float getFoodSaturationLevel() {
-        return getEntity().bB.b;
+        return getEntity().bN.b;
     }
     
     /**
@@ -1246,7 +1246,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param foodSaturationLevel
      */
     public void setFoodSaturationLevel(float foodSaturationLevel) {
-        getEntity().bB.b = Math.min(foodSaturationLevel, getFoodLevel());
+        getEntity().bN.b = Math.min(foodSaturationLevel, getFoodLevel());
         updateLevels();
     }
     
@@ -1265,9 +1265,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param effect The potion effect to remove
      */
     public void removePotionEffect(PotionEffect effect) {     
-        OPotionEffect var3 = (OPotionEffect) getEntity().bf.get(effect.getType().getId());
+        OPotionEffect var3 = (OPotionEffect) getEntity().bm.get(effect.getType().getId());
 
-        getEntity().bf.remove(Integer.valueOf(effect.getType().getId()));
+        getEntity().bm.remove(Integer.valueOf(effect.getType().getId()));
         getEntity().d(var3);
     }
 
@@ -1278,7 +1278,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     @SuppressWarnings("unchecked")
     public List<PotionEffect> getPotionEffects() {
-        Collection<OPotionEffect> potionEffects = getEntity().bq();
+        Collection<OPotionEffect> potionEffects = getEntity().bw();
         ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
 
         for (OPotionEffect potionEffect : potionEffects) {
@@ -1292,7 +1292,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the disableDamage state
      */
     public boolean isDamageDisabled() {
-        return getEntity().bZ.a;
+        return getEntity().cf.a;
     }
 
     /**
@@ -1300,7 +1300,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param disabled the new value.
      */
     public void setDamageDisabled(boolean disabled) {
-        getEntity().bZ.a = disabled;
+        getEntity().cf.a = disabled;
     }
 
     /**
@@ -1308,7 +1308,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the flying state
      */
     public boolean isFlying() {
-        return getEntity().bZ.b;
+        return getEntity().cf.b;
     }
     
     /**
@@ -1316,7 +1316,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param flying the flying state.
      */
     public void setFlying(boolean flying) {
-        getEntity().bZ.b = flying;
+        getEntity().cf.b = flying;
     }
 
     /**
@@ -1324,7 +1324,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return the disableFalling state
      */
     public boolean isFallingDisabled() {
-        return getEntity().bZ.c;
+        return getEntity().cf.c;
     }
 
     /**
@@ -1332,7 +1332,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param disabled the new value
      */
     public void setFallingDisabled(boolean disabled) {
-        getEntity().bZ.c = disabled;
+        getEntity().cf.c = disabled;
     }
 
     /**
@@ -1341,7 +1341,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return whether buckets are always full.
      */
     public boolean isBucketAlwaysFull() {
-        return getEntity().bZ.d;
+        return getEntity().cf.d;
     }
 
     /**
@@ -1350,7 +1350,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param alwaysFull the new state
      */
     public void setBucketAlwaysFull(boolean alwaysFull) {
-        getEntity().bZ.d = alwaysFull;
+        getEntity().cf.d = alwaysFull;
     }
     
     /**
@@ -1360,7 +1360,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public Location getRespawnLocation() {
         Location spawn = etc.getServer().getDefaultWorld().getSpawnLocation();
-        OChunkCoordinates loc = getEntity().bJ();
+        OChunkCoordinates loc = getEntity().bW();
         if (loc != null) {
             spawn = new Location(etc.getServer().getDefaultWorld(), loc.a, loc.b, loc.c);
         }
@@ -1376,7 +1376,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public void setRespawnLocation(int x, int y, int z) {
         OChunkCoordinates loc = new OChunkCoordinates(x, y, z);
-        getEntity().a(loc);
+        getEntity().a(loc, true);
     }
 
     /**
@@ -1386,7 +1386,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public void setRespawnLocation(Location location) {
         OChunkCoordinates loc = new OChunkCoordinates((int) Math.floor(location.x), (int) Math.floor(location.y), (int) Math.floor(location.z));
-        getEntity().a(loc);
+        getEntity().a(loc, true);
     }
 
     /**
@@ -1395,7 +1395,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return {@code true} if the player is op.
      */
     public boolean isOp() {
-        return etc.getMCServer().ab().e(getName());
+        return etc.getMCServer().ad().e(getName());
     }
     
     /**
@@ -1404,7 +1404,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return {@code true} if the player is op.
      */
     public static boolean isOp(String playerName) {
-        return etc.getMCServer().ab().e(playerName);
+        return etc.getMCServer().ad().e(playerName);
     }
 
     private boolean checkSpam() {
