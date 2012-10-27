@@ -99,7 +99,7 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
     }
 
     public int getContentsSize() {
-        return this.i_();
+        return this.k_();
     }
 
     public String getName() {

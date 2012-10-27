@@ -17,15 +17,8 @@ public class OCommandServerSaveOn extends OCommandBase {
             for (int i = 0; i < level.length; ++i) {
                 if (level[i] != null) {
                     OWorldServer oworldserver = level[i];
-
-<<<<<<<
-                    oworldserver.d = false;
+                    oworldserver.c = false;
                 }
-|||||||
-                oworldserver.d = false;
-=======
-                oworldserver.c = false;
->>>>>>>
             }
         }
 

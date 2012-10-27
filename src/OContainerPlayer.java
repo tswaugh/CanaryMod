@@ -38,8 +38,8 @@ public class OContainerPlayer extends OContainer {
 
     // Canarymod - send custom recipes result to client
     public void a(OIInventory oiinventory) {
-<<<<<<<
-        OItemStack craftresult = OCraftingManager.a().a(this.e);
+
+        OItemStack craftresult = OCraftingManager.a().a(this.e); //gregthegeek: requires OWorld as a second parameter, not sure why
         this.f.a(0, craftresult);
 
         if (this.d.size() < 1) {
@@ -47,12 +47,9 @@ public class OContainerPlayer extends OContainer {
         } //
         OEntityPlayerMP player = (OEntityPlayerMP) this.d.get(0); 
 
-        player.a.b(new OPacket103SetSlot(player.bz.c, 0, craftresult));
-|||||||
-        this.f.a(0, OCraftingManager.a().a(this.e));
-=======
+        player.a.b(new OPacket103SetSlot(player.bL.c, 0, craftresult));
+
         this.f.a(0, OCraftingManager.a().a(this.e, this.h.p));
->>>>>>>
     }
 
     public void a(OEntityPlayer oentityplayer) {

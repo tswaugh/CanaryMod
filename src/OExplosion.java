@@ -31,31 +31,18 @@ public class OExplosion {
     }
 
     public void a() {
-<<<<<<<
-|||||||
-        float f = this.f;
-        HashSet hashset = new HashSet();
-
-        int i;
-=======
         float f = this.g;
         HashSet hashset = new HashSet();
-
-        int i;
->>>>>>>
         // CanaryMod: allow explosion
-        Block block = new Block(this.j.world, this.j.world.getBlockIdAt((int) this.b, (int) this.c, (int) this.d), (int) this.b, (int) this.c, (int) this.d);
+        Block block = new Block(this.k.world, this.k.world.getBlockIdAt((int) this.c, (int) this.d, (int) this.e), (int) this.c, (int) this.d, (int) this.e);
 
-        if (this.e == null) {
+        if (this.f == null) {
             block.setStatus(1);
-        } else if (this.e instanceof OEntityCreeper) {
+        } else if (this.f instanceof OEntityCreeper) {
             block.setStatus(2);
-        } else if (this.e instanceof OEntityFireball) {
+        } else if (this.f instanceof OEntityFireball) {
             block.setStatus(3);
         }
-
-        float f = this.f;
-        HashSet hashset = new HashSet();
 
         int i;
         int j;
@@ -108,17 +95,16 @@ public class OExplosion {
             }
         }
         
-<<<<<<<
         // CanaryMod start
         boolean cancel = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, this.e, hashset); // Call deprecated hook first; it may remove blocks from hashset.
         
         // Add affected blocks into a List of Blocks.
         List<Block> blocksAffected = new ArrayList<Block>(hashset.size());
         for (OChunkPosition ocp : (HashSet<OChunkPosition>) hashset) {
-            blocksAffected.add(new Block(this.j.world, this.j.world.getBlockIdAt(ocp.a, ocp.b, ocp.c), ocp.a, ocp.b, ocp.c));
+            blocksAffected.add(new Block(this.k.world, this.k.world.getBlockIdAt(ocp.a, ocp.b, ocp.c), ocp.a, ocp.b, ocp.c));
         }
 
-        cancel = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLOSION, block, (this.e != null ? this.e.entity : null), blocksAffected) || cancel;        
+        cancel = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLOSION, block, (this.f != null ? this.f.entity : null), blocksAffected) || cancel;        
         
         // Repopulate hashset according to blocksAffected.
         hashset.clear();
@@ -127,32 +113,11 @@ public class OExplosion {
         }
         // CanaryMod end
         
-        // CanaryMod: if cancelled, don't populate this.g at all.
+        // CanaryMod: if cancelled, don't populate this.h at all.
         if (!cancel) {
-            this.g.addAll(hashset);
+            this.h.addAll(hashset);
         }
-        this.f *= 2.0F;
-        i = OMathHelper.c(this.b - (double) this.f - 1.0D);
-        j = OMathHelper.c(this.b + (double) this.f + 1.0D);
-        k = OMathHelper.c(this.c - (double) this.f - 1.0D);
-        int l1 = OMathHelper.c(this.c + (double) this.f + 1.0D);
-        int i2 = OMathHelper.c(this.d - (double) this.f - 1.0D);
-        int j2 = OMathHelper.c(this.d + (double) this.f + 1.0D);
-        List list = this.j.b(this.e, OAxisAlignedBB.a().a((double) i, (double) k, (double) i2, (double) j, (double) l1, (double) j2));
-        OVec3 ovec3 = OVec3.a().a(this.b, this.c, this.d);
-|||||||
-        this.g.addAll(hashset);
-        this.f *= 2.0F;
-        i = OMathHelper.c(this.b - (double) this.f - 1.0D);
-        j = OMathHelper.c(this.b + (double) this.f + 1.0D);
-        k = OMathHelper.c(this.c - (double) this.f - 1.0D);
-        int l1 = OMathHelper.c(this.c + (double) this.f + 1.0D);
-        int i2 = OMathHelper.c(this.d - (double) this.f - 1.0D);
-        int j2 = OMathHelper.c(this.d + (double) this.f + 1.0D);
-        List list = this.j.b(this.e, OAxisAlignedBB.a().a((double) i, (double) k, (double) i2, (double) j, (double) l1, (double) j2));
-        OVec3 ovec3 = OVec3.a().a(this.b, this.c, this.d);
-=======
-        this.h.addAll(hashset);
+        
         this.g *= 2.0F;
         i = OMathHelper.c(this.c - (double) this.g - 1.0D);
         j = OMathHelper.c(this.c + (double) this.g + 1.0D);
@@ -162,7 +127,6 @@ public class OExplosion {
         int j2 = OMathHelper.c(this.e + (double) this.g + 1.0D);
         List list = this.k.b(this.f, OAxisAlignedBB.a().a((double) i, (double) k, (double) i2, (double) j, (double) l1, (double) j2));
         OVec3 ovec3 = this.k.R().a(this.c, this.d, this.e);
->>>>>>>
 
         for (int k2 = 0; k2 < list.size(); ++k2) {
             OEntity oentity = (OEntity) list.get(k2);
@@ -181,19 +145,17 @@ public class OExplosion {
                     double d9 = (double) this.k.a(ovec3, oentity.D);
                     double d10 = (1.0D - d7) * d9;
 
-<<<<<<<
-                    // CanaryMod Damage hook: Explosions
-                    int damage = (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.f + 1.0D);
-                    PluginLoader.DamageType dmgType = (e instanceof OEntityCreeper) ? PluginLoader.DamageType.CREEPER_EXPLOSION : PluginLoader.DamageType.EXPLOSION;
 
-                    if (!cancel && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, (this.e != null ? this.e.entity : null), oentity.entity, damage)) {
-                        oentity.a(ODamageSource.k, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.f + 1.0D));
+                    // CanaryMod Damage hook: Explosions
+                    int damage = (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.g + 1.0D);
+                    PluginLoader.DamageType dmgType = (this.f instanceof OEntityCreeper) ? PluginLoader.DamageType.CREEPER_EXPLOSION : PluginLoader.DamageType.EXPLOSION;
+
+                    if (!cancel && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, (this.f != null ? this.f.entity : null), oentity.entity, damage)) {
+                        oentity.a(ODamageSource.k, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.g + 1.0D));
                     }
-|||||||
-                    oentity.a(ODamageSource.k, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.f + 1.0D));
-=======
+
                     oentity.a(ODamageSource.k, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.g + 1.0D));
->>>>>>>
+
                     oentity.w += d0 * d10;
                     oentity.x += d1 * d10;
                     oentity.y += d2 * d10;

@@ -171,7 +171,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
             i = this.i();
             if (i >= 0) {
                 return !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP) this.d).getPlayer(), oentityitem.item);
-            } else if (this.d.bZ.d) {
+            } else if (this.d.cf.d) {
                 return true;
             } else {
                 return false;
@@ -515,7 +515,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
     @Override
     public int getContentsSize() {
-        return this.i_();
+        return this.k_();
     }
 
     @Override

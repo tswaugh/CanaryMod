@@ -30,7 +30,8 @@ public class Ocelot extends TamableEntity{
      * @return 0, 1, 2 or 3. See {@link Ocelot#setSkin(int)} for skin ids.
      */
     public int getSkin(){
-        return getEntity().u();
+    	
+        return getEntity().t();
     }
 
     public OEntityOcelot getEntity(){

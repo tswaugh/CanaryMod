@@ -258,7 +258,6 @@ public abstract class OContainer {
     }
 
     public void a(OEntityPlayer oentityplayer) {
-<<<<<<<
         // CanaryMod: onCloseInventory
         if (oentityplayer instanceof OEntityPlayerMP) {
             HookParametersCloseInventory closeInventoryParameters = new HookParametersCloseInventory(((OEntityPlayerMP) oentityplayer).getPlayer(), this.inventory, false);
@@ -266,12 +265,7 @@ public abstract class OContainer {
             etc.getLoader().callHook(PluginLoader.Hook.CLOSE_INVENTORY, closeInventoryParameters);
         }
 
-        OInventoryPlayer oinventoryplayer = oentityplayer.by;
-|||||||
-        OInventoryPlayer oinventoryplayer = oentityplayer.by;
-=======
         OInventoryPlayer oinventoryplayer = oentityplayer.bK;
->>>>>>>
 
         if (oinventoryplayer.n() != null) {
             oentityplayer.c(oinventoryplayer.n());

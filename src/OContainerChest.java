@@ -8,19 +8,12 @@ public class OContainerChest extends OContainer {
 
     public OContainerChest(OIInventory oiinventory, OIInventory oiinventory1, boolean flag) {
         this.e = oiinventory1;
-<<<<<<<
-        this.f = oiinventory1.i_() / 9;
+        this.f = oiinventory1.k_() / 9;
         this.silenced = flag;
         if (!this.silenced) {
-            oiinventory1.k_();
+            oiinventory1.l_();
         }
-|||||||
-        this.f = oiinventory1.i_() / 9;
-        oiinventory1.k_();
-=======
-        this.f = oiinventory1.k_() / 9;
-        oiinventory1.l_();
->>>>>>>
+        
         int i = (this.f - 4) * 18;
 
         int j;

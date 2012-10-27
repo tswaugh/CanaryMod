@@ -63,22 +63,14 @@ public class OChunkProviderServer implements OIChunkProvider {
 
         this.b.remove(Long.valueOf(k));
         OChunk ochunk = (OChunk) this.f.a(k);
-
-<<<<<<<
-|||||||
-        if (ochunk == null) {
-            ochunk = this.e(i, j);
-=======
-        if (ochunk == null) {
-            ochunk = this.f(i, j);
->>>>>>>
+        
         if (ochunk == null) {
             // CanaryMod: load preload plugins once!
             if (!loadedpreload) {
                 etc.getLoader().loadPreloadPlugins();
                 loadedpreload = true;
             }
-            ochunk = this.e(i, j);
+            ochunk = this.f(i, j);
             if (ochunk == null) {
                 // Canary onChunkCreate hook
                 byte[] blocks = (byte[]) etc.getLoader().callHook(PluginLoader.Hook.CHUNK_CREATE, i, j, h.world);
@@ -157,15 +149,7 @@ public class OChunkProviderServer implements OIChunkProvider {
 
     private void b(OChunk ochunk) {
         if (this.e != null) {
-<<<<<<<
-            ochunk.n = this.h.D();
-|||||||
-            try {
-                ochunk.n = this.h.D();
-=======
-            try {
-                ochunk.n = this.h.E();
->>>>>>>
+            ochunk.n = this.h.D(); //gregthegeek: should this line and the one below it be in a try-catch?
             this.e.a(this.h, ochunk);
         }
     }

@@ -110,7 +110,7 @@ public class OBlockRedstoneWire extends OBlock {
 		
         // CanaryMod: Allow redstone wire current changes
         if (k1 != l1) {
-            l1 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.ca, i, j, k), k1, l1);
+            l1 = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), k1, l1);
         }
 
         if (k1 != l1) {
