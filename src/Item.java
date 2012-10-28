@@ -284,6 +284,18 @@ public class Item {
         BookAndQuill(386), //
         WrittenBook(387), //
         Emerald(388), //
+        ItemFrame(389), //
+        FlowerPot(390), //
+        Carrot(391), //
+        Potato(392), //
+        BakedPotato(393), //
+        PoisonousPotato(394), //
+        EmptyMap(395), //
+        GoldenCarrot(396), //
+        Skull(397), //
+        CarrotOnAStick(398), //
+        NetherStar(399), //
+        PumpkinPie(400), //
         GoldRecord(2256), //
         GreenRecord(2257), //
         BlocksRecord(2258), //
