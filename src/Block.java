@@ -148,7 +148,16 @@ public class Block {
         Emerald(133), //
         SpruceWoodStairs(134), //
         BirchWoodStairs(135), //
-        JungleWoodStairs(136);
+        JungleWoodStairs(136), //
+        CommandBlock(137), //
+        Beacon(138), //
+        CobblestoneWall(139), //
+        FlowerPot(140), //
+        Carrots(141), //
+        Potatoes(142), //
+        WoodenButton(143), //
+        Head(144), //
+        Anvil(145);
 
         private int                       id;
         private static Map<Integer, Type> map;

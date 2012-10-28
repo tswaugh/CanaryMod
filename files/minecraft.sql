@@ -128,7 +128,10 @@ INSERT INTO `items` VALUES
 ('enchantmenttable',116),('brewingstandblock',117),('cauldron',118),('endportal',119),
 ('endportalframe',120),('endstone',121),('dragonegg',122),('redstonelampoff',123),('redstonelampon',124),
 ('woodendoubleslab',125),('woodenslab',126),('cocoaplant',127),('sandstonetairs',128),
-('emeraldore',129),('enderchest',130),('tripwirehook',131),('emeraldblock',133),
+('emeraldore',129),('enderchest',130),('tripwirehook',131),('tripwire',  132),('emeraldblock',133),
+('sprucewoodstairs',  134),('birchwoodstairs',  135),('junglewoodstairs',  136),('commandblock',  137),
+('beacon',  138),('cobblestonewall',  139),('flowerpot',  140),('carrots',  141),('potatoes',  142),
+('woodenbutton',  143),('head',  144),('anvil',  145),
 ('ironshovel',256),('ironspade',256),('ironpickaxe',257),('ironpick',257),('ironaxe',258),
 ('flintandsteel',259),('lighter',259),('apple',260),('bow',261),
 ('arrow',262),('coal',263),('diamond',264),('ironbar',265),
@@ -166,7 +169,9 @@ INSERT INTO `items` VALUES
 ('spidereye',375),('fermentedspidereye',376),('blazepowder',377),('magmacream',378),
 ('brewingstand',379),('eyeofender',381),('glisteringmelon',382),('spawnegg',383),
 ('bottleoenchanting',384),('firecharge',385),('bookandquill',386),('writtenbook',387),
-('emerald', 388),
+('emerald', 388),('itemframe',  389),('flowerpot',  390),('carrot',  391),('potato',  392),
+('bakedpotato',  393),('poisonouspotato',  394),('emptymap',  395),('goldencarrot',  396),
+('skull',  397),('head',  397),('carrotonastick',  398),('netherstar',  399),('pumpkinpie',  400)
 ('goldrecord',2256),('greenrecord',2257),('blocksrecord',2258),
 ('chirprecord',2259),('farrecord',2260),('mallrecord',2261),('mellohirecord',2262),
 ('stalrecord',2263),('stradrecord',2264),('wardrecord',2265),('11record',2266);
