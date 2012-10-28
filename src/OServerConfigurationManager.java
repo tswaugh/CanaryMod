@@ -315,10 +315,19 @@ public abstract class OServerConfigurationManager {
         boolean flag1 = oentityplayermp.bX();
 
         oentityplayermp.ap = i;
-        OEntityPlayerMP oentityplayermp1 = oentityplayermp;
-        oentityplayermp1.j = false;
-        oentityplayermp1.a(oentityplayermp, flag);
+        OItemInWorldManager oiteminworldmanager;
 
+        if (this.f.M()) {
+            oiteminworldmanager = new ODemoWorldManager(oentityplayermp.p);
+        } else {
+            oiteminworldmanager = new OItemInWorldManager(oentityplayermp.p);
+        }
+
+        OEntityPlayerMP oentityplayermp1 = new OEntityPlayerMP(this.f, this.f.a(oentityplayermp.ap), oentityplayermp.bT, oiteminworldmanager);
+
+        oentityplayermp1.a = oentityplayermp.a;
+        oentityplayermp1.a(oentityplayermp, flag);
+        oentityplayermp1.k = oentityplayermp.k;
         OWorldServer oworldserver = location != null ? location.getWorld().getWorld() : oentityplayermp1.p();
 
         this.a(oentityplayermp1, oentityplayermp, oworldserver);
