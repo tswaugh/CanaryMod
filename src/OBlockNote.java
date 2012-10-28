@@ -61,7 +61,7 @@ public class OBlockNote extends OBlockContainer {
         String s = "harp";
 
         if (l == 1) {
-            s = "OStatCollector";
+            s = "bd";
         }
 
         if (l == 2) {
