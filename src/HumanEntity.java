@@ -45,6 +45,6 @@ public class HumanEntity extends LivingEntity {
      */
     @Override
     public World getWorld() {
-        return etc.getMCServer().getWorld(getEntity().p.name, getEntity().bK).world; //gregthegeek: getEntity().bK should be the dimension of the world, but it appears that the dimension is no longer stored there
+        return etc.getMCServer().getWorld(getEntity().p.name, getEntity().ap).world;
     }
 }
