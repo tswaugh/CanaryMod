@@ -323,7 +323,7 @@ public abstract class OServerConfigurationManager {
             oiteminworldmanager = new OItemInWorldManager(oentityplayermp.p);
         }
 
-        OEntityPlayerMP oentityplayermp1 = new OEntityPlayerMP(this.f, this.f.a(oentityplayermp.ap), oentityplayermp.bT, oiteminworldmanager);
+        OEntityPlayerMP oentityplayermp1 = new OEntityPlayerMP(this.f, oentityplayermp.p, oentityplayermp.bT, oiteminworldmanager);
 
         oentityplayermp1.a = oentityplayermp.a;
         oentityplayermp1.a(oentityplayermp, flag);
