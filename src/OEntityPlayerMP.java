@@ -390,7 +390,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             this.i();
         }
 
-        this.bO();
+        this.cd();
         this.a.b(new OPacket100OpenWindow(this.cv, 0, name, oiinventory.k_()));
         // CanaryMod: Check if openend the chest in silence mode.
         this.bM = new OContainerChest(this.bK, oiinventory, (openInventoryParameters == null) ? false : openInventoryParameters.isSilenced());
