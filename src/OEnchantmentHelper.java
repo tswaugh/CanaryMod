@@ -1,6 +1,7 @@
     import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -32,6 +33,42 @@ public class OEnchantmentHelper {
 
                 return 0;
             }
+        }
+    }
+
+    public static Map a(OItemStack oitemstack) {
+        LinkedHashMap linkedhashmap = new LinkedHashMap();
+        ONBTTagList onbttaglist = oitemstack.q();
+
+        if (onbttaglist != null) {
+            for (int i = 0; i < onbttaglist.c(); ++i) {
+                short short1 = ((ONBTTagCompound) onbttaglist.b(i)).d("id");
+                short short2 = ((ONBTTagCompound) onbttaglist.b(i)).d("lvl");
+
+                linkedhashmap.put(Integer.valueOf(short1), Integer.valueOf(short2));
+            }
+        }
+
+        return linkedhashmap;
+    }
+
+    public static void a(Map map, OItemStack oitemstack) {
+        ONBTTagList onbttaglist = new ONBTTagList();
+        Iterator iterator = map.keySet().iterator();
+
+        while (iterator.hasNext()) {
+            int i = ((Integer) iterator.next()).intValue();
+            ONBTTagCompound onbttagcompound = new ONBTTagCompound();
+
+            onbttagcompound.a("id", (short) i);
+            onbttagcompound.a("lvl", (short) ((Integer) map.get(Integer.valueOf(i))).intValue());
+            onbttaglist.a((ONBTBase) onbttagcompound);
+        }
+
+        if (onbttaglist.c() > 0) {
+            oitemstack.a("ench", (ONBTBase) onbttaglist);
+        } else if (oitemstack.o()) {
+            oitemstack.p().o("ench");
         }
     }
 
@@ -82,10 +119,10 @@ public class OEnchantmentHelper {
 
     }
 
-    public static int a(OInventoryPlayer oinventoryplayer, ODamageSource odamagesource) {
+    public static int a(OItemStack[] aoitemstack, ODamageSource odamagesource) {
         b.a = 0;
         b.b = odamagesource;
-        a((OIEnchantmentModifier) b, oinventoryplayer.b);
+        a((OIEnchantmentModifier) b, aoitemstack);
         if (b.a > 25) {
             b.a = 25;
         }
@@ -93,52 +130,52 @@ public class OEnchantmentHelper {
         return (b.a + 1 >> 1) + a.nextInt((b.a >> 1) + 1);
     }
 
-    public static int a(OInventoryPlayer oinventoryplayer, OEntityLiving oentityliving) {
+    public static int a(OEntityLiving oentityliving, OEntityLiving oentityliving1) {
         c.a = 0;
-        c.b = oentityliving;
-        a((OIEnchantmentModifier) c, oinventoryplayer.g());
+        c.b = oentityliving1;
+        a((OIEnchantmentModifier) c, oentityliving.bA());
         return c.a > 0 ? 1 + a.nextInt(c.a) : 0;
     }
 
-    public static int b(OInventoryPlayer oinventoryplayer, OEntityLiving oentityliving) {
-        return a(OEnchantment.m.x, oinventoryplayer.g());
+    public static int b(OEntityLiving oentityliving, OEntityLiving oentityliving1) {
+        return a(OEnchantment.m.x, oentityliving.bA());
     }
 
-    public static int c(OInventoryPlayer oinventoryplayer, OEntityLiving oentityliving) {
-        return a(OEnchantment.n.x, oinventoryplayer.g());
+    public static int c(OEntityLiving oentityliving, OEntityLiving oentityliving1) {
+        return a(OEnchantment.n.x, oentityliving.bA());
     }
 
-    public static int a(OInventoryPlayer oinventoryplayer) {
-        return a(OEnchantment.h.x, oinventoryplayer.b);
+    public static int a(OEntityLiving oentityliving) {
+        return a(OEnchantment.h.x, oentityliving.ae());
     }
 
-    public static int b(OInventoryPlayer oinventoryplayer) {
-        return a(OEnchantment.p.x, oinventoryplayer.g());
+    public static int b(OEntityLiving oentityliving) {
+        return a(OEnchantment.p.x, oentityliving.bA());
     }
 
-    public static int c(OInventoryPlayer oinventoryplayer) {
-        return a(OEnchantment.r.x, oinventoryplayer.g());
+    public static int c(OEntityLiving oentityliving) {
+        return a(OEnchantment.r.x, oentityliving.bA());
     }
 
-    public static boolean d(OInventoryPlayer oinventoryplayer) {
-        return a(OEnchantment.q.x, oinventoryplayer.g()) > 0;
+    public static boolean d(OEntityLiving oentityliving) {
+        return a(OEnchantment.q.x, oentityliving.bA()) > 0;
     }
 
-    public static int e(OInventoryPlayer oinventoryplayer) {
-        return a(OEnchantment.s.x, oinventoryplayer.g());
+    public static int e(OEntityLiving oentityliving) {
+        return a(OEnchantment.s.x, oentityliving.bA());
     }
 
-    public static int f(OInventoryPlayer oinventoryplayer) {
-        return a(OEnchantment.o.x, oinventoryplayer.g());
+    public static int f(OEntityLiving oentityliving) {
+        return a(OEnchantment.o.x, oentityliving.bA());
     }
 
-    public static boolean g(OInventoryPlayer oinventoryplayer) {
-        return a(OEnchantment.i.x, oinventoryplayer.b) > 0;
+    public static boolean g(OEntityLiving oentityliving) {
+        return a(OEnchantment.i.x, oentityliving.ae()) > 0;
     }
 
     public static int a(Random random, int i, int j, OItemStack oitemstack) {
         OItem oitem = oitemstack.b();
-        int k = oitem.b();
+        int k = oitem.c();
 
         if (k <= 0) {
             return 0;
@@ -171,7 +208,7 @@ public class OEnchantmentHelper {
 
     public static List b(Random random, OItemStack oitemstack, int i) {
         OItem oitem = oitemstack.b();
-        int j = oitem.b();
+        int j = oitem.c();
 
         if (j <= 0) {
             return null;

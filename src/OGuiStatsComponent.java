@@ -18,9 +18,9 @@ public class OGuiStatsComponent extends JComponent {
     public OGuiStatsComponent(OMinecraftServer ominecraftserver) {
         super();
         this.e = ominecraftserver;
-        this.setPreferredSize(new Dimension(356, 246));
-        this.setMinimumSize(new Dimension(356, 246));
-        this.setMaximumSize(new Dimension(356, 246));
+        this.setPreferredSize(new Dimension(456, 246));
+        this.setMinimumSize(new Dimension(456, 246));
+        this.setMaximumSize(new Dimension(456, 246));
         (new Timer(500, new OGuiStatsListener(this))).start();
         this.setBackground(Color.BLACK);
     }
@@ -41,9 +41,9 @@ public class OGuiStatsComponent extends JComponent {
                 OWorldServer[] level = entry.getValue();
 
                 for (int j = 0; j < level.length; ++j) {
-                    this.d[5 + j] = "World " + worldName + " lvl " + j + " tick: " + a.format(this.a(this.e.worldTickNanos.get(worldName)[j]) * 1.0E-6D) + " ms";
+                    this.d[5 + j] = "Lvl " + j + " tick: " + a.format(this.a(this.e.worldTickNanos.get(worldName)[j]) * 1.0E-6D) + " ms";
                     if (level[j] != null && level[j].b != null) {
-                        this.d[5 + j] += ", " + level[j].b.d();
+                        this.d[5 + j] = this.d[5 + j] + ", Vec3: " + level[j].R().d() + " / " + level[j].R().c();
                     }
                 }
             }
@@ -70,7 +70,7 @@ public class OGuiStatsComponent extends JComponent {
 
     public void paint(Graphics graphics) {
         graphics.setColor(new Color(16777215));
-        graphics.fillRect(0, 0, 356, 246);
+        graphics.fillRect(0, 0, 456, 246);
 
         int i;
 

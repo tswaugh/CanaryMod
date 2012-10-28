@@ -25,7 +25,7 @@ public class OEntityItem extends OEntity {
         this.y = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
     }
 
-    protected boolean e_() {
+    protected boolean f_() {
         return false;
     }
 
@@ -37,12 +37,12 @@ public class OEntityItem extends OEntity {
 
     protected void a() {}
 
-    public void h_() {
-        super.h_();
+    public void j_() {
+        super.j_();
         if (this.c > 0) {
             --this.c;
         }
-        
+
         // CanaryMod start
         boolean tmpTouchesGround = this.E;
         // CanaryMod end
@@ -56,14 +56,14 @@ public class OEntityItem extends OEntity {
         boolean flag = (int) this.q != (int) this.t || (int) this.r != (int) this.u || (int) this.s != (int) this.v;
 
         if (flag) {
-            if (this.p.f(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) == OMaterial.h) {
+            if (this.p.f(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) == OMaterial.i) {
                 this.x = 0.20000000298023224D;
-                this.w = (double) ((this.Z.nextFloat() - this.Z.nextFloat()) * 0.2F);
-                this.y = (double) ((this.Z.nextFloat() - this.Z.nextFloat()) * 0.2F);
-                this.p.a(this, "random.fizz", 0.4F, 2.0F + this.Z.nextFloat() * 0.4F);
+                this.w = (double) ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F);
+                this.y = (double) ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F);
+                this.p.a(this, "random.fizz", 0.4F, 2.0F + this.aa.nextFloat() * 0.4F);
             }
 
-            if (!this.p.K) {
+            if (!this.p.J) {
                 Iterator iterator = this.p.a(OEntityItem.class, this.D.b(0.5D, 0.0D, 0.5D)).iterator();
 
                 while (iterator.hasNext()) {
@@ -81,14 +81,14 @@ public class OEntityItem extends OEntity {
             int i = this.p.a(OMathHelper.c(this.t), OMathHelper.c(this.D.b) - 1, OMathHelper.c(this.v));
 
             if (i > 0) {
-                f = OBlock.m[i].cq * 0.98F;
+                f = OBlock.p[i].cC * 0.98F;
             }
-            
+
             // CanaryMod start
             // It does touch the ground now, but didn't in last tick
             if (!tmpTouchesGround) {
                 if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_TOUCH_GROUND, item)) {
-                    this.y(); // kill the item
+                    this.x(); // kill the item
                 }
             }
             // CanaryMod end
@@ -102,10 +102,10 @@ public class OEntityItem extends OEntity {
         }
 
         ++this.b;
-        if (this.b >= 6000) {
+        if (!this.p.J && this.b >= 6000) {
             // CanaryMod onEntityDespawn
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENTITY_DESPAWN, item)) {
-                this.y();
+                this.x();
             } else {
                 this.b = 0;
             }
@@ -118,34 +118,37 @@ public class OEntityItem extends OEntity {
         } else if (oentityitem.S() && this.S()) {
             if (oentityitem.a.b() != this.a.b()) {
                 return false;
-            } else if (oentityitem.a.b().k() && oentityitem.a.j() != this.a.j()) {
-                return false;
-            } else if (oentityitem.a.a < this.a.a) {
-                return oentityitem.a(this);
-            } else if (oentityitem.a.a + this.a.a > oentityitem.a.d()) {
-                return false;
+            } else if (!oentityitem.a.o() && !this.a.o()) {
+                if (oentityitem.a.b().l() && oentityitem.a.j() != this.a.j()) {
+                    return false;
+                } else if (oentityitem.a.a < this.a.a) {
+                    return oentityitem.a(this);
+                } else if (oentityitem.a.a + this.a.a > oentityitem.a.d()) {
+                    return false;
+                } else {
+                    oentityitem.a.a += this.a.a;
+                    oentityitem.c = Math.max(oentityitem.c, this.c);
+                    oentityitem.b = Math.min(oentityitem.b, this.b);
+                    this.x();
+                    return true;
+                }
             } else {
-                oentityitem.a.a += this.a.a;
-                oentityitem.c = Math.max(oentityitem.c, this.c);
-                oentityitem.b = Math.min(oentityitem.b, this.b);
-                this.y();
-                return true;
+                return false;
             }
         } else {
             return false;
         }
-
     }
 
-    public void d() {
+    public void c() {
         this.b = 4800;
     }
 
     public boolean I() {
-        return this.p.a(this.D, OMaterial.g, this);
+        return this.p.a(this.D, OMaterial.h, this);
     }
 
-    protected void e(int i) {
+    protected void d(int i) {
         this.a(ODamageSource.a, i);
     }
 
@@ -153,7 +156,7 @@ public class OEntityItem extends OEntity {
         this.K();
         this.e -= i;
         if (this.e <= 0) {
-            this.y();
+            this.x();
         }
 
         return false;
@@ -174,50 +177,49 @@ public class OEntityItem extends OEntity {
 
         this.a = OItemStack.a(onbttagcompound1);
         if (this.a == null) {
-            this.y();
+            this.x();
         }
 
     }
 
     public void b_(OEntityPlayer oentityplayer) {
-        if (!this.p.K) {
+        if (!this.p.J) {
             int i = this.a.a;
 
             // CanaryMod: First simulate the pickup and call the hooks
-            if (this.c == 0 && oentityplayer.by.canPickup(this)) {
-                if (oentityplayer.by.a(this.a)) {
-                    if (this.a.c == OBlock.J.ca) {
+            if (this.c == 0 && oentityplayer.bK.canPickup(this)) {
+                if (oentityplayer.bK.a(this.a)) {
+                    if (this.a.c == OBlock.M.cm) {
                         oentityplayer.a((OStatBase) OAchievementList.g);
                     }
 
-                    if (this.a.c == OItem.aF.bT) {
+                    if (this.a.c == OItem.aF.cf) {
                         oentityplayer.a((OStatBase) OAchievementList.t);
                     }
 
-                    if (this.a.c == OItem.n.bT) {
+                    if (this.a.c == OItem.n.cf) {
                         oentityplayer.a((OStatBase) OAchievementList.w);
                     }
 
-                    if (this.a.c == OItem.bo.bT) {
+                    if (this.a.c == OItem.bo.cf) {
                         oentityplayer.a((OStatBase) OAchievementList.z);
                     }
 
-                    this.p.a(this, "random.pop", 0.2F, ((this.Z.nextFloat() - this.Z.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    this.p.a(this, "random.pop", 0.2F, ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     oentityplayer.a((OEntity) this, i);
                     if (this.a.a <= 0) {
-                        this.y();
+                        this.x();
                     }
                 }
             }
-
         }
     }
 
-    public String ak() {
+    public String an() {
         return OStatCollector.a("item." + this.a.a());
     }
 
-    public boolean an() {
+    public boolean aq() {
         return false;
     }
 }

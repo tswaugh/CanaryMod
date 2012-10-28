@@ -15,7 +15,7 @@ public class OBlockFlowing extends OBlockFluid {
         int l = oworld.g(i, j, k);
 
         oworld.c(i, j, k, this.cm + 1, l);
-        oworld.d(i, j, k, i, j, k);
+        oworld.e(i, j, k, i, j, k);
     }
 
     public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k) {
@@ -26,7 +26,6 @@ public class OBlockFlowing extends OBlockFluid {
         // CanaryMod: Store originating block
         World world = oworld.world;
         Block blockFrom = new Block(world, this.cm, i, j, k);
-        // CanaryMod: end
 
        int l = this.f_(oworld, i, j, k);
         byte b0 = 1;
@@ -104,7 +103,7 @@ public class OBlockFlowing extends OBlockFluid {
 
             if (!((Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))) {
                 if (l >= 8) {
-                    this.h(oworld, i, j - 1, k, l);
+                this.h(oworld, i, j - 1, k, l);
                 } else {
                     this.h(oworld, i, j - 1, k, l + 8);
                 }
@@ -150,7 +149,7 @@ public class OBlockFlowing extends OBlockFluid {
                 Block blockTo = new Block(world, 0, i, j, k + 1);
 
                 if (!((Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))) {
-                    this.h(oworld, i, j, k + 1, i1);
+                this.h(oworld, i, j, k + 1, i1);
                 }
             }
         }
@@ -302,7 +301,7 @@ public class OBlockFlowing extends OBlockFluid {
     private boolean p(OWorld oworld, int i, int j, int k) {
         // CanaryMod: See if this liquid can destroy this block.
         Block block = new Block(oworld.world, oworld.world.getBlockIdAt(i, j, k), i, j, k);
-        PluginLoader.HookResult ret = (PluginLoader.HookResult) etc.getLoader().callHook(PluginLoader.Hook.LIQUID_DESTROY, this.cm, block);
+        PluginLoader.HookResult ret = (PluginLoader.HookResult) etc.getLoader().callHook(PluginLoader.Hook.LIQUID_DESTROY, this.ca, block);
 
         if (ret == PluginLoader.HookResult.PREVENT_ACTION) {
             return false;
@@ -310,7 +309,6 @@ public class OBlockFlowing extends OBlockFluid {
         if (ret == PluginLoader.HookResult.ALLOW_ACTION) {
             return true;
         }
-        // CanaryMod: end
         OMaterial omaterial = oworld.f(i, j, k);
 
         return omaterial == this.cB ? false : (omaterial == OMaterial.i ? false : !this.o(oworld, i, j, k));
@@ -321,6 +319,7 @@ public class OBlockFlowing extends OBlockFluid {
         if (oworld.a(i, j, k) == this.cm) {
             oworld.a(i, j, k, this.cm, this.r_());
         }
+
     }
 
     public boolean l() {

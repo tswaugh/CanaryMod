@@ -313,7 +313,7 @@ public class FlatFileSource extends DataSource {
                             home.Location.dimension = Integer.parseInt(split[7]);
                         } else {
                             // Don't use Server.getDefaultWorld().getName() here as the worlds may not yet be loaded.
-                            home.Location.world = etc.getMCServer().I();
+                            home.Location.world = etc.getMCServer().J();
                         }
                         homes.add(home);
                     }
@@ -375,12 +375,12 @@ public class FlatFileSource extends DataSource {
                             warp.Group = "";
                         }
                         posShift++;
-                        
+
                         if (split.length >= 7 + posShift) {
                             warp.Location.world = split[6 + posShift];
                         } else {
                             // Don't use Server.getDefaultWorld().getName() here as the worlds may not yet be loaded.
-                            warp.Location.world = etc.getMCServer().I();
+                            warp.Location.world = etc.getMCServer().J();
                         }
 
                         warps.add(warp);
@@ -759,7 +759,7 @@ public class FlatFileSource extends DataSource {
     @Override
     public void loadBanList() {
         String location = etc.getInstance().getBanListLoc();
-        
+
         if (!new File(location).exists()) {
             FileWriter writer = null;
 
@@ -807,12 +807,12 @@ public class FlatFileSource extends DataSource {
                     else if(split[0].length() == 32) { // IPv6
                     	// Convert the expanded address to the compressed version
                     	// The string also has the : removed, so we add those first
-                    	
+
                     	StringBuilder sb = new StringBuilder();
-                    	
+
                     	for(int i = 0; i < 8; i++) {
                     		String piece = split[0].substring(i*4, i*4+4);
-                    		
+
                     		if(piece == "0000")
                     			sb.append("0");
                     		else {
@@ -823,7 +823,7 @@ public class FlatFileSource extends DataSource {
                     			sb.append(":");
                     	}
                     	String longAddr = sb.toString();
-                    	
+
                     	ban.setIp(longAddr);
                     }
                     else
@@ -836,7 +836,7 @@ public class FlatFileSource extends DataSource {
                             ban.setReason(line.substring(line.indexOf(':') + 1));
                     } else
                         ban.setReason(etc.getInstance().getDefaultBanMessage());
-                    
+
                     bans.add(ban);
                 }
                 scanner.close();
@@ -1550,8 +1550,8 @@ public class FlatFileSource extends DataSource {
         String loc = etc.getInstance().getBanListLoc();
         boolean byIp = !ban.getIp().isEmpty();
         String value = byIp ? ban.getIp() : ban.getName();
-        
-        // Transform Ipv6 addresses 
+
+        // Transform Ipv6 addresses
         if(byIp && value.indexOf(":") != -1) {
         	String[] lst = value.split(":");
         	StringBuilder sb = new StringBuilder();
@@ -1562,7 +1562,7 @@ public class FlatFileSource extends DataSource {
         	}
         	value = sb.toString();
         }
-        
+
         try {
             // Now to save...
             BufferedReader reader = new BufferedReader(new FileReader(new File(loc)));
@@ -1572,7 +1572,7 @@ public class FlatFileSource extends DataSource {
             while ((line = reader.readLine()) != null) {
                 toWrite.append(line).append(LINE_SEP);
             }
-            
+
             reader.close();
 
             toWrite.append(value)
@@ -1765,14 +1765,14 @@ public class FlatFileSource extends DataSource {
                 }
         }
         String loc = etc.getInstance().getBanListLoc();
-        
+
         try {
             // Now to save...
             BufferedReader reader = new BufferedReader(new FileReader(new File(loc)));
             StringBuilder toWrite = new StringBuilder();
             String line;
             String user = ban.getIp().isEmpty() ? ban.getName() : ban.getIp();
-        
+
             while ((line = reader.readLine()) != null) {
                 if (!line.split(":")[0].equalsIgnoreCase(user)) {
                     toWrite.append(line).append(LINE_SEP);

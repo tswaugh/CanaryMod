@@ -120,7 +120,7 @@ public class World {
      * @return the dimension type
      */
     public Dimension getType() {
-        return Dimension.fromId(world.w.g);
+        return Dimension.fromId(world.v.h);
     }
 
     /**
@@ -322,7 +322,7 @@ public class World {
      */
     public Location getSpawnLocation() {
         // More structure ftw
-        OWorldInfo info = world.A;
+        OWorldInfo info = world.z;
         Location spawn = new Location();
 
         spawn.x = info.c() + 0.5D;
@@ -342,7 +342,7 @@ public class World {
      * @param z The spawn's new z location
      */
     public void setSpawnLocation(int x, int y, int z) {
-        this.getWorld().H().a(x, y, z);
+        this.getWorld().J().a(x, y, z);
     }
     
     /**
@@ -399,7 +399,7 @@ public class World {
     public boolean setBlockData(int x, int y, int z, int data) {
         boolean toRet = world.d(x, y, z, data);
 
-        etc.getMCServer().ab().sendPacketToDimension(new OPacket53BlockChange(x, y, z, world), getName(), getType().getId());
+        etc.getMCServer().ad().sendPacketToDimension(new OPacket53BlockChange(x, y, z, world), getName(), getType().getId());
         ComplexBlock block = getComplexBlock(x, y, z);
 
         if (block != null) {
@@ -639,9 +639,9 @@ public class World {
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(double x, double y, double z, Item item) {
-        double d1 = world.v.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-        double d2 = world.v.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-        double d3 = world.v.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
+        double d1 = world.u.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
+        double d2 = world.u.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
+        double d3 = world.u.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
 
         OEntityItem oei = new OEntityItem(world, x + d1, y + d2, z + d3, item.getBaseItem() != null ? item.getBaseItem() : new OItemStack(item.getItemId(), item.getAmount(), item.getDamage()));
 
@@ -740,7 +740,7 @@ public class World {
      * @return chunk
      */
     public Chunk loadChunk(int x, int z) {
-        return world.y.c(x, z).chunk;
+        return world.b.d(x, z).chunk;
     }
 
     /**
@@ -836,13 +836,13 @@ public class World {
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, this, thundering)) {
             return;
         }
-        world.A.a(thundering);
+        world.z.a(thundering); //could be wrong, hard to differentiate between booleans
 
         // Thanks to Bukkit for figuring out these numbers
         if (thundering) {
-            setThunderTime(world.v.nextInt(12000) + 3600);
+            setThunderTime(world.u.nextInt(12000) + 3600);
         } else {
-            setThunderTime(world.v.nextInt(168000) + 12000);
+            setThunderTime(world.u.nextInt(168000) + 12000);
         }
     }
 
@@ -852,7 +852,7 @@ public class World {
      * @param ticks ticks of thunder
      */
     public void setThunderTime(int ticks) {
-        world.A.f(ticks);
+        world.z.f(ticks);
     }
 
     /**
@@ -864,13 +864,13 @@ public class World {
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, this, raining)) {
             return;
         }
-        world.A.b(raining);
+        world.z.b(raining);
 
         // Thanks to Bukkit for figuring out these numbers
         if (raining) {
-            setRainTime(world.v.nextInt(12000) + 3600);
+            setRainTime(world.u.nextInt(12000) + 3600);
         } else {
-            setRainTime(world.v.nextInt(168000) + 12000);
+            setRainTime(world.u.nextInt(168000) + 12000);
         }
     }
 
@@ -880,7 +880,7 @@ public class World {
      * @param ticks ticks of rain
      */
     public void setRainTime(int ticks) {
-        world.A.g(ticks);
+        world.z.g(ticks);
     }
 
     /**
@@ -889,7 +889,7 @@ public class World {
      * @return whether it's thundering
      */
     public boolean isThundering() {
-        return world.A.m();
+        return world.z.n();
     }
 
     /**
@@ -898,7 +898,7 @@ public class World {
      * @return the thunder ticks
      */
     public int getThunderTime() {
-        return world.A.n();
+        return world.z.o();
     }
 
     /**
@@ -907,7 +907,7 @@ public class World {
      * @return whether it's raining
      */
     public boolean isRaining() {
-        return world.A.o();
+        return world.z.p();
     }
 
     /**
@@ -916,7 +916,7 @@ public class World {
      * @return the rain ticks
      */
     public int getRainTime() {
-        return world.A.p();
+        return world.z.q();
     }
 
     @Override
@@ -942,7 +942,7 @@ public class World {
      * @param power The power of the explosion. TNT has a power of 4.
      */
     public void explode(BaseEntity exploder, double x, double y, double z, float power) {
-        world.a(exploder.entity, x, y, z, power);
+        world.a(exploder.entity, x, y, z, power, false); //I believe that the last false determines whether or not the explosion is considered 'huge'. I'm not sure what that entails -gregthegeek
     }
 
     /**
@@ -951,7 +951,7 @@ public class World {
      * @return seed of the world
      */
     public long getRandomSeed() {
-        return world.C();
+        return world.D();
     }
 
     /**
@@ -1001,7 +1001,7 @@ public class World {
     }
     
     public PlayerManager getPlayerManager() {
-        return world.q().getCanaryPlayerManager();
+        return world.r().getCanaryPlayerManager();
     }
     
     public void removePlayerFromWorld(Player player) {

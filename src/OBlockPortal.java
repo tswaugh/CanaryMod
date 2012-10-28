@@ -4,7 +4,7 @@ import java.util.Random;
 public class OBlockPortal extends OBlockBreakable {
 
     public OBlockPortal(int i, int j) {
-        super(i, j, OMaterial.B, false);
+        super(i, j, OMaterial.C, false);
         this.b(true);
     }
 
@@ -18,7 +18,11 @@ public class OBlockPortal extends OBlockBreakable {
             }
 
             if (l > 0 && !oworld.s(i, l + 1, k)) {
-                OItemMonsterPlacer.a(oworld, 57, (double) i + 0.5D, (double) l + 1.1D, (double) k + 0.5D);
+                OEntity oentity = OItemMonsterPlacer.a(oworld, 57, (double) i + 0.5D, (double) l + 1.1D, (double) k + 0.5D);
+
+                if (oentity != null) {
+                    oentity.an = oentity.ab();
+                }
             }
         }
     }
@@ -102,14 +106,14 @@ public class OBlockPortal extends OBlockBreakable {
             }
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_CREATE, (Object) portalBlocks)) { // Cast to make single argument
                 oworld.s = true;
-            // CanaryMod: End
+
                 for (l = 0; l < 2; ++l) {
                     for (i1 = 0; i1 < 3; ++i1) {
-                        oworld.e(i + b0 * l, j + i1, k + b1 * l, OBlock.bh.cm);
+                    oworld.e(i + b0 * l, j + i1, k + b1 * l, OBlock.bh.cm);
                     }
                 }
 
-                oworld.s = false;
+            oworld.s = false;
                 return true;
             }
             return false;

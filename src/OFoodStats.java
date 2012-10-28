@@ -33,11 +33,11 @@ public class OFoodStats {
     }
 
     public void a(OItemFood oitemfood) {
-        this.a(oitemfood.f(), oitemfood.g());
+        this.a(oitemfood.g(), oitemfood.h());
     }
 
     public void a(OEntityPlayer oentityplayer) {
-        int i = oentityplayer.p.u;
+        int i = oentityplayer.p.t;
 
         this.e = this.a;
         if (this.c > 4.0F) {
@@ -61,7 +61,7 @@ public class OFoodStats {
             }
         }
 
-        if (this.a >= 18 && oentityplayer.bM()) {
+        if (this.a >= 18 && oentityplayer.ca()) {
             ++this.d;
             if (this.d >= 80) {
                 oentityplayer.i(1);
@@ -70,7 +70,7 @@ public class OFoodStats {
         } else if (this.a <= 0) {
             ++this.d;
             if (this.d >= 80) {
-                if (oentityplayer.aN() > 10 || i >= 3 || oentityplayer.aN() > 1 && i >= 2) {
+                if (oentityplayer.aT() > 10 || i >= 3 || oentityplayer.aT() > 1 && i >= 2) {
                     // CanaryMod: DAMAGE From starvation
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.STARVATION, null, ((OEntityPlayerMP) oentityplayer).getPlayer(), 1)) {
                         oentityplayer.a(ODamageSource.f, 1);

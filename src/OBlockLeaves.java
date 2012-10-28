@@ -1,5 +1,6 @@
 import java.util.Random;
 
+
 public class OBlockLeaves extends OBlockLeavesBase {
 
     private int cD;
@@ -159,7 +160,7 @@ public class OBlockLeaves extends OBlockLeavesBase {
     }
 
     public void a(OWorld oworld, OEntityPlayer oentityplayer, int i, int j, int k, int l) {
-        if (!oworld.J && oentityplayer.bC() != null && oentityplayer.bC().c == OItem.be.cf) {
+        if (!oworld.J && oentityplayer.bP() != null && oentityplayer.bP().c == OItem.be.cf) {
             oentityplayer.a(OStatList.C[this.cm], 1);
             this.a(oworld, i, j, k, new OItemStack(OBlock.N.cm, 1, l & 3));
         } else {

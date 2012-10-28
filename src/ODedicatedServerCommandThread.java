@@ -16,7 +16,7 @@ class ODedicatedServerCommandThread extends Thread {
         String s;
 
         try {
-            while (!this.a.aa() && this.a.l() && (s = bufferedreader.readLine()) != null) {
+            while (!this.a.ac() && this.a.m() && (s = bufferedreader.readLine()) != null) {
                 // CanaryMod: run through our parser first.
                 if (!etc.getInstance().parseConsoleCommand(s, a)) {
                     this.a.a(s, (OICommandSender) this.a);

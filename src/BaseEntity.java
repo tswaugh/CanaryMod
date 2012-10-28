@@ -1,7 +1,7 @@
 /**
  * BaseEntity.java - Class for accessing things that all entities share - W, X,
  * Y, health.
- * 
+ *
  * @author James
  */
 public class BaseEntity {
@@ -9,7 +9,7 @@ public class BaseEntity {
 
     /**
      * Creates an interface for an entity
-     * 
+     *
      * @param entity
      */
     public BaseEntity(OEntity entity) {
@@ -23,7 +23,7 @@ public class BaseEntity {
 
     /**
      * Returns the ID for this mob
-     * 
+     *
      * @return id
      */
     public int getId() {
@@ -32,7 +32,7 @@ public class BaseEntity {
 
     /**
      * Teleports to the provided location
-     * 
+     *
      * @param x
      * @param rotation
      * @param y
@@ -45,7 +45,7 @@ public class BaseEntity {
 
     /**
      * Teleports to the other entity
-     * 
+     *
      * @param ent
      *            entity to teleport to
      */
@@ -55,7 +55,7 @@ public class BaseEntity {
 
     /**
      * Teleports to the provided location
-     * 
+     *
      * @param location
      *            location to teleport to
      */
@@ -65,7 +65,7 @@ public class BaseEntity {
 
     /**
      * Returns the entity's W
-     * 
+     *
      * @return x
      */
     public double getX() {
@@ -74,7 +74,7 @@ public class BaseEntity {
 
     /**
      * Sets the entity's W
-     * 
+     *
      * @param x
      *            x to set
      */
@@ -84,7 +84,7 @@ public class BaseEntity {
 
     /**
      * Returns the entity's X
-     * 
+     *
      * @return y
      */
     public double getY() {
@@ -93,7 +93,7 @@ public class BaseEntity {
 
     /**
      * Sets the entity's X
-     * 
+     *
      * @param y
      *            y to set
      */
@@ -103,7 +103,7 @@ public class BaseEntity {
 
     /**
      * Returns the entity's Y
-     * 
+     *
      * @return z
      */
     public double getZ() {
@@ -112,7 +112,7 @@ public class BaseEntity {
 
     /**
      * Sets the entity's Y
-     * 
+     *
      * @param z
      *            z to set
      */
@@ -122,7 +122,7 @@ public class BaseEntity {
 
     /**
      * Returns the entity's pitch
-     * 
+     *
      * @return pitch
      */
     public float getPitch() {
@@ -131,7 +131,7 @@ public class BaseEntity {
 
     /**
      * Sets the entity's pitch
-     * 
+     *
      * @param pitch
      *            pitch to set
      */
@@ -141,7 +141,7 @@ public class BaseEntity {
 
     /**
      * Returns the entity's rotation
-     * 
+     *
      * @return rotation
      */
     public float getRotation() {
@@ -150,7 +150,7 @@ public class BaseEntity {
 
     /**
      * Sets the entity's rotation
-     * 
+     *
      * @param rotation
      *            rotation to set
      */
@@ -160,7 +160,7 @@ public class BaseEntity {
 
     /**
      * Returns the entity we're wrapping.
-     * 
+     *
      * @return
      */
     public OEntity getEntity() {
@@ -169,7 +169,7 @@ public class BaseEntity {
 
     /**
      * Returns whether or not this entity is a mob
-     * 
+     *
      * @return true if mob
      */
     public boolean isMob() {
@@ -182,7 +182,7 @@ public class BaseEntity {
 
     /**
      * Returns whether or not this entity is an animal
-     * 
+     *
      * @return true if animal
      */
     public boolean isAnimal() {
@@ -195,7 +195,7 @@ public class BaseEntity {
 
     /**
      * Returns true if this entity is a player
-     * 
+     *
      * @return true if player
      */
     public boolean isPlayer() {
@@ -208,7 +208,7 @@ public class BaseEntity {
 
     /**
      * Returns whether or not this entity is alive
-     * 
+     *
      * @return true if living entity
      */
     public boolean isLiving() {
@@ -221,7 +221,7 @@ public class BaseEntity {
 
     /**
      * Returns whether or not this entity is an item entity
-     * 
+     *
      * @return true if item entity
      */
     public boolean isItem() {
@@ -234,7 +234,7 @@ public class BaseEntity {
 
     /**
      * Returns the player for this entity
-     * 
+     *
      * @return player
      */
     public Player getPlayer() {
@@ -249,7 +249,7 @@ public class BaseEntity {
 
     /**
      * Get the default amount of AirTicks for this entity 20 ticks per second.
-     * 
+     *
      * @return 300
      * @deprecated It doesn't exist anymore P:
      */
@@ -260,7 +260,7 @@ public class BaseEntity {
 
     /**
      * Set the default amount of AirTicks for this entity 20 ticks per second.
-     * 
+     *
      * @param ticks
      * @deprecated It doesn't exist anymore
      * @throws UnsupportedOperationException because it doesn't exist anymore
@@ -272,76 +272,76 @@ public class BaseEntity {
 
     /**
      * Get the current NoDamageTicks for this entity.
-     * 
+     *
      * This gets lowered every game tick, until its smaller than half the
      * BaseNoDamageTicks it only registers any damage more than
      * {@link LivingEntity#getLastDamage()}. 20 ticks per second.
-     * 
+     *
      * @return
      */
     public int getNoDamageTicks() {
-        return this.getEntity().ad;
+        return this.getEntity().ae;
     }
 
     /**
      * Set the current NoDamageTicks for this entity.
-     * 
+     *
      * This gets lowered every game tick, until its smaller than half the
      * BaseNoDamageTicks it only registers any damage more than
      * {@link LivingEntity#getLastDamage()}. 20 ticks per second.
-     * 
+     *
      * @param ticks
      */
     public void setNoDamageTicks(int ticks) {
-        this.getEntity().ad = ticks;
+        this.getEntity().ae = ticks;
     }
 
     /**
      * Get the amount of AirTicks left.
-     * 
+     *
      * This gets lowered every game tick when you are under water. 20 ticks per
      * second.
-     * 
+     *
      * @return
      */
     public int getAirTicks() {
-        return this.getEntity().ai();
+        return this.getEntity().al();
     }
 
     /**
      * Set the amount of AirTicks left.
-     * 
+     *
      * This gets lowered every game tick when you are under water. 20 ticks per
      * second.
-     * 
+     *
      * @param ticks the number of ticks you have air
      */
     public void setAirTicks(int ticks) {
-        this.getEntity().g(ticks);
+        this.getEntity().f(ticks);
     }
 
     /**
      * Get the amount of FireTicks left.
-     * 
+     *
      * This gets lowered every game tick when you are on fire. 20 ticks per
      * second.
-     * 
+     *
      * @return
      */
     public int getFireTicks() {
-        return this.getEntity().c;
+        return this.getEntity().d;
     }
 
     /**
      * Set the amount of FireTicks left.
-     * 
+     *
      * This gets lowered every game tick when you are on fire. 20 ticks per
      * second.
-     * 
+     *
      * @param ticks the amount of fire ticks
      */
     public void setFireTicks(int ticks) {
-        this.getEntity().c = ticks;
+        this.getEntity().d = ticks;
     }
 
     /**
@@ -429,7 +429,7 @@ public class BaseEntity {
      * Destroys this entity
      */
     public void destroy() {
-        this.entity.y();
+        this.entity.x();
     }
 
     /**
@@ -446,13 +446,13 @@ public class BaseEntity {
      * @return the sprinting state
      */
     public boolean getSprinting() {
-        return this.entity.ag();
+        return this.entity.ai();
     }
 
     /**
      * Set whether this entity is sprinting.
      * Note: for players, this may not make them go faster.
-     * @param sprinting 
+     * @param sprinting
      */
     public void setSprinting(boolean sprinting) {
         this.entity.b(sprinting);

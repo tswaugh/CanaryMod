@@ -8,11 +8,12 @@ public class OContainerChest extends OContainer {
 
     public OContainerChest(OIInventory oiinventory, OIInventory oiinventory1, boolean flag) {
         this.e = oiinventory1;
-        this.f = oiinventory1.i_() / 9;
+        this.f = oiinventory1.k_() / 9;
         this.silenced = flag;
         if (!this.silenced) {
-            oiinventory1.k_();
+            oiinventory1.l_();
         }
+        
         int i = (this.f - 4) * 18;
 
         int j;
@@ -40,7 +41,7 @@ public class OContainerChest extends OContainer {
         return this.e.a(oentityplayer);
     }
 
-    public OItemStack b(int i) {
+    public OItemStack b(OEntityPlayer oentityplayer, int i) {
         OItemStack oitemstack = null;
         OSlot oslot = (OSlot) this.b.get(i);
 
@@ -57,7 +58,7 @@ public class OContainerChest extends OContainer {
             }
 
             if (oitemstack1.a == 0) {
-                oslot.d((OItemStack) null);
+                oslot.c((OItemStack) null);
             } else {
                 oslot.e();
             }

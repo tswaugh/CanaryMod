@@ -38,7 +38,7 @@ public class OContainerWorkbench extends OContainer {
 
     // Canarymod - send custom recipes result to client
     public void a(OIInventory oiinventory) {
-        OItemStack craftresult = OCraftingManager.a().a(this.e);
+        OItemStack craftresult = OCraftingManager.a().a(this.e, this.g);
         this.f.a(0, craftresult);
         
         if (this.d.isEmpty()) {
@@ -51,22 +51,22 @@ public class OContainerWorkbench extends OContainer {
 
     public void a(OEntityPlayer oentityplayer) {
         super.a(oentityplayer);
-        if (!this.g.K) {
+        if (!this.g.J) {
             for (int i = 0; i < 9; ++i) {
-                OItemStack oitemstack = this.e.b(i);
+                OItemStack oitemstack = this.e.a_(i);
 
                 if (oitemstack != null) {
-                    oentityplayer.b(oitemstack);
+                    oentityplayer.c(oitemstack);
                 }
             }
         }
     }
 
     public boolean c(OEntityPlayer oentityplayer) {
-        return this.g.a(this.h, this.i, this.j) != OBlock.ay.ca ? false : oentityplayer.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
+        return this.g.a(this.h, this.i, this.j) != OBlock.aB.cm ? false : oentityplayer.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 
-    public OItemStack b(int i) {
+    public OItemStack b(OEntityPlayer oentityplayer, int i) {
         OItemStack oitemstack = null;
         OSlot oslot = (OSlot) this.b.get(i);
 
@@ -93,7 +93,7 @@ public class OContainerWorkbench extends OContainer {
             }
 
             if (oitemstack1.a == 0) {
-                oslot.d((OItemStack) null);
+                oslot.c((OItemStack) null);
             } else {
                 oslot.e();
             }
@@ -102,7 +102,7 @@ public class OContainerWorkbench extends OContainer {
                 return null;
             }
 
-            oslot.b(oitemstack1);
+            oslot.a(oentityplayer, oitemstack1);
         }
 
         return oitemstack;

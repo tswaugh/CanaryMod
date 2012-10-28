@@ -13,7 +13,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         super();
     }
 
-    public int i_() {
+    public int k_() {
         return this.d.length;
     }
 
@@ -42,7 +42,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
     }
 
-    public OItemStack b(int i) {
+    public OItemStack a_(int i) {
         if (this.d[i] != null) {
             OItemStack oitemstack = this.d[i];
 
@@ -55,8 +55,8 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     public void a(int i, OItemStack oitemstack) {
         this.d[i] = oitemstack;
-        if (oitemstack != null && oitemstack.a > this.j_()) {
-            oitemstack.a = this.j_();
+        if (oitemstack != null && oitemstack.a > this.c()) {
+            oitemstack.a = this.c();
         }
 
     }
@@ -69,7 +69,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         super.a(onbttagcompound);
         ONBTTagList onbttaglist = onbttagcompound.m("Items");
 
-        this.d = new OItemStack[this.i_()];
+        this.d = new OItemStack[this.k_()];
 
         for (int i = 0; i < onbttaglist.c(); ++i) {
             ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(i);
@@ -104,7 +104,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         onbttagcompound.a("Items", (ONBTBase) onbttaglist);
     }
 
-    public int j_() {
+    public int c() {
         return 64;
     }
 
@@ -120,15 +120,15 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
             --this.a;
         }
 
-        if (!this.k.K) {
-            if (this.a == 0 && this.r()) {
+        if (!this.k.J) {
+            if (this.a == 0 && this.t()) {
                 this.b = this.a = a(this.d[1]);
                 if (this.a > 0) {
                     flag1 = true;
                     if (this.d[1] != null) {
                         --this.d[1].a;
                         if (this.d[1].a == 0) {
-                            OItem oitem = this.d[1].b().q();
+                            OItem oitem = this.d[1].b().r();
 
                             this.d[1] = oitem != null ? new OItemStack(oitem) : null;
                         }
@@ -136,7 +136,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
                 }
             }
 
-            if (this.i() && this.r()) {
+            if (this.i() && this.t()) {
                 ++this.c;
                 if (this.c == 200) {
                     this.c = 0;
@@ -159,19 +159,19 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     }
 
-    private boolean r() {
+    private boolean t() {
         if (this.d[0] == null) {
             return false;
         } else {
-            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().bT);
+            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cf);
 
-            return oitemstack == null ? false : (this.d[2] == null ? true : (!this.d[2].a(oitemstack) ? false : (this.d[2].a < this.j_() && this.d[2].a < this.d[2].d() ? true : this.d[2].a < oitemstack.d())));
+            return oitemstack == null ? false : (this.d[2] == null ? true : (!this.d[2].a(oitemstack) ? false : (this.d[2].a < this.c() && this.d[2].a < this.d[2].d() ? true : this.d[2].a < oitemstack.d())));
         }
     }
 
     public void k() {
-        if (this.r()) {
-            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().bT);
+        if (this.t()) {
+            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cf);
 
             if (this.d[2] == null) {
                 this.d[2] = oitemstack.l();
@@ -191,22 +191,22 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (oitemstack == null) {
             return 0;
         } else {
-            int i = oitemstack.b().bT;
+            int i = oitemstack.b().cf;
             OItem oitem = oitemstack.b();
 
-            if (i < 256 && OBlock.m[i] != null) {
-                OBlock oblock = OBlock.m[i];
+            if (i < 256 && OBlock.p[i] != null) {
+                OBlock oblock = OBlock.p[i];
 
-                if (oblock == OBlock.bO) {
+                if (oblock == OBlock.bR) {
                     return 150;
                 }
 
-                if (oblock.cp == OMaterial.d) {
+                if (oblock.cB == OMaterial.d) {
                     return 300;
                 }
             }
 
-            return oitem instanceof OItemTool && ((OItemTool) oitem).e().equals("WOOD") ? 200 : (oitem instanceof OItemSword && ((OItemSword) oitem).f().equals("WOOD") ? 200 : (oitem instanceof OItemHoe && ((OItemHoe) oitem).f().equals("WOOD") ? 200 : (i == OItem.D.bT ? 100 : (i == OItem.m.bT ? 1600 : (i == OItem.ay.bT ? 20000 : (i == OBlock.y.ca ? 100 : (i == OItem.bo.bT ? 2400 : 0)))))));
+            return oitem instanceof OItemTool && ((OItemTool) oitem).g().equals("WOOD") ? 200 : (oitem instanceof OItemSword && ((OItemSword) oitem).h().equals("WOOD") ? 200 : (oitem instanceof OItemHoe && ((OItemHoe) oitem).g().equals("WOOD") ? 200 : (i == OItem.D.cf ? 100 : (i == OItem.m.cf ? 1600 : (i == OItem.ay.cf ? 20000 : (i == OBlock.B.cm ? 100 : (i == OItem.bo.cf ? 2400 : 0)))))));
         }
     }
 
@@ -218,7 +218,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         return this.k.p(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
 
-    public void k_() {}
+    public void l_() {}
 
     public void f() {}
 
@@ -244,7 +244,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     @Override
     public int getContentsSize() {
-        return this.i_();
+        return this.k_();
     }
 
     @Override

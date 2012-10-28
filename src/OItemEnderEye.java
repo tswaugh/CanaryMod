@@ -14,8 +14,8 @@ public class OItemEnderEye extends OItem {
             return true;
         }
 
-        if (oentityplayer.e(i, j, k) && i1 == OBlock.bI.ca && !OBlockEndPortalFrame.e(j1)) {
-            if (oworld.K) {
+        if (oentityplayer.a(i, j, k, l, oitemstack) && i1 == OBlock.bL.cm && !OBlockEndPortalFrame.e(j1)) {
+            if (oworld.J) {
                 return true;
             } else {
                 oworld.c(i, j, k, j1 + 4);
@@ -39,7 +39,7 @@ public class OItemEnderEye extends OItem {
                 int i2 = 0;
                 boolean flag = false;
                 boolean flag1 = true;
-                int j2 = ODirection.f[k1];
+                int j2 = ODirection.g[k1];
 
                 int k2;
                 int l2;
@@ -51,7 +51,7 @@ public class OItemEnderEye extends OItem {
                     j3 = i + ODirection.a[j2] * k2;
                     k3 = k + ODirection.b[j2] * k2;
                     l2 = oworld.a(j3, j, k3);
-                    if (l2 == OBlock.bI.ca) {
+                    if (l2 == OBlock.bL.cm) {
                         i3 = oworld.g(j3, j, k3);
                         if (!OBlockEndPortalFrame.e(i3)) {
                             flag1 = false;
@@ -74,7 +74,7 @@ public class OItemEnderEye extends OItem {
                         k3 += ODirection.b[k1] * 4;
                         l2 = oworld.a(j3, j, k3);
                         i3 = oworld.g(j3, j, k3);
-                        if (l2 != OBlock.bI.ca || !OBlockEndPortalFrame.e(i3)) {
+                        if (l2 != OBlock.bL.cm || !OBlockEndPortalFrame.e(i3)) {
                             flag1 = false;
                             break;
                         }
@@ -89,7 +89,7 @@ public class OItemEnderEye extends OItem {
                             i3 = oworld.a(k3, j, l2);
                             int l3 = oworld.g(k3, j, l2);
 
-                            if (i3 != OBlock.bI.ca || !OBlockEndPortalFrame.e(l3)) {
+                            if (i3 != OBlock.bL.cm || !OBlockEndPortalFrame.e(l3)) {
                                 flag1 = false;
                                 break;
                             }
@@ -103,7 +103,7 @@ public class OItemEnderEye extends OItem {
                                 l2 = k + ODirection.b[j2] * k2;
                                 k3 += ODirection.a[k1] * j3;
                                 l2 += ODirection.b[k1] * j3;
-                                oworld.e(k3, j, l2, OBlock.bH.ca);
+                                oworld.e(k3, j, l2, OBlock.bK.cm);
                             }
                         }
                     }
@@ -122,12 +122,12 @@ public class OItemEnderEye extends OItem {
         if (omovingobjectposition != null && omovingobjectposition.a == OEnumMovingObjectType.a) {
             int i = oworld.a(omovingobjectposition.b, omovingobjectposition.c, omovingobjectposition.d);
 
-            if (i == OBlock.bI.ca) {
+            if (i == OBlock.bL.cm) {
                 return oitemstack;
             }
         }
 
-        if (!oworld.K) {
+        if (!oworld.J) {
             OChunkPosition ochunkposition = oworld.b("Stronghold", (int) oentityplayer.t, (int) oentityplayer.u, (int) oentityplayer.v);
 
             if (ochunkposition != null) {
@@ -137,7 +137,7 @@ public class OItemEnderEye extends OItem {
                 oworld.d((OEntity) oentityendereye);
                 oworld.a(oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
                 oworld.a((OEntityPlayer) null, 1002, (int) oentityplayer.t, (int) oentityplayer.u, (int) oentityplayer.v, 0);
-                if (!oentityplayer.bZ.d) {
+                if (!oentityplayer.cf.d) {
                     --oitemstack.a;
                 }
             }

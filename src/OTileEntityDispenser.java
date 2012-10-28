@@ -12,7 +12,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         super();
     }
 
-    public int i_() {
+    public int k_() {
         return 9;
     }
 
@@ -43,7 +43,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         }
     }
 
-    public OItemStack b(int i) {
+    public OItemStack a_(int i) {
         if (this.a[i] != null) {
             OItemStack oitemstack = this.a[i];
 
@@ -69,8 +69,8 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
 
     public void a(int i, OItemStack oitemstack) {
         this.a[i] = oitemstack;
-        if (oitemstack != null && oitemstack.a > this.j_()) {
-            oitemstack.a = this.j_();
+        if (oitemstack != null && oitemstack.a > this.c()) {
+            oitemstack.a = this.c();
         }
 
         this.d();
@@ -95,7 +95,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         super.a(onbttagcompound);
         ONBTTagList onbttaglist = onbttagcompound.m("Items");
 
-        this.a = new OItemStack[this.i_()];
+        this.a = new OItemStack[this.k_()];
 
         for (int i = 0; i < onbttaglist.c(); ++i) {
             ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(i);
@@ -125,7 +125,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         onbttagcompound.a("Items", (ONBTBase) onbttaglist);
     }
 
-    public int j_() {
+    public int c() {
         return 64;
     }
 
@@ -133,10 +133,10 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         return this.k.p(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
 
-    public void k_() {}
+    public void l_() {}
 
     public void f() {}
-   
+
     @Override
     public OItemStack[] getContents() {
         return Arrays.copyOf(this.a, this.getContentsSize());
@@ -159,7 +159,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
 
     @Override
     public int getContentsSize() {
-        return this.i_();
+        return this.k_();
     }
 
     @Override

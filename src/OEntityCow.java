@@ -3,78 +3,83 @@ public class OEntityCow extends OEntityAnimal {
 
     public OEntityCow(OWorld oworld) {
         super(oworld);
-        this.az = "/mob/cow.png";
+        this.aF = "/mob/cow.png";
         this.a(0.9F, 1.3F);
-        this.as().a(true);
-        this.bg.a(0, new OEntityAISwimming(this));
-        this.bg.a(1, new OEntityAIPanic(this, 0.38F));
-        this.bg.a(2, new OEntityAIMate(this, 0.2F));
-        this.bg.a(3, new OEntityAITempt(this, 0.25F, OItem.T.bT, false));
-        this.bg.a(4, new OEntityAIFollowParent(this, 0.25F));
-        this.bg.a(5, new OEntityAIWander(this, 0.2F));
-        this.bg.a(6, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
-        this.bg.a(7, new OEntityAILookIdle(this));
+        this.ay().a(true);
+        this.bn.a(0, new OEntityAISwimming(this));
+        this.bn.a(1, new OEntityAIPanic(this, 0.38F));
+        this.bn.a(2, new OEntityAIMate(this, 0.2F));
+        this.bn.a(3, new OEntityAITempt(this, 0.25F, OItem.T.cf, false));
+        this.bn.a(4, new OEntityAIFollowParent(this, 0.25F));
+        this.bn.a(5, new OEntityAIWander(this, 0.2F));
+        this.bn.a(6, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
+        this.bn.a(7, new OEntityAILookIdle(this));
     }
 
-    public boolean aV() {
+    public boolean bb() {
         return true;
     }
 
-    public int aM() {
+    public int aS() {
         return 10;
     }
 
-    protected String aQ() {
-        return "mob.cow";
+    protected String aW() {
+        return "mob.cow.say";
     }
 
-    protected String aR() {
-        return "mob.cowhurt";
+    protected String aX() {
+        return "mob.cow.hurt";
     }
 
-    protected String aS() {
-        return "mob.cowhurt";
+    protected String aY() {
+        return "mob.cow.hurt";
     }
 
-    protected float aP() {
+    protected void a(int i, int j, int k, int l) {
+        this.p.a(this, "mob.cow.step", 0.15F, 1.0F);
+    }
+
+    protected float aV() {
         return 0.4F;
     }
 
-    protected int aT() {
-        return OItem.aF.bT;
+    protected int aZ() {
+        return OItem.aF.cf;
     }
 
     protected void a(boolean flag, int i) {
-        int j = this.Z.nextInt(3) + this.Z.nextInt(1 + i);
+        int j = this.aa.nextInt(3) + this.aa.nextInt(1 + i);
 
         int k;
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.aF.bT, 1);
+            this.b(OItem.aF.cf, 1);
         }
 
-        j = this.Z.nextInt(3) + 1 + this.Z.nextInt(1 + i);
+        j = this.aa.nextInt(3) + 1 + this.aa.nextInt(1 + i);
 
         for (k = 0; k < j; ++k) {
-            if (this.ad()) {
-                this.b(OItem.bj.bT, 1);
+            if (this.af()) {
+                this.b(OItem.bj.cf, 1);
             } else {
-                this.b(OItem.bi.bT, 1);
+                this.b(OItem.bi.cf, 1);
             }
         }
 
     }
 
     public boolean c(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.by.g();
+        OItemStack oitemstack = oentityplayer.bK.g();
 
-        if (oitemstack != null && oitemstack.c == OItem.aw.bT && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob(this))) {
+        if (oitemstack != null && oitemstack.c == OItem.aw.cf && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob(this))) {
+
             if (--oitemstack.a <= 0) {
-                oentityplayer.by.a(oentityplayer.by.c, new OItemStack(OItem.aG));
-            } else if (!oentityplayer.by.a(new OItemStack(OItem.aG))) {
-                oentityplayer.b(new OItemStack(OItem.aG.bT, 1, 0));
+                oentityplayer.bK.a(oentityplayer.bK.c, new OItemStack(OItem.aG));
+            } else if (!oentityplayer.bK.a(new OItemStack(OItem.aG))) {
+                oentityplayer.c(new OItemStack(OItem.aG.cf, 1, 0));
             }
-            
+
             return true;
         } else {
             return super.c(oentityplayer);

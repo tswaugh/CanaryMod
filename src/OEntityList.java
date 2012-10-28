@@ -103,18 +103,26 @@ public class OEntityList {
         return (String) c.get(clazz);
     }
 
+    public static String a(int i) {
+        Class oclass = (Class) d.get(Integer.valueOf(i));
+
+        return oclass != null ? (String) c.get(oclass) : null;
+    }
+
     static {
         a(OEntityItem.class, "Item", 1);
         a(OEntityXPOrb.class, "XPOrb", 2);
         a(OEntityPainting.class, "Painting", 9);
         a(OEntityArrow.class, "Arrow", 10);
         a(OEntitySnowball.class, "Snowball", 11);
-        a(OEntityFireball.class, "Fireball", 12);
+        a(OEntityLargeFireball.class, "Fireball", 12);
         a(OEntitySmallFireball.class, "SmallFireball", 13);
         a(OEntityEnderPearl.class, "ThrownEnderpearl", 14);
         a(OEntityEnderEye.class, "EyeOfEnderSignal", 15);
         a(OEntityPotion.class, "ThrownPotion", 16);
         a(OEntityExpBottle.class, "ThrownExpBottle", 17);
+        a(OEntityItemFrame.class, "ItemFrame", 18);
+        a(OEntityWitherSkull.class, "WitherSkull", 19);
         a(OEntityTNTPrimed.class, "PrimedTnt", 20);
         a(OEntityFallingSand.class, "FallingSand", 21);
         a(OEntityMinecart.class, "Minecart", 40);
@@ -135,6 +143,9 @@ public class OEntityList {
         a(OEntityBlaze.class, "Blaze", 61, 16167425, 16775294);
         a(OEntityMagmaCube.class, "LavaSlime", 62, 3407872, 16579584);
         a(OEntityDragon.class, "EnderDragon", 63);
+        a(OEntityWither.class, "WitherBoss", 64);
+        a(OEntityBat.class, "Bat", 65, 4996656, 986895);
+        a(OEntityWitch.class, "Witch", 66, 3407872, 5349438);
         a(OEntityPig.class, "Pig", 90, 15771042, 14377823);
         a(OEntitySheep.class, "Sheep", 91, 15198183, 16758197);
         a(OEntityCow.class, "Cow", 92, 4470310, 10592673);

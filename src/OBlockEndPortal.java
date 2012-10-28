@@ -36,10 +36,10 @@ public class OBlockEndPortal extends OBlockContainer {
     }
 
     public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
-        if (oentity.o == null && oentity.n == null && oentity instanceof OEntityPlayer && !oworld.J) {
+        if (oentity.o == null && oentity.n == null && !oworld.J) {
             // CanaryMod: Check if end is enabled
             if (etc.getInstance().isEndEnabled()) {
-                ((OEntityPlayer) oentity).c(1);
+                oentity.b(1);
             }
         }
     }

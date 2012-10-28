@@ -12,12 +12,12 @@ public class ODedicatedPlayerList extends OServerConfigurationManager {
 
     public ODedicatedPlayerList(ODedicatedServer odedicatedserver) {
         super(odedicatedserver);
-        this.e = odedicatedserver.f("ops.txt");
-        // this.f = odedicatedserver.f("white-list.txt"); // CanaryMod: disable Notchian whitelist
+        this.e = odedicatedserver.e("ops.txt");
+        // this.f = odedicatedserver.e("white-list.txt"); // CanaryMod: disable Notchian whitelist
         this.d = odedicatedserver.a("view-distance", 10);
         this.c = odedicatedserver.a("max-players", 20);
         this.a(odedicatedserver.a("white-list", false));
-        if (!odedicatedserver.H()) {
+        if (!odedicatedserver.I()) {
             this.e().a(true);
             this.f().a(true);
         }

@@ -1174,15 +1174,6 @@ public class etc {
         waterAnimals = animals;
     }
 
-    /**
-     * Returns a list of mobs that are allowed to spawn naturally
-     *
-     * @return a list of mobs
-     */
-    public String[] getMonsters() {
-        return monsters;
-    }
-
     public String[] getAmbientAnimals(){
         return ambientAnimals;
     }
@@ -1198,10 +1189,14 @@ public class etc {
     }
 
     /**
-     * Returns a list of ambient animals that are allowed to spawn naturally
+     * Returns a list of mobs that are allowed to spawn naturally
      *
-     * @return a list of ambient animals
+     * @return a list of mobs
      */
+    public String[] getMonsters() {
+        return monsters;
+    }
+
     public List getMonstersClass(OBiomeGenBase biomeGen) {
         List<OSpawnListEntry> toRet = biomeGen.J;
         List<String> allowed = Arrays.asList(getMonsters());

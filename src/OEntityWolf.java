@@ -52,28 +52,24 @@ public class OEntityWolf extends OEntityTameable {
         super.a();
         this.ag.a(18, new Integer(this.aT()));
         this.ag.a(19, new Byte((byte) 0));
-        this.ag.a(20, new Byte((byte)OBlockCloth.e_(1)));
-    }
-    
-    protected void a(int i, int j, int k, int l) {
-      this.p.a(this, "mob.wolf.step", 0.15F, 1.0F);
+        this.ag.a(20, new Byte((byte) OBlockCloth.e_(1)));
     }
 
-    protected boolean e_() { // WWOL: Gone ???
-        return false;
+    protected void a(int i, int j, int k, int l) {
+        this.p.a(this, "mob.wolf.step", 0.15F, 1.0F);
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
         super.b(onbttagcompound);
         onbttagcompound.a("Angry", this.bG());
-        onbttagcompound.a("CollarColor", (byte)bH());
+        onbttagcompound.a("CollarColor", (byte) this.bH());
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
         super.a(onbttagcompound);
         this.i(onbttagcompound.n("Angry"));
         if (onbttagcompound.b("CollarColor")) {
-        	r(onbttagcompound.c("CollarColor"));
+            this.r(onbttagcompound.c("CollarColor"));
         }
     }
 
@@ -186,40 +182,41 @@ public class OEntityWolf extends OEntityTameable {
         OItemStack oitemstack = oentityplayer.bK.g();
 
         if (this.m()) {
-        	if (oitemstack != null) {
-        		if (OItem.e[oitemstack.c] instanceof OItemFood) {
-        			OItemFood oitemfood = (OItemFood) OItem.e[oitemstack.c];
+            if (oitemstack != null) {
+                if (OItem.e[oitemstack.c] instanceof OItemFood) {
+                OItemFood oitemfood = (OItemFood) OItem.e[oitemstack.c];
 
-        			if (oitemfood.i() && this.ag.c(18) < 20) {
-        				if (!oentityplayer.cf.d) {
-        					--oitemstack.a;
-        				}
+                    if (oitemfood.i() && this.ag.c(18) < 20) {
+                        if (!oentityplayer.cf.d) {
+                        --oitemstack.a;
+                    }
 
-        				this.i(oitemfood.f());
-        				if (oitemstack.a <= 0) {
-        					oentityplayer.bK.a(oentityplayer.bK.c, (OItemStack) null);
-        				}
+                        this.i(oitemfood.g());
+                    if (oitemstack.a <= 0) {
+                            oentityplayer.bK.a(oentityplayer.bK.c, (OItemStack) null);
+                        }
 
-        				return true;
-        			}
-        		} else if (localOItemStack.c == OItem.aW.cf) {
-        			int k = OBlockCloth.e_(localOItemStack.j());
-        			if (k != bH()) {
-        				r(k);
+                        return true;
+                    }
+                } else if (oitemstack.c == OItem.aW.cf) {
+                    int i = OBlockCloth.e_(oitemstack.j());
 
-        				if (!paramOEntityPlayer.cf.d) if (localOItemStack.a-- <= 0) {
-        					paramOEntityPlayer.bK.a(paramOEntityPlayer.bK.c, null);
-        				}
+                    if (i != this.bH()) {
+                        this.r(i);
+                        if (!oentityplayer.cf.d && oitemstack.a-- <= 0) {
+                            oentityplayer.bK.a(oentityplayer.bK.c, (OItemStack) null);
+                    }
 
-        				return true;
-        			}
-        		}
-        	}
-        	if (oentityplayer.bT.equalsIgnoreCase(this.o()) && !this.p.J && !this.c(oitemstack)) {
-        		this.d.a(!this.n());
-        		this.bG = false;
-        		this.a((OPathEntity) null);
-        	}
+                    return true;
+                }
+            }
+            }
+
+            if (oentityplayer.bT.equalsIgnoreCase(this.o()) && !this.p.J && !this.c(oitemstack)) {
+                this.d.a(!this.n());
+                this.bG = false;
+                this.a((OPathEntity) null);
+            }
         } else if (oitemstack != null && oitemstack.c == OItem.aX.cf && !this.bG()) {
             if (!oentityplayer.cf.d) {
                 --oitemstack.a;
@@ -235,7 +232,7 @@ public class OEntityWolf extends OEntityTameable {
                 int tameResult = this.aa.nextInt(3);
                 // Call hook
                 PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.TAME, oentityplayer.entity.getPlayer(), new Mob(this), tameResult == 0);
-                
+
                 // if taming succeeded normally (tameResult == 0) or plugin hook result is allow (force taming)
                 if (tameResult == 0 && res == PluginLoader.HookResult.DEFAULT_ACTION || res == PluginLoader.HookResult.ALLOW_ACTION) {
                     this.g(true);
@@ -281,13 +278,13 @@ public class OEntityWolf extends OEntityTameable {
     }
 
     public int bH() {
-      return this.ag.a(20) & 0xF;
+        return this.ag.a(20) & 15;
     }
 
     public void r(int i) {
-      this.ag.b(20, Byte.valueOf((byte) (i & 0xF)));
+        this.ag.b(20, Byte.valueOf((byte) (i & 15)));
     }
-    
+
     public OEntityAnimal a(OEntityAnimal oentityanimal) {
         OEntityWolf oentitywolf = new OEntityWolf(this.p);
 
@@ -320,7 +317,7 @@ public class OEntityWolf extends OEntityTameable {
         }
     }
 
-    public boolean bv() {
+    public boolean bI() {
         return this.ag.a(19) == 1;
     }
 }

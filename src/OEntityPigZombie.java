@@ -6,31 +6,29 @@ public class OEntityPigZombie extends OEntityZombie {
 
     private int d = 0;
     private int e = 0;
-    private static final OItemStack g = new OItemStack(OItem.G, 1);
 
     public OEntityPigZombie(OWorld oworld) {
         super(oworld);
-        this.az = "/mob/pigzombie.png";
-        this.bw = 0.5F;
-        this.f = 5;
-        this.ae = true;
+        this.aF = "/mob/pigzombie.png";
+        this.bI = 0.5F;
+        this.af = true;
     }
 
-    protected boolean aV() {
+    protected boolean bb() {
         return false;
     }
 
-    public void h_() {
-        this.bw = this.a != null ? 0.95F : 0.5F;
+    public void j_() {
+        this.bI = this.a_ != null ? 0.95F : 0.5F;
         if (this.e > 0 && --this.e == 0) {
-            this.p.a(this, "mob.zombiepig.zpigangry", this.aP() * 2.0F, ((this.Z.nextFloat() - this.Z.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+            this.p.a(this, "mob.zombiepig.zpigangry", this.aV() * 2.0F, ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
-        super.h_();
+        super.j_();
     }
 
-    public boolean bi() {
-        return this.p.u > 0 && this.p.b(this.D) && this.p.a((OEntity) this, this.D).isEmpty() && !this.p.d(this.D);
+    public boolean bp() {
+        return this.p.t > 0 && this.p.b(this.D) && this.p.a((OEntity) this, this.D).isEmpty() && !this.p.d(this.D);
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
@@ -43,8 +41,8 @@ public class OEntityPigZombie extends OEntityZombie {
         this.d = onbttagcompound.d("Anger");
     }
 
-    protected OEntity k() {
-        return this.d == 0 ? null : super.k();
+    protected OEntity j() {
+        return this.d == 0 ? null : super.j();
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
@@ -62,74 +60,81 @@ public class OEntityPigZombie extends OEntityZombie {
                     if (oentity1 instanceof OEntityPigZombie) {
                         OEntityPigZombie oentitypigzombie = (OEntityPigZombie) oentity1;
 
-                    oentitypigzombie.c(oentity);
+                    oentitypigzombie.o(oentity);
                     }
                 }
-
-                this.c(oentity);
+                this.o(oentity);
             }
+
         }
 
         return super.a(odamagesource, i);
     }
 
-    private void c(OEntity oentity) {
-        this.a = oentity;
-        this.d = 400 + this.Z.nextInt(400);
-        this.e = this.Z.nextInt(40);
+    private void o(OEntity oentity) {
+        this.a_ = oentity;
+        this.d = 400 + this.aa.nextInt(400);
+        this.e = this.aa.nextInt(40);
     }
 
-    protected String aQ() {
+    protected String aW() {
         return "mob.zombiepig.zpig";
     }
 
-    protected String aR() {
+    protected String aX() {
         return "mob.zombiepig.zpighurt";
     }
 
-    protected String aS() {
+    protected String aY() {
         return "mob.zombiepig.zpigdeath";
     }
 
     protected void a(boolean flag, int i) {
-        int j = this.Z.nextInt(2 + i);
+        int j = this.aa.nextInt(2 + i);
 
         int k;
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.bm.bT, 1);
+            this.b(OItem.bm.cf, 1);
         }
 
-        j = this.Z.nextInt(2 + i);
+        j = this.aa.nextInt(2 + i);
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.bq.bT, 1);
+            this.b(OItem.bq.cf, 1);
         }
+    }
 
+    public boolean c(OEntityPlayer oentityplayer) {
+        return false;
     }
 
     protected void l(int i) {
-        if (i > 0) {
-            OItemStack oitemstack = new OItemStack(OItem.G);
-
-            OEnchantmentHelper.a(this.Z, oitemstack, 5);
-            this.a(oitemstack, 0.0F);
-        } else {
-            int j = this.Z.nextInt(3);
-
-            if (j == 0) {
-                this.b(OItem.p.bT, 1);
-            } else if (j == 1) {
-                this.b(OItem.G.bT, 1);
-            } else if (j == 2) {
-                this.b(OItem.al.bT, 1);
-            }
-        }
-
+        this.b(OItem.p.cf, 1);
     }
 
-    protected int aT() {
-        return OItem.bm.bT;
+    protected int aZ() {
+        return OItem.bm.cf;
+    }
+
+    protected void bB() {
+        this.b(0, new OItemStack(OItem.G));
+            }
+
+    public void bD() {
+        super.bD();
+        this.g(false);
+        }
+
+    public int c(OEntity oentity) {
+        OItemStack oitemstack = this.bA();
+        int i = 5;
+
+        if (oitemstack != null) {
+            i += oitemstack.a((OEntity) this);
+        }
+        
+        return i;
     }
 
 }

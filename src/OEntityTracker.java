@@ -13,13 +13,13 @@ public class OEntityTracker {
     private Set b = new HashSet();
     private OIntHashMap c = new OIntHashMap();
     private int d;
-    
+
     private EntityTracker entityTracker; // CanaryMod: reference to our EntityTracker
     private static final DelayQueue<DelayedTask> delayQueue = new DelayQueue<DelayedTask>(); // CanaryMod: New fields to store the runnables in.
 
     public OEntityTracker(OWorldServer oworldserver) {
         this.a = oworldserver;
-        this.d = oworldserver.n().ab().a();
+        this.d = oworldserver.o().ad().a();
         this.entityTracker = new EntityTracker(this);
     }
 
@@ -72,6 +72,10 @@ public class OEntityTracker {
             this.a(oentity, 80, 3, true);
         } else if (oentity instanceof OEntitySquid) {
             this.a(oentity, 64, 3, true);
+        } else if (oentity instanceof OEntityWither) {
+            this.a(oentity, 80, 3, false);
+        } else if (oentity instanceof OEntityBat) {
+            this.a(oentity, 80, 3, false);
         } else if (oentity instanceof OIAnimals) {
             this.a(oentity, 80, 3, true);
         } else if (oentity instanceof OEntityDragon) {
@@ -86,6 +90,8 @@ public class OEntityTracker {
             this.a(oentity, 160, 20, true);
         } else if (oentity instanceof OEntityEnderCrystal) {
             this.a(oentity, 256, Integer.MAX_VALUE, false);
+        } else if (oentity instanceof OEntityItemFrame) {
+            this.a(oentity, 160, Integer.MAX_VALUE, false);
         }
 
     }
@@ -106,7 +112,7 @@ public class OEntityTracker {
 
             this.b.add(oentitytrackerentry);
             this.c.a(oentity.k, oentitytrackerentry);
-            oentitytrackerentry.b(this.a.i);
+            oentitytrackerentry.b(this.a.h);
         }
     }
 
@@ -139,7 +145,7 @@ public class OEntityTracker {
             while (iterator.hasNext()) {
                 OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.next();
 
-                oentitytrackerentry.a(this.a.i);
+            oentitytrackerentry.a(this.a.h);
                 if (oentitytrackerentry.n && oentitytrackerentry.a instanceof OEntityPlayerMP) {
                     arraylist.add((OEntityPlayerMP) oentitytrackerentry.a);
                 }
@@ -162,7 +168,7 @@ public class OEntityTracker {
             }
         } catch (ConcurrentModificationException concurrentmodificationexception) {
             // people seem to get this concurrentmodificationexceptionception often, lets just catch so it doesn't crash the server.
-            OMinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", concurrentmodificationexception);   
+            OMinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", concurrentmodificationexception);
         }
         // CanaryMod: Execute runnables contained in eventQueue.
         for (DelayedTask task = delayQueue.poll(); task != null; task = delayQueue.poll()) {
@@ -170,7 +176,7 @@ public class OEntityTracker {
             task.run();
         }
     }
-    
+
     // CanaryMod: Allow adding of tasks to the queue
 
     public static void add(Runnable runnable, long i) {

@@ -6,7 +6,7 @@ public class OItemBoat extends OItem {
 
     public OItemBoat(int i) {
         super(i);
-        this.bU = 1;
+        this.cg = 1;
         this.a(OCreativeTabs.e);
     }
 
@@ -17,7 +17,7 @@ public class OItemBoat extends OItem {
         double d0 = oentityplayer.q + (oentityplayer.t - oentityplayer.q) * (double) f;
         double d1 = oentityplayer.r + (oentityplayer.u - oentityplayer.r) * (double) f + 1.62D - (double) oentityplayer.M;
         double d2 = oentityplayer.s + (oentityplayer.v - oentityplayer.s) * (double) f;
-        OVec3 ovec3 = OVec3.a().a(d0, d1, d2);
+        OVec3 ovec3 = oworld.R().a(d0, d1, d2);
         float f3 = OMathHelper.b(-f2 * 0.017453292F - 3.1415927F);
         float f4 = OMathHelper.a(-f2 * 0.017453292F - 3.1415927F);
         float f5 = -OMathHelper.b(-f1 * 0.017453292F);
@@ -34,7 +34,7 @@ public class OItemBoat extends OItem {
             OVec3 ovec32 = oentityplayer.i(f);
             boolean flag = false;
             float f9 = 1.0F;
-            List list = oworld.b((OEntity) oentityplayer, oentityplayer.D.a(ovec32.a * d3, ovec32.b * d3, ovec32.c * d3).b((double) f9, (double) f9, (double) f9));
+            List list = oworld.b((OEntity) oentityplayer, oentityplayer.D.a(ovec32.c * d3, ovec32.d * d3, ovec32.e * d3).b((double) f9, (double) f9, (double) f9));
             Iterator iterator = list.iterator();
 
             while (iterator.hasNext()) {
@@ -58,11 +58,11 @@ public class OItemBoat extends OItem {
                     int j = omovingobjectposition.c;
                     int k = omovingobjectposition.d;
 
-                    if (!oworld.K) {
-                        if (oworld.a(i, j, k) == OBlock.aS.ca) {
+                    if (!oworld.J) {
+                        if (oworld.a(i, j, k) == OBlock.aV.cm) {
                             --j;
                         }
-                        
+
                         // CanaryMod: placing of a boat
                         Block blockClicked = this.getBlockInfo(oworld, i, j, k, omovingobjectposition.e);
                         Block blockPlaced = new Block(oworld.world, 0, i, j, k);
@@ -71,11 +71,10 @@ public class OItemBoat extends OItem {
                         if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
                             return oitemstack;
                         }
-
                         oworld.d((OEntity) (new OEntityBoat(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 1.0F), (double) ((float) k + 0.5F))));
                     }
 
-                    if (!oentityplayer.bZ.d) {
+                    if (!oentityplayer.cf.d) {
                         --oitemstack.a;
                     }
                 }
@@ -85,3 +84,4 @@ public class OItemBoat extends OItem {
         }
     }
 }
+

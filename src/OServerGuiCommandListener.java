@@ -20,7 +20,7 @@ class OServerGuiCommandListener implements ActionListener {
         // CanaryMod: parse our commands first.
         if (s.length() > 0 && etc.getMCServer() != null) {
             if (!etc.getInstance().parseConsoleCommand(s, etc.getMCServer())) {
-                etc.getMCServer().a(s, (OICommandSender) OMinecraftServer.C());
+                etc.getMCServer().a(s, (OICommandSender) OMinecraftServer.D());
             }
         }
 

@@ -32,8 +32,8 @@ public class OChunkProviderServer implements OIChunkProvider {
     }
 
     public void b(int i, int j) {
-        if (this.h.w.e()) {
-            OChunkCoordinates ochunkcoordinates = this.h.E();
+        if (this.h.v.e()) {
+            OChunkCoordinates ochunkcoordinates = this.h.G();
             int k = i * 16 + 8 - ochunkcoordinates.a;
             int l = j * 16 + 8 - ochunkcoordinates.c;
             short short1 = 128;
@@ -63,14 +63,14 @@ public class OChunkProviderServer implements OIChunkProvider {
 
         this.b.remove(Long.valueOf(k));
         OChunk ochunk = (OChunk) this.f.a(k);
-
+        
         if (ochunk == null) {
             // CanaryMod: load preload plugins once!
             if (!loadedpreload) {
                 etc.getLoader().loadPreloadPlugins();
                 loadedpreload = true;
             }
-            ochunk = this.e(i, j);
+            ochunk = this.f(i, j);
             if (ochunk == null) {
                 // Canary onChunkCreate hook
                 byte[] blocks = (byte[]) etc.getLoader().callHook(PluginLoader.Hook.CHUNK_CREATE, i, j, h.world);
@@ -111,10 +111,10 @@ public class OChunkProviderServer implements OIChunkProvider {
     public OChunk d(int i, int j) {
         OChunk ochunk = (OChunk) this.f.a(OChunkCoordIntPair.a(i, j));
 
-        return ochunk == null ? (!this.h.B && !this.a ? this.c : this.c(i, j)) : ochunk;
+        return ochunk == null ? (!this.h.A && !this.a ? this.c : this.c(i, j)) : ochunk;
     }
 
-    private OChunk e(int i, int j) {
+    private OChunk f(int i, int j) {
         if (this.e == null) {
             return null;
         } else {
@@ -122,7 +122,10 @@ public class OChunkProviderServer implements OIChunkProvider {
                 OChunk ochunk = this.e.a(this.h, i, j);
 
                 if (ochunk != null) {
-                    ochunk.n = this.h.D();
+                    ochunk.n = this.h.E();
+                    if (this.d != null) {
+                        this.d.e(i, j);
+                    }
                 }
 
                 return ochunk;
@@ -146,7 +149,7 @@ public class OChunkProviderServer implements OIChunkProvider {
 
     private void b(OChunk ochunk) {
         if (this.e != null) {
-            ochunk.n = this.h.D();
+            ochunk.n = this.h.D(); //gregthegeek: should this line and the one below it be in a try-catch?
             this.e.a(this.h, ochunk);
         }
     }
@@ -197,7 +200,7 @@ public class OChunkProviderServer implements OIChunkProvider {
     }
 
     public boolean b() {
-        if (!this.h.d) {
+        if (!this.h.c) {
             for (int i = 0; i < 100; ++i) {
                 if (!this.b.isEmpty()) {
                     Long olong = (Long) this.b.iterator().next();
@@ -260,7 +263,7 @@ public class OChunkProviderServer implements OIChunkProvider {
     }
 
     public boolean c() {
-        return !this.h.d;
+        return !this.h.c;
     }
 
     public String d() {
@@ -278,4 +281,6 @@ public class OChunkProviderServer implements OIChunkProvider {
     public int e() {
         return this.f.a();
     }
+
+    public void e(int i, int j) {}
 }

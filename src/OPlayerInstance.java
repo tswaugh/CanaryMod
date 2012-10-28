@@ -104,7 +104,7 @@ class OPlayerInstance {
                     for (k = 0; k < 16; ++k) {
                         if ((this.f & 1 << k) != 0) {
                             l = k << 4;
-                            List list = OPlayerManager.a(this.a).a(i, l, j, i + 16, l + 16, j + 16);
+                            List list = OPlayerManager.a(this.a).b(i, l, j, i + 16, l + 16, j + 16);
                             Iterator iterator = list.iterator();
 
                             while (iterator.hasNext()) {
@@ -135,7 +135,7 @@ class OPlayerInstance {
 
     private void a(OTileEntity otileentity) {
         if (otileentity != null) {
-            OPacket opacket = otileentity.e();
+            OPacket opacket = otileentity.l();
 
             if (opacket != null) {
                 this.a(opacket);

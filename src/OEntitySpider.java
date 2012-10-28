@@ -3,25 +3,25 @@ public class OEntitySpider extends OEntityMob {
 
     public OEntitySpider(OWorld oworld) {
         super(oworld);
-        this.az = "/mob/spider.png";
+        this.aF = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bw = 0.8F;
+        this.bI = 0.8F;
     }
 
     protected void a() {
         super.a();
-        this.af.a(16, new Byte((byte) 0));
+        this.ag.a(16, new Byte((byte) 0));
     }
 
-    public void h_() {
-        super.h_();
-        if (!this.p.K) {
-            this.e(this.F);
+    public void j_() {
+        super.j_();
+        if (!this.p.J) {
+            this.f(this.F);
         }
 
     }
 
-    public int aM() {
+    public int aS() {
         return 16;
     }
 
@@ -29,11 +29,7 @@ public class OEntitySpider extends OEntityMob {
         return (double) this.O * 0.75D - 0.5D;
     }
 
-    protected boolean e_() {
-        return false;
-    }
-
-    protected OEntity k() {
+    protected OEntity j() {
         float f = this.c(1.0F);
 
         double d0 = 16.0D;
@@ -46,25 +42,29 @@ public class OEntitySpider extends OEntityMob {
         }
     }
 
-    protected String aQ() {
-        return "mob.spider";
+    protected String aW() {
+        return "mob.spider.say";
     }
 
-    protected String aR() {
-        return "mob.spider";
+    protected String aX() {
+        return "mob.spider.say";
     }
 
-    protected String aS() {
-        return "mob.spiderdeath";
+    protected String aY() {
+        return "mob.spider.death";
+    }
+
+    protected void a(int i, int j, int k, int l) {
+        this.p.a(this, "mob.spider.step", 0.15F, 1.0F);
     }
 
     protected void a(OEntity oentity, float f) {
         float f1 = this.c(1.0F);
 
-        if (f1 > 0.5F && this.Z.nextInt(100) == 0) {
-            this.a = null;
+        if (f1 > 0.5F && this.aa.nextInt(100) == 0) {
+            this.a_ = null;
         } else {
-            if (f > 2.0F && f < 6.0F && this.Z.nextInt(10) == 0) {
+            if (f > 2.0F && f < 6.0F && this.aa.nextInt(10) == 0) {
                 if (this.E) {
                     double d0 = oentity.t - this.t;
                     double d1 = oentity.v - this.v;
@@ -81,25 +81,25 @@ public class OEntitySpider extends OEntityMob {
         }
     }
 
-    protected int aT() {
-        return OItem.K.bT;
+    protected int aZ() {
+        return OItem.K.cf;
     }
 
     protected void a(boolean flag, int i) {
         super.a(flag, i);
-        if (flag && (this.Z.nextInt(3) == 0 || this.Z.nextInt(1 + i) > 0)) {
-            this.b(OItem.bu.bT, 1);
+        if (flag && (this.aa.nextInt(3) == 0 || this.aa.nextInt(1 + i) > 0)) {
+            this.b(OItem.bu.cf, 1);
         }
 
     }
 
-    public boolean f_() {
-        return this.p();
+    public boolean g_() {
+        return this.o();
     }
 
-    public void aj() {}
+    public void am() {}
 
-    public OEnumCreatureAttribute bt() {
+    public OEnumCreatureAttribute bz() {
         return OEnumCreatureAttribute.c;
     }
 
@@ -107,12 +107,12 @@ public class OEntitySpider extends OEntityMob {
         return opotioneffect.a() == OPotion.u.H ? false : super.e(opotioneffect);
     }
 
-    public boolean p() {
-        return (this.af.a(16) & 1) != 0;
+    public boolean o() {
+        return (this.ag.a(16) & 1) != 0;
     }
 
-    public void e(boolean flag) {
-        byte b0 = this.af.a(16);
+    public void f(boolean flag) {
+        byte b0 = this.ag.a(16);
 
         if (flag) {
             b0 = (byte) (b0 | 1);
@@ -120,6 +120,17 @@ public class OEntitySpider extends OEntityMob {
             b0 &= -2;
         }
 
-        this.af.b(16, Byte.valueOf(b0));
+        this.ag.b(16, Byte.valueOf(b0));
+    }
+
+    public void bD() {
+        if (this.p.u.nextInt(100) == 0) {
+            OEntitySkeleton oentityskeleton = new OEntitySkeleton(this.p);
+
+            oentityskeleton.b(this.t, this.u, this.v, this.z, 0.0F);
+            oentityskeleton.bD();
+            this.p.d((OEntity) oentityskeleton);
+            oentityskeleton.a((OEntity) this);
+        }
     }
 }

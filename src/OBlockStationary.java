@@ -6,7 +6,7 @@ public class OBlockStationary extends OBlockFluid {
     protected OBlockStationary(int i, OMaterial omaterial) {
         super(i, omaterial);
         this.b(false);
-        if (omaterial == OMaterial.h) {
+        if (omaterial == OMaterial.i) {
             this.b(true);
         }
 
@@ -29,7 +29,7 @@ public class OBlockStationary extends OBlockFluid {
 
         oworld.s = true;
         oworld.c(i, j, k, this.cm - 1, l);
-        oworld.d(i, j, k, i, j, k);
+        oworld.e(i, j, k, i, j, k);
         oworld.a(i, j, k, this.cm - 1, this.r_());
         oworld.s = false;
     }

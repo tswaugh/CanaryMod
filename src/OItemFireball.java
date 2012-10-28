@@ -7,10 +7,11 @@ public class OItemFireball extends OItem {
     }
 
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
+
         // CanaryMod: Store block data clicked
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
 
-        if (oworld.K) {
+        if (oworld.J) {
             return true;
         } else {
             if (l == 0) {
@@ -37,7 +38,7 @@ public class OItemFireball extends OItem {
                 ++i;
             }
 
-            if (!oentityplayer.e(i, j, k)) {
+            if (!oentityplayer.a(i, j, k, l, oitemstack)) {
                 return false;
             } else {
                 int i1 = oworld.a(i, j, k);
@@ -57,10 +58,10 @@ public class OItemFireball extends OItem {
                     }
 
                     oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, d.nextFloat() * 0.4F + 0.8F);
-                    oworld.e(i, j, k, OBlock.ar.ca);
+                    oworld.e(i, j, k, OBlock.au.cm);
                 }
 
-                if (!oentityplayer.bZ.d) {
+                if (!oentityplayer.cf.d) {
                     --oitemstack.a;
                 }
 

@@ -11,7 +11,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
     private static Map b = new HashMap();
 
     public int a(int i, int j) {
-        return i == 1 ? OBlock.av.a(i, j) : super.a(i, j);
+        return i == 1 ? OBlock.ay.a(i, j) : super.a(i, j);
     }
 
     private boolean a(OWorld oworld, int i, int j, int k, boolean flag) {
@@ -20,7 +20,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
         }
 
         if (flag) {
-            ((List) b.get(oworld)).add(new ORedstoneUpdateInfo(i, j, k, oworld.D()));
+            ((List) b.get(oworld)).add(new ORedstoneUpdateInfo(i, j, k, oworld.E()));
         }
 
         int l = 0;
@@ -47,7 +47,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
         this.a((OCreativeTabs) null);
     }
 
-    public int p_() {
+    public int r_() {
         return 2;
     }
 
@@ -77,7 +77,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
         }
     }
 
-    public boolean a(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+    public boolean b(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
         if (!this.a) {
             return false;
         } else {
@@ -97,7 +97,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
         boolean flag = this.l(oworld, i, j, k);
         List list = (List) b.get(oworld);
 
-        while (list != null && !list.isEmpty() && oworld.D() - ((ORedstoneUpdateInfo) list.get(0)).d > 60L) {
+        while (list != null && !list.isEmpty() && oworld.E() - ((ORedstoneUpdateInfo) list.get(0)).d > 60L) {
             list.remove(0);
         }
 
@@ -106,16 +106,17 @@ public class OBlockRedstoneTorch extends OBlockTorch {
                 oworld.d(i, j, k, OBlock.aS.cm, oworld.g(i, j, k));
                 // CanaryMod: Allow redstone torches to provide power
                 int current = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), 1, 0);
-				
+
                 if (current == 0) {
+                oworld.d(i, j, k, OBlock.aS.cm, oworld.g(i, j, k));
                     if (this.a(oworld, i, j, k, true)) {
-                        oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (oworld.u.nextFloat() - oworld.u.nextFloat()) * 0.8F);
-	
+                    oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (oworld.u.nextFloat() - oworld.u.nextFloat()) * 0.8F);
+
                         for (int l = 0; l < 5; ++l) {
                             double d0 = (double) i + random.nextDouble() * 0.6D + 0.2D;
                             double d1 = (double) j + random.nextDouble() * 0.6D + 0.2D;
                             double d2 = (double) k + random.nextDouble() * 0.6D + 0.2D;
-		
+
                             oworld.a("smoke", d0, d1, d2, 0.0D, 0.0D, 0.0D);
                         }
                     }
@@ -128,7 +129,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
         super.a(oworld, i, j, k, l);
-        oworld.a(i, j, k, this.cm, this.p_());
+        oworld.a(i, j, k, this.cm, this.r_());
     }
 
     public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
@@ -141,16 +142,5 @@ public class OBlockRedstoneTorch extends OBlockTorch {
 
     public boolean i() {
         return true;
-    }
-
-    public void a(OWorld oworld, long i, long j) {
-        List list = (List) b.get(oworld);
-        ORedstoneUpdateInfo oredstoneupdateinfo;
-
-        if (list != null) {
-            for (Iterator iterator = list.iterator(); iterator.hasNext(); oredstoneupdateinfo.d += i) {
-                oredstoneupdateinfo = (ORedstoneUpdateInfo) iterator.next();
-            }
-        }
     }
 }

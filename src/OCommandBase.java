@@ -8,16 +8,20 @@ public abstract class OCommandBase implements OICommand {
 
     public OCommandBase() {}
 
-    public String a(OICommandSender oicommandsender) {
-        return "/" + this.b();
+    public int a() {
+        return 4;
     }
 
-    public List a() {
+    public String a(OICommandSender oicommandsender) {
+        return "/" + this.c();
+    }
+
+    public List b() {
         return null;
     }
 
     public boolean b(OICommandSender oicommandsender) {
-        return oicommandsender.b(this.b());
+        return oicommandsender.a(this.a(), this.c());
     }
 
     public List a(OICommandSender oicommandsender, String[] astring) {
@@ -48,15 +52,42 @@ public abstract class OCommandBase implements OICommand {
         }
     }
 
-    public static OEntityPlayer c(OICommandSender oicommandsender) {
-        if (oicommandsender instanceof OEntityPlayer) {
-            return (OEntityPlayer) oicommandsender;
+    public static double b(OICommandSender oicommandsender, String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (NumberFormatException numberformatexception) {
+            throw new ONumberInvalidException("commands.generic.double.invalid", new Object[] { s});
+        }
+    }
+
+    public static OEntityPlayerMP c(OICommandSender oicommandsender) {
+        if (oicommandsender instanceof OEntityPlayerMP) {
+            return (OEntityPlayerMP) oicommandsender;
         } else {
             throw new OPlayerNotFoundException("You must specify which player you wish to perform this action on.", new Object[0]);
         }
     }
 
-    public static String a(String[] astring, int i) {
+    public static OEntityPlayerMP c(OICommandSender oicommandsender, String s) {
+        OEntityPlayerMP oentityplayermp = OPlayerSelector.a(oicommandsender, s);
+
+        if (oentityplayermp != null) {
+            return oentityplayermp;
+        } else {
+            oentityplayermp = OMinecraftServer.D().ad().f(s);
+            if (oentityplayermp == null) {
+                throw new OPlayerNotFoundException();
+            } else {
+                return oentityplayermp;
+            }
+        }
+    }
+
+    public static String a(OICommandSender oicommandsender, String[] astring, int i) {
+        return a(oicommandsender, astring, i, false);
+    }
+
+    public static String a(OICommandSender oicommandsender, String[] astring, int i, boolean flag) {
         StringBuilder stringbuilder = new StringBuilder();
 
         for (int j = i; j < astring.length; ++j) {
@@ -64,7 +95,19 @@ public abstract class OCommandBase implements OICommand {
                 stringbuilder.append(" ");
             }
 
-            stringbuilder.append(astring[j]);
+            String s = astring[j];
+
+            if (flag) {
+                String s1 = OPlayerSelector.b(oicommandsender, s);
+
+                if (s1 != null) {
+                    s = s1;
+                } else if (OPlayerSelector.b(s)) {
+                    throw new OPlayerNotFoundException();
+                }
+            }
+
+            stringbuilder.append(s);
         }
 
         return stringbuilder.toString();
@@ -127,6 +170,10 @@ public abstract class OCommandBase implements OICommand {
         return arraylist;
     }
 
+    public boolean a(int i) {
+        return false;
+    }
+
     public static void a(OICommandSender oicommandsender, String s, Object... aobject) {
         a(oicommandsender, 0, s, aobject);
     }
@@ -142,7 +189,7 @@ public abstract class OCommandBase implements OICommand {
     }
 
     public int a(OICommand oicommand) {
-        return this.b().compareTo(oicommand.b());
+        return this.c().compareTo(oicommand.c());
     }
 
     public int compareTo(Object object) {
