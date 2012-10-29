@@ -63,7 +63,7 @@ public class Server {
      * @throws OCommandNotFoundException if the command was not found.
      */
     public void useConsoleCommand(String command) {
-        server.D().a(server, command);
+        server.a(command, server);
     }
 
     /**
@@ -74,7 +74,7 @@ public class Server {
      * @throws OCommandNotFoundException if the command was not found.
      */
     public void useConsoleCommand(String command, Player player) {
-        server.D().a(player.getEntity(), command);
+        server.a(command, player.getEntity());
     }
 
     /**
