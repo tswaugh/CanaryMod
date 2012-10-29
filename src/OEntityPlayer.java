@@ -8,7 +8,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
 
     public OContainer bL;
     public OContainer bM;
-    protected OFoodStats bN = new OFoodStats();
+    protected OFoodStats bN = new OFoodStats(this); // CanaryMod: pass this instance
     protected int bO = 0;
     public byte bP = 0;
     public int bQ = 0;
