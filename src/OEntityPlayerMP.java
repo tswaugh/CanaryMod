@@ -230,12 +230,12 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             this.a.b(new OPacket70GameEvent(4, 0));
         } else {
             if (this.ap == 1 && i == 0) {
-            this.a((OStatBase) OAchievementList.B);
-            OChunkCoordinates ochunkcoordinates = this.b.getWorld(this.p.name, i).l();
+                this.a((OStatBase) OAchievementList.B);
+                OChunkCoordinates ochunkcoordinates = this.b.getWorld(this.p.name, i).l();
 
-            if (ochunkcoordinates != null) {
-                this.a.a((double) ochunkcoordinates.a, (double) ochunkcoordinates.b, (double) ochunkcoordinates.c, 0.0F, 0.0F);
-            }
+                if (ochunkcoordinates != null) {
+                    this.a.a((double) ochunkcoordinates.a, (double) ochunkcoordinates.b, (double) ochunkcoordinates.c, 0.0F, 0.0F);
+                }
 
                 i = 1;
             } else {
@@ -248,9 +248,8 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
                 this.cq = -1;
                 this.cn = -1;
                 this.co = -1;
-            }
+            } //
         }
-
     }
 
     private void b(OTileEntity otileentity) {
@@ -356,7 +355,30 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
         this.cd();
         this.a.b(new OPacket100OpenWindow(this.cv, 4, name, 9));//CanaryMod: "Enchanting" to name
-        this.bM = new OContainerEnchantment(this.bK, this.p, i, j, k);
+        this.bM = container;
+        this.bM.c = this.cv;
+        this.bM.a((OICrafting) this);
+    }
+
+    public void d(int i, int j, int k) {
+        // CanaryMod: Check if we can open this
+        OContainerRepair container = new OContainerRepair(this.bK, this.p, i, j, k, this);
+        Inventory inv = new Anvil(container);
+
+        container.setInventory(inv);
+        String name = "Repairing";
+
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
+            return;
+        }
+
+        if (inv != null) {
+            name = inv.getName();
+        }
+
+        this.cd();
+        this.a.b(new OPacket100OpenWindow(this.cv, 8, name, 9));
+        this.bM = container;
         this.bM.c = this.cv;
         this.bM.a((OICrafting) this);
     }

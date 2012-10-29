@@ -341,4 +341,18 @@ public class OContainerRepair extends OContainer {
     static int b(OContainerRepair ocontainerrepair) {
         return ocontainerrepair.l;
     }
+
+    // CanaryMod start
+    public String getToolName() {
+        return this.m;
+    }
+
+    OEntityPlayer getPlayer() {
+        return this.n;
+    }
+
+    OInventoryCraftResult getCraftResult() {
+        return (OInventoryCraftResult) this.f;
+    }
+    // CanaryMod end
 }

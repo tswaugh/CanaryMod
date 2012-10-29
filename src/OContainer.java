@@ -110,20 +110,20 @@ public abstract class OContainer {
         OItemStack oitemstack2;
 
         if ((k == 0 || k == 1) && (j == 0 || j == 1)) {
-                if (i == -999) {
+            if (i == -999) {
                 if (oinventoryplayer.n() != null && i == -999) {
-                        if (j == 0) {
+                    if (j == 0) {
                         oentityplayer.c(oinventoryplayer.n());
-                            oinventoryplayer.b((OItemStack) null);
-                        }
+                        oinventoryplayer.b((OItemStack) null);
+                    }
 
-                        if (j == 1) {
+                    if (j == 1) {
                         oentityplayer.c(oinventoryplayer.n().a(1));
                         if (oinventoryplayer.n().a == 0) {
-                                oinventoryplayer.b((OItemStack) null);
-                            }
+                            oinventoryplayer.b((OItemStack) null);
                         }
                     }
+                }
             } else if (k == 1) {
                 oslot = (OSlot) this.b.get(i);
                 if (oslot != null && oslot.a(oentityplayer)) {
@@ -135,12 +135,12 @@ public abstract class OContainer {
                         if (oslot != null && oslot.c() != null && oslot.c().c == i1) {
                             this.a(i, j, true, oentityplayer);
                         }
-                        }
                     }
-                } else {
-                    if (i < 0) {
-                        return null;
-                    }
+                }
+            } else {
+                if (i < 0) {
+                    return null;
+                }
 
                 oslot = (OSlot) this.b.get(i);
                 if (oslot != null) {
@@ -149,20 +149,20 @@ public abstract class OContainer {
 
                     if (oitemstack1 != null) {
                         oitemstack = oitemstack1.l();
-                        }
+                    }
 
                     if (oitemstack1 == null) {
                         if (oitemstack3 != null && oslot.a(oitemstack3)) {
-                                l = j == 0 ? oitemstack3.a : 1;
+                            l = j == 0 ? oitemstack3.a : 1;
                             if (l > oslot.a()) {
                                 l = oslot.a();
-                                }
+                            }
 
                             oslot.c(oitemstack3.a(l));
-                                if (oitemstack3.a == 0) {
-                                    oinventoryplayer.b((OItemStack) null);
-                                }
+                            if (oitemstack3.a == 0) {
+                                oinventoryplayer.b((OItemStack) null);
                             }
+                        }
                     } else if (oslot.a(oentityplayer)) {
                         if (oitemstack3 == null) {
                             l = j == 0 ? oitemstack1.a : (oitemstack1.a + 1) / 2;
@@ -205,12 +205,12 @@ public abstract class OContainer {
 
                                 oslot.a(oentityplayer, oinventoryplayer.n());
                             }
-                            }
                         }
+                    }
 
                     oslot.e();
-                    }
                 }
+            }
         } else if (k == 2 && j >= 0 && j < 9) {
             oslot = (OSlot) this.b.get(i);
             if (oslot.a(oentityplayer)) {
@@ -221,7 +221,7 @@ public abstract class OContainer {
                 if (!flag) {
                     l = oinventoryplayer.i();
                     flag |= l > -1;
-            }
+                }
 
                 if (oslot.d() && flag) {
                     oitemstack2 = oslot.c();
@@ -247,8 +247,8 @@ public abstract class OContainer {
                 oitemstack1 = oslot.c().l();
                 oitemstack1.a = oitemstack1.d();
                 oinventoryplayer.b(oitemstack1);
+            }
         }
-    }
 
         return oitemstack;
     }
