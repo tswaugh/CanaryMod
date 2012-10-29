@@ -1419,8 +1419,8 @@ public abstract class OEntity {
         if (!this.p.J && !this.L) {
             OMinecraftServer ominecraftserver = OMinecraftServer.D();
             int j = this.ap;
-            OWorldServer oworldserver = ominecraftserver.a(j);
-            OWorldServer oworldserver1 = ominecraftserver.a(i);
+            OWorldServer oworldserver = ominecraftserver.getWorld(this.p.name, j);
+            OWorldServer oworldserver1 = ominecraftserver.getWorld(this.p.name, i);
 
             this.ap = i;
             this.p.e(this);

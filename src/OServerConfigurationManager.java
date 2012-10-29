@@ -403,7 +403,6 @@ public abstract class OServerConfigurationManager {
     }
 
     public void a(OEntity oentity, int i, OWorldServer oworldserver, OWorldServer oworldserver1) {
-        a.log(Level.INFO, "OServerConfigurationManager.a(OEntity, int, OWorldServer, OWorldServer) was called", new Exception());
         this.a(oentity, i, oworldserver, oworldserver1, true);
     }
 
