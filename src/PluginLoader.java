@@ -127,11 +127,11 @@ public class PluginLoader {
          */
         REDSTONE_CHANGE, //
         /**
-         * Calls {@link PluginListener#onPistonExtend(Block, Boolean) }
+         * Calls {@link PluginListener#onPistonExtend(Block, boolean) }
          */
         PISTON_EXTEND, //
         /**
-         * Calls {@link PluginListener#onPistonRetract(Block, Boolean) }
+         * Calls {@link PluginListener#onPistonRetract(Block, boolean) }
          */
         PISTON_RETRACT, //
         /**
@@ -207,7 +207,7 @@ public class PluginLoader {
          */
         LEAF_DECAY, //
         /**
-         * Calls {@link PluginListener#onTame(Player, Mob) }
+         * Calls {@link PluginListener#onTame(Player, Mob, boolean) }
          */
         TAME, //
         /**
@@ -287,23 +287,23 @@ public class PluginLoader {
          */
         EAT, //
         /**
-         * Calls {@link PluginListener#onFoodLevelChange(Player, oldLevel, newLevel) }
+         * Calls {@link PluginListener#onFoodLevelChange(Player, int, int) }
          */
         FOODLEVEL_CHANGE, //
         /**
-         * Calls {@link PluginListener#onFoodExahustionChange(Player, oldLevel, newLevel) }
+         * Calls {@link PluginListener#onFoodExhaustionChange(Player, java.lang.Float, java.lang.Float) }
          */
         FOODEXHAUSTION_CHANGE, //
         /**
-         * Calls {@link PluginListener#onFoodSaturationChange(Player, oldLevel, newLevel) }
+         * Calls {@link PluginListener#onFoodSaturationChange(Player, java.lang.Float, java.lang.Float) }
          */
         FOODSATURATION_CHANGE, //
         /**
-         * Calls {@link PluginListener#onPotionEffect(Player,PotionEffect) }
+         * Calls {@link PluginListener#onPotionEffect(LivingEntity, PotionEffect) }
          */
         POTION_EFFECT, //
         /**
-         * Class {@link PluginListener#onExpChange(Player, oldExp, newExp) }
+         * Class {@link PluginListener#onExpChange(Player, int, int) }
          */
         EXPERIENCE_CHANGE, //
         /**
@@ -311,7 +311,7 @@ public class PluginLoader {
          */
         LEVEL_UP, //
         /**
-         * Calls {@link PluginListener#onPlayerListNameGet(Player, defaultName) }
+         * Calls {@link PluginListener#onGetPlayerlistEntry(Player, PlayerlistEntry) }
          */
         GET_PLAYERLISTENTRY, //
         /**
@@ -323,31 +323,31 @@ public class PluginLoader {
          */
         PLAYER_DISCONNECT, //
         /**
-         * Calls {@link PluginListener#onEntityRightClick(Player,BaseEntity) }
+         * Calls {@link PluginListener#onEntityRightClick(Player, BaseEntity, Item) }
          */
         ENTITY_RIGHTCLICKED, //
         /**
-         * Calls {@Link PluginListener#onMobTarget(Player,LivingEntity) }
+         * Calls {@link PluginListener#onMobTarget(Player,LivingEntity) }
          */
         MOB_TARGET, //
         /**
-         * Calls {@Link PluginListener#onBlockUpdate(Block) }
+         * Calls {@link PluginListener#onBlockUpdate(Block) }
          */
         BLOCK_UPDATE, //
         /**
-         * Calls {@Link PluginListener#onEnchant(HookParametersEnchant) }
+         * Calls {@link PluginListener#onEnchant(HookParametersEnchant) }
          */
         ENCHANT, //
         /**
-         * Calls{@Link PluginListener#onDispense(Block,Item) }
+         * Calls{@link PluginListener#onDispense(Dispenser, BaseEntity) }
          */
         DISPENSE, //
         /**
-         * Calls{@Link PluginListener#onLightChange(int,int,int,int) }
+         * Calls{@link PluginListener#onLightChange(int,int,int,int) }
          */
         DEATH, //
          /**
-         * Calls{@Link PluginListener#onDeath(LivingEntity entity) }
+         * Calls{@link PluginListener#onDeath(LivingEntity entity) }
          */
         LIGHT_CHANGE, //
         /**

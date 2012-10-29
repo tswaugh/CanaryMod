@@ -1024,7 +1024,7 @@ public class PluginListener {
      *            The milking player
      * @param cow
      *            The milked cow
-     * @deprecated Use {@link #onEntityRightClick(Player, Entity, Item) } instead.
+     * @deprecated Use {@link #onEntityRightClick(Player, BaseEntity, Item) } instead.
      * @return true if to prevent the player from milking the cow
      */
     @Deprecated

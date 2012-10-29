@@ -649,7 +649,7 @@ public class Item {
      * Sets an enchantment on the item
      *
      * @param id
-     * @param lvl
+     * @param level
      */
     public void addEnchantment(int id, int level) {
         Enchantment enchantment = new Enchantment(Enchantment.Type.fromId(id), level);

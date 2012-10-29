@@ -47,7 +47,7 @@ public abstract class BaseCommand {
      * Executes a command. Note: should not be called directly. Use
      * parseCommand() instead!
      *
-     * @param player
+     * @param caller
      * @param parameters
      */
     protected abstract void execute(MessageReceiver caller, String[] parameters);

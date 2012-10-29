@@ -1,7 +1,3 @@
-/**
- * 
- * @author
- */
 public class HumanEntity extends LivingEntity {
 
     /**

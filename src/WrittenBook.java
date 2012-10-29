@@ -13,7 +13,7 @@ public class WrittenBook {
 
     /**
      * Creates a new instance of WrittenBook.
-     * Use {@link isValid()} to make sure the item is a book. Theoretically it
+     * Use {@link #isValid()} to make sure the item is a book. Theoretically it
      * is possible for any item to contain the correct tags that make it seem
      * like a book, although this does not occur "naturally".
      * @param item An instance of a book and quill or a written book.

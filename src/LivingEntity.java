@@ -1,7 +1,5 @@
 /**
- * Interface for living entities
- * 
- * @author
+ * Interface for living entities.
  */
 public class LivingEntity extends BaseEntity {
 
