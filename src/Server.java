@@ -911,8 +911,27 @@ public class Server {
      * @see World.Dimension#toIndex()
      */
     public World[] loadWorld(String name, World.Type type, long seed) {
+        return this.loadWorld(name, type, seed, "");
+    }
+    
+    /**
+     * Loads the world with the specified name, type and seed and returns it. If
+     * the world already is loaded, just return the world.
+     *
+     * @param name The name of the world to load.
+     * @param type The type of the world to load. If a world with the specified
+     * name already exists, this argument is ignored.
+     * @param seed The seed of the world to load. If a world with the specified
+     * name already exists, this argument is ignored.
+     * @param generatorSettings The generator settings for the world to load. If
+     * a world with the specified name already exists, this argument is ignored.
+     * @return A {@link World}-array containing the 3 dimensions of the
+     * specified <tt>World</tt>.
+     * @see World.Dimension#toIndex()
+     */
+    public World[] loadWorld(String name, World.Type type, long seed, String generatorSettings) {
         if (!server.worlds.containsKey(name)) {
-            server.a(name, name, seed, type.getNative());
+            server.a(name, name, seed, type.getNative(), generatorSettings);
         }
 
         OWorldServer[] nativeWorlds = server.worlds.get(name);
