@@ -328,7 +328,7 @@ public abstract class OServerConfigurationManager {
         oentityplayermp1.a = oentityplayermp.a;
         oentityplayermp1.a(oentityplayermp, flag);
         oentityplayermp1.k = oentityplayermp.k;
-        OWorldServer oworldserver = location != null ? location.getWorld().getWorld() : oentityplayermp1.p();
+        OWorldServer oworldserver = location != null ? location.getWorld().getWorld() : this.f.getWorld(oentityplayermp.p.name, oentityplayermp.ap);
 
         this.a(oentityplayermp1, oentityplayermp, oworldserver);
         OChunkCoordinates ochunkcoordinates1;
