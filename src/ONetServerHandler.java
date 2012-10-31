@@ -700,7 +700,7 @@ public class ONetServerHandler extends ONetHandler {
             }
 
             // CanaryMod: check if your bed location exists before trying to respawn you there upon death
-            Location respawnLocation = new Location(e.p.world, spawnLoc.a, spawnLoc.b, spawnLoc.c);
+            Location respawnLocation = new Location(this.d.getWorld(this.e.p.name, 0).world, spawnLoc.a, spawnLoc.b, spawnLoc.c);
 
 
             if (this.e.j) {
