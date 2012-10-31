@@ -96,7 +96,7 @@ public class OExplosion {
         }
         
         // CanaryMod start
-        boolean cancel = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, this.e, hashset); // Call deprecated hook first; it may remove blocks from hashset.
+        boolean cancel = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, this.f, hashset); // Call deprecated hook first; it may remove blocks from hashset.
         
         // Add affected blocks into a List of Blocks.
         List<Block> blocksAffected = new ArrayList<Block>(hashset.size());
