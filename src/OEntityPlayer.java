@@ -5,7 +5,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
 
     public OInventoryPlayer bK = new OInventoryPlayer(this);
     private OInventoryEnderChest a = new OInventoryEnderChest();
-
     public OContainer bL;
     public OContainer bM;
     protected OFoodStats bN = new OFoodStats(this); // CanaryMod: pass this instance
@@ -87,7 +86,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         if (!this.p.J) {
             this.d(false);
         }
-
     }
 
     public boolean be() {
@@ -188,7 +186,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         if (!this.p.J) {
             this.bN.a(this);
         }
-
     }
 
     public int z() {
@@ -220,7 +217,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
 
             this.p.a(this, "random.eat", 0.5F + 0.5F * (float) this.aa.nextInt(2), (this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F);
         }
-
     }
 
     protected void n() {
@@ -238,7 +234,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
 
             this.bL();
         }
-
     }
 
     protected boolean bd() {
@@ -327,7 +322,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
                 }
             }
         }
-
     }
 
     private void q(OEntity oentity) {
@@ -365,7 +359,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         } else {
             this.a(OStatList.z, 1);
         }
-
     }
 
     public OEntityItem bN() {
@@ -619,7 +612,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
                         oentitywolf1.b((OEntity) oentityliving);
                     }
                 }
-
             }
         }
     }
@@ -682,27 +674,25 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
             OItemStack oitemstack = this.bP();
             PluginLoader.HookResult res = (PluginLoader.HookResult) manager.callHook(PluginLoader.Hook.ENTITY_RIGHTCLICKED, ((OEntityPlayerMP) this).getPlayer(), oentity.entity, (oitemstack == null) ? null : new Item(oitemstack));
 
-            if (res != PluginLoader.HookResult.PREVENT_ACTION) {
+            if (res == PluginLoader.HookResult.ALLOW_ACTION) {
+                return true;
+            } else if (res == PluginLoader.HookResult.DEFAULT_ACTION) {
                 // Normally when interact action is not defined on the interacted entity, false is returned, and the item stack is not used.
                 // For example sheep can interact by shearing and cows by milking, and the item stack changes from this interaction if it returns true.
                 // Players on the other hand won't interact normally, but if we want to update the item stack anyways, we will ALLOW the action.
-                if (res == PluginLoader.HookResult.ALLOW_ACTION) {
+                if (oitemstack != null && oentity instanceof OEntityLiving) {
+                    if (this.cf.d) {
+                        oitemstack = oitemstack.l();
+                    }
 
-                    if (oitemstack != null && oentity instanceof OEntityLiving) {
-                        if (this.cf.d) {
-                            oitemstack = oitemstack.l();
+                    if (oitemstack.a((OEntityLiving) oentity)) {
+                        if (oitemstack.a <= 0 && !this.cf.d) {
+                            this.bQ();
                         }
 
-                        if (oitemstack.a((OEntityLiving) oentity)) {
-                            if (oitemstack.a <= 0 && !this.cf.d) {
-                                this.bQ();
-                            }
-
-                            return true;
-                        }
+                        return true;
                     }
                 }
-
             }
             return false;
         }
@@ -801,7 +791,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
 
                 this.j(0.3F);
             }
-
         }
     }
 
@@ -815,7 +804,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         if (this.bM != null) {
             this.bM.a(this);
         }
-
     }
 
     public boolean T() {
@@ -914,7 +902,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
             case 3:
             this.cd = -1.8F;
         }
-
     }
 
     public void a(boolean flag, boolean flag1, boolean flag2) {
@@ -947,7 +934,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         if (flag2) {
             this.a(this.cc, false);
         }
-
     }
 
     private boolean j() {
@@ -1201,7 +1187,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
             if (!this.p.J) {
                 this.bN.a(f);
             }
-
         }
     }
 
@@ -1224,7 +1209,6 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
             if (!this.p.J) {
                 this.d(true);
             }
-
         }
     }
 
