@@ -22,7 +22,7 @@ public class Main {
     public static final long   minecraft_servero = 0x8b419e3fL;
 
     public static final long   mysql = 0xb2e59524L;
-    public static final long   jarjar = 0x0de915d3L;
+    public static final long   jarjar = 0x4e724d4dL;
     public static final long   rules = 0x9314c6e4L;
 
     public static final Logger log = Logger.getLogger("Minecraft");

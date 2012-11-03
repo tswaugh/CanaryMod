@@ -190,7 +190,7 @@ public class Player extends HumanEntity implements MessageReceiver {
                 String str = command.substring(2);
 
                 log.info(getName() + " issued server command: " + str);
-                etc.getMCServer().D().a(this.getEntity(), str);
+                etc.getServer().useConsoleCommand(str);
                 return;
             }
 
