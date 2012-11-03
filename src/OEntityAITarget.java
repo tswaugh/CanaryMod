@@ -14,7 +14,6 @@ public abstract class OEntityAITarget extends OEntityAIBase {
     }
 
     public OEntityAITarget(OEntityLiving oentityliving, float f, boolean flag, boolean flag1) {
-        super();
         this.b = 0;
         this.c = 0;
         this.g = 0;

@@ -1,13 +1,10 @@
-
 public class OInventoryCraftResult implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] a = new OItemStack[1];
     // CanaryMod
     private String name = "Result";
 
-    public OInventoryCraftResult() {
-        super();
-    }
+    public OInventoryCraftResult() {}
 
     public int k_() {
         return 1;

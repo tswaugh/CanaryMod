@@ -1,4 +1,4 @@
-    import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -94,9 +94,9 @@ public class OEnchantmentHelper {
             ONBTTagList onbttaglist = oitemstack.q();
 
             if (onbttaglist != null) {
-                for (int j = 0; j < onbttaglist.c(); ++j) {
-                    short short1 = ((ONBTTagCompound) onbttaglist.b(j)).d("id");
-                    short short2 = ((ONBTTagCompound) onbttaglist.b(j)).d("lvl");
+                for (int i = 0; i < onbttaglist.c(); ++i) {
+                    short short1 = ((ONBTTagCompound) onbttaglist.b(i)).d("id");
+                    short short2 = ((ONBTTagCompound) onbttaglist.b(i)).d("lvl");
 
                     if (OEnchantment.b[short1] != null) {
                         oienchantmentmodifier.a(OEnchantment.b[short1], short2);

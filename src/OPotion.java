@@ -43,7 +43,6 @@ public class OPotion {
     private final int N;
 
     protected OPotion(int i, boolean flag, int j) {
-        super();
         this.H = i;
         a[i] = this;
         this.K = flag;

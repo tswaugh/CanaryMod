@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
 
-
 public class OTileEntityBrewingStand extends OTileEntity implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] a = new OItemStack[4];
@@ -11,9 +10,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
 
     private String name = "container.brewing"; // CanaryMod
 
-    public OTileEntityBrewingStand() {
-        super();
-    }
+    public OTileEntityBrewingStand() {}
 
     public String b() {
         return name;

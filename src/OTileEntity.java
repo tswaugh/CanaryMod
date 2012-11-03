@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class OTileEntity {
 
     private static Map a = new HashMap();
@@ -14,9 +13,7 @@ public class OTileEntity {
     public int p = -1;
     public OBlock q;
 
-    public OTileEntity() {
-        super();
-    }
+    public OTileEntity() {}
 
     private static void a(Class oclass, String s) {
         if (a.containsKey(s)) {

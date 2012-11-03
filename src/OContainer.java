@@ -17,9 +17,7 @@ public abstract class OContainer {
     // CanaryMod: inventory - Used to know which inventory was passed to this container GUI.
     private Inventory inventory;
 
-    public OContainer() {
-        super();
-    }
+    public OContainer() {}
 
     protected OSlot a(OSlot oslot) {
         oslot.g = this.b.size();

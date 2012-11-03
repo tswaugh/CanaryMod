@@ -145,7 +145,7 @@ public class OEntityItem extends OEntity {
     }
 
     public boolean I() {
-        return this.p.a(this.D, OMaterial.h, this);
+        return this.p.a(this.D, OMaterial.h, (OEntity) this);
     }
 
     protected void d(int i) {

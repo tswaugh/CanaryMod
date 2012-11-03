@@ -16,7 +16,6 @@ public class OContainerEnchantment extends OContainer {
     public int[] g = new int[3];
 
     public OContainerEnchantment(OInventoryPlayer oinventoryplayer, OWorld oworld, int i, int j, int k) {
-        super();
         this.h = oworld;
         this.i = i;
         this.j = j;

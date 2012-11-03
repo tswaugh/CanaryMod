@@ -1,9 +1,8 @@
 import java.util.Arrays;
 
-
 public class OTileEntityChest extends OTileEntity implements OIInventory, Container<OItemStack> {
 
-    public OItemStack[] i = new OItemStack[36];
+    private OItemStack[] i = new OItemStack[36];
     public boolean a = false;
     public OTileEntityChest b;
     public OTileEntityChest c;
@@ -15,9 +14,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
     private int j;
     private String name = "container.chest"; // CanaryMod
 
-    public OTileEntityChest() {
-        super();
-    }
+    public OTileEntityChest() {}
 
     public int k_() {
         return 27;

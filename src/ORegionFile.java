@@ -23,7 +23,6 @@ public class ORegionFile {
     private long h = 0L;
 
     public ORegionFile(File file1) {
-        super();
         this.b = file1;
         this.g = 0;
 
@@ -210,7 +209,6 @@ public class ORegionFile {
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
         }
-
     }
 
     private void a(int i, byte[] abyte, int j) throws IOException {

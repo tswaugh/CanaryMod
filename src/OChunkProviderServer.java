@@ -20,7 +20,6 @@ public class OChunkProviderServer implements OIChunkProvider {
     boolean loadedpreload = false;
 
     public OChunkProviderServer(OWorldServer oworldserver, OIChunkLoader oichunkloader, OIChunkProvider oichunkprovider) {
-        super();
         this.c = new OEmptyChunk(oworldserver, 0, 0);
         this.h = oworldserver;
         this.e = oichunkloader;
@@ -78,7 +77,7 @@ public class OChunkProviderServer implements OIChunkProvider {
                 if (blocks != null) {
                     ochunk = Chunk.getNewChunk(h, blocks, i, j).chunk;
                     ochunk.k = true; // is populated = true
-                    ochunk.b(); // lightning update
+                    ochunk.b(); // lighting update
                 } else if (this.d == null) {
                     ochunk = this.c;
                 } else {
@@ -149,7 +148,7 @@ public class OChunkProviderServer implements OIChunkProvider {
 
     private void b(OChunk ochunk) {
         if (this.e != null) {
-            ochunk.n = this.h.D(); //gregthegeek: should this line and the one below it be in a try-catch?
+            ochunk.n = this.h.E();
             this.e.a(this.h, ochunk);
         }
     }

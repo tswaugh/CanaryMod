@@ -6,7 +6,6 @@ public class OWorldManager implements OIWorldAccess {
     public OWorldServer b; // CanaryMod private -> public
 
     public OWorldManager(OMinecraftServer ominecraftserver, OWorldServer oworldserver) {
-        super();
         this.a = ominecraftserver;
         this.b = oworldserver;
     }

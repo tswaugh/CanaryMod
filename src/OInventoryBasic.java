@@ -2,7 +2,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-
 public class OInventoryBasic implements OIInventory, Container<OItemStack> {
 
     private String a;
@@ -11,7 +10,6 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
     private List d;
 
     public OInventoryBasic(String s, int i) {
-        super();
         this.a = s;
         this.b = i;
         this.c = new OItemStack[i];

@@ -16,7 +16,6 @@ public class OGuiStatsComponent extends JComponent {
     private final OMinecraftServer e;
 
     public OGuiStatsComponent(OMinecraftServer ominecraftserver) {
-        super();
         this.e = ominecraftserver;
         this.setPreferredSize(new Dimension(456, 246));
         this.setMinimumSize(new Dimension(456, 246));
@@ -90,10 +89,8 @@ public class OGuiStatsComponent extends JComponent {
                 graphics.drawString(s, 32, 116 + i * 16);
             }
         }
-
     }
 
-    // $FF: synthetic method
     static void a(OGuiStatsComponent oguistatscomponent) {
         oguistatscomponent.a();
     }

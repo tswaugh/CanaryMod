@@ -19,7 +19,6 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
     private final File d;
 
     public OAnvilChunkLoader(File file1) {
-        super();
         this.d = file1;
     }
 

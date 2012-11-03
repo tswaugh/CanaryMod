@@ -435,7 +435,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
 
-        this.bO();
+        this.cd();
         this.a.b(new OPacket100OpenWindow(this.cv, 2, name, otileentityfurnace.k_()));
         this.bM = new OContainerFurnace(this.bK, otileentityfurnace);
         // CanaryMod: Set the inventory for the GUI
@@ -709,7 +709,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(String s, int i) {
-        String s1 = s + "" + i;
+        String s1 = s + "\u0000" + i;
 
         this.a.b(new OPacket250CustomPayload("MC|TPack", s1.getBytes()));
     }

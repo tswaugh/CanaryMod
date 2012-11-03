@@ -1,4 +1,3 @@
-
 public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
     public OItemStack[] a = new OItemStack[36];
@@ -11,7 +10,6 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     private String name = "container.inventory";
 
     public OInventoryPlayer(OEntityPlayer oentityplayer) {
-        super();
         this.d = oentityplayer;
     }
 
@@ -138,7 +136,6 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 this.a[i].a(this.d.p, this.d, i, this.c == i);
             }
         }
-
     }
 
     public boolean d(int i) {
@@ -342,7 +339,6 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 }
             }
         }
-
     }
 
     public int k_() {
@@ -420,7 +416,6 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 }
             }
         }
-
     }
 
     public void l() {
@@ -439,7 +434,6 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 this.b[i] = null;
             }
         }
-
     }
 
     public void d() {
@@ -491,6 +485,14 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
     public void b(OInventoryPlayer oinventoryplayer) {
         int i;
+
+        for (i = 0; i < this.a.length; ++i) {
+            this.a[i] = OItemStack.b(oinventoryplayer.a[i]);
+        }
+
+        for (i = 0; i < this.b.length; ++i) {
+            this.b[i] = OItemStack.b(oinventoryplayer.b[i]);
+        }
     }
     
     @Override
@@ -526,18 +528,5 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
     @Override
     public void setName(String s) {
         this.name = s;
-    }
-
-    public void a(OInventoryPlayer oinventoryplayer) {
-        int i;
-
-        for (i = 0; i < this.a.length; ++i) {
-            this.a[i] = OItemStack.b(oinventoryplayer.a[i]);
-        }
-
-        for (i = 0; i < this.b.length; ++i) {
-            this.b[i] = OItemStack.b(oinventoryplayer.b[i]);
-        }
-
     }
 }

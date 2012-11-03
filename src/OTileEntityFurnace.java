@@ -1,6 +1,5 @@
 import java.util.Arrays;
 
-
 public class OTileEntityFurnace extends OTileEntity implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] d = new OItemStack[3];
@@ -9,9 +8,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
     public int c = 0;
     private String name = "container.furnace"; // CanaryMod
 
-    public OTileEntityFurnace() {
-        super();
-    }
+    public OTileEntityFurnace() {}
 
     public int k_() {
         return this.d.length;

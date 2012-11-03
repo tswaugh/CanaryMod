@@ -1,4 +1,5 @@
 public class OEnchantmentDamage extends OEnchantment {
+
     //JarJar: begin fix
     private static final String[] A = new String[] { "all", "undead", "arthropods"};
     //JarJar: end fix

@@ -66,7 +66,6 @@ public class OItemBlock extends OItem {
                 && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PLACE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
             OBlock oblock = OBlock.p[this.a];
 
-
             if (oworld.d(i, j, k, this.a, this.a(oitemstack.j()))) {
                 if (oworld.a(i, j, k) == this.a) {
                     OBlock.p[this.a].a(oworld, i, j, k, l, f, f1, f2);

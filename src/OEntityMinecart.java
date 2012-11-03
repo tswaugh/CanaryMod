@@ -301,7 +301,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                     this.y -= d5;
                 }
 
-                int[][] aint = this.i[i1];
+                int[][] aint = OEntityMinecart.i[i1];
                 double d6 = (double) (aint[1][0] - aint[0][0]);
                 double d7 = (double) (aint[1][2] - aint[0][2]);
                 double d8 = Math.sqrt(d6 * d6 + d7 * d7);
@@ -610,7 +610,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 d1 = (double) (j + 1);
             }
 
-            int[][] aint = this.i[i1];
+            int[][] aint = OEntityMinecart.i[i1];
             double d3 = 0.0D;
             double d4 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
             double d5 = (double) j + 0.5D + (double) aint[0][1] * 0.5D;

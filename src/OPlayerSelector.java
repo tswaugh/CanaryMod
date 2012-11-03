@@ -86,7 +86,7 @@ public class OPlayerSelector {
             List list;
 
             if (!s1.equals("p") && !s1.equals("a")) {
-                if (!s1.equals("p")) {
+                if (!s1.equals("r")) {
                     return null;
                 } else {
                     list = OMinecraftServer.D().ad().a(ochunkcoordinates, i, j, 0, j1, k, l);

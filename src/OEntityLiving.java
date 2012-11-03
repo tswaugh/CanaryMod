@@ -619,6 +619,7 @@ public abstract class OEntityLiving extends OEntity {
                     if (i <= this.bB) {
                         return false;
                     }
+
                     if (attacker != null) if (((Boolean)manager.callHook(PluginLoader.Hook.DAMAGE, new Object[] { PluginLoader.DamageType.ENTITY, attacker, this.entity, Integer.valueOf(i - this.bB) })).booleanValue()) {
                         return false;
                     }
@@ -1330,8 +1331,7 @@ public abstract class OEntityLiving extends OEntity {
                     } else {
                         this.bC = 0;
                     }
-                }
-                else if (d3 < 1024.0D) {
+                } else if (d3 < 1024.0D) {
                         this.bC = 0;
                     }
             }

@@ -67,6 +67,7 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
                     int i = OMathHelper.c(this.t);
                     int j = OMathHelper.c(this.u);
                     int k = OMathHelper.c(this.v);
+
                     if (this.p.a(i, j, k) == 0 && OBlock.au.b(this.p, i, j, k)) {
                         // CanaryMod: Ignite hook
                         Block block = this.entity.getWorld().getBlockAt(i, j, k);

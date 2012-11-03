@@ -14,7 +14,6 @@ public class OItemMinecart extends OItem {
         int i1 = oworld.a(i, j, k);
 
         if (OBlockRail.d(i1)) {
-
             if (!oworld.J) {
                 // CanaryMod: placing of a mine cart
                 Block block = this.getBlockInfo(oworld, i, j, k, l);

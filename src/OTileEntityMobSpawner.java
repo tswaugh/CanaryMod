@@ -15,7 +15,6 @@ public class OTileEntityMobSpawner extends OTileEntity {
     private int s = 4;
 
     public OTileEntityMobSpawner() {
-        super();
         this.a = 20;
     }
 

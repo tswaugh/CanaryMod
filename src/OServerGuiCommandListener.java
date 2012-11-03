@@ -9,7 +9,6 @@ class OServerGuiCommandListener implements ActionListener {
     final OServerGUI b;
 
     OServerGuiCommandListener(OServerGUI oservergui, JTextField jtextfield) {
-        super();
         this.b = oservergui;
         this.a = jtextfield;
     }

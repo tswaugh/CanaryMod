@@ -1,16 +1,13 @@
 import java.util.Arrays;
 import java.util.Random;
 
-
 public class OTileEntityDispenser extends OTileEntity implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] a = new OItemStack[9];
     private Random b = new Random();
     private String name = "container.dispenser";
 
-    public OTileEntityDispenser() {
-        super();
-    }
+    public OTileEntityDispenser() {}
 
     public int k_() {
         return 9;

@@ -155,6 +155,7 @@ public class ONetLoginHandler extends ONetHandler {
             if (this.b.g() != null) {
                 inetaddress = this.b.g().getInetAddress();
             }
+            
             this.b.a((OPacket) (new OPacket255KickDisconnect(s)));
             // CanaryMod: swapped lines below. The network connection should be terminated AFTER removing the socket from the connection list.
             this.b.d();

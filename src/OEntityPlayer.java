@@ -39,7 +39,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     protected float ck = 0.02F;
     private int h = 0;
     public OEntityFishHook cl = null;
-// CanaryMod start
+    // CanaryMod start
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     HumanEntity entity = new HumanEntity(this);
     // CanaryMod end
@@ -694,6 +694,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
                     }
                 }
             }
+            
             return false;
         }
     }

@@ -1,4 +1,3 @@
-
 public class OInventoryLargeChest implements OIInventory, Container<OItemStack> {
 
     private String a;
@@ -6,7 +5,6 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
     private OIInventory c;
 
     public OInventoryLargeChest(String s, OIInventory oiinventory, OIInventory oiinventory1) {
-        super();
         this.a = s;
         if (oiinventory == null) {
             oiinventory = oiinventory1;
