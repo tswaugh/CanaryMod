@@ -740,4 +740,22 @@ public class Item {
         }
         return null;
     }
+
+    /**
+     * Gets the visible name of this item.
+     * Names can be set using an anvil or {@link #setName(java.lang.String)}.
+     * @return The item name
+     */
+    public String getName() {
+        return itemStack.r();
+    }
+
+    /**
+     * Sets the visible name of this item.
+     * Equivalent to renaming this item using an anvil.
+     * @param name The item's new name
+     */
+    public void setName(String name) {
+        itemStack.c(name);
+    }
 }
