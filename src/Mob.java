@@ -232,4 +232,22 @@ public class Mob extends LivingEntity {
     	}
     	return new Item(getEntity().q(slot));
     }
+    
+    /**
+     * Whether or not this mob can pick up items.
+     * 
+     * @return
+     */
+    public boolean canPickUpLoot() {
+    	return getEntity().bs;
+    }
+    
+    /**
+     * Sets whether or not this mob can pick up items.
+     * 
+     * @param flag
+     */
+    public void setCanPickUpLoot(boolean flag) {
+    	getEntity().bs = flag;
+    }
 }
