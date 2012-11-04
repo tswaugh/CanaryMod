@@ -33,7 +33,7 @@ public abstract class OEntity {
     public boolean I;
     protected boolean J;
     public boolean K;
-    public boolean L;
+    public boolean L; //CanaryMod: isdead variable
     public float M;
     public float N;
     public float O;

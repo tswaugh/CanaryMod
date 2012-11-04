@@ -1545,6 +1545,4 @@ public class Player extends HumanEntity implements MessageReceiver {
     protected int getRestrictions() {
     	return this.restrictions;
     }
-    
-    
 }

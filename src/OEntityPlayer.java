@@ -42,6 +42,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     // CanaryMod start
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     HumanEntity entity = new HumanEntity(this);
+    public int maxHealth = 20;
     // CanaryMod end
 
     public OEntityPlayer(OWorld oworld) {
@@ -57,9 +58,10 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         this.ac = 20;
         this.aF = "/mob/char.png";
     }
-
+    
     public int aS() {
-        return 20;
+        //CanaryMod: set max health here
+        return maxHealth;
     }
 
     protected void a() {

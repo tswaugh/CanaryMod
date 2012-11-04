@@ -34,7 +34,7 @@ public abstract class OEntityLiving extends OEntity {
     public float aN = 0.02F;
     public float aO;
     public float aP;
-    protected int aQ = this.aS();
+    protected int aQ = this.aS();//CanaryMod: health variable
     public int aR;
     protected int aS;
     public int aT;

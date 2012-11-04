@@ -16,7 +16,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public double e;
     public final List f = new LinkedList();
     public final List g = new LinkedList();
-    private int cn = -99999999;
+    private int cn = -99999999; // CanaryMod: last health client was set to
     private int co = -99999999;
     private boolean cp = true;
     private int cq = -99999999;
@@ -155,7 +155,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             // updates your health when it is changed.
             if (!etc.getInstance().isHealthEnabled()) {
                 this.aQ = this.aS();
-                this.bb = false;
+                this.L = false;
             } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cn, aQ)) {
                 this.aQ = this.cn;
             }
