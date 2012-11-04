@@ -129,7 +129,7 @@ public class World {
      * @return time server time
      */
     public long getTime() {
-        return world.D();
+        return world.E();
     }
 
     /**
@@ -138,13 +138,7 @@ public class World {
      * @return time server time
      */
     public long getRelativeTime() {
-        long time = (getTime() % 24000);
-
-        // Java modulus is stupid.
-        if (time < 0) {
-            time += 24000;
-        }
-        return time;
+        return world.F();
     }
 
     /**
@@ -156,7 +150,7 @@ public class World {
         // World info for each world overwrites the other on save,
         // make sure they're the same. (Like you see it in the nether or end)
         for (World w : etc.getServer().getWorld(this.getName()))
-            w.getWorld().b(time);
+            w.getWorld().z.b(time);
     }
 
     /**
@@ -165,13 +159,10 @@ public class World {
      * @param time time (0-24000)
      */
     public void setRelativeTime(long time) {
-        long margin = (time - getTime()) % 24000;
-
-        // Java modulus is stupid.
-        if (margin < 0) {
-            margin += 24000;
-        }
-        setTime(getTime() + margin);
+        // World info for each world overwrites the other on save,
+        // make sure they're the same.
+        for (World w : etc.getServer().getWorld(this.getName()))
+            w.getWorld().z.c(time);
     }
 
     /**
