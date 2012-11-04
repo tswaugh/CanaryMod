@@ -1454,4 +1454,9 @@ public abstract class OEntity {
     public boolean au() {
         return false;
     }
+
+    // CanaryMod start: add getEntity
+    public BaseEntity getEntity() {
+        return entity;
+    } // CanaryMod end
 }

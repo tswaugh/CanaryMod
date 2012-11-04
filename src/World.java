@@ -174,7 +174,7 @@ public class World {
         List<Mob> toRet = new ArrayList<Mob>();
 
         for (Object o : world.f) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityMagmaCube) {
+            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntitySlime || o instanceof OEntityDragon) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
         }
@@ -190,7 +190,7 @@ public class World {
         List<Mob> toRet = new ArrayList<Mob>();
 
         for (Object o : world.f) {
-            if (o instanceof OEntityAnimal || o instanceof OEntitySquid || o instanceof OEntitySnowman) {
+            if (o instanceof OEntityAnimal || o instanceof OEntitySquid || o instanceof OEntitySnowman || o instanceof OEntityBat) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
         }

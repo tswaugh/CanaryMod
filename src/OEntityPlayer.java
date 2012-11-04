@@ -1316,4 +1316,9 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     public OItemStack[] ae() {
         return this.bK.b;
     }
+
+    @Override
+    public BaseEntity getEntity() {
+        return entity;
+    } //
 }

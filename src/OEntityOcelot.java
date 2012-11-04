@@ -3,6 +3,8 @@ public class OEntityOcelot extends OEntityTameable {
 
     private OEntityAITempt e;
 
+    private Ocelot ocelot = new Ocelot(this); // CanaryMod: one ocelot per ocelot
+
     public OEntityOcelot(OWorld oworld) {
         super(oworld);
         this.aF = "/mob/ozelot.png";
@@ -222,5 +224,10 @@ public class OEntityOcelot extends OEntityTameable {
                 this.p.d((OEntity) oentityocelot);
             }
         }
+    }
+
+    @Override
+    public BaseEntity getEntity() {
+        return ocelot;
     }
 }

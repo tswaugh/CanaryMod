@@ -434,33 +434,53 @@ public class PluginLoader {
          /**
           * Damage caused by the "Wither" effect (1)
           */
-         WITHER;
+         WITHER, //
+         /**
+          * Damage caused by throwing an enderpearl (5)
+          */
+         ENDERPEARL, //
+         /**
+          * Damage caused by falling anvil
+          */
+         ANVIL, //
+         /**
+          * Damage caused by falling block
+          */
+         FALLING_BLOCK;
          
          public static DamageType fromDamageSource(ODamageSource source) {
-             if (source == ODamageSource.b)
+             if (source == ODamageSource.a)
                  return FIRE; // Can also be lightning
-             else if (source == ODamageSource.c)
+             else if (source == ODamageSource.b)
                  return FIRE_TICK;
-             else if (source == ODamageSource.d)
+             else if (source == ODamageSource.c)
                  return LAVA;
-             else if (source == ODamageSource.e)
+             else if (source == ODamageSource.d)
                  return SUFFOCATION;
-             else if (source == ODamageSource.f)
+             else if (source == ODamageSource.e)
                  return WATER;
-             else if (source == ODamageSource.g)
+             else if (source == ODamageSource.f)
                  return STARVATION;
-             else if (source == ODamageSource.h)
+             else if (source == ODamageSource.g)
                  return CACTUS;
-             else if (source == ODamageSource.i)
+             else if (source == ODamageSource.h)
                  return FALL;
-             else if (source == ODamageSource.j)
+             else if (source == ODamageSource.i)
                  return FALL; // Out of world
-             else if (source == ODamageSource.k)
+             else if (source == ODamageSource.j)
                  return null; // Vanilla's /kill, we don't have this.
-             else if (source == ODamageSource.l)
+             else if (source == ODamageSource.k)
                  return EXPLOSION; // Can also be a creeper.
+             else if (source == ODamageSource.l)
+                 return EXPLOSION; // ??? (unused)
              else if (source == ODamageSource.m)
                  return POTION;
+             else if (source == ODamageSource.n)
+                 return WITHER;
+             else if (source == ODamageSource.o)
+                 return ANVIL;
+             else if (source == ODamageSource.p)
+                 return FALLING_BLOCK;
              else if (source instanceof OEntityDamageSource)
                  return ENTITY;
              else if (source instanceof OEntityDamageSourceIndirect)

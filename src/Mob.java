@@ -152,9 +152,16 @@ public class Mob extends LivingEntity {
         if (mob == null) {
             return false;
         }
-        OEntity c = OEntityList.a(mob, etc.getServer().getDefaultWorld().getWorld());
 
-        return c instanceof OIMob || c instanceof OIAnimals;
+
+        // Catch InstantiationExceptions, e.g. when calling isValid("Monster")
+        try {
+            OEntity c = OEntityList.a(mob, etc.getServer().getDefaultWorld().getWorld());
+            
+            return c instanceof OIMob || c instanceof OIAnimals;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**

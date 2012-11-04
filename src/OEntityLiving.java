@@ -1930,4 +1930,10 @@ public abstract class OEntityLiving extends OEntity {
     public boolean bF() {
         return false;
     }
+
+    // CanaryMod start: add getEntity
+    @Override
+    public BaseEntity getEntity() {
+        return entity;
+    } // CanaryMod end
 }

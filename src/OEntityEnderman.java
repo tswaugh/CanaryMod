@@ -331,6 +331,11 @@ public class OEntityEnderman extends OEntityMob {
     public static boolean getHoldable(int i) {
         return d[i];
     }
+
+    @Override
+    public BaseEntity getEntity() {
+        return entity;
+    }
     // CanaryMod end
 
     static {

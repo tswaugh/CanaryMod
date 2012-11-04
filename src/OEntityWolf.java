@@ -7,6 +7,8 @@ public class OEntityWolf extends OEntityTameable {
     private float i;
     private float j;
 
+    private Wolf wolf = new Wolf(this);
+
     public OEntityWolf(OWorld oworld) {
         super(oworld);
         this.aF = "/mob/wolf.png";
@@ -320,4 +322,9 @@ public class OEntityWolf extends OEntityTameable {
     public boolean bI() {
         return this.ag.a(19) == 1;
     }
+
+    @Override
+    public BaseEntity getEntity() {
+        return wolf;
+    } //
 }

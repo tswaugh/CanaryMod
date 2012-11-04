@@ -36,7 +36,9 @@ public class OEntityEnderPearl extends OEntityThrowable {
                 if (!oentityplayermp.a.c && oentityplayermp.p == this.p) {
                     this.c.a(this.t, this.u, this.v);
                     this.c.S = 0.0F;
-                    this.c.a(ODamageSource.h, 5);
+                    if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENDERPEARL, new BaseEntity(this), ((OEntityPlayerMP) c).getPlayer())) {
+                        this.c.a(ODamageSource.h, 5);
+                    } //
                 }
             }
 

@@ -722,6 +722,11 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         return player;
     }
 
+    @Override
+    public BaseEntity getEntity() {
+        return player;
+    }
+
     /**
      * Reloads the player
      */

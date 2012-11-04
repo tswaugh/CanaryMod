@@ -375,4 +375,9 @@ public class OEntityBoat extends OEntity {
     public int h() {
         return this.ag.c(18);
     }
+
+    @Override
+    public BaseEntity getEntity() {
+        return boat;
+    } //
 }

@@ -5,7 +5,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
     // CanaryMod start
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
-    protected LivingEntity entity = new LivingEntity(this);
+    protected Mob entity = new Mob(this);
     // CanaryMod end
 
     public OEntityMob(OWorld oworld) {
@@ -139,4 +139,9 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     public int c(OEntity oentity) {
         return 2;
     }
+
+    @Override
+    public BaseEntity getEntity() {
+        return entity;
+    } //
 }
