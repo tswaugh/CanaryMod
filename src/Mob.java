@@ -180,4 +180,49 @@ public class Mob extends LivingEntity {
     	return false;
     }
 
+    /**
+     * Sets the item held by the entity.
+     * 
+     * @param item
+     */
+    public void setItemInHand(Item item) {
+    	getEntity().b(0, item.getBaseItem());
+    }
+    
+    /**
+     * Gets the item held by the entity.
+     * 
+     * @return
+     */
+    public Item getItemInHand() {
+    	return new Item(getEntity().bA());
+    }
+    
+    /**
+     * Sets an armor slot of the entity.
+     * 
+     * @param slot 
+     * 			The slot of the armor, 0 being boots and 3 being helmet
+     * @param armor
+     * 			The item of armor to add
+     */
+    public void setArmorSlot(int slot, Item armor) {
+    	if(slot >= 0 && slot <= 3) {
+    		getEntity().b(slot + 1, armor.getBaseItem());
+    	}
+    }
+    
+    /**
+     * Gets the item in one of the entity's armor slots.
+     * 
+     * @param slot
+     * 			The slot of the armor, 0 being boots and 3 being helmet
+     * @return
+     */
+    public Item getArmorSlot(int slot) {
+    	if(slot < 0 || slot > 3) {
+    		return null;
+    	}
+    	return new Item(getEntity().q(slot));
+    }
 }
