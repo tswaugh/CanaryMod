@@ -699,7 +699,7 @@ public class Item {
      */
     public Enchantment[] getEnchantments() {
         Enchantment[] enchantments = null;
-        if (itemStack != null && itemStack.v()) {
+        if (itemStack != null && itemStack.w()) {
             int size = itemStack.q().c();
             enchantments = new Enchantment[size];
             for (int i = 0; i < size; i++) {
@@ -717,7 +717,7 @@ public class Item {
      * @return enchantment
      */
     public Enchantment getEnchantment(int index) {
-        if (itemStack != null && itemStack.v()) {
+        if (itemStack != null && itemStack.w()) {
             int size = itemStack.q().c();
             if (index >= size) {
                 index = 0;
@@ -734,10 +734,28 @@ public class Item {
      * @return enchantment
      */
     public Enchantment getEnchantment() {
-        if (itemStack != null && itemStack.v()) {
+        if (itemStack != null && itemStack.w()) {
             ONBTTagCompound tag = (ONBTTagCompound) itemStack.q().b(0);
             return new Enchantment(Enchantment.Type.fromId(tag.d("id")), tag.d("lvl"));
         }
         return null;
+    }
+
+    /**
+     * Gets the visible name of this item.
+     * Names can be set using an anvil or {@link #setName(java.lang.String)}.
+     * @return The item name
+     */
+    public String getName() {
+        return itemStack.r();
+    }
+
+    /**
+     * Sets the visible name of this item.
+     * Equivalent to renaming this item using an anvil.
+     * @param name The item's new name
+     */
+    public void setName(String name) {
+        itemStack.c(name);
     }
 }
