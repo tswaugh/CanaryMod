@@ -73,7 +73,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inve
 
     @Override
     public void update() {
-        user.U();
+        user.j_();
     }
 
     /**
