@@ -7,12 +7,12 @@ public class OTileEntityMobSpawner extends OTileEntity {
     private ONBTTagCompound e = null;
     public double b;
     public double c = 0.0D;
-    private int f = 200;
-    private int g = 800;
-    private int h = 4;
-    private int j = 6;
-    private int r = 16;
-    private int s = 4;
+    protected int f = 200; // CanaryMod: private -> protected
+    protected int g = 800; //CanaryMod: private -> protected
+    protected int h = 4; //CanaryMod: private -> protected
+    protected int j = 6; //CanaryMod: private -> protected
+    protected int r = 16; //CanaryMod: private -> protected
+    protected int s = 4; //CanaryMod: private -> protected
 
     public OTileEntityMobSpawner() {
         this.a = 20;
