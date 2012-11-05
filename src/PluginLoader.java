@@ -303,6 +303,10 @@ public class PluginLoader {
          */
         POTION_EFFECT, //
         /**
+         * Calls {@link PluginListener#onPotionEffectFinished(LivingEntity, PotionEffect) }
+         */
+        POTION_EFFECTFINISHED, //
+        /**
          * Class {@link PluginListener#onExpChange(Player, int, int) }
          */
         EXPERIENCE_CHANGE, //
@@ -1241,7 +1245,11 @@ public class PluginLoader {
                             listener.onLightChange((Integer) parameters[0], (Integer) parameters[1], (Integer) parameters[2], (Integer) parameters[3]);
                             break;
                             
-                            case DEATH:
+                        case POTION_EFFECTFINISHED:
+                            listener.onPotionEffectFinished((LivingEntity) parameters[0], (PotionEffect) parameters[1]);
+                            break;
+                            
+                        case DEATH:
                             listener.onDeath((LivingEntity) parameters[0]);
                             break;
                         }

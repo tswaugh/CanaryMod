@@ -1100,6 +1100,15 @@ public class PluginListener {
     public PotionEffect onPotionEffect(LivingEntity entity, PotionEffect potionEffect) {
         return potionEffect;
     }
+    
+    /**
+     * Called when a potion effect is finished on an entity
+     * @param entity entity the effect applies to
+     * @param potionEffect effect the potion is
+     */
+    public void onPotionEffectFinished(LivingEntity entity, PotionEffect potionEffect){
+    
+    }
 
     /**
      * Called when a players experience changes.

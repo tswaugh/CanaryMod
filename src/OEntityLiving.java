@@ -1654,6 +1654,7 @@ public abstract class OEntityLiving extends OEntity {
     }
 
     protected void c(OPotionEffect opotioneffect) {
+        etc.getLoader().callHook(PluginLoader.Hook.POTION_EFFECTFINISHED, this.entity, opotioneffect.potionEffect);
         this.h = true;
     }
 
