@@ -941,6 +941,14 @@ public class Player extends HumanEntity implements MessageReceiver {
     public boolean getSneaking() {
         return getEntity().af();
     }
+    
+    /**
+     * Returns whether or not this entity is blocking with the item in their hand.
+     * @return true if blocking
+     */
+    public boolean isBlocking(){
+        return getEntity().be();
+    }
 
     /**
      * Force this Player to be sneaking or not
