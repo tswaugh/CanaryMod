@@ -250,4 +250,65 @@ public class Mob extends LivingEntity {
     public void setCanPickUpLoot(boolean flag) {
     	getEntity().bs = flag;
     }
+    
+    /**
+     * Returns whether or not this mob is invulnerable.
+     * 
+     * @return
+     */
+    public boolean isInvulnerable() {
+    	return getEntity().bt;
+    }
+    
+    /**
+     * Sets whether or not this mob is invulnerable.
+     * 
+     * @param isInvulnerable
+     */
+    public void setInvulnerable(boolean isInvulnerable) {
+    	getEntity().bt = isInvulnerable;
+    }
+    
+    /**
+     * Returns whether or not this mob will despawn.
+     * 
+     * @return
+     */
+    public boolean isPersistent() {
+    	return getEntity().bV;
+    }
+    
+    /**
+     * Sets whether or not this mob will despawn.
+     * 
+     * @param isPersistent
+     */
+    public void setPersistent(boolean isPersistent) {
+    	getEntity().bV = isPersistent;
+    }
+    
+    /**
+     * Returns the drop chance of an item.
+     * 
+     * @param slot The slot of the item, 0-4: 0 is hand, 1-4 are armor slots (1=boots and 4=helmet)
+     * @return The drop chance, 0-1 (anything greater than 1 is guaranteed to drop)
+     */
+    public float getDropChance(int slot) {
+    	if(slot >= 0 && slot <= 4) {
+    		return getEntity().bp[slot];
+    	}
+    	return 0;
+    }
+    
+    /**
+     * Sets the drop chance of an item.
+     * 
+     * @param slot The slot of the item, 0-4: 0 is hand, 1-4 are armor slots (1=boots and 4=helmet)
+     * @param chance The drop chance, 0-1 (anything greater than 1 is guaranteed to drop)
+     */
+    public void setDropChance(int slot, float chance) {
+    	if(slot >= 0 && slot <= 4) {
+    		getEntity().bp[slot] = chance;
+    	}
+    }
 }

@@ -201,19 +201,27 @@ public class MobSpawner implements ComplexBlock {
     /**
      * Sets the entity spawned by this spawner.
      * 
-     * @param entity
+     * @param entity The entity this spawner should spawn
      */
     public void setSpawnedEntity(BaseEntity entity) {
     	setSpawnedEntity(entity.getEntity());
-    	setSpawn(entity.getName());
     }
     
+    /**
+     * Sets the entity spawned by this spawner to an item.
+     * 
+     * @param itemEntity The item this spawner should spawn
+     */
     public void setSpawnedEntity(Item itemEntity) {
     	setSpawnedEntity(new OEntityItem(etc.getServer().getDefaultWorld().getWorld(), 0, 0, 0, itemEntity.getBaseItem()));
-    	setSpawn("Item");
     }
     
-    private void setSpawnedEntity(OEntity entity) {
+    /**
+     * Sets the entity spawned by this spawner.
+     * 
+     * @param entity The entity this spawner should spawn
+     */
+    public void setSpawnedEntity(OEntity entity) {
     	ONBTTagCompound tag = new ONBTTagCompound();
     	entity.b(tag);
     	tag.o("Health");
@@ -222,5 +230,6 @@ public class MobSpawner implements ComplexBlock {
     	tag.o("AttackTime");
     	tag.o("Age");
     	spawner.e = tag;
+    	setSpawn(entity.Q());
     }
 }

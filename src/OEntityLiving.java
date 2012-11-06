@@ -80,7 +80,7 @@ public abstract class OEntityLiving extends OEntity {
     public boolean bq = false;
     public int br = 0;
     protected boolean bs = false;
-    private boolean bV = false;
+    protected boolean bV = false; //CanaryMod: private -> protected
     protected boolean bt = false;
     protected int bu;
     protected double bv;
