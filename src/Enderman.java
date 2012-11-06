@@ -1,7 +1,30 @@
 public class Enderman extends Mob {
 
+	/**
+	 * Creates an enderman wrapper
+	 * 
+	 * @param entity The entity to wrap
+	 */
     public Enderman(OEntityEnderman entity) {
         super(entity);
+    }
+    
+    /**
+     * Creates a new enderman
+     * 
+     * @param world The world to create it in
+     */
+    public Enderman(World world) {
+    	super("Enderman", world);
+    }
+    
+    /**
+     * Creates a new enderman
+     * 
+     * @param location The location at which to create it
+     */
+    public Enderman(Location location) {
+    	super("Enderman", location);
     }
 
     /**
@@ -10,7 +33,7 @@ public class Enderman extends Mob {
      * @return Block
      */
     public Block getBlockInHand() {
-        return new Block(Block.Type.fromId(getEntity().p()), getEntity().p());
+        return new Block(Block.Type.fromId(getEntity().o()), getEntity().p());
     }
 
     /**
@@ -22,7 +45,7 @@ public class Enderman extends Mob {
     public boolean setBlockInHand(int blockID, int blockData) {
         if (OEntityEnderman.canHoldItem(blockID)) {
             getEntity().a(blockID);
-            getEntity().b(blockData);
+            getEntity().r(blockData);
             return true;
         }
         return false;

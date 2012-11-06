@@ -4,7 +4,7 @@ public class OTileEntityMobSpawner extends OTileEntity {
 
     public int a = -1;
     protected String d = "Pig"; // CanaryMod: private -> protected
-    private ONBTTagCompound e = null;
+    protected ONBTTagCompound e = null; //CanaryMod: private -> protected
     public double b;
     public double c = 0.0D;
     protected int f = 200; // CanaryMod: private -> protected
@@ -73,12 +73,12 @@ public class OTileEntityMobSpawner extends OTileEntity {
 
                         oentity.b(d3, d4, d5, this.k.u.nextFloat() * 360.0F, 0.0F);
                         if (oentityliving == null || oentityliving.bp()) {
-                            // CanaryMod - set spawner block for spawned entity
-                            oentityliving.spawner = (MobSpawner) this.k.world.getComplexBlock(this.l, this.m, this.n);
                             this.a(oentity);
                             this.k.d(oentity);
                             this.k.f(2004, this.l, this.m, this.n, 0);
                             if (oentityliving != null) {
+                            	// CanaryMod - set spawner block for spawned entity
+                                oentityliving.spawner = (MobSpawner) this.k.world.getComplexBlock(this.l, this.m, this.n);
                                 oentityliving.aQ();
                             }
 

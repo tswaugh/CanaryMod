@@ -197,4 +197,30 @@ public class MobSpawner implements ComplexBlock {
     public void setSpawnRange(int range) {
     	spawner.s = range;
     }
+    
+    /**
+     * Sets the entity spawned by this spawner.
+     * 
+     * @param entity
+     */
+    public void setSpawnedEntity(BaseEntity entity) {
+    	setSpawnedEntity(entity.getEntity());
+    	setSpawn(entity.getName());
+    }
+    
+    public void setSpawnedEntity(Item itemEntity) {
+    	setSpawnedEntity(new OEntityItem(etc.getServer().getDefaultWorld().getWorld(), 0, 0, 0, itemEntity.getBaseItem()));
+    	setSpawn("Item");
+    }
+    
+    private void setSpawnedEntity(OEntity entity) {
+    	ONBTTagCompound tag = new ONBTTagCompound();
+    	entity.b(tag);
+    	tag.o("Health");
+    	tag.o("HurtTime");
+    	tag.o("DeathTime");
+    	tag.o("AttackTime");
+    	tag.o("Age");
+    	spawner.e = tag;
+    }
 }
