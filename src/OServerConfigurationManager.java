@@ -369,6 +369,8 @@ public abstract class OServerConfigurationManager {
         oworldserver.d(oentityplayermp1);
         this.b.add(oentityplayermp1);
         //oentityplayermp1.d_();
+        //CanaryMod: hotfix for getting stuck in the respawn loop  --gregthegeek
+        oentityplayermp1.getPlayer().setHealth(oentityplayermp1.getPlayer().getMaxHealth());
         return oentityplayermp1;
     }
 
