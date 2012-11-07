@@ -619,11 +619,12 @@ public class ServerConsoleCommands {
                 world = ((Player) caller).getWorld();
             } else {
                 if (args.length > 2 && !args[1].equalsIgnoreCase("raw")) {
-                    world = etc.getServer().getWorld(args[1])[0];
-                    if (world == null) {
+                    World[] worlda = etc.getServer().getWorld(args[1]);
+                    if (worlda == null) {
                         caller.notify(String.format("The world %s doesn't exist.", args[1]));
                         return;
                     }
+                    world = worlda[0];
                     args = (args[0] + " " + etc.combineSplit(2, args, " ")).split(" ");
                 }
                 world = etc.getServer().getDefaultWorld();
