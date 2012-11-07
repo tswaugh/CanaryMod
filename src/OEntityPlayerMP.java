@@ -155,7 +155,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             // updates your health when it is changed.
             if (!etc.getInstance().isHealthEnabled()) {
                 this.aQ = this.aS();
-                this.L = false;
+                this.K = false;
             } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cn, aQ)) {
                 this.aQ = this.cn;
             }
@@ -601,7 +601,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         super.a(oitemstack, i);
         // CanaryMod: Call EAT Hook
         if (oitemstack != null && oitemstack.b() != null && oitemstack.b().d_(oitemstack) == OEnumAction.b) {
-            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.EAT, ((OEntityPlayerMP) this).getPlayer(), new Item(oitemstack))) {
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.EAT, this.getPlayer(), new Item(oitemstack))) {
                 super.a(oitemstack, i);
                 this.p().p().b(this, new OPacket18Animation(this, 5));
             } else {

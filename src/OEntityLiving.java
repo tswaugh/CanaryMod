@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-
 public abstract class OEntityLiving extends OEntity {
 
     private static final float[] b = new float[] { 0.0F, 0.0F, 0.005F, 0.01F};
@@ -166,7 +165,6 @@ public abstract class OEntityLiving extends OEntity {
         if (oentity instanceof OEntityLiving) {
             this.g = (OEntityLiving) oentity;
         }
-
     }
 
     public int aD() {
@@ -289,7 +287,6 @@ public abstract class OEntityLiving extends OEntity {
         if (s != null) {
             this.p.a(this, s, this.aV(), this.h());
         }
-
     }
 
     public void y() {
@@ -408,7 +405,6 @@ public abstract class OEntityLiving extends OEntity {
                 this.p.a("explode", this.t + (double) (this.aa.nextFloat() * this.N * 2.0F) - (double) this.N, this.u + (double) (this.aa.nextFloat() * this.O), this.v + (double) (this.aa.nextFloat() * this.N * 2.0F) - (double) this.N, d0, d1, d2);
             }
         }
-
     }
 
     protected int g(int i) {
@@ -434,7 +430,6 @@ public abstract class OEntityLiving extends OEntity {
 
             this.p.a("explode", this.t + (double) (this.aa.nextFloat() * this.N * 2.0F) - (double) this.N - d0 * d3, this.u + (double) (this.aa.nextFloat() * this.O) - d1 * d3, this.v + (double) (this.aa.nextFloat() * this.N * 2.0F) - (double) this.N - d2 * d3, d0, d1, d2);
         }
-
     }
 
     public void U() {
@@ -582,7 +577,6 @@ public abstract class OEntityLiving extends OEntity {
         if (i > this.aS()) {
             i = this.aS();
         }
-
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
@@ -747,8 +741,8 @@ public abstract class OEntityLiving extends OEntity {
 
     protected void d(ODamageSource odamagesource, int i) {
         if (!this.bt) {
-        i = this.b(odamagesource, i);
-        i = this.c(odamagesource, i);
+            i = this.b(odamagesource, i);
+            i = this.c(odamagesource, i);
             this.aQ -= i;
         }
     }
@@ -783,7 +777,6 @@ public abstract class OEntityLiving extends OEntity {
         if (this.x > 0.4000000059604645D) {
             this.x = 0.4000000059604645D;
         }
-
     }
 
     public void a(ODamageSource odamagesource) {
@@ -837,7 +830,6 @@ public abstract class OEntityLiving extends OEntity {
                 this.b(j, 1);
             }
         }
-
     }
 
     protected int aZ() {
@@ -867,7 +859,6 @@ public abstract class OEntityLiving extends OEntity {
                 this.p.a(this, ostepsound.e(), ostepsound.c() * 0.5F, ostepsound.d() * 0.75F);
             }
         }
-
     }
 
     public void e(float f, float f1) {
@@ -1038,6 +1029,7 @@ public abstract class OEntityLiving extends OEntity {
         for (int j = 0; j < this.bp.length; ++j) {
             onbttaglist1.a((ONBTBase) (new ONBTTagFloat(j + "", this.bp[j])));
         }
+
         onbttagcompound.a("DropChances", (ONBTBase) onbttaglist1);
     }
 
@@ -1086,7 +1078,6 @@ public abstract class OEntityLiving extends OEntity {
                 this.bp[i] = ((ONBTTagFloat) onbttaglist.b(i)).a;
             }
         }
-
     }
 
     public boolean S() {
@@ -1409,7 +1400,6 @@ public abstract class OEntityLiving extends OEntity {
         if (flag || flag1) {
             this.bG = this.aa.nextFloat() < 0.8F;
         }
-
     }
 
     protected void bl() {
@@ -1567,7 +1557,6 @@ public abstract class OEntityLiving extends OEntity {
                 this.p.a(flag ? "mobSpellAmbient" : "mobSpell", this.t + (this.aa.nextDouble() - 0.5D) * (double) this.N, this.u + this.aa.nextDouble() * (double) this.O - (double) this.M, this.v + (this.aa.nextDouble() - 0.5D) * (double) this.N, d0, d1, d2);
             }
         }
-
     }
 
     public void bv() {
@@ -1582,7 +1571,6 @@ public abstract class OEntityLiving extends OEntity {
                 this.c(opotioneffect);
             }
         }
-
     }
 
     public Collection bw() {
@@ -1617,7 +1605,6 @@ public abstract class OEntityLiving extends OEntity {
                 this.bm.put(Integer.valueOf(opotioneffect.a()), opotioneffect);
                 this.a(opotioneffect);
             }
-
         }
     }
 
