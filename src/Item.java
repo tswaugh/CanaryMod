@@ -758,4 +758,49 @@ public class Item {
     public void setName(String name) {
         itemStack.c(name);
     }
+    
+    /**
+     * Adds a potion effect to this item. Only works on potions.
+     * 
+     * @param effect The potion effect to add
+     */
+    public void addPotionEffect(PotionEffect effect) {
+    	addPotionEffects(new PotionEffect[] {effect});
+    }
+    
+    /**
+     * Adds an array of potion effects to this item. Only works on potions.
+     * 
+     * @param effects The potion effects to add
+     */
+    public void addPotionEffects(PotionEffect[] effects) {
+    	if(getType() != Item.Type.Potion) {
+    		return;
+    	}
+    	
+    	OItemStack base = getBaseItem();
+    	
+    	ONBTTagList potionEffects = null;
+    	if(base.o()) {
+    		ONBTTagCompound tag = base.p();
+    		if(tag.b("CustomPotionEffects")) {
+    			potionEffects = tag.m("CustomPotionEffects");
+    		} else {
+    			potionEffects = new ONBTTagList();
+    			tag.a("CustomPotionEffects", potionEffects);
+    		}
+    	} else {
+    		potionEffects = new ONBTTagList();
+    		ONBTTagCompound tag = new ONBTTagCompound();
+    		tag.a("CustomPotionEffects", potionEffects);
+    		base.d(tag);
+    	}
+    	
+    	ONBTTagCompound[] e = new ONBTTagCompound[effects.length];
+    	for(int i=0; i<e.length; i++) {
+    		e[i] = new ONBTTagCompound();
+    		effects[i].potionEffect.a(e[i]);
+    		potionEffects.a(e[i]);
+    	}
+    }
 }
