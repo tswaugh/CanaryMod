@@ -1921,7 +1921,7 @@ public abstract class OEntityLiving extends OEntity {
 
     // CanaryMod start: add getEntity
     @Override
-    public BaseEntity getEntity() {
+    public LivingEntity getEntity() {
         return entity;
     } // CanaryMod end
 }

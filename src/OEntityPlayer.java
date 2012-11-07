@@ -1318,7 +1318,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     }
 
     @Override
-    public BaseEntity getEntity() {
+    public HumanEntity getEntity() {
         return entity;
     } //
 }

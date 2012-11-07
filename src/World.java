@@ -173,7 +173,7 @@ public class World {
     public List<Mob> getMobList() {
         List<Mob> toRet = new ArrayList<Mob>();
 
-        for (Object o : world.f) {
+        for (Object o : world.g) {
             if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntitySlime || o instanceof OEntityDragon) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
@@ -189,7 +189,7 @@ public class World {
     public List<Mob> getAnimalList() {
         List<Mob> toRet = new ArrayList<Mob>();
 
-        for (Object o : world.f) {
+        for (Object o : world.g) {
             if (o instanceof OEntityAnimal || o instanceof OEntitySquid || o instanceof OEntitySnowman || o instanceof OEntityBat) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
@@ -205,7 +205,7 @@ public class World {
     public List<Minecart> getMinecartList() {
         List<Minecart> toRet = new ArrayList<Minecart>();
 
-        for (Object o : world.f) {
+        for (Object o : world.g) {
             if (o instanceof OEntityMinecart) {
                 toRet.add(((OEntityMinecart) o).cart);
             }
@@ -221,7 +221,7 @@ public class World {
     public List<Boat> getBoatList() {
         List<Boat> toRet = new ArrayList<Boat>();
 
-        for (Object o : world.f) {
+        for (Object o : world.g) {
             if (o instanceof OEntityBoat) {
                 toRet.add(((OEntityBoat) o).boat);
             }
@@ -237,7 +237,7 @@ public class World {
     public List<BaseEntity> getEntityList() {
         List<BaseEntity> toRet = new ArrayList<BaseEntity>();
 
-        for (Object o : world.f) {
+        for (Object o : world.g) {
             if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityMagmaCube || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowman) {
                 toRet.add(new Mob((OEntityLiving) o));
             } else if (o instanceof OEntityMinecart) {
@@ -248,6 +248,8 @@ public class World {
                 toRet.add(((OEntityPlayerMP) o).getPlayer());
             } else if (o instanceof OEntityItem) {
                 toRet.add(((OEntityItem) o).item);
+            } else {
+                toRet.add(((OEntity) o).getEntity());
             }
         }
         return toRet;
@@ -261,7 +263,7 @@ public class World {
     public List<ItemEntity> getItemList() {
         List<ItemEntity> toRet = new ArrayList<ItemEntity>();
 
-        for (Object o : world.f) {
+        for (Object o : world.g) {
             if (o instanceof OEntityItem) {
                 toRet.add(((OEntityItem) o).item);
             }
@@ -278,11 +280,9 @@ public class World {
     public List<LivingEntity> getLivingEntityList() {
         List<LivingEntity> toRet = new ArrayList<LivingEntity>();
 
-        for (Object o : world.f) {
-            if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityMagmaCube || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntityGolem) {
-                toRet.add(new Mob((OEntityLiving) o));
-            } else if (o instanceof OEntityPlayerMP) {
-                toRet.add(((OEntityPlayerMP) o).getPlayer());
+        for (Object o : world.g) {
+            if (o instanceof OEntityLiving) {
+                toRet.add(((OEntityLiving) o).getEntity());
             }
         }
         return toRet;
@@ -296,7 +296,7 @@ public class World {
     public List<BaseVehicle> getVehicleEntityList() {
         List<BaseVehicle> toRet = new ArrayList<BaseVehicle>();
 
-        for (Object o : world.f) {
+        for (Object o : world.g) {
             if (o instanceof OEntityMinecart) {
                 toRet.add(((OEntityMinecart) o).cart);
             } else if (o instanceof OEntityBoat) {
@@ -317,7 +317,7 @@ public class World {
         Location spawn = new Location();
 
         spawn.x = info.c() + 0.5D;
-        spawn.y = info.d() + 0.5D;
+        spawn.y = info.d();
         spawn.z = info.e() + 0.5D;
         spawn.rotX = 0.0F;
         spawn.rotY = 0.0F;

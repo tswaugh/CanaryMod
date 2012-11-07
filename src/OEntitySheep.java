@@ -175,7 +175,7 @@ public class OEntitySheep extends OEntityAnimal {
     }
 
     @Override
-    public BaseEntity getEntity() {
+    public Sheep getEntity() {
         return sheep;
     }
 }

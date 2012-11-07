@@ -377,7 +377,7 @@ public class OEntityBoat extends OEntity {
     }
 
     @Override
-    public BaseEntity getEntity() {
+    public Boat getEntity() {
         return boat;
     } //
 }

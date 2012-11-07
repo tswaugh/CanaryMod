@@ -333,7 +333,7 @@ public class OEntityEnderman extends OEntityMob {
     }
 
     @Override
-    public BaseEntity getEntity() {
+    public Enderman getEntity() {
         return entity;
     }
     // CanaryMod end

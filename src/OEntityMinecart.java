@@ -947,7 +947,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     } //
 
     @Override
-    public BaseEntity getEntity() {
+    public Minecart getEntity() {
         return cart;
     } //
 }

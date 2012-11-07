@@ -227,7 +227,7 @@ public class OEntityOcelot extends OEntityTameable {
     }
 
     @Override
-    public BaseEntity getEntity() {
+    public Ocelot getEntity() {
         return ocelot;
     }
 }

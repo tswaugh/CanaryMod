@@ -324,7 +324,7 @@ public class OEntityWolf extends OEntityTameable {
     }
 
     @Override
-    public BaseEntity getEntity() {
+    public Wolf getEntity() {
         return wolf;
     } //
 }

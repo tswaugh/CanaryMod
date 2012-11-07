@@ -99,7 +99,7 @@ public abstract class OEntityTameable extends OEntityAnimal {
     }
 
     @Override
-    public BaseEntity getEntity() {
+    public TamableEntity getEntity() {
         return tamableEntity;
     }
 }

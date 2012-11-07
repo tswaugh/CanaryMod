@@ -141,7 +141,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     }
 
     @Override
-    public BaseEntity getEntity() {
+    public Mob getEntity() {
         return entity;
     } //
 }
