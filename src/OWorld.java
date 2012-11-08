@@ -50,7 +50,7 @@ public abstract class OWorld implements OIBlockAccess {
     protected Set H = new HashSet();
     private int O;
     int[] I;
-    private List P;
+    // private List P; // CanaryMod: Fix ConcurrentModificationException
     public boolean J;
 
     // CanaryMod
@@ -77,7 +77,7 @@ public abstract class OWorld implements OIBlockAccess {
     public OWorld(OISaveHandler oisavehandler, String s, OWorldSettings oworldsettings, OWorldProvider oworldprovider, OProfiler oprofiler) {
         this.O = this.u.nextInt(12000);
         this.I = new int['\u8000'];
-        this.P = new ArrayList();
+        //this.P = new ArrayList(); // CanaryMod: Fix ConcurrentModificationException
         this.J = false;
         this.y = oisavehandler;
         this.E = oprofiler;
@@ -2133,7 +2133,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public List b(OEntity oentity, OAxisAlignedBB oaxisalignedbb) {
-        this.P.clear();
+        List tempList = new ArrayList(); // CanaryMod: fix ConcurrentModificationException (2 more)
         int i = OMathHelper.c((oaxisalignedbb.a - 2.0D) / 16.0D);
         int j = OMathHelper.c((oaxisalignedbb.d + 2.0D) / 16.0D);
         int k = OMathHelper.c((oaxisalignedbb.c - 2.0D) / 16.0D);
@@ -2142,12 +2142,12 @@ public abstract class OWorld implements OIBlockAccess {
         for (int i1 = i; i1 <= j; ++i1) {
             for (int j1 = k; j1 <= l; ++j1) {
                 if (this.c(i1, j1)) {
-                    this.e(i1, j1).a(oentity, oaxisalignedbb, this.P);
+                    this.e(i1, j1).a(oentity, oaxisalignedbb, tempList); // CanaryMod
                 }
             }
         }
 
-        return this.P;
+        return tempList; // CanaryMod
     }
 
     public List a(Class oclass, OAxisAlignedBB oaxisalignedbb) {

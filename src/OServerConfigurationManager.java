@@ -307,7 +307,7 @@ public abstract class OServerConfigurationManager {
     // CanaryMod: alias to set location when spawning
     public OEntityPlayerMP a(OEntityPlayerMP oentityplayermp, int i, boolean flag, Location location) {
         oentityplayermp.p().p().a(oentityplayermp);
-        //oentityplayermp.p().p().b(oentityplayermp);
+        oentityplayermp.p().p().b(oentityplayermp);
         oentityplayermp.p().r().c(oentityplayermp);
         this.b.remove(oentityplayermp);
         this.f.getWorld(oentityplayermp.getPlayer().getWorld().getName(), oentityplayermp.ap).f(oentityplayermp);
@@ -369,7 +369,7 @@ public abstract class OServerConfigurationManager {
         oworldserver.r().a(oentityplayermp1);
         oworldserver.d(oentityplayermp1);
         this.b.add(oentityplayermp1);
-        //oentityplayermp1.d_();
+        oentityplayermp1.d_();
         return oentityplayermp1;
     }
 
