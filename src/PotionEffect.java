@@ -29,7 +29,7 @@ public class PotionEffect {
         HUNGER(17), //
         WEAKNESS(18), //
         POISON(19);
-		WITHER(20);
+        WITHER(20);
       
         private int id; 
         private static Map<Integer, Type> map;
