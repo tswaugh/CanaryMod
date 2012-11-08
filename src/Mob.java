@@ -15,7 +15,6 @@ public class Mob extends LivingEntity {
      */
     public Mob(OEntityLiving locallb) {
         super(locallb);
-
     }
 
     /**
@@ -26,7 +25,7 @@ public class Mob extends LivingEntity {
      * @deprecated Use {@link #Mob(java.lang.String, World)} instead.
      */
     public Mob(String mob) {
-        this((OEntityLiving) OEntityList.a(mob, etc.getServer().getDefaultWorld().getWorld()));
+        this(mob, etc.getServer().getDefaultWorld());
     }
 
     /**
@@ -36,6 +35,7 @@ public class Mob extends LivingEntity {
      */
     public Mob(String mob, World world) {
         this((OEntityLiving) OEntityList.a(mob, world.getWorld()));
+        this.getEntity().bD();
     }
 
     /**
