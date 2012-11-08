@@ -1016,7 +1016,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         }
 
         //switch world if needed
-        if (!world.equals(this.getWorld())) {
+        if (!world.getName().equals(this.getWorld().getName())) {
             Location loc = this.getLocation();
             loc.world = world.getName(); // teleport to new world
 
