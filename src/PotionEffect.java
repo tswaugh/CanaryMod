@@ -28,7 +28,7 @@ public class PotionEffect {
         NIGHTVISION(16), //
         HUNGER(17), //
         WEAKNESS(18), //
-        POISON(19);
+        POISON(19),
         WITHER(20);
       
         private int id; 
