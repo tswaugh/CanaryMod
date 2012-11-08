@@ -19,7 +19,8 @@ public class OEntityEnderman extends OEntityMob {
     }
 
     public int aS() {
-        return 40;
+        //CanaryMod: set max health here, but check for uninitialized value.
+        return this.maxHealth == 0 ? 40 : this.maxHealth;
     }
 
     protected void a() {

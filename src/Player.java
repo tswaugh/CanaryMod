@@ -1209,24 +1209,6 @@ public class Player extends HumanEntity implements MessageReceiver {
 
         entityMP.a.b((OPacket) (new OPacket8UpdateHealth(getHealth(), getFoodLevel(), getFoodSaturationLevel())));
     }
-    
-    /**
-     * Get a players max health value
-     * @return max health
-     */
-    public int getMaxHealth(){
-        return getEntity().maxHealth;
-    }
-    
-    /**
-     * Set the players max health
-     * @param toSet max health
-     */
-    public void setMaxHealth(int toSet){
-        if(toSet > 0) {
-            getEntity().maxHealth = toSet;
-        }
-    }
 
     /**
      * Get player Food Level

@@ -63,6 +63,24 @@ public class LivingEntity extends BaseEntity {
     public int getDeathTicks() {
         return getEntity().aX;
     }
+    
+    /**
+     * Get an entities max health value
+     * @return max health
+     */
+    public int getMaxHealth(){
+        return getEntity().aS();
+    }
+    
+    /**
+     * Set the entities max health
+     * @param toSet max health
+     */
+    public void setMaxHealth(int toSet){
+        if(toSet > 0) {
+            getEntity().maxHealth = toSet;
+        }
+    }
 
     /**
      * Set the amount of ticks this entity is dead. 20 ticks per second.

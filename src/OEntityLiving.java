@@ -103,6 +103,7 @@ public abstract class OEntityLiving extends OEntity {
     // CanaryMod Start
     LivingEntity entity = new LivingEntity(this);
     protected MobSpawner spawner = null;
+    public int maxHealth = 0;
     // CanaryMod end
 
     public OEntityLiving(OWorld oworld) {

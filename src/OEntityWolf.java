@@ -47,7 +47,8 @@ public class OEntityWolf extends OEntityTameable {
     }
 
     public int aS() {
-        return this.m() ? 20 : 8;
+        //CanaryMod: set max health here, but check for uninitialized value.
+        return this.maxHealth == 0 ? (this.m() ? 20 : 8) : this.maxHealth;
     }
 
     protected void a() {

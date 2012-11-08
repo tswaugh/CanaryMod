@@ -31,8 +31,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
 
     public int aS() {
         int i = this.p();
-
-        return i * i;
+        return this.maxHealth == 0 ? (i * i) : this.maxHealth;
     }
 
     public int p() {

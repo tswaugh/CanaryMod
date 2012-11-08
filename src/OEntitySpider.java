@@ -22,7 +22,8 @@ public class OEntitySpider extends OEntityMob {
     }
 
     public int aS() {
-        return 16;
+        //CanaryMod: set max health here, but check for uninitialized value.
+        return this.maxHealth == 0 ? 16 : this.maxHealth;
     }
 
     public double X() {

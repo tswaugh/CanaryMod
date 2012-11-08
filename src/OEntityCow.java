@@ -21,7 +21,8 @@ public class OEntityCow extends OEntityAnimal {
     }
 
     public int aS() {
-        return 10;
+        //CanaryMod: set max health here, but check for uninitialized value.
+        return this.maxHealth == 0 ? 10 : this.maxHealth;
     }
 
     protected String aW() {

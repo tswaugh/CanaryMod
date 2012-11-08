@@ -59,7 +59,8 @@ public class OEntityOcelot extends OEntityTameable {
     }
 
     public int aS() {
-        return 10;
+        //CanaryMod: set max health here, but check for uninitialized value.
+        return this.maxHealth == 0 ? 10 : this.maxHealth;
     }
 
     protected void a(float f) {}

@@ -162,7 +162,10 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         }
 
         if (this.aT() != this.cn || this.co != this.bN.a() || this.bN.e() == 0.0F != this.cp) {
-            this.a.b(new OPacket8UpdateHealth(this.aT(), this.bN.a(), this.bN.e()));
+            //CanaryMod: convert health for values above 20
+            int health = (int)(this.aT() / (this.aS() / 20));
+            health = (this.aT() > 0 && health == 0) ? 1 : health;
+            this.a.b(new OPacket8UpdateHealth(health, this.bN.a(), this.bN.e()));
             this.cn = this.aT();
             this.co = this.bN.a();
             this.cp = this.bN.e() == 0.0F;
