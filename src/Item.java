@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author James
  */
-public class Item {
+public class Item implements Cloneable {
 
     /**
      * Type - Used to identify items
@@ -339,9 +339,17 @@ public class Item {
     public Type itemType = Type.fromId(itemId);
 
     /**
-     * Create an item with an id of 1 and amount of 1
+     * Create an item with an id of 1 and amount of 1.
      */
     public Item() {}
+
+    /**
+     * Clone an existing <tt>Item</tt>
+     * @param toClone the <tt>Item</tt> to clone
+     */
+    public Item(Item toClone) {
+        this(toClone.itemStack.l());
+    }
 
     /**
      * Create a new item.
@@ -802,5 +810,23 @@ public class Item {
     		effects[i].potionEffect.a(e[i]);
     		potionEffects.a(e[i]);
     	}
+    }
+
+    /**
+     * Create a completely independent clone of this <tt>Item</tt>.
+     * The <tt>OItemStack</tt> (if it is set) is cloned using its own (native)
+     * method.
+     *
+     * @return a clone of this <tt>Item</tt> instance
+     */
+    @Override
+    public Item clone() {
+        try {
+            Item clone = (Item) super.clone();
+            clone.itemStack = itemStack == null ? null : itemStack.l();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError(); // We are Cloneable!?
+        }
     }
 }
