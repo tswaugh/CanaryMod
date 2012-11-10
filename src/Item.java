@@ -496,7 +496,7 @@ public class Item implements Cloneable {
      * @return amount
      */
     public int getMaxAmount() {
-    	return this.itemStack.d();
+        return this.itemStack.d();
     }
 
     /**
@@ -768,6 +768,38 @@ public class Item implements Cloneable {
     }
     
     /**
+     * Returns the potion effects associated with this item.
+     * Returns null if item is not a potion or has no potion effects.
+     * 
+     * @return
+     */
+    public PotionEffect[] getPotionEffects() {
+    	if(getType() != Item.Type.Potion) {
+    		return null;
+    	}
+    	
+    	OItemStack base = getBaseItem();
+    	
+    	if(!base.o()) {
+    		return null;
+    	}
+    	
+    	ONBTTagCompound tag = base.p();
+    	if(!tag.b("CustomPotionEffects")) {
+    		return null;
+    	}
+    	
+    	ONBTTagList potionEffects = tag.m("CustomPotionEffects");
+    	PotionEffect[] rt = new PotionEffect[potionEffects.c()];
+    	if(rt.length <= 0) {return null;}
+    	for(int i=0; i<rt.length; i++) {
+    		rt[i] = new PotionEffect(OPotionEffect.b((ONBTTagCompound) potionEffects.b(i)));
+    	}
+    	
+    	return rt;
+    }
+    
+    /**
      * Adds a potion effect to this item. Only works on potions.
      * 
      * @param effect The potion effect to add
@@ -828,5 +860,51 @@ public class Item implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new InternalError(); // We are Cloneable!?
         }
+    }
+    
+    /**
+     * Returns the text that shows up under this item's name in the player's inventory
+     * 
+     * @return The lore, each string in the array is a new line
+     */
+    public String[] getLore() {
+    	OItemStack base = getBaseItem();
+    	if(!base.o()) {return null;}
+    	ONBTTagCompound tag = base.p();
+    	if(!tag.b("display")) {return null;}
+    	ONBTTagCompound display = tag.l("display");
+    	if(!display.b("Lore")) {return null;}
+    	ONBTTagList lore = display.m("Lore");
+    	String[] rt = new String[lore.c()];
+    	for(int i=0; i<rt.length; i++) {
+    		rt[i] = ((ONBTTagString) lore.b(i)).toString();
+    	}
+    	return rt;
+    }
+    
+    /**
+     * Sets the text that shows up under the item's name in the player's inventory
+     * 
+     * @param lore The lore to set, each line should be in a separate string in the array
+     */
+    public void setLore(String... lore) {
+    	OItemStack base = getBaseItem();
+    	if(!base.o()) {base.d(new ONBTTagCompound());}
+    	
+    	ONBTTagCompound tag = base.p();
+    	ONBTTagCompound display;
+    	if(tag.b("display")) {
+    		display = tag.l("display");
+    	} else {
+    		display = new ONBTTagCompound();
+    		tag.a("display", display);
+    	}
+    	
+    	ONBTTagList list = new ONBTTagList();
+    	for(String line : lore) {
+    		list.a(new ONBTTagString("", line));
+    	}
+    	
+    	display.a("Lore", list);
     }
 }
