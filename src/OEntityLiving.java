@@ -781,6 +781,9 @@ public abstract class OEntityLiving extends OEntity {
     }
 
     public void a(ODamageSource odamagesource) {
+        // CanaryMod: call DEATH hook
+        manager.callHook(PluginLoader.Hook.DEATH, this.getEntity());
+
         OEntity oentity = odamagesource.g();
 
         if (this.aK >= 0 && oentity != null) {
