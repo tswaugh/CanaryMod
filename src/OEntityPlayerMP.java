@@ -189,6 +189,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(ODamageSource odamagesource) {
+        manager.callHook(PluginLoader.Hook.DEATH, this.getEntity());
         if (etc.getInstance().deathMessages) {
             this.b.ad().a((OPacket) (new OPacket3Chat(odamagesource.b(this))));
         }
