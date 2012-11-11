@@ -151,6 +151,15 @@ public class Item implements Cloneable {
         SpruceWoodStairs(134), //
         BirchWoodStairs(135), //
         JungleWoodStairs(136), //
+        CommandBlock(137), //
+        Beacon(138), //
+        CobblestoneWall(139), //
+        FlowerPotBlock(140), //
+        CarrotBlock(141), //
+        PotatoBlock(142), //
+        WoodenButton(143), //
+        SkullBlock(144), //
+        Anvil(145), //
         IronSpade(256), //
         IronPickaxe(257), //
         IronAxe(258), //
