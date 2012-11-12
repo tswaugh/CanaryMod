@@ -386,71 +386,81 @@ public class PluginLoader {
         /**
          * Creeper explosion
          */
-        CREEPER_EXPLOSION, //
+        CREEPER_EXPLOSION(ODamageSource.k), //
         /**
          * Damage dealt by another entity
          */
-        ENTITY, //
+        ENTITY(ODamageSource.a((OEntityLiving) null)), //
         /**
          * Damage caused by explosion
          */
-        EXPLOSION, //
+        EXPLOSION(ODamageSource.l), //
         /**
          * Damage caused from falling (fall distance - 3.0)
          */
-        FALL, //
+        FALL(ODamageSource.h), //
         /**
          * Damage caused by fire (1)
          */
-         FIRE, //
+         FIRE(ODamageSource.a), //
         /**
          * Low periodic damage caused by burning (1)
          */
-         FIRE_TICK, //
+         FIRE_TICK(ODamageSource.b), //
         /**
          * Damage caused from lava (4)
          */
-         LAVA, //
+         LAVA(ODamageSource.c), //
         /**
          * Damage caused from drowning (2)
          */
-         WATER, //
+         WATER(ODamageSource.e), //
         /**
          * Damage caused by cactus (1)
          */
-         CACTUS, //
+         CACTUS(ODamageSource.g), //
         /**
          * Damage caused by suffocating(1)
          */
-         SUFFOCATION, //
+         SUFFOCATION(ODamageSource.d), //
         /**
          * Damage caused by lightning (5)
          */
-         LIGHTNING, //
+         LIGHTNING(ODamageSource.a), //
         /**
          * Damage caused by starvation (1)
          */
-         STARVATION, //
+         STARVATION(ODamageSource.f), //
         /**
          * Damage caused by poison (1) (Potions, Poison)
          */
-         POTION, //
+         POTION(ODamageSource.m), //
          /**
           * Damage caused by the "Wither" effect (1)
           */
-         WITHER, //
+         WITHER(ODamageSource.n), //
          /**
           * Damage caused by throwing an enderpearl (5)
           */
-         ENDERPEARL, //
+         ENDERPEARL(ODamageSource.h), //
          /**
           * Damage caused by falling anvil
           */
-         ANVIL, //
+         ANVIL(ODamageSource.o), //
          /**
           * Damage caused by falling block
           */
-         FALLING_BLOCK;
+         FALLING_BLOCK(ODamageSource.p);
+        
+        private final ODamageSource source;
+        
+        private DamageType(ODamageSource source) {
+        	this.source = source;
+        }
+        
+        public ODamageSource getDamageSource() {
+        	return this.source;
+        }
          
          public static DamageType fromDamageSource(ODamageSource source) {
              if (source == ODamageSource.a)

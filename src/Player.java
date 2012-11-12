@@ -1535,4 +1535,14 @@ public class Player extends HumanEntity implements MessageReceiver {
     protected int getRestrictions() {
     	return this.restrictions;
     }
+    
+    /**
+     * Damages this player, taking into account armor/enchantments/potions
+     * 
+     * @param type The type of damage to deal (certain types byass armor or affect potions differently)
+     * @param amount The amount of damage to deal (2 = 1 heart)
+     */
+    public void applyDamage(PluginLoader.DamageType type, int amount) {
+    	getEntity().d(type.getDamageSource(), amount);
+    }
 }
