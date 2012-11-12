@@ -1506,14 +1506,14 @@ public abstract class OEntityLiving extends OEntity {
     }
 
     protected void bu() {
-        Iterator iterator = this.bm.keySet().iterator();
+        Iterator iterator = ((HashMap) this.bm.clone()).keySet().iterator(); //CanaryMod: hashmap is cloned to prevent concurrent modification exceptions
 
         while (iterator.hasNext()) {
             Integer integer = (Integer) iterator.next();
             OPotionEffect opotioneffect = (OPotionEffect) this.bm.get(integer);
 
             if (!opotioneffect.a(this) && !this.p.J) {
-                iterator.remove();
+            	this.bm.remove(integer); //CanaryMod: changed from interator.remove() to coincide with cloning
                 this.c(opotioneffect);
             }
         }
