@@ -202,7 +202,8 @@ public class Mob extends LivingEntity {
      * @return
      */
     public Item getItemInHand() {
-    	return new Item(getEntity().bA());
+    	OItemStack stack = getEntity().bA();
+    	return stack == null ? null : new Item(stack);
     }
     
     /**
@@ -230,7 +231,8 @@ public class Mob extends LivingEntity {
     	if(slot < 0 || slot > 3) {
     		return null;
     	}
-    	return new Item(getEntity().q(slot));
+    	OItemStack stack = getEntity().q(slot);
+    	return stack == null ? null : new Item(stack);
     }
     
     /**
