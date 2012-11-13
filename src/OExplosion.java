@@ -154,8 +154,6 @@ public class OExplosion {
                         oentity.a(ODamageSource.k, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.g + 1.0D));
                     }
 
-                    oentity.a(ODamageSource.k, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.g + 1.0D));
-
                     oentity.w += d0 * d10;
                     oentity.x += d1 * d10;
                     oentity.y += d2 * d10;
