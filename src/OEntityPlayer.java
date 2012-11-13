@@ -1117,12 +1117,60 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     protected void bC() {}
 
     public void t(int i) {
-        //CanaryMod: lets use our method.
-        addXP(i);
-        //CanaryMod: end
+        this.bQ += i;
+        int j = Integer.MAX_VALUE - this.ch;
+
+        if (i > j) {
+            i = j;
+        }
+
+        this.ci += (float) i / (float) this.bY();
+
+        for (this.ch += i; this.ci >= 1.0F; this.ci /= (float) this.bY()) {
+            this.ci = (this.ci - 1.0F) * (float) this.bY();
+            this.a(1);
+        }
     }
 
+    // CanaryMod start - custom XP methods
+    public void removeXP(int i) {
+        if (i > this.ch) { // Don't go below 0
+            i = this.ch;
+        }
+
+        this.ci -= (float) i / (float) this.bY();
+
+        // Inverse of for loop in this.t(int)
+        for (this.ch -= i; this.ci < 0.0F; this.ci = this.ci / this.bY() + 1.0F) {
+            this.ci *= this.bY();
+            this.a(-1);
+        }
+    }
+
+    public void setXP(int i) {
+        if (i < this.ch) {
+            this.removeXP(this.ch - i);
+        } else {
+            this.t(i - this.ch);
+        }
+    }
+
+    public void recalculateXP() {
+        this.ci = this.ch / (float) this.bY();
+        this.cg = 0;
+
+        while (this.ci >= 1.0F) {
+            this.ci = (this.ci - 1.0F) * this.bY();
+            this.cg++;
+            this.ci /= this.bY();
+        }
+        if (this instanceof OEntityPlayerMP) {
+            ((OEntityPlayerMP) this).getEntity().updateLevels();
+        }
+    } // CanaryMod end - custom XP methods
+
     public void a(int i) {
+        manager.callHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
         this.cg += i;
         if (this.cg < 0) {
             this.cg = 0;
@@ -1136,51 +1184,11 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         }
     }
 
-    public void addXP(int i) {
-        int j = Integer.MAX_VALUE - this.ch;
-
-        if (i > j) {
-            i = j;
-        }
-
-        this.bE += i;
-        this.ci += (float) i / (float) this.bY();
-        this.ch += i;
-        levelUp();
-    }
-
-    public void removeXP(int i) {
-        this.bE -= i;
-        this.ci -= (float) i / (float) this.bY();
-        this.ch -= i;
-        levelUp();
-    }
-
-    public void setXP(int i) {
-        this.bE = i;
-        this.ci = (float) i / (float) this.bY();
-        this.ch = i;
-        levelUp();
-    }
-
-    public void levelUp() {
-        // CanaryMod: Make sure levels are right, even when removing XP.
-    	int oldLevel = this.cg;
-   		for (; this.ci >= 1.0F; this.ci /= (float) this.bY()) {
-   			this.ci = (this.ci - 1.0F) * (float) this.bY();
-   			++this.cg;
-   		}
-    	if (this.cg > oldLevel) {
-			manager.callHook(PluginLoader.Hook.LEVEL_UP, ((OEntityPlayerMP) this).getPlayer());
-		}
-    }
-
     public int bY() {
-        // CanaryMod: Old Experience OPtion
+        // CanaryMod: Old experience option
         if(etc.getInstance().isOldExperience()) {
     		return 7 + (this.cg * 7 >> 1);
-    	}
-        // CanaryMod: End
+        } // CanaryMod: End
         return this.cg >= 30 ? 62 + (this.cg - 30) * 7 : (this.cg >= 15 ? 17 + (this.cg - 15) * 3 : 17);
     }
 

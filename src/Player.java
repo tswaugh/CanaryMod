@@ -1155,40 +1155,47 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Add experience points to total for this Player.
-     *
-     * @param i the amount of experience points to add.
+     * Returns the score for this Player.
+     * @return the score for this Player.
      */
-    public void addXP(int i) {
-        getEntity().addXP(i);
-        updateXP();
+    public int getScore() {
+        return getEntity().bQ;
+    }
+
+    /**
+     * Add experience points to total for this Player.
+     * The amount will be capped at 2<sup>31</sup> - 1.
+     *
+     * @param amount the amount of experience points to add.
+     */
+    public void addXP(int amount) {
+        this.getEntity().t(amount);
+        this.updateXP();
     }
 
     /**
      * Remove experience points from total for this Player.
+     * The amount will be capped at 0.
      *
-     * @param i the amount of experience points to remove.
+     * @param amount the amount of experience points to remove.
      */
-    public void removeXP(int i) {
-        if (getXP() > 0) {
-            getEntity().removeXP(i);
-            updateXP();
-        } else {
-            notify("Cannot decrease XP below 0");
-        }
+    public void removeXP(int amount) {
+        this.getEntity().removeXP(amount);
+        this.updateXP();
     }
 
     /**
      * Set total experience points for this Player.
+     * Calls {@link #removeXP(int)} or {@link #addXP(int)} based on
+     * <tt>amount</tt> and the current XP.
      *
-     * @param i the new amount of experience points.
+     * @param amount the new amount of experience points.
      */
-    public void setXP(int i) {
-        if (i >= 0) {
-            getEntity().setXP(i);
-            updateXP();
+    public void setXP(int amount) {
+        if (amount < this.getXP()) {
+            this.removeXP(this.getXP() - amount);
         } else {
-            notify("XP cannot be set to less than 0");
+            this.addXP(amount - this.getXP());
         }
     }
 
