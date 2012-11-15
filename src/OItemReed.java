@@ -1,4 +1,3 @@
-
 public class OItemReed extends OItem {
 
     private int a;
@@ -57,11 +56,12 @@ public class OItemReed extends OItem {
                 }
 
                 OBlock oblock = OBlock.p[this.a];
+                int j1 = oblock.a(oworld, i, j, k, l, f, f1, f2, 0);
 
-                if (oworld.e(i, j, k, this.a)) {
+                if (oworld.d(i, j, k, this.a, j1)) {
                     if (oworld.a(i, j, k) == this.a) {
-                        OBlock.p[this.a].a(oworld, i, j, k, l, f, f1, f2);
                         OBlock.p[this.a].a(oworld, i, j, k, (OEntityLiving) oentityplayer);
+                        OBlock.p[this.a].g(oworld, i, j, k, j1);
                     }
 
                     oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cz.b(), (oblock.cz.c() + 1.0F) / 2.0F, oblock.cz.d() * 0.8F);

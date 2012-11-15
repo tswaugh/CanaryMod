@@ -1,4 +1,3 @@
-
 public class OItemBed extends OItem {
 
     public OItemBed(int i) {
@@ -10,7 +9,9 @@ public class OItemBed extends OItem {
         // CanaryMod: store the block that was clicked
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
 
-        if (l != 1) {
+        if (oworld.J) {
+            return true;
+        } else if (l != 1) {
             return false;
         } else {
             ++j;
@@ -41,7 +42,7 @@ public class OItemBed extends OItem {
             }
 
             if (oentityplayer.a(i, j, k, l, oitemstack) && oentityplayer.a(i + b0, j, k + b1, l, oitemstack)) {
-                if (oworld.c(i, j, k) && oworld.c(i + b0, j, k + b1) && oworld.t(i, j - 1, k) && oworld.t(i + b0, j - 1, k + b1)) {
+                if (oworld.c(i, j, k) && oworld.c(i + b0, j, k + b1) && oworld.v(i, j - 1, k) && oworld.v(i + b0, j - 1, k + b1)) {
                     oworld.d(i, j, k, oblockbed.cm, i1);
                     if (oworld.a(i, j, k) == oblockbed.cm) {
                         oworld.d(i + b0, j, k + b1, oblockbed.cm, i1 + 8);

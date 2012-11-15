@@ -1,4 +1,3 @@
-
 public abstract class OEntityAITarget extends OEntityAIBase {
 
     protected OEntityLiving d;
@@ -24,7 +23,7 @@ public abstract class OEntityAITarget extends OEntityAIBase {
     }
 
     public boolean b() {
-        OEntityLiving oentityliving = this.d.aF();
+        OEntityLiving oentityliving = this.d.aG();
 
         if (oentityliving == null) {
             return false;
@@ -34,7 +33,7 @@ public abstract class OEntityAITarget extends OEntityAIBase {
             return false;
         } else {
             if (this.f) {
-                if (this.d.az().a(oentityliving)) {
+                if (this.d.aA().a(oentityliving)) {
                     this.g = 0;
                 } else if (++this.g > 60) {
                     return false;
@@ -63,55 +62,55 @@ public abstract class OEntityAITarget extends OEntityAIBase {
         } else if (!oentityliving.S()) {
             return false;
         } else if (!this.d.a(oentityliving.getClass())) {
-                return false;
-            } else {
+            return false;
+        } else {
             if (this.d instanceof OEntityTameable && ((OEntityTameable) this.d).m()) {
                 if (oentityliving instanceof OEntityTameable && ((OEntityTameable) oentityliving).m()) {
-                        return false;
-                    }
+                    return false;
+                }
 
                 if (oentityliving == ((OEntityTameable) this.d).p()) {
-                        return false;
-                    }
-            } else if (oentityliving instanceof OEntityPlayer && !flag && ((OEntityPlayer) oentityliving).cf.a) {
                     return false;
                 }
+            } else if (oentityliving instanceof OEntityPlayer && !flag && ((OEntityPlayer) oentityliving).cc.a) {
+                return false;
+            }
 
             if (!this.d.e(OMathHelper.c(oentityliving.t), OMathHelper.c(oentityliving.u), OMathHelper.c(oentityliving.v))) {
-                    return false;
-            } else if (this.f && !this.d.az().a(oentityliving)) {
-                    return false;
-                } else {
-                    if (this.a) {
-                        if (--this.c <= 0) {
-                            this.b = 0;
-                        }
-
-                        if (this.b == 0) {
-                            this.b = this.a(oentityliving) ? 1 : 2;
-                        }
-
-                        if (this.b == 2) {
-                            return false;
-                        }
+                return false;
+            } else if (this.f && !this.d.aA().a(oentityliving)) {
+                return false;
+            } else {
+                if (this.a) {
+                    if (--this.c <= 0) {
+                        this.b = 0;
                     }
 
-                    // CanaryMod - MOB_TARGET
-                    if (oentityliving.entity.isPlayer()) {
-                        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityliving.entity.getPlayer(), this.d.entity)) {
-                            return false;
-                        }
+                    if (this.b == 0) {
+                        this.b = this.a(oentityliving) ? 1 : 2;
                     }
-                    // CanaryMod end
 
-                    return true;
+                    if (this.b == 2) {
+                        return false;
+                    }
                 }
+
+                // CanaryMod - MOB_TARGET
+                if (oentityliving.entity.isPlayer()) {
+                    if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityliving.entity.getPlayer(), this.d.entity)) {
+                        return false;
+                    }
+                }
+                // CanaryMod end
+
+                return true;
             }
+        }
     }
 
     private boolean a(OEntityLiving oentityliving) {
-        this.c = 10 + this.d.aA().nextInt(5);
-        OPathEntity opathentity = this.d.ay().a(oentityliving);
+        this.c = 10 + this.d.aB().nextInt(5);
+        OPathEntity opathentity = this.d.az().a(oentityliving);
 
         if (opathentity == null) {
             return false;

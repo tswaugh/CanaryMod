@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OBlockSand extends OBlock {
 
     public static boolean c = false;
@@ -17,7 +16,7 @@ public class OBlockSand extends OBlock {
     public void g(OWorld oworld, int i, int j, int k) {
         // CanaryMod: Physics
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, new Block(oworld.world, this.cm, i, j, k), true)) {
-        oworld.a(i, j, k, this.cm, this.r_());
+            oworld.a(i, j, k, this.cm, this.r_());
         }
     }
 
@@ -40,7 +39,7 @@ public class OBlockSand extends OBlock {
 
             if (!c && oworld.d(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
                 if (!oworld.J) {
-                    OEntityFallingSand oentityfallingsand = new OEntityFallingSand(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.cm, oworld.g(i, j, k));
+                    OEntityFallingSand oentityfallingsand = new OEntityFallingSand(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.cm, oworld.h(i, j, k));
 
                     this.a(oentityfallingsand);
                     oworld.d((OEntity) oentityfallingsand);
@@ -57,13 +56,12 @@ public class OBlockSand extends OBlock {
                 }
             }
         }
-
     }
 
     protected void a(OEntityFallingSand oentityfallingsand) {}
 
     public int r_() {
-        return 3;
+        return 5;
     }
 
     public static boolean a_(OWorld oworld, int i, int j, int k) {
@@ -81,5 +79,4 @@ public class OBlockSand extends OBlock {
     }
 
     public void a_(OWorld oworld, int i, int j, int k, int l) {}
-	
 }

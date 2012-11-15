@@ -24,7 +24,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         if (this.b > 0) {
             --this.b;
             if (this.b == 0) {
-                this.t();
+                this.u();
                 this.d();
             } else if (!this.k()) {
                 this.b = 0;
@@ -62,7 +62,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
                 boolean flag = false;
 
                 for (int i = 0; i < 3; ++i) {
-                    if (this.a[i] != null && this.a[i].c == OItem.bs.cf) {
+                    if (this.a[i] != null && this.a[i].c == OItem.bs.cg) {
                         int j = this.a[i].j();
                         int k = this.b(j, oitemstack);
 
@@ -88,12 +88,12 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         }
     }
 
-    private void t() {
+    private void u() {
         if (this.k()) {
             OItemStack oitemstack = this.a[3];
 
             for (int i = 0; i < 3; ++i) {
-                if (this.a[i] != null && this.a[i].c == OItem.bs.cf) {
+                if (this.a[i] != null && this.a[i].c == OItem.bs.cg) {
                     int j = this.a[i].j();
                     int k = this.b(j, oitemstack);
                     List list = OItem.bs.f(j);
@@ -117,7 +117,6 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
                     this.a[3] = null;
                 }
             }
-
         }
     }
 
@@ -191,15 +190,14 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
         if (i >= 0 && i < this.a.length) {
             this.a[i] = oitemstack;
         }
-
     }
 
     public int c() {
         return 1;
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
-        return this.k.p(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
+    public boolean a_(OEntityPlayer oentityplayer) {
+        return this.k.q(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
 
     public void l_() {}

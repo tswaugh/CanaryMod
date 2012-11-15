@@ -2,7 +2,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-
 public class OBlockPressurePlate extends OBlock {
 
     private OEnumMobType a;
@@ -38,26 +37,25 @@ public class OBlockPressurePlate extends OBlock {
     }
 
     public boolean b(OWorld oworld, int i, int j, int k) {
-        return oworld.t(i, j - 1, k) || OBlockFence.c(oworld.a(i, j - 1, k));
+        return oworld.v(i, j - 1, k) || OBlockFence.c(oworld.a(i, j - 1, k));
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
         boolean flag = false;
 
-        if (!oworld.t(i, j - 1, k) && !OBlockFence.c(oworld.a(i, j - 1, k))) {
+        if (!oworld.v(i, j - 1, k) && !OBlockFence.c(oworld.a(i, j - 1, k))) {
             flag = true;
         }
 
         if (flag) {
-            this.c(oworld, i, j, k, oworld.g(i, j, k), 0);
+            this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
             oworld.e(i, j, k, 0);
         }
-
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
         if (!oworld.J) {
-            if (oworld.g(i, j, k) != 0) {
+            if (oworld.h(i, j, k) != 0) {
                 this.l(oworld, i, j, k);
             }
         }
@@ -65,14 +63,14 @@ public class OBlockPressurePlate extends OBlock {
 
     public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
         if (!oworld.J) {
-            if (oworld.g(i, j, k) != 1) {
+            if (oworld.h(i, j, k) != 1) {
                 this.l(oworld, i, j, k);
             }
         }
     }
 
     private void l(OWorld oworld, int i, int j, int k) {
-        boolean flag = oworld.g(i, j, k) == 1;
+        boolean flag = oworld.h(i, j, k) == 1;
         boolean flag1 = false;
         float f = 0.125F;
         List list = null;
@@ -96,7 +94,7 @@ public class OBlockPressurePlate extends OBlock {
                 OEntity oentity = (OEntity) iterator.next();
 
                 if (!oentity.au()) {
-            flag1 = true;
+                    flag1 = true;
                     break;
                 }
             }
@@ -126,7 +124,6 @@ public class OBlockPressurePlate extends OBlock {
         if (flag1) {
             oworld.a(i, j, k, this.cm, this.r_());
         }
-
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
@@ -139,7 +136,7 @@ public class OBlockPressurePlate extends OBlock {
     }
 
     public void a(OIBlockAccess oiblockaccess, int i, int j, int k) {
-        boolean flag = oiblockaccess.g(i, j, k) == 1;
+        boolean flag = oiblockaccess.h(i, j, k) == 1;
         float f = 0.0625F;
 
         if (flag) {
@@ -147,15 +144,14 @@ public class OBlockPressurePlate extends OBlock {
         } else {
             this.a(f, 0.0F, f, 1.0F - f, 0.0625F, 1.0F - f);
         }
-
     }
 
     public boolean b(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
-        return oiblockaccess.g(i, j, k) > 0;
+        return oiblockaccess.h(i, j, k) > 0;
     }
 
     public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
-        return oiblockaccess.g(i, j, k) == 0 ? false : l == 1;
+        return oiblockaccess.h(i, j, k) == 0 ? false : l == 1;
     }
 
     public boolean i() {

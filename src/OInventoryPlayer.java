@@ -168,7 +168,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
             i = this.i();
             if (i >= 0) {
                 return !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP) this.d).getPlayer(), oentityitem.item);
-            } else if (this.d.cf.d) {
+            } else if (this.d.cc.d) {
                 return true;
             } else {
                 return false;
@@ -207,7 +207,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 this.a[i].b = 5;
                 oitemstack.a = 0;
                 return true;
-            } else if (this.d.cf.d) {
+            } else if (this.d.cc.d) {
                 oitemstack.a = 0;
                 return true;
             } else {
@@ -219,7 +219,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 oitemstack.a = this.e(oitemstack);
             } while (oitemstack.a > 0 && oitemstack.a < i);
 
-            if (oitemstack.a == i && this.d.cf.d) {
+            if (oitemstack.a == i && this.d.cc.d) {
                 oitemstack.a = 0;
                 return true;
             } else {
@@ -386,16 +386,12 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
     public int k() {
         int i = 0;
-        OItemStack[] aoitemstack = this.b;
-        int j = aoitemstack.length;
 
-        for (int k = 0; k < j; ++k) {
-            OItemStack oitemstack = aoitemstack[k];
+        for (int j = 0; j < this.b.length; ++j) {
+            if (this.b[j] != null && this.b[j].b() instanceof OItemArmor) {
+                int k = ((OItemArmor) this.b[j].b()).b;
 
-            if (oitemstack != null && oitemstack.b() instanceof OItemArmor) {
-                int l = ((OItemArmor) oitemstack.b()).b;
-
-                i += l;
+                i += k;
             }
         }
 
@@ -448,30 +444,21 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
         return this.g;
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
+    public boolean a_(OEntityPlayer oentityplayer) {
         return this.d.L ? false : oentityplayer.e(this.d) <= 64.0D;
     }
 
     public boolean c(OItemStack oitemstack) {
-        OItemStack[] aoitemstack = this.b;
-        int i = aoitemstack.length;
+        int i;
 
-        int j;
-        OItemStack oitemstack1;
-
-        for (j = 0; j < i; ++j) {
-            oitemstack1 = aoitemstack[j];
-            if (oitemstack1 != null && oitemstack1.a(oitemstack)) {
+        for (i = 0; i < this.b.length; ++i) {
+            if (this.b[i] != null && this.b[i].a(oitemstack)) {
                 return true;
             }
         }
 
-        aoitemstack = this.a;
-        i = aoitemstack.length;
-
-        for (j = 0; j < i; ++j) {
-            oitemstack1 = aoitemstack[j];
-            if (oitemstack1 != null && oitemstack1.a(oitemstack)) {
+        for (i = 0; i < this.a.length; ++i) {
+            if (this.a[i] != null && this.a[i].a(oitemstack)) {
                 return true;
             }
         }

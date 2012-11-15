@@ -161,18 +161,19 @@ public class OItem {
     public static OItem cc = (new OItemRecord(2008, "strad")).b(8, 15).b("record");
     public static OItem cd = (new OItemRecord(2009, "ward")).b(9, 15).b("record");
     public static OItem ce = (new OItemRecord(2010, "11")).b(10, 15).b("record");
-    public final int cf;
-    protected int cg = 64;
+    public static OItem cf = (new OItemRecord(2011, "wait")).b(11, 15).b("record");
+    public final int cg;
+    protected int ch = 64;
     private int b = 0;
-    protected int ch;
-    protected boolean ci = false;
+    protected int ci;
     protected boolean cj = false;
+    protected boolean ck = false;
     private OItem c = null;
-    private String ck = null;
-    private String cl;
+    private String cl = null;
+    private String cm;
 
     protected OItem(int i) {
-        this.cf = 256 + i;
+        this.cg = 256 + i;
         if (e[256 + i] != null) {
             System.out.println("CONFLICT @ " + i);
         }
@@ -181,18 +182,17 @@ public class OItem {
     }
 
     public OItem c(int i) {
+        this.ci = i;
+        return this;
+    }
+
+    public OItem d(int i) {
         this.ch = i;
         return this;
     }
 
-    // CanaryMod set max stack size
-    public OItem d(int i) {
-        this.cg = i;
-        return this;
-    }
-
     public OItem b(int i, int j) {
-        this.ch = i + j * 16;
+        this.ci = i + j * 16;
         return this;
     }
 
@@ -215,8 +215,8 @@ public class OItem {
         return oitemstack;
     }
 
-    public int k() { // CanaryMod - get max stacksize
-        return this.cg;
+    public int k() {
+        return this.ch;
     }
 
     public int a(int i) {
@@ -224,11 +224,11 @@ public class OItem {
     }
 
     public boolean l() {
-        return this.cj;
+        return this.ck;
     }
 
     protected OItem a(boolean flag) {
-        this.cj = flag;
+        this.ck = flag;
         return this;
     }
 
@@ -242,7 +242,7 @@ public class OItem {
     }
 
     public boolean n() {
-        return this.b > 0 && !this.cj;
+        return this.b > 0 && !this.ck;
     }
 
     public boolean a(OItemStack oitemstack, OEntityLiving oentityliving, OEntityLiving oentityliving1) {
@@ -266,12 +266,12 @@ public class OItem {
     }
 
     public OItem o() {
-        this.ci = true;
+        this.cj = true;
         return this;
     }
 
     public OItem b(String s) {
-        this.cl = "item." + s;
+        this.cm = "item." + s;
         return this;
     }
 
@@ -282,11 +282,11 @@ public class OItem {
     }
 
     public String a() {
-        return this.cl;
+        return this.cm;
     }
 
     public String c_(OItemStack oitemstack) {
-        return this.cl;
+        return this.cm;
     }
 
     public OItem a(OItem oitem) {
@@ -337,16 +337,16 @@ public class OItem {
     public void a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer, int i) {}
 
     protected OItem c(String s) {
-        this.ck = s;
+        this.cl = s;
         return this;
     }
 
     public String u() {
-        return this.ck;
+        return this.cl;
     }
 
     public boolean v() {
-        return this.ck != null;
+        return this.cl != null;
     }
 
     public String j(OItemStack oitemstack) {
@@ -364,7 +364,7 @@ public class OItem {
         double d0 = oentityplayer.q + (oentityplayer.t - oentityplayer.q) * (double) f;
         double d1 = oentityplayer.r + (oentityplayer.u - oentityplayer.r) * (double) f + 1.62D - (double) oentityplayer.M;
         double d2 = oentityplayer.s + (oentityplayer.v - oentityplayer.s) * (double) f;
-        OVec3 ovec3 = oworld.R().a(d0, d1, d2);
+        OVec3 ovec3 = oworld.S().a(d0, d1, d2);
         float f3 = OMathHelper.b(-f2 * 0.017453292F - 3.1415927F);
         float f4 = OMathHelper.a(-f2 * 0.017453292F - 3.1415927F);
         float f5 = -OMathHelper.b(-f1 * 0.017453292F);

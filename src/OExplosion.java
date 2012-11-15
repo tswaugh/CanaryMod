@@ -20,7 +20,7 @@ public class OExplosion {
     public float g;
     public List h = new ArrayList();
     private Map l = new HashMap();
-    
+
     public OExplosion(OWorld oworld, OEntity oentity, double d0, double d1, double d2, float f) {
         this.k = oworld;
         this.f = oentity;
@@ -126,7 +126,7 @@ public class OExplosion {
         int i2 = OMathHelper.c(this.e - (double) this.g - 1.0D);
         int j2 = OMathHelper.c(this.e + (double) this.g + 1.0D);
         List list = this.k.b(this.f, OAxisAlignedBB.a().a((double) i, (double) k, (double) i2, (double) j, (double) l1, (double) j2));
-        OVec3 ovec3 = this.k.R().a(this.c, this.d, this.e);
+        OVec3 ovec3 = this.k.S().a(this.c, this.d, this.e);
 
         for (int k2 = 0; k2 < list.size(); ++k2) {
             OEntity oentity = (OEntity) list.get(k2);
@@ -158,7 +158,7 @@ public class OExplosion {
                     oentity.x += d1 * d10;
                     oentity.y += d2 * d10;
                     if (oentity instanceof OEntityPlayer) {
-                        this.l.put((OEntityPlayer) oentity, this.k.R().a(d0 * d10, d1 * d10, d2 * d10));
+                        this.l.put((OEntityPlayer) oentity, this.k.S().a(d0 * d10, d1 * d10, d2 * d10));
                     }
                 }
             }
@@ -185,41 +185,46 @@ public class OExplosion {
         if (this.b) {
             iterator = this.h.iterator();
 
-        while (iterator.hasNext()) {
-            ochunkposition = (OChunkPosition) iterator.next();
-            i = ochunkposition.a;
-            j = ochunkposition.b;
-            k = ochunkposition.c;
+            while (iterator.hasNext()) {
+                ochunkposition = (OChunkPosition) iterator.next();
+                i = ochunkposition.a;
+                j = ochunkposition.b;
+                k = ochunkposition.c;
                 l = this.k.a(i, j, k);
-            if (flag) {
+                if (flag) {
                     double d0 = (double) ((float) i + this.k.u.nextFloat());
                     double d1 = (double) ((float) j + this.k.u.nextFloat());
                     double d2 = (double) ((float) k + this.k.u.nextFloat());
                     double d3 = d0 - this.c;
                     double d4 = d1 - this.d;
                     double d5 = d2 - this.e;
-                double d6 = (double) OMathHelper.a(d3 * d3 + d4 * d4 + d5 * d5);
+                    double d6 = (double) OMathHelper.a(d3 * d3 + d4 * d4 + d5 * d5);
 
-                d3 /= d6;
-                d4 /= d6;
-                d5 /= d6;
+                    d3 /= d6;
+                    d4 /= d6;
+                    d5 /= d6;
                     double d7 = 0.5D / (d6 / (double) this.g + 0.1D);
 
                     d7 *= (double) (this.k.u.nextFloat() * this.k.u.nextFloat() + 0.3F);
-                d3 *= d7;
-                d4 *= d7;
-                d5 *= d7;
+                    d3 *= d7;
+                    d4 *= d7;
+                    d5 *= d7;
                     this.k.a("explode", (d0 + this.c * 1.0D) / 2.0D, (d1 + this.d * 1.0D) / 2.0D, (d2 + this.e * 1.0D) / 2.0D, d3, d4, d5);
                     this.k.a("smoke", d0, d1, d2, d3, d4, d5);
-            }
-
-            if (l > 0) {
-                    OBlock.p[l].a(this.k, i, j, k, this.k.g(i, j, k), 0.3F, 0);
-                    if (this.k.a(i, j, k, 0, 0, this.k.J)) {
-                        this.k.h(i, j, k, 0);
                 }
 
-                    OBlock.p[l].k(this.k, i, j, k);
+                if (l > 0) {
+                    OBlock oblock = OBlock.p[l];
+
+                    if (oblock.a(this)) {
+                        oblock.a(this.k, i, j, k, this.k.h(i, j, k), 0.3F, 0);
+                    }
+
+                    if (this.k.a(i, j, k, 0, 0, this.k.J)) {
+                        this.k.h(i, j, k, 0);
+                    }
+
+                    oblock.k(this.k, i, j, k);
                 }
             }
         }
@@ -240,7 +245,6 @@ public class OExplosion {
                 }
             }
         }
-
     }
 
     public Map b() {

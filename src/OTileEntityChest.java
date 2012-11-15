@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class OTileEntityChest extends OTileEntity implements OIInventory, Container<OItemStack> {
 
@@ -85,7 +87,6 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
                 this.i[j] = OItemStack.a(onbttagcompound1);
             }
         }
-
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
@@ -109,13 +110,44 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
         return 64;
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
-        return this.k.p(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
+    public boolean a_(OEntityPlayer oentityplayer) {
+        return this.k.q(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
 
     public void h() {
         super.h();
         this.a = false;
+    }
+
+    private void a(OTileEntityChest otileentitychest, int i) {
+        if (otileentitychest.r()) {
+            this.a = false;
+        } else if (this.a) {
+            switch (i) {
+            case 0:
+                if (this.e != otileentitychest) {
+                    this.a = false;
+                }
+                break;
+
+            case 1:
+                if (this.d != otileentitychest) {
+                    this.a = false;
+                }
+                break;
+
+            case 2:
+                if (this.b != otileentitychest) {
+                    this.a = false;
+                }
+                break;
+
+            case 3:
+                if (this.c != otileentitychest) {
+                    this.a = false;
+                }
+            }
+        }
     }
 
     public void i() {
@@ -126,49 +158,66 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
             this.d = null;
             this.e = null;
             if (this.k.a(this.l - 1, this.m, this.n) == OBlock.ax.cm) {
-                this.d = (OTileEntityChest) this.k.p(this.l - 1, this.m, this.n);
+                this.d = (OTileEntityChest) this.k.q(this.l - 1, this.m, this.n);
             }
 
             if (this.k.a(this.l + 1, this.m, this.n) == OBlock.ax.cm) {
-                this.c = (OTileEntityChest) this.k.p(this.l + 1, this.m, this.n);
+                this.c = (OTileEntityChest) this.k.q(this.l + 1, this.m, this.n);
             }
 
             if (this.k.a(this.l, this.m, this.n - 1) == OBlock.ax.cm) {
-                this.b = (OTileEntityChest) this.k.p(this.l, this.m, this.n - 1);
+                this.b = (OTileEntityChest) this.k.q(this.l, this.m, this.n - 1);
             }
 
             if (this.k.a(this.l, this.m, this.n + 1) == OBlock.ax.cm) {
-                this.e = (OTileEntityChest) this.k.p(this.l, this.m, this.n + 1);
+                this.e = (OTileEntityChest) this.k.q(this.l, this.m, this.n + 1);
             }
 
             if (this.b != null) {
-                this.b.h();
+                this.b.a(this, 0);
             }
 
             if (this.e != null) {
-                this.e.h();
+                this.e.a(this, 2);
             }
 
             if (this.c != null) {
-                this.c.h();
+                this.c.a(this, 1);
             }
 
             if (this.d != null) {
-                this.d.h();
+                this.d.a(this, 3);
             }
-
         }
     }
 
     public void g() {
         super.g();
         this.i();
-        if (++this.j % 20 * 4 == 0) {
-            ;
+        ++this.j;
+        float f;
+
+        if (!this.k.J && this.h != 0 && (this.j + this.l + this.m + this.n) % 200 == 0) {
+            this.h = 0;
+            f = 5.0F;
+            List list = this.k.a(OEntityPlayer.class, OAxisAlignedBB.a().a((double) ((float) this.l - f), (double) ((float) this.m - f), (double) ((float) this.n - f), (double) ((float) (this.l + 1) + f), (double) ((float) (this.m + 1) + f), (double) ((float) (this.n + 1) + f)));
+            Iterator iterator = list.iterator();
+
+            while (iterator.hasNext()) {
+                OEntityPlayer oentityplayer = (OEntityPlayer) iterator.next();
+
+                if (oentityplayer.bK instanceof OContainerChest) {
+                    OIInventory oiinventory = ((OContainerChest) oentityplayer.bK).d();
+
+                    if (oiinventory == this || oiinventory instanceof OInventoryLargeChest && ((OInventoryLargeChest) oiinventory).a(this)) {
+                        ++this.h;
+                    }
+                }
+            }
         }
 
         this.g = this.f;
-        float f = 0.1F;
+        f = 0.1F;
         double d0;
 
         if (this.h > 0 && this.f == 0.0F && this.b == null && this.d == null) {
@@ -220,14 +269,12 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
                 this.f = 0.0F;
             }
         }
-
     }
 
     public void b(int i, int j) {
         if (i == 1) {
             this.h = j;
         }
-
     }
 
     public void l_() {
@@ -241,9 +288,9 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
     }
 
     public void w_() {
+        super.w_();
         this.h();
         this.i();
-        super.w_();
     }
 
     @Override

@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class OInventoryBasic implements OIInventory, Container<OItemStack> {
@@ -76,18 +75,13 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
 
     public void d() {
         if (this.d != null) {
-            Iterator iterator = this.d.iterator();
-
-            while (iterator.hasNext()) {
-                OIInvBasic oiinvbasic = (OIInvBasic) iterator.next();
-
-                oiinvbasic.a(this);
+            for (int i = 0; i < this.d.size(); ++i) {
+                ((OIInvBasic) this.d.get(i)).a(this);
             }
         }
-
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
+    public boolean a_(OEntityPlayer oentityplayer) {
         return true;
     }
 

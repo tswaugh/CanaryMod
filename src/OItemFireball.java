@@ -1,4 +1,3 @@
-
 public class OItemFireball extends OItem {
 
     public OItemFireball(int i) {
@@ -7,7 +6,6 @@ public class OItemFireball extends OItem {
     }
 
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
-
         // CanaryMod: Store block data clicked
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
 
@@ -61,7 +59,7 @@ public class OItemFireball extends OItem {
                     oworld.e(i, j, k, OBlock.au.cm);
                 }
 
-                if (!oentityplayer.cf.d) {
+                if (!oentityplayer.cc.d) {
                     --oitemstack.a;
                 }
 

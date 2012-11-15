@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-
 public class OChunkProviderServer implements OIChunkProvider {
 
     private Set b = new HashSet();
@@ -32,7 +31,7 @@ public class OChunkProviderServer implements OIChunkProvider {
 
     public void b(int i, int j) {
         if (this.h.v.e()) {
-            OChunkCoordinates ochunkcoordinates = this.h.G();
+            OChunkCoordinates ochunkcoordinates = this.h.H();
             int k = i * 16 + 8 - ochunkcoordinates.a;
             int l = j * 16 + 8 - ochunkcoordinates.c;
             short short1 = 128;
@@ -43,7 +42,6 @@ public class OChunkProviderServer implements OIChunkProvider {
         } else {
             this.b.add(Long.valueOf(OChunkCoordIntPair.a(i, j)));
         }
-
     }
 
     public void a() {
@@ -54,7 +52,6 @@ public class OChunkProviderServer implements OIChunkProvider {
 
             this.b(ochunk.g, ochunk.h);
         }
-
     }
 
     public OChunk c(int i, int j) {
@@ -62,7 +59,7 @@ public class OChunkProviderServer implements OIChunkProvider {
 
         this.b.remove(Long.valueOf(k));
         OChunk ochunk = (OChunk) this.f.a(k);
-        
+
         if (ochunk == null) {
             // CanaryMod: load preload plugins once!
             if (!loadedpreload) {
@@ -81,7 +78,17 @@ public class OChunkProviderServer implements OIChunkProvider {
                 } else if (this.d == null) {
                     ochunk = this.c;
                 } else {
-                    ochunk = this.d.d(i, j);
+                    try {
+                        ochunk = this.d.d(i, j);
+                    } catch (Throwable throwable) {
+                        OCrashReport ocrashreport = OCrashReport.a(throwable, "Exception generating new chunk");
+                        OCrashReportCategory ocrashreportcategory = ocrashreport.a("Chunk to be generated");
+
+                        ocrashreportcategory.a("Location", String.format("%d,%d", new Object[] { Integer.valueOf(i), Integer.valueOf(j)}));
+                        ocrashreportcategory.a("Position hash", Long.valueOf(k));
+                        ocrashreportcategory.a("Generator", this.d.d());
+                        throw new OReportedException(ocrashreport);
+                    }
                 }
 
                 etc.getLoader().callHook(PluginLoader.Hook.CHUNK_CREATED, ochunk.chunk);
@@ -121,7 +128,7 @@ public class OChunkProviderServer implements OIChunkProvider {
                 OChunk ochunk = this.e.a(this.h, i, j);
 
                 if (ochunk != null) {
-                    ochunk.n = this.h.E();
+                    ochunk.n = this.h.F();
                     if (this.d != null) {
                         this.d.e(i, j);
                     }
@@ -142,13 +149,12 @@ public class OChunkProviderServer implements OIChunkProvider {
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-
         }
     }
 
     private void b(OChunk ochunk) {
         if (this.e != null) {
-            ochunk.n = this.h.E();
+            ochunk.n = this.h.F();
             this.e.a(this.h, ochunk);
         }
     }
@@ -163,15 +169,13 @@ public class OChunkProviderServer implements OIChunkProvider {
                 ochunk.e();
             }
         }
-
     }
 
     public boolean a(boolean flag, OIProgressUpdate oiprogressupdate) {
         int i = 0;
-        Iterator iterator = this.g.iterator();
 
-        while (iterator.hasNext()) {
-            OChunk ochunk = (OChunk) iterator.next();
+        for (int j = 0; j < this.g.size(); ++j) {
+            OChunk ochunk = (OChunk) this.g.get(j);
 
             if (flag) {
                 this.a(ochunk);
@@ -234,9 +238,9 @@ public class OChunkProviderServer implements OIChunkProvider {
             unloadedChunk.e(); // setChunkModified
             b(unloadedChunk); // saveChunkData
             a(unloadedChunk); // saveChunkExtraData
-            b.remove(chunkCoordIntPair); // unloadQueue
+            b.remove(chunkCoordIntPair); // droppedChunksSet
             f.d(chunkCoordIntPair.longValue()); // id2ChunkMap.remove
-            g.remove(unloadedChunk); // chunkList
+            g.remove(unloadedChunk); // loadedChunks
         }
         
         // Generating the new chunk

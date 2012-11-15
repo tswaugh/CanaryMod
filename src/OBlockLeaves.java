@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OBlockLeaves extends OBlockLeavesBase {
 
     private int cD;
@@ -25,7 +24,7 @@ public class OBlockLeaves extends OBlockLeavesBase {
                         int j2 = oworld.a(i + k1, j + l1, k + i2);
 
                         if (j2 == OBlock.N.cm) {
-                            int k2 = oworld.g(i + k1, j + l1, k + i2);
+                            int k2 = oworld.h(i + k1, j + l1, k + i2);
 
                             oworld.d(i + k1, j + l1, k + i2, k2 | 8);
                         }
@@ -33,12 +32,11 @@ public class OBlockLeaves extends OBlockLeavesBase {
                 }
             }
         }
-
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
         if (!oworld.J) {
-            int l = oworld.g(i, j, k);
+            int l = oworld.h(i, j, k);
 
             if ((l & 8) != 0 && (l & 4) == 0) {
                 byte b0 = 4;
@@ -115,7 +113,6 @@ public class OBlockLeaves extends OBlockLeavesBase {
                     this.l(oworld, i, j, k);
                 }
             }
-
         }
     }
 
@@ -125,7 +122,7 @@ public class OBlockLeaves extends OBlockLeavesBase {
         Block block = new Block(world, world.getBlockIdAt(i, j, k), i, j, k);
 
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.LEAF_DECAY, block)) {
-            this.c(oworld, i, j, k, oworld.g(i, j, k), 0);
+            this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
             oworld.e(i, j, k, 0);
         }
     }
@@ -149,24 +146,22 @@ public class OBlockLeaves extends OBlockLeavesBase {
             if (oworld.u.nextInt(b0) == 0) {
                 int j1 = this.a(l, oworld.u, i1);
 
-                this.a(oworld, i, j, k, new OItemStack(j1, 1, this.b(l)));
+                this.b(oworld, i, j, k, new OItemStack(j1, 1, this.b(l)));
             }
 
             if ((l & 3) == 0 && oworld.u.nextInt(200) == 0) {
-                this.a(oworld, i, j, k, new OItemStack(OItem.j, 1, 0));
+                this.b(oworld, i, j, k, new OItemStack(OItem.j, 1, 0));
             }
         }
-
     }
 
     public void a(OWorld oworld, OEntityPlayer oentityplayer, int i, int j, int k, int l) {
-        if (!oworld.J && oentityplayer.bP() != null && oentityplayer.bP().c == OItem.be.cf) {
+        if (!oworld.J && oentityplayer.bT() != null && oentityplayer.bT().c == OItem.be.cg) {
             oentityplayer.a(OStatList.C[this.cm], 1);
-            this.a(oworld, i, j, k, new OItemStack(OBlock.N.cm, 1, l & 3));
+            this.b(oworld, i, j, k, new OItemStack(OBlock.N.cm, 1, l & 3));
         } else {
             super.a(oworld, oentityplayer, i, j, k, l);
         }
-
     }
 
     public int b(int i) {

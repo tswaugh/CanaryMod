@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-
 public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
 
     private List a = new ArrayList();
@@ -29,13 +28,9 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
 
         synchronized (this.c) {
             if (this.b.contains(ochunkcoordintpair)) {
-                Iterator iterator = this.a.iterator();
-
-                while (iterator.hasNext()) {
-                    OAnvilChunkLoaderPending oanvilchunkloaderpending = (OAnvilChunkLoaderPending) iterator.next();
-
-                    if (oanvilchunkloaderpending.a.equals(ochunkcoordintpair)) {
-                        onbttagcompound = oanvilchunkloaderpending.b;
+                for (int k = 0; k < this.a.size(); ++k) {
+                    if (((OAnvilChunkLoaderPending) this.a.get(k)).a.equals(ochunkcoordintpair)) {
+                        onbttagcompound = ((OAnvilChunkLoaderPending) this.a.get(k)).b;
                         break;
                     }
                 }
@@ -77,7 +72,7 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
     }
 
     public void a(OWorld oworld, OChunk ochunk) {
-        oworld.C();
+        oworld.D();
 
         try {
             ONBTTagCompound onbttagcompound = new ONBTTagCompound();
@@ -89,7 +84,6 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
     }
 
     protected void a(OChunkCoordIntPair ochunkcoordintpair, ONBTTagCompound onbttagcompound) {
@@ -151,7 +145,7 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
     private void a(OChunk ochunk, OWorld oworld, ONBTTagCompound onbttagcompound) {
         onbttagcompound.a("xPos", ochunk.g);
         onbttagcompound.a("zPos", ochunk.h);
-        onbttagcompound.a("LastUpdate", oworld.E());
+        onbttagcompound.a("LastUpdate", oworld.F());
         onbttagcompound.a("HeightMap", ochunk.f);
         onbttagcompound.a("TerrainPopulated", ochunk.k);
         OExtendedBlockStorage[] aoextendedblockstorage = ochunk.i();
@@ -217,7 +211,7 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
         List list = oworld.a(ochunk, false);
 
         if (list != null) {
-            long k = oworld.E();
+            long k = oworld.F();
             ONBTTagList onbttaglist3 = new ONBTTagList();
             Iterator iterator1 = list.iterator();
 
@@ -235,7 +229,6 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
 
             onbttagcompound.a("TileTicks", (ONBTBase) onbttaglist3);
         }
-
     }
 
     private OChunk a(OWorld oworld, ONBTTagCompound onbttagcompound) {

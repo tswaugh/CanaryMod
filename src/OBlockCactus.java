@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OBlockCactus extends OBlock {
 
     protected OBlockCactus(int i, int j) {
@@ -18,7 +17,7 @@ public class OBlockCactus extends OBlock {
             }
 
             if (l < 3) {
-                int i1 = oworld.g(i, j, k);
+                int i1 = oworld.h(i, j, k);
 
                 if (i1 == 15) {
                     oworld.e(i, j + 1, k, this.cm);
@@ -28,7 +27,6 @@ public class OBlockCactus extends OBlock {
                 }
             }
         }
-
     }
 
     public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
@@ -59,20 +57,19 @@ public class OBlockCactus extends OBlock {
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
         if (!this.d(oworld, i, j, k)) {
-            this.c(oworld, i, j, k, oworld.g(i, j, k), 0);
+            this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
             oworld.e(i, j, k, 0);
         }
-
     }
 
     public boolean d(OWorld oworld, int i, int j, int k) {
-        if (oworld.f(i - 1, j, k).a()) {
+        if (oworld.g(i - 1, j, k).a()) {
             return false;
-        } else if (oworld.f(i + 1, j, k).a()) {
+        } else if (oworld.g(i + 1, j, k).a()) {
             return false;
-        } else if (oworld.f(i, j, k - 1).a()) {
+        } else if (oworld.g(i, j, k - 1).a()) {
             return false;
-        } else if (oworld.f(i, j, k + 1).a()) {
+        } else if (oworld.g(i, j, k + 1).a()) {
             return false;
         } else {
             int l = oworld.a(i, j - 1, k);

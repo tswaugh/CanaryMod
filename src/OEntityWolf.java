@@ -13,25 +13,25 @@ public class OEntityWolf extends OEntityTameable {
         super(oworld);
         this.aF = "/mob/wolf.png";
         this.a(0.6F, 0.8F);
-        this.bI = 0.3F;
-        this.ay().a(true);
-        this.bn.a(1, new OEntityAISwimming(this));
-        this.bn.a(2, this.d);
-        this.bn.a(3, new OEntityAILeapAtTarget(this, 0.4F));
-        this.bn.a(4, new OEntityAIAttackOnCollide(this, this.bI, true));
-        this.bn.a(5, new OEntityAIFollowOwner(this, this.bI, 10.0F, 2.0F));
-        this.bn.a(6, new OEntityAIMate(this, this.bI));
-        this.bn.a(7, new OEntityAIWander(this, this.bI));
-        this.bn.a(8, new OEntityAIBeg(this, 8.0F));
-        this.bn.a(9, new OEntityAIWatchClosest(this, OEntityPlayer.class, 8.0F));
-        this.bn.a(9, new OEntityAILookIdle(this));
-        this.bo.a(1, new OEntityAIOwnerHurtByTarget(this));
-        this.bo.a(2, new OEntityAIOwnerHurtTarget(this));
-        this.bo.a(3, new OEntityAIHurtByTarget(this, true));
-        this.bo.a(4, new OEntityAITargetNonTamed(this, OEntitySheep.class, 16.0F, 200, false));
+        this.bG = 0.3F;
+        this.az().a(true);
+        this.bm.a(1, new OEntityAISwimming(this));
+        this.bm.a(2, this.d);
+        this.bm.a(3, new OEntityAILeapAtTarget(this, 0.4F));
+        this.bm.a(4, new OEntityAIAttackOnCollide(this, this.bG, true));
+        this.bm.a(5, new OEntityAIFollowOwner(this, this.bG, 10.0F, 2.0F));
+        this.bm.a(6, new OEntityAIMate(this, this.bG));
+        this.bm.a(7, new OEntityAIWander(this, this.bG));
+        this.bm.a(8, new OEntityAIBeg(this, 8.0F));
+        this.bm.a(9, new OEntityAIWatchClosest(this, OEntityPlayer.class, 8.0F));
+        this.bm.a(9, new OEntityAILookIdle(this));
+        this.bn.a(1, new OEntityAIOwnerHurtByTarget(this));
+        this.bn.a(2, new OEntityAIOwnerHurtTarget(this));
+        this.bn.a(3, new OEntityAIHurtByTarget(this, true));
+        this.bn.a(4, new OEntityAITargetNonTamed(this, OEntitySheep.class, 16.0F, 200, false));
     }
 
-    public boolean bb() {
+    public boolean be() {
         return true;
     }
 
@@ -42,61 +42,61 @@ public class OEntityWolf extends OEntityTameable {
         }
     }
 
-    protected void bj() {
-        this.ag.b(18, Integer.valueOf(this.aT()));
+    protected void bm() {
+        this.ag.b(18, Integer.valueOf(this.aU()));
     }
 
-    public int aS() {
+    public int aT() {
         //CanaryMod: set max health here, but check for uninitialized value.
         return this.maxHealth == 0 ? (this.m() ? 20 : 8) : this.maxHealth;
     }
 
     protected void a() {
         super.a();
-        this.ag.a(18, new Integer(this.aT()));
+        this.ag.a(18, new Integer(this.aU()));
         this.ag.a(19, new Byte((byte) 0));
         this.ag.a(20, new Byte((byte) OBlockCloth.e_(1)));
     }
 
     protected void a(int i, int j, int k, int l) {
-        this.p.a(this, "mob.wolf.step", 0.15F, 1.0F);
+        this.a("mob.wolf.step", 0.15F, 1.0F);
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
         super.b(onbttagcompound);
-        onbttagcompound.a("Angry", this.bG());
-        onbttagcompound.a("CollarColor", (byte) this.bH());
+        onbttagcompound.a("Angry", this.bK());
+        onbttagcompound.a("CollarColor", (byte) this.bL());
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
         super.a(onbttagcompound);
         this.i(onbttagcompound.n("Angry"));
         if (onbttagcompound.b("CollarColor")) {
-            this.r(onbttagcompound.c("CollarColor"));
+            this.s(onbttagcompound.c("CollarColor"));
         }
     }
 
-    protected boolean bg() {
-        return this.bG();
-    }
-
-    protected String aW() {
-        return this.bG() ? "mob.wolf.growl" : (this.aa.nextInt(3) == 0 ? (this.m() && this.ag.c(18) < 10 ? "mob.wolf.whine" : "mob.wolf.panting") : "mob.wolf.bark");
-    }
-
-    protected String aX() {
-        return "mob.wolf.hurt";
+    protected boolean bj() {
+        return this.bK();
     }
 
     protected String aY() {
+        return this.bK() ? "mob.wolf.growl" : (this.aa.nextInt(3) == 0 ? (this.m() && this.ag.c(18) < 10 ? "mob.wolf.whine" : "mob.wolf.panting") : "mob.wolf.bark");
+    }
+
+    protected String aZ() {
+        return "mob.wolf.hurt";
+    }
+
+    protected String ba() {
         return "mob.wolf.death";
     }
 
-    protected float aV() {
+    protected float aX() {
         return 0.4F;
     }
 
-    protected int aZ() {
+    protected int bb() {
         return -1;
     }
 
@@ -113,14 +113,14 @@ public class OEntityWolf extends OEntityTameable {
     public void j_() {
         super.j_();
         this.f = this.e;
-        if (this.bI()) {
+        if (this.bM()) {
             this.e += (1.0F - this.e) * 0.4F;
         } else {
             this.e += (0.0F - this.e) * 0.4F;
         }
 
-        if (this.bI()) {
-            this.bJ = 10;
+        if (this.bM()) {
+            this.bH = 10;
         }
 
         if (this.G()) {
@@ -130,7 +130,7 @@ public class OEntityWolf extends OEntityTameable {
             this.j = 0.0F;
         } else if ((this.g || this.h) && this.h) {
             if (this.i == 0.0F) {
-                this.p.a(this, "mob.wolf.shake", this.aV(), (this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F);
+                this.a("mob.wolf.shake", this.aX(), (this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F);
             }
 
             this.j = this.i;
@@ -160,73 +160,77 @@ public class OEntityWolf extends OEntityTameable {
         return this.O * 0.8F;
     }
 
-    public int bm() {
-        return this.n() ? 20 : super.bm();
+    public int bp() {
+        return this.n() ? 20 : super.bp();
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
-        OEntity oentity = odamagesource.g();
+        if (this.ar()) {
+            return false;
+        } else {
+            OEntity oentity = odamagesource.g();
 
-        this.d.a(false);
-        if (oentity != null && !(oentity instanceof OEntityPlayer) && !(oentity instanceof OEntityArrow)) {
-            i = (i + 1) / 2;
+            this.d.a(false);
+            if (oentity != null && !(oentity instanceof OEntityPlayer) && !(oentity instanceof OEntityArrow)) {
+                i = (i + 1) / 2;
+            }
+
+            return super.a(odamagesource, i);
         }
-
-        return super.a(odamagesource, i);
     }
 
-    public boolean l(OEntity oentity) {
+    public boolean m(OEntity oentity) {
         int i = this.m() ? 4 : 2;
 
         return oentity.a(ODamageSource.a((OEntityLiving) this), i);
     }
 
-    public boolean c(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.bK.g();
+    public boolean a(OEntityPlayer oentityplayer) {
+        OItemStack oitemstack = oentityplayer.bI.g();
 
         if (this.m()) {
             if (oitemstack != null) {
                 if (OItem.e[oitemstack.c] instanceof OItemFood) {
-                OItemFood oitemfood = (OItemFood) OItem.e[oitemstack.c];
+                    OItemFood oitemfood = (OItemFood) OItem.e[oitemstack.c];
 
                     if (oitemfood.i() && this.ag.c(18) < 20) {
-                        if (!oentityplayer.cf.d) {
-                        --oitemstack.a;
-                    }
+                        if (!oentityplayer.cc.d) {
+                            --oitemstack.a;
+                        }
 
                         this.i(oitemfood.g());
-                    if (oitemstack.a <= 0) {
-                            oentityplayer.bK.a(oentityplayer.bK.c, (OItemStack) null);
+                        if (oitemstack.a <= 0) {
+                            oentityplayer.bI.a(oentityplayer.bI.c, (OItemStack) null);
                         }
 
                         return true;
                     }
-                } else if (oitemstack.c == OItem.aW.cf) {
+                } else if (oitemstack.c == OItem.aW.cg) {
                     int i = OBlockCloth.e_(oitemstack.j());
 
-                    if (i != this.bH()) {
-                        this.r(i);
-                        if (!oentityplayer.cf.d && oitemstack.a-- <= 0) {
-                            oentityplayer.bK.a(oentityplayer.bK.c, (OItemStack) null);
-                    }
+                    if (i != this.bL()) {
+                        this.s(i);
+                        if (!oentityplayer.cc.d && --oitemstack.a <= 0) {
+                            oentityplayer.bI.a(oentityplayer.bI.c, (OItemStack) null);
+                        }
 
-                    return true;
+                        return true;
+                    }
                 }
             }
-            }
 
-            if (oentityplayer.bT.equalsIgnoreCase(this.o()) && !this.p.J && !this.c(oitemstack)) {
+            if (oentityplayer.bQ.equalsIgnoreCase(this.o()) && !this.p.J && !this.c(oitemstack)) {
                 this.d.a(!this.n());
-                this.bG = false;
+                this.bE = false;
                 this.a((OPathEntity) null);
             }
-        } else if (oitemstack != null && oitemstack.c == OItem.aX.cf && !this.bG()) {
-            if (!oentityplayer.cf.d) {
+        } else if (oitemstack != null && oitemstack.c == OItem.aX.cg && !this.bK()) {
+            if (!oentityplayer.cc.d) {
                 --oitemstack.a;
             }
 
             if (oitemstack.a <= 0) {
-                oentityplayer.bK.a(oentityplayer.bK.c, (OItemStack) null);
+                oentityplayer.bI.a(oentityplayer.bI.c, (OItemStack) null);
             }
 
             if (!this.p.J) {
@@ -243,7 +247,7 @@ public class OEntityWolf extends OEntityTameable {
                     this.b((OEntityLiving) null);
                     this.d.a(true);
                     this.j(20);
-                    this.a(oentityplayer.bT);
+                    this.a(oentityplayer.bQ);
                     this.f(true);
                     this.p.a(this, (byte) 7);
                 } else {
@@ -255,18 +259,18 @@ public class OEntityWolf extends OEntityTameable {
             return true;
         }
 
-        return super.c(oentityplayer);
+        return super.a(oentityplayer);
     }
 
     public boolean c(OItemStack oitemstack) {
         return oitemstack == null ? false : (!(OItem.e[oitemstack.c] instanceof OItemFood) ? false : ((OItemFood) OItem.e[oitemstack.c]).i());
     }
 
-    public int bs() {
+    public int bv() {
         return 8;
     }
 
-    public boolean bG() {
+    public boolean bK() {
         return (this.ag.a(16) & 2) != 0;
     }
 
@@ -280,15 +284,15 @@ public class OEntityWolf extends OEntityTameable {
         }
     }
 
-    public int bH() {
+    public int bL() {
         return this.ag.a(20) & 15;
     }
 
-    public void r(int i) {
+    public void s(int i) {
         this.ag.b(20, Byte.valueOf((byte) (i & 15)));
     }
 
-    public OEntityAnimal a(OEntityAnimal oentityanimal) {
+    public OEntityWolf b(OEntityAgeable oentityageable) {
         OEntityWolf oentitywolf = new OEntityWolf(this.p);
 
         oentitywolf.a(this.o());
@@ -306,7 +310,7 @@ public class OEntityWolf extends OEntityTameable {
         }
     }
 
-    public boolean b(OEntityAnimal oentityanimal) {
+    public boolean a(OEntityAnimal oentityanimal) {
         if (oentityanimal == this) {
             return false;
         } else if (!this.m()) {
@@ -320,8 +324,12 @@ public class OEntityWolf extends OEntityTameable {
         }
     }
 
-    public boolean bI() {
+    public boolean bM() {
         return this.ag.a(19) == 1;
+    }
+
+    public OEntityAgeable a(OEntityAgeable oentityageable) {
+        return this.b(oentityageable);
     }
 
     @Override

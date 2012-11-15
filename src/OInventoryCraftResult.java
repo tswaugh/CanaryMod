@@ -50,7 +50,7 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
 
     public void d() {}
 
-    public boolean a(OEntityPlayer oentityplayer) {
+    public boolean a_(OEntityPlayer oentityplayer) {
         return true;
     }
 

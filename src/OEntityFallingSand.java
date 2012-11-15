@@ -121,8 +121,9 @@ public class OEntityFallingSand extends OEntity {
                 while (iterator.hasNext()) {
                     OEntity oentity = (OEntity) iterator.next();
 
-                    if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.fromDamageSource(odamagesource), new BaseEntity(this), oentity.getEntity()))
-                    oentity.a(odamagesource, Math.min(OMathHelper.d((float) i * this.h), this.g));
+                    if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.fromDamageSource(odamagesource), new BaseEntity(this), oentity.getEntity())) {
+                        oentity.a(odamagesource, Math.min(OMathHelper.d((float) i * this.h), this.g));
+                    }
                 }
 
                 if (this.a == OBlock.ck.cm && (double) this.aa.nextFloat() < 0.05000000074505806D + (double) i * 0.05D) {

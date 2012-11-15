@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OBlockStationary extends OBlockFluid {
 
     protected OBlockStationary(int i, OMaterial omaterial) {
@@ -9,7 +8,6 @@ public class OBlockStationary extends OBlockFluid {
         if (omaterial == OMaterial.i) {
             this.b(true);
         }
-
     }
 
     public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k) {
@@ -21,11 +19,10 @@ public class OBlockStationary extends OBlockFluid {
         if (oworld.a(i, j, k) == this.cm) {
             this.l(oworld, i, j, k);
         }
-
     }
 
     private void l(OWorld oworld, int i, int j, int k) {
-        int l = oworld.g(i, j, k);
+        int l = oworld.h(i, j, k);
 
         oworld.s = true;
         oworld.c(i, j, k, this.cm - 1, l);
@@ -78,10 +75,9 @@ public class OBlockStationary extends OBlockFluid {
                 }
             }
         }
-
     }
 
     private boolean n(OWorld oworld, int i, int j, int k) {
-        return oworld.f(i, j, k).h();
+        return oworld.g(i, j, k).h();
     }
 }

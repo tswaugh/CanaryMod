@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICommandSender {
+public abstract class OMinecraftServer implements OICommandSender, Runnable, OIPlayerUsage {
 
     public static Logger a = Logger.getLogger("Minecraft");
     private static OMinecraftServer l = null;
@@ -155,7 +155,7 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
 
             toLoad[j].a((OIWorldAccess) (new OWorldManager(this, toLoad[j])));
             if (!this.I()) {
-                toLoad[j].J().a(this.g());
+                toLoad[j].K().a(this.g());
             }
 
             this.t.a(toLoad);
@@ -173,12 +173,12 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
 
         a.info("Preparing start region for level " + b0);
         OWorldServer oworldserver = toLoad[b0];
-        OChunkCoordinates ochunkcoordinates = oworldserver.G();
+        OChunkCoordinates ochunkcoordinates = oworldserver.H();
         long j = System.currentTimeMillis();
 
         for (int k = -192; k <= 192 && this.m(); k += 16) {
             for (int l = -192; l <= 192 && this.m(); l += 16) {
-                    long i1 = System.currentTimeMillis();
+                long i1 = System.currentTimeMillis();
 
                 if (i1 - j > 1000L) {
                     this.a_("Preparing spawn area", i * 100 / 625);
@@ -222,7 +222,7 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
 
                     if (oworldserver != null) {
                         if (!flag) {
-                        a.info("Saving chunks for level \'" + oworldserver.J().k() + "\'/" + oworldserver.v.l());
+                            a.info("Saving chunks for level \'" + oworldserver.K().k() + "\'/" + oworldserver.v.l());
                         }
 
                         oworldserver.a(true, (OIProgressUpdate) null);
@@ -248,12 +248,10 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
             a.info("Saving worlds");
             this.a(false);
             for (OWorldServer[] aoworldserver : this.worlds.values()) {
-                int i = aoworldserver.length;
+                for (int i = 0; i < aoworldserver.length; ++i) {
+                    OWorldServer oworldserver = aoworldserver[i];
 
-                for (int j = 0; j < i; ++j) {
-                    OWorldServer oworldserver = aoworldserver[j];
-
-                oworldserver.m();
+                    oworldserver.m();
                 }
             } // CanaryMod: diff visibility
 
@@ -415,28 +413,47 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
     public void r() {
         this.b.a("levels");
 
+        int i;
         for (Map.Entry<String, OWorldServer[]> entry : this.worlds.entrySet()) {
             OWorldServer[] level = entry.getValue();
             String worldName = entry.getKey();
-            for (int i = 0; i < level.length; ++i) {
+
+            for (i = 0; i < level.length; ++i) {
                 long j = System.nanoTime();
 
                 if (i == 0 || this.s()) {
                     OWorldServer oworldserver = level[i];
 
-                    this.b.a(oworldserver.J().k());
+                    this.b.a(oworldserver.K().k());
                     this.b.a("pools");
-                    oworldserver.R().a();
+                    oworldserver.S().a();
                     this.b.b();
                     if (this.w % 20 == 0) {
                         this.b.a("timeSync");
-                        this.t.sendPacketToDimension((OPacket) (new OPacket4UpdateTime(oworldserver.E(), oworldserver.F())), worldName, oworldserver.v.h);
+                        this.t.sendPacketToDimension((OPacket) (new OPacket4UpdateTime(oworldserver.F(), oworldserver.G())), worldName, oworldserver.v.h);
                         this.b.b();
                     }
 
-                    this.b.a("tick");
+                this.b.a("tick");
+
+                OCrashReport ocrashreport;
+
+                try {
                     oworldserver.b();
+                } catch (Throwable throwable) {
+                    ocrashreport = OCrashReport.a(throwable, "Exception ticking world");
+                    oworldserver.a(ocrashreport);
+                    throw new OReportedException(ocrashreport);
+                }
+
+                try {
                     oworldserver.h();
+                } catch (Throwable throwable1) {
+                    ocrashreport = OCrashReport.a(throwable1, "Exception ticking world entities");
+                    oworldserver.a(ocrashreport);
+                    throw new OReportedException(ocrashreport);
+                }
+
                     this.b.b();
                     this.b.a("tracker");
                     oworldserver.p().a();
@@ -453,12 +470,9 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
         this.b.c("players");
         this.t.b();
         this.b.c("tickables");
-        Iterator iterator = this.p.iterator();
 
-        while (iterator.hasNext()) {
-            OIUpdatePlayerListBox oiupdateplayerlistbox = (OIUpdatePlayerListBox) iterator.next();
-
-            oiupdateplayerlistbox.a();
+        for (i = 0; i < this.p.size(); ++i) {
+            ((OIUpdatePlayerListBox) this.p.get(i)).a();
         }
 
         this.b.b();
@@ -594,7 +608,7 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
     }
 
     public String x() {
-        return "1.4.2";
+        return "1.4.4";
     }
 
     public int y() {
@@ -638,29 +652,13 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
     }
 
     public OCrashReport b(OCrashReport ocrashreport) {
-        ocrashreport.a("Is Modded", (Callable) (new OCallableIsServerModded(this)));
-        ocrashreport.a("Profiler Position", (Callable) (new OCallableServerProfiler(this)));
+        ocrashreport.g().a("Profiler Position", (Callable) (new OCallableIsServerModded(this)));
         if (this.worlds != null && !this.worlds.isEmpty() && this.worlds.get(this.J())[0] != null) {
-            ocrashreport.a("Vec3 Pool Size", (Callable) (new OCallableServerMemoryStats(this)));
+            ocrashreport.g().a("Vec3 Pool Size", (Callable) (new OCallableServerProfiler(this)));
         }
 
         if (this.t != null) {
-            ocrashreport.a("Player Count", (Callable) (new OCallablePlayers(this)));
-        }
-
-        if (this.worlds != null) {
-            for (OWorldServer[] level : this.worlds.values()) {
-                OWorldServer[] aoworldserver = level;
-                int i = aoworldserver.length;
-
-                for (int j = 0; j < i; ++j) {
-                    OWorldServer oworldserver = aoworldserver[j];
-
-                    if (oworldserver != null) {
-                        oworldserver.a(ocrashreport);
-                    }
-                }
-            }
+            ocrashreport.g().a("Player Count", (Callable) (new OCallableServerMemoryStats(this)));
         }
 
         return ocrashreport;
@@ -773,7 +771,7 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
                 OWorldServer oworldserver = aworld[j];
 
                 if (oworldserver != null) {
-                    if (oworldserver.J().t()) {
+                    if (oworldserver.K().t()) {
                         oworldserver.t = 3;
                         oworldserver.a(true, true);
                     } else if (this.I()) {
@@ -818,11 +816,11 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
                 OWorldServer oworldserver = level[i];
 
                 if (oworldserver != null) {
-                oworldserver.m();
+                    oworldserver.m();
                 }
             }
 
-            this.N().e(level[0].I().g());
+            this.N().e(level[0].J().g());
         } //
         this.n();
     }
@@ -849,14 +847,14 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
         oplayerusagesnooper.a("avg_rec_packet_count", Integer.valueOf((int) OMathHelper.a(this.h)));
         oplayerusagesnooper.a("avg_rec_packet_size", Integer.valueOf((int) OMathHelper.a(this.i)));
         int i = 0;
-
         for (Map.Entry<String, OWorldServer[]> entry : this.worlds.entrySet()) {
             OWorldServer[] level = entry.getValue();
             String levelName = entry.getKey();
+
             for (int j = 0; j < level.length; ++j) {
                 if (level[j] != null) {
                     OWorldServer oworldserver = level[j];
-                    OWorldInfo oworldinfo = oworldserver.J();
+                    OWorldInfo oworldinfo = oworldserver.K();
 
                     oplayerusagesnooper.a("world[" + levelName + "][" + i + "][dimension]", Integer.valueOf(oworldserver.v.h));
                     oplayerusagesnooper.a("world[" + levelName + "][" + i + "][mode]", oworldinfo.r());
@@ -865,7 +863,7 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
                     oplayerusagesnooper.a("world[" + levelName + "][" + i + "][generator_name]", oworldinfo.u().a());
                     oplayerusagesnooper.a("world[" + levelName + "][" + i + "][generator_version]", Integer.valueOf(oworldinfo.u().c()));
                     oplayerusagesnooper.a("world[" + levelName + "][" + i + "][height]", Integer.valueOf(this.D));
-                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][chunks_loaded]", Integer.valueOf(oworldserver.H().e()));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][chunks_loaded]", Integer.valueOf(oworldserver.I().e()));
                     ++i;
                 }
             }
@@ -964,7 +962,7 @@ public abstract class OMinecraftServer implements Runnable, OIPlayerUsage, OICom
     public void a(OEnumGameType oenumgametype) {
         OWorldServer[] level = D().worlds.get(this.J());
         for (int i = 0; i < level.length; ++i) {
-            level[i].J().a(oenumgametype);
+            level[i].K().a(oenumgametype);
         }
     }
 

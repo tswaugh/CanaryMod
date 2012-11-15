@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
 public abstract class OBiomeGenBase {
 
     public static final OBiomeGenBase[] a = new OBiomeGenBase[256];
@@ -140,8 +139,8 @@ public abstract class OBiomeGenBase {
         return this;
     }
 
-    // CanaryMod start - responsible for adding spawned monsters to the monster list.
     public List a(OEnumCreatureType oenumcreaturetype) {
+        // CanaryMod start - responsible for adding spawned monsters to the monster list.
         etc config = etc.getInstance();
 
         if (oenumcreaturetype == OEnumCreatureType.a) {
@@ -156,10 +155,8 @@ public abstract class OBiomeGenBase {
         if (oenumcreaturetype == OEnumCreatureType.c) {
             return config.getAmbientAnimalsClass(this);
         }
-        return null;
+        return null; // CanaryMod end
     }
-
-    // CanaryMod end
 
     public boolean c() {
         return this.S;
@@ -192,5 +189,4 @@ public abstract class OBiomeGenBase {
     public void a(OWorld oworld, Random random, int i, int j) {
         this.I.a(oworld, random, i, j);
     }
-
 }

@@ -1,6 +1,5 @@
 import java.util.List;
 
-
 public class OBlockPistonBase extends OBlock {
 
     private boolean a;
@@ -39,33 +38,29 @@ public class OBlockPistonBase extends OBlock {
         if (!oworld.J) {
             this.l(oworld, i, j, k);
         }
-
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
         if (!oworld.J) {
             this.l(oworld, i, j, k);
         }
-
     }
 
     public void g(OWorld oworld, int i, int j, int k) {
-        if (!oworld.J && oworld.p(i, j, k) == null) {
+        if (!oworld.J && oworld.q(i, j, k) == null) {
             this.l(oworld, i, j, k);
         }
-
     }
 
     private void l(OWorld oworld, int i, int j, int k) {
-        int l = oworld.g(i, j, k);
+        int l = oworld.h(i, j, k);
         int i1 = e(l);
 
         if (i1 != 7) {
             boolean flag = this.d(oworld, i, j, k, i1);
 
             if (flag && !f(l)) {
-
-                if (h(oworld, i, j, k, i1)) {
+                if (i(oworld, i, j, k, i1)) {
                     // CanaryMod hook onPistonExtend
                     boolean allowExtension = !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PISTON_EXTEND, new Block(oworld.world, (this.a) ? Block.Type.StickyPiston.getType() : Block.Type.Piston.getType(), i, j, k, l));
 
@@ -80,7 +75,6 @@ public class OBlockPistonBase extends OBlock {
 
                 oworld.c(i, j, k, this.cm, 1, i1);
             }
-
         }
     }
 
@@ -96,14 +90,14 @@ public class OBlockPistonBase extends OBlock {
         }
 
         if (l == 0) {
-            if (this.i(oworld, i, j, k, i1)) {
+            if (this.j(oworld, i, j, k, i1)) {
                 oworld.c(i, j, k, i1 | 8);
                 oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.out", 0.5F, oworld.u.nextFloat() * 0.25F + 0.6F);
             } else {
                 oworld.d(i, j, k, i1);
             }
         } else if (l == 1) {
-            OTileEntity otileentity = oworld.p(i + OFacing.b[i1], j + OFacing.c[i1], k + OFacing.d[i1]);
+            OTileEntity otileentity = oworld.q(i + OFacing.b[i1], j + OFacing.c[i1], k + OFacing.d[i1]);
 
             if (otileentity instanceof OTileEntityPiston) {
                 ((OTileEntityPiston) otileentity).f();
@@ -116,11 +110,11 @@ public class OBlockPistonBase extends OBlock {
                 int k1 = j + OFacing.c[i1] * 2;
                 int l1 = k + OFacing.d[i1] * 2;
                 int i2 = oworld.a(j1, k1, l1);
-                int j2 = oworld.g(j1, k1, l1);
+                int j2 = oworld.h(j1, k1, l1);
                 boolean flag = false;
 
                 if (i2 == OBlock.af.cm) {
-                    OTileEntity otileentity1 = oworld.p(j1, k1, l1);
+                    OTileEntity otileentity1 = oworld.q(j1, k1, l1);
 
                     if (otileentity1 instanceof OTileEntityPiston) {
                         OTileEntityPiston otileentitypiston = (OTileEntityPiston) otileentity1;
@@ -153,7 +147,7 @@ public class OBlockPistonBase extends OBlock {
     }
 
     public void a(OIBlockAccess oiblockaccess, int i, int j, int k) {
-        int l = oiblockaccess.g(i, j, k);
+        int l = oiblockaccess.h(i, j, k);
 
         if (f(l)) {
             switch (e(l)) {
@@ -183,7 +177,6 @@ public class OBlockPistonBase extends OBlock {
         } else {
             this.a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         }
-
     }
 
     public void f() {
@@ -246,7 +239,7 @@ public class OBlockPistonBase extends OBlock {
                 if (!flag && OBlock.p[i].q_() == 1) {
                     return false;
                 }
-            } else if (f(oworld.g(j, k, l))) {
+            } else if (f(oworld.h(j, k, l))) {
                 return false;
             }
 
@@ -254,7 +247,7 @@ public class OBlockPistonBase extends OBlock {
         }
     }
 
-    private static boolean h(OWorld oworld, int i, int j, int k, int l) {
+    private static boolean i(OWorld oworld, int i, int j, int k, int l) {
         int i1 = i + OFacing.b[l];
         int j1 = j + OFacing.c[l];
         int k1 = k + OFacing.d[l];
@@ -291,7 +284,7 @@ public class OBlockPistonBase extends OBlock {
         }
     }
 
-    private boolean i(OWorld oworld, int i, int j, int k, int l) {
+    private boolean j(OWorld oworld, int i, int j, int k, int l) {
         int i1 = i + OFacing.b[l];
         int j1 = j + OFacing.c[l];
         int k1 = k + OFacing.d[l];
@@ -323,7 +316,7 @@ public class OBlockPistonBase extends OBlock {
                         continue;
                     }
 
-                    OBlock.p[i2].c(oworld, i1, j1, k1, oworld.g(i1, j1, k1), 0);
+                    OBlock.p[i2].c(oworld, i1, j1, k1, oworld.h(i1, j1, k1), 0);
                     oworld.e(i1, j1, k1, 0);
                 }
             }
@@ -333,7 +326,7 @@ public class OBlockPistonBase extends OBlock {
                 i2 = j1 - OFacing.c[l];
                 int j2 = k1 - OFacing.d[l];
                 int k2 = oworld.a(l1, i2, j2);
-                int l2 = oworld.g(l1, i2, j2);
+                int l2 = oworld.h(l1, i2, j2);
 
                 if (k2 == this.cm && l1 == i && i2 == j && j2 == k) {
                     oworld.a(i1, j1, k1, OBlock.af.cm, l | (this.a ? 8 : 0), false);

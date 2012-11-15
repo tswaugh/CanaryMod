@@ -1,7 +1,6 @@
 import java.util.List;
 import java.util.Random;
 
-
 public class OBlockButton extends OBlock {
 
     private final boolean a;
@@ -30,69 +29,68 @@ public class OBlockButton extends OBlock {
     }
 
     public boolean b_(OWorld oworld, int i, int j, int k, int l) {
-        return l == 2 && oworld.s(i, j, k + 1) ? true : (l == 3 && oworld.s(i, j, k - 1) ? true : (l == 4 && oworld.s(i + 1, j, k) ? true : l == 5 && oworld.s(i - 1, j, k)));
+        return l == 2 && oworld.t(i, j, k + 1) ? true : (l == 3 && oworld.t(i, j, k - 1) ? true : (l == 4 && oworld.t(i + 1, j, k) ? true : l == 5 && oworld.t(i - 1, j, k)));
     }
 
     public boolean b(OWorld oworld, int i, int j, int k) {
-        return oworld.s(i - 1, j, k) ? true : (oworld.s(i + 1, j, k) ? true : (oworld.s(i, j, k - 1) ? true : oworld.s(i, j, k + 1)));
+        return oworld.t(i - 1, j, k) ? true : (oworld.t(i + 1, j, k) ? true : (oworld.t(i, j, k - 1) ? true : oworld.t(i, j, k + 1)));
     }
 
-    public void a(OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
-        int i1 = oworld.g(i, j, k);
-        int j1 = i1 & 8;
+    public int a(OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
+        int j1 = oworld.h(i, j, k);
+        int k1 = j1 & 8;
 
-        i1 &= 7;
-        if (l == 2 && oworld.s(i, j, k + 1)) {
-            i1 = 4;
-        } else if (l == 3 && oworld.s(i, j, k - 1)) {
-            i1 = 3;
-        } else if (l == 4 && oworld.s(i + 1, j, k)) {
-            i1 = 2;
-        } else if (l == 5 && oworld.s(i - 1, j, k)) {
-            i1 = 1;
+        j1 &= 7;
+        if (l == 2 && oworld.t(i, j, k + 1)) {
+            j1 = 4;
+        } else if (l == 3 && oworld.t(i, j, k - 1)) {
+            j1 = 3;
+        } else if (l == 4 && oworld.t(i + 1, j, k)) {
+            j1 = 2;
+        } else if (l == 5 && oworld.t(i - 1, j, k)) {
+            j1 = 1;
         } else {
-            i1 = this.l(oworld, i, j, k);
+            j1 = this.l(oworld, i, j, k);
         }
 
-        oworld.c(i, j, k, i1 + j1);
+        return j1 + k1;
     }
 
     private int l(OWorld oworld, int i, int j, int k) {
-        return oworld.s(i - 1, j, k) ? 1 : (oworld.s(i + 1, j, k) ? 2 : (oworld.s(i, j, k - 1) ? 3 : (oworld.s(i, j, k + 1) ? 4 : 1)));
+        return oworld.t(i - 1, j, k) ? 1 : (oworld.t(i + 1, j, k) ? 2 : (oworld.t(i, j, k - 1) ? 3 : (oworld.t(i, j, k + 1) ? 4 : 1)));
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
         if (this.n(oworld, i, j, k)) {
-            int i1 = oworld.g(i, j, k) & 7;
+            int i1 = oworld.h(i, j, k) & 7;
             boolean flag = false;
 
-            if (!oworld.s(i - 1, j, k) && i1 == 1) {
+            if (!oworld.t(i - 1, j, k) && i1 == 1) {
                 flag = true;
             }
 
-            if (!oworld.s(i + 1, j, k) && i1 == 2) {
+            if (!oworld.t(i + 1, j, k) && i1 == 2) {
                 flag = true;
             }
 
-            if (!oworld.s(i, j, k - 1) && i1 == 3) {
+            if (!oworld.t(i, j, k - 1) && i1 == 3) {
                 flag = true;
             }
 
-            if (!oworld.s(i, j, k + 1) && i1 == 4) {
+            if (!oworld.t(i, j, k + 1) && i1 == 4) {
                 flag = true;
             }
 
             if (flag) {
-                this.c(oworld, i, j, k, oworld.g(i, j, k), 0);
+                this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
                 oworld.e(i, j, k, 0);
             }
         }
-
     }
 
     private boolean n(OWorld oworld, int i, int j, int k) {
         if (!this.b(oworld, i, j, k)) {
-            this.c(oworld, i, j, k, oworld.g(i, j, k), 0);
+            this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
             oworld.e(i, j, k, 0);
             return false;
         } else {
@@ -101,7 +99,7 @@ public class OBlockButton extends OBlock {
     }
 
     public void a(OIBlockAccess oiblockaccess, int i, int j, int k) {
-        int l = oiblockaccess.g(i, j, k);
+        int l = oiblockaccess.h(i, j, k);
 
         this.e(l);
     }
@@ -127,13 +125,12 @@ public class OBlockButton extends OBlock {
         } else if (j == 4) {
             this.a(0.5F - f2, f, 1.0F - f3, 0.5F + f2, f1, 1.0F);
         }
-
     }
 
     public void a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {}
 
     public boolean a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer, int l, float f, float f1, float f2) {
-        int i1 = oworld.g(i, j, k);
+        int i1 = oworld.h(i, j, k);
         int j1 = i1 & 7;
         int k1 = 8 - (i1 & 8);
 
@@ -167,11 +164,11 @@ public class OBlockButton extends OBlock {
     }
 
     public boolean b(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
-        return (oiblockaccess.g(i, j, k) & 8) > 0;
+        return (oiblockaccess.h(i, j, k) & 8) > 0;
     }
 
     public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
-        int i1 = oiblockaccess.g(i, j, k);
+        int i1 = oiblockaccess.h(i, j, k);
 
         if ((i1 & 8) == 0) {
             return false;
@@ -188,7 +185,7 @@ public class OBlockButton extends OBlock {
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
         if (!oworld.J) {
-            int l = oworld.g(i, j, k);
+            int l = oworld.h(i, j, k);
 
             if ((l & 8) != 0) {
         	 
@@ -224,7 +221,7 @@ public class OBlockButton extends OBlock {
     public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
         if (!oworld.J) {
             if (this.a) {
-                if ((oworld.g(i, j, k) & 8) == 0) {
+                if ((oworld.h(i, j, k) & 8) == 0) {
                     this.o(oworld, i, j, k);
                 }
             }
@@ -232,7 +229,7 @@ public class OBlockButton extends OBlock {
     }
 
     private void o(OWorld oworld, int i, int j, int k) {
-        int l = oworld.g(i, j, k);
+        int l = oworld.h(i, j, k);
         int i1 = l & 7;
         boolean flag = (l & 8) != 0;
 

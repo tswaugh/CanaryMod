@@ -1,6 +1,4 @@
-import java.util.Iterator;
 import java.util.List;
-
 
 public class OEntityLightningBolt extends OEntityWeatherEffect {
 
@@ -14,7 +12,7 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
         this.b = 2;
         this.a = this.aa.nextLong();
         this.c = this.aa.nextInt(3) + 1;
-        if (oworld.t >= 2 && oworld.a(OMathHelper.c(d0), OMathHelper.c(d1), OMathHelper.c(d2), 10)) {
+        if (!oworld.J && oworld.t >= 2 && oworld.a(OMathHelper.c(d0), OMathHelper.c(d1), OMathHelper.c(d2), 10)) {
             int i = OMathHelper.c(d0);
             int j = OMathHelper.c(d1);
             int k = OMathHelper.c(d2);
@@ -45,7 +43,6 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
                 }
             }
         }
-
     }
 
     public void j_() {
@@ -63,7 +60,7 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
                 --this.c;
                 this.b = 1;
                 this.a = this.aa.nextLong();
-                if (this.p.a(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v), 10)) {
+                if (!this.p.J && this.p.a(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v), 10)) {
                     int i = OMathHelper.c(this.t);
                     int j = OMathHelper.c(this.u);
                     int k = OMathHelper.c(this.v);
@@ -74,27 +71,25 @@ public class OEntityLightningBolt extends OEntityWeatherEffect {
 
                         block.setStatus(5); // lightning
                         if (!(Boolean) manager.callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                        this.p.e(i, j, k, OBlock.au.cm);
+                            this.p.e(i, j, k, OBlock.au.cm);
                         }
                     }
                 }
             }
         }
 
-        if (this.b >= 0) {
+        if (!this.p.J && this.b >= 0) {
             double d0 = 3.0D;
             List list = this.p.b((OEntity) this, OAxisAlignedBB.a().a(this.t - d0, this.u - d0, this.v - d0, this.t + d0, this.u + 6.0D + d0, this.v + d0));
-            Iterator iterator = list.iterator();
 
-            while (iterator.hasNext()) {
-                OEntity oentity = (OEntity) iterator.next();
+            for (int l = 0; l < list.size(); ++l) {
+                OEntity oentity = (OEntity) list.get(l);
 
                 oentity.a(this);
             }
 
             this.p.r = 2;
         }
-
     }
 
     protected void a() {}

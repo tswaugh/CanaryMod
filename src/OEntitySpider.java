@@ -1,11 +1,10 @@
-
 public class OEntitySpider extends OEntityMob {
 
     public OEntitySpider(OWorld oworld) {
         super(oworld);
         this.aF = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bI = 0.8F;
+        this.bG = 0.8F;
     }
 
     protected void a() {
@@ -18,10 +17,9 @@ public class OEntitySpider extends OEntityMob {
         if (!this.p.J) {
             this.f(this.F);
         }
-
     }
 
-    public int aS() {
+    public int aT() {
         //CanaryMod: set max health here, but check for uninitialized value.
         return this.maxHealth == 0 ? 16 : this.maxHealth;
     }
@@ -33,30 +31,31 @@ public class OEntitySpider extends OEntityMob {
     protected OEntity j() {
         float f = this.c(1.0F);
 
-        double d0 = 16.0D;
-        OEntityPlayer oentityplayer = this.p.b(this, d0);
+        if (f < 0.5F) {
+            double d0 = 16.0D;
+            OEntityPlayer oentityplayer = this.p.b(this, d0);
 
-        if (f < 0.5F && oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), entity)) {
-            return oentityplayer;
-        } else {
-            return null;
+            if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityplayer.entity.getPlayer(), entity)) {
+                return oentityplayer;
+            }
         }
-    }
-
-    protected String aW() {
-        return "mob.spider.say";
-    }
-
-    protected String aX() {
-        return "mob.spider.say";
+        return null;
     }
 
     protected String aY() {
+        return "mob.spider.say";
+    }
+
+    protected String aZ() {
+        return "mob.spider.say";
+    }
+
+    protected String ba() {
         return "mob.spider.death";
     }
 
     protected void a(int i, int j, int k, int l) {
-        this.p.a(this, "mob.spider.step", 0.15F, 1.0F);
+        this.a("mob.spider.step", 0.15F, 1.0F);
     }
 
     protected void a(OEntity oentity, float f) {
@@ -78,20 +77,18 @@ public class OEntitySpider extends OEntityMob {
             } else {
                 super.a(oentity, f);
             }
-
         }
     }
 
-    protected int aZ() {
-        return OItem.K.cf;
+    protected int bb() {
+        return OItem.K.cg;
     }
 
     protected void a(boolean flag, int i) {
         super.a(flag, i);
         if (flag && (this.aa.nextInt(3) == 0 || this.aa.nextInt(1 + i) > 0)) {
-            this.b(OItem.bu.cf, 1);
+            this.b(OItem.bu.cg, 1);
         }
-
     }
 
     public boolean g_() {
@@ -100,7 +97,7 @@ public class OEntitySpider extends OEntityMob {
 
     public void am() {}
 
-    public OEnumCreatureAttribute bz() {
+    public OEnumCreatureAttribute bC() {
         return OEnumCreatureAttribute.c;
     }
 
@@ -124,12 +121,12 @@ public class OEntitySpider extends OEntityMob {
         this.ag.b(16, Byte.valueOf(b0));
     }
 
-    public void bD() {
+    public void bG() {
         if (this.p.u.nextInt(100) == 0) {
             OEntitySkeleton oentityskeleton = new OEntitySkeleton(this.p);
 
             oentityskeleton.b(this.t, this.u, this.v, this.z, 0.0F);
-            oentityskeleton.bD();
+            oentityskeleton.bG();
             this.p.d((OEntity) oentityskeleton);
             oentityskeleton.a((OEntity) this);
         }

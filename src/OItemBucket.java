@@ -4,7 +4,7 @@ public class OItemBucket extends OItem {
 
     public OItemBucket(int i, int j) {
         super(i);
-        this.cg = 1;
+        this.ch = 1;
         this.a = j;
         this.a(OCreativeTabs.f);
     }
@@ -38,14 +38,14 @@ public class OItemBucket extends OItem {
                         return oitemstack;
                     }
 
-                    if (oworld.f(i, j, k) == OMaterial.h && oworld.g(i, j, k) == 0) {
+                    if (oworld.g(i, j, k) == OMaterial.h && oworld.h(i, j, k) == 0) {
                         // CanaryMod: Filling a bucket with water!
                         if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
                             return oitemstack;
                         }
 
                         oworld.e(i, j, k, 0);
-                        if (oentityplayer.cf.d) {
+                        if (oentityplayer.cc.d) {
                             return oitemstack;
                         }
 
@@ -53,21 +53,21 @@ public class OItemBucket extends OItem {
                             return new OItemStack(OItem.ax);
                         }
 
-                        if (!oentityplayer.bK.a(new OItemStack(OItem.ax))) {
-                            oentityplayer.c(new OItemStack(OItem.ax.cf, 1, 0));
+                        if (!oentityplayer.bI.a(new OItemStack(OItem.ax))) {
+                            oentityplayer.c(new OItemStack(OItem.ax.cg, 1, 0));
                         }
 
                         return oitemstack;
                     }
 
-                    if (oworld.f(i, j, k) == OMaterial.i && oworld.g(i, j, k) == 0) {
+                    if (oworld.g(i, j, k) == OMaterial.i && oworld.h(i, j, k) == 0) {
                         // CanaryMod: Filling a bucket with lava!
                         if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
                             return oitemstack;
                         }
 
                         oworld.e(i, j, k, 0);
-                        if (oentityplayer.cf.d) {
+                        if (oentityplayer.cc.d) {
                             return oitemstack;
                         }
 
@@ -75,8 +75,8 @@ public class OItemBucket extends OItem {
                             return new OItemStack(OItem.ay);
                         }
 
-                        if (!oentityplayer.bK.a(new OItemStack(OItem.ay))) {
-                            oentityplayer.c(new OItemStack(OItem.ay.cf, 1, 0));
+                        if (!oentityplayer.bI.a(new OItemStack(OItem.ay))) {
+                            oentityplayer.c(new OItemStack(OItem.ay.cg, 1, 0));
                         }
 
                         return oitemstack;
@@ -114,7 +114,7 @@ public class OItemBucket extends OItem {
                         return oitemstack;
                     }
 
-                    if (this.a(oworld, d0, d1, d2, i, j, k, oentityplayer) && !oentityplayer.cf.d) {
+                    if (this.a(oworld, d0, d1, d2, i, j, k, oentityplayer) && !oentityplayer.cc.d) { // CanaryMod: pass oentityplayer
                         return new OItemStack(OItem.aw);
                     }
                 }
@@ -136,7 +136,7 @@ public class OItemBucket extends OItem {
     public boolean a(OWorld oworld, double d0, double d1, double d2, int i, int j, int k, OEntityPlayer oentityplayer) { // CanaryMod: pass oentityplayer
         if (this.a <= 0) {
             return false;
-        } else if (!oworld.c(i, j, k) && oworld.f(i, j, k).a()) {
+        } else if (!oworld.c(i, j, k) && oworld.g(i, j, k).a()) {
             return false;
         } else {
             if (oworld.v.e && this.a == OBlock.D.cm) {

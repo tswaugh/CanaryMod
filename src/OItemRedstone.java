@@ -1,4 +1,3 @@
-
 public class OItemRedstone extends OItem {
 
     public OItemRedstone(int i) {
@@ -12,7 +11,6 @@ public class OItemRedstone extends OItem {
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
 
         if (oworld.a(i, j, k) != OBlock.aV.cm) {
-
             if (l == 0) {
                 --j;
             }
@@ -45,7 +43,6 @@ public class OItemRedstone extends OItem {
         if (!oentityplayer.a(i, j, k, l, oitemstack)) {
             return false;
         } else {
-
             if (OBlock.ay.b(oworld, i, j, k)) {
                 // CanaryMod: Redstone dust hook!
                 Block blockPlaced = new Block(oworld.world, Block.Type.RedstoneWire.getType(), i, j, k);

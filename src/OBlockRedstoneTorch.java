@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -19,15 +18,16 @@ public class OBlockRedstoneTorch extends OBlockTorch {
             b.put(oworld, new ArrayList());
         }
 
+        List list = (List) b.get(oworld);
+
         if (flag) {
-            ((List) b.get(oworld)).add(new ORedstoneUpdateInfo(i, j, k, oworld.E()));
+            list.add(new ORedstoneUpdateInfo(i, j, k, oworld.F()));
         }
 
         int l = 0;
-        Iterator iterator = ((List) b.get(oworld)).iterator();
 
-        while (iterator.hasNext()) {
-            ORedstoneUpdateInfo oredstoneupdateinfo = (ORedstoneUpdateInfo) iterator.next();
+        for (int i1 = 0; i1 < list.size(); ++i1) {
+            ORedstoneUpdateInfo oredstoneupdateinfo = (ORedstoneUpdateInfo) list.get(i1);
 
             if (oredstoneupdateinfo.a == i && oredstoneupdateinfo.b == j && oredstoneupdateinfo.c == k) {
                 ++l;
@@ -52,7 +52,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
     }
 
     public void g(OWorld oworld, int i, int j, int k) {
-        if (oworld.g(i, j, k) == 0) {
+        if (oworld.h(i, j, k) == 0) {
             super.g(oworld, i, j, k);
         }
 
@@ -81,14 +81,14 @@ public class OBlockRedstoneTorch extends OBlockTorch {
         if (!this.a) {
             return false;
         } else {
-            int i1 = oiblockaccess.g(i, j, k);
+            int i1 = oiblockaccess.h(i, j, k);
 
             return i1 == 5 && l == 1 ? false : (i1 == 3 && l == 3 ? false : (i1 == 4 && l == 2 ? false : (i1 == 1 && l == 5 ? false : i1 != 2 || l != 4)));
         }
     }
 
     private boolean l(OWorld oworld, int i, int j, int k) {
-        int l = oworld.g(i, j, k);
+        int l = oworld.h(i, j, k);
 
         return l == 5 && oworld.l(i, j - 1, k, 0) ? true : (l == 3 && oworld.l(i, j, k - 1, 2) ? true : (l == 4 && oworld.l(i, j, k + 1, 3) ? true : (l == 1 && oworld.l(i - 1, j, k, 4) ? true : l == 2 && oworld.l(i + 1, j, k, 5))));
     }
@@ -97,20 +97,17 @@ public class OBlockRedstoneTorch extends OBlockTorch {
         boolean flag = this.l(oworld, i, j, k);
         List list = (List) b.get(oworld);
 
-        while (list != null && !list.isEmpty() && oworld.E() - ((ORedstoneUpdateInfo) list.get(0)).d > 60L) {
+        while (list != null && !list.isEmpty() && oworld.F() - ((ORedstoneUpdateInfo) list.get(0)).d > 60L) {
             list.remove(0);
         }
 
         if (this.a) {
             if (flag) {
-                oworld.d(i, j, k, OBlock.aS.cm, oworld.g(i, j, k));
                 // CanaryMod: Allow redstone torches to provide power
-                int current = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), 1, 0);
-
-                if (current == 0) {
-                oworld.d(i, j, k, OBlock.aS.cm, oworld.g(i, j, k));
+                if ((Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), 1, 0) == 0) {
+                    oworld.d(i, j, k, OBlock.aS.cm, oworld.h(i, j, k));
                     if (this.a(oworld, i, j, k, true)) {
-                    oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (oworld.u.nextFloat() - oworld.u.nextFloat()) * 0.8F);
+                        oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (oworld.u.nextFloat() - oworld.u.nextFloat()) * 0.8F);
 
                         for (int l = 0; l < 5; ++l) {
                             double d0 = (double) i + random.nextDouble() * 0.6D + 0.2D;
@@ -123,7 +120,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
                 } //
             }
         } else if (!flag && !this.a(oworld, i, j, k, false)) {
-            oworld.d(i, j, k, OBlock.aT.cm, oworld.g(i, j, k));
+            oworld.d(i, j, k, OBlock.aT.cm, oworld.h(i, j, k));
         }
     }
 

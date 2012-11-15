@@ -18,18 +18,19 @@ public class OWorldServer extends OWorld {
     public boolean c;
     private boolean O;
     private int P = 0;
-    private OServerBlockEventList[] Q = new OServerBlockEventList[] { new OServerBlockEventList((OServerBlockEvent) null), new OServerBlockEventList((OServerBlockEvent) null)};
-    private int R = 0;
-    private static final OWeightedRandomChestContent[] S = new OWeightedRandomChestContent[] { new OWeightedRandomChestContent(OItem.D.cf, 0, 1, 3, 10), new OWeightedRandomChestContent(OBlock.A.cm, 0, 1, 3, 10), new OWeightedRandomChestContent(OBlock.M.cm, 0, 1, 3, 10), new OWeightedRandomChestContent(OItem.y.cf, 0, 1, 1, 3), new OWeightedRandomChestContent(OItem.u.cf, 0, 1, 1, 5), new OWeightedRandomChestContent(OItem.x.cf, 0, 1, 1, 3), new OWeightedRandomChestContent(OItem.t.cf, 0, 1, 1, 5), new OWeightedRandomChestContent(OItem.j.cf, 0, 2, 3, 5), new OWeightedRandomChestContent(OItem.U.cf, 0, 2, 3, 3)};
-    private OIntHashMap T;
+    private final OTeleporter Q;
+    private OServerBlockEventList[] R = new OServerBlockEventList[] { new OServerBlockEventList((OServerBlockEvent) null), new OServerBlockEventList((OServerBlockEvent) null)};
+    private int S = 0;
+    private static final OWeightedRandomChestContent[] T = new OWeightedRandomChestContent[] { new OWeightedRandomChestContent(OItem.D.cg, 0, 1, 3, 10), new OWeightedRandomChestContent(OBlock.A.cm, 0, 1, 3, 10), new OWeightedRandomChestContent(OBlock.M.cm, 0, 1, 3, 10), new OWeightedRandomChestContent(OItem.y.cg, 0, 1, 1, 3), new OWeightedRandomChestContent(OItem.u.cg, 0, 1, 1, 5), new OWeightedRandomChestContent(OItem.x.cg, 0, 1, 1, 3), new OWeightedRandomChestContent(OItem.t.cg, 0, 1, 1, 5), new OWeightedRandomChestContent(OItem.j.cg, 0, 2, 3, 5), new OWeightedRandomChestContent(OItem.U.cg, 0, 2, 3, 3)};
+    private OIntHashMap U;
 
     public OWorldServer(OMinecraftServer ominecraftserver, OISaveHandler oisavehandler, String s, int i, OWorldSettings oworldsettings, OProfiler oprofiler) {
         super(oisavehandler, s, oworldsettings, OWorldProvider.a(i), oprofiler);
         this.a = ominecraftserver;
         this.K = new OEntityTracker(this);
         this.L = new OPlayerManager(this, ominecraftserver.ad().o());
-        if (this.T == null) {
-            this.T = new OIntHashMap();
+        if (this.U == null) {
+            this.U = new OIntHashMap();
         }
 
         if (this.M == null) {
@@ -39,11 +40,13 @@ public class OWorldServer extends OWorld {
         if (this.N == null) {
             this.N = new TreeSet();
         }
+
+        this.Q = new OTeleporter(this);
     }
 
     public void b() {
         super.b();
-        if (this.J().t() && this.t < 3) {
+        if (this.K().t() && this.t < 3) {
             this.t = 3;
         }
 
@@ -68,7 +71,7 @@ public class OWorldServer extends OWorld {
         }
 
         this.E.a("mobSpawner");
-        if (this.K().b("doMobSpawning")) {
+        if (this.L().b("doMobSpawning")) {
             OSpawnerAnimals.a(this, this.F, this.G, this.z.f() % 400L == 0L);
         }
 
@@ -80,14 +83,12 @@ public class OWorldServer extends OWorld {
             this.j = j;
         }
 
-
-        this.U();
+        this.V();
         // CanaryMod: Time hook
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, this.z.f() + 1L)) {
             this.z.b(this.z.f() + 1L);
-			this.z.c(this.z.g() + 1L);
+            this.z.c(this.z.g() + 1L);
         }
-		
         this.E.c("tickPending");
         this.a(false);
         this.E.c("tickTiles");
@@ -97,12 +98,14 @@ public class OWorldServer extends OWorld {
         this.E.c("village");
         this.C.a();
         this.D.a();
+        this.E.c("portalForcer");
+        this.Q.a(this.F());
         this.E.b();
-        this.U();
+        this.V();
     }
 
     public OSpawnListEntry a(OEnumCreatureType oenumcreaturetype, int i, int j, int k) {
-        List list = this.H().a(oenumcreaturetype, i, j, k);
+        List list = this.I().a(oenumcreaturetype, i, j, k);
 
         return list != null && !list.isEmpty() ? (OSpawnListEntry) OWeightedRandom.a(this.u, (Collection) list) : null;
     }
@@ -114,7 +117,7 @@ public class OWorldServer extends OWorld {
         while (iterator.hasNext()) {
             OEntityPlayer oentityplayer = (OEntityPlayer) iterator.next();
 
-            if (!oentityplayer.bt()) {
+            if (!oentityplayer.bw()) {
                 this.O = false;
                 break;
             }
@@ -128,15 +131,15 @@ public class OWorldServer extends OWorld {
         while (iterator.hasNext()) {
             OEntityPlayer oentityplayer = (OEntityPlayer) iterator.next();
 
-            if (oentityplayer.bt()) {
+            if (oentityplayer.bw()) {
                 oentityplayer.a(false, false, true);
             }
         }
 
-        this.T();
+        this.U();
     }
 
-    private void T() {
+    private void U() {
         // CanaryMod: Weather hook
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, world, false)) {
             this.z.g(0);
@@ -161,7 +164,7 @@ public class OWorldServer extends OWorld {
                 }
 
                 oentityplayer = (OEntityPlayer) iterator.next();
-            } while (oentityplayer.bU());
+            } while (oentityplayer.bY());
 
             return false;
         } else {
@@ -192,13 +195,13 @@ public class OWorldServer extends OWorld {
             int k1;
             int l1;
 
-            if (this.u.nextInt(100000) == 0 && this.M() && this.L()) {
+            if (this.u.nextInt(100000) == 0 && this.N() && this.M()) {
                 this.k = this.k * 3 + 1013904223;
                 i1 = this.k >> 2;
                 j1 = k + (i1 & 15);
                 k1 = l + (i1 >> 8 & 15);
                 l1 = this.h(j1, k1);
-                if (this.B(j1, l1, k1)) {
+                if (this.D(j1, l1, k1)) {
                     this.c(new OEntityLightningBolt(this, (double) j1, (double) l1, (double) k1));
                     this.q = 2;
                 }
@@ -213,15 +216,15 @@ public class OWorldServer extends OWorld {
                 j1 = i1 & 15;
                 k1 = i1 >> 8 & 15;
                 l1 = this.h(j1 + k, k1 + l);
-                if (this.v(j1 + k, l1 - 1, k1 + l)) {
+                if (this.x(j1 + k, l1 - 1, k1 + l)) {
                     this.e(j1 + k, l1 - 1, k1 + l, OBlock.aW.cm);
                 }
 
-                if (this.M() && this.w(j1 + k, l1, k1 + l)) {
+                if (this.N() && this.y(j1 + k, l1, k1 + l)) {
                     this.e(j1 + k, l1, k1 + l, OBlock.aV.cm);
                 }
 
-                if (this.M()) {
+                if (this.N()) {
                     OBiomeGenBase obiomegenbase = this.a(j1 + k, k1 + l);
 
                     if (obiomegenbase.d()) {
@@ -280,8 +283,8 @@ public class OWorldServer extends OWorld {
 
                     if (k1 == onextticklistentry.d && k1 > 0) {
                         OBlock.p[k1].b(this, onextticklistentry.a, onextticklistentry.b, onextticklistentry.c, this.u);
+                    }
                 }
-            }
 
                 return;
             }
@@ -290,14 +293,14 @@ public class OWorldServer extends OWorld {
         }
 
         if (this.d(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
-                if (l > 0) {
+            if (l > 0) {
                 onextticklistentry.a((long) i1 + this.z.f());
                 onextticklistentry.a(j1);
-                }
+            }
 
             if (!this.M.contains(onextticklistentry)) {
                 this.M.add(onextticklistentry);
-                    this.N.add(onextticklistentry);
+                this.N.add(onextticklistentry);
             }
         }
     }
@@ -356,7 +359,23 @@ public class OWorldServer extends OWorld {
                     int k = this.a(onextticklistentry.a, onextticklistentry.b, onextticklistentry.c);
 
                     if (k == onextticklistentry.d && k > 0) {
-                        OBlock.p[k].b(this, onextticklistentry.a, onextticklistentry.b, onextticklistentry.c, this.u);
+                        try {
+                            OBlock.p[k].b(this, onextticklistentry.a, onextticklistentry.b, onextticklistentry.c, this.u);
+                        } catch (Throwable throwable) {
+                            OCrashReport ocrashreport = OCrashReport.a(throwable, "Exception while ticking a block");
+                            OCrashReportCategory ocrashreportcategory = ocrashreport.a("Block being ticked");
+
+                            int l;
+
+                            try {
+                                l = this.h(onextticklistentry.a, onextticklistentry.b, onextticklistentry.c);
+                            } catch (Throwable throwable1) {
+                                l = -1;
+                            }
+
+                            OCrashReportCategory.a(ocrashreportcategory, onextticklistentry.a, onextticklistentry.b, onextticklistentry.c, k, l);
+                            throw new OReportedException(ocrashreport);
+                        }
                     }
                 }
             }
@@ -421,10 +440,9 @@ public class OWorldServer extends OWorld {
 
     public List b(int i, int j, int k, int l, int i1, int j1) {
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = this.g.iterator();
 
-        while (iterator.hasNext()) {
-            OTileEntity otileentity = (OTileEntity) iterator.next();
+        for (int k1 = 0; k1 < this.g.size(); ++k1) {
+            OTileEntity otileentity = (OTileEntity) this.g.get(k1);
 
             if (otileentity.l >= i && otileentity.m >= j && otileentity.n >= k && otileentity.l < l && otileentity.m < i1 && otileentity.n < j1) {
                 arraylist.add(otileentity);
@@ -442,12 +460,12 @@ public class OWorldServer extends OWorld {
             i1 = l;
         }
 
-        return i1 > 16 || this.a.ad().e(oentityplayer.bT) || this.a.I();
+        return i1 > 16 || this.a.ad().e(oentityplayer.bQ) || this.a.I();
     }
 
     protected void a(OWorldSettings oworldsettings) {
-        if (this.T == null) {
-            this.T = new OIntHashMap();
+        if (this.U == null) {
+            this.U = new OIntHashMap();
         }
 
         if (this.M == null) {
@@ -479,7 +497,7 @@ public class OWorldServer extends OWorld {
             this.A = true;
             OWorldChunkManager oworldchunkmanager = this.v.d;
             List list = oworldchunkmanager.a();
-            Random random = new Random(this.D());
+            Random random = new Random(this.E());
             OChunkPosition ochunkposition = oworldchunkmanager.a(0, 0, 256, list, random);
             int i = 0;
             int j = this.v.i();
@@ -512,7 +530,7 @@ public class OWorldServer extends OWorld {
     }
 
     protected void k() {
-        OWorldGeneratorBonusChest oworldgeneratorbonuschest = new OWorldGeneratorBonusChest(S, 10);
+        OWorldGeneratorBonusChest oworldgeneratorbonuschest = new OWorldGeneratorBonusChest(T, 10);
 
         for (int i = 0; i < 10; ++i) {
             int j = this.z.c() + this.u.nextInt(6) - this.u.nextInt(6);
@@ -545,48 +563,37 @@ public class OWorldServer extends OWorld {
     }
 
     protected void a() {
-        this.C();
+        this.D();
         this.y.a(this.z, this.a.ad().q());
         this.B.a();
     }
 
     protected void a(OEntity oentity) {
         super.a(oentity);
-        this.T.a(oentity.k, oentity);
+        this.U.a(oentity.k, oentity);
         OEntity[] aoentity = oentity.ao();
 
         if (aoentity != null) {
-            OEntity[] aoentity1 = aoentity;
-            int i = aoentity.length;
-
-            for (int j = 0; j < i; ++j) {
-                OEntity oentity1 = aoentity1[j];
-
-                this.T.a(oentity1.k, oentity1);
+            for (int i = 0; i < aoentity.length; ++i) {
+                this.U.a(aoentity[i].k, aoentity[i]);
             }
         }
     }
 
     protected void b(OEntity oentity) {
         super.b(oentity);
-        this.T.d(oentity.k);
+        this.U.d(oentity.k);
         OEntity[] aoentity = oentity.ao();
 
         if (aoentity != null) {
-            OEntity[] aoentity1 = aoentity;
-            int i = aoentity.length;
-
-            for (int j = 0; j < i; ++j) {
-                OEntity oentity1 = aoentity1[j];
-
-                this.T.d(oentity1.k);
+            for (int i = 0; i < aoentity.length; ++i) {
+                this.U.d(aoentity[i].k);
             }
         }
-
     }
 
     public OEntity a(int i) {
-        return (OEntity) this.T.a(i);
+        return (OEntity) this.U.a(i);
     }
 
     public boolean c(OEntity oentity) {
@@ -630,13 +637,13 @@ public class OWorldServer extends OWorld {
 
     public void c(int i, int j, int k, int l, int i1, int j1) {
         OBlockEventData oblockeventdata = new OBlockEventData(i, j, k, l, i1, j1);
-        Iterator iterator = this.Q[this.R].iterator();
+        Iterator iterator = this.R[this.S].iterator();
 
         OBlockEventData oblockeventdata1;
 
         do {
             if (!iterator.hasNext()) {
-                this.Q[this.R].add(oblockeventdata);
+                this.R[this.S].add(oblockeventdata);
                 return;
             }
 
@@ -645,12 +652,12 @@ public class OWorldServer extends OWorld {
 
     }
 
-    private void U() {
-        while (!this.Q[this.R].isEmpty()) {
-            int i = this.R;
+    private void V() {
+        while (!this.R[this.S].isEmpty()) {
+            int i = this.S;
 
-            this.R ^= 1;
-            Iterator iterator = this.Q[i].iterator();
+            this.S ^= 1;
+            Iterator iterator = this.R[i].iterator();
 
             while (iterator.hasNext()) {
                 OBlockEventData oblockeventdata = (OBlockEventData) iterator.next();
@@ -660,7 +667,7 @@ public class OWorldServer extends OWorld {
                 }
             }
 
-            this.Q[i].clear();
+            this.R[i].clear();
         }
     }
 
@@ -680,10 +687,10 @@ public class OWorldServer extends OWorld {
     }
 
     protected void n() {
-        boolean flag = this.M();
+        boolean flag = this.N();
 
         super.n();
-        if (flag != this.M()) {
+        if (flag != this.N()) {
             if (flag) {
                 this.a.ad().a((OPacket) (new OPacket70GameEvent(2, 0)));
             } else {
@@ -702,6 +709,10 @@ public class OWorldServer extends OWorld {
 
     public OPlayerManager r() {
         return this.L;
+    }
+
+    public OTeleporter s() {
+        return this.Q;
     }
     
     /**

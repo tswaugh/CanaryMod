@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OBlockPortal extends OBlockBreakable {
 
     public OBlockPortal(int i, int j) {
@@ -13,11 +12,11 @@ public class OBlockPortal extends OBlockBreakable {
         if (oworld.v.d() && random.nextInt(2000) < oworld.t) {
             int l;
 
-            for (l = j; !oworld.t(i, l, k) && l > 0; --l) {
+            for (l = j; !oworld.v(i, l, k) && l > 0; --l) {
                 ;
             }
 
-            if (l > 0 && !oworld.s(i, l + 1, k)) {
+            if (l > 0 && !oworld.t(i, l + 1, k)) {
                 OEntity oentity = OItemMonsterPlacer.a(oworld, 57, (double) i + 0.5D, (double) l + 1.1D, (double) k + 0.5D);
 
                 if (oentity != null) {
@@ -44,7 +43,6 @@ public class OBlockPortal extends OBlockBreakable {
             f1 = 0.125F;
             this.a(0.5F - f, 0.0F, 0.5F - f1, 0.5F + f, 1.0F, 0.5F + f1);
         }
-
     }
 
     public boolean c() {
@@ -109,11 +107,11 @@ public class OBlockPortal extends OBlockBreakable {
 
                 for (l = 0; l < 2; ++l) {
                     for (i1 = 0; i1 < 3; ++i1) {
-                    oworld.e(i + b0 * l, j + i1, k + b1 * l, OBlock.bh.cm);
+                        oworld.e(i + b0 * l, j + i1, k + b1 * l, OBlock.bh.cm);
                     }
                 }
 
-            oworld.s = false;
+                oworld.s = false;
                 return true;
             }
             return false;
@@ -169,6 +167,5 @@ public class OBlockPortal extends OBlockBreakable {
         if (oentity.o == null && oentity.n == null) {
             oentity.aa();
         }
-
     }
 }

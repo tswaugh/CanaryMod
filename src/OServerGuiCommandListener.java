@@ -2,10 +2,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 
-
 class OServerGuiCommandListener implements ActionListener {
 
     final JTextField a;
+
     final OServerGUI b;
 
     OServerGuiCommandListener(OServerGUI oservergui, JTextField jtextfield) {

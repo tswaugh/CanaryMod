@@ -43,7 +43,6 @@ public class ONetLoginHandler extends ONetHandler {
         } else {
             this.b.b();
         }
-
     }
 
     public void a(String s) {
@@ -55,7 +54,6 @@ public class ONetLoginHandler extends ONetHandler {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
     }
 
     public void a(OPacket2ClientProtocol opacket2clientprotocol) {
@@ -65,8 +63,8 @@ public class ONetLoginHandler extends ONetHandler {
         } else {
             PublicKey publickey = this.f.F().getPublic();
 
-            if (opacket2clientprotocol.d() != 47) {
-                if (opacket2clientprotocol.d() > 47) {
+            if (opacket2clientprotocol.d() != 49) {
+                if (opacket2clientprotocol.d() > 49) {
                     this.a("Outdated server!");
                 } else {
                     this.a("Outdated client!");
@@ -98,7 +96,6 @@ public class ONetLoginHandler extends ONetHandler {
             } else {
                 this.i = true;
             }
-
         }
     }
 
@@ -134,7 +131,7 @@ public class ONetLoginHandler extends ONetHandler {
             String s = null;
 
             if (opacket254serverping.a == 1) {
-                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(47), this.f.x(), this.f.aa(), Integer.valueOf(oserverconfigurationmanager.k()), Integer.valueOf(oserverconfigurationmanager.l())});
+                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(49), this.f.x(), this.f.aa(), Integer.valueOf(oserverconfigurationmanager.k()), Integer.valueOf(oserverconfigurationmanager.l())});
 
                 Object object;
 
@@ -155,19 +152,17 @@ public class ONetLoginHandler extends ONetHandler {
             if (this.b.g() != null) {
                 inetaddress = this.b.g().getInetAddress();
             }
-            
+
             this.b.a((OPacket) (new OPacket255KickDisconnect(s)));
-            // CanaryMod: swapped lines below. The network connection should be terminated AFTER removing the socket from the connection list.
             this.b.d();
             if (inetaddress != null && this.f.ae() instanceof ODedicatedServerListenThread) {
                 ((ODedicatedServerListenThread) this.f.ae()).a(inetaddress);
             }
-            
+
             this.c = true;
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
     }
 
     public void a(OPacket opacket) {
@@ -201,5 +196,4 @@ public class ONetLoginHandler extends ONetHandler {
     static boolean a(ONetLoginHandler onetloginhandler, boolean flag) {
         return onetloginhandler.i = flag;
     }
-
 }

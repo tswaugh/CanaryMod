@@ -1,6 +1,5 @@
 import java.util.Random;
 
-
 public class OBlockFire extends OBlock {
 
     private int[] a = new int[256];
@@ -59,68 +58,68 @@ public class OBlockFire extends OBlock {
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (oworld.K().b("doFireTick")) {
+        if (oworld.L().b("doFireTick")) {
             boolean flag = oworld.a(i, j - 1, k) == OBlock.be.cm;
 
             if (oworld.v instanceof OWorldProviderEnd && oworld.a(i, j - 1, k) == OBlock.C.cm) {
-            flag = true;
-        }
-
-        if (!this.b(oworld, i, j, k)) {
-            oworld.e(i, j, k, 0);
-        }
-
-            if (!flag && oworld.M() && (oworld.B(i, j, k) || oworld.B(i - 1, j, k) || oworld.B(i + 1, j, k) || oworld.B(i, j, k - 1) || oworld.B(i, j, k + 1))) {
-            oworld.e(i, j, k, 0);
-        } else {
-            int l = oworld.g(i, j, k);
-
-            if (l < 15) {
-                oworld.d(i, j, k, l + random.nextInt(3) / 2);
+                flag = true;
             }
 
-                oworld.a(i, j, k, this.cm, this.r_() + random.nextInt(10));
-            if (!flag && !this.l(oworld, i, j, k)) {
-                if (!oworld.t(i, j - 1, k) || l > 3) {
-                    oworld.e(i, j, k, 0);
-                }
-            } else if (!flag && !this.d(oworld, i, j - 1, k) && l == 15 && random.nextInt(4) == 0) {
+            if (!this.b(oworld, i, j, k)) {
+                oworld.e(i, j, k, 0);
+            }
+
+            if (!flag && oworld.N() && (oworld.D(i, j, k) || oworld.D(i - 1, j, k) || oworld.D(i + 1, j, k) || oworld.D(i, j, k - 1) || oworld.D(i, j, k + 1))) {
                 oworld.e(i, j, k, 0);
             } else {
-                boolean flag1 = oworld.C(i, j, k);
-                byte b0 = 0;
+                int l = oworld.h(i, j, k);
 
-                if (flag1) {
-                    b0 = -50;
+                if (l < 15) {
+                    oworld.d(i, j, k, l + random.nextInt(3) / 2);
                 }
 
-                this.a(oworld, i + 1, j, k, 300 + b0, random, l);
-                this.a(oworld, i - 1, j, k, 300 + b0, random, l);
-                this.a(oworld, i, j - 1, k, 250 + b0, random, l);
-                this.a(oworld, i, j + 1, k, 250 + b0, random, l);
-                this.a(oworld, i, j, k - 1, 300 + b0, random, l);
-                this.a(oworld, i, j, k + 1, 300 + b0, random, l);
+                oworld.a(i, j, k, this.cm, this.r_() + random.nextInt(10));
+                if (!flag && !this.l(oworld, i, j, k)) {
+                    if (!oworld.v(i, j - 1, k) || l > 3) {
+                        oworld.e(i, j, k, 0);
+                    }
+                } else if (!flag && !this.d(oworld, i, j - 1, k) && l == 15 && random.nextInt(4) == 0) {
+                    oworld.e(i, j, k, 0);
+                } else {
+                    boolean flag1 = oworld.E(i, j, k);
+                    byte b0 = 0;
 
-                for (int i1 = i - 1; i1 <= i + 1; ++i1) {
-                    for (int j1 = k - 1; j1 <= k + 1; ++j1) {
-                        for (int k1 = j - 1; k1 <= j + 4; ++k1) {
-                            if (i1 != i || k1 != j || j1 != k) {
-                                int l1 = 100;
+                    if (flag1) {
+                        b0 = -50;
+                    }
 
-                                if (k1 > j + 1) {
-                                    l1 += (k1 - (j + 1)) * 100;
-                                }
+                    this.a(oworld, i + 1, j, k, 300 + b0, random, l);
+                    this.a(oworld, i - 1, j, k, 300 + b0, random, l);
+                    this.a(oworld, i, j - 1, k, 250 + b0, random, l);
+                    this.a(oworld, i, j + 1, k, 250 + b0, random, l);
+                    this.a(oworld, i, j, k - 1, 300 + b0, random, l);
+                    this.a(oworld, i, j, k + 1, 300 + b0, random, l);
 
-                                int i2 = this.n(oworld, i1, k1, j1);
+                    for (int i1 = i - 1; i1 <= i + 1; ++i1) {
+                        for (int j1 = k - 1; j1 <= k + 1; ++j1) {
+                            for (int k1 = j - 1; k1 <= j + 4; ++k1) {
+                                if (i1 != i || k1 != j || j1 != k) {
+                                    int l1 = 100;
 
-                                if (i2 > 0) {
-                                        int j2 = (i2 + 40 + oworld.t * 7) / (l + 30);
-
-                                    if (flag1) {
-                                        j2 /= 2;
+                                    if (k1 > j + 1) {
+                                        l1 += (k1 - (j + 1)) * 100;
                                     }
 
-                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!oworld.M() || !oworld.B(i1, k1, j1)) && !oworld.B(i1 - 1, k1, k) && !oworld.B(i1 + 1, k1, j1) && !oworld.B(i1, k1, j1 - 1) && !oworld.B(i1, k1, j1 + 1)) {
+                                    int i2 = this.n(oworld, i1, k1, j1);
+
+                                    if (i2 > 0) {
+                                        int j2 = (i2 + 40 + oworld.t * 7) / (l + 30);
+
+                                        if (flag1) {
+                                            j2 /= 2;
+                                        }
+
+                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!oworld.N() || !oworld.D(i1, k1, j1)) && !oworld.D(i1 - 1, k1, k) && !oworld.D(i1 + 1, k1, j1) && !oworld.D(i1, k1, j1 - 1) && !oworld.D(i1, k1, j1 + 1)) {
                                             int k2 = l + random.nextInt(5) / 4;
 
                                             if (k2 > 15) {
@@ -135,9 +134,8 @@ public class OBlockFire extends OBlock {
                                             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
                                                 oworld.d(i1, k1, j1, this.cm, k2);
                                             }
-
                                         }
-                                }
+                                    }
                                 }
                             }
                         }
@@ -157,7 +155,7 @@ public class OBlockFire extends OBlock {
         if (random.nextInt(l) < j1) {
             boolean flag = oworld.a(i, j, k) == OBlock.ap.cm;
 
-            if (random.nextInt(i1 + 10) < 5 && !oworld.B(i, j, k)) {
+            if (random.nextInt(i1 + 10) < 5 && !oworld.D(i, j, k)) {
                 int k1 = i1 + random.nextInt(5) / 4;
 
                 if (k1 > 15) {
@@ -184,7 +182,6 @@ public class OBlockFire extends OBlock {
                 OBlock.ap.c(oworld, i, j, k, 1);
             }
         }
-
     }
 
     private boolean l(OWorld oworld, int i, int j, int k) {
@@ -223,18 +220,18 @@ public class OBlockFire extends OBlock {
     }
 
     public boolean b(OWorld oworld, int i, int j, int k) {
-        return oworld.t(i, j - 1, k) || this.l(oworld, i, j, k);
+        return oworld.v(i, j - 1, k) || this.l(oworld, i, j, k);
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
-        if (!oworld.t(i, j - 1, k) && !this.l(oworld, i, j, k)) {
+        if (!oworld.v(i, j - 1, k) && !this.l(oworld, i, j, k)) {
             oworld.e(i, j, k, 0);
         }
     }
 
     public void g(OWorld oworld, int i, int j, int k) {
         if (oworld.v.h > 0 || oworld.a(i, j - 1, k) != OBlock.as.cm || !OBlock.bh.i_(oworld, i, j, k)) {
-            if (!oworld.t(i, j - 1, k) && !this.l(oworld, i, j, k)) {
+            if (!oworld.v(i, j - 1, k) && !this.l(oworld, i, j, k)) {
                 oworld.e(i, j, k, 0);
             } else {
                 oworld.a(i, j, k, this.cm, this.r_() + oworld.u.nextInt(10));

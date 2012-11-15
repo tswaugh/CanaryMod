@@ -1,4 +1,3 @@
-
 public class OPotion {
 
     public static final OPotion[] a = new OPotion[32];
@@ -66,11 +65,11 @@ public class OPotion {
 
     public void a(OEntityLiving oentityliving, int i) {
         if (this.H == l.H) {
-            if (oentityliving.aT() < oentityliving.aS()) {
+            if (oentityliving.aU() < oentityliving.aT()) {
                 oentityliving.i(1);
             }
         } else if (this.H == u.H) {
-            if (oentityliving.aT() > 1) {
+            if (oentityliving.aU() > 1) {
                 // Canarymod: DAMAGE From Poison
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, oentityliving.entity, 1)) {
                     oentityliving.a(ODamageSource.m, 1);
@@ -83,8 +82,8 @@ public class OPotion {
             } //
         } else if (this.H == s.H && oentityliving instanceof OEntityPlayer) {
             ((OEntityPlayer) oentityliving).j(0.025F * (float) (i + 1));
-        } else if ((this.H != h.H || oentityliving.bx()) && (this.H != OPotion.i.H || !oentityliving.bx())) {
-            if (this.H == OPotion.i.H && !oentityliving.bx() || this.H == h.H && oentityliving.bx()) {
+        } else if ((this.H != h.H || oentityliving.bA()) && (this.H != OPotion.i.H || !oentityliving.bA())) {
+            if (this.H == OPotion.i.H && !oentityliving.bA() || this.H == h.H && oentityliving.bA()) {
                 // Canarymod: harm/heal potion
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, oentityliving.entity, 4 << i)) {
                     oentityliving.a(ODamageSource.m, 6 << i);
@@ -93,14 +92,13 @@ public class OPotion {
         } else {
             oentityliving.i(6 << i);
         }
-
     }
 
     public void a(OEntityLiving oentityliving, OEntityLiving oentityliving1, int i, double d0) {
         int j;
 
-        if ((this.H != h.H || oentityliving1.bx()) && (this.H != OPotion.i.H || !oentityliving1.bx())) {
-            if (this.H == OPotion.i.H && !oentityliving1.bx() || this.H == h.H && oentityliving1.bx()) {
+        if ((this.H != h.H || oentityliving1.bA()) && (this.H != OPotion.i.H || !oentityliving1.bA())) {
+            if (this.H == OPotion.i.H && !oentityliving1.bA() || this.H == h.H && oentityliving1.bA()) {
                 j = (int) (d0 * (double) (6 << i) + 0.5D);
                 if (oentityliving == null) {
                     oentityliving1.a(ODamageSource.m, j);
@@ -112,7 +110,6 @@ public class OPotion {
             j = (int) (d0 * (double) (6 << i) + 0.5D);
             oentityliving1.i(j);
         }
-
     }
 
     public boolean b() {
@@ -127,7 +124,7 @@ public class OPotion {
                 k = 40 >> j;
                 return k > 0 ? i % k == 0 : true;
             } else {
-            return this.H == s.H;
+                return this.H == s.H;
             }
         } else {
             k = 25 >> j;
@@ -160,5 +157,4 @@ public class OPotion {
     public int j() {
         return this.N;
     }
-
 }

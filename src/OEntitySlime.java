@@ -1,4 +1,3 @@
-
 public class OEntitySlime extends OEntityLiving implements OIMob {
 
     public float b;
@@ -21,15 +20,15 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         this.ag.a(16, new Byte((byte) 1));
     }
 
-    public void a(int i) {
+    protected void a(int i) {
         this.ag.b(16, new Byte((byte) i));
         this.a(0.6F * (float) i, 0.6F * (float) i);
         this.b(this.t, this.u, this.v);
-        this.j(this.aS());
+        this.j(this.aT());
         this.bc = i;
     }
 
-    public int aS() {
+    public int aT() {
         int i = this.p();
         return this.maxHealth == 0 ? (i * i) : this.maxHealth;
     }
@@ -66,8 +65,10 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         boolean flag = this.E;
 
         super.j_();
+        int i;
+
         if (this.E && !flag) {
-            int i = this.p();
+            i = this.p();
 
             for (int j = 0; j < i * 8; ++j) {
                 float f = this.aa.nextFloat() * 3.1415927F * 2.0F;
@@ -79,7 +80,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
             }
 
             if (this.o()) {
-                this.p.a(this, this.n(), this.aV(), ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+                this.a(this.n(), this.aX(), ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) / 0.8F);
             }
 
             this.b = -0.5F;
@@ -88,10 +89,14 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         }
 
         this.k();
+        if (this.p.J) {
+            i = this.p();
+            this.a(0.6F * (float) i, 0.6F * (float) i);
+        }
     }
 
-    protected void bk() {
-        this.bh();
+    protected void bn() {
+        this.bk();
         OEntityPlayer oentityplayer = this.p.b(this, 16.0D);
 
         if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), this.entity)) { // CanaryMod - MOB_TARGET
@@ -104,20 +109,19 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
                 this.e /= 3;
             }
 
-            this.bG = true;
+            this.bE = true;
             if (this.q()) {
-                this.p.a(this, this.n(), this.aV(), ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                this.a(this.n(), this.aX(), ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bD = 1.0F - this.aa.nextFloat() * 2.0F;
-            this.bE = (float) (1 * this.p());
+            this.bB = 1.0F - this.aa.nextFloat() * 2.0F;
+            this.bC = (float) (1 * this.p());
         } else {
-            this.bG = false;
+            this.bE = false;
             if (this.E) {
-                this.bD = this.bE = 0.0F;
+                this.bB = this.bC = 0.0F;
             }
         }
-
     }
 
     protected void k() {
@@ -135,7 +139,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
     public void x() {
         int i = this.p();
 
-        if (!this.p.J && i > 1 && this.aT() <= 0) {
+        if (!this.p.J && i > 1 && this.aU() <= 0) {
             int j = 2 + this.aa.nextInt(3);
 
             for (int k = 0; k < j; ++k) {
@@ -152,15 +156,14 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         super.x();
     }
 
-    public void b_(OEntityPlayer oentityplayer) {
+    public void c_(OEntityPlayer oentityplayer) {
         if (this.l()) {
             int i = this.p();
 
-            if (this.m(oentityplayer) && this.e(oentityplayer) < 0.6D * (double) i * 0.6D * (double) i && oentityplayer.a(ODamageSource.a((OEntityLiving) this), this.m())) {
-                this.p.a(this, "mob.attack", 1.0F, (this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F);
+            if (this.n(oentityplayer) && this.e(oentityplayer) < 0.6D * (double) i * 0.6D * (double) i && oentityplayer.a(ODamageSource.a((OEntityLiving) this), this.m())) {
+                this.a("mob.attack", 1.0F, (this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F);
             }
         }
-
     }
 
     protected boolean l() {
@@ -171,43 +174,43 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         return this.p();
     }
 
-    protected String aX() {
+    protected String aZ() {
         return "mob.slime." + (this.p() > 1 ? "big" : "small");
     }
 
-    protected String aY() {
+    protected String ba() {
         return "mob.slime." + (this.p() > 1 ? "big" : "small");
     }
 
-    protected int aZ() {
-        return this.p() == 1 ? OItem.aM.cf : 0;
+    protected int bb() {
+        return this.p() == 1 ? OItem.aM.cg : 0;
     }
 
-    public boolean bp() {
+    public boolean bs() {
         OChunk ochunk = this.p.d(OMathHelper.c(this.t), OMathHelper.c(this.v));
 
-        if (this.p.J().u() == OWorldType.c && this.aa.nextInt(4) != 1) {
+        if (this.p.K().u() == OWorldType.c && this.aa.nextInt(4) != 1) {
             return false;
         } else {
             if (this.p() == 1 || this.p.t > 0) {
-                if (this.p.a(OMathHelper.c(this.t), OMathHelper.c(this.v)) == OBiomeGenBase.h && this.u > 50.0D && this.u < 70.0D && this.p.l(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) <= this.aa.nextInt(8)) {
-                    return super.bp();
-    }
+                if (this.p.a(OMathHelper.c(this.t), OMathHelper.c(this.v)) == OBiomeGenBase.h && this.u > 50.0D && this.u < 70.0D && this.p.m(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) <= this.aa.nextInt(8)) {
+                    return super.bs();
+                }
 
                 if (this.aa.nextInt(10) == 0 && ochunk.a(987234911L).nextInt(10) == 0 && this.u < 40.0D) {
-                    return super.bp();
+                    return super.bs();
                 }
-    }
+            }
 
             return false;
         }
     }
 
-    protected float aV() {
+    protected float aX() {
         return 0.4F * (float) this.p();
     }
 
-    public int bm() {
+    public int bp() {
         return 0;
     }
 

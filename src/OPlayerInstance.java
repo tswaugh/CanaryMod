@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 class OPlayerInstance {
@@ -68,10 +67,8 @@ class OPlayerInstance {
     }
 
     public void a(OPacket opacket) {
-        Iterator iterator = this.b.iterator();
-
-        while (iterator.hasNext()) {
-            OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) iterator.next();
+        for (int i = 0; i < this.b.size(); ++i) {
+            OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.b.get(i);
 
             if (!oentityplayermp.f.contains(this.c)) {
                 oentityplayermp.a.b(opacket);
@@ -91,7 +88,7 @@ class OPlayerInstance {
                 k = this.c.b * 16 + (this.d[0] >> 8 & 15);
                 this.a((OPacket) (new OPacket53BlockChange(i, j, k, OPlayerManager.a(this.a))));
                 if (OPlayerManager.a(this.a).d(i, j, k)) {
-                    this.a(OPlayerManager.a(this.a).p(i, j, k));
+                    this.a(OPlayerManager.a(this.a).q(i, j, k));
                 }
             } else {
                 int l;
@@ -105,12 +102,9 @@ class OPlayerInstance {
                         if ((this.f & 1 << k) != 0) {
                             l = k << 4;
                             List list = OPlayerManager.a(this.a).b(i, l, j, i + 16, l + 16, j + 16);
-                            Iterator iterator = list.iterator();
 
-                            while (iterator.hasNext()) {
-                                OTileEntity otileentity = (OTileEntity) iterator.next();
-
-                                this.a(otileentity);
+                            for (int i1 = 0; i1 < list.size(); ++i1) {
+                                this.a((OTileEntity) list.get(i1));
                             }
                         }
                     }
@@ -122,7 +116,7 @@ class OPlayerInstance {
                         k = this.d[i] & 255;
                         l = this.c.b * 16 + (this.d[i] >> 8 & 15);
                         if (OPlayerManager.a(this.a).d(j, k, l)) {
-                            this.a(OPlayerManager.a(this.a).p(j, k, l));
+                            this.a(OPlayerManager.a(this.a).q(j, k, l));
                         }
                     }
                 }

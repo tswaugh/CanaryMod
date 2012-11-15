@@ -1,4 +1,3 @@
-
 public class OFoodStats {
 
     // CanaryMod: made fields public
@@ -61,7 +60,7 @@ public class OFoodStats {
             }
         }
 
-        if (this.a >= 18 && oentityplayer.ca()) {
+        if (this.a >= 18 && oentityplayer.ce()) {
             ++this.d;
             if (this.d >= 80) {
                 oentityplayer.i(1);
@@ -70,7 +69,7 @@ public class OFoodStats {
         } else if (this.a <= 0) {
             ++this.d;
             if (this.d >= 80) {
-                if (oentityplayer.aT() > 10 || i >= 3 || oentityplayer.aT() > 1 && i >= 2) {
+                if (oentityplayer.aU() > 10 || i >= 3 || oentityplayer.aU() > 1 && i >= 2) {
                     // CanaryMod: DAMAGE From starvation
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.STARVATION, null, ((OEntityPlayerMP) oentityplayer).getPlayer(), 1)) {
                         oentityplayer.a(ODamageSource.f, 1);
@@ -82,7 +81,6 @@ public class OFoodStats {
         } else {
             this.d = 0;
         }
-
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
@@ -92,7 +90,6 @@ public class OFoodStats {
             this.b = onbttagcompound.g("foodSaturationLevel");
             this.c = onbttagcompound.g("foodExhaustionLevel");
         }
-
     }
 
     public void b(ONBTTagCompound onbttagcompound) {

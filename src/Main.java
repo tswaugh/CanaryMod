@@ -17,13 +17,13 @@ import java.util.zip.CheckedInputStream;
 
 public class Main {
 
-    public static final long   minecraft_server = 0xbd86e2b4L;
+    public static final long   minecraft_server = 0x281d2c7aL;
 
-    public static final long   minecraft_servero = 0x14635c91L;
+    public static final long   minecraft_servero = 0xd5e882a8L;
 
     public static final long   mysql = 0xb2e59524L;
     public static final long   jarjar = 0x4e724d4dL;
-    public static final long   rules = 0x9314c6e4L;
+    public static final long   rules = 0x6c04eaffL;
 
     public static final Logger log = Logger.getLogger("Minecraft");
     

@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.concurrent.DelayQueue;
 import java.util.logging.Level;
 
-
 public class OEntityTracker {
 
     private final OWorldServer a;
@@ -93,7 +92,6 @@ public class OEntityTracker {
         } else if (oentity instanceof OEntityItemFrame) {
             this.a(oentity, 160, Integer.MAX_VALUE, false);
         }
-
     }
 
     public void a(OEntity oentity, int i, int j) {
@@ -134,7 +132,6 @@ public class OEntityTracker {
             this.b.remove(oentitytrackerentry1);
             oentitytrackerentry1.a();
         }
-
     }
 
     public void a() {
@@ -151,18 +148,15 @@ public class OEntityTracker {
                 }
             }
 
-            iterator = arraylist.iterator();
-
-            while (iterator.hasNext()) {
-                OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) iterator.next();
-                OEntityPlayerMP oentityplayermp1 = oentityplayermp;
+            for (int i = 0; i < arraylist.size(); ++i) {
+                OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) arraylist.get(i);
                 Iterator iterator1 = this.b.iterator();
 
                 while (iterator1.hasNext()) {
                     OEntityTrackerEntry oentitytrackerentry1 = (OEntityTrackerEntry) iterator1.next();
 
-                    if (oentitytrackerentry1.a != oentityplayermp1) {
-                        oentitytrackerentry1.b(oentityplayermp1);
+                    if (oentitytrackerentry1.a != oentityplayermp) {
+                        oentitytrackerentry1.b(oentityplayermp);
                     }
                 }
             }
@@ -196,7 +190,6 @@ public class OEntityTracker {
         if (oentitytrackerentry != null) {
             oentitytrackerentry.a(opacket);
         }
-
     }
 
     public void b(OEntity oentity, OPacket opacket) {
@@ -205,7 +198,6 @@ public class OEntityTracker {
         if (oentitytrackerentry != null) {
             oentitytrackerentry.b(opacket);
         }
-
     }
 
     public void a(OEntityPlayerMP oentityplayermp) {
@@ -216,6 +208,17 @@ public class OEntityTracker {
 
             oentitytrackerentry.c(oentityplayermp);
         }
+    }
 
+    public void a(OEntityPlayerMP oentityplayermp, OChunk ochunk) {
+        Iterator iterator = this.b.iterator();
+
+        while (iterator.hasNext()) {
+            OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.next();
+
+            if (oentitytrackerentry.a != oentityplayermp && oentitytrackerentry.a.ai == ochunk.g && oentitytrackerentry.a.ak == ochunk.h) {
+                oentitytrackerentry.b(oentityplayermp);
+            }
+        }
     }
 }

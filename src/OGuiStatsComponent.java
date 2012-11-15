@@ -6,13 +6,12 @@ import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
-
 public class OGuiStatsComponent extends JComponent {
 
     private static final DecimalFormat a = new DecimalFormat("########0.000");
     private int[] b = new int[256];
     private int c = 0;
-    private String[] d = new String[10];
+    private String[] d = new String[11];
     private final OMinecraftServer e;
 
     public OGuiStatsComponent(OMinecraftServer ominecraftserver) {
@@ -42,11 +41,11 @@ public class OGuiStatsComponent extends JComponent {
                 for (int j = 0; j < level.length; ++j) {
                     this.d[5 + j] = "Lvl " + j + " tick: " + a.format(this.a(this.e.worldTickNanos.get(worldName)[j]) * 1.0E-6D) + " ms";
                     if (level[j] != null && level[j].b != null) {
-                        this.d[5 + j] = this.d[5 + j] + ", Vec3: " + level[j].R().d() + " / " + level[j].R().c();
+                        this.d[5 + j] = this.d[5 + j] + ", " + level[j].b.d();
+                        this.d[5 + j] = this.d[5 + j] + ", Vec3: " + level[j].S().d() + " / " + level[j].S().c();
                     }
                 }
-            }
-            // CanaryMod end
+            } // CanaryMod end
         }
 
         this.b[this.c++ & 255] = (int) (this.a(this.e.g) * 100.0D / 12500.0D);
@@ -55,13 +54,9 @@ public class OGuiStatsComponent extends JComponent {
 
     private double a(long[] along) {
         long i = 0L;
-        long[] along1 = along;
-        int j = along.length;
 
-        for (int k = 0; k < j; ++k) {
-            long l = along1[k];
-
-            i += l;
+        for (int j = 0; j < along.length; ++j) {
+            i += along[j];
         }
 
         return (double) i / (double) along.length;
@@ -94,5 +89,4 @@ public class OGuiStatsComponent extends JComponent {
     static void a(OGuiStatsComponent oguistatscomponent) {
         oguistatscomponent.a();
     }
-
 }

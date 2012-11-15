@@ -2,7 +2,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
 public class OEntityList {
 
     private static Map b = new HashMap();
@@ -89,8 +88,18 @@ public class OEntityList {
         return e.containsKey(oclass) ? ((Integer) e.get(oclass)).intValue() : 0;
     }
 
+    public static Class a(int i) {
+        return (Class) d.get(Integer.valueOf(i));
+    }
+
     public static String b(OEntity oentity) {
         return (String) c.get(oentity.getClass());
+    }
+
+    public static String b(int i) {
+        Class oclass = (Class) d.get(Integer.valueOf(i));
+
+        return oclass != null ? (String) c.get(oclass) : null;
     }
 
     // CanaryMod: Let us do a name->class lookup for mob spawning
@@ -101,12 +110,6 @@ public class OEntityList {
     // CanaryMod: Let us do a class->name lookup for mob spawning
     public static String getName(Class<? extends OEntity> clazz) {
         return (String) c.get(clazz);
-    }
-
-    public static String a(int i) {
-        Class oclass = (Class) d.get(Integer.valueOf(i));
-
-        return oclass != null ? (String) c.get(oclass) : null;
     }
 
     static {

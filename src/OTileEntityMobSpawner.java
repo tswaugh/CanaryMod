@@ -72,14 +72,14 @@ public class OTileEntityMobSpawner extends OTileEntity {
                         OEntityLiving oentityliving = oentity instanceof OEntityLiving ? (OEntityLiving) oentity : null;
 
                         oentity.b(d3, d4, d5, this.k.u.nextFloat() * 360.0F, 0.0F);
-                        if (oentityliving == null || oentityliving.bp()) {
+                        if (oentityliving == null || oentityliving.bs()) {
                             this.a(oentity);
                             this.k.d(oentity);
                             this.k.f(2004, this.l, this.m, this.n, 0);
                             if (oentityliving != null) {
                             	// CanaryMod - set spawner block for spawned entity
                                 oentityliving.spawner = (MobSpawner) this.k.world.getComplexBlock(this.l, this.m, this.n);
-                                oentityliving.aQ();
+                                oentityliving.aR();
                             }
 
                             this.e();
@@ -107,12 +107,17 @@ public class OTileEntityMobSpawner extends OTileEntity {
 
             oentity.e(onbttagcompound);
         } else if (oentity instanceof OEntityLiving && oentity.p != null) {
-            ((OEntityLiving) oentity).bD();
+            ((OEntityLiving) oentity).bG();
         }
     }
 
     private void e() {
-        this.a = this.f + this.k.u.nextInt(this.g - this.f);
+        if (this.g <= this.f) {
+            this.a = this.f;
+        } else {
+            this.a = this.f + this.k.u.nextInt(this.g - this.f);
+        }
+
         this.k.c(this.l, this.m, this.n, this.q().cm, 1, 0);
     }
 

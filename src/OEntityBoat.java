@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.List;
 
 public class OEntityBoat extends OEntity {
@@ -14,7 +13,6 @@ public class OEntityBoat extends OEntity {
 
     // CanaryMod Start
     Boat boat = new Boat(this);
-
     // CanaryMod end
 
     public OEntityBoat(OWorld oworld) {
@@ -77,12 +75,14 @@ public class OEntityBoat extends OEntity {
             return true;
         }
 
-        if (!this.p.J && !this.L) {
+        if (this.ar()) {
+            return false;
+        } else if (!this.p.J && !this.L) {
             this.h(-this.h());
             this.g(10);
             this.a(this.d() + i * 10);
             this.K();
-            if (odamagesource.g() instanceof OEntityPlayer && ((OEntityPlayer) odamagesource.g()).cf.d) {
+            if (odamagesource.g() instanceof OEntityPlayer && ((OEntityPlayer) odamagesource.g()).cc.d) {
                 this.a(100);
             }
 
@@ -91,7 +91,7 @@ public class OEntityBoat extends OEntity {
                     this.n.a((OEntity) this);
                 }
 
-                this.a(OItem.aE.cf, 1, 0.0F);
+                this.a(OItem.aE.cg, 1, 0.0F);
                 this.x();
             }
 
@@ -113,7 +113,6 @@ public class OEntityBoat extends OEntity {
         double prevX = this.q;
         double prevY = this.r;
         double prevZ = this.s;
-
 
         if (this.g() > 0) {
             this.g(this.g() - 1);
@@ -249,7 +248,7 @@ public class OEntityBoat extends OEntity {
                     }
 
                     for (k = 0; k < 2; ++k) {
-                        this.a(OItem.D.cf, 1, 0.0F);
+                        this.a(OItem.D.cg, 1, 0.0F);
                     }
                 }
             } else {
@@ -278,7 +277,6 @@ public class OEntityBoat extends OEntity {
 
             this.z = (float) ((double) this.z + d12);
             this.b(this.z, this.A);
-
             if (!this.p.J) {
                 // CanaryMod: Change of the boat
                 if ((int) this.q != (int) prevX || (int) this.r != (int) prevY || (int) this.s != (int) prevZ) {
@@ -286,12 +284,11 @@ public class OEntityBoat extends OEntity {
                 }
 
                 List list = this.p.b((OEntity) this, this.D.b(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+                int l;
 
                 if (list != null && !list.isEmpty()) {
-                    Iterator iterator = list.iterator();
-
-                    while (iterator.hasNext()) {
-                        OEntity oentity = (OEntity) iterator.next();
+                    for (l = 0; l < list.size(); ++l) {
+                        OEntity oentity = (OEntity) list.get(l);
 
                         if (oentity != this.n && oentity.M() && oentity instanceof OEntityBoat) {
                             oentity.f(this);
@@ -299,14 +296,14 @@ public class OEntityBoat extends OEntity {
                     }
                 }
 
-                for (int l = 0; l < 4; ++l) {
+                for (l = 0; l < 4; ++l) {
                     int i1 = OMathHelper.c(this.t + ((double) (l % 2) - 0.5D) * 0.8D);
                     int j1 = OMathHelper.c(this.v + ((double) (l / 2) - 0.5D) * 0.8D);
 
                     for (int k1 = 0; k1 < 2; ++k1) {
                         int l1 = OMathHelper.c(this.u) + k1;
                         int i2 = this.p.a(i1, l1, j1);
-                        int j2 = this.p.g(i1, l1, j1);
+                        int j2 = this.p.h(i1, l1, j1);
 
                         if (i2 == OBlock.aV.cm) {
                             this.p.e(i1, l1, j1, 0);
@@ -337,7 +334,7 @@ public class OEntityBoat extends OEntity {
 
     protected void a(ONBTTagCompound onbttagcompound) {}
 
-    public boolean c(OEntityPlayer oentityplayer) {
+    public boolean a(OEntityPlayer oentityplayer) {
         // CanaryMod: Entering the boat
         manager.callHook(PluginLoader.Hook.VEHICLE_ENTERED, boat, oentityplayer.entity);
 

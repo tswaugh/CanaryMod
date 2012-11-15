@@ -1,4 +1,3 @@
-
 public class OItemBlock extends OItem {
 
     private int a;
@@ -65,11 +64,13 @@ public class OItemBlock extends OItem {
         } else if (oworld.a(this.a, i, j, k, false, l, oentityplayer) // CanaryMod: prevent unwanted blocks from getting placed.
                 && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PLACE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
             OBlock oblock = OBlock.p[this.a];
+            int j1 = this.a(oitemstack.j());
+            int k1 = OBlock.p[this.a].a(oworld, i, j, k, l, f, f1, f2, j1);
 
-            if (oworld.d(i, j, k, this.a, this.a(oitemstack.j()))) {
+            if (oworld.d(i, j, k, this.a, k1)) {
                 if (oworld.a(i, j, k) == this.a) {
-                    OBlock.p[this.a].a(oworld, i, j, k, l, f, f1, f2);
                     OBlock.p[this.a].a(oworld, i, j, k, (OEntityLiving) oentityplayer);
+                    OBlock.p[this.a].g(oworld, i, j, k, k1);
                 }
 
                 oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cz.b(), (oblock.cz.c() + 1.0F) / 2.0F, oblock.cz.d() * 0.8F);

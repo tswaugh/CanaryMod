@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class OItemPotion extends OItem {
 
     private HashMap a = new HashMap();
@@ -55,7 +54,7 @@ public class OItemPotion extends OItem {
     }
 
     public OItemStack b(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
-        if (!oentityplayer.cf.d) {
+        if (!oentityplayer.cc.d) {
             --oitemstack.a;
         }
 
@@ -73,12 +72,12 @@ public class OItemPotion extends OItem {
             }
         }
 
-        if (!oentityplayer.cf.d) {
+        if (!oentityplayer.cc.d) {
             if (oitemstack.a <= 0) {
                 return new OItemStack(OItem.bt);
             }
 
-            oentityplayer.bK.a(new OItemStack(OItem.bt));
+            oentityplayer.bI.a(new OItemStack(OItem.bt));
         }
 
         return oitemstack;
@@ -94,11 +93,11 @@ public class OItemPotion extends OItem {
 
     public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
         if (g(oitemstack.j())) {
-            if (!oentityplayer.cf.d) {
+            if (!oentityplayer.cc.d) {
                 --oitemstack.a;
             }
 
-            oworld.a(oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
+            oworld.a((OEntity) oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
             if (!oworld.J) {
                 oworld.d((OEntity) (new OEntityPotion(oworld, oentityplayer, oitemstack)));
             }

@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class OItemInWorldManager {
 
     public OWorld a;
@@ -27,7 +26,7 @@ public class OItemInWorldManager {
 
     public void a(OEnumGameType oenumgametype) {
         this.c = oenumgametype;
-        oenumgametype.a(this.b.cf);
+        oenumgametype.a(this.b.cc);
         this.b.o();
     }
 
@@ -160,8 +159,8 @@ public class OItemInWorldManager {
 
     private boolean d(int i, int j, int k) {
         OBlock oblock = OBlock.p[this.a.a(i, j, k)];
-        int l = this.a.g(i, j, k);
-        
+        int l = this.a.h(i, j, k);
+
         if (oblock != null) {
             oblock.a(this.a, i, j, k, l, this.b);
         }
@@ -174,7 +173,7 @@ public class OItemInWorldManager {
 
         return flag;
     }
-    
+
     public boolean b(int i, int j, int k) {
         if (this.c.c() && !this.b.f(i, j, k)) {
             return false;
@@ -224,21 +223,21 @@ public class OItemInWorldManager {
             // CanaryMod end
 
             int l = this.a.a(i, j, k);
-            int i1 = this.a.g(i, j, k);
+            int i1 = this.a.h(i, j, k);
 
-            this.a.a(this.b, 2001, i, j, k, l + (this.a.g(i, j, k) << 12));
+            this.a.a(this.b, 2001, i, j, k, l + (this.a.h(i, j, k) << 12));
             boolean flag = this.d(i, j, k);
 
             if (this.d()) {
                 this.b.a.b(new OPacket53BlockChange(i, j, k, this.a));
             } else {
-                OItemStack oitemstack = this.b.bP();
+                OItemStack oitemstack = this.b.bT();
                 boolean flag1 = this.b.b(OBlock.p[l]);
 
                 if (oitemstack != null) {
                     oitemstack.a(this.a, l, i, j, k, this.b);
                     if (oitemstack.a == 0) {
-                        this.b.bQ();
+                        this.b.bU();
                     }
                 }
 
@@ -259,20 +258,20 @@ public class OItemInWorldManager {
         if (oitemstack1 == oitemstack && (oitemstack1 == null || oitemstack1.a == i && oitemstack1.m() <= 0 && oitemstack1.j() == j)) {
             return false;
         } else {
-            oentityplayer.bK.a[oentityplayer.bK.c] = oitemstack1;
+            oentityplayer.bI.a[oentityplayer.bI.c] = oitemstack1;
             if (this.d()) {
                 oitemstack1.a = i;
                 if (oitemstack1.f()) {
-                oitemstack1.b(j);
-            }
+                    oitemstack1.b(j);
+                }
             }
 
             if (oitemstack1.a == 0) {
-                oentityplayer.bK.a[oentityplayer.bK.c] = null;
+                oentityplayer.bI.a[oentityplayer.bI.c] = null;
             }
 
-            if (!oentityplayer.bI()) {
-                ((OEntityPlayerMP) oentityplayer).a(oentityplayer.bL);
+            if (!oentityplayer.bM()) {
+                ((OEntityPlayerMP) oentityplayer).a(oentityplayer.bJ);
             }
 
             return true;

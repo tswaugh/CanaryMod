@@ -1,6 +1,6 @@
 public class OContainerPlayer extends OContainer {
 
-    public OInventoryCrafting e = new OInventoryCrafting(this, 2, 2);
+    public OInventoryCrafting a = new OInventoryCrafting(this, 2, 2);
     public OIInventory f = new OInventoryCraftResult();
     public boolean g = false;
     private final OEntityPlayer h;
@@ -8,14 +8,14 @@ public class OContainerPlayer extends OContainer {
     public OContainerPlayer(OInventoryPlayer oinventoryplayer, boolean flag, OEntityPlayer oentityplayer) {
         this.g = flag;
         this.h = oentityplayer;
-        this.a((OSlot) (new OSlotCrafting(oinventoryplayer.d, this.e, this.f, 0, 144, 36)));
+        this.a((OSlot) (new OSlotCrafting(oinventoryplayer.d, this.a, this.f, 0, 144, 36)));
 
         int i;
         int j;
 
         for (i = 0; i < 2; ++i) {
             for (j = 0; j < 2; ++j) {
-                this.a(new OSlot(this.e, j + i * 2, 88 + j * 18, 26 + i * 18));
+                this.a(new OSlot(this.a, j + i * 2, 88 + j * 18, 26 + i * 18));
             }
         }
 
@@ -33,30 +33,29 @@ public class OContainerPlayer extends OContainer {
             this.a(new OSlot(oinventoryplayer, i, 8 + i * 18, 142));
         }
 
-        this.a((OIInventory) this.e);
+        this.a((OIInventory) this.a);
     }
 
-    // Canarymod - send custom recipes result to client
     public void a(OIInventory oiinventory) {
-
-        OItemStack craftresult = OCraftingManager.a().a(this.e, this.h.p);
+        // Canarymod - send custom recipes result to client
+        OItemStack craftresult = OCraftingManager.a().a(this.a, this.h.p);
         this.f.a(0, craftresult);
 
-        if (this.d.size() < 1) {
+        if (this.e.size() < 1) {
             return;
         } //
-        OEntityPlayerMP player = (OEntityPlayerMP) this.d.get(0); 
+        OEntityPlayerMP player = (OEntityPlayerMP) this.e.get(0);
 
-        player.a.b(new OPacket103SetSlot(player.bL.c, 0, craftresult));
+        player.a.b(new OPacket103SetSlot(player.bJ.d, 0, craftresult));
 
         this.f.a(0, craftresult);
     }
 
-    public void a(OEntityPlayer oentityplayer) {
-        super.a(oentityplayer);
+    public void b(OEntityPlayer oentityplayer) {
+        super.b(oentityplayer);
 
         for (int i = 0; i < 4; ++i) {
-            OItemStack oitemstack = this.e.a_(i);
+            OItemStack oitemstack = this.a.a_(i);
 
             if (oitemstack != null) {
                 oentityplayer.c(oitemstack);
@@ -66,13 +65,13 @@ public class OContainerPlayer extends OContainer {
         this.f.a(0, (OItemStack) null);
     }
 
-    public boolean c(OEntityPlayer oentityplayer) {
+    public boolean a(OEntityPlayer oentityplayer) {
         return true;
     }
 
     public OItemStack b(OEntityPlayer oentityplayer, int i) {
         OItemStack oitemstack = null;
-        OSlot oslot = (OSlot) this.b.get(i);
+        OSlot oslot = (OSlot) this.c.get(i);
 
         if (oslot != null && oslot.d()) {
             OItemStack oitemstack1 = oslot.c();
@@ -92,7 +91,7 @@ public class OContainerPlayer extends OContainer {
                 if (!this.a(oitemstack1, 9, 45, false)) {
                     return null;
                 }
-            } else if (oitemstack.b() instanceof OItemArmor && !((OSlot) this.b.get(5 + ((OItemArmor) oitemstack.b()).a)).d()) {
+            } else if (oitemstack.b() instanceof OItemArmor && !((OSlot) this.c.get(5 + ((OItemArmor) oitemstack.b()).a)).d()) {
                 int j = 5 + ((OItemArmor) oitemstack.b()).a;
 
                 if (!this.a(oitemstack1, j, j + 1, false)) {

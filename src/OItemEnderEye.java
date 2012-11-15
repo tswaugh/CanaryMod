@@ -1,4 +1,3 @@
-
 public class OItemEnderEye extends OItem {
 
     public OItemEnderEye(int i) {
@@ -8,8 +7,8 @@ public class OItemEnderEye extends OItem {
 
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         int i1 = oworld.a(i, j, k);
-        int j1 = oworld.g(i, j, k);
-        
+        int j1 = oworld.h(i, j, k);
+
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), this.getBlockInfo(oworld, i, j, k, l), null, new Item(oitemstack))) {
             return true;
         }
@@ -52,7 +51,7 @@ public class OItemEnderEye extends OItem {
                     k3 = k + ODirection.b[j2] * k2;
                     l2 = oworld.a(j3, j, k3);
                     if (l2 == OBlock.bL.cm) {
-                        i3 = oworld.g(j3, j, k3);
+                        i3 = oworld.h(j3, j, k3);
                         if (!OBlockEndPortalFrame.e(i3)) {
                             flag1 = false;
                             break;
@@ -73,7 +72,7 @@ public class OItemEnderEye extends OItem {
                         j3 += ODirection.a[k1] * 4;
                         k3 += ODirection.b[k1] * 4;
                         l2 = oworld.a(j3, j, k3);
-                        i3 = oworld.g(j3, j, k3);
+                        i3 = oworld.h(j3, j, k3);
                         if (l2 != OBlock.bL.cm || !OBlockEndPortalFrame.e(i3)) {
                             flag1 = false;
                             break;
@@ -87,7 +86,7 @@ public class OItemEnderEye extends OItem {
                             k3 += ODirection.a[k1] * j3;
                             l2 += ODirection.b[k1] * j3;
                             i3 = oworld.a(k3, j, l2);
-                            int l3 = oworld.g(k3, j, l2);
+                            int l3 = oworld.h(k3, j, l2);
 
                             if (i3 != OBlock.bL.cm || !OBlockEndPortalFrame.e(l3)) {
                                 flag1 = false;
@@ -135,9 +134,9 @@ public class OItemEnderEye extends OItem {
 
                 oentityendereye.a((double) ochunkposition.a, ochunkposition.b, (double) ochunkposition.c);
                 oworld.d((OEntity) oentityendereye);
-                oworld.a(oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
+                oworld.a((OEntity) oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
                 oworld.a((OEntityPlayer) null, 1002, (int) oentityplayer.t, (int) oentityplayer.u, (int) oentityplayer.v, 0);
-                if (!oentityplayer.cf.d) {
+                if (!oentityplayer.cc.d) {
                     --oitemstack.a;
                 }
             }

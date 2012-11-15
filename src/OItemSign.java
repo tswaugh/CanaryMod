@@ -1,16 +1,15 @@
-
 public class OItemSign extends OItem {
 
     public OItemSign(int i) {
         super(i);
-        this.cg = 16;
+        this.ch = 16;
         this.a(OCreativeTabs.c);
     }
 
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         if (l == 0) {
             return false;
-        } else if (!oworld.f(i, j, k).a()) {
+        } else if (!oworld.g(i, j, k).a()) {
             return false;
         } else {
             // CanaryMod: Store block data clicked
@@ -57,7 +56,7 @@ public class OItemSign extends OItem {
                 }
 
                 --oitemstack.a;
-                OTileEntitySign otileentitysign = (OTileEntitySign) oworld.p(i, j, k);
+                OTileEntitySign otileentitysign = (OTileEntitySign) oworld.q(i, j, k);
 
                 if (otileentitysign != null) {
                     oentityplayer.a((OTileEntity) otileentitysign);

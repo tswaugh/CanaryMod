@@ -60,7 +60,7 @@ public class OBlockDispenser extends OBlockContainer {
         if (oworld.J) {
             return true;
         } else {
-            OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oworld.p(i, j, k);
+            OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oworld.q(i, j, k);
 
             if (otileentitydispenser != null) {
                 oentityplayer.a(otileentitydispenser);
@@ -97,7 +97,7 @@ public class OBlockDispenser extends OBlockContainer {
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
         if (l > 0 && OBlock.p[l].i()) {
-            boolean flag = oworld.z(i, j, k) || oworld.z(i, j + 1, k);
+            boolean flag = oworld.B(i, j, k) || oworld.B(i, j + 1, k);
 
             if (flag) {
                 oworld.a(i, j, k, this.cm, this.r_());
@@ -106,7 +106,7 @@ public class OBlockDispenser extends OBlockContainer {
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (!oworld.J && (oworld.z(i, j, k) || oworld.z(i, j + 1, k))) {
+        if (!oworld.J && (oworld.B(i, j, k) || oworld.B(i, j + 1, k))) {
             this.n(oworld, i, j, k);
         }
     }
@@ -136,7 +136,7 @@ public class OBlockDispenser extends OBlockContainer {
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
-        OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oworld.p(i, j, k);
+        OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oworld.q(i, j, k);
 
         if (otileentitydispenser != null) {
             for (int j1 = 0; j1 < otileentitydispenser.k_(); ++j1) {

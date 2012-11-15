@@ -1,13 +1,12 @@
-
 public class OContainerChest extends OContainer {
 
-    private OIInventory e;
+    private OIInventory a;
     private int f;
     // CanaryMod: silenced - Used to determine wether the chest should be opened or closed stealthily
     private boolean silenced;
 
     public OContainerChest(OIInventory oiinventory, OIInventory oiinventory1, boolean flag) {
-        this.e = oiinventory1;
+        this.a = oiinventory1;
         this.f = oiinventory1.k_() / 9;
         this.silenced = flag;
         if (!this.silenced) {
@@ -34,23 +33,22 @@ public class OContainerChest extends OContainer {
         for (j = 0; j < 9; ++j) {
             this.a(new OSlot(oiinventory, j, 8 + j * 18, 161 + i));
         }
-
     }
 
-    public boolean c(OEntityPlayer oentityplayer) {
-        return this.e.a(oentityplayer);
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.a.a_(oentityplayer);
     }
 
     public OItemStack b(OEntityPlayer oentityplayer, int i) {
         OItemStack oitemstack = null;
-        OSlot oslot = (OSlot) this.b.get(i);
+        OSlot oslot = (OSlot) this.c.get(i);
 
         if (oslot != null && oslot.d()) {
             OItemStack oitemstack1 = oslot.c();
 
             oitemstack = oitemstack1.l();
             if (i < this.f * 9) {
-                if (!this.a(oitemstack1, this.f * 9, this.b.size(), true)) {
+                if (!this.a(oitemstack1, this.f * 9, this.c.size(), true)) {
                     return null;
                 }
             } else if (!this.a(oitemstack1, 0, this.f * 9, false)) {
@@ -67,10 +65,14 @@ public class OContainerChest extends OContainer {
         return oitemstack;
     }
 
-    public void a(OEntityPlayer oentityplayer) {
-        super.a(oentityplayer);
+    public void b(OEntityPlayer oentityplayer) {
+        super.b(oentityplayer);
         if (!this.silenced) {
-            this.e.f();
+            this.a.f();
         }
+    }
+
+    public OIInventory d() {
+        return this.a;
     }
 }

@@ -1,7 +1,6 @@
 import java.util.List;
 import java.util.Random;
 
-
 public class OBlockEndPortal extends OBlockContainer {
 
     public static boolean a = false;

@@ -22,6 +22,10 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         return this.b.k_() + this.c.k_();
     }
 
+    public boolean a(OIInventory oiinventory) {
+        return this.b == oiinventory || this.c == oiinventory;
+    }
+
     public String b() {
         return this.a;
     }
@@ -44,7 +48,6 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         } else {
             this.b.a(i, oitemstack);
         }
-
     }
 
     public int c() {
@@ -56,8 +59,8 @@ public class OInventoryLargeChest implements OIInventory, Container<OItemStack> 
         this.c.d();
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
-        return this.b.a(oentityplayer) && this.c.a(oentityplayer);
+    public boolean a_(OEntityPlayer oentityplayer) {
+        return this.b.a_(oentityplayer) && this.c.a_(oentityplayer);
     }
 
     public void l_() {

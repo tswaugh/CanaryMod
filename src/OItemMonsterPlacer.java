@@ -1,4 +1,3 @@
-
 public class OItemMonsterPlacer extends OItem {
 
     public OItemMonsterPlacer(int i) {
@@ -9,7 +8,7 @@ public class OItemMonsterPlacer extends OItem {
 
     public String j(OItemStack oitemstack) {
         String s = ("" + OStatCollector.a(this.a() + ".name")).trim();
-        String s1 = OEntityList.a(oitemstack.j());
+        String s1 = OEntityList.b(oitemstack.j());
 
         if (s1 != null) {
             s = s + " " + OStatCollector.a("entity." + s1 + ".name");
@@ -19,8 +18,8 @@ public class OItemMonsterPlacer extends OItem {
     }
 
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
-        // CanaryMod: deny hackish eggs, call onItemUse
-        if (oworld.J || oitemstack.j() < 50 || oitemstack.j() >= 200 || (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), this.getBlockInfo(oworld, i, j, k, l), null, new Item(oitemstack))) {
+        // CanaryMod: call onItemUse
+        if (oworld.J || (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), this.getBlockInfo(oworld, i, j, k, l), null, new Item(oitemstack))) {
             return true;
         } else {
             int i1 = oworld.a(i, j, k);
@@ -30,11 +29,11 @@ public class OItemMonsterPlacer extends OItem {
             k += OFacing.d[l];
             double d0 = 0.0D;
 
-            if (l == 1 && i1 == OBlock.bc.cm || i1 == OBlock.bE.cm) {
+            if (l == 1 && OBlock.p[i1] != null && OBlock.p[i1].d() == 11) {
                 d0 = 0.5D;
             }
 
-            if (a(oworld, oitemstack.j(), (double) i + 0.5D, (double) j + d0, (double) k + 0.5D) != null && !oentityplayer.cf.d) {
+            if (a(oworld, oitemstack.j(), (double) i + 0.5D, (double) j + d0, (double) k + 0.5D) != null && !oentityplayer.cc.d) {
                 --oitemstack.a;
             }
 
@@ -50,11 +49,11 @@ public class OItemMonsterPlacer extends OItem {
 
             for (int j = 0; j < 1; ++j) {
                 oentity = OEntityList.a(i, oworld);
-            if (oentity != null) {
+                if (oentity != null) {
                     oentity.b(d0, d1, d2, oworld.u.nextFloat() * 360.0F, 0.0F);
-                    ((OEntityLiving) oentity).bD();
-                oworld.d(oentity);
-                    ((OEntityLiving) oentity).aN();
+                    ((OEntityLiving) oentity).bG();
+                    oworld.d(oentity);
+                    ((OEntityLiving) oentity).aO();
                 }
             }
 

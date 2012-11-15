@@ -1,18 +1,15 @@
-
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-
 public abstract class OContainer {
 
-    public List a = new ArrayList();
     public List b = new ArrayList();
-    public int c = 0;
-    private short e = 0;
-    protected List d = new ArrayList();
+    public List c = new ArrayList();
+    public int d = 0;
+    private short a = 0;
+    protected List e = new ArrayList();
     private Set f = new HashSet();
     // CanaryMod: inventory - Used to know which inventory was passed to this container GUI.
     private Inventory inventory;
@@ -20,17 +17,17 @@ public abstract class OContainer {
     public OContainer() {}
 
     protected OSlot a(OSlot oslot) {
-        oslot.g = this.b.size();
-        this.b.add(oslot);
-        this.a.add(null);
+        oslot.g = this.c.size();
+        this.c.add(oslot);
+        this.b.add(null);
         return oslot;
     }
 
     public void a(OICrafting oicrafting) {
-        if (this.d.contains(oicrafting)) {
+        if (this.e.contains(oicrafting)) {
             throw new IllegalArgumentException("Listener already listening");
         } else {
-            this.d.add(oicrafting);
+            this.e.add(oicrafting);
             oicrafting.a(this, this.a());
             this.b();
         }
@@ -38,35 +35,28 @@ public abstract class OContainer {
 
     public List a() {
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = this.b.iterator();
 
-        while (iterator.hasNext()) {
-            OSlot oslot = (OSlot) iterator.next();
-
-            arraylist.add(oslot.c());
+        for (int i = 0; i < this.c.size(); ++i) {
+            arraylist.add(((OSlot) this.c.get(i)).c());
         }
 
         return arraylist;
     }
 
     public void b() {
-        for (int i = 0; i < this.b.size(); ++i) {
-            OItemStack oitemstack = ((OSlot) this.b.get(i)).c();
-            OItemStack oitemstack1 = (OItemStack) this.a.get(i);
+        for (int i = 0; i < this.c.size(); ++i) {
+            OItemStack oitemstack = ((OSlot) this.c.get(i)).c();
+            OItemStack oitemstack1 = (OItemStack) this.b.get(i);
 
             if (!OItemStack.b(oitemstack1, oitemstack)) {
                 oitemstack1 = oitemstack == null ? null : oitemstack.l();
-                this.a.set(i, oitemstack1);
-                Iterator iterator = this.d.iterator();
+                this.b.set(i, oitemstack1);
 
-                while (iterator.hasNext()) {
-                    OICrafting oicrafting = (OICrafting) iterator.next();
-
-                    oicrafting.a(this, i, oitemstack1);
+                for (int j = 0; j < this.e.size(); ++j) {
+                    ((OICrafting) this.e.get(j)).a(this, i, oitemstack1);
                 }
             }
         }
-
     }
 
     public boolean a(OEntityPlayer oentityplayer, int i) {
@@ -74,34 +64,30 @@ public abstract class OContainer {
     }
 
     public OSlot a(OIInventory oiinventory, int i) {
-        Iterator iterator = this.b.iterator();
+        for (int j = 0; j < this.c.size(); ++j) {
+            OSlot oslot = (OSlot) this.c.get(j);
 
-        OSlot oslot;
-
-        do {
-            if (!iterator.hasNext()) {
-                return null;
+            if (oslot.a(oiinventory, i)) {
+                return oslot;
             }
+        }
 
-            oslot = (OSlot) iterator.next();
-        } while (!oslot.a(oiinventory, i));
-
-        return oslot;
+        return null;
     }
 
     public OSlot a(int i) {
-        return (OSlot) this.b.get(i);
+        return (OSlot) this.c.get(i);
     }
 
     public OItemStack b(OEntityPlayer oentityplayer, int i) {
-        OSlot oslot = (OSlot) this.b.get(i);
+        OSlot oslot = (OSlot) this.c.get(i);
 
         return oslot != null ? oslot.c() : null;
     }
 
     public OItemStack a(int i, int j, int k, OEntityPlayer oentityplayer) {
         OItemStack oitemstack = null;
-        OInventoryPlayer oinventoryplayer = oentityplayer.bK;
+        OInventoryPlayer oinventoryplayer = oentityplayer.bI;
         OSlot oslot;
         OItemStack oitemstack1;
         int l;
@@ -123,7 +109,7 @@ public abstract class OContainer {
                     }
                 }
             } else if (k == 1) {
-                oslot = (OSlot) this.b.get(i);
+                oslot = (OSlot) this.c.get(i);
                 if (oslot != null && oslot.a(oentityplayer)) {
                     oitemstack1 = this.b(oentityplayer, i);
                     if (oitemstack1 != null) {
@@ -140,7 +126,7 @@ public abstract class OContainer {
                     return null;
                 }
 
-                oslot = (OSlot) this.b.get(i);
+                oslot = (OSlot) this.c.get(i);
                 if (oslot != null) {
                     oitemstack1 = oslot.c();
                     OItemStack oitemstack3 = oinventoryplayer.n();
@@ -210,7 +196,7 @@ public abstract class OContainer {
                 }
             }
         } else if (k == 2 && j >= 0 && j < 9) {
-            oslot = (OSlot) this.b.get(i);
+            oslot = (OSlot) this.c.get(i);
             if (oslot.a(oentityplayer)) {
                 oitemstack1 = oinventoryplayer.a(j);
                 boolean flag = oitemstack1 == null || oslot.f == oinventoryplayer && oslot.a(oitemstack1);
@@ -239,8 +225,8 @@ public abstract class OContainer {
                     oslot.c(oitemstack1);
                 }
             }
-        } else if (k == 3 && oentityplayer.cf.d && oinventoryplayer.n() == null && i > 0) {
-            oslot = (OSlot) this.b.get(i);
+        } else if (k == 3 && oentityplayer.cc.d && oinventoryplayer.n() == null && i >= 0) {
+            oslot = (OSlot) this.c.get(i);
             if (oslot != null && oslot.d()) {
                 oitemstack1 = oslot.c().l();
                 oitemstack1.a = oitemstack1.d();
@@ -255,7 +241,7 @@ public abstract class OContainer {
         this.a(i, j, 1, oentityplayer);
     }
 
-    public void a(OEntityPlayer oentityplayer) {
+    public void b(OEntityPlayer oentityplayer) {
         // CanaryMod: onCloseInventory
         if (oentityplayer instanceof OEntityPlayerMP) {
             HookParametersCloseInventory closeInventoryParameters = new HookParametersCloseInventory(((OEntityPlayerMP) oentityplayer).getPlayer(), this.inventory, false);
@@ -263,7 +249,7 @@ public abstract class OContainer {
             etc.getLoader().callHook(PluginLoader.Hook.CLOSE_INVENTORY, closeInventoryParameters);
         }
 
-        OInventoryPlayer oinventoryplayer = oentityplayer.bK;
+        OInventoryPlayer oinventoryplayer = oentityplayer.bI;
 
         if (oinventoryplayer.n() != null) {
             oentityplayer.c(oinventoryplayer.n());
@@ -279,7 +265,7 @@ public abstract class OContainer {
         this.a(i).c(oitemstack);
     }
 
-    public boolean b(OEntityPlayer oentityplayer) {
+    public boolean c(OEntityPlayer oentityplayer) {
         return !this.f.contains(oentityplayer);
     }
 
@@ -289,10 +275,9 @@ public abstract class OContainer {
         } else {
             this.f.add(oentityplayer);
         }
-
     }
 
-    public abstract boolean c(OEntityPlayer oentityplayer);
+    public abstract boolean a(OEntityPlayer oentityplayer);
 
     protected boolean a(OItemStack oitemstack, int i, int j, boolean flag) {
         boolean flag1 = false;
@@ -307,7 +292,7 @@ public abstract class OContainer {
 
         if (oitemstack.e()) {
             while (oitemstack.a > 0 && (!flag && k < j || flag && k >= i)) {
-                oslot = (OSlot) this.b.get(k);
+                oslot = (OSlot) this.c.get(k);
                 oitemstack1 = oslot.c();
                 if (oitemstack1 != null && oitemstack1.c == oitemstack.c && (!oitemstack.g() || oitemstack.j() == oitemstack1.j()) && OItemStack.a(oitemstack, oitemstack1)) {
                     int l = oitemstack1.a + oitemstack.a;
@@ -341,7 +326,7 @@ public abstract class OContainer {
             }
 
             while (!flag && k < j || flag && k >= i) {
-                oslot = (OSlot) this.b.get(k);
+                oslot = (OSlot) this.c.get(k);
                 oitemstack1 = oslot.c();
                 if (oitemstack1 == null) {
                     oslot.c(oitemstack.l());

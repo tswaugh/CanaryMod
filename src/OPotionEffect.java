@@ -119,7 +119,7 @@ public class OPotionEffect {
 
             return this.a == opotioneffect.a && this.c == opotioneffect.c && this.b == opotioneffect.b && this.d == opotioneffect.d && this.e == opotioneffect.e;
         }
-        }
+    }
 
     public ONBTTagCompound a(ONBTTagCompound onbttagcompound) {
         onbttagcompound.a("Id", (byte) this.a());

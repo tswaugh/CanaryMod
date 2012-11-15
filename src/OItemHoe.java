@@ -1,4 +1,3 @@
-
 public class OItemHoe extends OItem {
 
     protected OEnumToolMaterial a;
@@ -6,7 +5,7 @@ public class OItemHoe extends OItem {
     public OItemHoe(int i, OEnumToolMaterial oenumtoolmaterial) {
         super(i);
         this.a = oenumtoolmaterial;
-        this.cg = 1;
+        this.ch = 1;
         this.e(oenumtoolmaterial.a());
         this.a(OCreativeTabs.i);
     }

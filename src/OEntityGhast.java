@@ -1,4 +1,3 @@
-
 public class OEntityGhast extends OEntityFlying implements OIMob {
 
     public int b = 0;
@@ -19,7 +18,9 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
-        if ("fireball".equals(odamagesource.l()) && odamagesource.g() instanceof OEntityPlayer) {
+        if (this.ar()) {
+            return false;
+        } else if ("fireball".equals(odamagesource.l()) && odamagesource.g() instanceof OEntityPlayer) {
             super.a(odamagesource, 1000);
             ((OEntityPlayer) odamagesource.g()).a((OStatBase) OAchievementList.y);
             return true;
@@ -33,7 +34,7 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         this.ag.a(16, Byte.valueOf((byte) 0));
     }
 
-    public int aS() {
+    public int aT() {
         //CanaryMod: set max health here, but check for uninitialized value.
         return this.maxHealth == 0 ? 10 : this.maxHealth;
     }
@@ -45,12 +46,12 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         this.aF = b0 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
     }
 
-    protected void bk() {
+    protected void bn() {
         if (!this.p.J && this.p.t == 0) {
             this.x();
         }
 
-        this.bh();
+        this.bk();
         this.f = this.g;
         double d0 = this.c - this.t;
         double d1 = this.d - this.u;
@@ -101,7 +102,7 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
             double d7 = this.h.v - this.v;
 
             this.aw = this.z = -((float) Math.atan2(d5, d7)) * 180.0F / 3.1415927F;
-            if (this.m(this.h)) {
+            if (this.n(this.h)) {
                 if (this.g == 10) {
                     this.p.a((OEntityPlayer) null, 1007, (int) this.t, (int) this.u, (int) this.v, 0);
                 }
@@ -137,7 +138,6 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
                 this.ag.b(16, Byte.valueOf(b1));
             }
         }
-
     }
 
     private boolean a(double d0, double d1, double d2, double d3) {
@@ -156,20 +156,20 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         return true;
     }
 
-    protected String aW() {
+    protected String aY() {
         return "mob.ghast.moan";
     }
 
-    protected String aX() {
+    protected String aZ() {
         return "mob.ghast.scream";
     }
 
-    protected String aY() {
+    protected String ba() {
         return "mob.ghast.death";
     }
 
-    protected int aZ() {
-        return OItem.M.cf;
+    protected int bb() {
+        return OItem.M.cg;
     }
 
     protected void a(boolean flag, int i) {
@@ -178,26 +178,25 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         int k;
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.bp.cf, 1);
+            this.b(OItem.bp.cg, 1);
         }
 
         j = this.aa.nextInt(3) + this.aa.nextInt(1 + i);
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.M.cf, 1);
+            this.b(OItem.M.cg, 1);
         }
-
     }
 
-    protected float aV() {
+    protected float aX() {
         return 10.0F;
     }
 
-    public boolean bp() {
-        return this.aa.nextInt(20) == 0 && super.bp() && this.p.t > 0;
+    public boolean bs() {
+        return this.aa.nextInt(20) == 0 && super.bs() && this.p.t > 0;
     }
 
-    public int bs() {
+    public int bv() {
         return 1;
     }
 

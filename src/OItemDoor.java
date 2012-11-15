@@ -1,4 +1,3 @@
-
 public class OItemDoor extends OItem {
 
     private OMaterial a;
@@ -6,7 +5,7 @@ public class OItemDoor extends OItem {
     public OItemDoor(int i, OMaterial omaterial) {
         super(i);
         this.a = omaterial;
-        this.cg = 1;
+        this.ch = 1;
         this.a(OCreativeTabs.d);
     }
 
@@ -72,8 +71,8 @@ public class OItemDoor extends OItem {
             b0 = 1;
         }
 
-        int i1 = (oworld.s(i - b0, j, k - b1) ? 1 : 0) + (oworld.s(i - b0, j + 1, k - b1) ? 1 : 0);
-        int j1 = (oworld.s(i + b0, j, k + b1) ? 1 : 0) + (oworld.s(i + b0, j + 1, k + b1) ? 1 : 0);
+        int i1 = (oworld.t(i - b0, j, k - b1) ? 1 : 0) + (oworld.t(i - b0, j + 1, k - b1) ? 1 : 0);
+        int j1 = (oworld.t(i + b0, j, k + b1) ? 1 : 0) + (oworld.t(i + b0, j + 1, k + b1) ? 1 : 0);
         boolean flag = oworld.a(i - b0, j, k - b1) == oblock.cm || oworld.a(i - b0, j + 1, k - b1) == oblock.cm;
         boolean flag1 = oworld.a(i + b0, j, k + b1) == oblock.cm || oworld.a(i + b0, j + 1, k + b1) == oblock.cm;
         boolean flag2 = false;

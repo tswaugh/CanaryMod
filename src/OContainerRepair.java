@@ -9,7 +9,7 @@ public class OContainerRepair extends OContainer {
     private int i;
     private int j;
     private int k;
-    public int e = 0;
+    public int a = 0;
     private int l = 0;
     private String m;
     private final OEntityPlayer n;
@@ -47,14 +47,14 @@ public class OContainerRepair extends OContainer {
     public void d() {
         OItemStack oitemstack = this.g.a(0);
 
-        this.e = 0;
+        this.a = 0;
         int i = 0;
         byte b0 = 0;
         int j = 0;
 
         if (oitemstack == null) {
             this.f.a(0, (OItemStack) null);
-            this.e = 0;
+            this.a = 0;
         } else {
             OItemStack oitemstack1 = oitemstack.l();
             OItemStack oitemstack2 = this.g.a(1);
@@ -74,7 +74,7 @@ public class OContainerRepair extends OContainer {
                     l = Math.min(oitemstack1.i(), oitemstack1.k() / 4);
                     if (l <= 0) {
                         this.f.a(0, (OItemStack) null);
-                        this.e = 0;
+                        this.a = 0;
                         return;
                     }
 
@@ -89,7 +89,7 @@ public class OContainerRepair extends OContainer {
                 } else {
                     if (oitemstack1.c != oitemstack2.c || !oitemstack1.f()) {
                         this.f.a(0, (OItemStack) null);
-                        this.e = 0;
+                        this.a = 0;
                         return;
                     }
 
@@ -227,17 +227,17 @@ public class OContainerRepair extends OContainer {
                 }
             }
 
-            this.e = k + i;
+            this.a = k + i;
             if (i <= 0) {
                 oitemstack1 = null;
             }
 
-            if (j == i && j > 0 && this.e >= 40) {
-                System.out.println("Naming an item only, cost too high; giving discount to cap cost to 39 levels");
-                this.e = 39;
+            if (j == i && j > 0 && this.a >= 40) {
+                // System.out.println("Naming an item only, cost too high; giving discount to cap cost to 39 levels"); // CanaryMod: disable debug message
+                this.a = 39;
             }
 
-            if (this.e >= 40 && !this.n.cf.d) {
+            if (this.a >= 40 && !this.n.cc.d) {
                 oitemstack1 = null;
             }
 
@@ -248,7 +248,7 @@ public class OContainerRepair extends OContainer {
                 }
 
                 if (oitemstack1.s()) {
-                    i1 -= 5;
+                    i1 -= 9;
                 }
 
                 if (i1 < 0) {
@@ -267,11 +267,11 @@ public class OContainerRepair extends OContainer {
 
     public void a(OICrafting oicrafting) {
         super.a(oicrafting);
-        oicrafting.a(this, 0, this.e);
+        oicrafting.a(this, 0, this.a);
     }
 
-    public void a(OEntityPlayer oentityplayer) {
-        super.a(oentityplayer);
+    public void b(OEntityPlayer oentityplayer) {
+        super.b(oentityplayer);
         if (!this.h.J) {
             for (int i = 0; i < this.g.k_(); ++i) {
                 OItemStack oitemstack = this.g.a_(i);
@@ -283,13 +283,13 @@ public class OContainerRepair extends OContainer {
         }
     }
 
-    public boolean c(OEntityPlayer oentityplayer) {
+    public boolean a(OEntityPlayer oentityplayer) {
         return this.h.a(this.i, this.j, this.k) != OBlock.ck.cm ? false : oentityplayer.e((double) this.i + 0.5D, (double) this.j + 0.5D, (double) this.k + 0.5D) <= 64.0D;
     }
 
     public OItemStack b(OEntityPlayer oentityplayer, int i) {
         OItemStack oitemstack = null;
-        OSlot oslot = (OSlot) this.b.get(i);
+        OSlot oslot = (OSlot) this.c.get(i);
 
         if (oslot != null && oslot.d()) {
             OItemStack oitemstack1 = oslot.c();

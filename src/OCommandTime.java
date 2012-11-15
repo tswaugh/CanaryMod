@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.List;
 
 public class OCommandTime extends OCommandBase {
@@ -51,27 +50,20 @@ public class OCommandTime extends OCommandBase {
     }
 
     protected void a(OICommandSender oicommandsender, int i) {
-        for (int j = 0; j < OMinecraftServer.D().worlds.size(); ++j) {
-            //CanaryMod: multiworld time stuffs
-            Iterator it = OMinecraftServer.D().worlds.keySet().iterator();
-            for(String name = ""; it.hasNext() ; name = (String)it.next() ){
-                OMinecraftServer.D().worlds.get(name)[j].b((long) i);
+        for (OWorldServer[] aows : OMinecraftServer.D().worlds.values()) {
+            for (int j = 0; j < aows.length; ++j) {
+                aows[j].b((long) i);
             }
         }
     }
 
     protected void b(OICommandSender oicommandsender, int i) {
-        for (int j = 0; j < OMinecraftServer.D().worlds.size(); ++j) {
-            //CanaryMod: multiworld time stuffs.
-            Iterator it = OMinecraftServer.D().worlds.keySet().iterator();
-            for(String name = ""; it.hasNext() ; name = (String)it.next() ){
-                if(OMinecraftServer.D().worlds.containsKey(name)){
-                    OWorldServer oworldserver = OMinecraftServer.D().worlds.get(name)[j];
-                    oworldserver.b(oworldserver.F() + (long) i);
-                }
+        for (OWorldServer[] aows : OMinecraftServer.D().worlds.values()) {
+            for (int j = 0; j < aows.length; ++j) {
+                OWorldServer oworldserver = aows[j];
+
+                oworldserver.b(oworldserver.G() + (long) i);
             }
-
-
         }
     }
 }

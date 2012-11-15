@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class OPlayerManager {
@@ -35,12 +34,8 @@ public class OPlayerManager {
     }
 
     public void b() {
-        Iterator iterator = this.d.iterator();
-
-        while (iterator.hasNext()) {
-            OPlayerInstance oplayerinstance = (OPlayerInstance) iterator.next();
-
-            oplayerinstance.a();
+        for (int i = 0; i < this.d.size(); ++i) {
+            ((OPlayerInstance) this.d.get(i)).a();
         }
 
         this.d.clear();

@@ -1,4 +1,3 @@
-
 public class OBlockLever extends OBlock {
 
     protected OBlockLever(int i, int j) {
@@ -23,49 +22,43 @@ public class OBlockLever extends OBlock {
     }
 
     public boolean b_(OWorld oworld, int i, int j, int k, int l) {
-        return l == 0 && oworld.s(i, j + 1, k) ? true : (l == 1 && oworld.t(i, j - 1, k) ? true : (l == 2 && oworld.s(i, j, k + 1) ? true : (l == 3 && oworld.s(i, j, k - 1) ? true : (l == 4 && oworld.s(i + 1, j, k) ? true : l == 5 && oworld.s(i - 1, j, k)))));
+        return l == 0 && oworld.t(i, j + 1, k) ? true : (l == 1 && oworld.v(i, j - 1, k) ? true : (l == 2 && oworld.t(i, j, k + 1) ? true : (l == 3 && oworld.t(i, j, k - 1) ? true : (l == 4 && oworld.t(i + 1, j, k) ? true : l == 5 && oworld.t(i - 1, j, k)))));
     }
 
     public boolean b(OWorld oworld, int i, int j, int k) {
-        return oworld.s(i - 1, j, k) ? true : (oworld.s(i + 1, j, k) ? true : (oworld.s(i, j, k - 1) ? true : (oworld.s(i, j, k + 1) ? true : (oworld.t(i, j - 1, k) ? true : oworld.s(i, j + 1, k)))));
+        return oworld.t(i - 1, j, k) ? true : (oworld.t(i + 1, j, k) ? true : (oworld.t(i, j, k - 1) ? true : (oworld.t(i, j, k + 1) ? true : (oworld.v(i, j - 1, k) ? true : oworld.t(i, j + 1, k)))));
     }
 
-    public void a(OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
-        int i1 = oworld.g(i, j, k);
+    public int a(OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
         int j1 = i1 & 8;
+        int k1 = i1 & 7;
 
-        i1 &= 7;
-        i1 = -1;
-        if (l == 0 && oworld.s(i, j + 1, k)) {
-            i1 = oworld.u.nextBoolean() ? 0 : 7;
+        k1 = -1;
+        if (l == 0 && oworld.t(i, j + 1, k)) {
+            k1 = oworld.u.nextBoolean() ? 0 : 7;
         }
 
-        if (l == 1 && oworld.t(i, j - 1, k)) {
-            i1 = 5 + oworld.u.nextInt(2);
+        if (l == 1 && oworld.v(i, j - 1, k)) {
+            k1 = 5 + oworld.u.nextInt(2);
         }
 
-        if (l == 2 && oworld.s(i, j, k + 1)) {
-            i1 = 4;
+        if (l == 2 && oworld.t(i, j, k + 1)) {
+            k1 = 4;
         }
 
-        if (l == 3 && oworld.s(i, j, k - 1)) {
-            i1 = 3;
+        if (l == 3 && oworld.t(i, j, k - 1)) {
+            k1 = 3;
         }
 
-        if (l == 4 && oworld.s(i + 1, j, k)) {
-            i1 = 2;
+        if (l == 4 && oworld.t(i + 1, j, k)) {
+            k1 = 2;
         }
 
-        if (l == 5 && oworld.s(i - 1, j, k)) {
-            i1 = 1;
+        if (l == 5 && oworld.t(i - 1, j, k)) {
+            k1 = 1;
         }
 
-        if (i1 == -1) {
-            this.c(oworld, i, j, k, oworld.g(i, j, k), 0);
-            oworld.e(i, j, k, 0);
-        } else {
-            oworld.c(i, j, k, i1 + j1);
-        }
+        return k1 + j1;
     }
 
     public static int d(int i) {
@@ -95,52 +88,51 @@ public class OBlockLever extends OBlock {
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
         if (this.l(oworld, i, j, k)) {
-            int i1 = oworld.g(i, j, k) & 7;
+            int i1 = oworld.h(i, j, k) & 7;
             boolean flag = false;
 
-            if (!oworld.s(i - 1, j, k) && i1 == 1) {
+            if (!oworld.t(i - 1, j, k) && i1 == 1) {
                 flag = true;
             }
 
-            if (!oworld.s(i + 1, j, k) && i1 == 2) {
+            if (!oworld.t(i + 1, j, k) && i1 == 2) {
                 flag = true;
             }
 
-            if (!oworld.s(i, j, k - 1) && i1 == 3) {
+            if (!oworld.t(i, j, k - 1) && i1 == 3) {
                 flag = true;
             }
 
-            if (!oworld.s(i, j, k + 1) && i1 == 4) {
+            if (!oworld.t(i, j, k + 1) && i1 == 4) {
                 flag = true;
             }
 
-            if (!oworld.t(i, j - 1, k) && i1 == 5) {
+            if (!oworld.v(i, j - 1, k) && i1 == 5) {
                 flag = true;
             }
 
-            if (!oworld.t(i, j - 1, k) && i1 == 6) {
+            if (!oworld.v(i, j - 1, k) && i1 == 6) {
                 flag = true;
             }
 
-            if (!oworld.s(i, j + 1, k) && i1 == 0) {
+            if (!oworld.t(i, j + 1, k) && i1 == 0) {
                 flag = true;
             }
 
-            if (!oworld.s(i, j + 1, k) && i1 == 7) {
+            if (!oworld.t(i, j + 1, k) && i1 == 7) {
                 flag = true;
             }
 
             if (flag) {
-                this.c(oworld, i, j, k, oworld.g(i, j, k), 0);
+                this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
                 oworld.e(i, j, k, 0);
             }
         }
-
     }
 
     private boolean l(OWorld oworld, int i, int j, int k) {
         if (!this.b(oworld, i, j, k)) {
-            this.c(oworld, i, j, k, oworld.g(i, j, k), 0);
+            this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
             oworld.e(i, j, k, 0);
             return false;
         } else {
@@ -149,7 +141,7 @@ public class OBlockLever extends OBlock {
     }
 
     public void a(OIBlockAccess oiblockaccess, int i, int j, int k) {
-        int l = oiblockaccess.g(i, j, k) & 7;
+        int l = oiblockaccess.h(i, j, k) & 7;
         float f = 0.1875F;
 
         if (l == 1) {
@@ -169,7 +161,6 @@ public class OBlockLever extends OBlock {
             f = 0.25F;
             this.a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.6F, 0.5F + f);
         }
-
     }
 
     public void a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {}
@@ -178,7 +169,7 @@ public class OBlockLever extends OBlock {
         if (oworld.J) {
             return true;
         } else {
-            int i1 = oworld.g(i, j, k);
+            int i1 = oworld.h(i, j, k);
             int j1 = i1 & 7;
             int k1 = 8 - (i1 & 8);
             // CanaryMod: Allow the lever to change the current first 3 bits are for postion 4th bit is for power. (on / off)
@@ -238,11 +229,11 @@ public class OBlockLever extends OBlock {
     }
 
     public boolean b(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
-        return (oiblockaccess.g(i, j, k) & 8) > 0;
+        return (oiblockaccess.h(i, j, k) & 8) > 0;
     }
 
     public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
-        int i1 = oiblockaccess.g(i, j, k);
+        int i1 = oiblockaccess.h(i, j, k);
 
         if ((i1 & 8) == 0) {
             return false;

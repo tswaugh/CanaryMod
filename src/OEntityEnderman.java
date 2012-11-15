@@ -1,4 +1,3 @@
-
 public class OEntityEnderman extends OEntityMob {
 
     private static boolean[] d = new boolean[256];
@@ -13,12 +12,12 @@ public class OEntityEnderman extends OEntityMob {
     public OEntityEnderman(OWorld oworld) {
         super(oworld);
         this.aF = "/mob/enderman.png";
-        this.bI = 0.2F;
+        this.bG = 0.2F;
         this.a(0.6F, 2.9F);
         this.X = 1.0F;
     }
 
-    public int aS() {
+    public int aT() {
         //CanaryMod: set max health here, but check for uninitialized value.
         return this.maxHealth == 0 ? 40 : this.maxHealth;
     }
@@ -39,7 +38,7 @@ public class OEntityEnderman extends OEntityMob {
     public void a(ONBTTagCompound onbttagcompound) {
         super.a(onbttagcompound);
         this.a(onbttagcompound.d("carried"));
-        this.r(onbttagcompound.d("carriedData"));
+        this.s(onbttagcompound.d("carriedData"));
     }
 
     protected OEntity j() {
@@ -48,7 +47,7 @@ public class OEntityEnderman extends OEntityMob {
         if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), entity)) {
             if (this.d(oentityplayer)) {
                 if (this.f == 0) {
-                    this.p.a(oentityplayer, "mob.endermen.stare", 1.0F, 1.0F);
+                    this.p.a((OEntity) oentityplayer, "mob.endermen.stare", 1.0F, 1.0F);
                 }
 
                 if (this.f++ == 5) {
@@ -65,19 +64,19 @@ public class OEntityEnderman extends OEntityMob {
     }
 
     private boolean d(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.bK.b[3];
+        OItemStack oitemstack = oentityplayer.bI.b[3];
 
         if (oitemstack != null && oitemstack.c == OBlock.bd.cm) {
             return false;
         } else {
             OVec3 ovec3 = oentityplayer.i(1.0F).a();
-            OVec3 ovec31 = this.p.R().a(this.t - oentityplayer.t, this.D.b + (double) (this.O / 2.0F) - (oentityplayer.u + (double) oentityplayer.e()), this.v - oentityplayer.v);
+            OVec3 ovec31 = this.p.S().a(this.t - oentityplayer.t, this.D.b + (double) (this.O / 2.0F) - (oentityplayer.u + (double) oentityplayer.e()), this.v - oentityplayer.v);
             double d0 = ovec31.b();
 
             ovec31 = ovec31.a();
             double d1 = ovec3.b(ovec31);
 
-            return d1 > 1.0D - 0.025D / d0 ? oentityplayer.m(this) : false;
+            return d1 > 1.0D - 0.025D / d0 ? oentityplayer.n(this) : false;
         }
     }
 
@@ -86,10 +85,10 @@ public class OEntityEnderman extends OEntityMob {
             this.a(ODamageSource.e, 1);
         }
 
-        this.bI = this.a_ != null ? 6.5F : 0.3F;
+        this.bG = this.a_ != null ? 6.5F : 0.3F;
         int i;
 
-        if (!this.p.J && this.p.K().b("mobGriefing")) {
+        if (!this.p.J && this.p.L().b("mobGriefing")) {
             int j;
             int k;
             int l;
@@ -102,7 +101,7 @@ public class OEntityEnderman extends OEntityMob {
                     l = this.p.a(i, j, k);
                     if (d[l] && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENDERMAN_PICKUP, entity, new Block(entity.getWorld(), l, i, j, k, entity.getWorld().getBlockIdAt(i, j, k)))) {
                         this.a(this.p.a(i, j, k));
-                        this.r(this.p.g(i, j, k));
+                        this.s(this.p.h(i, j, k));
                         this.p.e(i, j, k, 0);
                     }
                 }
@@ -124,10 +123,10 @@ public class OEntityEnderman extends OEntityMob {
             this.p.a("portal", this.t + (this.aa.nextDouble() - 0.5D) * (double) this.N, this.u + this.aa.nextDouble() * (double) this.O - 0.25D, this.v + (this.aa.nextDouble() - 0.5D) * (double) this.N, (this.aa.nextDouble() - 0.5D) * 2.0D, -this.aa.nextDouble(), (this.aa.nextDouble() - 0.5D) * 2.0D);
         }
 
-        if (this.p.t() && !this.p.J) {
+        if (this.p.u() && !this.p.J) {
             float f = this.c(1.0F);
 
-            if (f > 0.5F && this.p.j(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) && this.aa.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
+            if (f > 0.5F && this.p.k(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) && this.aa.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
                 this.a_ = null;
                 this.f(false);
                 this.m();
@@ -140,7 +139,7 @@ public class OEntityEnderman extends OEntityMob {
             this.m();
         }
 
-        this.bG = false;
+        this.bE = false;
         if (this.a_ != null) {
             this.a(this.a_, 100.0F, 100.0F);
         }
@@ -148,14 +147,14 @@ public class OEntityEnderman extends OEntityMob {
         if (!this.p.J && this.S()) {
             if (this.a_ != null) {
                 if (this.a_ instanceof OEntityPlayer && this.d((OEntityPlayer) this.a_)) {
-                    this.bD = this.bE = 0.0F;
-                    this.bI = 0.0F;
+                    this.bB = this.bC = 0.0F;
+                    this.bG = 0.0F;
                     if (this.a_.e((OEntity) this) < 16.0D) {
                         this.m();
                     }
 
                     this.e = 0;
-                } else if (this.a_.e((OEntity) this) > 256.0D && this.e++ >= 30 && this.o(this.a_)) {
+                } else if (this.a_.e((OEntity) this) > 256.0D && this.e++ >= 30 && this.p(this.a_)) {
                     this.e = 0;
                 }
             } else {
@@ -175,8 +174,8 @@ public class OEntityEnderman extends OEntityMob {
         return this.j(d0, d1, d2);
     }
 
-    protected boolean o(OEntity oentity) {
-        OVec3 ovec3 = this.p.R().a(this.t - oentity.t, this.D.b + (double) (this.O / 2.0F) - oentity.u + (double) oentity.e(), this.v - oentity.v);
+    protected boolean p(OEntity oentity) {
+        OVec3 ovec3 = this.p.S().a(this.t - oentity.t, this.D.b + (double) (this.O / 2.0F) - oentity.u + (double) oentity.e(), this.v - oentity.v);
 
         ovec3 = ovec3.a();
         double d0 = 16.0D;
@@ -201,7 +200,7 @@ public class OEntityEnderman extends OEntityMob {
         int k = OMathHelper.c(this.v);
         int l;
 
-        if (this.p.e(i, j, k)) {
+        if (this.p.f(i, j, k)) {
             boolean flag1 = false;
 
             while (!flag1 && j > 0) {
@@ -241,29 +240,29 @@ public class OEntityEnderman extends OEntityMob {
             }
 
             this.p.a(d3, d4, d5, "mob.endermen.portal", 1.0F, 1.0F);
-            this.p.a(this, "mob.endermen.portal", 1.0F, 1.0F);
+            this.a("mob.endermen.portal", 1.0F, 1.0F);
             return true;
         }
     }
 
-    protected String aW() {
+    protected String aY() {
         return this.q() ? "mob.endermen.scream" : "mob.endermen.idle";
     }
 
-    protected String aX() {
+    protected String aZ() {
         return "mob.endermen.hit";
     }
 
-    protected String aY() {
+    protected String ba() {
         return "mob.endermen.death";
     }
 
-    protected int aZ() {
-        return OItem.bn.cf;
+    protected int bb() {
+        return OItem.bn.cg;
     }
 
     protected void a(boolean flag, int i) {
-        int j = this.aZ();
+        int j = this.bb();
 
         if (j > 0) {
             int k = this.aa.nextInt(2 + i);
@@ -282,7 +281,7 @@ public class OEntityEnderman extends OEntityMob {
         return this.ag.a(16);
     }
 
-    public void r(int i) {
+    public void s(int i) {
         this.ag.b(17, Byte.valueOf((byte) (i & 255)));
     }
 
@@ -291,7 +290,9 @@ public class OEntityEnderman extends OEntityMob {
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
-        if (odamagesource instanceof OEntityDamageSourceIndirect) {
+        if (this.ar()) {
+            return false;
+        } else if (odamagesource instanceof OEntityDamageSourceIndirect) {
             for (int j = 0; j < 64; ++j) {
                 if (this.m()) {
                     return true;

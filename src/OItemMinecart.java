@@ -1,11 +1,10 @@
-
 public class OItemMinecart extends OItem {
 
     public int a;
 
     public OItemMinecart(int i, int j) {
         super(i);
-        this.cg = 1;
+        this.ch = 1;
         this.a = j;
         this.a(OCreativeTabs.e);
     }

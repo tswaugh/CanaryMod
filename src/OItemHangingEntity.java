@@ -1,6 +1,4 @@
-
 public class OItemHangingEntity extends OItem {
-
 
     private final Class a;
 
@@ -25,7 +23,6 @@ public class OItemHangingEntity extends OItem {
             if (!oentityplayer.a(i, j, k, l, oitemstack)) {
                 return false;
             } else {
-
                 if (oentityhanging != null && oentityhanging.c()) {
                     if (!oworld.J) {
                         // CanaryMod: Painting place hook
@@ -33,7 +30,6 @@ public class OItemHangingEntity extends OItem {
                             return false;
                         }
                         oworld.d((OEntity) oentityhanging);
-
                     }
 
                     --oitemstack.a;

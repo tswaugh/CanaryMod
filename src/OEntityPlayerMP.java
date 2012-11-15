@@ -8,7 +8,7 @@ import java.util.List;
 
 public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
-    private OStringTranslate cm = new OStringTranslate("en_US");
+    private OStringTranslate cj = new OStringTranslate("en_US");
     public ONetServerHandler a;
     public OMinecraftServer b;
     public OItemInWorldManager c;
@@ -16,15 +16,15 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public double e;
     public final List f = new LinkedList();
     public final List g = new LinkedList();
-    private int cn = -99999999; // CanaryMod: last health client was set to
-    private int co = -99999999;
-    private boolean cp = true;
-    private int cq = -99999999;
-    private int cr = 60;
+    private int ck = -99999999; // CanaryMod: last health client was set to
+    private int cl = -99999999;
+    private boolean cm = true;
+    private int cn = -99999999;
+    private int co = 60;
+    private int cp = 0;
+    private int cq = 0;
+    private boolean cr = true;
     private int cs = 0;
-    private int ct = 0;
-    private boolean cu = true;
-    private int cv = 0;
     public boolean h;
     public int i;
     public boolean j = false;
@@ -35,13 +35,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         super(oworld);
         oiteminworldmanager.b = this;
         this.c = oiteminworldmanager;
-        this.cs = ominecraftserver.ad().o();
-        OChunkCoordinates ochunkcoordinates = oworld.G();
+        this.cp = ominecraftserver.ad().o();
+        OChunkCoordinates ochunkcoordinates = oworld.H();
         int i = ochunkcoordinates.a;
         int j = ochunkcoordinates.c;
         int k = ochunkcoordinates.b;
 
-        if (!oworld.v.f && oworld.J().r() != OEnumGameType.d) {
+        if (!oworld.v.f && oworld.K().r() != OEnumGameType.d) {
             int l = Math.max(5, ominecraftserver.ak() - 6);
 
             i += this.aa.nextInt(l * 2) - l;
@@ -52,7 +52,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.b((double) i + 0.5D, (double) k, (double) j + 0.5D, 0.0F, 0.0F);
         this.b = ominecraftserver;
         this.X = 0.0F;
-        this.bT = s;
+        this.bQ = s;
         this.M = 0.0F;
 
         // CanaryMod: Store player
@@ -74,11 +74,11 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(int i) {
         super.a(i);
-        this.cq = -1;
+        this.cn = -1;
     }
 
     public void d_() {
-        this.bM.a((OICrafting) this);
+        this.bK.a((OICrafting) this);
     }
 
     protected void e_() {
@@ -91,18 +91,33 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void j_() {
         this.c.a();
-        --this.cr;
-        this.bM.b();
+        --this.co;
+        this.bK.b();
+
+        while (!this.g.isEmpty()) {
+            int i = Math.min(this.g.size(), 127);
+            int[] aint = new int[i];
+            Iterator iterator = this.g.iterator();
+            int j = 0;
+
+            while (iterator.hasNext() && j < i) {
+                aint[j++] = ((Integer) iterator.next()).intValue();
+                iterator.remove();
+            }
+
+            this.a.b(new OPacket29DestroyEntity(aint));
+        }
+
         if (!this.f.isEmpty()) {
             ArrayList arraylist = new ArrayList();
-            Iterator iterator = this.f.iterator();
+            Iterator iterator1 = this.f.iterator();
             ArrayList arraylist1 = new ArrayList();
 
-            while (iterator.hasNext() && arraylist.size() < 5) {
-                OChunkCoordIntPair ochunkcoordintpair = (OChunkCoordIntPair) iterator.next();
+            while (iterator1.hasNext() && arraylist.size() < 5) {
+                OChunkCoordIntPair ochunkcoordintpair = (OChunkCoordIntPair) iterator1.next();
 
-                iterator.remove();
-                if (ochunkcoordintpair != null && this.p.e(ochunkcoordintpair.a << 4, 0, ochunkcoordintpair.b << 4)) {
+                iterator1.remove();
+                if (ochunkcoordintpair != null && this.p.f(ochunkcoordintpair.a << 4, 0, ochunkcoordintpair.b << 4)) {
                     arraylist.add(this.p.e(ochunkcoordintpair.a, ochunkcoordintpair.b));
                     arraylist1.addAll(((OWorldServer) this.p).b(ochunkcoordintpair.a * 16, 0, ochunkcoordintpair.b * 16, ochunkcoordintpair.a * 16 + 16, 256, ochunkcoordintpair.b * 16 + 16));
                 }
@@ -110,36 +125,30 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
             if (!arraylist.isEmpty()) {
                 this.a.b(new OPacket56MapChunks(arraylist));
-                Iterator iterator1 = arraylist1.iterator();
+                Iterator iterator2 = arraylist1.iterator();
 
-                while (iterator1.hasNext()) {
-                    OTileEntity otileentity = (OTileEntity) iterator1.next();
+                while (iterator2.hasNext()) {
+                    OTileEntity otileentity = (OTileEntity) iterator2.next();
 
                     this.b(otileentity);
                 }
+
+                iterator2 = arraylist.iterator();
+
+                while (iterator2.hasNext()) {
+                    OChunk ochunk = (OChunk) iterator2.next();
+
+                    this.p().p().a(this, ochunk);
+                }
             }
-        }
-
-        if (!this.g.isEmpty()) {
-            int i = Math.min(this.g.size(), 127);
-            int[] aint = new int[i];
-            Iterator iterator2 = this.g.iterator();
-            int j = 0;
-
-            while (iterator2.hasNext() && j < i) {
-                aint[j++] = ((Integer) iterator2.next()).intValue();
-                iterator2.remove();
-            }
-
-            this.a.b(new OPacket29DestroyEntity(aint));
         }
     }
 
     public void g() {
         super.j_();
 
-        for (int i = 0; i < this.bK.k_(); ++i) {
-            OItemStack oitemstack = this.bK.a(i);
+        for (int i = 0; i < this.bI.k_(); ++i) {
+            OItemStack oitemstack = this.bI.a(i);
 
             if (oitemstack != null && OItem.e[oitemstack.c].f() && this.a.e() <= 5) {
                 OPacket opacket = ((OItemMapBase) OItem.e[oitemstack.c]).c(oitemstack, this.p, this);
@@ -151,74 +160,78 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         }
 
         // CanaryMod: Update the health
-        if (this.aT() != this.cn) {
+        if (this.aU() != this.ck) {
             // updates your health when it is changed.
             if (!etc.getInstance().isHealthEnabled()) {
-                this.aQ = this.aS();
-                this.K = false;
-            } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cn, aQ)) {
-                this.aQ = this.cn;
+                this.j(this.aT());
+                this.L = false;
+            } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), ck, this.aU())) {
+                this.j(this.ck);
             }
         }
 
-        if (this.aT() != this.cn || this.co != this.bN.a() || this.bN.e() == 0.0F != this.cp) {
+        if (this.aU() != this.ck || this.cl != this.bL.a() || this.bL.e() == 0.0F != this.cm) {
             //CanaryMod: convert health for values above 20
-            int health = (int)(this.aT() / (this.aS() / 20));
-            health = (this.aT() > 0 && health == 0) ? 1 : health;
-            this.a.b(new OPacket8UpdateHealth(health, this.bN.a(), this.bN.e()));
-            this.cn = this.aT();
-            this.co = this.bN.a();
-            this.cp = this.bN.e() == 0.0F;
+            int health = (int)(this.aU() / (this.aT() / 20));
+            health = (this.aU() > 0 && health == 0) ? 1 : health;
+            this.a.b(new OPacket8UpdateHealth(health, this.bL.a(), this.bL.e()));
+            this.ck = this.aU();
+            this.cl = this.bL.a();
+            this.cm = this.bL.e() == 0.0F;
         }
 
         // CanaryMod: Update experience
-        if (this.ch != this.cq) {
+        if (this.ce != this.cn) {
             // updates your experience when it is changed.
             if (!etc.getInstance().isExpEnabled()) {
-                this.ch = 0;
-                this.cg = 0;
+                this.ce = 0;
+                this.cd = 0;
             } else if ((Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, getPlayer(), this.cq, ch)) {
-                this.ch = this.cq;
+                this.ce = this.cn;
             }
         }
 
-        if (this.ch != this.cq) {
-            this.cq = this.ch;
-            this.a.b(new OPacket43Experience(this.ci, this.ch, this.cg));
+        if (this.ce != this.cn) {
+            this.cn = this.ce;
+            this.a.b(new OPacket43Experience(this.cf, this.ce, this.cd));
         }
     }
 
     public void a(ODamageSource odamagesource) {
         manager.callHook(PluginLoader.Hook.DEATH, this.getEntity());
-        if (etc.getInstance().deathMessages) {
-            this.b.ad().a((OPacket) (new OPacket3Chat(odamagesource.b(this))));
-        }
-        if (!this.p.K().b("keepInventory")) {
-            this.bK.l();
+        this.b.ad().a((OPacket) (new OPacket3Chat(odamagesource.b(this))));
+        if (!this.p.L().b("keepInventory")) {
+            this.bI.l();
         }
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
-        if (this.cr > 0) {
+        if (this.ar()) {
             return false;
         } else {
-            if (!this.b.X() && odamagesource instanceof OEntityDamageSource) {
-                OEntity oentity = odamagesource.g();
+            boolean flag = this.b.T() && this.b.X() && "fall".equals(odamagesource.q);
 
-                if (oentity instanceof OEntityPlayer) {
-                    return false;
-                }
+            if (!flag && this.co > 0) {
+                return false;
+            } else {
+                if (!this.b.X() && odamagesource instanceof OEntityDamageSource) {
+                    OEntity oentity = odamagesource.g();
 
-                if (oentity instanceof OEntityArrow) {
-                    OEntityArrow oentityarrow = (OEntityArrow) oentity;
-
-                    if (oentityarrow.c instanceof OEntityPlayer) {
+                    if (oentity instanceof OEntityPlayer) {
                         return false;
                     }
-                }
-            }
 
-            return super.a(odamagesource, i);
+                    if (oentity instanceof OEntityArrow) {
+                        OEntityArrow oentityarrow = (OEntityArrow) oentity;
+
+                        if (oentityarrow.c instanceof OEntityPlayer) {
+                            return false;
+                        }
+                    }
+                }
+
+                return super.a(odamagesource, i);
+            }
         }
     }
 
@@ -249,9 +262,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             // CanaryMod onPortalUse
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_USE, player, player.getWorld())) {
                 this.b.ad().a(this, i);
-                this.cq = -1;
                 this.cn = -1;
-                this.co = -1;
+                this.ck = -1;
+                this.cl = -1;
             } //
         }
     }
@@ -274,7 +287,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(OEntity oentity, int i) {
         super.a(oentity, i);
-        this.bM.b();
+        this.bK.b();
     }
 
     public OEnumStatus a(int i, int j, int k) {
@@ -283,7 +296,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         if (oenumstatus == OEnumStatus.a) {
             OPacket17Sleep opacket17sleep = new OPacket17Sleep(this, 0, i, j, k);
 
-            this.p().p().a(this, opacket17sleep);
+            this.p().p().a((OEntity) this, (OPacket) opacket17sleep);
             this.a.a(this.t, this.u, this.v, this.z, this.A);
             this.a.b(opacket17sleep);
         }
@@ -292,7 +305,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(boolean flag, boolean flag1, boolean flag2) {
-        if (this.bt()) {
+        if (this.bw()) {
             this.p().p().b(this, new OPacket18Animation(this, 3));
         }
 
@@ -314,13 +327,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         super.a(d0, flag);
     }
 
-    private void cd() {
-        this.cv = this.cv % 100 + 1;
+    private void ch() {
+        this.cs = this.cs % 100 + 1;
     }
 
     public void b(int i, int j, int k) {
         // CanaryMod: Check if we can open this
-        OContainerWorkbench container = new OContainerWorkbench(this.bK, this.p, i, j, k);
+        OContainerWorkbench container = new OContainerWorkbench(this.bI, this.p, i, j, k);
         Inventory inv = new Workbench(container);
 
         container.setInventory(inv);
@@ -334,16 +347,16 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
         //CanaryMod: end
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 1, name, 9));//CanaryMod: "Crafting" to name
-        this.bM = new OContainerWorkbench(this.bK, this.p, i, j, k);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
+        this.ch();
+        this.a.b(new OPacket100OpenWindow(this.cs, 1, name, 9)); //CanaryMod: "Crafting" to name
+        this.bK = container;
+        this.bK.d = this.cs;
+        this.bK.a((OICrafting) this);
     }
 
     public void c(int i, int j, int k) {
         // CanaryMod: Check if we can open this
-        OContainerEnchantment container = new OContainerEnchantment(this.bK, this.p, i, j, k);
+        OContainerEnchantment container = new OContainerEnchantment(this.bI, this.p, i, j, k);
         Inventory inv = new EnchantmentTable(container);
 
         container.setInventory(inv);
@@ -357,16 +370,16 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
 
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 4, name, 9));//CanaryMod: "Enchanting" to name
-        this.bM = container;
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
+        this.ch();
+        this.a.b(new OPacket100OpenWindow(this.cs, 4, name, 9)); //CanaryMod: "Enchanting" to name
+        this.bK = container;
+        this.bK.d = this.cs;
+        this.bK.a((OICrafting) this);
     }
 
     public void d(int i, int j, int k) {
         // CanaryMod: Check if we can open this
-        OContainerRepair container = new OContainerRepair(this.bK, this.p, i, j, k, this);
+        OContainerRepair container = new OContainerRepair(this.bI, this.p, i, j, k, this);
         Inventory inv = new Anvil(container);
 
         container.setInventory(inv);
@@ -380,11 +393,11 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
 
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 8, name, 9));
-        this.bM = container;
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
+        this.ch();
+        this.a.b(new OPacket100OpenWindow(this.cs, 8, name, 9));
+        this.bK = container;
+        this.bK.d = this.cs;
+        this.bK.a((OICrafting) this);
     }
 
     public void a(OIInventory oiinventory) {
@@ -412,18 +425,18 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
 
-        if (this.bM != this.bL) {
+        if (this.bK != this.bJ) {
             this.i();
         }
 
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 0, name, oiinventory.k_()));
+        this.ch();
+        this.a.b(new OPacket100OpenWindow(this.cs, 0, name, oiinventory.k_()));
         // CanaryMod: Check if openend the chest in silence mode.
-        this.bM = new OContainerChest(this.bK, oiinventory, (openInventoryParameters == null) ? false : openInventoryParameters.isSilenced());
-        this.bM.setInventory(inv);
+        this.bK = new OContainerChest(this.bI, oiinventory, (openInventoryParameters == null) ? false : openInventoryParameters.isSilenced());
+        this.bK.setInventory(inv);
         // CanaryMod end
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
+        this.bK.d = this.cs;
+        this.bK.a((OICrafting) this);
     }
 
     public void a(OTileEntityFurnace otileentityfurnace) {
@@ -439,13 +452,12 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
 
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 2, name, otileentityfurnace.k_()));
-        this.bM = new OContainerFurnace(this.bK, otileentityfurnace);
-        // CanaryMod: Set the inventory for the GUI
-        this.bM.setInventory(inv);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
+        this.ch();
+        this.a.b(new OPacket100OpenWindow(this.cs, 2, name, otileentityfurnace.k_()));
+        this.bK = new OContainerFurnace(this.bI, otileentityfurnace);
+        this.bK.setInventory(inv); // CanaryMod: Set the inventory for the GUI
+        this.bK.d = this.cs;
+        this.bK.a((OICrafting) this);
     }
 
     public void a(OTileEntityDispenser otileentitydispenser) {
@@ -461,11 +473,12 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
 
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 3, otileentitydispenser.b(), otileentitydispenser.k_()));
-        this.bM = new OContainerDispenser(this.bK, otileentitydispenser);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
+        this.ch();
+        this.a.b(new OPacket100OpenWindow(this.cs, 3, name, otileentitydispenser.k_()));
+        this.bK = new OContainerDispenser(this.bI, otileentitydispenser);
+        this.bK.setInventory(inv); // CanaryMod: set inventory for the GUI
+        this.bK.d = this.cs;
+        this.bK.a((OICrafting) this);
     }
 
     public void a(OTileEntityBrewingStand otileentitybrewingstand) {
@@ -481,30 +494,31 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             name = inv.getName();
         }
 
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 5, otileentitybrewingstand.b(), otileentitybrewingstand.k_()));
-        this.bM = new OContainerBrewingStand(this.bK, otileentitybrewingstand);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
+        this.ch();
+        this.a.b(new OPacket100OpenWindow(this.cs, 5, name, otileentitybrewingstand.k_()));
+        this.bK = new OContainerBrewingStand(this.bI, otileentitybrewingstand);
+        this.bK.setInventory(inv); // CanaryMod: set inventory for the GUI
+        this.bK.d = this.cs;
+        this.bK.a((OICrafting) this);
     }
 
     public void a(OTileEntityBeacon otileentitybeacon) {
-        // @todo TODO add this stuff to Canary --somners
-        this.cd();
-        this.a.b(new OPacket100OpenWindow(this.cv, 7, otileentitybeacon.b(), otileentitybeacon.k_()));
-        this.bM = new OContainerBeacon(this.bK, otileentitybeacon);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
+        // TODO add this stuff to Canary --somners
+        this.ch();
+        this.a.b(new OPacket100OpenWindow(this.cs, 7, otileentitybeacon.b(), otileentitybeacon.k_()));
+        this.bK = new OContainerBeacon(this.bI, otileentitybeacon);
+        this.bK.d = this.cs;
+        this.bK.a((OICrafting) this);
     }
 
     public void a(OIMerchant oimerchant) {
-        this.cd();
-        this.bM = new OContainerMerchant(this.bK, oimerchant, this.p);
-        this.bM.c = this.cv;
-        this.bM.a((OICrafting) this);
-        OInventoryMerchant oinventorymerchant = ((OContainerMerchant) this.bM).d();
+        this.ch();
+        this.bK = new OContainerMerchant(this.bI, oimerchant, this.p);
+        this.bK.d = this.cs;
+        this.bK.a((OICrafting) this);
+        OInventoryMerchant oinventorymerchant = ((OContainerMerchant) this.bK).d();
 
-        this.a.b(new OPacket100OpenWindow(this.cv, 6, oinventorymerchant.b(), oinventorymerchant.k_()));
+        this.a.b(new OPacket100OpenWindow(this.cs, 6, oinventorymerchant.b(), oinventorymerchant.k_()));
         OMerchantRecipeList omerchantrecipelist = oimerchant.b(this);
 
         if (omerchantrecipelist != null) {
@@ -512,7 +526,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
                 ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
                 DataOutputStream dataoutputstream = new DataOutputStream(bytearrayoutputstream);
 
-                dataoutputstream.writeInt(this.cv);
+                dataoutputstream.writeInt(this.cs);
                 omerchantrecipelist.a(dataoutputstream);
                 this.a.b(new OPacket250CustomPayload("MC|TrList", bytearrayoutputstream.toByteArray()));
             } catch (IOException ioexception) {
@@ -524,7 +538,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public void a(OContainer ocontainer, int i, OItemStack oitemstack) {
         if (!(ocontainer.a(i) instanceof OSlotCrafting)) {
             if (!this.h) {
-                this.a.b(new OPacket103SetSlot(ocontainer.c, i, oitemstack));
+                this.a.b(new OPacket103SetSlot(ocontainer.d, i, oitemstack));
             }
         }
     }
@@ -534,28 +548,28 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(OContainer ocontainer, List list) {
-        this.a.b(new OPacket104WindowItems(ocontainer.c, list));
-        this.a.b(new OPacket103SetSlot(-1, -1, this.bK.n()));
+        this.a.b(new OPacket104WindowItems(ocontainer.d, list));
+        this.a.b(new OPacket103SetSlot(-1, -1, this.bI.n()));
     }
 
     public void a(OContainer ocontainer, int i, int j) {
-        this.a.b(new OPacket105UpdateProgressbar(ocontainer.c, i, j));
+        this.a.b(new OPacket105UpdateProgressbar(ocontainer.d, i, j));
     }
 
     public void i() {
-        this.a.b(new OPacket101CloseWindow(this.bM.c));
+        this.a.b(new OPacket101CloseWindow(this.bK.d));
         this.k();
     }
 
     public void j() {
         if (!this.h) {
-            this.a.b(new OPacket103SetSlot(-1, -1, this.bK.n()));
+            this.a.b(new OPacket103SetSlot(-1, -1, this.bI.n()));
         }
     }
 
     public void k() {
-        this.bM.a((OEntityPlayer) this);
-        this.bM = this.bL;
+        this.bK.b(this);
+        this.bK = this.bJ;
     }
 
     public void a(OStatBase ostatbase, int i) {
@@ -580,13 +594,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             this.n.a((OEntity) this);
         }
 
-        if (this.cb) {
+        if (this.bY) {
             this.a(true, false, false);
         }
     }
 
     public void m() {
-        this.cn = -99999999;
+        this.ck = -99999999;
     }
 
     public void b(String s) {
@@ -603,13 +617,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(OItemStack oitemstack, int i) {
         super.a(oitemstack, i);
-        // CanaryMod: Call EAT Hook
         if (oitemstack != null && oitemstack.b() != null && oitemstack.b().d_(oitemstack) == OEnumAction.b) {
+            // CanaryMod: Call EAT Hook
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.EAT, this.getPlayer(), new Item(oitemstack))) {
                 super.a(oitemstack, i);
                 this.p().p().b(this, new OPacket18Animation(this, 5));
             } else {
-                this.a.b((OPacket) (new OPacket38EntityStatus(this.at, (byte) 9)));
+                this.a.b((OPacket) (new OPacket38EntityStatus(this.k, (byte) 9)));
                 this.getPlayer().updateLevels();
                 this.getPlayer().updateInventory();
             }
@@ -620,9 +634,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(OEntityPlayer oentityplayer, boolean flag) {
         super.a(oentityplayer, flag);
-        this.cq = -1;
         this.cn = -1;
-        this.co = -1;
+        this.ck = -1;
+        this.cl = -1;
         this.g.addAll(((OEntityPlayerMP) oentityplayer).g);
     }
 
@@ -655,7 +669,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void o() {
         if (this.a != null) {
-            this.a.b(new OPacket202PlayerAbilities(this.cf));
+            this.a.b(new OPacket202PlayerAbilities(this.cc));
         }
     }
 
@@ -673,7 +687,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public boolean a(int i, String s) {
-        return "seed".equals(s) && !this.b.T() ? true : (!"tell".equals(s) && !"help".equals(s) && !"me".equals(s) ? this.b.ad().e(this.bT) : true);
+        return "seed".equals(s) && !this.b.T() ? true : (!"tell".equals(s) && !"help".equals(s) && !"me".equals(s) ? this.b.ad().e(this.bQ) : true);
     }
 
     public String q() {
@@ -685,19 +699,19 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(OPacket204ClientInfo opacket204clientinfo) {
-        if (this.cm.b().containsKey(opacket204clientinfo.d())) {
-            this.cm.a(opacket204clientinfo.d());
+        if (this.cj.b().containsKey(opacket204clientinfo.d())) {
+            this.cj.a(opacket204clientinfo.d());
         }
 
         int i = 256 >> opacket204clientinfo.f();
 
         if (i > 3 && i < 15) {
-            this.cs = i;
+            this.cp = i;
         }
 
-        this.ct = opacket204clientinfo.g();
-        this.cu = opacket204clientinfo.h();
-        if (this.b.I() && this.b.H().equals(this.bT)) {
+        this.cq = opacket204clientinfo.g();
+        this.cr = opacket204clientinfo.h();
+        if (this.b.I() && this.b.H().equals(this.bQ)) {
             this.b.c(opacket204clientinfo.i());
         }
 
@@ -705,11 +719,11 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public OStringTranslate s() {
-        return this.cm;
+        return this.cj;
     }
 
     public int u() {
-        return this.ct;
+        return this.cq;
     }
 
     public void a(String s, int i) {
@@ -735,7 +749,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
      * Reloads the player
      */
     public void reloadPlayer() {
-        player = etc.getDataSource().getPlayer(this.bT);
+        player = etc.getDataSource().getPlayer(this.bQ);
         player.setUser(this);
     }
 }

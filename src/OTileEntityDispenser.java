@@ -102,7 +102,6 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
                 this.a[j] = OItemStack.a(onbttagcompound1);
             }
         }
-
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
@@ -126,8 +125,8 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         return 64;
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
-        return this.k.p(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
+    public boolean a_(OEntityPlayer oentityplayer) {
+        return this.k.q(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
 
     public void l_() {}

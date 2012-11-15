@@ -24,6 +24,10 @@ public class OWorldManager implements OIWorldAccess {
         this.a.ad().a(d0, d1, d2, f > 1.0F ? (double) (16.0F * f) : 16.0D, this.b.v.h, new OPacket62LevelSound(s, d0, d1, d2, f, f1), this.b.name);
     }
 
+    public void a(OEntityPlayer oentityplayer, String s, double d0, double d1, double d2, float f, float f1) {
+        this.a.ad().a(oentityplayer, d0, d1, d2, f > 1.0F ? (double) (16.0F * f) : 16.0D, this.b.v.h, new OPacket62LevelSound(s, d0, d1, d2, f, f1), this.b.name);
+    }
+
     public void a(int i, int j, int k, int l, int i1, int j1) {}
 
     public void a(int i, int j, int k) {

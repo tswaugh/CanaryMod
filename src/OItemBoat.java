@@ -1,12 +1,10 @@
-import java.util.Iterator;
 import java.util.List;
-
 
 public class OItemBoat extends OItem {
 
     public OItemBoat(int i) {
         super(i);
-        this.cg = 1;
+        this.ch = 1;
         this.a(OCreativeTabs.e);
     }
 
@@ -17,7 +15,7 @@ public class OItemBoat extends OItem {
         double d0 = oentityplayer.q + (oentityplayer.t - oentityplayer.q) * (double) f;
         double d1 = oentityplayer.r + (oentityplayer.u - oentityplayer.r) * (double) f + 1.62D - (double) oentityplayer.M;
         double d2 = oentityplayer.s + (oentityplayer.v - oentityplayer.s) * (double) f;
-        OVec3 ovec3 = oworld.R().a(d0, d1, d2);
+        OVec3 ovec3 = oworld.S().a(d0, d1, d2);
         float f3 = OMathHelper.b(-f2 * 0.017453292F - 3.1415927F);
         float f4 = OMathHelper.a(-f2 * 0.017453292F - 3.1415927F);
         float f5 = -OMathHelper.b(-f1 * 0.017453292F);
@@ -35,10 +33,11 @@ public class OItemBoat extends OItem {
             boolean flag = false;
             float f9 = 1.0F;
             List list = oworld.b((OEntity) oentityplayer, oentityplayer.D.a(ovec32.c * d3, ovec32.d * d3, ovec32.e * d3).b((double) f9, (double) f9, (double) f9));
-            Iterator iterator = list.iterator();
 
-            while (iterator.hasNext()) {
-                OEntity oentity = (OEntity) iterator.next();
+            int i;
+
+            for (i = 0; i < list.size(); ++i) {
+                OEntity oentity = (OEntity) list.get(i);
 
                 if (oentity.L()) {
                     float f10 = oentity.Y();
@@ -54,27 +53,33 @@ public class OItemBoat extends OItem {
                 return oitemstack;
             } else {
                 if (omovingobjectposition.a == OEnumMovingObjectType.a) {
-                    int i = omovingobjectposition.b;
+                    i = omovingobjectposition.b;
                     int j = omovingobjectposition.c;
                     int k = omovingobjectposition.d;
 
-                    if (!oworld.J) {
-                        if (oworld.a(i, j, k) == OBlock.aV.cm) {
-                            --j;
-                        }
-
-                        // CanaryMod: placing of a boat
-                        Block blockClicked = this.getBlockInfo(oworld, i, j, k, omovingobjectposition.e);
-                        Block blockPlaced = new Block(oworld.world, 0, i, j, k);
-
-                        // CanaryMod: Call hook
-                        if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
-                            return oitemstack;
-                        }
-                        oworld.d((OEntity) (new OEntityBoat(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 1.0F), (double) ((float) k + 0.5F))));
+                    if (oworld.a(i, j, k) == OBlock.aV.cm) {
+                        --j;
                     }
 
-                    if (!oentityplayer.cf.d) {
+                    // CanaryMod: placing of a boat
+                    Block blockClicked = this.getBlockInfo(oworld, i, j, k, omovingobjectposition.e);
+                    Block blockPlaced = new Block(oworld.world, 0, i, j, k);
+
+                    // CanaryMod: Call hook
+                    if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
+                        return oitemstack;
+                    }
+                    OEntityBoat oentityboat = new OEntityBoat(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 1.0F), (double) ((float) k + 0.5F));
+
+                    if (!oworld.a((OEntity) oentityboat, oentityboat.D.b(-0.1D, -0.1D, -0.1D)).isEmpty()) {
+                        return oitemstack;
+                    }
+
+                    if (!oworld.J) {
+                        oworld.d((OEntity) oentityboat);
+                    }
+
+                    if (!oentityplayer.cc.d) {
                         --oitemstack.a;
                     }
                 }
@@ -84,4 +89,3 @@ public class OItemBoat extends OItem {
         }
     }
 }
-
