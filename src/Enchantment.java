@@ -79,7 +79,8 @@ public class Enchantment {
     }
     
     /**
-     * Returns the OEnchantment object for this enchantment. Notice this isnt the enchantment data, but the enchantment description.
+     * Returns the OEnchantment object for this enchantment.
+     * Notice this isnt the enchantment data, but the enchantment description.
      * @return Returns the OEnchantment object for this enchantment
      */
     public OEnchantment getEnchantment()
@@ -95,7 +96,8 @@ public class Enchantment {
     }
     
     /**
-     * Returns an OEnchantment object for a given enchantment type. Notice this isnt the enchantment data, but the enchantment description.
+     * Returns an OEnchantment object for a given enchantment type.
+     * Notice this isnt the enchantment data, but the enchantment description.
      * @return Returns the OEnchantment object for a given enchantment type
      */
     public static OEnchantment getEnchantment(Type type)
@@ -114,7 +116,7 @@ public class Enchantment {
     }
 
     /**
-     * Type of enchantment
+     * Type of enchantment.
      * 
      * @return type
      */
@@ -123,7 +125,8 @@ public class Enchantment {
     }
 
     /**
-     * Set type of enchantment Note that it does NOT check for validity of the enchantment!!!
+     * Set type of enchantment.
+     * Note that it does NOT check for validity of the enchantment!!!
      * 
      * @param type
      */
@@ -132,7 +135,8 @@ public class Enchantment {
     }
 
     /**
-     * Set type of enchantment Note that it does NOT check for validity of the enchantment!!!
+     * Set type of enchantment.
+     * Note that it does NOT check for validity of the enchantment!!!
      * 
      * @param type
      */
@@ -141,7 +145,7 @@ public class Enchantment {
     }
 
     /**
-     * Gets level of enchantment
+     * Gets level of enchantment.
      * 
      * @return
      */
@@ -150,7 +154,8 @@ public class Enchantment {
     }
 
     /**
-     * Sets level of enchantment Note that it does NOT check for validity of the enchantment!!!
+     * Sets level of enchantment.
+     * Note that it does NOT check for validity of the enchantment!!!
      * 
      * @param level
      */
@@ -173,7 +178,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the weight of an enchantment given its type or -1 if the enchantment is invalid.
+     * Gets the weight of an enchantment given its type or -1 if the
+     * enchantment is invalid.
      * @return
      */
     public static int getWeight(Type type)
@@ -187,7 +193,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the minimum level of the enchantment or -1 if the enchantment is invalid.
+     * Gets the minimum level of the enchantment or -1 if the enchantment is
+     * invalid.
      * @return
      */
     public int getMinLevel()
@@ -201,7 +208,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the minimum level of an enchantment given its type or -1 if the enchantment is invalid.
+     * Gets the minimum level of an enchantment given its type or -1 if the
+     * enchantment is invalid.
      * @return
      */
     public static int getMinLevel(Type type)
@@ -215,7 +223,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the maximum level of the enchantment or -1 if the enchantment is invalid.
+     * Gets the maximum level of the enchantment or -1 if the enchantment is
+     * invalid.
      * @return
      */
     public int getMaxLevel()
@@ -229,7 +238,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the maximum level of an enchantment given its type or -1 if the enchantment is invalid.
+     * Gets the maximum level of an enchantment given its type or -1 if the
+     * enchantment is invalid.
      * @return
      */
     public static int getMaxLevel(Type type)
@@ -243,7 +253,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the minimum enchantability strength needed for the enchantment or -1 if the enchantment is invalid.
+     * Gets the minimum enchantability strength needed for the enchantment or
+     * -1 if the enchantment is invalid.
      * @return
      */
     public int getMinEnchantability()
@@ -257,7 +268,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the minimum enchantability strength needed for the enchantment given its type or -1 if the enchantment is invalid.
+     * Gets the minimum enchantability strength needed for the enchantment
+     * given its type or -1 if the enchantment is invalid.
      * @return
      */
     public static int getMinEnchantability(Type type, int level)
@@ -271,7 +283,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the maximum enchantability strength needed for the enchantment or -1 if the enchantment is invalid.
+     * Gets the maximum enchantability strength needed for the enchantment or
+     * -1 if the enchantment is invalid.
      * @return
      */
     public int getMaxEnchantability()
@@ -285,7 +298,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the maximum enchantability strength needed for the enchantment given its type or -1 if the enchantment is invalid.
+     * Gets the maximum enchantability strength needed for the enchantment
+     * given its type or -1 if the enchantment is invalid.
      * @return
      */
     public static int getMaxEnchantability(Type type, int level)
@@ -299,7 +313,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the modified damage for the enchantment for a given damage source or -1 if the enchantment or damage source is invalid.
+     * Gets the modified damage for the enchantment for a given damage source
+     * or -1 if the enchantment or damage source is invalid.
      * @return
      */
     public int getDamage(ODamageSource damageSource)
@@ -316,7 +331,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the modified damage for an enchantment for a given damage source or -1 if the enchantment or damage source is invalid.
+     * Gets the modified damage for an enchantment for a given damage source or
+     * -1 if the enchantment or damage source is invalid.
      * @return
      */
     public static int getDamage(Type type, int level, ODamageSource damageSource)
@@ -333,7 +349,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the modified living for the enchantment for a given living entity or -1 if the enchantment or entity is invalid.
+     * Gets the modified living for the enchantment for a given living entity
+     * or -1 if the enchantment or entity is invalid.
      * @return
      */
     public int getLiving(OEntityLiving entity)
@@ -350,7 +367,8 @@ public class Enchantment {
     }
     
     /**
-     * Gets the modified living for an enchantment for a given living entity or -1 if the enchantment or entity is invalid.
+     * Gets the modified living for an enchantment for a given living entity or
+     * -1 if the enchantment or entity is invalid.
      * @return
      */
     public static int getLiving(Type type, int level, OEntityLiving entity)
@@ -367,7 +385,7 @@ public class Enchantment {
     }
     
     /**
-     * Returns true if this enchantment can stack with another enchantment
+     * Returns true if this enchantment can stack with another enchantment.
      * @param enchantment The other enchantment
      * @return true if enchantments can stack
      */
@@ -377,7 +395,7 @@ public class Enchantment {
     }
     
     /**
-     * Returns true if this enchantment can stack with another enchantment
+     * Returns true if this enchantment can stack with another enchantment.
      * @param type The other enchantment type
      * @return true if enchantments can stack
      */
@@ -396,7 +414,7 @@ public class Enchantment {
     }
     
     /**
-     * Returns true if two enchantments can stack with each other
+     * Returns true if two enchantments can stack with each other.
      * @param type1
      * @param type2
      * @return true if enchantments can stack
@@ -416,7 +434,7 @@ public class Enchantment {
     }
 
     /**
-     * Checks if the enchantment is valid
+     * Checks if the enchantment is valid.
      * 
      * @return true if valid
      */
@@ -425,7 +443,7 @@ public class Enchantment {
     }
 
     /**
-     * Checks if an enchantment is valid
+     * Checks if an enchantment is valid.
      * 
      * @param type
      *            The type of the enchantment

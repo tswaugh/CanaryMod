@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Server {
 
-    private ODedicatedServer server;
+    private final ODedicatedServer server;
 
     /**
      * Creates a server
@@ -142,7 +142,7 @@ public class Server {
         name = name.toLowerCase();
 
         for (OEntityPlayerMP player : (List<OEntityPlayerMP>) server.ad().b) {
-            String playerName = player.bT;
+            String playerName = player.bQ;
 
             if (playerName.toLowerCase().equals(name)) {
                 // Perfect match found
@@ -770,13 +770,16 @@ public class Server {
      * @return the default dimension
      */
     public World getDefaultWorld() {
-        return server.getWorld(server.J(), 0).world;
+        OWorld oworld = server.getWorld(server.J(), 0);
+
+        return oworld != null ? oworld.world : null;
     }
 
     /**
      * Returns the dimension at the given dimension. Due to the way the server
      * works, this returns the Nether's {@link World} if {@code dimension} is
-     * -1, the normal dimension's {@link World} otherwise.
+     * -1, the normal dimension's {@link World} if {@code dimension} is 0, and
+     * the End's {@link World} otherwise.
      *
      * @param dimension The dimension to return the World for
      * @return {@code dimension}'s World
@@ -787,7 +790,8 @@ public class Server {
      * </code></blockquote>
      */
     public World getWorld(int dimension) {
-        return server.getWorld(server.J(), dimension).world;
+        OWorld oworld = server.getWorld(server.J(), dimension);
+        return oworld != null ? oworld.world : null;
     }
 
     /**

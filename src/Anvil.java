@@ -40,7 +40,7 @@ public class Anvil extends ItemArray<OInventoryRepair> implements Inventory {
     public void setResult(Item item) {
         anvil.getCraftResult().setContentsAt(0xCAFEBABE, item.getBaseItem());
         // Update client
-        ((OEntityPlayerMP) anvil.getPlayer()).a.b(new OPacket103SetSlot(anvil.c, 2, item.getBaseItem()));
+        ((OEntityPlayerMP) anvil.getPlayer()).a.b(new OPacket103SetSlot(anvil.d, 2, item.getBaseItem()));
     }
 
 }

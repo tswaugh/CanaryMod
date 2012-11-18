@@ -8,7 +8,6 @@
 public abstract class ItemArray<C extends Container<OItemStack>> {
     protected C container;
 
-    @SuppressWarnings("unchecked")
     public ItemArray(C container) {
         this.container = container;
     }
@@ -386,7 +385,6 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
      *            contents to set
      */
     public void setContents(Item[] contents) {
-        System.out.println("Setting contents of inventory");
         int arraySize = getContentsSize();
 
         for (int i = 0; i < arraySize; i++) {

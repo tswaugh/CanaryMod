@@ -61,6 +61,14 @@ public class JukeBox implements ComplexBlock {
 	 */
 	public int getDiscID() {
 		
-		return (hasRecord() ? oRP.a : -1);
+		return (hasRecord() ? oRP.a.j() : -1);
 	}
+
+    /**
+     * Get the item currently in the jukebox (if any)
+     * @return The record <tt>Item</tt> or null if no record present
+     */
+    public Item getDisc() {
+        return hasRecord() ? new Item(oRP.a) : null;
+    }
 }

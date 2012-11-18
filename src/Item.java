@@ -452,6 +452,9 @@ public class Item implements Cloneable {
         this.slot = slot;
     }
 
+    /**
+     * Updates the native item stack with this wrapper's current values.
+     */
     public void update() {
         if (this.itemStack != null) {
             this.itemStack.c = itemId;

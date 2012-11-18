@@ -6,18 +6,17 @@ public class EnchantmentTable extends ItemArray<OInventoryBasic> implements Inve
     private final OContainerEnchantment enchantTable;
     
     public EnchantmentTable(OContainerEnchantment block) {
-        super((OInventoryBasic) block.e);
+        super((OInventoryBasic) block.a);
         enchantTable = block;
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported. Please use update(Player player)");
-        // Same as workbench: ugly, but we kinda need it. :(
+        enchantTable.b();
     }
     
     public void update(Player player) {
-        enchantTable.a((OEntityPlayer) player.getEntity());
+        this.update(); // Apparently we have an update method now
     }
 
     @Override

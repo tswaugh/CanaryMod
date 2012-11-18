@@ -70,7 +70,7 @@ public abstract class OEntity {
     private int h;
     public int ap;
     protected int aq;
-    private boolean i;
+    protected boolean i; // CanaryMod: private -> protected
     public OEnumEntitySize ar;
     // CanaryMod Start
     BaseEntity entity = new BaseEntity(this);

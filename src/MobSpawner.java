@@ -213,7 +213,7 @@ public class MobSpawner implements ComplexBlock {
      * @param itemEntity The item this spawner should spawn
      */
     public void setSpawnedEntity(Item itemEntity) {
-    	setSpawnedEntity(new OEntityItem(etc.getServer().getDefaultWorld().getWorld(), 0, 0, 0, itemEntity.getBaseItem()));
+    	setSpawnedEntity(new OEntityItem(null, 0, 0, 0, itemEntity.getBaseItem()));
     }
     
     /**

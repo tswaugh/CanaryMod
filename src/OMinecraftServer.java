@@ -592,7 +592,8 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
     public OWorldServer getWorld(String s, int i) {
         int index = i == 0 ? 0 : i == -1 ? 1 : 2;
 
-        return this.worlds.get(s)[index];
+        OWorldServer[] aows = this.worlds.get(s);
+        return aows != null && aows.length > index ? aows[index] : null;
     }
 
     public String u() {

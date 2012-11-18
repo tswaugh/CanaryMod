@@ -35,7 +35,7 @@ public class Mob extends LivingEntity {
      */
     public Mob(String mob, World world) {
         this((OEntityLiving) OEntityList.a(mob, world.getWorld()));
-        this.getEntity().bD();
+        this.getEntity().bG(); // initCreature
     }
 
     /**
@@ -153,15 +153,9 @@ public class Mob extends LivingEntity {
             return false;
         }
 
+        OEntity c = OEntityList.a(mob, etc.getServer().getDefaultWorld().getWorld());
 
-        // Catch InstantiationExceptions, e.g. when calling isValid("Monster")
-        try {
-            OEntity c = OEntityList.a(mob, etc.getServer().getDefaultWorld().getWorld());
-            
-            return c instanceof OIMob || c instanceof OIAnimals;
-        } catch (Exception e) {
-            return false;
-        }
+        return c instanceof OIMob || c instanceof OIAnimals;
     }
 
     /**
@@ -202,7 +196,7 @@ public class Mob extends LivingEntity {
      * @return
      */
     public Item getItemInHand() {
-    	OItemStack stack = getEntity().bA();
+    	OItemStack stack = getEntity().bD();
     	return stack == null ? null : new Item(stack);
     }
     
@@ -241,7 +235,7 @@ public class Mob extends LivingEntity {
      * @return
      */
     public boolean canPickUpLoot() {
-    	return getEntity().bs;
+    	return getEntity().br;
     }
     
     /**
@@ -250,7 +244,7 @@ public class Mob extends LivingEntity {
      * @param flag
      */
     public void setCanPickUpLoot(boolean flag) {
-    	getEntity().bs = flag;
+    	getEntity().br = flag;
     }
     
     /**
@@ -259,7 +253,7 @@ public class Mob extends LivingEntity {
      * @return
      */
     public boolean isInvulnerable() {
-    	return getEntity().bt;
+    	return getEntity().ar();
     }
     
     /**
@@ -268,7 +262,7 @@ public class Mob extends LivingEntity {
      * @param isInvulnerable
      */
     public void setInvulnerable(boolean isInvulnerable) {
-    	getEntity().bt = isInvulnerable;
+    	entity.i = isInvulnerable;
     }
     
     /**
@@ -277,7 +271,7 @@ public class Mob extends LivingEntity {
      * @return
      */
     public boolean isPersistent() {
-    	return getEntity().bV;
+    	return getEntity().bT;
     }
     
     /**
@@ -286,7 +280,7 @@ public class Mob extends LivingEntity {
      * @param isPersistent
      */
     public void setPersistent(boolean isPersistent) {
-    	getEntity().bV = isPersistent;
+    	getEntity().bT = isPersistent;
     }
     
     /**
@@ -297,7 +291,7 @@ public class Mob extends LivingEntity {
      */
     public float getDropChance(int slot) {
     	if(slot >= 0 && slot <= 4) {
-    		return getEntity().bp[slot];
+    		return getEntity().bo[slot];
     	}
     	return 0;
     }
@@ -310,7 +304,7 @@ public class Mob extends LivingEntity {
      */
     public void setDropChance(int slot, float chance) {
     	if(slot >= 0 && slot <= 4) {
-    		getEntity().bp[slot] = chance;
+    		getEntity().bo[slot] = chance;
     	}
     }
 }
