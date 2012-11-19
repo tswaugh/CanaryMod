@@ -333,7 +333,7 @@ public class World {
      * @param z The spawn's new z location
      */
     public void setSpawnLocation(int x, int y, int z) {
-        this.getWorld().J().a(x, y, z);
+        this.getWorld().K().a(x, y, z);
     }
     
     /**
@@ -375,7 +375,7 @@ public class World {
      * @return block data
      */
     public int getBlockData(int x, int y, int z) {
-        return world.g(x, y, z);
+        return world.h(x, y, z);
     }
 
     /**
@@ -498,7 +498,7 @@ public class World {
      * @return complex block
      */
     public ComplexBlock getOnlyComplexBlock(int x, int y, int z) {
-        OTileEntity localav = world.p(x, y, z);
+        OTileEntity localav = world.q(x, y, z);
 
         if (localav != null) {
             if (localav instanceof OTileEntityChest) {
@@ -815,7 +815,7 @@ public class World {
      * @return true if the block is being indirectly powered
      */
     public boolean isBlockIndirectlyPowered(int x, int y, int z) {
-        return world.z(x, y, z);
+        return world.A(x, y, z);
     }
 
     /**
@@ -942,7 +942,7 @@ public class World {
      * @return seed of the world
      */
     public long getRandomSeed() {
-        return world.D();
+        return world.E();
     }
 
     /**
@@ -966,7 +966,7 @@ public class World {
      * @return Light level of the location.
      */
     public float getLightLevel(int x, int y, int z) {
-        return this.getWorld().k(x, y, z);
+        return this.getWorld().l(x, y, z);
     }
 
     /**
@@ -981,7 +981,7 @@ public class World {
             for (int y2 = y - 2; y2 <= y + 2; y2++) {
                 for (int z2 = z - 2; z2 <= z + 2; z2++) {
                     this.getWorld().d(x2, y2, z2, this.getWorld().b(x2, y2, z2),// WWOL: a(int int int) to b(int int int) not sure there is so many similar ones.
-                            this.getWorld().g(x2, y2, z2));
+                            this.getWorld().h(x2, y2, z2));
                 }
             }
         }

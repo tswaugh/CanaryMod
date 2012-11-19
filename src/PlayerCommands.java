@@ -1206,7 +1206,7 @@ public class PlayerCommands {
                 player.sendMessage("User: " + Colors.Yellow + player.getName() + Colors.White);
                 player.sendMessage("Lvl: " + Colors.Yellow + player.getLevel() + Colors.White);
                 player.sendMessage(String.format("Exp:%s %.0f %s/%s %d %s(%s%.2f%%%s)", // Exp: xx / yy (zz.zz%)
-                        Colors.Yellow, ent.ci * ent.bY(), Colors.White,
+                        Colors.Yellow, ent.cf * ent.cc(), Colors.White,
                         Colors.Yellow, ent.bY(), Colors.White,
                         Colors.Yellow, ent.ci, Colors.White));
 

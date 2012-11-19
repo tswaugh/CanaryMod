@@ -39,7 +39,7 @@ public class Skeleton extends Mob {
 	 * @return
 	 */
 	public boolean isWither() {
-		return getEntity().m() == 1;
+		return getEntity().o() == 1;
 	}
 	
 	/**
