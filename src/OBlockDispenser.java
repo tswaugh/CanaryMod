@@ -177,9 +177,9 @@ public class OBlockDispenser extends OBlockContainer {
 
     public static OIPosition a(OIBlockSource oiblocksource) {
         OEnumFacing oenumfacing = OEnumFacing.a(oiblocksource.h());
-        double d0 = oiblocksource.a() + 0.6D * (double) oenumfacing.c();
+        double d0 = oiblocksource.a() + 0.7D * (double) oenumfacing.c();
         double d1 = oiblocksource.b();
-        double d2 = oiblocksource.c() + 0.6D * (double) oenumfacing.e();
+        double d2 = oiblocksource.c() + 0.7D * (double) oenumfacing.e();
 
         return new OPositionImpl(d0, d1, d2);
     }

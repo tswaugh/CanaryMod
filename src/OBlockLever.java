@@ -63,26 +63,26 @@ public class OBlockLever extends OBlock {
 
     public static int d(int i) {
         switch (i) {
-        case 0:
-            return 0;
+            case 0:
+                return 0;
 
-        case 1:
-            return 5;
+            case 1:
+                return 5;
 
-        case 2:
-            return 4;
+            case 2:
+                return 4;
 
-        case 3:
-            return 3;
+            case 3:
+                return 3;
 
-        case 4:
-            return 2;
+            case 4:
+                return 2;
 
-        case 5:
-            return 1;
+            case 5:
+                return 1;
 
-        default:
-            return -1;
+            default:
+                return -1;
         }
     }
 

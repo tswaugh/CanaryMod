@@ -151,28 +151,28 @@ public class OContainerRepair extends OContainer {
                             byte b1 = 0;
 
                             switch (oenchantment.c()) {
-                            case 1:
-                                b1 = 8;
-                                break;
+                                case 1:
+                                    b1 = 8;
+                                    break;
 
-                            case 2:
-                                b1 = 4;
+                                case 2:
+                                    b1 = 4;
 
-                            case 3:
-                            case 4:
-                            case 6:
-                            case 7:
-                            case 8:
-                            case 9:
-                            default:
-                                break;
+                                case 3:
+                                case 4:
+                                case 6:
+                                case 7:
+                                case 8:
+                                case 9:
+                                default:
+                                    break;
 
-                            case 5:
-                                b1 = 2;
-                                break;
+                                case 5:
+                                    b1 = 2;
+                                    break;
 
-                            case 10:
-                                b1 = 1;
+                                case 10:
+                                    b1 = 1;
                             }
 
                             i += b1 * k2;
@@ -202,28 +202,28 @@ public class OContainerRepair extends OContainer {
                 b2 = 0;
                 ++l;
                 switch (oenchantment.c()) {
-                case 1:
-                    b2 = 8;
-                    break;
+                    case 1:
+                        b2 = 8;
+                        break;
 
-                case 2:
-                    b2 = 4;
+                    case 2:
+                        b2 = 4;
 
-                case 3:
-                case 4:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                default:
-                    break;
+                    case 3:
+                    case 4:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    default:
+                        break;
 
-                case 5:
-                    b2 = 2;
-                    break;
+                    case 5:
+                        b2 = 2;
+                        break;
 
-                case 10:
-                    b2 = 1;
+                    case 10:
+                        b2 = 1;
                 }
             }
 

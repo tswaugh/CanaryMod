@@ -124,28 +124,28 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
             this.a = false;
         } else if (this.a) {
             switch (i) {
-            case 0:
-                if (this.e != otileentitychest) {
-                    this.a = false;
-                }
-                break;
+                case 0:
+                    if (this.e != otileentitychest) {
+                        this.a = false;
+                    }
+                    break;
 
-            case 1:
-                if (this.d != otileentitychest) {
-                    this.a = false;
-                }
-                break;
+                case 1:
+                    if (this.d != otileentitychest) {
+                        this.a = false;
+                    }
+                    break;
 
-            case 2:
-                if (this.b != otileentitychest) {
-                    this.a = false;
-                }
-                break;
+                case 2:
+                    if (this.b != otileentitychest) {
+                        this.a = false;
+                    }
+                    break;
 
-            case 3:
-                if (this.c != otileentitychest) {
-                    this.a = false;
-                }
+                case 3:
+                    if (this.c != otileentitychest) {
+                        this.a = false;
+                    }
             }
         }
     }

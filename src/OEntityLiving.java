@@ -1832,17 +1832,17 @@ public abstract class OEntityLiving extends OEntity {
         if (oitemstack.c != OBlock.bd.cm && oitemstack.c != OItem.bQ.cg) {
             if (oitemstack.b() instanceof OItemArmor) {
                 switch (((OItemArmor) oitemstack.b()).a) {
-                case 0:
-                    return 4;
+                    case 0:
+                        return 4;
 
-                case 1:
-                    return 3;
+                    case 1:
+                        return 3;
 
-                case 2:
-                    return 2;
+                    case 2:
+                        return 2;
 
-                case 3:
-                    return 1;
+                    case 3:
+                        return 1;
                 }
             }
 
@@ -1854,60 +1854,60 @@ public abstract class OEntityLiving extends OEntity {
 
     public static OItem a(int i, int j) {
         switch (i) {
-        case 4:
-            if (j == 0) {
-                return OItem.V;
-            } else if (j == 1) {
-                return OItem.al;
-            } else if (j == 2) {
-                return OItem.Z;
-            } else if (j == 3) {
-                return OItem.ad;
-            } else if (j == 4) {
-                return OItem.ah;
-            }
+            case 4:
+                if (j == 0) {
+                    return OItem.V;
+                } else if (j == 1) {
+                    return OItem.al;
+                } else if (j == 2) {
+                    return OItem.Z;
+                } else if (j == 3) {
+                    return OItem.ad;
+                } else if (j == 4) {
+                    return OItem.ah;
+                }
 
-        case 3:
-            if (j == 0) {
-                return OItem.W;
-            } else if (j == 1) {
-                return OItem.am;
-            } else if (j == 2) {
-                return OItem.aa;
-            } else if (j == 3) {
-                return OItem.ae;
-            } else if (j == 4) {
-                return OItem.ai;
-            }
+            case 3:
+                if (j == 0) {
+                    return OItem.W;
+                } else if (j == 1) {
+                    return OItem.am;
+                } else if (j == 2) {
+                    return OItem.aa;
+                } else if (j == 3) {
+                    return OItem.ae;
+                } else if (j == 4) {
+                    return OItem.ai;
+                }
 
-        case 2:
-            if (j == 0) {
-                return OItem.X;
-            } else if (j == 1) {
-                return OItem.an;
-            } else if (j == 2) {
-                return OItem.ab;
-            } else if (j == 3) {
-                return OItem.af;
-            } else if (j == 4) {
-                return OItem.aj;
-            }
+            case 2:
+                if (j == 0) {
+                    return OItem.X;
+                } else if (j == 1) {
+                    return OItem.an;
+                } else if (j == 2) {
+                    return OItem.ab;
+                } else if (j == 3) {
+                    return OItem.af;
+                } else if (j == 4) {
+                    return OItem.aj;
+                }
 
-        case 1:
-            if (j == 0) {
-                return OItem.Y;
-            } else if (j == 1) {
-                return OItem.ao;
-            } else if (j == 2) {
-                return OItem.ac;
-            } else if (j == 3) {
-                return OItem.ag;
-            } else if (j == 4) {
-                return OItem.ak;
-            }
+            case 1:
+                if (j == 0) {
+                    return OItem.Y;
+                } else if (j == 1) {
+                    return OItem.ao;
+                } else if (j == 2) {
+                    return OItem.ac;
+                } else if (j == 3) {
+                    return OItem.ag;
+                } else if (j == 4) {
+                    return OItem.ak;
+                }
 
-        default:
-            return null;
+            default:
+                return null;
         }
     }
 

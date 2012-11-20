@@ -294,9 +294,13 @@ public class OEntityWolf extends OEntityTameable {
 
     public OEntityWolf b(OEntityAgeable oentityageable) {
         OEntityWolf oentitywolf = new OEntityWolf(this.p);
+        String s = this.o();
 
-        oentitywolf.a(this.o());
-        oentitywolf.g(true);
+        if (s != null && s.trim().length() > 0) {
+            oentitywolf.a(s);
+            oentitywolf.g(true);
+        }
+
         return oentitywolf;
     }
 

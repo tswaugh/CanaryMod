@@ -148,14 +148,20 @@ public class Painting extends HangingEntity {
 		public int getHeight() {
 			return this.base.D;
 		}
-		
+
+        @SuppressWarnings("MapReplaceableByEnumMap") // Doesn't work on the .class
 		private static void add(OEnumArt base, Type type) {
 			if(map == null) {
 				map = new HashMap<OEnumArt, Type>();
 			}
 			map.put(base, type);
 		}
-		
+
+        /**
+         * Get the Canary type for an <tt>OEnumArt</tt>.
+         * @param base The <tt>OEnumArt</tt> to get the Canary type for.
+         * @return The Canary <tt>Type</tt> for <tt>base</tt>
+         */
 		public static Type fromBase(OEnumArt base) {
 			return map.get(base);
 		}
