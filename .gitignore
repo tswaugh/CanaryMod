@@ -11,3 +11,4 @@ jarjar/*
 nbproject/*
 *.orig
 *.rej
+.DS_Store
