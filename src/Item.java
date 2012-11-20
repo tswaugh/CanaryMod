@@ -919,4 +919,22 @@ public class Item implements Cloneable {
     	
     	display.a("Lore", list);
     }
+    
+    /**
+     * Returns the tag containing data for this item. May be null.
+     * 
+     * @return
+     */
+    public NBTTagCompound getDataTag() {
+    	return new NBTTagCompound(itemStack.d == null ? null : itemStack.d);
+    }
+    
+    /**
+     * Sets the tag containing data for this item. Should be named 'tag'
+     * 
+     * @param tag the data tag
+     */
+    public void setDataTag(NBTTagCompound tag) {
+    	itemStack.d = tag.getBaseTag();
+    }
 }

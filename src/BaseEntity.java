@@ -458,4 +458,21 @@ public class BaseEntity {
         this.entity.b(sprinting);
     }
 
+    /**
+     * Writes this entity's data to an NBTTagCompound
+     * 
+     * @param tag the tag to write the data to
+     */
+    public void writeToTag(NBTTagCompound tag) {
+    	getEntity().c(tag.getBaseTag());
+    }
+    
+    /**
+     * Reads this entity's data from an NBTTagCompound
+     * 
+     * @param tag the tag to read the data from
+     */
+    public void readFromTag(NBTTagCompound tag) {
+    	getEntity().e(tag.getBaseTag());
+    }
 }

@@ -232,4 +232,22 @@ public class MobSpawner implements ComplexBlock {
     	spawner.e = tag;
     	setSpawn(entity.Q());
     }
+    
+    /**
+     * Reads the data for this spawner from an NBTTagCompound
+     * 
+     * @param tag the tag to read from
+     */
+    public void readFromTag(NBTTagCompound tag) {
+    	spawner.a(tag.getBaseTag());
+    }
+    
+    /**
+     * Writes the data for this spawner to an NBTTagCompound
+     * 
+     * @param tag the tag to write to
+     */
+    public void writeToTag(NBTTagCompound tag) {
+    	spawner.b(tag.getBaseTag());
+    }
 }
