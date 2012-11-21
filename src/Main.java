@@ -17,9 +17,9 @@ import java.util.zip.CheckedInputStream;
 
 public class Main {
 
-    public static final long   minecraft_server = 0x281d2c7aL;
+    public static final long   minecraft_server = 0x38794792L;
 
-    public static final long   minecraft_servero = 0xd5e882a8L;
+    public static final long   minecraft_servero = 0x3ab4ee7eL;
 
     public static final long   mysql = 0xb2e59524L;
     public static final long   jarjar = 0x4e724d4dL;

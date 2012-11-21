@@ -831,7 +831,7 @@ public class ONetServerHandler extends ONetHandler {
     }
 
     public void a(OPacket130UpdateSign opacket130updatesign) {
-        OWorldServer oworldserver = this.e.a(this.d.ap);
+        OWorldServer oworldserver = this.e.getWorld(this.d.p.name, this.d.ap);
 
         if (oworldserver.f(opacket130updatesign.a, opacket130updatesign.b, opacket130updatesign.c)) {
             OTileEntity otileentity = oworldserver.q(opacket130updatesign.a, opacket130updatesign.b, opacket130updatesign.c);
