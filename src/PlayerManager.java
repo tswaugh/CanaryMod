@@ -32,7 +32,7 @@ public class PlayerManager {
      * @param player
      */
     public void addPlayer(OEntityPlayerMP player) {
-        pm.b(player);
+        pm.a(player);
     }
     
     /**

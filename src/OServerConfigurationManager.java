@@ -321,7 +321,7 @@ public abstract class OServerConfigurationManager {
         }
 
         OEntityPlayerMP oentityplayermp1 = new OEntityPlayerMP(this.f, oworldserver, oentityplayermp.bQ, oiteminworldmanager);
-        oentityplayermp.getPlayer().setUser(oentityplayermp1);
+        oentityplayermp.getPlayer().copyTo(oentityplayermp1.getPlayer());
 
         oentityplayermp1.a = oentityplayermp.a;
         oentityplayermp1.a(oentityplayermp, flag);

@@ -84,7 +84,8 @@ public class World {
 
         DEFAULT(OWorldType.b),
         FLAT(OWorldType.c),
-        DEFAULT_1_1(OWorldType.d);
+        LARGE_BIOMES(OWorldType.d),
+        DEFAULT_1_1(OWorldType.e);
         private OWorldType nativeType;
 
         private Type(OWorldType nativeType) {
@@ -129,7 +130,7 @@ public class World {
      * @return time server time
      */
     public long getTime() {
-        return world.E();
+        return world.F();
     }
 
     /**
@@ -138,7 +139,7 @@ public class World {
      * @return time server time
      */
     public long getRelativeTime() {
-        return world.F();
+        return world.G();
     }
 
     /**
@@ -321,8 +322,8 @@ public class World {
         spawn.z = info.e() + 0.5D;
         spawn.rotX = 0.0F;
         spawn.rotY = 0.0F;
-        spawn.dimension = 0;
-        spawn.world = world.name;
+        spawn.dimension = this.getType().id;
+        spawn.world = this.getName();
         return spawn;
     }
     
@@ -690,8 +691,8 @@ public class World {
      * Checks to see whether or not the chunk containing the given chunk
      * coordinates is loaded into memory.
      *
-     * @param x a block x-coordinate
-     * @param z a block z-coordinate
+     * @param x a chunk x-coordinate
+     * @param z a chunk z-coordinate
      * @return true if the chunk is loaded
      */
     public boolean isChunkLoaded(int x, int z) {
@@ -793,7 +794,7 @@ public class World {
      * @return true if the block is being powered
      */
     public boolean isBlockPowered(int x, int y, int z) {
-        return world.y(x, y, z);
+        return world.A(x, y, z);
     }
 
     /**
@@ -815,7 +816,7 @@ public class World {
      * @return true if the block is being indirectly powered
      */
     public boolean isBlockIndirectlyPowered(int x, int y, int z) {
-        return world.A(x, y, z);
+        return world.B(x, y, z);
     }
 
     /**
@@ -980,8 +981,7 @@ public class World {
         for (int x2 = x - 2; x2 <= x + 2; x2++) {
             for (int y2 = y - 2; y2 <= y + 2; y2++) {
                 for (int z2 = z - 2; z2 <= z + 2; z2++) {
-                    this.getWorld().d(x2, y2, z2, this.getWorld().b(x2, y2, z2),// WWOL: a(int int int) to b(int int int) not sure there is so many similar ones.
-                            this.getWorld().h(x2, y2, z2));
+                    this.getWorld().z(x2, y2, z2);
                 }
             }
         }
@@ -1009,5 +1009,13 @@ public class World {
      */
     public String getName() {
         return world.name;
+    }
+
+    /**
+     * Get the default game mode for this world.
+     * @return The game mode for this world.
+     */
+    public int getGameMode() {
+        return world.z.r().e;
     }
 }

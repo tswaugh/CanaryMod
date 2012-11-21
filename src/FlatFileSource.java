@@ -1134,10 +1134,8 @@ public class FlatFileSource extends DataSource {
                 }
                 player.setGroups(split[1].split(","));
 
-                if (split.length >= 3) {
-                    if (split[2].isEmpty()) {
-                        player.setRestrictions(0);
-                    } else if (split[2].matches("-1|[012]")) {
+                if (split.length >= 3 && !split[2].isEmpty()) {
+                    if (split[2].matches("-1|[012]")) {
                         player.setRestrictions(Integer.parseInt(split[2]));
                     } else {
                         log.log(Level.SEVERE, String.format("The value 'ADMIN/UNRESTRICTED' for player '%s' in %s (line %d) is not valid.", name, location, linenum));

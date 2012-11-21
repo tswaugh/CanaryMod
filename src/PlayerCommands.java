@@ -116,7 +116,7 @@ public class PlayerCommands {
                 }
             }
 
-            caller.notify(Colors.Blue + "Available commands (" + (args.length > 1 ? (args[1].matches("\\d+") ? "Page " + args[1] + " of " + (int) ((double) availableCommands.size() / (double) 7 + 1) : "Matching " + etc.combineSplit(1, args, " ")) : "Page 1 of " + (int) ((double) availableCommands.size() / (double) 7 + 1)) + ") <> = required [] = optional:");
+            caller.notify(Colors.Blue + "Available commands (" + (args.length > 1 ? (args[1].matches("\\d+") ? "Page " + args[1] + " of " + (availableCommands.size() - 1) / 7 : "Matching " + etc.combineSplit(1, args, " ")) : "Page 1 of " + ((availableCommands.size() - 1) / 7) + ") <> = required [] = optional:"));
             if (args.length > 1) {
                 if (args[1].matches("\\d+")) {
                     try {
@@ -302,7 +302,7 @@ public class PlayerCommands {
                 caller.notify("Can't find user " + args[1] + ".");
                 return;
             }
-            if (player.getWorld().getType() != ((Player) caller).getWorld().getType() && !((Player) caller).canIgnoreRestrictions()) {
+            if (!player.getWorld().equals(((Player) caller).getWorld()) && !((Player) caller).canIgnoreRestrictions()) {
                 caller.notify("That player is in another world.");
                 return;
             }
@@ -331,7 +331,7 @@ public class PlayerCommands {
                 return;
             }
 
-            if (player.getWorld().getType() != ((Player) caller).getWorld().getType() && !((Player) caller).canIgnoreRestrictions()) {
+            if (!player.getWorld().equals(((Player) caller).getWorld()) && !((Player) caller).canIgnoreRestrictions()) {
                 caller.notify("That player is in another world.");
                 return;
             }
@@ -390,17 +390,8 @@ public class PlayerCommands {
                     } else if (player.canIgnoreRestrictions()) {
                         toGive = etc.getServer().matchPlayer(args[3]);
                     }
-                    if ( (damage < 0 || damage > 200) && itemId != 373) {
-                        damage = 0;
-                    }
                 } else if (args.length == 5) {
                     damage = Integer.parseInt(args[3]);
-                    if (itemId == 383) {
-                        System.out.println("ItemID: " + itemId);
-                    }
-                    if ( (damage < 0 || damage > 200) && itemId != 373) {
-                        damage = 0;
-                    }
                     if (player.canIgnoreRestrictions()) {
                         toGive = etc.getServer().matchPlayer(args[4]);
                     }
@@ -1207,8 +1198,8 @@ public class PlayerCommands {
                 player.sendMessage("Lvl: " + Colors.Yellow + player.getLevel() + Colors.White);
                 player.sendMessage(String.format("Exp:%s %.0f %s/%s %d %s(%s%.2f%%%s)", // Exp: xx / yy (zz.zz%)
                         Colors.Yellow, ent.cf * ent.cc(), Colors.White,
-                        Colors.Yellow, ent.bY(), Colors.White,
-                        Colors.Yellow, ent.ci, Colors.White));
+                        Colors.Yellow, ent.cc(), Colors.White,
+                        Colors.Yellow, ent.cf, Colors.White));
 
                 if(player.isAdmin()) {
                     player.sendMessage(Colors.Yellow + (etc.getInstance().isOldExperience() ? "Pre-":"Post ") + "1.3.2 Experience System" + Colors.White);

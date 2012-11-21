@@ -22,12 +22,7 @@ public class Sheep extends Mob {
 	 * @param sheared Sheared or not
 	 */
 	public void setSheared(boolean sheared){
-		int i = getEntity().ag.a(16);
-		if (sheared){
-			getEntity().ag.b(16, Byte.valueOf((byte)(i | 0x10)));
-		} else {
-			getEntity().ag.b(16, Byte.valueOf((byte)(i & 0xFFFFFFEF)));
-		}
+		getEntity().f(sheared);
 	}
 
 	/**
@@ -36,7 +31,7 @@ public class Sheep extends Mob {
 	 * @return If this sheep has wool.
 	 */
 	public boolean isSheared(){
-		return (getEntity().ag.a(16) & 0x10) != 0;
+		return getEntity().n();
 	}
 
 	/**
@@ -45,8 +40,7 @@ public class Sheep extends Mob {
 	 * @param color int value of the new color.
 	 */
 	public void setWoolColor(int color){
-		int i = getEntity().ag.a(16);
-		getEntity().ag.b(16, Byte.valueOf((byte)(i & 0xF0 | color & 0xF)));
+        getEntity().s(color);
 	}
 
 	/**
@@ -55,7 +49,7 @@ public class Sheep extends Mob {
 	 * @return int value of wool color.
 	 */
 	public int getColor(){
-		return getEntity().ag.a(16) & 0xF;
+        return getEntity().m();
 	}
 
 	/**

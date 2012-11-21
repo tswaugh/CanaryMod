@@ -9,7 +9,7 @@ public class TamableEntity extends Mob{
 	 * @return True if tamed.
 	 */
 	public boolean isTame(){
-		return getEntity().n();
+		return getEntity().m();
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class TamableEntity extends Mob{
 	 * @return A Player instance of this animals owner, else null.
 	 */
 	public Player getOwner(){
-		LivingEntity le = new LivingEntity(getEntity().p());
+		LivingEntity le = getEntity().p().getEntity();
 		if (le.isPlayer()){
 			return le.getPlayer();
 		} else {
@@ -59,7 +59,7 @@ public class TamableEntity extends Mob{
 	 * @param tame True if the animal should be tame.
 	 */
 	public void setTame(boolean tame){
-		getEntity().b(tame);
+		getEntity().g(tame);
 	}
 
 	/**
@@ -68,11 +68,8 @@ public class TamableEntity extends Mob{
 	 * @param sitting If this animal should be sitting.
 	 */
 	public void setSitting(boolean sitting){
-		int i = getEntity().ag.a(16);
-		if (sitting)
-			getEntity().ag.b(16, Byte.valueOf((byte)(i | 0x1)));
-		else
-			getEntity().ag.b(16, Byte.valueOf((byte)(i & 0xFFFFFFFE)));
+        getEntity().h(sitting);
+        getEntity().d.a(sitting);
 	}
 
 	/**

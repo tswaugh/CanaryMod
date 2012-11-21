@@ -132,6 +132,7 @@ public class Server {
 
     /**
      * Tries to match a character's name.
+     * Use this for getting a <tt>Player</tt> from user input.
      *
      * @param name
      * @return
@@ -141,21 +142,21 @@ public class Server {
 
         name = name.toLowerCase();
 
-        for (OEntityPlayerMP player : (List<OEntityPlayerMP>) server.ad().b) {
-            String playerName = player.bQ;
+        for (Player player : this.getPlayerList()) {
+            String playerName = player.getName().toLowerCase();
 
-            if (playerName.toLowerCase().equals(name)) {
+            if (playerName.equals(name)) {
                 // Perfect match found
-                lastPlayer = player.getPlayer();
+                lastPlayer = player;
                 break;
             }
-            if (playerName.toLowerCase().indexOf(name.toLowerCase()) != -1) {
+            if (playerName.indexOf(name) != -1) {
                 // Partial match
                 if (lastPlayer != null) {
                     // Found multiple
                     return null;
                 }
-                lastPlayer = player.getPlayer();
+                lastPlayer = player;
             }
         }
 
@@ -163,7 +164,8 @@ public class Server {
     }
 
     /**
-     * Returns specified player
+     * Returns specified player.
+     * For fuzzy matching, use {@link #matchPlayer(String)}.
      *
      * @param name
      * @return
@@ -795,12 +797,36 @@ public class Server {
     }
 
     /**
-     * Adds a recipe to the crafting manager. Due to deadlines, this
-     * documentation isn't written yet, you may want to refer to MCP in the
-     * meantime.
+     * Adds a recipe to the crafting manager.
      *
      * @param item The item to return
-     * @param recipe The recipe to return the item for
+     * @param recipe The recipe to return the item for.<br />
+     * The recipe starts with (an array of) 1-3 strings of equal length
+     * containing 1-3 characters, describing the recipe. Each character denotes
+     * a different item stack. Following the (array of) strings are
+     * character-item stack pairs, specifying which character corresponds to
+     * which item stack. The item stack half of the pair can be
+     * {@link Item.Type}, {@link Block.Type}, or even {@link Item} (the latter
+     * is useful for specifying amounts and data values).<br />
+     *
+     * The following code would add a workbench:
+     * <blockquote><code><pre>
+     * etc.getServer().addRecipe(new Item(Item.Type.Workbench),
+     *                           "##",
+     *                           "##",
+     *                           '#', Item.Type.Wood);
+     * </pre></code></blockquote>
+     * And the following code would add a piston:
+     * <blockquote><code><pre>
+     * etc.getServer().addRecipe(new Item(Item.Type.Piston),
+     *                           "WWW",
+     *                           "CIC",
+     *                           "CRC",
+     *                           'W', Item.Type.Wood,
+     *                           'C', Item.Type.Cobblestone,
+     *                           'I', Item.Type.IronIngot,
+     *                           'R', Item.Type.RedStone);
+     * </pre></code></blockquote>
      */
     public void addRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
@@ -808,18 +834,26 @@ public class Server {
                 recipe[i] = OBlock.p[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
                 recipe[i] = OItem.e[((Item.Type) recipe[i]).getId()];
+            } else if (recipe[i] instanceof Item) {
+                recipe[i] = ((Item) recipe[i]).getBaseItem();
             }
         }
         OCraftingManager.a().a(item.getBaseItem(), recipe);
     }
 
     /**
-     * Adds a shapeless recipe to the crafting manager. Due to deadlines, this
-     * documentation isn't written yet, you may want to refer to MCP in the
-     * meantime.
+     * Adds a shapeless recipe to the crafting manager.
+     * An example of a shapeless recipe is dyeing wool. It doesn't matter where
+     * the needed items are, they just need to be there.
      *
      * @param item The item to return
-     * @param recipe The recipes to return the item for.
+     * @param recipe The recipe to return the item for.<br>
+     * This is really just a list of items that need to be in the crafting
+     * grid. This code would add the dyeing recipe for red wool:
+     * <blockquote><code>
+     * etc.getServer().addShapelessRecipe(Cloth.RED.getItem(),
+     *         new Item(Item.Type.InkSack, 1, -1, 1), Cloth.WHITE.getItem());
+     * </blockquote></code>
      */
     public void addShapelessRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
@@ -827,6 +861,8 @@ public class Server {
                 recipe[i] = OBlock.p[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
                 recipe[i] = OItem.e[((Item.Type) recipe[i]).getId()];
+            } else if (recipe[i] instanceof Item) {
+                recipe[i] = ((Item) recipe[i]).getBaseItem();
             }
         }
         OCraftingManager.a().b(item.getBaseItem(), recipe);
@@ -853,7 +889,7 @@ public class Server {
      *
      * @param from The inserted item
      * @param to The resulting item
-     * @param xp TODO: check wtf this is
+     * @param xp The amount of XP you get
      * @throws IllegalArgumentException if the amount of {@code from} doesn't
      * equal 1.
      */
@@ -869,7 +905,8 @@ public class Server {
      *
      * @return a list containing {@code OIRecipe} instances.
      */
-    public List getRecipeList() {
+    @SuppressWarnings("unchecked")
+    public List<OIRecipe> getRecipeList() {
         return OCraftingManager.a().b();
     }
 

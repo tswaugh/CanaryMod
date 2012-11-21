@@ -24,7 +24,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     private PlayerInventory inventory;
     private List<String> onlyOneUseKits = new ArrayList<String>();
     private Map<Kit, Long> cooldownKits = new HashMap<Kit, Long>();
-    private Pattern badChatPattern = Pattern.compile("[\u00a7\u2302\u00D7\u00AA\u00BA\u00AE\u00AC\u00BD\u00BC\u00A1\u00AB\u00BB]");
+    private static Pattern badChatPattern = Pattern.compile("[\u00a7\u2302\u00D7\u00AA\u00BA\u00AE\u00AC\u00BD\u00BC\u00A1\u00AB\u00BB]");
     private String offlineName = ""; // Allows modify command to work on offline players
     private long lastMessage;
     private int spamTicker;
@@ -253,15 +253,15 @@ public class Player extends HumanEntity implements MessageReceiver {
         OEntityPlayerMP player = getEntity();
 
         if (amount == -1) {
-            player.b(new OItemStack(itemId, 255, damage));
+            player.c(new OItemStack(itemId, 255, damage));
         } else {
             int temp = amount;
 
             do {
                 if (temp - 64 >= 64) {
-                    player.b(new OItemStack(itemId, 64, damage));
+                    player.c(new OItemStack(itemId, 64, damage));
                 } else {
-                    player.b(new OItemStack(itemId, temp, damage));
+                    player.c(new OItemStack(itemId, temp, damage));
                 }
                 temp -= 64;
             } while (temp > 0);
@@ -552,9 +552,10 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Don't use this! Use isAdmin
+     * Returns true if this player is an admin.
      *
      * @return
+     * @deprecated Use {@link #isAdmin()} instead.
      */
     @Deprecated
     public boolean getAdmin() {
@@ -939,7 +940,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if sneaking
      */
     public boolean getSneaking() {
-        return getEntity().af();
+        return getEntity().ah();
     }
     
     /**
@@ -947,7 +948,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return true if blocking
      */
     public boolean isBlocking(){
-        return getEntity().be();
+        return getEntity().bh();
     }
 
     /**
@@ -966,17 +967,35 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return List of kit names
      */
     public List<String> getOnlyOneUseKits() {
-        return new ArrayList<String>(onlyOneUseKits);
+        return onlyOneUseKits;
     }
 
+    /**
+     * Add a cooldown kit to the cooldown map.
+     * @param kit The <tt>Kit</tt> to add to the map
+     * @param delay The delay after which this kit can be used again
+     */
     public void addCooldownKit(Kit kit, int delay) {
         this.cooldownKits.put(kit, System.currentTimeMillis() + delay * 50);
     }
 
+    /**
+     * Remove a cooldown kit from the cooldown map.
+     * This makes it available to the player for use again immediately.
+     * @param kit The <tt>Kit</tt> to remove.
+     */
     public void removeCooldownKit(Kit kit) {
         this.cooldownKits.remove(kit);
     }
 
+    /**
+     * Check whether a player can use the cooldown kit.
+     * If the cooldown has expired, this method also removes the kit it from
+     * the cooldown map.
+     * @param kit The <tt>Kit</tt> to check for.
+     * @return <tt>false</tt> if the kit's cooldown period is in effect,
+     * <tt>true</tt> otherwise.
+     */
     public boolean canUseCooldownKit(Kit kit) {
         if (!this.cooldownKits.containsKey(kit)) {
             return true;
@@ -1130,8 +1149,12 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Refresh this Player's mode
+     * Refresh this Player's mode.
+     * @deprecated This method has a confusing name.
+     * Use a combination of {@link #setCreativeMode(int)} and
+     * {@link World#getGameMode()} instead.
      */
+    @Deprecated
     public void refreshCreativeMode() {
         this.getEntity().c.a(this.getWorld().getWorld().z.r());
     }
@@ -1169,7 +1192,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param amount the amount of experience points to add.
      */
     public void addXP(int amount) {
-        this.getEntity().t(amount);
+        this.getEntity().w(amount);
         this.updateXP();
     }
 
@@ -1256,22 +1279,6 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Updates the inventory on the client
-     *
-     */
-    @SuppressWarnings("unchecked")
-    public void updateInventory() {
-        OContainer container = getEntity().bJ;
-        ArrayList list = new ArrayList();
-
-        for (OSlot slot : (List<OSlot>) container.b) {
-            list.add(slot.c());
-        }
-
-        getEntity().a(container, list);
-    }
-
-    /**
      * Get Players food saturationLevel
      * @return
      */
@@ -1287,6 +1294,22 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void setFoodSaturationLevel(float foodSaturationLevel) {
         getEntity().bL.b = Math.min(foodSaturationLevel, getFoodLevel());
         updateLevels();
+    }
+
+    /**
+     * Updates the inventory on the client
+     *
+     */
+    @SuppressWarnings("unchecked")
+    public void updateInventory() {
+        OContainer container = getEntity().bJ;
+        ArrayList<OItemStack> list = new ArrayList<OItemStack>();
+
+        for (OSlot slot : (List<OSlot>) container.b) {
+            list.add(slot.c());
+        }
+
+        getEntity().a(container, list);
     }
 
     /**
@@ -1400,7 +1423,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public Location getRespawnLocation() {
         Location spawn = etc.getServer().getDefaultWorld().getSpawnLocation();
-        OChunkCoordinates loc = getEntity().b();
+        OChunkCoordinates loc = getEntity().ca();
 
         if (loc != null) {
             spawn = new Location(etc.getServer().getDefaultWorld(), loc.a, loc.b, loc.c);
@@ -1551,5 +1574,14 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public void applyDamage(PluginLoader.DamageType type, int amount) {
     	getEntity().d(type.getDamageSource(), amount);
+    }
+
+    void copyTo(Player p) {
+        p.entity = this.entity;
+        p.cooldownKits = this.cooldownKits;
+        p.onlyOneUseKits = this.onlyOneUseKits;
+        p.muted = this.muted;
+        p.lastMessage = this.lastMessage;
+        p.spamTicker = this.spamTicker;
     }
 }

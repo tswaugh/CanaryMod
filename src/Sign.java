@@ -46,26 +46,32 @@ public class Sign implements ComplexBlock {
         return "";
     }
 
+    @Override
     public int getX() {
         return sign.l;
     }
 
+    @Override
     public int getY() {
         return sign.m;
     }
 
+    @Override
     public int getZ() {
         return sign.n;
     }
 
+    @Override
     public Block getBlock() {
         return getWorld().getBlockAt(getX(), getY(), getZ());
     }
 
+    @Override
     public World getWorld() {
         return this.sign.k.world;
     }
 
+    @Override
     public void update() {
         getWorld().getWorld().h(getX(), getY(), getZ());
     }
