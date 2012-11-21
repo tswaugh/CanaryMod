@@ -70,4 +70,36 @@ public class Villager extends Mob {
 	public OEntityVillager getEntity() {
 		return (OEntityVillager) entity;
 	}
+	
+	/**
+	 * Returns an immutable array of this villager's trades
+	 * 
+	 * @return
+	 */
+	public VillagerTrade[] getTrades() {
+		OMerchantRecipeList list = getEntity().b((OEntityPlayer) null);
+		VillagerTrade[] rt = new VillagerTrade[list.size()];
+		for(int i=0; i<rt.length; i++) {
+			rt[i] = new VillagerTrade((OMerchantRecipe) list.get(i));
+		}
+		return rt;
+	}
+	
+	/**
+	 * Adds a trade to this villager
+	 * 
+	 * @param trade
+	 */
+	public void addTrade(VillagerTrade trade) {
+		getEntity().b((OEntityPlayer) null).add(trade.getRecipe());
+	}
+	
+	/**
+	 * Removes a trade from this villager
+	 * 
+	 * @param index the index of the trade to remove
+	 */
+	public void removeTrade(int index) {
+		getEntity().b((OEntityPlayer) null).remove(index);
+	}
 }
