@@ -222,14 +222,14 @@ public class MobSpawner implements ComplexBlock {
      * @param entity The entity this spawner should spawn
      */
     public void setSpawnedEntity(OEntity entity) {
-    	ONBTTagCompound tag = new ONBTTagCompound();
-    	entity.b(tag);
-    	tag.o("Health");
-    	tag.o("HurtTime");
-    	tag.o("DeathTime");
-    	tag.o("AttackTime");
-    	tag.o("Age");
-    	spawner.e = tag;
+    	NBTTagCompound tag = new NBTTagCompound();
+    	entity.b(tag.getBaseTag());
+    	tag.removeTag("Health");
+    	tag.removeTag("HurtTime");
+    	tag.removeTag("DeathTime");
+    	tag.removeTag("AttackTime");
+    	tag.removeTag("Age");
+    	spawner.e = tag.getBaseTag();
     	setSpawn(entity.Q());
     }
     
