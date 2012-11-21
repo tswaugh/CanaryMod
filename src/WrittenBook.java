@@ -10,6 +10,7 @@ import java.util.List;
 public class WrittenBook {
 
     OItemStack book;
+    NBTTagCompound nbtTag;
 
     /**
      * Creates a new instance of WrittenBook.
@@ -19,7 +20,7 @@ public class WrittenBook {
      * @param item An instance of a book and quill or a written book.
      */
     public WrittenBook(Item item) {
-        this.book = item.getBaseItem();
+        this(item.getBaseItem());
     }
 
     /**
@@ -28,6 +29,7 @@ public class WrittenBook {
      */
     public WrittenBook(OItemStack book) {
         this.book = book;
+        this.nbtTag = new NBTTagCompound(book.d);
     }
 
     /**
@@ -37,20 +39,12 @@ public class WrittenBook {
      * item is not a book)
      */
     public String getTitle() {
-        if (book.d == null) {
-            return "";
-        }
-        if (!book.d.b("title")) {
-            return "";
-        }
-        return book.d.i("title");
+        return nbtTag.getString("title");
     }
 
     public void setTitle(String title) {
-    	if (book.d == null) {
-        	book.d = new ONBTTagCompound("tag");
-        }
-        book.d.a("title", title);
+        nbtTag.removeTag("title");
+        nbtTag.add("title", title);
     }
 
     /**
@@ -60,13 +54,7 @@ public class WrittenBook {
      * item is not a book)
      */
     public String getAuthor() {
-        if (book.d == null) {
-            return "";
-        }
-        if (!book.d.b("author")) {
-            return "";
-        }
-        return book.d.i("author");
+    	return nbtTag.getString("author");
     }
 
     /**
@@ -74,10 +62,8 @@ public class WrittenBook {
      * @param author The new author
      */
     public void setAuthor(String author) {
-    	if (book.d == null) {
-        	book.d = new ONBTTagCompound("tag");
-        }
-        book.d.a("author", author);
+    	nbtTag.removeTag("author");
+        nbtTag.add("author", author);
     }
 
     /**
@@ -86,14 +72,11 @@ public class WrittenBook {
      * item.
      */
     public List<String> getPages() {
-        if (book.d == null) {
-            return Collections.emptyList();
-        }
         List<String> pages = new ArrayList<String>();
-        ONBTTagList nbtPages = (ONBTTagList) book.d.a("pages");
-        for (int i = 0; i < nbtPages.c(); i++) {
-            ONBTTagString nbtPage = (ONBTTagString) nbtPages.b(i);
-            String page = nbtPage.a;
+        NBTTagList nbtPages = nbtTag.getNBTTagList("pages");
+        for (int i = 0; i < nbtPages.size(); i++) {
+            NBTTagString nbtPage = (NBTTagString) nbtPages.get(i);
+            String page = nbtPage.getValue();
             if (page != null && !page.trim().equals("")) {
                 pages.add(page);
             }
@@ -106,14 +89,12 @@ public class WrittenBook {
      * @param pages A list containing the new pages as a <tt>String</tt>
      */
     public void setPages(List<String> pages) {
-        if (book.d == null) {
-        	book.d = new ONBTTagCompound("tag");
-        }
-    	ONBTTagList nbtPages = new ONBTTagList("pages");
+    	NBTTagList nbtPages = new NBTTagList("pages");
         for (String page : pages) {
-            nbtPages.a(new ONBTTagString("", page));
+            nbtPages.add(new NBTTagString("", page));
         }
-        book.d.a("pages", nbtPages);
+        nbtTag.removeTag("pages");
+        nbtTag.add("pages", nbtPages);
     }
 
     /**
