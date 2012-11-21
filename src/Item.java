@@ -722,9 +722,10 @@ public class Item implements Cloneable {
         if (itemStack != null && itemStack.w()) {
             int size = itemStack.q().c();
             enchantments = new Enchantment[size];
+            NBTTagList nbtTagList = new NBTTagList(itemStack.q());
             for (int i = 0; i < size; i++) {
-                ONBTTagCompound tag = (ONBTTagCompound) itemStack.q().b(i);
-                enchantments[i] = new Enchantment(Enchantment.Type.fromId(tag.d("id")), tag.d("lvl"));
+                NBTTagCompound tag = (NBTTagCompound) nbtTagList.get(i);
+                enchantments[i] = new Enchantment(Enchantment.Type.fromId(tag.getShort("id")), tag.getShort("lvl"));
             }
         }
         return enchantments;
@@ -742,8 +743,8 @@ public class Item implements Cloneable {
             if (index >= size) {
                 index = 0;
             }
-            ONBTTagCompound tag = (ONBTTagCompound) itemStack.q().b(index);
-            return new Enchantment(Enchantment.Type.fromId(tag.d("id")), tag.d("lvl"));
+            NBTTagCompound tag = (NBTTagCompound) new NBTTagList(itemStack.q()).get(index);
+            return new Enchantment(Enchantment.Type.fromId(tag.getShort("id")), tag.getShort("lvl"));
         }
         return null;
     }
@@ -754,11 +755,7 @@ public class Item implements Cloneable {
      * @return enchantment
      */
     public Enchantment getEnchantment() {
-        if (itemStack != null && itemStack.w()) {
-            ONBTTagCompound tag = (ONBTTagCompound) itemStack.q().b(0);
-            return new Enchantment(Enchantment.Type.fromId(tag.d("id")), tag.d("lvl"));
-        }
-        return null;
+        return getEnchantment(0);
     }
 
     /**
@@ -796,16 +793,16 @@ public class Item implements Cloneable {
     		return null;
     	}
     	
-    	ONBTTagCompound tag = base.p();
-    	if(!tag.b("CustomPotionEffects")) {
+    	NBTTagCompound tag = new NBTTagCompound(base.p());
+    	if(!tag.hasTag("CustomPotionEffects")) {
     		return null;
     	}
     	
-    	ONBTTagList potionEffects = tag.m("CustomPotionEffects");
-    	PotionEffect[] rt = new PotionEffect[potionEffects.c()];
+    	NBTTagList potionEffects = tag.getNBTTagList("CustomPotionEffects");
+    	PotionEffect[] rt = new PotionEffect[potionEffects.size()];
     	if(rt.length <= 0) {return null;}
     	for(int i=0; i<rt.length; i++) {
-    		rt[i] = new PotionEffect(OPotionEffect.b((ONBTTagCompound) potionEffects.b(i)));
+    		rt[i] = new PotionEffect(OPotionEffect.b((ONBTTagCompound) potionEffects.get(i).getBaseTag()));
     	}
     	
     	return rt;
@@ -832,27 +829,27 @@ public class Item implements Cloneable {
     	
     	OItemStack base = getBaseItem();
     	
-    	ONBTTagList potionEffects = null;
+    	NBTTagList potionEffects = null;
     	if(base.o()) {
-    		ONBTTagCompound tag = base.p();
-    		if(tag.b("CustomPotionEffects")) {
-    			potionEffects = tag.m("CustomPotionEffects");
+    		NBTTagCompound tag = new NBTTagCompound(base.p());
+    		if(tag.hasTag("CustomPotionEffects")) {
+    			potionEffects = tag.getNBTTagList("CustomPotionEffects");
     		} else {
-    			potionEffects = new ONBTTagList();
-    			tag.a("CustomPotionEffects", potionEffects);
+    			potionEffects = new NBTTagList();
+    			tag.add("CustomPotionEffects", potionEffects);
     		}
     	} else {
-    		potionEffects = new ONBTTagList();
-    		ONBTTagCompound tag = new ONBTTagCompound();
-    		tag.a("CustomPotionEffects", potionEffects);
-    		base.d(tag);
+    		potionEffects = new NBTTagList();
+    		NBTTagCompound tag = new NBTTagCompound();
+    		tag.add("CustomPotionEffects", potionEffects);
+    		base.d(tag.getBaseTag());
     	}
     	
-    	ONBTTagCompound[] e = new ONBTTagCompound[effects.length];
-    	for(int i=0; i<e.length; i++) {
-    		e[i] = new ONBTTagCompound();
-    		effects[i].potionEffect.a(e[i]);
-    		potionEffects.a(e[i]);
+    	NBTTagCompound[] e = new NBTTagCompound[effects.length];
+    	for(int i = 0; i < e.length; i++) {
+    		e[i] = new NBTTagCompound();
+    		effects[i].potionEffect.a(e[i].getBaseTag());
+    		potionEffects.add(e[i]);
     	}
     }
 
@@ -879,7 +876,7 @@ public class Item implements Cloneable {
      * 
      * @return The lore, each string in the array is a new line
      */
-    public String[] getLore() {
+    public String[] getLore() { // WWOL: I don't think we need this now with the new NBT API do we?
     	OItemStack base = getBaseItem();
     	if(!base.o()) {return null;}
     	ONBTTagCompound tag = base.p();
