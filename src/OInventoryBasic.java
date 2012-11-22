@@ -106,7 +106,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
 
     @Override
     public void setContentsAt(int i, OItemStack oitemstack) {
-        this.a(b, oitemstack);
+        this.a(i, oitemstack);
     }
 
     @Override

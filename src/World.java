@@ -518,6 +518,8 @@ public class World {
                 return new BrewingStand((OTileEntityBrewingStand) localav);
             } else if (localav instanceof OTileEntityRecordPlayer) {
             	return new JukeBox((OTileEntityRecordPlayer) localav);
+            } else if (localav instanceof OTileEntitySkull) {
+            	return new Skull((OTileEntitySkull) localav);
             }
         }
         return null;

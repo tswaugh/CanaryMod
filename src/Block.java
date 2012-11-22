@@ -773,4 +773,12 @@ public class Block {
         }
     }
 
+    /**
+     * Returns this block as a complex block. null if this is not a complex block.
+     * 
+     * @return
+     */
+    public ComplexBlock getComplex() {
+    	return getWorld().getComplexBlock(this);
+    }
 }

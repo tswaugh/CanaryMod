@@ -1584,4 +1584,13 @@ public class Player extends HumanEntity implements MessageReceiver {
         p.lastMessage = this.lastMessage;
         p.spamTicker = this.spamTicker;
     }
+    
+    /**
+     * Returns this player's ender chest for modification
+     * 
+     * @return
+     */
+    public EnderChestInventory getEnderChest() {
+    	return new EnderChestInventory(getEntity().cf());
+    }
 }
