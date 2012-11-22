@@ -41,7 +41,7 @@ public class OItemMonsterPlacer extends OItem {
         }
     }
 
-    public static OEntity a(OWorld oworld, int i, double d0, double d1, double d2) {
+    public static OEntity a(OWorld oworld, int i, double d0, double d1, double d2, boolean spawn) { //CanaryMod: added option to not spawn entities
         if (!OEntityList.a.containsKey(Integer.valueOf(i))) {
             return null;
         } else {
@@ -52,12 +52,18 @@ public class OItemMonsterPlacer extends OItem {
                 if (oentity != null) {
                     oentity.b(d0, d1, d2, oworld.u.nextFloat() * 360.0F, 0.0F);
                     ((OEntityLiving) oentity).bG();
-                    oworld.d(oentity);
+                    if(spawn) {
+                    	oworld.d(oentity);
+                    }
                     ((OEntityLiving) oentity).aO();
                 }
             }
 
             return oentity;
         }
+    }
+    
+    public static OEntity a(OWorld oworld, int i, double d0, double d1, double d2) {
+    	return a(oworld, i, d0, d1, d2, true);
     }
 }
