@@ -186,7 +186,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             if (!etc.getInstance().isExpEnabled()) {
                 this.ce = 0;
                 this.cd = 0;
-            } else if ((Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, getPlayer(), this.cq, ch)) {
+            } else if ((Boolean) manager.callHook(PluginLoader.Hook.EXPERIENCE_CHANGE, getPlayer(), this.cn, ce)) {
                 this.ce = this.cn;
             }
         }
