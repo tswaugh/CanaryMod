@@ -42,6 +42,8 @@ public class OExplosion {
             block.setStatus(2);
         } else if (this.f instanceof OEntityFireball) {
             block.setStatus(3);
+        } else if (this.f instanceof OEntityWitherSkull) {
+            block.setStatus(4);
         }
 
         int i;

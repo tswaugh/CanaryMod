@@ -354,12 +354,12 @@ public class PluginListener {
     /**
      * Called when a dynamite block or a creeper is triggered. block status
      * depends on explosive compound: 1 = dynamite. 2 = creeper. 3 = ghast
-     * fireball.
+     * fireball. 4 = wither skull
      * 
      * @param block
-     *            Dynamite block/creeper/ghast fireball location block.
+     *            Dynamite block/creeper/ghast fireball/wither skull location block.
      * 
-     * @deprecated Use onExplode(Block,BaseEntity,List) instead. You can still
+     * @deprecated Use onExplosion(Block,BaseEntity,List) instead. You can still
      *             use block.getStatus to get what exploded, as well as using
      *             OEntity.
      * @return true if you dont the block to explode.
@@ -370,9 +370,9 @@ public class PluginListener {
     }
 
     /**
-     * Called when a tnt block, creeper, or ghast fireball explodes. Block
+     * Called when a tnt block, creeper, ghast fireball, or wither skull explodes. Block
      * status depends on the entity exploding: 1 = tnt. 2 = creeper. 3 = ghast
-     * fireball.
+     * fireball. 4 = wither skull
      * 
      * You can also get the explosion type from OEntity using instanceof.
      * 
@@ -380,13 +380,13 @@ public class PluginListener {
      *            The block location where the explosion occurred.
      * 
      * @param entity
-     *            The entity that caused the explosion(tnt, creeper, or
-     *            fireball)
+     *            The entity that caused the explosion(tnt, creeper, fireball,
+     *            skull)
      * 
      * @param blocksaffected
      *            The blocks affected by the explosion in a hashset.
      * 
-     * @deprecated Use onExplode(Block,BaseEntity,List) instead. You can still
+     * @deprecated Use onExplosion(Block,BaseEntity,List) instead. You can still
      *             use block.getStatus to get what exploded, as well as using
      *             Entity.
      * @return true if you don't want the explosion to occur.
@@ -399,7 +399,7 @@ public class PluginListener {
     /**
      * Called when a tnt block, creeper, or ghast fireball explodes. Block
      * status depends on the entity exploding: 1 = tnt. 2 = creeper. 3 = ghast
-     * fireball.
+     * fireball. 4 = wither skull
      * 
      * You can also get the explosion type from BaseEntity using
      * BaseEntity.getName().
@@ -408,8 +408,8 @@ public class PluginListener {
      *            The block location where the explosion occurred.
      * 
      * @param entity
-     *            The entity that caused the explosion(tnt, creeper, or
-     *            fireball)
+     *            The entity that caused the explosion(tnt, creeper, fireball,
+     *            skull)
      * 
      * @param blocksaffected
      *            The blocks affected by the explosion in a list.
