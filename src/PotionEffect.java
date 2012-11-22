@@ -75,6 +75,16 @@ public class PotionEffect {
     public static PotionEffect getNewPotionEffect(PotionEffect.Type effect, int amplifier, int duration) {
         return new OPotionEffect(effect.getId(), duration, amplifier).potionEffect;
     }
+    
+    /**
+     * Creates a new PotionEffect
+     * 
+     * @param tag the tag to get the potion effect's data from
+     * @return
+     */
+    public static PotionEffect getNewPotionEffect(NBTTagCompound tag) {
+    	return OPotionEffect.b(tag.getBaseTag()).potionEffect;
+    }
    
     public PotionEffect.Type getType() {
         return PotionEffect.Type.fromId(potionEffect.a());
@@ -99,5 +109,14 @@ public class PotionEffect {
     public void setAmplifier(int amplifier) {
         potionEffect.c = amplifier;
     }
-   
+    
+    /**
+     * Writes this potion effect's data to an NBTTagCompound
+     * 
+     * @param tag the tag to write to
+     * @return the same tag that was passed in, but rewrapped
+     */
+    public NBTTagCompound writeToTag(NBTTagCompound tag) {
+    	return new NBTTagCompound(potionEffect.a(tag.getBaseTag()));
+    }
 }

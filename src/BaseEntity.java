@@ -462,9 +462,15 @@ public class BaseEntity {
      * Writes this entity's data to an NBTTagCompound
      * 
      * @param tag the tag to write the data to
+     * @param includeId whether or not to include the entity id in the write
+     * @return whether or not the write was successful
      */
-    public void writeToTag(NBTTagCompound tag) {
-    	getEntity().c(tag.getBaseTag());
+    public boolean writeToTag(NBTTagCompound tag, boolean includeId) {
+    	if(includeId) {
+    		return getEntity().c(tag.getBaseTag());
+    	}
+    	getEntity().d(tag.getBaseTag());
+    	return true;
     }
     
     /**

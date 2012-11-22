@@ -112,4 +112,22 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
     public String toString() {
         return String.format(this.name + " [x=%d, y=%d, z=%d, world=%s, dimension=%d]", this.getX(), this.getY(), this.getZ(), this.getWorld().getName(), this.getWorld().getType().getId());
     }
+    
+    /**
+     * Sets this block's data to that found in an NBTTagCompound
+     * 
+     * @param tag the tag to read from
+     */
+    public void readFromTag(NBTTagCompound tag) {
+    	container.a(tag.getBaseTag());
+    }
+    
+    /**
+     * Writes this block's data to an NBTagCompound
+     * 
+     * @param tag the tag to write to
+     */
+    public void writeToTag(NBTTagCompound tag) {
+    	container.b(tag.getBaseTag());
+    }
 }
