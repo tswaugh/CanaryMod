@@ -171,7 +171,7 @@ public class World {
      *
      * @return list of mobs
      */
-    public List<Mob> getMobList() {
+    public synchronized List<Mob> getMobList() {
         List<Mob> toRet = new ArrayList<Mob>();
 
         for (Object o : world.e) {
@@ -187,7 +187,7 @@ public class World {
      *
      * @return list of animals
      */
-    public List<Mob> getAnimalList() {
+    public synchronized List<Mob> getAnimalList() {
         List<Mob> toRet = new ArrayList<Mob>();
 
         for (Object o : world.e) {
@@ -203,7 +203,7 @@ public class World {
      *
      * @return list of minecarts
      */
-    public List<Minecart> getMinecartList() {
+    public synchronized List<Minecart> getMinecartList() {
         List<Minecart> toRet = new ArrayList<Minecart>();
 
         for (Object o : world.e) {
@@ -219,7 +219,7 @@ public class World {
      *
      * @return list of boats
      */
-    public List<Boat> getBoatList() {
+    public synchronized List<Boat> getBoatList() {
         List<Boat> toRet = new ArrayList<Boat>();
 
         for (Object o : world.e) {
@@ -235,7 +235,7 @@ public class World {
      *
      * @return list of entities
      */
-    public List<BaseEntity> getEntityList() {
+    public synchronized List<BaseEntity> getEntityList() {
         List<BaseEntity> toRet = new ArrayList<BaseEntity>();
 
         for (Object o : world.e) {
@@ -261,7 +261,7 @@ public class World {
      *
      * @return list of items
      */
-    public List<ItemEntity> getItemList() {
+    public synchronized List<ItemEntity> getItemList() {
         List<ItemEntity> toRet = new ArrayList<ItemEntity>();
 
         for (Object o : world.e) {
@@ -278,7 +278,7 @@ public class World {
      *
      * @return list of living entities
      */
-    public List<LivingEntity> getLivingEntityList() {
+    public synchronized List<LivingEntity> getLivingEntityList() {
         List<LivingEntity> toRet = new ArrayList<LivingEntity>();
 
         for (Object o : world.e) {
@@ -294,7 +294,7 @@ public class World {
      *
      * @return list of vehicles
      */
-    public List<BaseVehicle> getVehicleEntityList() {
+    public synchronized List<BaseVehicle> getVehicleEntityList() {
         List<BaseVehicle> toRet = new ArrayList<BaseVehicle>();
 
         for (Object o : world.e) {
