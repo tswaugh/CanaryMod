@@ -1271,12 +1271,13 @@ public class PluginListener {
     }
     
     /**
-     * Called when a projectile hits something
+     * Called when a projectile hits something.
      * 
      * @param projectile
-     * 			- The projectile that impacted
+     * 			- The projectile that impacted.
      * @param hit
-     * 			- The entity that was hit (null if none)
+     * 			- The entity that was hit (null if none).
+     * @return false to allow the impact, true to cancel it (if true is always returned, the projectile will fall through the world)
      */
     public boolean onProjectileHit(Projectile projectile, BaseEntity hit) {
     	return false;

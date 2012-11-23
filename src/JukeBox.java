@@ -71,4 +71,9 @@ public class JukeBox implements ComplexBlock {
     public Item getDisc() {
         return hasRecord() ? new Item(oRP.a) : null;
     }
+    
+    @Override
+	public NBTTagCompound getMetaTag() {
+		return oRP.metadata;
+    }
 }

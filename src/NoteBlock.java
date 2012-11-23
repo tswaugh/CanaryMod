@@ -56,4 +56,8 @@ public class NoteBlock implements ComplexBlock {
         this.note.a = note;
     }
 
+    @Override
+	public NBTTagCompound getMetaTag() {
+		return note.metadata;
+	}
 }

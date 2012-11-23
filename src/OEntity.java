@@ -75,6 +75,7 @@ public abstract class OEntity {
     // CanaryMod Start
     BaseEntity entity = new BaseEntity(this);
     public static PluginLoader manager = etc.getLoader();
+    NBTTagCompound metadata;
     // CanaryMod end
 
     public OEntity(OWorld oworld) {
@@ -120,6 +121,7 @@ public abstract class OEntity {
 
         this.ag.a(0, Byte.valueOf((byte) 0));
         this.ag.a(1, Short.valueOf((short) 300));
+        metadata = new NBTTagCompound("Canary"); //CanaryMod
         this.a();
     }
 
@@ -936,6 +938,7 @@ public abstract class OEntity {
             onbttagcompound.a("Dimension", this.ap);
             onbttagcompound.a("Invulnerable", this.i);
             onbttagcompound.a("PortalCooldown", this.an);
+            if(metadata != null) {onbttagcompound.a("Canary", metadata.getBaseTag());} //CanaryMod: allows the saving of persistent metadata
             this.b(onbttagcompound);
         } catch (Throwable throwable) {
             OCrashReport ocrashreport = OCrashReport.a(throwable, "Saving entity NBT");
@@ -981,6 +984,7 @@ public abstract class OEntity {
             this.an = onbttagcompound.e("PortalCooldown");
             this.b(this.t, this.u, this.v);
             this.b(this.z, this.A);
+            this.metadata = onbttagcompound.b("Canary") ? new NBTTagCompound(onbttagcompound.l("Canary")) : new NBTTagCompound("Canary"); //CanaryMod: allows the saving of persistent metadata
             this.a(onbttagcompound);
         } catch (Throwable throwable) {
             OCrashReport ocrashreport = OCrashReport.a(throwable, "Loading entity NBT");

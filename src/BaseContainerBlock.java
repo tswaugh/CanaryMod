@@ -130,4 +130,8 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
     public void writeToTag(NBTTagCompound tag) {
     	container.b(tag.getBaseTag());
     }
+    
+    public NBTTagCompound getMetaTag() {
+    	return container.metadata;
+    }
 }

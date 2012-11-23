@@ -175,11 +175,12 @@ public class Player extends HumanEntity implements MessageReceiver {
             }
 
             String[] split = command.split(" ");
-            String cmd = split[0];
 
             if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.COMMAND, this, split)) {
                 return;
             } // No need to go on, commands were parsed.
+            split = command.toLowerCase().split(" ");
+            String cmd = split[0];
             if (!canUseCommand(cmd) && !cmd.startsWith("/#")) {
                 if (etc.getInstance().showUnknownCommand()) {
                     sendMessage(Colors.Rose + "Unknown command.");

@@ -481,4 +481,13 @@ public class BaseEntity {
     public void readFromTag(NBTTagCompound tag) {
     	getEntity().e(tag.getBaseTag());
     }
+    
+    /**
+     * Returns an NBTTagCompound that is saved with this entity.
+     * 
+     * @return
+     */
+    public NBTTagCompound getMetaTag() {
+    	return getEntity().metadata;
+    }
 }

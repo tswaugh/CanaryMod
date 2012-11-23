@@ -250,4 +250,9 @@ public class MobSpawner implements ComplexBlock {
     public void writeToTag(NBTTagCompound tag) {
     	spawner.b(tag.getBaseTag());
     }
+    
+    @Override
+	public NBTTagCompound getMetaTag() {
+		return spawner.metadata;
+	}
 }

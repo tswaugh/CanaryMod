@@ -47,4 +47,8 @@ public class DoubleChest extends ItemArray<OInventoryLargeChest> implements Comp
         return block.getWorld();
     }
 
+    @Override
+	public NBTTagCompound getMetaTag() {
+		return block.getComplex().getMetaTag();
+	}
 }

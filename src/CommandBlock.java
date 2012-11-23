@@ -85,4 +85,9 @@ public class CommandBlock implements ComplexBlock {
 	public String getPrefix() {
 		return base.prefix;
 	}
+
+	@Override
+	public NBTTagCompound getMetaTag() {
+		return base.metadata;
+	}
 }

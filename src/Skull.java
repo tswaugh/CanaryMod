@@ -72,4 +72,9 @@ public class Skull implements ComplexBlock {
 	public OTileEntitySkull getBaseSkull() {
 		return skullBase;
 	}
+	
+	@Override
+	public NBTTagCompound getMetaTag() {
+		return skullBase.metadata;
+	}
 }

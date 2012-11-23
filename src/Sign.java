@@ -129,4 +129,9 @@ public class Sign implements ComplexBlock {
         hash = 97 * hash + getZ();
         return hash;
     }
+    
+    @Override
+	public NBTTagCompound getMetaTag() {
+		return sign.metadata;
+	}
 }

@@ -43,4 +43,11 @@ public interface ComplexBlock {
      * @return World
      */
     public World getWorld();
+    
+    /**
+     * Returns an NBTTagCompound that is saved with this tile entity.
+     * 
+     * @return
+     */
+    public NBTTagCompound getMetaTag();
 }
