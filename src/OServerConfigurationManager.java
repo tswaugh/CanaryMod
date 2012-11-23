@@ -366,6 +366,7 @@ public abstract class OServerConfigurationManager {
         oworldserver.d(oentityplayermp1);
         this.b.add(oentityplayermp1);
         oentityplayermp1.d_();
+        etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, oentityplayermp1.getPlayer(), location);
         return oentityplayermp1;
     }
 

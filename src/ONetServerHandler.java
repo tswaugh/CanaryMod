@@ -729,7 +729,6 @@ public class ONetServerHandler extends ONetHandler {
 
 
             if (this.d.j) {
-                etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, this.getPlayer(), respawnLocation);
                 this.d = this.e.ad().a(this.d, respawnLocation.dimension, true, respawnLocation);
             } else if (this.d.p().K().t()) {
                 if (this.e.I() && this.d.bQ.equals(this.e.H())) {
@@ -747,7 +746,6 @@ public class ONetServerHandler extends ONetHandler {
                     return;
                 }
 
-                etc.getLoader().callHook(PluginLoader.Hook.PLAYER_RESPAWN, this.getPlayer(), respawnLocation);
                 this.d = this.e.ad().a(this.d, respawnLocation.dimension, false, respawnLocation);
             }
         }
