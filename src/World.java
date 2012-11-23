@@ -938,7 +938,36 @@ public class World {
      * @param power The power of the explosion. TNT has a power of 4.
      */
     public void explode(BaseEntity exploder, double x, double y, double z, float power) {
-        world.a(exploder.entity, x, y, z, power, false); //I believe that the last false determines whether or not the explosion is considered 'huge'. I'm not sure what that entails -gregthegeek
+        explode(exploder, x, y, z, power, true);
+    }
+    
+    /**
+     * Creates an explosion with the specified power at the given location.
+     *
+     * @param exploder The entity causing the explosion.
+     * @param x
+     * @param y
+     * @param z
+     * @param power The power of the explosion. TNT has a power of 4.
+     * @param doesDamage Whether or not this explosion deals damage.
+     */
+    public void explode(BaseEntity exploder, double x, double y, double z, float power, boolean doesDamage) {
+    	world.a(exploder.entity, x, y, z, power, doesDamage);
+    }
+    
+    /**
+     * Creates an explosion with the specified power at the given location.
+     *
+     * @param exploder The entity causing the explosion.
+     * @param x
+     * @param y
+     * @param z
+     * @param power The power of the explosion. TNT has a power of 4.
+     * @param doesCauseFires Whether or not this explosion causes fires.
+     * @param doesDamage Whether or not this explosion deals damage.
+     */
+    public void explode(BaseEntity exploder, double x, double y, double z, float power, boolean doesCauseFires, boolean doesDamage) {
+    	world.a(exploder.entity, x, y, z, power, doesCauseFires, doesDamage);
     }
 
     /**
