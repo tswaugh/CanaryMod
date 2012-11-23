@@ -322,7 +322,7 @@ public class World {
         spawn.z = info.e() + 0.5D;
         spawn.rotX = 0.0F;
         spawn.rotY = 0.0F;
-        spawn.dimension = this.getType().id;
+        spawn.dimension = 0;
         spawn.world = this.getName();
         return spawn;
     }

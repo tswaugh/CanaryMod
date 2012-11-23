@@ -617,13 +617,14 @@ public class PlayerCommands {
 
         @Override
         protected void execute(MessageReceiver caller, String[] args) {
-            if (!(caller instanceof Player) && args.length < 2) {
+            boolean callerIsPlayer = caller instanceof Player;
+            if (!callerIsPlayer && args.length < 2) {
                 return;
             }
 
             Player player;
 
-            if (args.length == 2 && (!(caller instanceof Player) || ((Player) caller).isAdmin())) {
+            if (args.length == 2 && (!callerIsPlayer || ((Player) caller).isAdmin())) {
                 player = etc.getServer().matchPlayer(args[1]);
             } else {
                 player = (Player) caller;
@@ -635,17 +636,20 @@ public class PlayerCommands {
             }
             World world = player.getWorld();
             if (world.getType() != World.Dimension.NORMAL) {
-                if (player.canIgnoreRestrictions()) {
+                if (!callerIsPlayer || ((Player) caller).canIgnoreRestrictions()) {
                     player.switchWorlds(world);
                 } else {
-                    player.notify("You cannot set a home in the " + world.getType().name() + ", mortal.");
+                    caller.notify("You cannot set a home in the " + world.getType().name() + ", mortal.");
                     return;
                 }
             }
 
             Warp home = new Warp();
 
-            home.Location = player.getLocation();
+
+
+            home.Location = callerIsPlayer ? ((Player) caller).getLocation()
+                                           : player.getLocation();
             home.Group = ""; // no group neccessary, lol.
             home.Name = player.getName();
             etc.getInstance().changeHome(home);
