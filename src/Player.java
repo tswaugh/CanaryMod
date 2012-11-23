@@ -1313,44 +1313,6 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Adds a potion Effect to the player
-     *
-     * @param effect the effect to add.
-     */
-    public void addPotionEffect(PotionEffect effect) {
-        getEntity().d(effect.potionEffect);
-    }
-
-    /**
-     * Removes a potion Effect from player
-     *
-     * @param effect The potion effect to remove
-     */
-
-    public void removePotionEffect(PotionEffect effect) {
-        OPotionEffect var3 = (OPotionEffect) getEntity().bl.get(effect.getType().getId());
-
-        getEntity().bl.remove(Integer.valueOf(effect.getType().getId()));
-        getEntity().c(var3);
-    }
-
-    /**
-     * Returns a Collection of potion effects active on the player
-     *
-     * @return List of potion effects
-     */
-    @SuppressWarnings("unchecked")
-    public List<PotionEffect> getPotionEffects() {
-        Collection<OPotionEffect> potionEffects = getEntity().bz();
-        ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
-
-        for (OPotionEffect potionEffect : potionEffects) {
-            list.add(potionEffect.potionEffect);
-        }
-        return list;
-    }
-
-    /**
      * Returns whether this player can receive damage.
      * @return the disableDamage state
      */

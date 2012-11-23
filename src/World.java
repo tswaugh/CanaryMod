@@ -1053,11 +1053,31 @@ public class World {
     }
     
     /**
-     * Launch a projectile in this world
+     * Launch a projectile in this world.
      * 
-     * @param p the projectile to launch
+     * @param p The projectile to launch.
      */
     public void launchProjectile(Projectile p) {
     	getWorld().d(p.getEntity());
+    }
+    
+    /**
+     * Have lightning strike a location.
+     * 
+     * @param x The x coordinate to strike.
+     * @param y The y coordinate to strike.
+     * @param z The z coordinate to strike.
+     */
+    public void strikeLightning(double x, double y, double z) {
+    	getWorld().c(new OEntityLightningBolt(getWorld(), x, y, z));
+    }
+    
+    /**
+     * Have lightning strike a location.
+     * 
+     * @param location The location to strike.
+     */
+    public void strikeLightning(Location location) {
+    	strikeLightning(location.x, location.y, location.z);
     }
 }
