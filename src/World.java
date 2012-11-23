@@ -520,6 +520,8 @@ public class World {
             	return new JukeBox((OTileEntityRecordPlayer) localav);
             } else if (localav instanceof OTileEntitySkull) {
             	return new Skull((OTileEntitySkull) localav);
+            } else if (localav instanceof OTileEntityCommandBlock) {
+            	return new CommandBlock((OTileEntityCommandBlock) localav);
             }
         }
         return null;
