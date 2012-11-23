@@ -55,4 +55,13 @@ public class Skeleton extends Mob {
 	public OEntitySkeleton getEntity() {
 		return (OEntitySkeleton) entity;
 	}
+	
+	/**
+	 * Make this skeleton launch an arrow at the living entity
+	 * 
+	 * @param e the entity to shoot at
+	 */
+	public void shootAt(LivingEntity e) {
+		getEntity().d(e.getEntity());
+	}
 }

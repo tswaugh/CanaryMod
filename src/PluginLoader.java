@@ -349,11 +349,15 @@ public class PluginLoader {
         /**
          * Calls{@link PluginListener#onLightChange(int,int,int,int) }
          */
-        DEATH, //
+        LIGHT_CHANGE, //
          /**
          * Calls{@link PluginListener#onDeath(LivingEntity entity) }
          */
-        LIGHT_CHANGE, //
+        DEATH, //
+        /**
+         * Calls{@link PluginListener#onProjectileHit(Projectile, BaseEntity) }
+         */
+        PROJECTILE_HIT, //
         /**
          * For internal use only.
          */
@@ -1262,6 +1266,13 @@ public class PluginLoader {
                         case DEATH:
                             listener.onDeath((LivingEntity) parameters[0]);
                             break;
+                            
+                        case PROJECTILE_HIT:
+                        	if(listener.onProjectileHit((Projectile) parameters[0], parameters[1] == null ? null : (BaseEntity) parameters[1])) {
+                        		toRet = true;
+                        	}
+                        	break;
+                        	
                         }
                        } catch (UnsupportedOperationException ex) {}
                 }

@@ -1269,4 +1269,16 @@ public class PluginListener {
     public void onDeath(LivingEntity entity) {
 
     }
+    
+    /**
+     * Called when a projectile hits something
+     * 
+     * @param projectile
+     * 			- The projectile that impacted
+     * @param hit
+     * 			- The entity that was hit (null if none)
+     */
+    public boolean onProjectileHit(Projectile projectile, BaseEntity hit) {
+    	return false;
+    }
 }

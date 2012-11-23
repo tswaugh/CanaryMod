@@ -1020,4 +1020,13 @@ public class World {
     public int getGameMode() {
         return world.z.r().e;
     }
+    
+    /**
+     * Launch a projectile in this world
+     * 
+     * @param p the projectile to launch
+     */
+    public void launchProjectile(Projectile p) {
+    	getWorld().d(p.getEntity());
+    }
 }
