@@ -26,13 +26,12 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         if (!this.p.J && this.p.t == 0) {
             this.x();
         }
-
     }
 
     protected OEntity j() {
         OEntityPlayer oentityplayer = this.p.b(this, 16.0D);
 
-        return oentityplayer != null && this.n(oentityplayer) && !(Boolean) manager.callHook(PluginLoader.Hook.MOB_TARGET, oentityplayer.entity.getPlayer(), this.entity) ? oentityplayer : null;
+        return oentityplayer != null && this.n(oentityplayer) ? oentityplayer : null;
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
@@ -44,11 +43,9 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
             if (this.n != oentity && this.o != oentity) {
                 if (oentity != this) {
                     // CanaryMod start - MOB_TARGET hook
-                    if (oentity instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentity.entity.getPlayer(), this.entity)) {
+                    if (oentity instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentity.entity.getPlayer(), this.entity)) {
                         this.a_ = oentity;
-                    }
-                    // CanaryMod end
-
+                    } // CanaryMod end
                 }
 
                 return true;
@@ -102,7 +99,6 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
             this.aY = 20;
             this.m(oentity);
         }
-
     }
 
     public float a(int i, int j, int k) {

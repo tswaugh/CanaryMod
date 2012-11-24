@@ -44,7 +44,7 @@ public class OEntityEnderman extends OEntityMob {
     protected OEntity j() {
         OEntityPlayer oentityplayer = this.p.b(this, 64.0D);
 
-        if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), entity)) {
+        if (oentityplayer != null) {
             if (this.d(oentityplayer)) {
                 if (this.f == 0) {
                     this.p.a((OEntity) oentityplayer, "mob.endermen.stare", 1.0F, 1.0F);

@@ -33,13 +33,11 @@ public class OEntitySpider extends OEntityMob {
 
         if (f < 0.5F) {
             double d0 = 16.0D;
-            OEntityPlayer oentityplayer = this.p.b(this, d0);
 
-            if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityplayer.entity.getPlayer(), entity)) {
-                return oentityplayer;
-            }
+            return this.p.b(this, d0);
+        } else {
+            return null;
         }
-        return null;
     }
 
     protected String aY() {

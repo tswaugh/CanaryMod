@@ -23,7 +23,10 @@ public abstract class OEntityCreature extends OEntityLiving {
         float f = 16.0F;
 
         if (this.a_ == null) {
-            this.a_ = this.j();
+            OEntity target = this.j(); // CanaryMod: invoke once
+            if ((Boolean) manager.callHook(PluginLoader.Hook.MOB_TARGET, target.getEntity().getPlayer(), this.getEntity())) { // CanaryMod: call hook
+                this.a_ = target;
+            } //
             if (this.a_ != null) {
                 this.d = this.p.a(this, this.a_, f, true, false, false, true);
             }
