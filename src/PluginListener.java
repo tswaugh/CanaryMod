@@ -1187,15 +1187,30 @@ public class PluginListener {
     }
 
     /**
-     * Called when a Mob Entity targets a player for following and/or attacking. You can interrupt this by returning true.
+     * Called when a Mob Entity targets a player for following and/or attacking.
+     * You can interrupt this by returning true.
      * 
      * @param player
      * @param mob
      * @return false to allow target to occur, true to cancel the target.
      */
-
     public boolean onMobTarget(Player player, LivingEntity mob) {
         return false;
+    }
+
+    /**
+     * Called when one <tt>LivingEntity</tt> targets another for following
+     * and/or attacking.
+     * You can interrupt this by returning true.
+     *
+     * @param target The entity being targeted
+     * @param targeter The entity that wants to target <tt>target</tt>
+     * @return false to allow target to occur, true to cancel the target
+     */
+    public boolean onMobTarget(LivingEntity target, LivingEntity targeter) {
+        return target.isPlayer()
+                ? this.onMobTarget(target.getPlayer(), targeter)
+                : false;
     }
     
     /**

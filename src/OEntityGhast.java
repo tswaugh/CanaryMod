@@ -86,7 +86,7 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
             OEntityPlayer oentityplayer = this.p.b(this, 100.0D);
 
             // CanaryMod: MOB_TARGET Hook for ghasts.
-            if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityplayer.entity.getPlayer(), this.entity)) {
+            if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityplayer.getEntity(), this.getEntity())) {
                 this.h = oentityplayer;
             }
             if (this.h != null) {

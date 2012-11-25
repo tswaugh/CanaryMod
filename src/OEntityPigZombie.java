@@ -50,7 +50,7 @@ public class OEntityPigZombie extends OEntityZombie {
             OEntity oentity = odamagesource.g();
 
             if (oentity instanceof OEntityPlayer) {
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentity.entity.getPlayer(), this.entity)) { // CanaryMod: MOB_TARGET
+                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentity.getEntity(), this.getEntity())) { // CanaryMod: MOB_TARGET
                     List list = this.p.b((OEntity) this, this.D.b(32.0D, 32.0D, 32.0D));
 
                     for (int j = 0; j < list.size(); ++j) {

@@ -43,7 +43,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
             if (this.n != oentity && this.o != oentity) {
                 if (oentity != this) {
                     // CanaryMod start - MOB_TARGET hook
-                    if (oentity instanceof OEntityPlayer && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentity.entity.getPlayer(), this.entity)) {
+                    if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentity.getEntity(), this.getEntity())) {
                         this.a_ = oentity;
                     } // CanaryMod end
                 }

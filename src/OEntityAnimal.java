@@ -63,7 +63,7 @@ public abstract class OEntityAnimal extends OEntityAgeable implements OIAnimals 
                     this.b = true;
                 }
             } else if (this.d > 0 && oentityanimal.d > 0) {
-                if (oentityanimal.a_ == null) {
+                if (oentityanimal.a_ == null && !(Boolean) manager.callHook(PluginLoader.Hook.MOB_TARGET, this.getEntity(), oentityanimal.getEntity())) {
                     oentityanimal.a_ = this;
                 }
 

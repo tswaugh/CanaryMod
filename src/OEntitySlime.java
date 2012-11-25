@@ -99,7 +99,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         this.bk();
         OEntityPlayer oentityplayer = this.p.b(this, 16.0D);
 
-        if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, (Player) oentityplayer.entity.getPlayer(), this.entity)) { // CanaryMod - MOB_TARGET
+        if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityplayer.getEntity(), this.getEntity())) { // CanaryMod - MOB_TARGET
             this.a(oentityplayer, 10.0F, 20.0F);
         }
 

@@ -1236,7 +1236,7 @@ public class PluginLoader {
                             break;
 
                         case MOB_TARGET:
-                            if (listener.onMobTarget((Player) parameters[0], (LivingEntity) parameters[1])) {
+                            if (listener.onMobTarget((LivingEntity) parameters[0], (LivingEntity) parameters[1])) {
                                 toRet = true;
                             }
                             break;
