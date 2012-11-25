@@ -872,21 +872,20 @@ public class Item implements Cloneable, Metadatable {
     }
     
     /**
-     * Returns the text that shows up under this item's name in the player's inventory
+     * Returns the text that shows up under this item's name in the player's inventory.
+     * Returns null if the lore is not set.
      * 
      * @return The lore, each string in the array is a new line
      */
     public String[] getLore() { // WWOL: I don't think we need this now with the new NBT API do we?
-    	OItemStack base = getBaseItem();
-    	if(!base.o()) {return null;}
-    	ONBTTagCompound tag = base.p();
-    	if(!tag.b("display")) {return null;}
-    	ONBTTagCompound display = tag.l("display");
-    	if(!display.b("Lore")) {return null;}
-    	ONBTTagList lore = display.m("Lore");
-    	String[] rt = new String[lore.c()];
+    	NBTTagCompound tag = getDataTag();
+    	if(!tag.hasTag("display")) {return null;}
+    	NBTTagCompound display = tag.getNBTTagCompound("display");
+    	if(!display.hasTag("Lore")) {return null;}
+    	NBTTagList lore = display.getNBTTagList("Lore");
+    	String[] rt = new String[lore.size()];
     	for(int i=0; i<rt.length; i++) {
-    		rt[i] = ((ONBTTagString) lore.b(i)).toString();
+    		rt[i] = lore.get(i).toString();
     	}
     	return rt;
     }
@@ -897,36 +896,27 @@ public class Item implements Cloneable, Metadatable {
      * @param lore The lore to set, each line should be in a separate string in the array
      */
     public void setLore(String... lore) {
-    	OItemStack base = getBaseItem();
-    	if(!base.o()) {base.d(new ONBTTagCompound());}
-    	
-    	ONBTTagCompound tag = base.p();
-    	ONBTTagCompound display;
-    	if(tag.b("display")) {
-    		display = tag.l("display");
-    	} else {
-    		display = new ONBTTagCompound();
-    		tag.a("display", display);
+    	NBTTagCompound tag = getDataTag();
+    	if(!tag.hasTag("display")) {
+    		tag.add("display", new NBTTagCompound());
     	}
-    	
-    	ONBTTagList list = new ONBTTagList();
+    	NBTTagList list = new NBTTagList();
     	for(String line : lore) {
-    		list.a(new ONBTTagString("", line));
+    		list.add(new NBTTagString("", line));
     	}
-    	
-    	display.a("Lore", list);
+    	tag.getNBTTagCompound("display").add("Lore", list);
     }
     
     /**
-     * Returns the tag containing data for this item. May be null.
+     * Returns the tag containing data for this item.
      * 
      * @return
      */
     public NBTTagCompound getDataTag() {
-    	if(itemStack.d == null) {
+    	if(!itemStack.o()) {
     		itemStack.d = new ONBTTagCompound("tag");
     	}
-    	return new NBTTagCompound(itemStack.d);
+    	return new NBTTagCompound(itemStack.p());
     }
     
     /**
