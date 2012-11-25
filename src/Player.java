@@ -1538,8 +1538,8 @@ public class Player extends HumanEntity implements MessageReceiver {
     	getEntity().d(type.getDamageSource(), amount);
     }
 
-    void copyTo(Player p) {
-        p.entity = this.entity;
+    void moveTo(Player p) {
+        this.entity = p.entity;
         p.cooldownKits = this.cooldownKits;
         p.onlyOneUseKits = this.onlyOneUseKits;
         p.muted = this.muted;

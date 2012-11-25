@@ -194,7 +194,7 @@ public abstract class OEntityLiving extends OEntity {
 
     public void b(OEntityLiving oentityliving) {
         // CanaryMod start: MOB_TARGET hook
-        if ((Boolean) manager.callHook(PluginLoader.Hook.MOB_TARGET, oentityliving.getEntity(), this.getEntity())) {
+        if (oentityliving != null && (Boolean) manager.callHook(PluginLoader.Hook.MOB_TARGET, oentityliving.getEntity(), this.getEntity())) {
             return;
         } // CanaryMod end
         this.bM = oentityliving;
