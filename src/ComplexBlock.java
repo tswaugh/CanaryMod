@@ -3,7 +3,7 @@
  * 
  * @author James
  */
-public interface ComplexBlock {
+public interface ComplexBlock extends Metadatable {
 
     /**
      * Returns the X coordinates of this block
@@ -44,10 +44,4 @@ public interface ComplexBlock {
      */
     public World getWorld();
     
-    /**
-     * Returns an NBTTagCompound that is saved with this tile entity.
-     * 
-     * @return
-     */
-    public NBTTagCompound getMetaTag();
 }

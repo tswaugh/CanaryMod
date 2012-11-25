@@ -4,7 +4,7 @@
  *
  * @author James
  */
-public class BaseEntity {
+public class BaseEntity implements Metadatable {
     OEntity entity;
 
     /**
@@ -482,11 +482,7 @@ public class BaseEntity {
     	getEntity().e(tag.getBaseTag());
     }
     
-    /**
-     * Returns an NBTTagCompound that is saved with this entity.
-     * 
-     * @return
-     */
+    @Override
     public NBTTagCompound getMetaTag() {
     	return getEntity().metadata;
     }

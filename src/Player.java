@@ -1554,6 +1554,6 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public EnderChestInventory getEnderChest() {
-    	return new EnderChestInventory(getEntity().cf());
+    	return new EnderChestInventory(getEntity().cf(), this);
     }
 }

@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author James
  */
-public class Item implements Cloneable {
+public class Item implements Cloneable, Metadatable {
 
     /**
      * Type - Used to identify items
@@ -923,7 +923,10 @@ public class Item implements Cloneable {
      * @return
      */
     public NBTTagCompound getDataTag() {
-    	return new NBTTagCompound(itemStack.d == null ? null : itemStack.d);
+    	if(itemStack.d == null) {
+    		itemStack.d = new ONBTTagCompound("tag");
+    	}
+    	return new NBTTagCompound(itemStack.d);
     }
     
     /**
@@ -933,5 +936,14 @@ public class Item implements Cloneable {
      */
     public void setDataTag(NBTTagCompound tag) {
     	itemStack.d = tag.getBaseTag();
+    }
+    
+    @Override
+    public NBTTagCompound getMetaTag() {
+    	NBTTagCompound dataTag = getDataTag();
+    	if(!dataTag.hasTag("Canary")) {
+    		dataTag.add("Canary", new NBTTagCompound("Canary"));
+    	}
+    	return dataTag.getNBTTagCompound("Canary");
     }
 }
