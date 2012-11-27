@@ -55,4 +55,9 @@ public class NBTTagString extends NBTBase {
 	public void setValue(String value) {
 		this.getBaseTag().a = value;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getBaseTag().toString();
+	}
 }
