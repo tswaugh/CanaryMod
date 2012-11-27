@@ -8,8 +8,24 @@ import java.util.Map;
  * @author 14mRh4X0r
  */
 public abstract class CommandHandler {
-    private final Map<String, BaseCommand> commands =
+    private final Map<String, BaseCommand> COMMANDS =
             new LinkedHashMap<String, BaseCommand>();
+    private final String PREFIX;
+
+    /**
+     * Creates a CommandHandler instance for basic use.
+     */
+    public CommandHandler() {
+        this.PREFIX = "";
+    }
+
+    /**
+     * Creates a CommandHandler instance that prefixes the specified commands.
+     * @param prefix The prefix command being used (without the "/").
+     */
+    public CommandHandler(String prefix) {
+        this.PREFIX = prefix + " ";
+    }
 
     /**
      * Add a command to the player list.
@@ -19,10 +35,10 @@ public abstract class CommandHandler {
      */
     public void add(String name, BaseCommand cmd) {
         if (name != null && cmd != null) {
-            if (!commands.containsValue(cmd)) {
-                etc.getInstance().addCommand("/" + name, cmd.tooltip);
+            if (!COMMANDS.containsValue(cmd)) {
+                etc.getInstance().addCommand("/" + PREFIX + name, cmd.tooltip);
             }
-            commands.put(name, cmd);
+            COMMANDS.put(name, cmd);
         }
     }
 
@@ -49,7 +65,7 @@ public abstract class CommandHandler {
      * found, <tt>null</tt> otherwise
      */
     public BaseCommand getCommand(String command) {
-        return commands.get(command);
+        return COMMANDS.get(command);
     }
 
     /**
@@ -59,8 +75,8 @@ public abstract class CommandHandler {
      */
     public void remove(String name) {
         if (name != null) {
-            etc.getInstance().removeCommand("/" + name);
-            commands.remove(name);
+            etc.getInstance().removeCommand("/" + PREFIX + name);
+            COMMANDS.remove(name);
         }
     }
 
