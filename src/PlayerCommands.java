@@ -65,7 +65,7 @@ public class PlayerCommands extends CommandHandler {
                 }
             }
 
-            caller.notify(Colors.Blue + "Available commands (" + (args.length > 1 ? (args[1].matches("\\d+") ? "Page " + args[1] + " of " + (availableCommands.size() - 1) / 7 : "Matching " + etc.combineSplit(1, args, " ")) : "Page 1 of " + ((availableCommands.size() - 1) / 7) + ") <> = required [] = optional:"));
+            caller.notify(Colors.Blue + "Available commands (" + (args.length > 1 ? (args[1].matches("\\d+") ? "Page " + args[1] + " of " + (availableCommands.size() - 1) / 7 : "Matching " + etc.combineSplit(1, args, " ")) : "Page 1 of " + ((availableCommands.size() - 1) / 7)) + ") <> = required [] = optional:");
             if (args.length > 1) {
                 if (args[1].matches("\\d+")) {
                     try {
