@@ -1,58 +1,18 @@
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("LoggerStringConcat")
-public class PlayerCommands {
+public class PlayerCommands extends CommandHandler {
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private static PlayerCommands instance;
-    private final LinkedHashMap<String, BaseCommand> commands = new LinkedHashMap<String, BaseCommand>();
 
     public PlayerCommands() {
-        for (Field field : getClass().getDeclaredFields()) {
-            if (field.isAnnotationPresent(Command.class)) {
-                for (String command : field.getAnnotation(Command.class).value()) {
-                    try {
-                        add(command.equals("") ? field.getName() : command, (BaseCommand) field.get(null));
-                    } catch (IllegalAccessException e) {
-                    }
-                }
-            }
-        } // impossible
-    }
-
-    /**
-     * Add a command to the player list.
-     *
-     * @param name
-     * @param cmd
-     */
-    public void add(String name, BaseCommand cmd) {
-        if (name != null && cmd != null) {
-            if (!commands.containsValue(cmd)) {
-                etc.getInstance().addCommand("/" + name, cmd.tooltip);
-            }
-            commands.put(name, cmd);
-        }
-    }
-
-    /**
-     * Remove a command from the player list.
-     *
-     * @param name
-     */
-    public void remove(String name) {
-        if (name != null) {
-            etc.getInstance().removeCommand("/" + name);
-            commands.remove(name);
-        }
+        this.addAll(this.getClass());
     }
 
     /**
@@ -77,17 +37,6 @@ public class PlayerCommands {
     }
 
     /**
-     * Searches for and returns {@code command} if found, {@code null}
-     * otherwise.
-     *
-     * @param command The command to search for
-     * @return {@code command} if found, {@code null} otherwise
-     */
-    public BaseCommand getCommand(String command) {
-        return commands.get(command);
-    }
-
-    /**
      * Returns the <tt>PlayerCommands</tt> instance.
      * @return the <tt>PlayerCommands</tt> as used by the server.
      */
@@ -104,7 +53,7 @@ public class PlayerCommands {
             List<String> availableCommands = new ArrayList<String>();
 
             for (Entry<String, String> entry : etc.getInstance().getCommands().entrySet()) {
-                if ((caller instanceof Player) && ((Player) caller).canUseCommand(entry.getKey())) {
+                if (!(caller instanceof Player) || ((Player) caller).canUseCommand(entry.getKey())) {
                     if (entry.getKey().equals("/kit") && !etc.getDataSource().hasKits()) {
                         continue;
                     }

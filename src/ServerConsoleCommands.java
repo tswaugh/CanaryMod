@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
 @SuppressWarnings("LoggerStringConcat")
-public class ServerConsoleCommands {
+public class ServerConsoleCommands extends CommandHandler {
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private static ServerConsoleCommands instance;
@@ -36,33 +36,6 @@ public class ServerConsoleCommands {
     }
 
     /**
-     * Add a command to the server list.
-     *
-     * @param name
-     * @param cmd
-     */
-    public void add(String name, BaseCommand cmd) {
-        if (name != null && cmd != null) {
-            if (!commands.containsValue(cmd)) {
-                etc.getInstance().addCommand("/" + name, cmd.tooltip);
-            }
-            commands.put(name, cmd);
-        }
-    }
-
-    /**
-     * Remove a command from the server list.
-     *
-     * @param name
-     */
-    public void remove(String name) {
-        if (name != null) {
-            etc.getInstance().removeCommand(name);
-            commands.remove(name);
-        }
-    }
-
-    /**
      * Performs a lookup for a command of the given name and executes it if
      * found. Returns false if command not found.
      *
@@ -80,17 +53,6 @@ public class ServerConsoleCommands {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Searches for and returns {@code command} if found, {@code null}
-     * otherwise.
-     *
-     * @param command The command to search for
-     * @return {@code command} if found, {@code null} otherwise
-     */
-    public BaseCommand getCommand(String command) {
-        return commands.get(command);
     }
 
     /**
