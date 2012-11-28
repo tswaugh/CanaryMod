@@ -879,6 +879,7 @@ public class Item implements Cloneable, Metadatable {
      */
     public String[] getLore() { // WWOL: I don't think we need this now with the new NBT API do we?
     	NBTTagCompound tag = getDataTag();
+    	if(tag == null) {return null;}
     	if(!tag.hasTag("display")) {return null;}
     	NBTTagCompound display = tag.getNBTTagCompound("display");
     	if(!display.hasTag("Lore")) {return null;}
@@ -897,6 +898,10 @@ public class Item implements Cloneable, Metadatable {
      */
     public void setLore(String... lore) {
     	NBTTagCompound tag = getDataTag();
+    	if(tag == null) {
+    		tag = new NBTTagCompound("tag");
+    		setDataTag(tag);
+    	}
     	if(!tag.hasTag("display")) {
     		tag.add("display", new NBTTagCompound());
     	}
@@ -909,23 +914,23 @@ public class Item implements Cloneable, Metadatable {
     
     /**
      * Returns the tag containing data for this item.
+     * Null if this item has no data tag.
      * 
      * @return
      */
     public NBTTagCompound getDataTag() {
-    	if(!itemStack.o()) {
-    		itemStack.d = new ONBTTagCompound("tag");
-    	}
-    	return new NBTTagCompound(itemStack.p());
+    	return itemStack.o() ? new NBTTagCompound(itemStack.p()) : null;
     }
     
     /**
-     * Sets the tag containing data for this item. Should be named 'tag'
+     * Sets the tag containing data for this item. 
+     * Should be named 'tag'.
+     * Setting this to null removes name and lore data.
      * 
      * @param tag the data tag
      */
     public void setDataTag(NBTTagCompound tag) {
-    	itemStack.d = tag.getBaseTag();
+    	itemStack.d = tag == null ? null : tag.getBaseTag();
     }
     
     @Override
