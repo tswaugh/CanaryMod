@@ -486,4 +486,66 @@ public class BaseEntity implements Metadatable {
     public NBTTagCompound getMetaTag() {
     	return getEntity().metadata;
     }
+    
+    /**
+     * Returns the location of this entity.
+     * 
+     * @return location
+     */
+    public Location getLocation() {
+        Location loc = new Location();
+
+        loc.x = getX();
+        loc.y = getY();
+        loc.z = getZ();
+        loc.rotX = getRotation();
+        loc.rotY = getPitch();
+        loc.dimension = getWorld().getType().getId();
+        return loc;
+    }
+    
+    /**
+     * Spawns this entity
+     */
+    public void spawn() {
+        spawn((LivingEntity) null);
+    }
+
+    /**
+     * Spawns this entity with a rider
+     *
+     * @param rider
+     */
+    public void spawn(LivingEntity rider) {
+        OWorld world = entity.p;
+
+        entity.b(getX() + 0.5d, getY(), getZ() + 0.5d, getRotation(), 0f);
+        world.d(entity);
+
+        if (rider != null) {
+            OEntityLiving mob2 = rider.getEntity();
+
+            mob2.b(getX(), getY(), getZ(), getRotation(), 0f);
+            world.d(mob2);
+            mob2.a(entity);
+        }
+    }
+    
+    /**
+     * Returns whether or not this entity is invulnerable.
+     * 
+     * @return
+     */
+    public boolean isInvulnerable() {
+    	return getEntity().ar();
+    }
+    
+    /**
+     * Sets whether or not this entity is invulnerable.
+     * 
+     * @param isInvulnerable
+     */
+    public void setInvulnerable(boolean isInvulnerable) {
+    	entity.i = isInvulnerable;
+    }
 }

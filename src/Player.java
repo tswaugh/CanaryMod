@@ -515,24 +515,6 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Returns the player's current location
-     *
-     * @return
-     */
-    public Location getLocation() {
-        Location loc = new Location();
-
-        loc.x = getX();
-        loc.y = getY();
-        loc.z = getZ();
-        loc.rotX = getRotation();
-        loc.rotY = getPitch();
-        loc.dimension = getWorld().getType().getId();
-        loc.world = getWorld().getName();
-        return loc;
-    }
-
-    /**
      * Returns the IP of this player
      *
      * @return
@@ -916,6 +898,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @return Item
      */
+    @Override
     public Item getItemStackInHand() {
         OItemStack result = getEntity().bI.g();
 
@@ -933,15 +916,6 @@ public class Player extends HumanEntity implements MessageReceiver {
     public Inventory getInventory() {
         return inventory;
     }
-
-    /**
-     * Returns whether or not this Player is currently sneaking (crouching).
-     *
-     * @return true if sneaking
-     */
-    public boolean getSneaking() {
-        return getEntity().ah();
-    }
     
     /**
      * Returns whether or not this entity is blocking with the item in their hand.
@@ -949,16 +923,6 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public boolean isBlocking(){
         return getEntity().bh();
-    }
-
-    /**
-     * Force this Player to be sneaking or not
-     *
-     * @param sneaking
-     *            true if sneaking
-     */
-    public void setSneaking(boolean sneaking) {
-        getEntity().a(sneaking);
     }
 
     /**
@@ -1327,6 +1291,16 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void setDamageDisabled(boolean disabled) {
         getEntity().cc.a = disabled;
     }
+    
+    @Override
+    public boolean isInvulnerable() {
+    	return isDamageDisabled();
+    }
+    
+    @Override
+    public void setInvulnerable(boolean isInvulnerable) {
+    	setDamageDisabled(isInvulnerable);
+    }
 
     /**
      * Returns whether the player is flying.
@@ -1526,16 +1500,6 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     protected int getRestrictions() {
     	return this.restrictions;
-    }
-    
-    /**
-     * Damages this player, taking into account armor/enchantments/potions
-     * 
-     * @param type The type of damage to deal (certain types byass armor or affect potions differently)
-     * @param amount The amount of damage to deal (2 = 1 heart)
-     */
-    public void applyDamage(PluginLoader.DamageType type, int amount) {
-    	getEntity().d(type.getDamageSource(), amount);
     }
 
     void moveTo(Player p) {
