@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -39,12 +40,17 @@ public class NBTTagCompound extends NBTBase {
 	}
 	
 	/**
-	 * Returns the tags in this CompoundTag
+	 * Returns the tags in this CompoundTag.
 	 * 
 	 * @return
 	 */
-	public Collection getValues() {
-		return this.getBaseTag().c();
+	public Collection<NBTBase> getValues() {
+		Collection<?> base = this.getBaseTag().c();
+		Collection<NBTBase> rt = new ArrayList<NBTBase>(base.size());
+		for(Object o : base) {
+			rt.add(NBTBase.wrap((ONBTBase) o));
+		}
+		return rt;
 	}
 	
 	/**

@@ -76,4 +76,14 @@ public class JukeBox implements ComplexBlock {
 	public NBTTagCompound getMetaTag() {
 		return oRP.metadata;
     }
+    
+    @Override
+	public void writeToTag(NBTTagCompound tag) {
+		oRP.b(tag.getBaseTag());
+	}
+	
+	@Override
+	public void readFromTag(NBTTagCompound tag) {
+		oRP.a(tag.getBaseTag());
+	}
 }

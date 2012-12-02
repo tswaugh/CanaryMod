@@ -60,4 +60,14 @@ public class NoteBlock implements ComplexBlock {
 	public NBTTagCompound getMetaTag() {
 		return note.metadata;
 	}
+    
+    @Override
+	public void writeToTag(NBTTagCompound tag) {
+		note.b(tag.getBaseTag());
+	}
+	
+	@Override
+	public void readFromTag(NBTTagCompound tag) {
+		note.a(tag.getBaseTag());
+	}
 }

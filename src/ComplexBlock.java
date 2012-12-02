@@ -44,4 +44,17 @@ public interface ComplexBlock extends Metadatable {
      */
     public World getWorld();
     
+    /**
+     * Writes this block's data to an NBTTagCompound.
+     * 
+     * @param tag The tag to write to
+     */
+    public void writeToTag(NBTTagCompound tag);
+    
+    /**
+     * Sets this block's data to that of an NBTTagCompound.
+     * 
+     * @param tag The tag to read from
+     */
+    public void readFromTag(NBTTagCompound tag);
 }

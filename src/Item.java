@@ -941,4 +941,23 @@ public class Item implements Cloneable, Metadatable {
     	}
     	return dataTag.getNBTTagCompound("Canary");
     }
+    
+    /**
+     * Writes this item's data to an NBTTagCompound.
+     * 
+     * @param tag The tag to write to
+     * @return NBTTagCompound
+     */
+    public NBTTagCompound writeToTag(NBTTagCompound tag) {
+    	return new NBTTagCompound(itemStack.b(tag.getBaseTag()));
+    }
+    
+    /**
+     * Sets this item's data to that in an NBTTagCompound.
+     * 
+     * @param tag The tag to read from
+     */
+    public void readFromTag(NBTTagCompound tag) {
+    	itemStack.c(tag.getBaseTag());
+    }
 }

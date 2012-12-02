@@ -90,4 +90,14 @@ public class CommandBlock implements ComplexBlock {
 	public NBTTagCompound getMetaTag() {
 		return base.metadata;
 	}
+	
+	@Override
+	public void writeToTag(NBTTagCompound tag) {
+		base.b(tag.getBaseTag());
+	}
+	
+	@Override
+	public void readFromTag(NBTTagCompound tag) {
+		base.a(tag.getBaseTag());
+	}
 }

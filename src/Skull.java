@@ -77,4 +77,14 @@ public class Skull implements ComplexBlock {
 	public NBTTagCompound getMetaTag() {
 		return skullBase.metadata;
 	}
+	
+	@Override
+	public void writeToTag(NBTTagCompound tag) {
+		skullBase.b(tag.getBaseTag());
+	}
+	
+	@Override
+	public void readFromTag(NBTTagCompound tag) {
+		skullBase.a(tag.getBaseTag());
+	}
 }

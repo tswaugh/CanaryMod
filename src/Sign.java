@@ -73,7 +73,7 @@ public class Sign implements ComplexBlock {
 
     @Override
     public void update() {
-        getWorld().getWorld().h(getX(), getY(), getZ());
+    	getWorld().getWorld().i(getX(), getY(), getZ());
     }
 
     /**
@@ -133,5 +133,15 @@ public class Sign implements ComplexBlock {
     @Override
 	public NBTTagCompound getMetaTag() {
 		return sign.metadata;
+	}
+    
+    @Override
+	public void writeToTag(NBTTagCompound tag) {
+		sign.b(tag.getBaseTag());
+	}
+	
+	@Override
+	public void readFromTag(NBTTagCompound tag) {
+		sign.a(tag.getBaseTag());
 	}
 }
