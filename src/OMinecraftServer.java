@@ -308,7 +308,9 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
                     boolean allSleeping = true;
 
                     for (OWorldServer[] level : this.worlds.values()) {
-                        allSleeping &= level[0].e();
+                        if (level.length != 0 && level[0] != null) {
+                            allSleeping &= level[0].e();
+                        }
                     }
                     // CanaryMod end
                     if (allSleeping) {
