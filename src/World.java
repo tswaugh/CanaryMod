@@ -63,7 +63,7 @@ public class World {
         public static Dimension fromId(final int type) {
             return map.get(type);
         }
-
+        
         /**
          * Returns the array index for use with, 
          * e.g., {@link Server#getWorld(java.lang.String)}
@@ -1079,5 +1079,33 @@ public class World {
      */
     public void strikeLightning(Location location) {
     	strikeLightning(location.x, location.y, location.z);
+    }
+    
+    /**
+     * Play a sound at the given location
+     * @param location location to play the sound
+     * @param sound the sound to play
+     * @param volume the volume to play the sound
+     * @param pitch  the pitch to play the sound at
+     * @see Sound
+     * @See Location
+     */
+    public void playSound(Location location, Sound sound, float volume, float pitch){
+        playSound(location.x, location.y, location.z, sound, volume, pitch);
+    }
+    
+    /**
+     * Play a sound at the given location
+     * @param x x value for the location
+     * @param y y value for the location
+     * @param z z value of the location
+     * @param sound the sound to play
+     * @param volume the volume to play the sound
+     * @param pitch  the pitch to play the sound at
+     * @see Sound
+     * @See Location
+     */
+    public void playSound(double x, double y, double z, Sound sound, float volume, float pitch){
+        world.a(x, y, z, sound.getSoundString(), volume, pitch);
     }
 }
