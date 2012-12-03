@@ -422,6 +422,7 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
 
             for (i = 0; i < level.length; ++i) {
                 long j = System.nanoTime();
+                if (level[i] == null) continue; // CanaryMod: prevent NPE
 
                 if (i == 0 || this.s()) {
                     OWorldServer oworldserver = level[i];

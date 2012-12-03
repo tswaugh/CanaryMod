@@ -171,10 +171,10 @@ public class World {
      *
      * @return list of mobs
      */
-    public synchronized List<Mob> getMobList() {
+    public List<Mob> getMobList() {
         List<Mob> toRet = new ArrayList<Mob>();
 
-        for (Object o : world.e) {
+        for (Object o : (ArrayList) ((ArrayList) world.e).clone()) {
             if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntitySlime || o instanceof OEntityDragon) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
@@ -187,10 +187,10 @@ public class World {
      *
      * @return list of animals
      */
-    public synchronized List<Mob> getAnimalList() {
+    public List<Mob> getAnimalList() {
         List<Mob> toRet = new ArrayList<Mob>();
 
-        for (Object o : world.e) {
+        for (Object o : (ArrayList) ((ArrayList) world.e).clone()) {
             if (o instanceof OEntityAnimal || o instanceof OEntitySquid || o instanceof OEntitySnowman || o instanceof OEntityBat) {
                 toRet.add(new Mob((OEntityLiving) o));
             }
@@ -203,10 +203,10 @@ public class World {
      *
      * @return list of minecarts
      */
-    public synchronized List<Minecart> getMinecartList() {
+    public List<Minecart> getMinecartList() {
         List<Minecart> toRet = new ArrayList<Minecart>();
 
-        for (Object o : world.e) {
+        for (Object o : (ArrayList) ((ArrayList) world.e).clone()) {
             if (o instanceof OEntityMinecart) {
                 toRet.add(((OEntityMinecart) o).cart);
             }
@@ -219,10 +219,10 @@ public class World {
      *
      * @return list of boats
      */
-    public synchronized List<Boat> getBoatList() {
+    public List<Boat> getBoatList() {
         List<Boat> toRet = new ArrayList<Boat>();
 
-        for (Object o : world.e) {
+        for (Object o : (ArrayList) ((ArrayList) world.e).clone()) {
             if (o instanceof OEntityBoat) {
                 toRet.add(((OEntityBoat) o).boat);
             }
@@ -235,10 +235,10 @@ public class World {
      *
      * @return list of entities
      */
-    public synchronized List<BaseEntity> getEntityList() {
+    public List<BaseEntity> getEntityList() {
         List<BaseEntity> toRet = new ArrayList<BaseEntity>();
 
-        for (Object o : world.e) {
+        for (Object o : (ArrayList) ((ArrayList) world.e).clone()) {
             if (o instanceof OEntityMob || o instanceof OEntityGhast || o instanceof OEntityAnimal || o instanceof OEntitySlime || o instanceof OEntityDragon || o instanceof OEntityMagmaCube || o instanceof OEntityVillager || o instanceof OEntitySquid || o instanceof OEntitySnowman) {
                 toRet.add(new Mob((OEntityLiving) o));
             } else if (o instanceof OEntityMinecart) {
@@ -261,10 +261,10 @@ public class World {
      *
      * @return list of items
      */
-    public synchronized List<ItemEntity> getItemList() {
+    public List<ItemEntity> getItemList() {
         List<ItemEntity> toRet = new ArrayList<ItemEntity>();
 
-        for (Object o : world.e) {
+        for (Object o : (ArrayList) ((ArrayList) world.e).clone()) {
             if (o instanceof OEntityItem) {
                 toRet.add(((OEntityItem) o).item);
             }
@@ -278,10 +278,10 @@ public class World {
      *
      * @return list of living entities
      */
-    public synchronized List<LivingEntity> getLivingEntityList() {
+    public List<LivingEntity> getLivingEntityList() {
         List<LivingEntity> toRet = new ArrayList<LivingEntity>();
 
-        for (Object o : world.e) {
+        for (Object o : (ArrayList) ((ArrayList) world.e).clone()) {
             if (o instanceof OEntityLiving) {
                 toRet.add(((OEntityLiving) o).getEntity());
             }
@@ -294,10 +294,10 @@ public class World {
      *
      * @return list of vehicles
      */
-    public synchronized List<BaseVehicle> getVehicleEntityList() {
+    public List<BaseVehicle> getVehicleEntityList() {
         List<BaseVehicle> toRet = new ArrayList<BaseVehicle>();
 
-        for (Object o : world.e) {
+        for (Object o : (ArrayList) ((ArrayList) world.e).clone()) {
             if (o instanceof OEntityMinecart) {
                 toRet.add(((OEntityMinecart) o).cart);
             } else if (o instanceof OEntityBoat) {
@@ -320,6 +320,11 @@ public class World {
         spawn.x = info.c() + 0.5D;
         spawn.y = info.d();
         spawn.z = info.e() + 0.5D;
+        // set y to first free position above actual spawn.
+        while (!world.c((int) spawn.x, (int) spawn.y, (int) spawn.z)
+                && !world.c((int) spawn.x, (int) spawn.y + 1, (int) spawn.z)) {
+            spawn.y++;
+        }
         spawn.rotX = 0.0F;
         spawn.rotY = 0.0F;
         spawn.dimension = 0;
