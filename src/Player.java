@@ -1519,4 +1519,32 @@ public class Player extends HumanEntity implements MessageReceiver {
     public EnderChestInventory getEnderChest() {
     	return new EnderChestInventory(getEntity().cf(), this);
     }
+    
+    /**
+     * This method plays a sound for just this player, and no one else can hear it.
+     * @param location the location to play the sound at
+     * @param sound the sound to play
+     * @param volume the volume to play the sound at
+     * @param pitch the pitch to play the sound at
+     * @see Sound
+     * @see Location
+     */
+    public void playSound(Location location, Sound sound, float volume, float pitch){
+        playSound(location.x, location.y, location.z, sound, volume, pitch);
+    }
+    
+    /**
+     * This method plays a sound for just this player, and no one else can hear it.
+     * @param x x coordinate to play the sound at
+     * @param y y coordinate to play the sound at
+     * @param z z coordinate to play the sound at
+     * @param sound the sound to play
+     * @param volume the volume to play the sound at
+     * @param pitch the pitch to play the sound at
+     * @see Sound
+     * @see Location
+     */
+    public void playSound(double x, double y, double z, Sound sound, float volume, float pitch){
+        getEntity().a.b(new OPacket62LevelSound(sound.getSoundString(), x, y, z, volume, pitch));
+    }
 }
