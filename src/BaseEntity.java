@@ -501,6 +501,7 @@ public class BaseEntity implements Metadatable {
         loc.rotX = getRotation();
         loc.rotY = getPitch();
         loc.dimension = getWorld().getType().getId();
+        loc.world = getWorld().getName();
         return loc;
     }
     
