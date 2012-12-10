@@ -1297,4 +1297,27 @@ public class PluginListener {
     public boolean onProjectileHit(Projectile projectile, BaseEntity hit) {
     	return false;
     }
+    
+    /**
+     * Called when a player trades with a villager.
+     * 
+     * @param player The player involved in the trade.
+     * @param villager The villager involved in the trade.
+     * @param trade The trade.
+     * @return false to allow the trade, true to cancel it.
+     */
+    public boolean onVillagerTrade(Player player, Villager villager, VillagerTrade trade) {
+    	return false;
+    }
+    
+    /**
+     * Called when a trade option is added to a villager.
+     * 
+     * @param villager The villager receiving the new trade option.
+     * @param trade The trade being added.
+     * @return false to allow the unlock, true to cancel it.
+     */
+    public boolean onVillagerTradeUnlock(Villager villager, VillagerTrade trade) {
+    	return false;
+    }
 }

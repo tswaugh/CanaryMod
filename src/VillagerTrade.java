@@ -47,7 +47,7 @@ public class VillagerTrade {
 	}
 	
 	/**
-	 * Returns the base recipe for this trade
+	 * Returns the base recipe for this trade.
 	 * 
 	 * @return
 	 */
@@ -56,7 +56,7 @@ public class VillagerTrade {
 	}
 	
 	/**
-	 * Returns the first item the player must give to the villager
+	 * Returns the first item the player must give to the villager.
 	 * 
 	 * @return
 	 */
@@ -65,7 +65,16 @@ public class VillagerTrade {
 	}
 	
 	/**
-	 * Returns the second item the player must give to the villager
+	 * Sets the first item the player must give to the villager.
+	 * 
+	 * @param item The item
+	 */
+	public void setBuyingOne(Item item) {
+		getRecipe().a = item.getBaseItem();
+	}
+	
+	/**
+	 * Returns the second item the player must give to the villager.
 	 * 
 	 * @return
 	 */
@@ -74,16 +83,25 @@ public class VillagerTrade {
 	}
 	
 	/**
-	 * Returns whether or not this trade requires the player to give the villager two items
+	 * Sets the second item the player must give to the villager.
 	 * 
-	 * @return
+	 * @param item The item
+	 */
+	public void setBuyingTwo(Item item) {
+		getRecipe().b = item.getBaseItem();
+	}
+	
+	/**
+	 * Returns whether or not this trade requires the player to give the villager two items.
+	 * 
+	 * @return true if the player must give two items, false if the player must give only one
 	 */
 	public boolean requiresTwoItems() {
 		return getRecipe().c();
 	}
 	
 	/**
-	 * Returns the item the player receives from the trade
+	 * Returns the item the player receives from the trade.
 	 * 
 	 * @return
 	 */
@@ -92,14 +110,23 @@ public class VillagerTrade {
 	}
 	
 	/**
-	 * Increase the number of times this was used by one
+	 * Sets the item the player receives from the trade.
+	 * 
+	 * @param item
+	 */
+	public void setSelling(Item item) {
+		getRecipe().c = item.getBaseItem();
+	}
+	
+	/**
+	 * Increase the number of times this was used by one.
 	 */
 	public void use() {
 		getRecipe().f();
 	}
 	
 	/**
-	 * Increases the maximum amount of times this trade can be used
+	 * Increases the maximum amount of times this trade can be used.
 	 * The default max is 7
 	 * 
 	 * @param increase the amount to increase it buy
@@ -109,7 +136,7 @@ public class VillagerTrade {
 	}
 	
 	/**
-	 * Returns whether or not this recipe has exceeded its max usages and can no longer be used
+	 * Returns whether or not this recipe has exceeded its max usages and can no longer be used.
 	 * 
 	 * @return
 	 */
@@ -118,7 +145,7 @@ public class VillagerTrade {
 	}
 	
 	/**
-	 * Returns the data for this trade in an NBTCompoundTag
+	 * Returns the data for this trade in an NBTCompoundTag.
 	 * 
 	 * @return
 	 */

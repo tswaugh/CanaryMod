@@ -225,13 +225,20 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Removes the item. No slot needed, it will go through the inventory until
-     * the amount specified is removed.
+     * the exact item specified is removed.
      * 
      * @param item
-     *            item id and amount to remove
+     *            item to remove
      */
     public void removeItem(Item item) {
-        removeItem(item.getItemId(), item.getAmount());
+    	Item[] items = getContents();
+
+        for (Item i : items) {
+            if(i != null && i.equalsIgnoreSlot(item)) {
+            	removeItem(i.getSlot());
+            	break;
+            }
+        }
     }
 
     /**
@@ -274,6 +281,49 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
                 }
             }
         }
+    }
+    
+    /**
+     * Removes items from the inventory that match the given item until the amount in the given item is removed.
+     * 
+     * @param item The item type to remove
+     */
+    public void removeItemOverStacks(Item item) {
+    	Item[] items = getContents();
+    	int remaining = item.getAmount();
+    	
+    	for(Item i : items) {
+    		if(item.equalsIgnoreSlotAndAmount(i)) {
+    			if(i.getAmount() == remaining) {
+    				removeItem(i.getSlot());
+    				return;
+    			} else if(i.getAmount() > remaining) {
+    				setSlot(i.getItemId(), i.getAmount() - remaining, i.getSlot());
+    				return;
+    			} else {
+    				removeItem(i.getSlot());
+    				remaining -= i.getAmount();
+    			}
+    		}
+    	}
+    }
+    
+    /**
+     * Checks to see if this getArray() has an item identical to the one specified.
+     * 
+     * @param item
+     * @return
+     */
+    public boolean hasItem(Item item) {
+    	Item[] items = getContents();
+    	
+    	for(Item i : items) {
+    		if(i != null && i.equalsIgnoreSlot(item)) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
     }
 
     /**

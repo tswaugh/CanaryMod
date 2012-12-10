@@ -359,6 +359,14 @@ public class PluginLoader {
          */
         PROJECTILE_HIT, //
         /**
+         * Calls{@link PluginListener#onVillagerTrade(Player, Villager, VillagerTrade) }
+         */
+        VILLAGER_TRADE, //
+        /**
+         * Calls{@link PluginListener#onVillagerTradeUnlock(Villager, VillagerTrade) }
+         */
+        VILLAGER_TRADE_UNLOCK, //
+        /**
          * For internal use only.
          */
         NUM_HOOKS;
@@ -1268,9 +1276,15 @@ public class PluginLoader {
                             break;
                             
                         case PROJECTILE_HIT:
-                        	if(listener.onProjectileHit((Projectile) parameters[0], parameters[1] == null ? null : (BaseEntity) parameters[1])) {
-                        		toRet = true;
-                        	}
+                        	toRet = listener.onProjectileHit((Projectile) parameters[0], parameters[1] == null ? null : (BaseEntity) parameters[1]);
+                        	break;
+                        	
+                        case VILLAGER_TRADE:
+                        	toRet = listener.onVillagerTrade((Player) parameters[0], (Villager) parameters[1], (VillagerTrade) parameters[2]);
+                        	break;
+                        	
+                        case VILLAGER_TRADE_UNLOCK:
+                        	toRet = listener.onVillagerTradeUnlock((Villager) parameters[0], (VillagerTrade) parameters[1]);
                         	break;
                         	
                         }

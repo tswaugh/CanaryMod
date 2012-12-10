@@ -44,6 +44,10 @@ public interface Inventory {
     public void removeItem(Item.Type type, int amount);
 
     public void removeItem(int id, int amount);
+    
+    public void removeItemOverStacks(Item item);
+    
+    public boolean hasItem(Item item);
 
     public boolean hasItem(Item.Type type);
 

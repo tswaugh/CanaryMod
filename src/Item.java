@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -589,24 +590,32 @@ public class Item implements Cloneable, Metadatable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Item other = (Item) obj;
-
-        if (itemId != other.itemId) {
-            return false;
-        }
-        if (amount != other.amount) {
-            return false;
-        }
-        if (slot != other.slot) {
-            return false;
-        }
-        return true;
+    	if(obj instanceof OItemStack) {
+    		return OItemStack.b(itemStack, (OItemStack) obj);
+    	} else if(obj instanceof Item) {
+    		return OItemStack.b(itemStack, ((Item) obj).getBaseItem());
+    	}
+    	return false;
+    }
+    
+    /**
+     * Like equals() but doesn't check slot or amount
+     * 
+     * @param item The item to check equality with
+     * @return
+     */
+    public boolean equalsIgnoreSlotAndAmount(Item item) {
+    	return item != null && item.getItemId() == getItemId() && item.getDamage() == getDamage() && Arrays.equals(item.getEnchantments(), getEnchantments()) && (getDataTag() == null ? item.getDataTag() == null : getDataTag().equals(item.getDataTag()));
+    }
+    
+    /**
+     * Like equals() but doesn't check slot
+     * 
+     * @param item The item to check equality with
+     * @return
+     */
+    public boolean equalsIgnoreSlot(Item item) {
+    	return equalsIgnoreSlotAndAmount(item) && item.getAmount() == getAmount();
     }
 
     /**
