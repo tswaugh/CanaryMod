@@ -105,6 +105,10 @@ public abstract class OServerConfigurationManager {
             }
         }
 
+        // CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
+        etc.getInstance().getMotd(oentityplayermp.getPlayer());
+        etc.getLoader().callHook(PluginLoader.Hook.LOGIN, oentityplayermp.getPlayer());
+
         oentityplayermp.d_();
     }
 
@@ -158,11 +162,6 @@ public abstract class OServerConfigurationManager {
             entry = oentityplayermp1.getPlayer().getPlayerlistEntry(true);
             oentityplayermp.a.b(new OPacket201PlayerInfo(entry.getName(), entry.isShow(), entry.getPing()));
         }
-
-        // CanaryMod: Handle login (send MOTD, send packet and set mode, and call hook)
-        etc.getInstance().getMotd(oentityplayermp.getPlayer());
-        etc.getLoader().callHook(PluginLoader.Hook.LOGIN, oentityplayermp.getPlayer());
-        // oentityplayermp.getPlayer().refreshCreativeMode(); // TODO: check usefulness
     }
 
     public void d(OEntityPlayerMP oentityplayermp) {
