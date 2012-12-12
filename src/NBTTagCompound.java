@@ -314,4 +314,9 @@ public class NBTTagCompound extends NBTBase {
 	public boolean isEmpty() {
 		return this.getBaseTag().d();
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("NBTTag[type=%s, value=%s]", getTagName(getType()), getValues());
+	}
 }

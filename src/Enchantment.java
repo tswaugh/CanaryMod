@@ -462,4 +462,18 @@ public class Enchantment {
         }
         return false;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Enchantment) {
+    		Enchantment other = (Enchantment) obj;
+    		return other.getType() == getType() && other.getLevel() == getLevel();
+    	}
+    	return false;
+    }
+    
+    @Override
+    public String toString() {
+    	return String.format("Enchantment[type=%s, level=%d]", getType(), getLevel());
+    }
 }
