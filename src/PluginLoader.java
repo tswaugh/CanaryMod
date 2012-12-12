@@ -1,8 +1,6 @@
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLClassLoader;
-import java.security.AccessController;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +15,7 @@ import java.util.logging.Logger;
 public class PluginLoader {
 
     /**
-     * Hook - Used for adding a listener to listen on specific hooks
+     * Hook - Used for adding a listener to listen on specific hooks.
      */
     public enum Hook {
 
@@ -524,8 +522,8 @@ public class PluginLoader {
     private static final Logger log = Logger.getLogger("Minecraft");
     private static final Object lock = new Object();
     private List<Plugin> plugins = new ArrayList<Plugin>();
-    private static List<MyClassLoader> loaders = new ArrayList<MyClassLoader>();
-    private List<List<PluginRegisteredListener>> listeners = new ArrayList<List<PluginRegisteredListener>>();
+    private EnumMap<Hook, List<PluginRegisteredListener>> listeners =
+        new EnumMap<Hook, List<PluginRegisteredListener>>(Hook.class);
     private HashMap<String, PluginInterface> customListeners = new HashMap<String, PluginInterface>();
     private Server server;
     private PropertiesFile properties;
@@ -542,8 +540,8 @@ public class PluginLoader {
         properties = new PropertiesFile("server.properties");
         this.server = new Server(server);
 
-        for (int h = 0; h < Hook.NUM_HOOKS.ordinal(); ++h) {
-            listeners.add(new ArrayList<PluginRegisteredListener>());
+        for (Hook h : Hook.values()) {
+            listeners.put(h, new ArrayList<PluginRegisteredListener>());
         }
     }
 
@@ -617,18 +615,21 @@ public class PluginLoader {
             if (toNull.isEnabled()) {
                 toNull.disable();
             }
-        }
-        synchronized (lock) {
-            plugins.remove(toNull);
-            for (List<PluginRegisteredListener> regListeners : listeners) {
-                Iterator<PluginRegisteredListener> iter = regListeners.iterator();
 
-                while (iter.hasNext()) {
-                    if (iter.next().getPlugin() == toNull) {
-                        iter.remove();
+            synchronized (lock) {
+                plugins.remove(toNull);
+                for (List<PluginRegisteredListener> regListeners : listeners.values()) {
+                    Iterator<PluginRegisteredListener> iter = regListeners.iterator();
+
+                    while (iter.hasNext()) {
+                        if (iter.next().getPlugin() == toNull) {
+                            iter.remove();
+                        }
                     }
                 }
             }
+
+            ((MyClassLoader) toNull.getClass().getClassLoader()).close();
         }
 
         return load(fileName);
@@ -646,7 +647,6 @@ public class PluginLoader {
 
             try {
                 child = new MyClassLoader(new URL[] { file.toURI().toURL()}, Thread.currentThread().getContextClassLoader());
-                loaders.add(child);
             } catch (MalformedURLException ex) {
                 log.log(Level.SEVERE, "Exception while loading class", ex);
                 return false;
@@ -666,14 +666,6 @@ public class PluginLoader {
             return false;
         }
         return true;
-    }
-    
-    /**
-     * Gets the list of children classloaders for plugins
-     * @return List of MyClassLoader
-     */
-    protected static List<MyClassLoader> getMyClassLoaders(){
-        return loaders;
     }
 
     /**
@@ -775,7 +767,7 @@ public class PluginLoader {
     private boolean debug_hooks = true;
     private Hook lasthook;
     private int lasthook_count = 0;
-    List ignore_hooks = Arrays.asList(new Hook[] { Hook.IGNITE, Hook.TIME_CHANGE, Hook.FLOW, Hook.LIQUID_DESTROY});
+    List<Hook> ignore_hooks = Arrays.asList(new Hook[] { Hook.IGNITE, Hook.TIME_CHANGE, Hook.FLOW, Hook.LIQUID_DESTROY});
     
     public void debugHook(Hook h) {
         if (debug_hooks && !ignore_hooks.contains(h)) {
@@ -857,7 +849,7 @@ public class PluginLoader {
             PluginListener listener = null;
 
             try {
-                List<PluginRegisteredListener> registeredListeners = listeners.get(h.ordinal());
+                List<PluginRegisteredListener> registeredListeners = listeners.get(h);
 
                 for (PluginRegisteredListener regListener : registeredListeners) {
                     if (!regListener.getPlugin().isEnabled()) {
@@ -1377,7 +1369,7 @@ public class PluginLoader {
         PluginRegisteredListener reg = new PluginRegisteredListener(hook, listener, plugin, priority);
 
         synchronized (lock) {
-            List<PluginRegisteredListener> regListeners = listeners.get(hook.ordinal());
+            List<PluginRegisteredListener> regListeners = listeners.get(hook);
 
             int pos = 0;
 
@@ -1417,7 +1409,7 @@ public class PluginLoader {
      *            listener to remove
      */
     public void removeListener(PluginRegisteredListener reg) {
-        List<PluginRegisteredListener> regListeners = listeners.get(reg.getHook().ordinal());
+        List<PluginRegisteredListener> regListeners = listeners.get(reg.getHook());
 
         synchronized (lock) {
             regListeners.remove(reg);
