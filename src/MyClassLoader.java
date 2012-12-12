@@ -1,18 +1,18 @@
 import java.net.URL;
 import java.net.URLClassLoader;
-
+import java.util.List;
 
 /**
  * Class loader used so we can dynamically load classes. Normal class loader
  * doesn't close the .jar so you can't reload. This fixes that.
- * 
+ *
  * @author James
  */
 public class MyClassLoader extends URLClassLoader {
 
     /**
      * Creates loader
-     * 
+     *
      * @param urls
      * @param loader
      */
@@ -52,5 +52,47 @@ public class MyClassLoader extends URLClassLoader {
             // probably not a SUN VM
         }
         return;
+    }
+
+    /**
+     * Overrides loadClass to allow plugins to access eachothers class paths.
+     * @param name binary name of the class
+     * @return the class
+     * @throws ClassNotFoundException 
+     * @see URLClassLoader.loadClass(String name)
+     */
+    @Override
+    public Class<?> loadClass(String name) throws ClassNotFoundException {
+        Class<?> toRet = null;
+        try{
+            toRet = super.loadClass(name);
+        } catch(ClassNotFoundException ex){
+            for (MyClassLoader cl : PluginLoader.getMyClassLoaders()) {
+                if (toRet != null) {
+                    return toRet;
+                }
+                if (cl == this) {
+                    continue;
+                }
+                toRet = cl.loadClassCanaryStyle(name);
+            }
+        }
+        return toRet;
+    }
+
+    /**
+     * skips our special method or loading classes and loads it how a URLClassLoader would
+     * @param name binary name of the class
+     * @return the class
+     * @throws ClassNotFoundException 
+     * @see URLClassLoader.loadClass(String name)
+     */
+    public Class<?> loadClassCanaryStyle(String name) throws ClassNotFoundException{
+        return super.loadClass(name);
+    }
+    
+    @Override
+    public void addURL(URL url){
+        super.addURL(url);
     }
 }

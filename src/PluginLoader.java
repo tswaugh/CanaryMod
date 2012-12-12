@@ -2,6 +2,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.security.AccessController;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -519,6 +520,7 @@ public class PluginLoader {
     private static final Logger log = Logger.getLogger("Minecraft");
     private static final Object lock = new Object();
     private List<Plugin> plugins = new ArrayList<Plugin>();
+    private static List<MyClassLoader> loaders = new ArrayList<MyClassLoader>();
     private List<List<PluginRegisteredListener>> listeners = new ArrayList<List<PluginRegisteredListener>>();
     private HashMap<String, PluginInterface> customListeners = new HashMap<String, PluginInterface>();
     private Server server;
@@ -636,16 +638,17 @@ public class PluginLoader {
                 log.log(Level.SEVERE, "Failed to find plugin file: plugins/" + fileName + ".jar. Please ensure the file exists");
                 return false;
             }
-            URLClassLoader child;
+            MyClassLoader child;
 
             try {
                 child = new MyClassLoader(new URL[] { file.toURI().toURL()}, Thread.currentThread().getContextClassLoader());
+                loaders.add(child);
             } catch (MalformedURLException ex) {
                 log.log(Level.SEVERE, "Exception while loading class", ex);
                 return false;
             }
             Class<?> c = child.loadClass(fileName);
-
+            
             Plugin plugin = (Plugin) c.newInstance();
 
             plugin.setName(fileName);
@@ -659,6 +662,14 @@ public class PluginLoader {
             return false;
         }
         return true;
+    }
+    
+    /**
+     * Gets the list of children classloaders for plugins
+     * @return List of MyClassLoader
+     */
+    protected static List<MyClassLoader> getMyClassLoaders(){
+        return loaders;
     }
 
     /**
