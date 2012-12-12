@@ -34,7 +34,8 @@ public class Anvil extends ItemArray<OInventoryRepair> implements Inventory {
     }
 
     public Item getResult() {
-        return new Item(anvil.getCraftResult().getContentsAt(0xCAFEBABE));
+    	OItemStack stack = anvil.getCraftResult().getContentsAt(0xCAFEBABE);
+        return stack == null ? null : new Item(stack);
     }
 
     public void setResult(Item item) {
@@ -44,11 +45,20 @@ public class Anvil extends ItemArray<OInventoryRepair> implements Inventory {
     }
     
     /**
-     * Returns the cost of the repair/rename in XP levels
+     * Returns the cost of the repair/rename in XP levels.
      * 
      * @return
      */
     public int getXPCost() {
-    	return OContainerRepair.b(anvil);
+    	return anvil.a;
+    }
+    
+    /**
+     * Sets the cost of the repair/rename in XP levels.
+     * 
+     * @param level The XP level the repair/rename should cost.
+     */
+    public void setXPCost(int level) {
+    	anvil.a = level;
     }
 }

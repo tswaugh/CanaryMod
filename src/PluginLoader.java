@@ -368,6 +368,10 @@ public class PluginLoader {
          */
         VILLAGER_TRADE_UNLOCK, //
         /**
+         * Calls{@link PluginListener#onAnvilUse(HookParametersAnvilUse) }
+         */
+        ANVIL_USE, //
+        /**
          * For internal use only.
          */
         NUM_HOOKS;
@@ -822,6 +826,7 @@ public class PluginLoader {
         case ENCHANT:
         case CHAT:
         case LOGINCHECK:
+        case ANVIL_USE:
             toRet = parameters[0];
             break;
             
@@ -1296,6 +1301,10 @@ public class PluginLoader {
                         	
                         case VILLAGER_TRADE_UNLOCK:
                         	toRet = listener.onVillagerTradeUnlock((Villager) parameters[0], (VillagerTrade) parameters[1]);
+                        	break;
+                        	
+                        case ANVIL_USE:
+                        	toRet = listener.onAnvilUse((HookParametersAnvilUse) parameters[0]);
                         	break;
                         	
                         }

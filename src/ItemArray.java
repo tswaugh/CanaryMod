@@ -171,7 +171,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
         int size = getContentsSize();
 
         if (slot < size && slot >= 0) {
-            container.setContentsAt(slot, item.getBaseItem());
+            container.setContentsAt(slot, item == null ? null : item.getBaseItem());
         }
     }
 
