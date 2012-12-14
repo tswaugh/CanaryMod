@@ -74,7 +74,15 @@ public class MyClassLoader extends URLClassLoader {
                 if (cl == this) {
                     continue;
                 }
-                toRet = cl.loadClassCanaryStyle(name);
+                try{
+                    toRet = cl.loadClassCanaryStyle(name);
+                }
+                catch(ClassNotFoundException clnfe){
+                    continue;
+                }
+                catch(NoClassDefFoundError ncdfe){
+                    continue;
+                }
             }
         }
         return toRet;
