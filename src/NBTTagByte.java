@@ -56,4 +56,9 @@ public class NBTTagByte extends NBTBase {
 	public ONBTTagByte getBaseTag() {
 		return (ONBTTagByte) super.getBaseTag();
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("NBTTag[type=%s, value=%d]", getTagName(getType()), getValue());
+	}
 }

@@ -83,9 +83,15 @@ public class OContainerMerchant extends OContainer {
             return null;
          }
 
-         if(((OSlotMerchantResult) var4).a(var1, var5, true)) { //CanaryMod: tells the method the player held shift
-        	 var3 = null;
+         //CanaryMod start
+         if(var4 instanceof OSlotMerchantResult) {
+        	 if(((OSlotMerchantResult) var4).a(var1, var5, true)) { //tells the method the player held shift
+        	 	var3 = null;
+         	 }
+         } else {
+        	 var4.a(var1, var5);
          }
+         //CanaryMod end
       }
 
       return var3;

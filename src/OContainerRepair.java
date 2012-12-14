@@ -75,6 +75,7 @@ public class OContainerRepair extends OContainer {
                     if (l <= 0) {
                         this.f.a(0, (OItemStack) null);
                         this.a = 0;
+                        etc.getLoader().callHook(PluginLoader.Hook.ANVIL_USE, new Object[] {new Anvil(this)}); //CanaryMod: call onAnvilUse
                         return;
                     }
 
@@ -90,6 +91,7 @@ public class OContainerRepair extends OContainer {
                     if (oitemstack1.c != oitemstack2.c || !oitemstack1.f()) {
                         this.f.a(0, (OItemStack) null);
                         this.a = 0;
+                        etc.getLoader().callHook(PluginLoader.Hook.ANVIL_USE, new Object[] {new Anvil(this)}); //CanaryMod: call onAnvilUse
                         return;
                     }
 
@@ -263,6 +265,38 @@ public class OContainerRepair extends OContainer {
             this.f.a(0, oitemstack1);
             this.b();
         }
+        
+        //CanaryMod start
+        HookParametersAnvilUse hook = (HookParametersAnvilUse) etc.getLoader().callHook(PluginLoader.Hook.ANVIL_USE, new Object[] {new HookParametersAnvilUse(new Anvil(this), new Block(h.world, 145, i, j, k, l))}); //CanaryMod: call onAnvilUse
+        
+        //update the input slots
+        setSlotWithoutUpdate(hook.slotOne, 0);
+        setSlotWithoutUpdate(hook.slotTwo, 1);
+        
+        //update the result slot
+        OInventoryCraftResult inv = ((OInventoryCraftResult) this.f);
+    	if(hook.result == null) {
+        	inv.a[0] = null;
+        } else {
+        	OItemStack base = hook.result.getBaseItem();
+        	inv.a[0] = base;
+        	if(base.a > inv.c()) {
+        		base.a = inv.c();
+        	}
+        }
+        
+        //update the tool name
+        this.m = hook.toolName;
+        if (this.a(2).d()) { //not sure what this does, maybe check if item name isn't a default one?
+            this.a(2).c().c(this.m);
+        }
+        
+        //update the xp level
+        this.a = hook.xpLevel;
+        
+        this.b(); //updates the client. kinda.
+        
+        //CanaryMod end
     }
 
     public void a(OICrafting oicrafting) {
@@ -270,7 +304,7 @@ public class OContainerRepair extends OContainer {
         oicrafting.a(this, 0, this.a);
     }
 
-    public void b(OEntityPlayer oentityplayer) {
+    public void b(OEntityPlayer oentityplayer) { //called when the anvil gui is closed
         super.b(oentityplayer);
         if (!this.h.J) {
             for (int i = 0; i < this.g.k_(); ++i) {
@@ -283,7 +317,7 @@ public class OContainerRepair extends OContainer {
         }
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
+    public boolean a(OEntityPlayer oentityplayer) { //called constantly while the player has the anvil open
         return this.h.a(this.i, this.j, this.k) != OBlock.ck.cm ? false : oentityplayer.e((double) this.i + 0.5D, (double) this.j + 0.5D, (double) this.k + 0.5D) <= 64.0D;
     }
 
@@ -325,7 +359,7 @@ public class OContainerRepair extends OContainer {
         return oitemstack;
     }
 
-    public void a(String s) {
+    public void a(String s) { //called whenever the name slot changes
         this.m = s;
         if (this.a(2).d()) {
             this.a(2).c().c(this.m);
@@ -353,6 +387,19 @@ public class OContainerRepair extends OContainer {
 
     OInventoryCraftResult getCraftResult() {
         return (OInventoryCraftResult) this.f;
+    }
+    
+    private void setSlotWithoutUpdate(Item item, int slot) {
+    	OInventoryRepair inv = ((OInventoryRepair) OContainerRepair.a(this));
+    	if(item == null) {
+        	inv.c[slot] = null;
+        } else {
+        	OItemStack base = item.getBaseItem();
+        	inv.c[slot] = base;
+        	if(base.a > inv.c()) {
+        		base.a = inv.c();
+        	}
+        }
     }
     // CanaryMod end
 }

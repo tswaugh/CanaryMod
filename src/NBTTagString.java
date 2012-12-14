@@ -56,8 +56,17 @@ public class NBTTagString extends NBTBase {
 		this.getBaseTag().a = value;
 	}
 	
+        /**
+         * Gets the plain string of this tag.
+         * @return the plain string
+         */
+    @Override
+        public String toPlainString(){
+            return getValue();
+        }
+        
 	@Override
 	public String toString() {
-		return this.getBaseTag().toString();
+		return String.format("NBTTag[type=%s, value=%s]", getTagName(getType()), getValue());
 	}
 }

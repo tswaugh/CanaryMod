@@ -62,6 +62,11 @@ public class NBTBase {
 		return getBaseTag().a();
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("NBTTag[type=%s]", getTagName(getType()));
+	}
+	
 	/**
 	 * Returns the name of the type of tag this is.
 	 * 
@@ -105,4 +110,8 @@ public class NBTBase {
 		}
 		return new NBTBase(tag);
 	}
+
+    public String toPlainString() {
+        return getName();
+    }
 }

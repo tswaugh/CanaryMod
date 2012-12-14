@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Interface for the ONBTTagIntArray class
  * 
@@ -54,5 +56,10 @@ public class NBTTagIntArray extends NBTBase {
 	 */
 	public void setValue(int[] value) {
 		this.getBaseTag().a = value;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("NBTTag[type=%s, value=%s]", getTagName(getType()), Arrays.toString(getValue()));
 	}
 }

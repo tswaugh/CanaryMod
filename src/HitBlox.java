@@ -105,6 +105,26 @@ public class HitBlox {
         }
         return getCurBlock();
     }
+    
+    /**
+     * Returns the block in the direction of the cursor, ignoring certain block types.
+     * Null if out of range.
+     * 
+     * @param blockIds The block ids to ignore.
+     * @return
+     */
+    public Block getTargetBlockIgnoring(int... blockIds){
+        blockLoop:
+        while (getNextBlock() != null) {
+            for (int i : blockIds){
+                if (getCurBlock().getType() == i){
+                    continue blockLoop;
+                }
+            }
+            break;
+        }
+    	return getCurBlock();
+    }
 
     /**
      * Sets the type of the block at the cursor

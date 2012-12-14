@@ -161,4 +161,9 @@ public class VillagerTrade {
 	public void readFromTag(NBTTagCompound tag) {
 		getRecipe().a(tag.getBaseTag());
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("VillagerTrade[buying1=%s, buying2=%s, selling=%s]", getBuyingOne(), getBuyingTwo(), getSelling());
+	}
 }

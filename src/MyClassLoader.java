@@ -1,6 +1,7 @@
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class loader used so we can dynamically load classes. Normal class loader
@@ -9,6 +10,7 @@ import java.util.List;
  * @author James
  */
 public class MyClassLoader extends URLClassLoader {
+    private static Set<MyClassLoader> instances = new HashSet<MyClassLoader>();
 
     /**
      * Creates loader
@@ -18,12 +20,22 @@ public class MyClassLoader extends URLClassLoader {
      */
     public MyClassLoader(URL[] urls, ClassLoader loader) {
         super(urls, loader);
+        instances.add(this);
     }
 
     /**
      * Fix here.
      */
     public void close() {
+        // If we run on Java 7, just call URLClassLoader.close()
+        if (System.getProperty("java.version").startsWith("1.7")) {
+            try {
+                URLClassLoader.class.getDeclaredMethod("close").invoke(this);
+                return;
+            } catch (Exception ex) {
+                // Probably IOException, ignore.
+            }
+        }
         try {
             Class<?> clazz = java.net.URLClassLoader.class;
             java.lang.reflect.Field ucp = clazz.getDeclaredField("ucp");
@@ -51,46 +63,36 @@ public class MyClassLoader extends URLClassLoader {
         } catch (Throwable t) {
             // probably not a SUN VM
         }
-        return;
     }
 
     /**
-     * Overrides loadClass to allow plugins to access eachothers class paths.
-     * @param name binary name of the class
-     * @return the class
-     * @throws ClassNotFoundException 
-     * @see URLClassLoader.loadClass(String name)
+     * {@inheritDoc}
+     *
+     * This method is overridden to check other plugin class loaders as well.
      */
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
-        Class<?> toRet = null;
-        try{
-            toRet = super.loadClass(name);
-        } catch(ClassNotFoundException ex){
-            for (MyClassLoader cl : PluginLoader.getMyClassLoaders()) {
-                if (toRet != null) {
-                    return toRet;
-                }
-                if (cl == this) {
-                    continue;
-                }
-                toRet = cl.loadClassCanaryStyle(name);
-            }
+        Class<?> clazz = this.tryLoadClass(name);
+        if (clazz != null)
+            return clazz;
+
+        for (MyClassLoader cl : instances) {
+            clazz = cl.tryLoadClass(name);
+            if (clazz != null)
+                return clazz;
         }
-        return toRet;
+
+        throw new ClassNotFoundException(name);
     }
 
-    /**
-     * skips our special method or loading classes and loads it how a URLClassLoader would
-     * @param name binary name of the class
-     * @return the class
-     * @throws ClassNotFoundException 
-     * @see URLClassLoader.loadClass(String name)
-     */
-    public Class<?> loadClassCanaryStyle(String name) throws ClassNotFoundException{
-        return super.loadClass(name);
+    private Class<?> tryLoadClass(String name) {
+        try {
+            return super.loadClass(name);
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
     }
-    
+
     @Override
     public void addURL(URL url){
         super.addURL(url);

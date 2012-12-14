@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Interface for the ONBTTagByteArray class
  * 
@@ -54,5 +56,10 @@ public class NBTTagByteArray extends NBTBase {
 	@Override
 	public ONBTTagByteArray getBaseTag() {
 		return (ONBTTagByteArray) super.getBaseTag();
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("NBTTag[type=%s, value=%s]", getTagName(getType()), Arrays.toString(getValue()));
 	}
 }
