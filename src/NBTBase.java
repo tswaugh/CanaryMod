@@ -110,4 +110,8 @@ public class NBTBase {
 		}
 		return new NBTBase(tag);
 	}
+
+    public String toPlainString() {
+        return getName();
+    }
 }

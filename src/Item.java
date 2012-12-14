@@ -895,7 +895,7 @@ public class Item implements Cloneable, Metadatable {
     	NBTTagList lore = display.getNBTTagList("Lore");
     	String[] rt = new String[lore.size()];
     	for(int i=0; i<rt.length; i++) {
-    		rt[i] = lore.get(i).toString();
+    		rt[i] = lore.get(i).toPlainString();
     	}
     	return rt;
     }
