@@ -123,7 +123,7 @@ public class HitBlox {
             }
             break;
         }
-    	return getCurBlock();
+        return getCurBlock();
     }
 
     /**

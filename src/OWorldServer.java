@@ -143,12 +143,12 @@ public class OWorldServer extends OWorld {
         // CanaryMod: Weather hook
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, world, false)) {
             this.z.g(0);
-			this.z.b(false);
+            this.z.b(false);
         }
         // CanaryMod: Thunder hook
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, world, false)) {
             this.z.f(0);
-			this.z.a(false);
+            this.z.a(false);
         } // CanaryMod: diff visibility
     }
 

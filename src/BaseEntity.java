@@ -466,11 +466,11 @@ public class BaseEntity implements Metadatable {
      * @return whether or not the write was successful
      */
     public boolean writeToTag(NBTTagCompound tag, boolean includeId) {
-    	if(includeId) {
-    		return getEntity().c(tag.getBaseTag());
-    	}
-    	getEntity().d(tag.getBaseTag());
-    	return true;
+        if(includeId) {
+            return getEntity().c(tag.getBaseTag());
+        }
+        getEntity().d(tag.getBaseTag());
+        return true;
     }
     
     /**
@@ -479,12 +479,12 @@ public class BaseEntity implements Metadatable {
      * @param tag the tag to read the data from
      */
     public void readFromTag(NBTTagCompound tag) {
-    	getEntity().e(tag.getBaseTag());
+        getEntity().e(tag.getBaseTag());
     }
     
     @Override
     public NBTTagCompound getMetaTag() {
-    	return getEntity().metadata;
+        return getEntity().metadata;
     }
     
     /**
@@ -538,7 +538,7 @@ public class BaseEntity implements Metadatable {
      * @return
      */
     public boolean isInvulnerable() {
-    	return getEntity().ar();
+        return getEntity().ar();
     }
     
     /**
@@ -547,19 +547,19 @@ public class BaseEntity implements Metadatable {
      * @param isInvulnerable
      */
     public void setInvulnerable(boolean isInvulnerable) {
-    	entity.i = isInvulnerable;
+        entity.i = isInvulnerable;
     }
     
     @Override
     public boolean equals(Object obj) {
-    	if(obj instanceof BaseEntity) {
-    		return ((BaseEntity) obj).getId() == getId();
-    	}
-    	return false;
+        if(obj instanceof BaseEntity) {
+            return ((BaseEntity) obj).getId() == getId();
+        }
+        return false;
     }
     
     @Override
     public String toString() {
-    	return String.format("Entity[id=%d, name=%s, location=%s]", getId(), getName(), getLocation());
+        return String.format("Entity[id=%d, name=%s, location=%s]", getId(), getName(), getLocation());
     }
 }

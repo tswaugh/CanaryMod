@@ -35,19 +35,19 @@ public class OSlotMerchantResult extends OSlot {
    }
    
    public void a(OEntityPlayer var1, OItemStack var2) { //CanaryMod: so we don't break stuff
-	   a(var1, var2, false);
+       a(var1, var2, false);
    }
 
    public boolean a(OEntityPlayer var1, OItemStack var2, boolean heldShift) { //CanaryMod: added parameter heldShift
-	   OMerchantRecipe var3 = this.a.h();
-	   if((Boolean) etc.getLoader().callHook(PluginLoader.Hook.VILLAGER_TRADE, new Object[] {((OEntityPlayerMP) var1).getPlayer(), new Villager((OEntityVillager) d), new VillagerTrade(var3)})) {
-		   if(heldShift) {
-			   ((OEntityPlayerMP) var1).getPlayer().getInventory().removeItemOverStacks(new Item(var3.d()));
-		   } else {
-			   var1.bI.b((OItemStack) null);
-		   }
-		   return true;
-	   }
+       OMerchantRecipe var3 = this.a.h();
+       if((Boolean) etc.getLoader().callHook(PluginLoader.Hook.VILLAGER_TRADE, new Object[] {((OEntityPlayerMP) var1).getPlayer(), new Villager((OEntityVillager) d), new VillagerTrade(var3)})) {
+           if(heldShift) {
+               ((OEntityPlayerMP) var1).getPlayer().getInventory().removeItemOverStacks(new Item(var3.d()));
+           } else {
+               var1.bI.b((OItemStack) null);
+           }
+           return true;
+       }
       this.b(var2);
       if(var3 != null) {
          OItemStack var4 = this.a.a(0);

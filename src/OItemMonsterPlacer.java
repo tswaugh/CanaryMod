@@ -53,7 +53,7 @@ public class OItemMonsterPlacer extends OItem {
                     oentity.b(d0, d1, d2, oworld.u.nextFloat() * 360.0F, 0.0F);
                     ((OEntityLiving) oentity).bG();
                     if(spawn) {
-                    	oworld.d(oentity);
+                        oworld.d(oentity);
                     }
                     ((OEntityLiving) oentity).aO();
                 }
@@ -64,6 +64,6 @@ public class OItemMonsterPlacer extends OItem {
     }
     
     public static OEntity a(OWorld oworld, int i, double d0, double d1, double d2) {
-    	return a(oworld, i, d0, d1, d2, true);
+        return a(oworld, i, d0, d1, d2, true);
     }
 }

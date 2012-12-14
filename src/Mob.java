@@ -132,9 +132,9 @@ public class Mob extends LivingEntity {
     }
 
     public boolean isInLove(){
-    	if (getEntity() instanceof OEntityAnimal){
-    		return ((OEntityAnimal) getEntity()).r();
-    	}
-    	return false;
+        if (getEntity() instanceof OEntityAnimal){
+            return ((OEntityAnimal) getEntity()).r();
+        }
+        return false;
     }
 }

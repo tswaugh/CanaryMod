@@ -23,8 +23,8 @@ public class OBehaviorDispenseFireball extends OBehaviorDefaultDispenseItem {
       double var17 = var12.nextGaussian() * 0.05D + (double)var3.e();
       OEntitySmallFireball fireball = new OEntitySmallFireball(var11, var5, var7, var9, var13, var15, var17);
       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), new BaseEntity(fireball))) {
-    	  var11.d((OEntity)(fireball));
-    	  var2.a(1);
+          var11.d((OEntity)(fireball));
+          var2.a(1);
       }
       return var2;
    }

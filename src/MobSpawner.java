@@ -85,7 +85,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getMinDelay() {
-    	return spawner.f;
+        return spawner.f;
     }
     
     /**
@@ -96,7 +96,7 @@ public class MobSpawner implements ComplexBlock {
      * @param delay
      */
     public void setMinDelay(int delay) {
-    	spawner.f = delay;
+        spawner.f = delay;
     }
     
     /**
@@ -106,7 +106,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getMaxDelay() {
-    	return spawner.g;
+        return spawner.g;
     }
     
     /**
@@ -117,7 +117,7 @@ public class MobSpawner implements ComplexBlock {
      * @param delay
      */
     public void setMaxDelay(int delay) {
-    	spawner.g = delay;
+        spawner.g = delay;
     }
     
     /**
@@ -126,7 +126,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getSpawnCount() {
-    	return spawner.h;
+        return spawner.h;
     }
     
     /**
@@ -136,7 +136,7 @@ public class MobSpawner implements ComplexBlock {
      * @param count
      */
     public void setSpawnCount(int count) {
-    	spawner.h = count;
+        spawner.h = count;
     }
     
     /**
@@ -146,7 +146,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getMaxNearbyEntities() {
-    	return spawner.j;
+        return spawner.j;
     }
     
     /**
@@ -157,7 +157,7 @@ public class MobSpawner implements ComplexBlock {
      * @param entities
      */
     public void setMaxNearbyEntities(int entities) {
-    	spawner.j = entities;
+        spawner.j = entities;
     }
     
     /**
@@ -166,7 +166,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getRequiredPlayerRange() {
-    	return spawner.r;
+        return spawner.r;
     }
     
     /**
@@ -176,7 +176,7 @@ public class MobSpawner implements ComplexBlock {
      * @param range
      */
     public void setRequiredPlayerRange(int range) {
-    	spawner.r = range;
+        spawner.r = range;
     }
     
     /**
@@ -185,7 +185,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getSpawnRange() {
-    	return spawner.s;
+        return spawner.s;
     }
     
     /**
@@ -195,7 +195,7 @@ public class MobSpawner implements ComplexBlock {
      * @param range
      */
     public void setSpawnRange(int range) {
-    	spawner.s = range;
+        spawner.s = range;
     }
     
     /**
@@ -204,7 +204,7 @@ public class MobSpawner implements ComplexBlock {
      * @param entity The entity this spawner should spawn
      */
     public void setSpawnedEntity(BaseEntity entity) {
-    	setSpawnedEntity(entity.getEntity());
+        setSpawnedEntity(entity.getEntity());
     }
     
     /**
@@ -213,7 +213,7 @@ public class MobSpawner implements ComplexBlock {
      * @param itemEntity The item this spawner should spawn
      */
     public void setSpawnedEntity(Item itemEntity) {
-    	setSpawnedEntity(new OEntityItem(null, 0, 0, 0, itemEntity.getBaseItem()));
+        setSpawnedEntity(new OEntityItem(null, 0, 0, 0, itemEntity.getBaseItem()));
     }
     
     /**
@@ -222,15 +222,15 @@ public class MobSpawner implements ComplexBlock {
      * @param entity The entity this spawner should spawn
      */
     public void setSpawnedEntity(OEntity entity) {
-    	NBTTagCompound tag = new NBTTagCompound();
-    	entity.b(tag.getBaseTag());
-    	tag.removeTag("Health");
-    	tag.removeTag("HurtTime");
-    	tag.removeTag("DeathTime");
-    	tag.removeTag("AttackTime");
-    	tag.removeTag("Age");
-    	spawner.e = tag.getBaseTag();
-    	setSpawn(entity.Q());
+        NBTTagCompound tag = new NBTTagCompound();
+        entity.b(tag.getBaseTag());
+        tag.removeTag("Health");
+        tag.removeTag("HurtTime");
+        tag.removeTag("DeathTime");
+        tag.removeTag("AttackTime");
+        tag.removeTag("Age");
+        spawner.e = tag.getBaseTag();
+        setSpawn(entity.Q());
     }
     
     /**
@@ -239,7 +239,7 @@ public class MobSpawner implements ComplexBlock {
      * @param tag the tag to read from
      */
     public void readFromTag(NBTTagCompound tag) {
-    	spawner.a(tag.getBaseTag());
+        spawner.a(tag.getBaseTag());
     }
     
     /**
@@ -248,11 +248,11 @@ public class MobSpawner implements ComplexBlock {
      * @param tag the tag to write to
      */
     public void writeToTag(NBTTagCompound tag) {
-    	spawner.b(tag.getBaseTag());
+        spawner.b(tag.getBaseTag());
     }
     
     @Override
-	public NBTTagCompound getMetaTag() {
-		return spawner.metadata;
-	}
+    public NBTTagCompound getMetaTag() {
+        return spawner.metadata;
+    }
 }

@@ -347,7 +347,7 @@ public abstract class DataSource {
      * @return List<String>
      */
     public List<String> getMutedPlayers() {
-    	return mutedPlayers;
+        return mutedPlayers;
     }
     
     /**
@@ -357,10 +357,10 @@ public abstract class DataSource {
      * @return true if player is on the mute list, false otherwise
      */
     public boolean isPlayerOnMuteList(String name) {
-    	if(mutedPlayers.contains(name)) {
-    		return true;
-    	}
-    	return false;
+        if(mutedPlayers.contains(name)) {
+            return true;
+        }
+        return false;
     }
     
     /**

@@ -332,7 +332,7 @@ public class PluginListener {
      * @return true to destroy the item
      */
     public boolean onItemTouchGround(ItemEntity item) {
-    	return false;
+        return false;
     }
 
     /**
@@ -1289,13 +1289,13 @@ public class PluginListener {
      * Called when a projectile hits something.
      * 
      * @param projectile
-     * 			- The projectile that impacted.
+     *             - The projectile that impacted.
      * @param hit
-     * 			- The entity that was hit (null if none).
+     *             - The entity that was hit (null if none).
      * @return false to allow the impact, true to cancel it (if true is always returned, the projectile will fall through the world)
      */
     public boolean onProjectileHit(Projectile projectile, BaseEntity hit) {
-    	return false;
+        return false;
     }
     
     /**
@@ -1307,7 +1307,7 @@ public class PluginListener {
      * @return false to allow the trade, true to cancel it.
      */
     public boolean onVillagerTrade(Player player, Villager villager, VillagerTrade trade) {
-    	return false;
+        return false;
     }
     
     /**
@@ -1318,7 +1318,7 @@ public class PluginListener {
      * @return false to allow the unlock, true to cancel it.
      */
     public boolean onVillagerTradeUnlock(Villager villager, VillagerTrade trade) {
-    	return false;
+        return false;
     }
     
     /**
@@ -1328,6 +1328,6 @@ public class PluginListener {
      * @return modified HookParametersAnvilUse
      */
     public HookParametersAnvilUse onAnvilUse(HookParametersAnvilUse hookParametersAnvilUse) {
-    	return hookParametersAnvilUse;
+        return hookParametersAnvilUse;
     }
 }

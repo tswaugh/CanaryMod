@@ -69,5 +69,5 @@ public interface Inventory {
 
     public void setName(String value);
     
-	public boolean insertItem(Item item);
+    public boolean insertItem(Item item);
 }

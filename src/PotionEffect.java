@@ -83,7 +83,7 @@ public class PotionEffect {
      * @return
      */
     public static PotionEffect getNewPotionEffect(NBTTagCompound tag) {
-    	return OPotionEffect.b(tag.getBaseTag()).potionEffect;
+        return OPotionEffect.b(tag.getBaseTag()).potionEffect;
     }
    
     public PotionEffect.Type getType() {
@@ -117,6 +117,6 @@ public class PotionEffect {
      * @return the same tag that was passed in, but rewrapped
      */
     public NBTTagCompound writeToTag(NBTTagCompound tag) {
-    	return new NBTTagCompound(potionEffect.a(tag.getBaseTag()));
+        return new NBTTagCompound(potionEffect.a(tag.getBaseTag()));
     }
 }

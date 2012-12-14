@@ -275,14 +275,14 @@ public class OContainerRepair extends OContainer {
         
         //update the result slot
         OInventoryCraftResult inv = ((OInventoryCraftResult) this.f);
-    	if(hook.result == null) {
-        	inv.a[0] = null;
+        if(hook.result == null) {
+            inv.a[0] = null;
         } else {
-        	OItemStack base = hook.result.getBaseItem();
-        	inv.a[0] = base;
-        	if(base.a > inv.c()) {
-        		base.a = inv.c();
-        	}
+            OItemStack base = hook.result.getBaseItem();
+            inv.a[0] = base;
+            if(base.a > inv.c()) {
+                base.a = inv.c();
+            }
         }
         
         //update the tool name
@@ -390,15 +390,15 @@ public class OContainerRepair extends OContainer {
     }
     
     private void setSlotWithoutUpdate(Item item, int slot) {
-    	OInventoryRepair inv = ((OInventoryRepair) OContainerRepair.a(this));
-    	if(item == null) {
-        	inv.c[slot] = null;
+        OInventoryRepair inv = ((OInventoryRepair) OContainerRepair.a(this));
+        if(item == null) {
+            inv.c[slot] = null;
         } else {
-        	OItemStack base = item.getBaseItem();
-        	inv.c[slot] = base;
-        	if(base.a > inv.c()) {
-        		base.a = inv.c();
-        	}
+            OItemStack base = item.getBaseItem();
+            inv.c[slot] = base;
+            if(base.a > inv.c()) {
+                base.a = inv.c();
+            }
         }
     }
     // CanaryMod end

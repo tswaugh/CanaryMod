@@ -53,7 +53,7 @@ public class WrittenBook {
      * item is not a book)
      */
     public String getAuthor() {
-    	return nbtTag.getString("author");
+        return nbtTag.getString("author");
     }
 
     /**
@@ -61,7 +61,7 @@ public class WrittenBook {
      * @param author The new author
      */
     public void setAuthor(String author) {
-    	nbtTag.removeTag("author");
+        nbtTag.removeTag("author");
         nbtTag.add("author", author);
     }
 
@@ -88,7 +88,7 @@ public class WrittenBook {
      * @param pages A list containing the new pages as a <tt>String</tt>
      */
     public void setPages(List<String> pages) {
-    	NBTTagList nbtPages = new NBTTagList("pages");
+        NBTTagList nbtPages = new NBTTagList("pages");
         for (String page : pages) {
             nbtPages.add(new NBTTagString("", page));
         }
@@ -109,10 +109,10 @@ public class WrittenBook {
 
     @Override
     public boolean equals(Object obj) {
-    	if(obj instanceof WrittenBook) {
-    		WrittenBook other = (WrittenBook) obj;
-    		return getTitle().equals(other.getTitle()) && getAuthor().equals(other.getAuthor()) && getPages().equals(other.getPages());
-    	}
-    	return false;
+        if(obj instanceof WrittenBook) {
+            WrittenBook other = (WrittenBook) obj;
+            return getTitle().equals(other.getTitle()) && getAuthor().equals(other.getAuthor()) && getPages().equals(other.getPages());
+        }
+        return false;
     }
 }

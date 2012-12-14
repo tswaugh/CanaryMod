@@ -9,13 +9,13 @@ public class OBehaviorDefaultDispenseItem implements OIBehaviorDispenseItem {
    }
 
    protected OItemStack b(OIBlockSource var1, OItemStack var2) {
-	   if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), null)) {
-		   OEnumFacing var3 = OEnumFacing.a(var1.h());
-		   OIPosition var4 = OBlockDispenser.a(var1);
-		   OItemStack var5 = var2.a(1);
-		   a(var1.k(), var5, 6, var3, var4);
-	   }
-	   return var2;
+       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), null)) {
+           OEnumFacing var3 = OEnumFacing.a(var1.h());
+           OIPosition var4 = OBlockDispenser.a(var1);
+           OItemStack var5 = var2.a(1);
+           a(var1.k(), var5, 6, var3, var4);
+       }
+       return var2;
    }
 
    public static void a(OWorld var0, OItemStack var1, int var2, OEnumFacing var3, OIPosition var4) {

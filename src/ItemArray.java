@@ -233,12 +233,12 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
      *            item to remove
      */
     public void removeItem(Item item) {
-    	Item[] items = getContents();
+        Item[] items = getContents();
 
         for (Item i : items) {
             if(i != null && i.equalsIgnoreSlot(item)) {
-            	removeItem(i.getSlot());
-            	break;
+                removeItem(i.getSlot());
+                break;
             }
         }
     }
@@ -291,23 +291,23 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
      * @param item The item type to remove
      */
     public void removeItemOverStacks(Item item) {
-    	Item[] items = getContents();
-    	int remaining = item.getAmount();
-    	
-    	for(Item i : items) {
-    		if(item.equalsIgnoreSlotAndAmount(i)) {
-    			if(i.getAmount() == remaining) {
-    				removeItem(i.getSlot());
-    				return;
-    			} else if(i.getAmount() > remaining) {
-    				setSlot(i.getItemId(), i.getAmount() - remaining, i.getSlot());
-    				return;
-    			} else {
-    				removeItem(i.getSlot());
-    				remaining -= i.getAmount();
-    			}
-    		}
-    	}
+        Item[] items = getContents();
+        int remaining = item.getAmount();
+        
+        for(Item i : items) {
+            if(item.equalsIgnoreSlotAndAmount(i)) {
+                if(i.getAmount() == remaining) {
+                    removeItem(i.getSlot());
+                    return;
+                } else if(i.getAmount() > remaining) {
+                    setSlot(i.getItemId(), i.getAmount() - remaining, i.getSlot());
+                    return;
+                } else {
+                    removeItem(i.getSlot());
+                    remaining -= i.getAmount();
+                }
+            }
+        }
     }
     
     /**
@@ -317,15 +317,15 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
      * @return
      */
     public boolean hasItem(Item item) {
-    	Item[] items = getContents();
-    	
-    	for(Item i : items) {
-    		if(i != null && i.equalsIgnoreSlot(item)) {
-    			return true;
-    		}
-    	}
-    	
-    	return false;
+        Item[] items = getContents();
+        
+        for(Item i : items) {
+            if(i != null && i.equalsIgnoreSlot(item)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     /**
@@ -465,18 +465,18 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
      * @return true if all items are in the inventory,
      *          false when items are left over. item is updated to the leftover-amount.
      */
-	public boolean insertItem(Item item) {
-		int amount = item.getAmount();
-		Item itemExisting;
-		int maxAmount = item.getMaxAmount();
-		
+    public boolean insertItem(Item item) {
+        int amount = item.getAmount();
+        Item itemExisting;
+        int maxAmount = item.getMaxAmount();
+        
         while (amount > 0) {
-        	// Get an existing item with at least 1 spot free
-        	itemExisting = this.getItemFromId(item.getItemId(), maxAmount-1);
-        	
-        	// Add the items to the existing stack of items
+            // Get an existing item with at least 1 spot free
+            itemExisting = this.getItemFromId(item.getItemId(), maxAmount-1);
+            
+            // Add the items to the existing stack of items
             if (itemExisting != null) {
-            	// Add as much items as possible to the stack
+                // Add as much items as possible to the stack
                 int k = Math.min(maxAmount - itemExisting.getAmount(), item.getAmount());
                 this.setSlot(item.getItemId(), itemExisting.getAmount() + k, itemExisting.getSlot());
                 amount -= k;
@@ -484,30 +484,30 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
             }
             // We still have slots, but no stack, create a new stack.
             if(this.getEmptySlot() != -1) {
-            	this.addItem(new Item(item.getItemId(), amount));
-            	amount = 0;
-            	continue;
+                this.addItem(new Item(item.getItemId(), amount));
+                amount = 0;
+                continue;
             }
             
             // No free slots, no incomplete stacks: full
             // make sure the stored items are removed
             item.setAmount(amount);
-        	return false;
+            return false;
         }
         
         return true;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof ItemArray) {
-			return Arrays.equals(getContents(), ((ItemArray) obj).getContents());
-		}
-		return false;
-	}
-	
-	@Override
-	public String toString() {
-		return String.format("ItemArray[size=%d, contents=%s]", getContentsSize(), Arrays.toString(getContents()));
-	}
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof ItemArray) {
+            return Arrays.equals(getContents(), ((ItemArray) obj).getContents());
+        }
+        return false;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("ItemArray[size=%d, contents=%s]", getContentsSize(), Arrays.toString(getContents()));
+    }
 }

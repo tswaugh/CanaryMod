@@ -173,15 +173,15 @@ public class Chunk {
     
     @Override
     public boolean equals(Object obj) {
-    	if(obj instanceof Chunk) {
-    		Chunk other = (Chunk) obj;
-    		return getX() == other.getX() && getZ() == other.getZ();
-    	}
-    	return false;
+        if(obj instanceof Chunk) {
+            Chunk other = (Chunk) obj;
+            return getX() == other.getX() && getZ() == other.getZ();
+        }
+        return false;
     }
     
     @Override
     public String toString() {
-    	return String.format("Chunk[x=%d, z=%d]", getX(), getZ());
+        return String.format("Chunk[x=%d, z=%d]", getX(), getZ());
     }
 }

@@ -56,6 +56,6 @@ public class OTileEntityCommandBlock extends OTileEntity implements OICommandSen
    }
    
    public String getCommand() { //CanaryMod: allows us to access the command stored
-	   return this.a;
+       return this.a;
    }
 }

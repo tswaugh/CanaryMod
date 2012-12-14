@@ -34,8 +34,8 @@ public class OBehaviorDispenseBoat extends OBehaviorDefaultDispenseItem {
 
       OEntityBoat var17 = new OEntityBoat(var4, var5, var7 + var15, var9);
       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), new Boat(var17))) {
-    	  var4.d((OEntity)var17);
-    	  var2.a(1);
+          var4.d((OEntity)var17);
+          var2.a(1);
       }
       return var2;
    }

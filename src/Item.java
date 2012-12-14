@@ -518,7 +518,7 @@ public class Item implements Cloneable, Metadatable {
      * @param amount
      */
     public void setMaxAmount(int amount) {
-    	this.itemStack.b().e(amount);
+        this.itemStack.b().e(amount);
     }
 
     /**
@@ -590,12 +590,12 @@ public class Item implements Cloneable, Metadatable {
      */
     @Override
     public boolean equals(Object obj) {
-    	if(obj instanceof OItemStack) {
-    		return OItemStack.b(itemStack, (OItemStack) obj);
-    	} else if(obj instanceof Item) {
-    		return OItemStack.b(itemStack, ((Item) obj).getBaseItem());
-    	}
-    	return false;
+        if(obj instanceof OItemStack) {
+            return OItemStack.b(itemStack, (OItemStack) obj);
+        } else if(obj instanceof Item) {
+            return OItemStack.b(itemStack, ((Item) obj).getBaseItem());
+        }
+        return false;
     }
     
     /**
@@ -605,7 +605,7 @@ public class Item implements Cloneable, Metadatable {
      * @return
      */
     public boolean equalsIgnoreSlotAndAmount(Item item) {
-    	return item != null && item.getItemId() == getItemId() && item.getDamage() == getDamage() && Arrays.equals(item.getEnchantments(), getEnchantments()) && (getDataTag() == null ? item.getDataTag() == null : getDataTag().equals(item.getDataTag()));
+        return item != null && item.getItemId() == getItemId() && item.getDamage() == getDamage() && Arrays.equals(item.getEnchantments(), getEnchantments()) && (getDataTag() == null ? item.getDataTag() == null : getDataTag().equals(item.getDataTag()));
     }
     
     /**
@@ -615,7 +615,7 @@ public class Item implements Cloneable, Metadatable {
      * @return
      */
     public boolean equalsIgnoreSlot(Item item) {
-    	return equalsIgnoreSlotAndAmount(item) && item.getAmount() == getAmount();
+        return equalsIgnoreSlotAndAmount(item) && item.getAmount() == getAmount();
     }
 
     /**
@@ -792,29 +792,29 @@ public class Item implements Cloneable, Metadatable {
      * @return
      */
     public PotionEffect[] getPotionEffects() {
-    	if(getType() != Item.Type.Potion) {
-    		return null;
-    	}
-    	
-    	OItemStack base = getBaseItem();
-    	
-    	if(!base.o()) {
-    		return null;
-    	}
-    	
-    	NBTTagCompound tag = new NBTTagCompound(base.p());
-    	if(!tag.hasTag("CustomPotionEffects")) {
-    		return null;
-    	}
-    	
-    	NBTTagList potionEffects = tag.getNBTTagList("CustomPotionEffects");
-    	PotionEffect[] rt = new PotionEffect[potionEffects.size()];
-    	if(rt.length <= 0) {return null;}
-    	for(int i=0; i<rt.length; i++) {
-    		rt[i] = new PotionEffect(OPotionEffect.b((ONBTTagCompound) potionEffects.get(i).getBaseTag()));
-    	}
-    	
-    	return rt;
+        if(getType() != Item.Type.Potion) {
+            return null;
+        }
+        
+        OItemStack base = getBaseItem();
+        
+        if(!base.o()) {
+            return null;
+        }
+        
+        NBTTagCompound tag = new NBTTagCompound(base.p());
+        if(!tag.hasTag("CustomPotionEffects")) {
+            return null;
+        }
+        
+        NBTTagList potionEffects = tag.getNBTTagList("CustomPotionEffects");
+        PotionEffect[] rt = new PotionEffect[potionEffects.size()];
+        if(rt.length <= 0) {return null;}
+        for(int i=0; i<rt.length; i++) {
+            rt[i] = new PotionEffect(OPotionEffect.b((ONBTTagCompound) potionEffects.get(i).getBaseTag()));
+        }
+        
+        return rt;
     }
     
     /**
@@ -823,7 +823,7 @@ public class Item implements Cloneable, Metadatable {
      * @param effect The potion effect to add
      */
     public void addPotionEffect(PotionEffect effect) {
-    	addPotionEffects(new PotionEffect[] {effect});
+        addPotionEffects(new PotionEffect[] {effect});
     }
     
     /**
@@ -832,34 +832,34 @@ public class Item implements Cloneable, Metadatable {
      * @param effects The potion effects to add
      */
     public void addPotionEffects(PotionEffect[] effects) {
-    	if(getType() != Item.Type.Potion) {
-    		return;
-    	}
-    	
-    	OItemStack base = getBaseItem();
-    	
-    	NBTTagList potionEffects = null;
-    	if(base.o()) {
-    		NBTTagCompound tag = new NBTTagCompound(base.p());
-    		if(tag.hasTag("CustomPotionEffects")) {
-    			potionEffects = tag.getNBTTagList("CustomPotionEffects");
-    		} else {
-    			potionEffects = new NBTTagList();
-    			tag.add("CustomPotionEffects", potionEffects);
-    		}
-    	} else {
-    		potionEffects = new NBTTagList();
-    		NBTTagCompound tag = new NBTTagCompound();
-    		tag.add("CustomPotionEffects", potionEffects);
-    		base.d(tag.getBaseTag());
-    	}
-    	
-    	NBTTagCompound[] e = new NBTTagCompound[effects.length];
-    	for(int i = 0; i < e.length; i++) {
-    		e[i] = new NBTTagCompound();
-    		effects[i].potionEffect.a(e[i].getBaseTag());
-    		potionEffects.add(e[i]);
-    	}
+        if(getType() != Item.Type.Potion) {
+            return;
+        }
+        
+        OItemStack base = getBaseItem();
+        
+        NBTTagList potionEffects = null;
+        if(base.o()) {
+            NBTTagCompound tag = new NBTTagCompound(base.p());
+            if(tag.hasTag("CustomPotionEffects")) {
+                potionEffects = tag.getNBTTagList("CustomPotionEffects");
+            } else {
+                potionEffects = new NBTTagList();
+                tag.add("CustomPotionEffects", potionEffects);
+            }
+        } else {
+            potionEffects = new NBTTagList();
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.add("CustomPotionEffects", potionEffects);
+            base.d(tag.getBaseTag());
+        }
+        
+        NBTTagCompound[] e = new NBTTagCompound[effects.length];
+        for(int i = 0; i < e.length; i++) {
+            e[i] = new NBTTagCompound();
+            effects[i].potionEffect.a(e[i].getBaseTag());
+            potionEffects.add(e[i]);
+        }
     }
 
     /**
@@ -887,17 +887,17 @@ public class Item implements Cloneable, Metadatable {
      * @return The lore, each string in the array is a new line
      */
     public String[] getLore() { // WWOL: I don't think we need this now with the new NBT API do we?
-    	NBTTagCompound tag = getDataTag();
-    	if(tag == null) {return null;}
-    	if(!tag.hasTag("display")) {return null;}
-    	NBTTagCompound display = tag.getNBTTagCompound("display");
-    	if(!display.hasTag("Lore")) {return null;}
-    	NBTTagList lore = display.getNBTTagList("Lore");
-    	String[] rt = new String[lore.size()];
-    	for(int i=0; i<rt.length; i++) {
-    		rt[i] = lore.get(i).toPlainString();
-    	}
-    	return rt;
+        NBTTagCompound tag = getDataTag();
+        if(tag == null) {return null;}
+        if(!tag.hasTag("display")) {return null;}
+        NBTTagCompound display = tag.getNBTTagCompound("display");
+        if(!display.hasTag("Lore")) {return null;}
+        NBTTagList lore = display.getNBTTagList("Lore");
+        String[] rt = new String[lore.size()];
+        for(int i=0; i<rt.length; i++) {
+            rt[i] = lore.get(i).toPlainString();
+        }
+        return rt;
     }
     
     /**
@@ -906,19 +906,19 @@ public class Item implements Cloneable, Metadatable {
      * @param lore The lore to set, each line should be in a separate string in the array
      */
     public void setLore(String... lore) {
-    	NBTTagCompound tag = getDataTag();
-    	if(tag == null) {
-    		tag = new NBTTagCompound("tag");
-    		setDataTag(tag);
-    	}
-    	if(!tag.hasTag("display")) {
-    		tag.add("display", new NBTTagCompound());
-    	}
-    	NBTTagList list = new NBTTagList();
-    	for(String line : lore) {
-    		list.add(new NBTTagString("", line));
-    	}
-    	tag.getNBTTagCompound("display").add("Lore", list);
+        NBTTagCompound tag = getDataTag();
+        if(tag == null) {
+            tag = new NBTTagCompound("tag");
+            setDataTag(tag);
+        }
+        if(!tag.hasTag("display")) {
+            tag.add("display", new NBTTagCompound());
+        }
+        NBTTagList list = new NBTTagList();
+        for(String line : lore) {
+            list.add(new NBTTagString("", line));
+        }
+        tag.getNBTTagCompound("display").add("Lore", list);
     }
     
     /**
@@ -928,7 +928,7 @@ public class Item implements Cloneable, Metadatable {
      * @return
      */
     public NBTTagCompound getDataTag() {
-    	return itemStack.o() ? new NBTTagCompound(itemStack.p()) : null;
+        return itemStack.o() ? new NBTTagCompound(itemStack.p()) : null;
     }
     
     /**
@@ -939,16 +939,16 @@ public class Item implements Cloneable, Metadatable {
      * @param tag the data tag
      */
     public void setDataTag(NBTTagCompound tag) {
-    	itemStack.d = tag == null ? null : tag.getBaseTag();
+        itemStack.d = tag == null ? null : tag.getBaseTag();
     }
     
     @Override
     public NBTTagCompound getMetaTag() {
-    	NBTTagCompound dataTag = getDataTag();
-    	if(!dataTag.hasTag("Canary")) {
-    		dataTag.add("Canary", new NBTTagCompound("Canary"));
-    	}
-    	return dataTag.getNBTTagCompound("Canary");
+        NBTTagCompound dataTag = getDataTag();
+        if(!dataTag.hasTag("Canary")) {
+            dataTag.add("Canary", new NBTTagCompound("Canary"));
+        }
+        return dataTag.getNBTTagCompound("Canary");
     }
     
     /**
@@ -958,7 +958,7 @@ public class Item implements Cloneable, Metadatable {
      * @return NBTTagCompound
      */
     public NBTTagCompound writeToTag(NBTTagCompound tag) {
-    	return new NBTTagCompound(itemStack.b(tag.getBaseTag()));
+        return new NBTTagCompound(itemStack.b(tag.getBaseTag()));
     }
     
     /**
@@ -967,6 +967,6 @@ public class Item implements Cloneable, Metadatable {
      * @param tag The tag to read from
      */
     public void readFromTag(NBTTagCompound tag) {
-    	itemStack.c(tag.getBaseTag());
+        itemStack.c(tag.getBaseTag());
     }
 }

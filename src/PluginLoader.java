@@ -470,11 +470,11 @@ public class PluginLoader {
         private final ODamageSource source;
         
         private DamageType(ODamageSource source) {
-        	this.source = source;
+            this.source = source;
         }
         
         public ODamageSource getDamageSource() {
-        	return this.source;
+            return this.source;
         }
          
          public static DamageType fromDamageSource(ODamageSource source) {
@@ -933,10 +933,10 @@ public class PluginLoader {
                             break;
                             
                         case ITEM_TOUCH_GROUND:
-                        	if(listener.onItemTouchGround((ItemEntity) parameters[0])) {
-                        		toRet = true;
-                        	}
-                        	break;
+                            if(listener.onItemTouchGround((ItemEntity) parameters[0])) {
+                                toRet = true;
+                            }
+                            break;
 
                         case TELEPORT:
                             if (listener.onTeleport((Player) parameters[0], (Location) parameters[1], (Location) parameters[2])) {
@@ -1284,21 +1284,21 @@ public class PluginLoader {
                             break;
                             
                         case PROJECTILE_HIT:
-                        	toRet = listener.onProjectileHit((Projectile) parameters[0], parameters[1] == null ? null : (BaseEntity) parameters[1]);
-                        	break;
-                        	
+                            toRet = listener.onProjectileHit((Projectile) parameters[0], parameters[1] == null ? null : (BaseEntity) parameters[1]);
+                            break;
+                            
                         case VILLAGER_TRADE:
-                        	toRet = listener.onVillagerTrade((Player) parameters[0], (Villager) parameters[1], (VillagerTrade) parameters[2]);
-                        	break;
-                        	
+                            toRet = listener.onVillagerTrade((Player) parameters[0], (Villager) parameters[1], (VillagerTrade) parameters[2]);
+                            break;
+                            
                         case VILLAGER_TRADE_UNLOCK:
-                        	toRet = listener.onVillagerTradeUnlock((Villager) parameters[0], (VillagerTrade) parameters[1]);
-                        	break;
-                        	
+                            toRet = listener.onVillagerTradeUnlock((Villager) parameters[0], (VillagerTrade) parameters[1]);
+                            break;
+                            
                         case ANVIL_USE:
-                        	toRet = listener.onAnvilUse((HookParametersAnvilUse) parameters[0]);
-                        	break;
-                        	
+                            toRet = listener.onAnvilUse((HookParametersAnvilUse) parameters[0]);
+                            break;
+                            
                         }
                        } catch (UnsupportedOperationException ex) {}
                 }

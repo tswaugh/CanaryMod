@@ -193,7 +193,7 @@ public class LivingEntity extends BaseEntity {
      * @param item
      */
     public void setItemInHand(Item item) {
-    	getEntity().b(0, item.getBaseItem());
+        getEntity().b(0, item.getBaseItem());
     }
     
     /**
@@ -202,37 +202,37 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public Item getItemStackInHand() {
-    	OItemStack stack = getEntity().bD();
-    	return stack == null ? null : new Item(stack);
+        OItemStack stack = getEntity().bD();
+        return stack == null ? null : new Item(stack);
     }
     
     /**
      * Sets an armor slot of the entity.
      * 
      * @param slot 
-     * 			The slot of the armor, 0 being boots and 3 being helmet
+     *             The slot of the armor, 0 being boots and 3 being helmet
      * @param armor
-     * 			The item of armor to add
+     *             The item of armor to add
      */
     public void setArmorSlot(int slot, Item armor) {
-    	if(slot >= 0 && slot <= 3) {
-    		getEntity().b(slot + 1, armor.getBaseItem());
-    	}
+        if(slot >= 0 && slot <= 3) {
+            getEntity().b(slot + 1, armor.getBaseItem());
+        }
     }
     
     /**
      * Gets the item in one of the entity's armor slots.
      * 
      * @param slot
-     * 			The slot of the armor, 0 being boots and 3 being helmet
+     *             The slot of the armor, 0 being boots and 3 being helmet
      * @return
      */
     public Item getArmorSlot(int slot) {
-    	if(slot < 0 || slot > 3) {
-    		return null;
-    	}
-    	OItemStack stack = getEntity().q(slot);
-    	return stack == null ? null : new Item(stack);
+        if(slot < 0 || slot > 3) {
+            return null;
+        }
+        OItemStack stack = getEntity().q(slot);
+        return stack == null ? null : new Item(stack);
     }
     
     /**
@@ -241,7 +241,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public boolean isPersistent() {
-    	return getEntity().bT;
+        return getEntity().bT;
     }
     
     /**
@@ -250,7 +250,7 @@ public class LivingEntity extends BaseEntity {
      * @param isPersistent
      */
     public void setPersistent(boolean isPersistent) {
-    	getEntity().bT = isPersistent;
+        getEntity().bT = isPersistent;
     }
     
     /**
@@ -260,10 +260,10 @@ public class LivingEntity extends BaseEntity {
      * @return The drop chance, 0-1 (anything greater than 1 is guaranteed to drop)
      */
     public float getDropChance(int slot) {
-    	if(slot >= 0 && slot <= 4) {
-    		return getEntity().bo[slot];
-    	}
-    	return 0;
+        if(slot >= 0 && slot <= 4) {
+            return getEntity().bo[slot];
+        }
+        return 0;
     }
     
     /**
@@ -273,9 +273,9 @@ public class LivingEntity extends BaseEntity {
      * @param chance The drop chance, 0-1 (anything greater than 1 is guaranteed to drop)
      */
     public void setDropChance(int slot, float chance) {
-    	if(slot >= 0 && slot <= 4) {
-    		getEntity().bo[slot] = chance;
-    	}
+        if(slot >= 0 && slot <= 4) {
+            getEntity().bo[slot] = chance;
+        }
     }
     
     /**
@@ -284,7 +284,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public boolean canPickUpLoot() {
-    	return getEntity().br;
+        return getEntity().br;
     }
     
     /**
@@ -293,7 +293,7 @@ public class LivingEntity extends BaseEntity {
      * @param flag
      */
     public void setCanPickUpLoot(boolean flag) {
-    	getEntity().br = flag;
+        getEntity().br = flag;
     }
     
     /**
@@ -322,6 +322,6 @@ public class LivingEntity extends BaseEntity {
      * @param amount The amount of damage to deal (2 = 1 heart)
      */
     public void applyDamage(PluginLoader.DamageType type, int amount) {
-    	getEntity().d(type.getDamageSource(), amount);
+        getEntity().d(type.getDamageSource(), amount);
     }
 }

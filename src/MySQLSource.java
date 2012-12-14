@@ -784,7 +784,7 @@ public class MySQLSource extends DataSource {
                 player.setPrefix(rs.getString("prefix"));
                 player.setRestrictions(rs.getInt("admin/unrestricted"));
                 if(rs.wasNull()) {
-                	for (String str : player.getGroups()) {
+                    for (String str : player.getGroups()) {
                         Group group = etc.getDataSource().getGroup(str);
 
                         if (group != null) {
@@ -792,9 +792,9 @@ public class MySQLSource extends DataSource {
                                 player.setRestrictions(2);
                                 break;
                             } else if (group.IgnoreRestrictions) {
-                            	player.setRestrictions(1);
+                                player.setRestrictions(1);
                             } else if (!group.CanModifyWorld && !player.canIgnoreRestrictions()) {
-                            	player.setRestrictions(-1);
+                                player.setRestrictions(-1);
                             }
                         }
                     }

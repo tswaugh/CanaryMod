@@ -32,10 +32,10 @@ public class OBehaviorBucketEmptyDispense extends OBehaviorDefaultDispenseItem {
 
       var4.e(var5, var6, var7, 0);
       if(--var2.a == 0) {
-    	  if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), null)) {
-    		  var2.c = var10.cg;
-    		  var2.a = 1;
-    	  }
+          if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), null)) {
+              var2.c = var10.cg;
+              var2.a = 1;
+          }
       } else if(((OTileEntityDispenser)var1.j()).a(new OItemStack(var10)) < 0) {
          this.c.a(var1, new OItemStack(var10));
       }

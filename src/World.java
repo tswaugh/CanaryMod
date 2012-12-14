@@ -522,11 +522,11 @@ public class World {
             } else if (localav instanceof OTileEntityBrewingStand) {
                 return new BrewingStand((OTileEntityBrewingStand) localav);
             } else if (localav instanceof OTileEntityRecordPlayer) {
-            	return new JukeBox((OTileEntityRecordPlayer) localav);
+                return new JukeBox((OTileEntityRecordPlayer) localav);
             } else if (localav instanceof OTileEntitySkull) {
-            	return new Skull((OTileEntitySkull) localav);
+                return new Skull((OTileEntitySkull) localav);
             } else if (localav instanceof OTileEntityCommandBlock) {
-            	return new CommandBlock((OTileEntityCommandBlock) localav);
+                return new CommandBlock((OTileEntityCommandBlock) localav);
             }
         }
         return null;
@@ -957,7 +957,7 @@ public class World {
      * @param doesDamage Whether or not this explosion deals damage.
      */
     public void explode(BaseEntity exploder, double x, double y, double z, float power, boolean doesDamage) {
-    	world.a(exploder.entity, x, y, z, power, doesDamage);
+        world.a(exploder.entity, x, y, z, power, doesDamage);
     }
     
     /**
@@ -972,7 +972,7 @@ public class World {
      * @param doesDamage Whether or not this explosion deals damage.
      */
     public void explode(BaseEntity exploder, double x, double y, double z, float power, boolean doesCauseFires, boolean doesDamage) {
-    	world.a(exploder.entity, x, y, z, power, doesCauseFires, doesDamage);
+        world.a(exploder.entity, x, y, z, power, doesCauseFires, doesDamage);
     }
 
     /**
@@ -1063,7 +1063,7 @@ public class World {
      * @param p The projectile to launch.
      */
     public void launchProjectile(Projectile p) {
-    	getWorld().d(p.getEntity());
+        getWorld().d(p.getEntity());
     }
     
     /**
@@ -1074,7 +1074,7 @@ public class World {
      * @param z The z coordinate to strike.
      */
     public void strikeLightning(double x, double y, double z) {
-    	getWorld().c(new OEntityLightningBolt(getWorld(), x, y, z));
+        getWorld().c(new OEntityLightningBolt(getWorld(), x, y, z));
     }
     
     /**
@@ -1083,7 +1083,7 @@ public class World {
      * @param location The location to strike.
      */
     public void strikeLightning(Location location) {
-    	strikeLightning(location.x, location.y, location.z);
+        strikeLightning(location.x, location.y, location.z);
     }
     
     /**

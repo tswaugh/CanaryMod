@@ -106,7 +106,7 @@ public class OEntityVillager extends OEntityAgeable implements OINpc, OIMerchant
    public boolean a(OEntityPlayer var1) {
       OItemStack var2 = var1.bI.g();
       if(((PluginLoader.HookResult) etc.getLoader().callHook(PluginLoader.Hook.ENTITY_RIGHTCLICKED, new Object[] {((OEntityPlayerMP) var1).getPlayer(), new Villager(this), var2 == null ? null : new Item(var2)})) == PluginLoader.HookResult.PREVENT_ACTION) {
-    	  return false;
+          return false;
       }
       boolean var3 = var2 != null && var2.c == OItem.bC.cg;
       if(!var3 && this.S() && !this.p() && !this.h_()) {
@@ -379,10 +379,10 @@ public class OEntityVillager extends OEntityAgeable implements OINpc, OIMerchant
       }
 
       for(int var8 = 0; var8 < var1 && var8 < var2.size(); ++var8) {
-    	  OMerchantRecipe recipe = (OMerchantRecipe) var2.get(var8);
-    	  if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.VILLAGER_TRADE_UNLOCK, new Object[] {new Villager(this), new VillagerTrade(recipe)})) {
-    		  this.i.a(recipe);
-    	  }
+          OMerchantRecipe recipe = (OMerchantRecipe) var2.get(var8);
+          if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.VILLAGER_TRADE_UNLOCK, new Object[] {new Villager(this), new VillagerTrade(recipe)})) {
+              this.i.a(recipe);
+          }
       }
    }
 

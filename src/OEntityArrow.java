@@ -174,72 +174,72 @@ public class OEntityArrow extends OEntity implements OIProjectile {
 
          float var20;
          if(var4 != null) {
-        	if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Arrow(this), var4 == null || var4.g == null ? null : var4.g.getEntity())) {
-	            if(var4.g != null) {
-	               var20 = OMathHelper.a(this.w * this.w + this.x * this.x + this.y * this.y);
-	               int var23 = OMathHelper.f((double)var20 * this.at);
-	               if(this.d()) {
-	                  var23 += this.aa.nextInt(var23 / 2 + 2);
-	               }
-	
-	               ODamageSource var21 = null;
-	               if(this.c == null) {
-	                  var21 = ODamageSource.a(this, this);
-	               } else {
-	                  var21 = ODamageSource.a(this, this.c);
-	               }
-	
-	               if(this.af()) {
-	                  var4.g.c(5);
-	               }
-	
-	               if(var4.g.a(var21, var23)) {
-	                  if(var4.g instanceof OEntityLiving) {
-	                     if(!this.p.J) {
-	                        OEntityLiving var24 = (OEntityLiving)var4.g;
-	                        var24.r(var24.bJ() + 1);
-	                     }
-	
-	                     if(this.au > 0) {
-	                        float var25 = OMathHelper.a(this.w * this.w + this.y * this.y);
-	                        if(var25 > 0.0F) {
-	                           var4.g.g(this.w * (double)this.au * 0.6000000238418579D / (double)var25, 0.1D, this.y * (double)this.au * 0.6000000238418579D / (double)var25);
-	                        }
-	                     }
-	                  }
-	
-	                  this.a("random.bowhit", 1.0F, 1.2F / (this.aa.nextFloat() * 0.2F + 0.9F));
-	                  this.x();
-	               } else {
-	                  this.w *= -0.10000000149011612D;
-	                  this.x *= -0.10000000149011612D;
-	                  this.y *= -0.10000000149011612D;
-	                  this.z += 180.0F;
-	                  this.B += 180.0F;
-	                  this.as = 0;
-	               }
-	            } else {
-	               this.d = var4.b;
-	               this.e = var4.c;
-	               this.f = var4.d;
-	               this.g = this.p.a(this.d, this.e, this.f);
-	               this.h = this.p.h(this.d, this.e, this.f);
-	               this.w = (double)((float)(var4.f.c - this.t));
-	               this.x = (double)((float)(var4.f.d - this.u));
-	               this.y = (double)((float)(var4.f.e - this.v));
-	               var20 = OMathHelper.a(this.w * this.w + this.x * this.x + this.y * this.y);
-	               this.t -= this.w / (double)var20 * 0.05000000074505806D;
-	               this.u -= this.x / (double)var20 * 0.05000000074505806D;
-	               this.v -= this.y / (double)var20 * 0.05000000074505806D;
-	               this.a("random.bowhit", 1.0F, 1.2F / (this.aa.nextFloat() * 0.2F + 0.9F));
-	               this.i = true;
-	               this.b = 7;
-	               this.e(false);
-	               if(this.g != 0) {
-	                  OBlock.p[this.g].a(this.p, this.d, this.e, this.f, (OEntity)this);
-	               }
-	            }
-        	}
+            if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Arrow(this), var4 == null || var4.g == null ? null : var4.g.getEntity())) {
+                if(var4.g != null) {
+                   var20 = OMathHelper.a(this.w * this.w + this.x * this.x + this.y * this.y);
+                   int var23 = OMathHelper.f((double)var20 * this.at);
+                   if(this.d()) {
+                      var23 += this.aa.nextInt(var23 / 2 + 2);
+                   }
+    
+                   ODamageSource var21 = null;
+                   if(this.c == null) {
+                      var21 = ODamageSource.a(this, this);
+                   } else {
+                      var21 = ODamageSource.a(this, this.c);
+                   }
+    
+                   if(this.af()) {
+                      var4.g.c(5);
+                   }
+    
+                   if(var4.g.a(var21, var23)) {
+                      if(var4.g instanceof OEntityLiving) {
+                         if(!this.p.J) {
+                            OEntityLiving var24 = (OEntityLiving)var4.g;
+                            var24.r(var24.bJ() + 1);
+                         }
+    
+                         if(this.au > 0) {
+                            float var25 = OMathHelper.a(this.w * this.w + this.y * this.y);
+                            if(var25 > 0.0F) {
+                               var4.g.g(this.w * (double)this.au * 0.6000000238418579D / (double)var25, 0.1D, this.y * (double)this.au * 0.6000000238418579D / (double)var25);
+                            }
+                         }
+                      }
+    
+                      this.a("random.bowhit", 1.0F, 1.2F / (this.aa.nextFloat() * 0.2F + 0.9F));
+                      this.x();
+                   } else {
+                      this.w *= -0.10000000149011612D;
+                      this.x *= -0.10000000149011612D;
+                      this.y *= -0.10000000149011612D;
+                      this.z += 180.0F;
+                      this.B += 180.0F;
+                      this.as = 0;
+                   }
+                } else {
+                   this.d = var4.b;
+                   this.e = var4.c;
+                   this.f = var4.d;
+                   this.g = this.p.a(this.d, this.e, this.f);
+                   this.h = this.p.h(this.d, this.e, this.f);
+                   this.w = (double)((float)(var4.f.c - this.t));
+                   this.x = (double)((float)(var4.f.d - this.u));
+                   this.y = (double)((float)(var4.f.e - this.v));
+                   var20 = OMathHelper.a(this.w * this.w + this.x * this.x + this.y * this.y);
+                   this.t -= this.w / (double)var20 * 0.05000000074505806D;
+                   this.u -= this.x / (double)var20 * 0.05000000074505806D;
+                   this.v -= this.y / (double)var20 * 0.05000000074505806D;
+                   this.a("random.bowhit", 1.0F, 1.2F / (this.aa.nextFloat() * 0.2F + 0.9F));
+                   this.i = true;
+                   this.b = 7;
+                   this.e(false);
+                   if(this.g != 0) {
+                      OBlock.p[this.g].a(this.p, this.d, this.e, this.f, (OEntity)this);
+                   }
+                }
+            }
          }
 
          if(this.d()) {

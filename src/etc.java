@@ -86,7 +86,7 @@ public class etc {
     private boolean                       playerList_colors = true;
     private boolean                       playerList_enabled = true;
 
-    public boolean	                      allowEnchantableItemStacking = false;
+    public boolean                          allowEnchantableItemStacking = false;
 
     //Connection Manager
     private ConnectionService cs;
@@ -502,7 +502,7 @@ public class etc {
      */
 
     public boolean isOldExperience() {
-    	return oldExperience;
+        return oldExperience;
     }
 
     /**
@@ -873,7 +873,7 @@ public class etc {
     }
 
 //    public boolean isPlayerOnMuteList(String player) {
-//    	if(this.getDataSource().get)
+//        if(this.getDataSource().get)
 //    }
 
     /**

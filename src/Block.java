@@ -779,6 +779,6 @@ public class Block {
      * @return
      */
     public ComplexBlock getComplex() {
-    	return getWorld().getComplexBlock(this);
+        return getWorld().getComplexBlock(this);
     }
 }

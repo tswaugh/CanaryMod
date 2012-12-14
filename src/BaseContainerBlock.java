@@ -119,7 +119,7 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
      * @param tag the tag to read from
      */
     public void readFromTag(NBTTagCompound tag) {
-    	container.a(tag.getBaseTag());
+        container.a(tag.getBaseTag());
     }
     
     /**
@@ -128,10 +128,10 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
      * @param tag the tag to write to
      */
     public void writeToTag(NBTTagCompound tag) {
-    	container.b(tag.getBaseTag());
+        container.b(tag.getBaseTag());
     }
     
     public NBTTagCompound getMetaTag() {
-    	return container.metadata;
+        return container.metadata;
     }
 }

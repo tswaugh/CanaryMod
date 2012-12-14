@@ -77,7 +77,7 @@ public class OTileEntityMobSpawner extends OTileEntity {
                             this.k.d(oentity);
                             this.k.f(2004, this.l, this.m, this.n, 0);
                             if (oentityliving != null) {
-                            	// CanaryMod - set spawner block for spawned entity
+                                // CanaryMod - set spawner block for spawned entity
                                 oentityliving.spawner = (MobSpawner) this.k.world.getComplexBlock(this.l, this.m, this.n);
                                 oentityliving.aR();
                             }

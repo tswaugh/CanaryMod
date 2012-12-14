@@ -805,26 +805,26 @@ public class FlatFileSource extends DataSource {
                     if (split[0].contains(".")) // IPv4
                         ban.setIp(split[0]);
                     else if(split[0].length() == 32) { // IPv6
-                    	// Convert the expanded address to the compressed version
-                    	// The string also has the : removed, so we add those first
+                        // Convert the expanded address to the compressed version
+                        // The string also has the : removed, so we add those first
 
-                    	StringBuilder sb = new StringBuilder();
+                        StringBuilder sb = new StringBuilder();
 
-                    	for(int i = 0; i < 8; i++) {
-                    		String piece = split[0].substring(i*4, i*4+4);
+                        for(int i = 0; i < 8; i++) {
+                            String piece = split[0].substring(i*4, i*4+4);
 
-                    		if(piece == "0000")
-                    			sb.append("0");
-                    		else {
-                    			Integer r = Integer.parseInt(piece,16);
-                    			sb.append(Integer.toHexString(r));
-                    		}
-                    		if(i != 7)
-                    			sb.append(":");
-                    	}
-                    	String longAddr = sb.toString();
+                            if(piece == "0000")
+                                sb.append("0");
+                            else {
+                                Integer r = Integer.parseInt(piece,16);
+                                sb.append(Integer.toHexString(r));
+                            }
+                            if(i != 7)
+                                sb.append(":");
+                        }
+                        String longAddr = sb.toString();
 
-                    	ban.setIp(longAddr);
+                        ban.setIp(longAddr);
                     }
                     else
                         ban.setName(split[0]);
@@ -1141,7 +1141,7 @@ public class FlatFileSource extends DataSource {
                         log.log(Level.SEVERE, String.format("The value 'ADMIN/UNRESTRICTED' for player '%s' in %s (line %d) is not valid.", name, location, linenum));
                     }
                 } else {
-                	for (String str : player.getGroups()) {
+                    for (String str : player.getGroups()) {
                         Group group = etc.getDataSource().getGroup(str);
 
                         if (group != null) {
@@ -1149,9 +1149,9 @@ public class FlatFileSource extends DataSource {
                                 player.setRestrictions(2);
                                 break;
                             } else if (group.IgnoreRestrictions) {
-                            	player.setRestrictions(1);
+                                player.setRestrictions(1);
                             } else if (!group.CanModifyWorld && !player.canIgnoreRestrictions()) {
-                            	player.setRestrictions(-1);
+                                player.setRestrictions(-1);
                             }
                         }
                     }
@@ -1553,14 +1553,14 @@ public class FlatFileSource extends DataSource {
 
         // Transform Ipv6 addresses
         if(byIp && value.indexOf(":") != -1) {
-        	String[] lst = value.split(":");
-        	StringBuilder sb = new StringBuilder();
-        	for(String p : lst) {
-        		for(int i = 0; i < 4-p.length(); i++)
-        			sb.append("0");
-        		sb.append(p);
-        	}
-        	value = sb.toString();
+            String[] lst = value.split(":");
+            StringBuilder sb = new StringBuilder();
+            for(String p : lst) {
+                for(int i = 0; i < 4-p.length(); i++)
+                    sb.append("0");
+                sb.append(p);
+            }
+            value = sb.toString();
         }
 
         try {

@@ -1229,7 +1229,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     public int cc() {
         // CanaryMod: Old experience option
         if(etc.getInstance().isOldExperience()) {
-    		return 7 + (this.cd * 7 >> 1);
+            return 7 + (this.cd * 7 >> 1);
         } // CanaryMod: End
         return this.cd >= 30 ? 62 + (this.cd - 30) * 7 : (this.cd >= 15 ? 17 + (this.cd - 15) * 3 : 17);
     }

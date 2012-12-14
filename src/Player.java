@@ -520,7 +520,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public String getIP() {
-    	String ip = getEntity().a.b.c().toString();
+        String ip = getEntity().a.b.c().toString();
         return ip.substring(1,ip.lastIndexOf(":"));
     }
 
@@ -551,9 +551,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public void setAdmin(boolean admin) {
         if(admin) {
-        	restrictions = 2;
+            restrictions = 2;
         } else if(restrictions >= 2) {
-        	restrictions = 1;
+            restrictions = 1;
         }
     }
 
@@ -563,7 +563,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public boolean canBuild() {
-    	return restrictions >= 0;
+        return restrictions >= 0;
     }
 
     /**
@@ -582,13 +582,13 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param canModifyWorld
      */
     public void setCanModifyWorld(boolean canModifyWorld) {
-    	if(canModifyWorld) {
-    		if(restrictions < 0) {
-            	restrictions = 0;
+        if(canModifyWorld) {
+            if(restrictions < 0) {
+                restrictions = 0;
             }
-    	} else {
-    		restrictions = -1;
-    	}
+        } else {
+            restrictions = -1;
+        }
     }
 
     /**
@@ -679,7 +679,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public boolean canIgnoreRestrictions() {
-    	return restrictions >= 1;
+        return restrictions >= 1;
     }
 
     /**
@@ -699,11 +699,11 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     public void setIgnoreRestrictions(boolean ignoreRestrictions) {
         if(ignoreRestrictions) {
-        	if(restrictions < 1) {
-        		restrictions = 1;
-        	}
+            if(restrictions < 1) {
+                restrictions = 1;
+            }
         } else if(restrictions > 0) {
-        	restrictions = 0;
+            restrictions = 0;
         }
     }
 
@@ -1294,12 +1294,12 @@ public class Player extends HumanEntity implements MessageReceiver {
     
     @Override
     public boolean isInvulnerable() {
-    	return isDamageDisabled();
+        return isDamageDisabled();
     }
     
     @Override
     public void setInvulnerable(boolean isInvulnerable) {
-    	setDamageDisabled(isInvulnerable);
+        setDamageDisabled(isInvulnerable);
     }
 
     /**
@@ -1490,7 +1490,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param restrictions
      */
     protected void setRestrictions(int restrictions) {
-    	this.restrictions = restrictions;
+        this.restrictions = restrictions;
     }
 
     /**
@@ -1499,7 +1499,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     protected int getRestrictions() {
-    	return this.restrictions;
+        return this.restrictions;
     }
 
     void moveTo(Player p) {
@@ -1517,7 +1517,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public EnderChestInventory getEnderChest() {
-    	return new EnderChestInventory(getEntity().cf(), this);
+        return new EnderChestInventory(getEntity().cf(), this);
     }
     
     /**

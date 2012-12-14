@@ -34,8 +34,8 @@ public class OBehaviorDispenseMinecart extends OBehaviorDefaultDispenseItem {
 
       OEntityMinecart var17 = new OEntityMinecart(var4, var5, var7 + var15, var9, ((OItemMinecart)var2.b()).a);
       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), new Minecart(var17))) {
-    	  var4.d((OEntity)var17);
-    	  var2.a(1);
+          var4.d((OEntity)var17);
+          var2.a(1);
       }
       return var2;
    }

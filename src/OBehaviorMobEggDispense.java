@@ -16,8 +16,8 @@ public class OBehaviorMobEggDispense extends OBehaviorDefaultDispenseItem {
       double var8 = var1.c() + (double)var3.e();
       OEntity entity = OItemMonsterPlacer.a(var1.k(), var2.j(), var4, var6, var8, false);
       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), new BaseEntity(entity))) {
-    	  entity.p.d(entity);
-    	  var2.a(1);
+          entity.p.d(entity);
+          var2.a(1);
       }
       return var2;
    }

@@ -7,15 +7,15 @@ public abstract class OBehaviorProjectileDispense extends OBehaviorDefaultDispen
       OEnumFacing var5 = OEnumFacing.a(var1.h());
       OIProjectile var6 = this.a(var3, var4);
       if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), new BaseEntity((OEntity) var6))) {
-    	  var6.c((double)var5.c(), 0.10000000149011612D, (double)var5.e(), this.b(), this.a());
-    	  var3.d((OEntity)var6);
-    	  var2.a(1);
+          var6.c((double)var5.c(), 0.10000000149011612D, (double)var5.e(), this.b(), this.a());
+          var3.d((OEntity)var6);
+          var2.a(1);
       }
       return var2;
    }
 
    protected void a(OIBlockSource var1) {
-	   var1.k().f(1002, var1.d(), var1.e(), var1.f(), 0);
+       var1.k().f(1002, var1.d(), var1.e(), var1.f(), 0);
    }
 
    protected abstract OIProjectile a(OWorld var1, OIPosition var2);

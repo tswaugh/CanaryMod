@@ -1,10 +1,10 @@
 public class Enderman extends Mob {
 
-	/**
-	 * Creates an enderman wrapper
-	 * 
-	 * @param entity The entity to wrap
-	 */
+    /**
+     * Creates an enderman wrapper
+     * 
+     * @param entity The entity to wrap
+     */
     public Enderman(OEntityEnderman entity) {
         super(entity);
     }
@@ -15,7 +15,7 @@ public class Enderman extends Mob {
      * @param world The world to create it in
      */
     public Enderman(World world) {
-    	super("Enderman", world);
+        super("Enderman", world);
     }
     
     /**
@@ -24,7 +24,7 @@ public class Enderman extends Mob {
      * @param location The location at which to create it
      */
     public Enderman(Location location) {
-    	super("Enderman", location);
+        super("Enderman", location);
     }
 
     /**

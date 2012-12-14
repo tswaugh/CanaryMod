@@ -38,7 +38,7 @@ public class OTileEntity {
       this.m = var1.e("y");
       this.n = var1.e("z");
       if(var1.b("Canary")) {
-    	  this.metadata = new NBTTagCompound(var1.l("Canary"));
+          this.metadata = new NBTTagCompound(var1.l("Canary"));
       }
    }
 

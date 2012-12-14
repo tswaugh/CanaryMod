@@ -18,10 +18,10 @@ public class OBehaviorBucketFullDispense extends OBehaviorDefaultDispenseItem {
       int var6 = var1.f();
       OEnumFacing var7 = OEnumFacing.a(var1.h());
       if(var3.a(var1.k(), (double)var4, (double)var5, (double)var6, var4 + var7.c(), var5, var6 + var7.e())) {
-    	  if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), null)) {
-    		  var2.c = OItem.aw.cg;
-    		  var2.a = 1;
-    	  }
+          if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), null)) {
+              var2.c = OItem.aw.cg;
+              var2.a = 1;
+          }
          return var2;
       } else {
          return this.c.a(var1, var2);
