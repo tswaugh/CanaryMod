@@ -46,7 +46,7 @@ public class OItemFlintAndSteel extends OItem {
                 Block blockPlaced = new Block(oworld.world, Block.Type.Fire.getType(), i, j, k);
                 Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();
 
-                Boolean preventLighter = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(oitemstack));
+                Boolean preventLighter = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand());
 
                 blockPlaced.setStatus(2); // Specifically to mark this ignite as from a lighter
                 Boolean preventIgnite = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, blockPlaced, player);

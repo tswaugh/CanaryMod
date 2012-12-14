@@ -51,7 +51,7 @@ public class OItemReed extends OItem {
 
                 Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();
 
-                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, new Item(oitemstack))) {
+                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
                     return false;
                 }
 

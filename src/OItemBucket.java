@@ -40,7 +40,7 @@ public class OItemBucket extends OItem {
 
                     if (oworld.g(i, j, k) == OMaterial.h && oworld.h(i, j, k) == 0) {
                         // CanaryMod: Filling a bucket with water!
-                        if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
+                        if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
                             return oitemstack;
                         }
 
@@ -62,7 +62,7 @@ public class OItemBucket extends OItem {
 
                     if (oworld.g(i, j, k) == OMaterial.i && oworld.h(i, j, k) == 0) {
                         // CanaryMod: Filling a bucket with lava!
-                        if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(oitemstack))) {
+                        if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
                             return oitemstack;
                         }
 
@@ -151,7 +151,7 @@ public class OItemBucket extends OItem {
                     OMovingObjectPosition omovingobjectposition = this.a(oworld, oentityplayer, false);
                     Block blockClicked = this.getBlockInfo(oworld, i, j, k, omovingobjectposition.e);
                     Block blockPlaced = new Block(oworld.world, this.a, i, j, k);
-                    if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, new Item(this.a == Block.Type.Water.getType() ? Item.Type.WaterBucket : Item.Type.LavaBucket))) {
+                    if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
                         return false;
                     }
                 }

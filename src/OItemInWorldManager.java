@@ -293,7 +293,7 @@ public class OItemInWorldManager {
         // CanaryMod: only call this hook if we're not using buckets/signs
         if (oitemstack != null) {
             if (oitemstack.a > 0 && oitemstack.c != Item.Type.Sign.getId() && oitemstack.c != Item.Type.Bucket.getId() && oitemstack.c != Item.Type.WaterBucket.getId() && oitemstack.c != Item.Type.LavaBucket.getId() && oitemstack.c != Item.Type.MilkBucket.getId()) {
-                if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), block, block1, new Item(oitemstack))) {
+                if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), block, block1, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
                     return false;
                 }
             }
