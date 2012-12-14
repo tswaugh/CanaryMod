@@ -107,4 +107,12 @@ public class WrittenBook {
         return false;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof WrittenBook) {
+    		WrittenBook other = (WrittenBook) obj;
+    		return getTitle().equals(other.getTitle()) && getAuthor().equals(other.getAuthor()) && getPages().equals(other.getPages());
+    	}
+    	return false;
+    }
 }

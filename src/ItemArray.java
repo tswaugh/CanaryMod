@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * ItemArray.java - Interface to jh[] so I don't have to copy+paste this a bunch
  * of times
@@ -171,7 +173,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
         int size = getContentsSize();
 
         if (slot < size && slot >= 0) {
-            container.setContentsAt(slot, item.getBaseItem());
+            container.setContentsAt(slot, item == null ? null : item.getBaseItem());
         }
     }
 
@@ -494,5 +496,18 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
         }
         
         return true;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof ItemArray) {
+			return Arrays.equals(getContents(), ((ItemArray) obj).getContents());
+		}
+		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("ItemArray[size=%d, contents=%s]", getContentsSize(), Arrays.toString(getContents()));
 	}
 }

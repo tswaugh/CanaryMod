@@ -1320,4 +1320,14 @@ public class PluginListener {
     public boolean onVillagerTradeUnlock(Villager villager, VillagerTrade trade) {
     	return false;
     }
+    
+    /**
+     * Called when the name section of an anvil changes.
+     * 
+     * @param hookParametersAnvilUse Object containing information about this hook.
+     * @return modified HookParametersAnvilUse
+     */
+    public HookParametersAnvilUse onAnvilUse(HookParametersAnvilUse hookParametersAnvilUse) {
+    	return hookParametersAnvilUse;
+    }
 }

@@ -1,6 +1,6 @@
 public class OInventoryCraftResult implements OIInventory, Container<OItemStack> {
 
-    private OItemStack[] a = new OItemStack[1];
+    protected OItemStack[] a = new OItemStack[1]; //CanaryMod: private -> protected
     // CanaryMod
     private String name = "Result";
 

@@ -549,4 +549,17 @@ public class BaseEntity implements Metadatable {
     public void setInvulnerable(boolean isInvulnerable) {
     	entity.i = isInvulnerable;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof BaseEntity) {
+    		return ((BaseEntity) obj).getId() == getId();
+    	}
+    	return false;
+    }
+    
+    @Override
+    public String toString() {
+    	return String.format("Entity[id=%d, name=%s, location=%s]", getId(), getName(), getLocation());
+    }
 }

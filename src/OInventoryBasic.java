@@ -5,7 +5,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
 
     private String a;
     private int b;
-    private OItemStack[] c;
+    protected OItemStack[] c; //CanaryMod: private -> protected
     private List d;
 
     public OInventoryBasic(String s, int i) {

@@ -55,4 +55,9 @@ public class NBTTagDouble extends NBTBase {
 	public void setValue(double value) {
 		this.getBaseTag().a = value;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("NBTTag[type=%s, value=%f]", getTagName(getType()), getValue());
+	}
 }

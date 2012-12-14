@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Interface for the ONBTTagList class
  * 
@@ -60,32 +62,24 @@ public class NBTTagList extends NBTBase {
 	 * @return
 	 */
 	public NBTBase get(int index) {
-		ONBTBase tag = this.getBaseTag().b(index);
-		switch(tag.a()) {
-		case 1:
-			return new NBTTagByte((ONBTTagByte) tag);
-		case 2:
-			return new NBTTagShort((ONBTTagShort) tag);
-		case 3:
-			return new NBTTagInt((ONBTTagInt) tag);
-		case 4:
-			return new NBTTagLong((ONBTTagLong) tag);
-		case 5:
-			return new NBTTagFloat((ONBTTagFloat) tag);
-		case 6:
-			return new NBTTagDouble((ONBTTagDouble) tag);
-		case 7:
-			return new NBTTagByteArray((ONBTTagByteArray) tag);
-		case 8:
-			return new NBTTagString((ONBTTagString) tag);
-		case 9:
-			return new NBTTagList((ONBTTagList) tag);
-		case 10:
-			return new NBTTagCompound((ONBTTagCompound) tag);
-		case 11:
-			return new NBTTagIntArray((ONBTTagIntArray) tag);
-		default:
-			return new NBTBase(tag);
+		return NBTBase.wrap(getBaseTag().b(index));
+	}
+	
+	/**
+	 * Returns an array of the values in this NBTTagList.
+	 * 
+	 * @return
+	 */
+	public NBTBase[] getValues() {
+		NBTBase[] vals = new NBTBase[size()];
+		for(int i=0; i<vals.length; i++) {
+			vals[i] = get(i);
 		}
+		return vals;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("NBTTag[type=%s, value=%s]", getTagName(getType()), Arrays.toString(getValues()));
 	}
 }

@@ -55,4 +55,9 @@ public class NBTTagLong extends NBTBase {
 	public void setValue(long value) {
 		this.getBaseTag().a = value;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("NBTTag[type=%s, value=%d]", getTagName(getType()), getValue());
+	}
 }
