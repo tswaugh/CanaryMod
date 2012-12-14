@@ -57,7 +57,7 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
     public void l_() {}
 
     public void f() {}
-    
+
     @Override
     public OItemStack[] getContents() {
         int size = getContentsSize();

@@ -111,7 +111,7 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
     protected void a(String s, String s1, long i, OWorldType oworldtype, String s2) {
         this.b(s);
         this.c("menu.loadingLevel");
-        
+
         OWorldServer[] toLoad = new OWorldServer[3];
 
         this.worlds.put(s, toLoad);
@@ -591,7 +591,7 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
         throw new UnsupportedOperationException("OMinecraftServer.a(int) has" +
                 " been replaced by OMinecraftServer.getWorld(String, int).");
     }
-    
+
     public OWorldServer getWorld(String s, int i) {
         int index = i == 0 ? 0 : i == -1 ? 1 : 2;
 
@@ -815,7 +815,7 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
         this.N().d();
 
         for (OWorldServer[] level : this.worlds.values()) {
-            
+
             for (int i = 0; i < level.length; ++i) {
                 OWorldServer oworldserver = level[i];
 

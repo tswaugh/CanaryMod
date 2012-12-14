@@ -43,7 +43,7 @@ public class OBlockStationary extends OBlockFluid {
             if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
                 return;
             }
-            
+
             int i1;
             int j1;
 

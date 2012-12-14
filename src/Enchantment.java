@@ -4,17 +4,17 @@ import java.util.logging.Logger;
 
 /**
  * Enchantment - a class used to access all enchantment related stuff
- * 
+ *
  * @author Yariv
- * 
+ *
  */
 public class Enchantment {
 
     /**
      * Type - used to identify enchantments
-     * 
+     *
      * @author Yariv
-     * 
+     *
      */
     public enum Type {
         Protection(0), //
@@ -69,7 +69,7 @@ public class Enchantment {
 
     /**
      * Creates a new enchantment
-     * 
+     *
      * @param type
      * @param level
      */
@@ -77,7 +77,7 @@ public class Enchantment {
         this.type = type;
         this.level = level;
     }
-    
+
     /**
      * Returns the OEnchantment object for this enchantment.
      * Notice this isnt the enchantment data, but the enchantment description.
@@ -94,7 +94,7 @@ public class Enchantment {
         }
         return null;
     }
-    
+
     /**
      * Returns an OEnchantment object for a given enchantment type.
      * Notice this isnt the enchantment data, but the enchantment description.
@@ -117,7 +117,7 @@ public class Enchantment {
 
     /**
      * Type of enchantment.
-     * 
+     *
      * @return type
      */
     public Type getType() {
@@ -127,7 +127,7 @@ public class Enchantment {
     /**
      * Set type of enchantment.
      * Note that it does NOT check for validity of the enchantment!!!
-     * 
+     *
      * @param type
      */
     public void setType(int type) {
@@ -137,7 +137,7 @@ public class Enchantment {
     /**
      * Set type of enchantment.
      * Note that it does NOT check for validity of the enchantment!!!
-     * 
+     *
      * @param type
      */
     public void setType(Type type) {
@@ -146,7 +146,7 @@ public class Enchantment {
 
     /**
      * Gets level of enchantment.
-     * 
+     *
      * @return
      */
     public int getLevel() {
@@ -156,13 +156,13 @@ public class Enchantment {
     /**
      * Sets level of enchantment.
      * Note that it does NOT check for validity of the enchantment!!!
-     * 
+     *
      * @param level
      */
     public void setLevel(int level) {
         this.level = level;
     }
-    
+
     /**
      * Gets the weight of the enchantment or -1 if the enchantment is invalid.
      * @return
@@ -176,7 +176,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the weight of an enchantment given its type or -1 if the
      * enchantment is invalid.
@@ -191,7 +191,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the minimum level of the enchantment or -1 if the enchantment is
      * invalid.
@@ -206,7 +206,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the minimum level of an enchantment given its type or -1 if the
      * enchantment is invalid.
@@ -221,7 +221,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the maximum level of the enchantment or -1 if the enchantment is
      * invalid.
@@ -236,7 +236,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the maximum level of an enchantment given its type or -1 if the
      * enchantment is invalid.
@@ -251,7 +251,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the minimum enchantability strength needed for the enchantment or
      * -1 if the enchantment is invalid.
@@ -266,7 +266,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the minimum enchantability strength needed for the enchantment
      * given its type or -1 if the enchantment is invalid.
@@ -281,7 +281,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the maximum enchantability strength needed for the enchantment or
      * -1 if the enchantment is invalid.
@@ -296,7 +296,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the maximum enchantability strength needed for the enchantment
      * given its type or -1 if the enchantment is invalid.
@@ -311,7 +311,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the modified damage for the enchantment for a given damage source
      * or -1 if the enchantment or damage source is invalid.
@@ -329,7 +329,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the modified damage for an enchantment for a given damage source or
      * -1 if the enchantment or damage source is invalid.
@@ -347,7 +347,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the modified living for the enchantment for a given living entity
      * or -1 if the enchantment or entity is invalid.
@@ -365,7 +365,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Gets the modified living for an enchantment for a given living entity or
      * -1 if the enchantment or entity is invalid.
@@ -383,7 +383,7 @@ public class Enchantment {
         }
         return -1;
     }
-    
+
     /**
      * Returns true if this enchantment can stack with another enchantment.
      * @param enchantment The other enchantment
@@ -393,7 +393,7 @@ public class Enchantment {
     {
         return canStack(enchantment.getType());
     }
-    
+
     /**
      * Returns true if this enchantment can stack with another enchantment.
      * @param type The other enchantment type
@@ -412,7 +412,7 @@ public class Enchantment {
         }
         return false;
     }
-    
+
     /**
      * Returns true if two enchantments can stack with each other.
      * @param type1
@@ -435,7 +435,7 @@ public class Enchantment {
 
     /**
      * Checks if the enchantment is valid.
-     * 
+     *
      * @return true if valid
      */
     public boolean isValid() {
@@ -444,7 +444,7 @@ public class Enchantment {
 
     /**
      * Checks if an enchantment is valid.
-     * 
+     *
      * @param type
      *            The type of the enchantment
      * @param level
@@ -462,7 +462,7 @@ public class Enchantment {
         }
         return false;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Enchantment) {
@@ -471,7 +471,7 @@ public class Enchantment {
         }
         return false;
     }
-    
+
     @Override
     public String toString() {
         return String.format("Enchantment[type=%s, level=%d]", getType(), getLevel());

@@ -14,16 +14,16 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inve
             // Do not allow stacking of enchantable items,
             // this is to prevent enchantment duping.
             //
-            // Could do with a cleanup into a single function, 
+            // Could do with a cleanup into a single function,
             // but this works for now.
             if (!etc.getInstance().allowEnchantableItemStacking &&
-                ((itemId >= 256 && itemId <= 258) || 
-                 (itemId >= 267 && itemId <= 279) || 
+                ((itemId >= 256 && itemId <= 258) ||
+                 (itemId >= 267 && itemId <= 279) ||
                  (itemId >= 283 && itemId <= 286) ||
                  (itemId >= 298 && itemId <= 317) ||
                  (itemId == 261))) {
                 int targetSlot = getEmptySlot();
-                
+
                 if (targetSlot == -1) {
                     // Drop whatever is left
                     user.getPlayer().giveItemDrop(itemId, remaining);
@@ -35,7 +35,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inve
             } else {
                 if (hasItem(itemId, 1, 63)) {
                     Item i = getItemFromId(itemId, 63);
-                    
+
                     if (i != null) {
                         int freeSpace = 64 - i.getAmount();
                         int toAdd;
@@ -51,7 +51,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inve
                     }
                 } else {
                     int targetSlot = getEmptySlot();
-                    
+
                     if (targetSlot == -1) {
                         // Drop whatever is left
                         user.getPlayer().giveItemDrop(itemId, remaining);
@@ -67,7 +67,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inve
                     }
                 }
             }
-            
+
         } while (remaining > 0);
     }
 
@@ -78,7 +78,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inve
 
     /**
      * Returns a String value representing this PlayerInventory
-     * 
+     *
      * @return String representation of this PlayerInventory
      */
     @Override
@@ -88,7 +88,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inve
 
     /**
      * Returns the owner of this PlayerInventory
-     * 
+     *
      * @return Player
      */
     public Player getPlayer() {

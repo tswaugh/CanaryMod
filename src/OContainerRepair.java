@@ -265,14 +265,14 @@ public class OContainerRepair extends OContainer {
             this.f.a(0, oitemstack1);
             this.b();
         }
-        
+
         //CanaryMod start
         HookParametersAnvilUse hook = (HookParametersAnvilUse) etc.getLoader().callHook(PluginLoader.Hook.ANVIL_USE, new Object[] {new HookParametersAnvilUse(new Anvil(this), new Block(h.world, 145, i, j, k, l))}); //CanaryMod: call onAnvilUse
-        
+
         //update the input slots
         setSlotWithoutUpdate(hook.slotOne, 0);
         setSlotWithoutUpdate(hook.slotTwo, 1);
-        
+
         //update the result slot
         OInventoryCraftResult inv = ((OInventoryCraftResult) this.f);
         if(hook.result == null) {
@@ -284,18 +284,18 @@ public class OContainerRepair extends OContainer {
                 base.a = inv.c();
             }
         }
-        
+
         //update the tool name
         this.m = hook.toolName;
         if (this.a(2).d()) { //not sure what this does, maybe check if item name isn't a default one?
             this.a(2).c().c(this.m);
         }
-        
+
         //update the xp level
         this.a = hook.xpLevel;
-        
+
         this.b(); //updates the client. kinda.
-        
+
         //CanaryMod end
     }
 
@@ -388,7 +388,7 @@ public class OContainerRepair extends OContainer {
     OInventoryCraftResult getCraftResult() {
         return (OInventoryCraftResult) this.f;
     }
-    
+
     private void setSlotWithoutUpdate(Item item, int slot) {
         OInventoryRepair inv = ((OInventoryRepair) OContainerRepair.a(this));
         if(item == null) {

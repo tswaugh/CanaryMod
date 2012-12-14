@@ -8,7 +8,7 @@ public class ItemEntity extends BaseEntity {
 
     /**
      * Constructor
-     * 
+     *
      * @param item
      */
     public ItemEntity(OEntityItem item) {
@@ -17,7 +17,7 @@ public class ItemEntity extends BaseEntity {
 
     /**
      * Returns the entity we're wrapping.
-     * 
+     *
      * @return
      */
     @Override

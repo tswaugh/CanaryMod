@@ -148,7 +148,7 @@ public abstract class OServerConfigurationManager {
     public void c(OEntityPlayerMP oentityplayermp) {
         // CanaryMod: Playername with color and Prefix
         PlayerlistEntry entry = oentityplayermp.getPlayer().getPlayerlistEntry(true);
-        
+
         this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000)));
         this.b.add(oentityplayermp);
         OWorldServer oworldserver = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.ap);
@@ -175,7 +175,7 @@ public abstract class OServerConfigurationManager {
         oworldserver.e(oentityplayermp);
         oworldserver.r().c(oentityplayermp);
         this.b.remove(oentityplayermp);
-        
+
         // CanaryMod: Player color and Prefix
         if (etc.getInstance().isPlayerList_enabled()) {
             PlayerlistEntry entry = oentityplayermp.getPlayer().getPlayerlistEntry(false);
@@ -280,7 +280,7 @@ public abstract class OServerConfigurationManager {
             oentityplayermp = (OEntityPlayerMP) iterator.next();
             oentityplayermp.a.c("You logged in from another location");
         }
-        
+
         // CanaryMod: make sure the world is loaded into memory.
         OWorldServer world = etc.getServer().loadWorld(this.playerWorld.get(s))[0].getWorld();
 

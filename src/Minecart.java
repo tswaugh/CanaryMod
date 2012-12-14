@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  * Minecart - Used for manipulating minecarts
- * 
+ *
  * @author tw1nk
  */
 public class Minecart extends BaseVehicle {
@@ -51,7 +51,7 @@ public class Minecart extends BaseVehicle {
 
     /**
      * Creates an interface for minecart.
-     * 
+     *
      * @param o
      */
     public Minecart(OEntityMinecart o) {
@@ -60,7 +60,7 @@ public class Minecart extends BaseVehicle {
 
     /**
      * Create a new Minecart at the given position
-     * 
+     *
      * @param x
      * @param y
      * @param z
@@ -75,13 +75,13 @@ public class Minecart extends BaseVehicle {
 
     /**
      * Create a new Minecart at the given position
-     * 
+     *
      * @param world The world for the new minecart
      * @param x The x coordinate for the new minecart
      * @param y The y coordinate for the new minecart
      * @param z The z coordinate for the new minecart
      * @param type The type for the new minecart
-     * 
+     *
      */
     public Minecart(World world, double x, double y, double z, Type type) {
         super(new OEntityMinecart(world.getWorld(), x, y, z, type.getType()));
@@ -90,7 +90,7 @@ public class Minecart extends BaseVehicle {
 
     /**
      * Returns the entity we're wrapping.
-     * 
+     *
      * @return
      */
     @Override
@@ -100,7 +100,7 @@ public class Minecart extends BaseVehicle {
 
     /**
      * Set damage on Mineentity
-     * 
+     *
      * @param damage
      *            over 40 and you "kill" the mineentity
      */
@@ -110,7 +110,7 @@ public class Minecart extends BaseVehicle {
 
     /**
      * Returns damage for mineentity
-     * 
+     *
      * @return returns current damage
      */
     public int getDamage() {
@@ -119,7 +119,7 @@ public class Minecart extends BaseVehicle {
 
     /**
      * Returns the type of this minecart.
-     * 
+     *
      * @return type
      */
     public Type getType() {
@@ -129,7 +129,7 @@ public class Minecart extends BaseVehicle {
     /**
      * Returns the storage for this minecart. Returns null if minecart is not a
      * storage or powered minecart.
-     * 
+     *
      * @return storage
      */
     public StorageMinecart getStorage() {

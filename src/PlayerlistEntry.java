@@ -1,21 +1,21 @@
 /**
  * PlayerlistEntry.java - Object for passing to the onPlayerlistEntryGet Hook
- * 
+ *
  * @author Talmor
  */
 public class PlayerlistEntry {
-    
+
     private String name;
     private int ping;
     private boolean show;
-    
+
     public PlayerlistEntry(String name, int ping, boolean show) {
         super();
         this.name = name;
         this.ping = ping;
         this.show = show;
     }
-  
+
     public boolean isShow() {
         return show;
     }
@@ -39,5 +39,5 @@ public class PlayerlistEntry {
     public void setPing(int ping) {
         this.ping = ping;
     }
-    
+
 }

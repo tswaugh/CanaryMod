@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 /**
  * PluginLoader.java - Used to load plugins, toggle them, etc.
- * 
+ *
  * @author James
  */
 @SuppressWarnings("LoggerStringConcat")
@@ -466,17 +466,17 @@ public class PluginLoader {
           * Damage caused by falling block
           */
          FALLING_BLOCK(ODamageSource.p);
-        
+
         private final ODamageSource source;
-        
+
         private DamageType(ODamageSource source) {
             this.source = source;
         }
-        
+
         public ODamageSource getDamageSource() {
             return this.source;
         }
-         
+
          public static DamageType fromDamageSource(ODamageSource source) {
              if (source == ODamageSource.a)
                  return FIRE; // Can also be lightning
@@ -532,7 +532,7 @@ public class PluginLoader {
 
     /**
      * Creates a plugin loader
-     * 
+     *
      * @param server
      *            server to use
      */
@@ -587,7 +587,7 @@ public class PluginLoader {
 
     /**
      * Loads the specified plugin
-     * 
+     *
      * @param fileName
      *            file name of plugin to load
      * @return if the operation was successful
@@ -601,7 +601,7 @@ public class PluginLoader {
 
     /**
      * Reloads the specified plugin
-     * 
+     *
      * @param fileName
      *            file name of plugin to reload
      * @return if the operation was successful
@@ -652,7 +652,7 @@ public class PluginLoader {
                 return false;
             }
             Class<?> c = child.loadClass(fileName);
-            
+
             Plugin plugin = (Plugin) c.newInstance();
 
             plugin.setName(fileName);
@@ -670,7 +670,7 @@ public class PluginLoader {
 
     /**
      * Returns the specified plugin
-     * 
+     *
      * @param name
      *            name of plugin
      * @return plugin
@@ -688,7 +688,7 @@ public class PluginLoader {
 
     /**
      * Returns a string list of plugins
-     * 
+     *
      * @return String of plugins
      */
     public String getPluginList() {
@@ -713,7 +713,7 @@ public class PluginLoader {
 
     /**
      * Enables the specified plugin (Or adds and enables it)
-     * 
+     *
      * @param name
      *            name of plugin to enable
      * @return whether or not this plugin was enabled
@@ -740,7 +740,7 @@ public class PluginLoader {
 
     /**
      * Disables specified plugin
-     * 
+     *
      * @param name
      *            name of the plugin to disable
      */
@@ -757,7 +757,7 @@ public class PluginLoader {
 
     /**
      * Returns the server
-     * 
+     *
      * @return server
      */
     public Server getServer() {
@@ -768,7 +768,7 @@ public class PluginLoader {
     private Hook lasthook;
     private int lasthook_count = 0;
     List<Hook> ignore_hooks = Arrays.asList(new Hook[] { Hook.IGNITE, Hook.TIME_CHANGE, Hook.FLOW, Hook.LIQUID_DESTROY});
-    
+
     public void debugHook(Hook h) {
         if (debug_hooks && !ignore_hooks.contains(h)) {
             if (h == lasthook) {
@@ -780,12 +780,12 @@ public class PluginLoader {
                 lasthook = h;
                 lasthook_count = 1;
             }
-        }        
+        }
     }
 
     /**
      * Calls a plugin hook.
-     * 
+     *
      * @param h
      *            Hook to call
      * @param parameters
@@ -799,7 +799,7 @@ public class PluginLoader {
          * Debug hooks block
          */
         // debugHook(h);
-        
+
         Object toRet;
 
         switch (h) {
@@ -821,7 +821,7 @@ public class PluginLoader {
         case ANVIL_USE:
             toRet = parameters[0];
             break;
-            
+
         case REDSTONE_CHANGE:
         case FOODLEVEL_CHANGE:
         case FOODEXHAUSTION_CHANGE:
@@ -931,7 +931,7 @@ public class PluginLoader {
                                 toRet = true;
                             }
                             break;
-                            
+
                         case ITEM_TOUCH_GROUND:
                             if(listener.onItemTouchGround((ItemEntity) parameters[0])) {
                                 toRet = true;
@@ -1079,7 +1079,7 @@ public class PluginLoader {
                                 toRet = true;
                             }
                             break;
-                            
+
                         case CLOSE_INVENTORY:
                             listener.onCloseInventory((HookParametersCloseInventory)parameters[0]);
                             break;
@@ -1239,7 +1239,7 @@ public class PluginLoader {
                         case PLAYER_CONNECT:
                             toRet = listener.onPlayerConnect((Player) parameters[0], (HookParametersConnect) parameters[1]);
                             break;
-                            
+
                         case PLAYER_DISCONNECT:
                             toRet = listener.onPlayerDisconnect((Player) parameters[0], (HookParametersDisconnect) parameters[1]);
                             break;
@@ -1256,49 +1256,49 @@ public class PluginLoader {
                                 toRet = true;
                             }
                             break;
-                            
+
                         case BLOCK_UPDATE:
                             if(listener.onBlockUpdate((Block) parameters[0], (Integer) parameters[1])){
                                 toRet = true;
                             }
                             break;
-                            
+
                         case ENCHANT:
                             toRet = listener.onEnchant((HookParametersEnchant) parameters[0]);
                             break;
-                            
+
                         case DISPENSE:
                             toRet = listener.onDispense((Dispenser) parameters[0], (BaseEntity) parameters[1]);
                             break;
-                      
+
                         case LIGHT_CHANGE:
                             listener.onLightChange((Integer) parameters[0], (Integer) parameters[1], (Integer) parameters[2], (Integer) parameters[3]);
                             break;
-                            
+
                         case POTION_EFFECTFINISHED:
                             listener.onPotionEffectFinished((LivingEntity) parameters[0], (PotionEffect) parameters[1]);
                             break;
-                            
+
                         case DEATH:
                             listener.onDeath((LivingEntity) parameters[0]);
                             break;
-                            
+
                         case PROJECTILE_HIT:
                             toRet = listener.onProjectileHit((Projectile) parameters[0], parameters[1] == null ? null : (BaseEntity) parameters[1]);
                             break;
-                            
+
                         case VILLAGER_TRADE:
                             toRet = listener.onVillagerTrade((Player) parameters[0], (Villager) parameters[1], (VillagerTrade) parameters[2]);
                             break;
-                            
+
                         case VILLAGER_TRADE_UNLOCK:
                             toRet = listener.onVillagerTradeUnlock((Villager) parameters[0], (VillagerTrade) parameters[1]);
                             break;
-                            
+
                         case ANVIL_USE:
                             toRet = listener.onAnvilUse((HookParametersAnvilUse) parameters[0]);
                             break;
-                            
+
                         }
                        } catch (UnsupportedOperationException ex) {}
                 }
@@ -1317,7 +1317,7 @@ public class PluginLoader {
 
     /**
      * Calls a custom hook
-     * 
+     *
      * @param name
      *            name of hook
      * @param parameters
@@ -1353,7 +1353,7 @@ public class PluginLoader {
 
     /**
      * Calls a plugin hook.
-     * 
+     *
      * @param hook
      *            The hook to call on
      * @param listener
@@ -1388,7 +1388,7 @@ public class PluginLoader {
 
     /**
      * Adds a custom listener
-     * 
+     *
      * @param listener
      *            listener to add
      */
@@ -1404,7 +1404,7 @@ public class PluginLoader {
 
     /**
      * Removes the specified listener from the list of listeners
-     * 
+     *
      * @param reg
      *            listener to remove
      */
@@ -1418,7 +1418,7 @@ public class PluginLoader {
 
     /**
      * Removes a custom listener
-     * 
+     *
      * @param name
      *            name of listener
      */

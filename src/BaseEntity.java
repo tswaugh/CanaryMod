@@ -460,7 +460,7 @@ public class BaseEntity implements Metadatable {
 
     /**
      * Writes this entity's data to an NBTTagCompound
-     * 
+     *
      * @param tag the tag to write the data to
      * @param includeId whether or not to include the entity id in the write
      * @return whether or not the write was successful
@@ -472,24 +472,24 @@ public class BaseEntity implements Metadatable {
         getEntity().d(tag.getBaseTag());
         return true;
     }
-    
+
     /**
      * Reads this entity's data from an NBTTagCompound
-     * 
+     *
      * @param tag the tag to read the data from
      */
     public void readFromTag(NBTTagCompound tag) {
         getEntity().e(tag.getBaseTag());
     }
-    
+
     @Override
     public NBTTagCompound getMetaTag() {
         return getEntity().metadata;
     }
-    
+
     /**
      * Returns the location of this entity.
-     * 
+     *
      * @return location
      */
     public Location getLocation() {
@@ -504,7 +504,7 @@ public class BaseEntity implements Metadatable {
         loc.world = getWorld().getName();
         return loc;
     }
-    
+
     /**
      * Spawns this entity
      */
@@ -531,25 +531,25 @@ public class BaseEntity implements Metadatable {
             mob2.a(entity);
         }
     }
-    
+
     /**
      * Returns whether or not this entity is invulnerable.
-     * 
+     *
      * @return
      */
     public boolean isInvulnerable() {
         return getEntity().ar();
     }
-    
+
     /**
      * Sets whether or not this entity is invulnerable.
-     * 
+     *
      * @param isInvulnerable
      */
     public void setInvulnerable(boolean isInvulnerable) {
         entity.i = isInvulnerable;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof BaseEntity) {
@@ -557,7 +557,7 @@ public class BaseEntity implements Metadatable {
         }
         return false;
     }
-    
+
     @Override
     public String toString() {
         return String.format("Entity[id=%d, name=%s, location=%s]", getId(), getName(), getLocation());

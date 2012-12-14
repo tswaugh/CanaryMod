@@ -11,12 +11,12 @@ import java.util.logging.Logger;
 /**
  * Motd - Class for handling of the MOTD
  * extracted from etc
- * 
+ *
  * @author Talmor
  */
 public class Motd {
     private static final Logger           log = Logger.getLogger("Minecraft");
-    
+
     public static String getMotd(MessageReceiver caller) {
         try {
             FileInputStream fis = new FileInputStream(etc.getInstance().getConfigFolder() + "motd.txt");
@@ -44,7 +44,7 @@ public class Motd {
         }
         return null;
     }
-    
+
     public static void makeMotd() {
         new File(etc.getInstance().getConfigFolder()).mkdirs();
         File motdfile = new File(etc.getInstance().getConfigFolder() + "motd.txt");
@@ -77,7 +77,7 @@ public class Motd {
             }
         }
     }
-    
+
     public static String replace(String text, Player p) {
         if (text.contains("&")) {
             text = text.replace("&", Colors.Marker);

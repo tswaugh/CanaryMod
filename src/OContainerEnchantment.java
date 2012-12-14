@@ -135,10 +135,10 @@ public class OContainerEnchantment extends OContainer {
 
                         while (iterator.hasNext()) {
                             OEnchantmentData oenchantmentdata = (OEnchantmentData) iterator.next();
-    
+
                             oitemstack.a(oenchantmentdata.b, oenchantmentdata.c);
                         }
-                        
+
                         this.a(this.a);
                     }
                 }

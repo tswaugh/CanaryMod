@@ -1,12 +1,12 @@
 
 /**
  * Interface for hanging entities (paintings, item frames, etc)
- * 
+ *
  * @author gregthegeek
  *
  */
 public class HangingEntity extends BaseEntity {
-    
+
     public enum Position {
         /**
          * Faces south and is located on the block face
@@ -41,41 +41,41 @@ public class HangingEntity extends BaseEntity {
          */
         EAST_CENTER;
     }
-    
+
     /**
      * Creates a new hanging entity wrapper
-     * 
+     *
      * @param entity The hanging entity to wrap
      */
     public HangingEntity(OEntityHanging entity) {
         super(entity);
     }
-    
+
     /**
      * Places this entity in its world
-     * 
+     *
      */
     public void place() {
         getEntity().p.d(getEntity());
     }
-    
+
     @Override
     public OEntityHanging getEntity() {
         return (OEntityHanging) entity;
     }
-    
+
     /**
      * Returns the position of this hanging entity around its block
-     * 
+     *
      * @return
      */
     public Position getPosition() {
         return Position.values()[getEntity().a];
     }
-    
+
     /**
      * Sets the position of this hanging entity around its block
-     * 
+     *
      * @param position The position to set it to
      */
     public void setPosition(Position position) {

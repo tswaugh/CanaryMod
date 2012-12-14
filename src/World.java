@@ -63,9 +63,9 @@ public class World {
         public static Dimension fromId(final int type) {
             return map.get(type);
         }
-        
+
         /**
-         * Returns the array index for use with, 
+         * Returns the array index for use with,
          * e.g., {@link Server#getWorld(java.lang.String)}
          * @return The array index for this <tt>Dimension</tt>
          */
@@ -331,7 +331,7 @@ public class World {
         spawn.world = this.getName();
         return spawn;
     }
-    
+
     /**
      * Sets the spawn location for this level, NOT only this world.
      * @param x The spawn's new x location
@@ -341,7 +341,7 @@ public class World {
     public void setSpawnLocation(int x, int y, int z) {
         this.getWorld().K().a(x, y, z);
     }
-    
+
     /**
      * Sets the spawn location for this level, NOT only this world.
      * @param location The new spawn location.
@@ -610,7 +610,7 @@ public class World {
      * @param z
      * @param itemId
      * @param quantity
-     * @param damage 
+     * @param damage
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(double x, double y, double z, int itemId, int quantity, int damage) {
@@ -619,10 +619,10 @@ public class World {
 
     /**
      * Drops an item with desired quantity at the specified location
-     * 
+     *
      * @param loc
      * @param item
-     * 
+     *
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(Location loc, Item item) {
@@ -632,7 +632,7 @@ public class World {
     /**
      * Drops an item with desired quantity and damage value at the specified
      * location
-     * 
+     *
      * @param x
      * @param y
      * @param z
@@ -945,7 +945,7 @@ public class World {
     public void explode(BaseEntity exploder, double x, double y, double z, float power) {
         explode(exploder, x, y, z, power, true);
     }
-    
+
     /**
      * Creates an explosion with the specified power at the given location.
      *
@@ -959,7 +959,7 @@ public class World {
     public void explode(BaseEntity exploder, double x, double y, double z, float power, boolean doesDamage) {
         world.a(exploder.entity, x, y, z, power, doesDamage);
     }
-    
+
     /**
      * Creates an explosion with the specified power at the given location.
      *
@@ -1024,23 +1024,23 @@ public class World {
             }
         }
     }
-    
+
     public EntityTracker getEntityTracker() {
        return world.getEntityTracker();
     }
-    
+
     public PlayerManager getPlayerManager() {
         return world.r().getCanaryPlayerManager();
     }
-    
+
     public void removePlayerFromWorld(Player player) {
         world.f((OEntity)player.getEntity());
     }
-    
+
     public void addPlayerToWorld(Player player) {
         world.d((OEntity)player.getEntity());
     }
-    
+
     /**
      * Gets this world's name.
      * @return This world's name.
@@ -1056,19 +1056,19 @@ public class World {
     public int getGameMode() {
         return world.z.r().e;
     }
-    
+
     /**
      * Launch a projectile in this world.
-     * 
+     *
      * @param p The projectile to launch.
      */
     public void launchProjectile(Projectile p) {
         getWorld().d(p.getEntity());
     }
-    
+
     /**
      * Have lightning strike a location.
-     * 
+     *
      * @param x The x coordinate to strike.
      * @param y The y coordinate to strike.
      * @param z The z coordinate to strike.
@@ -1076,16 +1076,16 @@ public class World {
     public void strikeLightning(double x, double y, double z) {
         getWorld().c(new OEntityLightningBolt(getWorld(), x, y, z));
     }
-    
+
     /**
      * Have lightning strike a location.
-     * 
+     *
      * @param location The location to strike.
      */
     public void strikeLightning(Location location) {
         strikeLightning(location.x, location.y, location.z);
     }
-    
+
     /**
      * Play a sound at the given location
      * @param location location to play the sound
@@ -1098,7 +1098,7 @@ public class World {
     public void playSound(Location location, Sound sound, float volume, float pitch){
         playSound(location.x, location.y, location.z, sound, volume, pitch);
     }
-    
+
     /**
      * Play a sound at the given location
      * @param x x value for the location

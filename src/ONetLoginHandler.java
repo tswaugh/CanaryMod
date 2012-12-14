@@ -24,7 +24,7 @@ public class ONetLoginHandler extends ONetHandler {
     private volatile boolean i = false;
     private String j = "";
     private SecretKey k = null;
-    
+
     private String worldname; // CanaryMod: store worldname given by plugins
 
     public ONetLoginHandler(OMinecraftServer ominecraftserver, Socket socket, String s) {

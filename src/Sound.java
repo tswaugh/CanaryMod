@@ -3,7 +3,7 @@
  * @author Somners
  */
 public enum Sound {
-    
+
     CLICK("random.click"),
     FIZZ("random.fizz"),
     NOTE("note"),
@@ -84,15 +84,15 @@ public enum Sound {
     WOLF_BARK("mob.wolf.bark"),
     WOLF_DEATH("mob.wolf.death"),
     WOLF_HURT("mob.wolf.hurt");
-    
+
     String sound;
-    
+
     Sound(String sound){
         this.sound = sound;
     }
-    
+
     public String getSoundString(){
         return sound;
     }
-    
+
 }

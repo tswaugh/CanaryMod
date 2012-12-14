@@ -65,7 +65,7 @@ public class OWorldServer extends OWorld {
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, world, i - i % 24000L)) {
                     this.z.c(i - i % 24000L);
                 }
-                
+
                 this.d();
             }
         }
@@ -488,7 +488,7 @@ public class OWorldServer extends OWorld {
         }
         // CanaryMod onSpawnpointCreate hook
         Location point = (Location) etc.getLoader().callHook(PluginLoader.Hook.SPAWNPOINT_CREATE, world);
-    
+
         if (point != null) {
             this.z.a((int) point.x, (int) point.y, (int) point.z);
         } else if (!this.v.e()) {
@@ -714,7 +714,7 @@ public class OWorldServer extends OWorld {
     public OTeleporter s() {
         return this.Q;
     }
-    
+
     /**
      * Get this worlds entity tracker to track and untrack players
      * @return

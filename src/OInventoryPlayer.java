@@ -157,7 +157,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
         return j >= 0;
     }
-    
+
     // CanaryMod: Simulate Pickup (Its the same as a(OItemStack) but without
     // altering the inventory
     public boolean canPickup(OEntityItem oentityitem) {
@@ -176,11 +176,11 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
         } else {
             int slot = 0;
             int left = oitemstack.a;
-            
+
             do {
                 OItemStack oitemstack1 = this.a[slot];
                 int delta = 0;
-                
+
                 if (oitemstack1 == null) {
                     delta = Math.min(64, left);
                 } else if (oitemstack1.a < 64 && oitemstack.c == oitemstack1.c && oitemstack.d() == oitemstack1.d()) {
@@ -481,12 +481,12 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
             this.b[i] = OItemStack.b(oinventoryplayer.b[i]);
         }
     }
-    
+
     @Override
     public OItemStack[] getContents() {
         return this.a;
     }
-   
+
     @Override
     public void setContents(OItemStack[] aoitemstack) {
         this.a = aoitemstack;

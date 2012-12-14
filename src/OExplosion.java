@@ -96,30 +96,30 @@ public class OExplosion {
                 }
             }
         }
-        
+
         // CanaryMod start
         boolean cancel = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLODE, block, this.f, hashset); // Call deprecated hook first; it may remove blocks from hashset.
-        
+
         // Add affected blocks into a List of Blocks.
         List<Block> blocksAffected = new ArrayList<Block>(hashset.size());
         for (OChunkPosition ocp : (HashSet<OChunkPosition>) hashset) {
             blocksAffected.add(new Block(this.k.world, this.k.world.getBlockIdAt(ocp.a, ocp.b, ocp.c), ocp.a, ocp.b, ocp.c));
         }
 
-        cancel = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLOSION, block, (this.f != null ? this.f.entity : null), blocksAffected) || cancel;        
-        
+        cancel = (Boolean) etc.getLoader().callHook(PluginLoader.Hook.EXPLOSION, block, (this.f != null ? this.f.entity : null), blocksAffected) || cancel;
+
         // Repopulate hashset according to blocksAffected.
         hashset.clear();
         for (Block affected : blocksAffected) {
             hashset.add(new OChunkPosition(affected.getX(), affected.getY(), affected.getZ()));
         }
         // CanaryMod end
-        
+
         // CanaryMod: if cancelled, don't populate this.h at all.
         if (!cancel) {
             this.h.addAll(hashset);
         }
-        
+
         this.g *= 2.0F;
         i = OMathHelper.c(this.c - (double) this.g - 1.0D);
         j = OMathHelper.c(this.c + (double) this.g + 1.0D);

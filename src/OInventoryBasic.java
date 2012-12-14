@@ -88,7 +88,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
     public void l_() {}
 
     public void f() {}
-    
+
     @Override
     public OItemStack[] getContents() {
         return Arrays.copyOf(this.c, getContentsSize());

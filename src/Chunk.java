@@ -37,7 +37,7 @@ public class Chunk {
     public static Chunk getNewChunk(OWorld world, byte[] blocks, int x, int z) {
         return new OChunk(world, blocks, x, z).chunk;
     }
-    
+
     /**
      * Regenerates the world according to the world seed.
      * @param world
@@ -138,7 +138,7 @@ public class Chunk {
 
     /**
      * Gets the chunk's biome data byte array
-     * 
+     *
      * @return biomedata
      */
     public byte[] getBiomeData() {
@@ -147,7 +147,7 @@ public class Chunk {
 
     /**
      * Sets the chunk's biome data (needs to be byte[256])
-     * 
+     *
      * @param biomedata
      */
     public void setBiomeData(byte[] biomedata) {
@@ -164,13 +164,13 @@ public class Chunk {
 
     /**
      * gets the wrapped chunk
-     * 
+     *
      * @return chunk
      */
     public OChunk getChunk() {
         return chunk;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Chunk) {
@@ -179,7 +179,7 @@ public class Chunk {
         }
         return false;
     }
-    
+
     @Override
     public String toString() {
         return String.format("Chunk[x=%d, z=%d]", getX(), getZ());

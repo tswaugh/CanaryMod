@@ -18,13 +18,13 @@ public class OEntityEgg extends OEntityThrowable {
           if(var1.g != null) {
              var1.g.a(ODamageSource.a((OEntity)this, this.h()), 0);
           }
-    
+
           if(!this.p.J && this.aa.nextInt(8) == 0) {
              byte var2 = 1;
              if(this.aa.nextInt(32) == 0) {
                 var2 = 4;
              }
-    
+
              for(int var3 = 0; var3 < var2; ++var3) {
                 OEntityChicken var4 = new OEntityChicken(this.p);
                 var4.a(-24000);
@@ -32,11 +32,11 @@ public class OEntityEgg extends OEntityThrowable {
                 this.p.d((OEntity)var4);
              }
           }
-    
+
           for(int var5 = 0; var5 < 8; ++var5) {
              this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
           }
-    
+
           if(!this.p.J) {
              this.x();
           }

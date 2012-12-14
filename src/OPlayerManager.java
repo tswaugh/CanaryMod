@@ -9,7 +9,7 @@ public class OPlayerManager {
     private final List d = new ArrayList();
     private final int e;
     private final int[][] f = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
-    
+
     private PlayerManager playerManager; // CanaryMod player manager wrap
 
     public OPlayerManager(OWorldServer oworldserver, int i) {
@@ -21,10 +21,10 @@ public class OPlayerManager {
             this.e = i;
             this.a = oworldserver;
         }
-        
+
         this.playerManager = new PlayerManager(this);
     }
-    
+
     public PlayerManager getCanaryPlayerManager() {
         return playerManager;
     }
@@ -221,7 +221,7 @@ public class OPlayerManager {
     static List c(OPlayerManager oplayermanager) {
         return oplayermanager.d;
     }
-   
+
     // CanaryMod: bring back old "send packet to chunk" method from alpha
     public void sendPacketToChunk(OPacket opacket, int i, int j, int k) {
         // Get chunk coordinates

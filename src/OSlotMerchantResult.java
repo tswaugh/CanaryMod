@@ -33,7 +33,7 @@ public class OSlotMerchantResult extends OSlot {
       var1.a(this.b.p, this.b, this.c);
       this.c = 0;
    }
-   
+
    public void a(OEntityPlayer var1, OItemStack var2) { //CanaryMod: so we don't break stuff
        a(var1, var2, false);
    }

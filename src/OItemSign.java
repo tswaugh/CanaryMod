@@ -14,7 +14,7 @@ public class OItemSign extends OItem {
         } else {
             // CanaryMod: Store block data clicked
             Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
-            
+
             if (l == 1) {
                 ++j;
             }
@@ -46,7 +46,7 @@ public class OItemSign extends OItem {
                 if (oentityplayer instanceof OEntityPlayerMP && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), blockPlaced, blockClicked, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
                     return false;
                 }
-                
+
                 if (l == 1) {
                     int i1 = OMathHelper.c((double) ((oentityplayer.z + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
 

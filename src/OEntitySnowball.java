@@ -20,14 +20,14 @@ public class OEntitySnowball extends OEntityThrowable {
              if(var1.g instanceof OEntityBlaze) {
                 var2 = 3;
              }
-    
+
              var1.g.a(ODamageSource.a((OEntity)this, this.h()), var2);
           }
-    
+
           for(int var3 = 0; var3 < 8; ++var3) {
              this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
           }
-    
+
           if(!this.p.J) {
              this.x();
           }

@@ -13,7 +13,7 @@ public class OCommandServerSaveOff extends OCommandBase {
     public void b(OICommandSender oicommandsender, String[] astring) {
         OMinecraftServer ominecraftserver = OMinecraftServer.D();
 
-        for (OWorldServer[] level : ominecraftserver.worlds.values()) { // CanaryMod: multiworld 
+        for (OWorldServer[] level : ominecraftserver.worlds.values()) { // CanaryMod: multiworld
             for (int i = 0; i < level.length; ++i) {
                 if (level[i] != null) {
                     OWorldServer oworldserver = level[i];

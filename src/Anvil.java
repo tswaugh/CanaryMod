@@ -43,19 +43,19 @@ public class Anvil extends ItemArray<OInventoryRepair> implements Inventory {
         // Update client
         ((OEntityPlayerMP) anvil.getPlayer()).a.b(new OPacket103SetSlot(anvil.d, 2, item.getBaseItem()));
     }
-    
+
     /**
      * Returns the cost of the repair/rename in XP levels.
-     * 
+     *
      * @return
      */
     public int getXPCost() {
         return anvil.a;
     }
-    
+
     /**
      * Sets the cost of the repair/rename in XP levels.
-     * 
+     *
      * @param level The XP level the repair/rename should cost.
      */
     public void setXPCost(int level) {

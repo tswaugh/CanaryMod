@@ -51,12 +51,12 @@ public class DoubleChest extends ItemArray<OInventoryLargeChest> implements Comp
     public NBTTagCompound getMetaTag() {
         return getWorld().getOnlyComplexBlock(block).getMetaTag();
     }
-    
+
     @Override
     public void writeToTag(NBTTagCompound tag) {
         getWorld().getOnlyComplexBlock(block).writeToTag(tag);
     }
-    
+
     @Override
     public void readFromTag(NBTTagCompound tag) {
         getWorld().getOnlyComplexBlock(block).readFromTag(tag);

@@ -231,7 +231,7 @@ public abstract class OEntityThrowable extends OEntity implements OIProjectile {
 
       return this.g;
    }
-   
+
    public void setShooter(OEntityLiving shooter) { //CanaryMod: method for setting the shooter
        g = shooter;
        if(shooter instanceof OEntityPlayer) {

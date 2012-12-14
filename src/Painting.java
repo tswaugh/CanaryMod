@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 /**
  * Interface for paintings
- * 
+ *
  * @author gregthegeek
  *
  */
@@ -113,36 +113,36 @@ public class Painting extends HangingEntity {
          * A paper-looking screenshot of level 100 from the original Donkey Kong arcade game
          */
         DONKEY_KONG(OEnumArt.z);
-        
+
         private static HashMap<OEnumArt, Type> map;
         private final OEnumArt base;
-        
+
         private Type(OEnumArt base) {
             this.base = base;
             add(base, this);
         }
-        
+
         /**
          * Returns the OEnumArt that this wraps
-         * 
+         *
          * @return
          */
         public OEnumArt getBase() {
             return this.base;
         }
-        
+
         /**
          * Returns the width of this painting in pixels
-         * 
+         *
          * @return
          */
         public int getWidth() {
             return this.base.C;
         }
-        
+
         /**
          * Returns the height of this painting in pixels
-         * 
+         *
          * @return
          */
         public int getHeight() {
@@ -166,28 +166,28 @@ public class Painting extends HangingEntity {
             return map.get(base);
         }
     }
-    
+
     /**
      * Creates a new painting wrapper
-     * 
+     *
      * @param entity The entity to wrap
      */
     public Painting(OEntityPainting entity) {
         super(entity);
     }
-    
+
     /**
      * Creates a new painting
-     * 
+     *
      * @param world The world in which to create it
      */
     public Painting(World world) {
         super(new OEntityPainting(world.getWorld()));
     }
-    
+
     /**
      * Creates a new painting
-     * 
+     *
      * @param world The world in which to create it
      * @param x The x coordinate at which to create it
      * @param y The y coordinate at which to create it
@@ -196,10 +196,10 @@ public class Painting extends HangingEntity {
     public Painting(World world, int x, int y, int z) {
         this(world, x, y, z, Position.NORTH_FACE);
     }
-    
+
     /**
      * Creates a new painting
-     * 
+     *
      * @param world The world in which to create it
      * @param x The x coordinate at which to create it
      * @param y The y coordinate at which to create it
@@ -209,42 +209,42 @@ public class Painting extends HangingEntity {
     public Painting(World world, int x, int y, int z, Position position) {
         this(new OEntityPainting(world.getWorld(), x, y, z, position.ordinal()));
     }
-    
+
     @Override
     public OEntityPainting getEntity() {
         return (OEntityPainting) entity;
     }
-    
+
     /**
      * Returns the type of painting this is
-     * 
+     *
      * @return
      */
     public Type getType() {
         return Type.fromBase(getEntity().e);
     }
-    
+
     /**
      * Sets the type of painting this is
-     * 
+     *
      * @param type
      */
     public void setType(Type type) {
         getEntity().e = type.getBase();
     }
-    
+
     /**
      * Returns the width of the painting in pixels
-     * 
+     *
      * @return
      */
     public int getWidth() {
         return getEntity().d();
     }
-    
+
     /**
      * Returns the height of the painting in pixels
-     * 
+     *
      * @return
      */
     public int getHeight() {

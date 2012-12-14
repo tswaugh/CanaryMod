@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 /**
  * MySQLSource.java - Used for accessing users and such from a mysql database
- * 
+ *
  * @author James
  */
 public class MySQLSource extends DataSource {
@@ -291,7 +291,7 @@ public class MySQLSource extends DataSource {
             }
         }
     }
-    
+
     @Override
     public void loadEnderBlocks() {
         synchronized (enderBlocksLock) {
@@ -331,7 +331,7 @@ public class MySQLSource extends DataSource {
             }
         }
     }
-    
+
     @Override
     public void loadAntiXRayBlocks() {
         synchronized (antiXRayBlocksLock) {
@@ -511,7 +511,7 @@ public class MySQLSource extends DataSource {
             ps.setString(7, home.Group);
             ps.setString(8, home.Location.world);
             ps.setInt(9, home.Location.dimension);
-            
+
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();
@@ -844,19 +844,19 @@ public class MySQLSource extends DataSource {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Ban ban = new Ban();
-                    
+
                     ban.setId(rs.getInt("id"));
-                    
+
                     String nameOrIp = rs.getString("user");
                     if (nameOrIp.contains("."))
                         ban.setIp(nameOrIp);
                     else
                         ban.setName(nameOrIp);
-                    
+
                     String reason = rs.getString("reason");
                     if (!reason.matches("\\s*"))
                         ban.setReason(reason);
-                        
+
                     ban.setTimestamp(rs.getInt("timestamp"));
                     bans.add(ban);
                 }
@@ -919,7 +919,7 @@ public class MySQLSource extends DataSource {
         CanaryConnection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+
         try {
             conn = etc.getConnection();
             ps = conn.prepareStatement("INSERT INTO " + table_bans + " (user, reason, timestamp) VALUES (?, ?, ?)");
@@ -927,7 +927,7 @@ public class MySQLSource extends DataSource {
             ps.setString(2, ban.getReason());
             ps.setInt(3, ban.getTimestamp());
             ps.executeUpdate();
-            
+
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 ban.setId(rs.getInt(1));
@@ -1052,7 +1052,7 @@ public class MySQLSource extends DataSource {
             } catch (SQLException ex) {}
         }
     }
-    
+
     //Grouplist
     @Override
     public List getGroupList(){
@@ -1145,7 +1145,7 @@ public class MySQLSource extends DataSource {
     @Override
     public void expireBan(Ban ban) {
         int now = (int) (System.currentTimeMillis() / 1000);
-        
+
         boolean found = false;
         synchronized (banLock) {
             for (Ban b: bans)
@@ -1155,13 +1155,13 @@ public class MySQLSource extends DataSource {
                     ban = b;
                 }
         }
-        
+
         if (!found)
             return;
-        
+
         CanaryConnection conn = null;
         PreparedStatement ps = null;
-        
+
         try {
             conn = etc.getConnection();
             ps = conn.prepareStatement("UPDATE " + table_bans + " SET timestamp=? WHERE id=?");

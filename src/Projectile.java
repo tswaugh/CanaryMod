@@ -1,30 +1,30 @@
 /**
  * Interface for a projectile
- * 
+ *
  * @author gregthegeek
  *
  */
 public class Projectile extends BaseEntity {
-    
+
     /**
      * Wraps a projectile
-     * 
+     *
      * @param base the projectile to wrap
      */
     public Projectile(OEntity base) {
         super(base);
     }
-    
+
     /**
      * Launch/shoot this projectile
      */
     public void launch() {
         getWorld().launchProjectile(this);
     }
-    
+
     /**
      * Returns the shooter of this projectile. null if none.
-     * 
+     *
      * @return
      */
     public BaseEntity getShooter() {
@@ -38,10 +38,10 @@ public class Projectile extends BaseEntity {
         }
         return null;
     }
-    
+
     /**
      * Sets the shooter of this projectile
-     * 
+     *
      * @return whether or not the operation was successful
      */
     public boolean setShooter(LivingEntity shooter) {
@@ -58,11 +58,11 @@ public class Projectile extends BaseEntity {
         }
         return false;
     }
-    
+
     /**
      * Aims this projectile at a location.
      * May not work so well on anything that's not an instance of OIProjectile.
-     * 
+     *
      * @param x The x coordinate at which to aim it.
      * @param y The y coordinate at which to aim it.
      * @param z The z coordinate at which to aim it.
@@ -87,11 +87,11 @@ public class Projectile extends BaseEntity {
            }
         }
     }
-    
+
     /**
      * Aims this projectile at a location.
      * May not work so well on anything that's not an instance of OIProjectile.
-     * 
+     *
      * @param location The location at which to aim it.
      * @param power The power that it will be fired at.
      * @param inaccuracy The inaccuracy with which it will be fired.

@@ -1,8 +1,8 @@
 /**
  * Generic superclass for Chests and Furnaces, as they are really similar.
- * 
+ *
  * @author lightweight
- * 
+ *
  * @param <C>
  *            The type of container we wish to wrap.
  */
@@ -11,7 +11,7 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
 
     /**
      * Create a BaseContainerBlock to act as a wrapper for a given container.
-     * 
+     *
      * @param block
      *            The in-world block to 'envelop'.
      * @param reference
@@ -60,7 +60,7 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
 
     /**
      * Tests the given object to see if it equals this object
-     * 
+     *
      * @param obj
      *            the object to test
      * @return true if the two objects match
@@ -94,7 +94,7 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
 
     /**
      * Returns a semi-unique hashcode for this object
-     * 
+     *
      * @return hashcode
      */
     @Override
@@ -112,25 +112,25 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
     public String toString() {
         return String.format(this.name + " [x=%d, y=%d, z=%d, world=%s, dimension=%d]", this.getX(), this.getY(), this.getZ(), this.getWorld().getName(), this.getWorld().getType().getId());
     }
-    
+
     /**
      * Sets this block's data to that found in an NBTTagCompound
-     * 
+     *
      * @param tag the tag to read from
      */
     public void readFromTag(NBTTagCompound tag) {
         container.a(tag.getBaseTag());
     }
-    
+
     /**
      * Writes this block's data to an NBTagCompound
-     * 
+     *
      * @param tag the tag to write to
      */
     public void writeToTag(NBTTagCompound tag) {
         container.b(tag.getBaseTag());
     }
-    
+
     public NBTTagCompound getMetaTag() {
         return container.metadata;
     }

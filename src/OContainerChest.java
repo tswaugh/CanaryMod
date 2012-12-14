@@ -12,7 +12,7 @@ public class OContainerChest extends OContainer {
         if (!this.silenced) {
             oiinventory1.l_();
         }
-        
+
         int i = (this.f - 4) * 18;
 
         int j;

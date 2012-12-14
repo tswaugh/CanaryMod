@@ -19,7 +19,7 @@ public class OItemSeeds extends OItem {
             if (i1 == this.b && oworld.c(i, j + 1, k)) {
                 // CanaryMod: Seeds
                 Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
-                
+
                 Block blockPlaced = oworld.world.getBlockAt(i, j + 1, k);
 
                 // Call the hook
@@ -28,7 +28,7 @@ public class OItemSeeds extends OItem {
                 if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, player, blockPlaced, blockClicked, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
                     return false;
                 }
-                
+
                 oworld.e(i, j + 1, k, this.a);
                 --oitemstack.a;
                 return true;

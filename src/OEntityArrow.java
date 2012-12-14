@@ -181,25 +181,25 @@ public class OEntityArrow extends OEntity implements OIProjectile {
                    if(this.d()) {
                       var23 += this.aa.nextInt(var23 / 2 + 2);
                    }
-    
+
                    ODamageSource var21 = null;
                    if(this.c == null) {
                       var21 = ODamageSource.a(this, this);
                    } else {
                       var21 = ODamageSource.a(this, this.c);
                    }
-    
+
                    if(this.af()) {
                       var4.g.c(5);
                    }
-    
+
                    if(var4.g.a(var21, var23)) {
                       if(var4.g instanceof OEntityLiving) {
                          if(!this.p.J) {
                             OEntityLiving var24 = (OEntityLiving)var4.g;
                             var24.r(var24.bJ() + 1);
                          }
-    
+
                          if(this.au > 0) {
                             float var25 = OMathHelper.a(this.w * this.w + this.y * this.y);
                             if(var25 > 0.0F) {
@@ -207,7 +207,7 @@ public class OEntityArrow extends OEntity implements OIProjectile {
                             }
                          }
                       }
-    
+
                       this.a("random.bowhit", 1.0F, 1.2F / (this.aa.nextFloat() * 0.2F + 0.9F));
                       this.x();
                    } else {

@@ -7,7 +7,7 @@ public class HumanEntity extends LivingEntity {
 
     /**
      * Constructor
-     * 
+     *
      * @param human
      */
     public HumanEntity(OEntityPlayer human) {
@@ -16,7 +16,7 @@ public class HumanEntity extends LivingEntity {
 
     /**
      * Returns the entity we're wrapping.
-     * 
+     *
      * @return
      */
     @Override
@@ -26,7 +26,7 @@ public class HumanEntity extends LivingEntity {
 
     /**
      * Returns the name
-     * 
+     *
      * @return
      */
     @Override
@@ -36,7 +36,7 @@ public class HumanEntity extends LivingEntity {
 
     /**
      * Returns the world
-     * 
+     *
      * @return
      */
     @Override

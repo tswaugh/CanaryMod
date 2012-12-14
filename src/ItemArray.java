@@ -3,7 +3,7 @@ import java.util.Arrays;
 /**
  * ItemArray.java - Interface to jh[] so I don't have to copy+paste this a bunch
  * of times
- * 
+ *
  * @param <C> The container of the items
  * @author James
  */
@@ -22,7 +22,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
      * Adds the specified item. If the item doesn't have a slot, it will get the
      * nearest available slot. If amount is equal to 0, it will delete the item
      * if a slot is specified.
-     * 
+     *
      * @param item
      *            item to add
      */
@@ -52,7 +52,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Retrieves from the slot
-     * 
+     *
      * @param slot
      *            slot to get item from
      * @return item
@@ -73,7 +73,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Retrieves from the slot
-     * 
+     *
      * @param type
      * @return item
      */
@@ -83,7 +83,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Retrieves from the slot
-     * 
+     *
      * @param id
      * @return item
      */
@@ -101,7 +101,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Retrieves from the slot
-     * 
+     *
      * @param type
      * @param maxAmount
      * @return item
@@ -112,7 +112,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Retrieves from the slot
-     * 
+     *
      * @param id
      * @param maxAmount
      * @return item
@@ -131,7 +131,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Gets the nearest empty slot. -1 if there's no empty slots
-     * 
+     *
      * @return nearest empty slot
      */
     public int getEmptySlot() {
@@ -149,7 +149,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Removes the item from the slot
-     * 
+     *
      * @param slot
      *            slot to remove item from
      */
@@ -163,7 +163,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Sets the specified slot with item
-     * 
+     *
      * @param item
      *            item to set
      * @param slot
@@ -179,7 +179,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Replaces the slot with the specified item.
-     * 
+     *
      * @param type
      *            type of the item to put into the slot.
      * @param amount
@@ -193,7 +193,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Replaces the slot with the specified item.
-     * 
+     *
      * @param itemId
      *            item id of the item to put into the slot.
      * @param amount
@@ -207,7 +207,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Replaces the slot with the specified item.
-     * 
+     *
      * @param itemId
      *            item id of the item to put into the slot.
      * @param amount
@@ -228,7 +228,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
     /**
      * Removes the item. No slot needed, it will go through the inventory until
      * the exact item specified is removed.
-     * 
+     *
      * @param item
      *            item to remove
      */
@@ -246,7 +246,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
     /**
      * Removes the item. No slot needed, it will go through the inventory until
      * the amount specified is removed.
-     * 
+     *
      * @param type
      *            item to remove
      * @param amount
@@ -259,7 +259,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
     /**
      * Removes the item. No slot needed, it will go through the inventory until
      * the amount specified is removed.
-     * 
+     *
      * @param id
      *            item to remove
      * @param amount
@@ -284,16 +284,16 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
             }
         }
     }
-    
+
     /**
      * Removes items from the inventory that match the given item until the amount in the given item is removed.
-     * 
+     *
      * @param item The item type to remove
      */
     public void removeItemOverStacks(Item item) {
         Item[] items = getContents();
         int remaining = item.getAmount();
-        
+
         for(Item i : items) {
             if(item.equalsIgnoreSlotAndAmount(i)) {
                 if(i.getAmount() == remaining) {
@@ -309,29 +309,29 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
             }
         }
     }
-    
+
     /**
      * Checks to see if this getArray() has an item identical to the one specified.
-     * 
+     *
      * @param item
      * @return
      */
     public boolean hasItem(Item item) {
         Item[] items = getContents();
-        
+
         for(Item i : items) {
             if(i != null && i.equalsIgnoreSlot(item)) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     /**
      * Checks to see if this getArray() has one slot that has the given item
      * type
-     * 
+     *
      * @param type
      * @return
      */
@@ -341,7 +341,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Checks to see if this getArray() has one slot that has the given item id
-     * 
+     *
      * @param itemId
      * @return
      */
@@ -352,7 +352,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
     /**
      * Checks to see if this getArray() has one slot that has the item id and
      * equal or more to the amount.
-     * 
+     *
      * @param type
      *            item to look for
      * @param minimum
@@ -374,7 +374,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
     /**
      * Checks to see if this getArray() has one slot that has the item id and
      * equal or more to the amount.
-     * 
+     *
      * @param itemId
      *            item to look for
      * @param minimum
@@ -396,7 +396,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
     /**
      * Checks to see if this getArray() has one slot that has the item id and
      * equal or more to the amount.
-     * 
+     *
      * @param itemId
      * @param minimum
      * @param maximum
@@ -416,7 +416,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Returns the contents of this chest
-     * 
+     *
      * @return contents
      */
     public Item[] getContents() {
@@ -432,7 +432,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     /**
      * Sets the contents
-     * 
+     *
      * @param contents
      *            contents to set
      */
@@ -455,7 +455,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
             container.setContentsAt(i, null);
         }
     }
-    
+
     /**
      * Adds the item to the set, appending to stacks
      * or with no or full stack, adds a new stack.
@@ -469,11 +469,11 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
         int amount = item.getAmount();
         Item itemExisting;
         int maxAmount = item.getMaxAmount();
-        
+
         while (amount > 0) {
             // Get an existing item with at least 1 spot free
             itemExisting = this.getItemFromId(item.getItemId(), maxAmount-1);
-            
+
             // Add the items to the existing stack of items
             if (itemExisting != null) {
                 // Add as much items as possible to the stack
@@ -488,16 +488,16 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
                 amount = 0;
                 continue;
             }
-            
+
             // No free slots, no incomplete stacks: full
             // make sure the stored items are removed
             item.setAmount(amount);
             return false;
         }
-        
+
         return true;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof ItemArray) {
@@ -505,7 +505,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
         }
         return false;
     }
-    
+
     @Override
     public String toString() {
         return String.format("ItemArray[size=%d, contents=%s]", getContentsSize(), Arrays.toString(getContents()));

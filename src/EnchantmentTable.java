@@ -4,7 +4,7 @@
  */
 public class EnchantmentTable extends ItemArray<OInventoryBasic> implements Inventory {
     private final OContainerEnchantment enchantTable;
-    
+
     public EnchantmentTable(OContainerEnchantment block) {
         super((OInventoryBasic) block.a);
         enchantTable = block;
@@ -14,7 +14,7 @@ public class EnchantmentTable extends ItemArray<OInventoryBasic> implements Inve
     public void update() {
         enchantTable.b();
     }
-    
+
     public void update(Player player) {
         this.update(); // Apparently we have an update method now
     }
@@ -28,7 +28,7 @@ public class EnchantmentTable extends ItemArray<OInventoryBasic> implements Inve
     public void setName(String value) {
         container.setName(value);
     }
-    
+
     /**
      * Enchants the item and subtracts the XP from the player.
      * @param player The {@link Player} to subract XP from
@@ -40,14 +40,14 @@ public class EnchantmentTable extends ItemArray<OInventoryBasic> implements Inve
     public boolean enchantItem(Player player, int slot) {
         return enchantTable.a(player.getUser(), slot);
     }
-    
+
     /**
      * Gets the levels as displayed in the GUI.
      * The upper slot has index 0.
-     * @return an int[3] containing the levels of the slots 
+     * @return an int[3] containing the levels of the slots
      */
     public int[] getEnchantLevels() {
         return enchantTable.g;
     }
-    
+
 }

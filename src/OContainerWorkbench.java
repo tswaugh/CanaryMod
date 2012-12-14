@@ -40,11 +40,11 @@ public class OContainerWorkbench extends OContainer {
         // Canarymod - send custom recipes result to client
         OItemStack craftresult = OCraftingManager.a().a(this.a, this.g);
         this.f.a(0, craftresult);
-        
+
         if (this.e.isEmpty()) {
             return;
         } //
-        OEntityPlayerMP player = (OEntityPlayerMP) this.e.get(0); 
+        OEntityPlayerMP player = (OEntityPlayerMP) this.e.get(0);
 
         player.a.b(new OPacket103SetSlot(this.d, 0, craftresult));
     }

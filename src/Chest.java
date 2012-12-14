@@ -1,6 +1,6 @@
 /**
  * Chest.java - Interface to chests.
- * 
+ *
  * @author James
  */
 public class Chest extends BaseContainerBlock<OTileEntityChest> implements ComplexBlock {

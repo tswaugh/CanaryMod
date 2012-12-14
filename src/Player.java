@@ -916,7 +916,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public Inventory getInventory() {
         return inventory;
     }
-    
+
     /**
      * Returns whether or not this entity is blocking with the item in their hand.
      * @return true if blocking
@@ -1291,12 +1291,12 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void setDamageDisabled(boolean disabled) {
         getEntity().cc.a = disabled;
     }
-    
+
     @Override
     public boolean isInvulnerable() {
         return isDamageDisabled();
     }
-    
+
     @Override
     public void setInvulnerable(boolean isInvulnerable) {
         setDamageDisabled(isInvulnerable);
@@ -1510,16 +1510,16 @@ public class Player extends HumanEntity implements MessageReceiver {
         p.lastMessage = this.lastMessage;
         p.spamTicker = this.spamTicker;
     }
-    
+
     /**
      * Returns this player's ender chest for modification
-     * 
+     *
      * @return
      */
     public EnderChestInventory getEnderChest() {
         return new EnderChestInventory(getEntity().cf(), this);
     }
-    
+
     /**
      * This method plays a sound for just this player, and no one else can hear it.
      * @param location the location to play the sound at
@@ -1532,7 +1532,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void playSound(Location location, Sound sound, float volume, float pitch){
         playSound(location.x, location.y, location.z, sound, volume, pitch);
     }
-    
+
     /**
      * This method plays a sound for just this player, and no one else can hear it.
      * @param x x coordinate to play the sound at

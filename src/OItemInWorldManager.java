@@ -277,11 +277,11 @@ public class OItemInWorldManager {
             return true;
         }
     }
-    
+
     /**
      * Called when a player right-click air with an item in hand. We intercept
      * it.
-     * 
+     *
      * @param player
      * @param world
      * @param item
@@ -324,7 +324,7 @@ public class OItemInWorldManager {
     public void a(OWorldServer oworldserver) {
         this.a = oworldserver;
     }
-    
+
     // CanaryMod start - getPortalBlocks
     private Block[][] getPortalBlocks(World world, int i, int j, int k) {
         int portalId = Block.Type.Portal.getType();

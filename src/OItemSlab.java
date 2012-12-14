@@ -26,7 +26,7 @@ public class OItemSlab extends OItemBlock {
         if (!this.a && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, this.getBlockInfo(oworld, i, j, k, l), ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
             return true;
         }
-            
+
         if (this.a) {
             return super.a(oitemstack, oentityplayer, oworld, i, j, k, l, f, f1, f2);
         } else if (oitemstack.a == 0) {

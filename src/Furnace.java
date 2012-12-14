@@ -1,6 +1,6 @@
 /**
  * Furnace.java - Interface for furnaces
- * 
+ *
  * @author 14mRh4X0r
  */
 public class Furnace extends BaseContainerBlock<OTileEntityFurnace> implements ComplexBlock {

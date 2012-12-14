@@ -137,7 +137,7 @@ public class OBlockButton extends OBlock {
         if (k1 == 0) {
             return true;
         }
-      
+
         // CanaryMod: Allow button to provide power
         int change = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, oworld.world.getBlockAt(i, j, k), 0, 1);
 
@@ -188,14 +188,14 @@ public class OBlockButton extends OBlock {
             int l = oworld.h(i, j, k);
 
             if ((l & 8) != 0) {
-             
+
                 // CanaryMod: Allow button to provide power
                 int change = (Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, oworld.world.getBlockAt(i, j, k), 1, 0);
 
                 if (change > 0) {
                     return;
                 }
-             
+
                 if (this.a) {
                     this.o(oworld, i, j, k);
                 } else {

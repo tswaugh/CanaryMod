@@ -54,7 +54,7 @@ public class OTileEntityCommandBlock extends OTileEntity implements OICommandSen
       this.b(var1);
       return new OPacket132TileEntityData(this.l, this.m, this.n, 2, var1);
    }
-   
+
    public String getCommand() { //CanaryMod: allows us to access the command stored
        return this.a;
    }

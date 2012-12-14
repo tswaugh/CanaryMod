@@ -867,7 +867,7 @@ public class Server {
         }
         OCraftingManager.a().b(item.getBaseItem(), recipe);
     }
-    
+
     /**
      * Adds a smelting recipe to the furnace recipes.
      * {@code from} is the item that is put into the furnace, and should have
@@ -954,7 +954,7 @@ public class Server {
     public World[] loadWorld(String name, World.Type type, long seed) {
         return this.loadWorld(name, type, seed, "");
     }
-    
+
     /**
      * Loads the world with the specified name, type and seed and returns it. If
      * the world already is loaded, just return the world.
@@ -1000,7 +1000,7 @@ public class Server {
     public World[] getWorld(String name) {
         return this.isWorldLoaded(name) ? this.loadWorld(name) : null;
     }
-    
+
     /**
      * Get the configuration manager for the given world
      * @param world

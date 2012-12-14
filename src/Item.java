@@ -597,20 +597,20 @@ public class Item implements Cloneable, Metadatable {
         }
         return false;
     }
-    
+
     /**
      * Like equals() but doesn't check slot or amount
-     * 
+     *
      * @param item The item to check equality with
      * @return
      */
     public boolean equalsIgnoreSlotAndAmount(Item item) {
         return item != null && item.getItemId() == getItemId() && item.getDamage() == getDamage() && Arrays.equals(item.getEnchantments(), getEnchantments()) && (getDataTag() == null ? item.getDataTag() == null : getDataTag().equals(item.getDataTag()));
     }
-    
+
     /**
      * Like equals() but doesn't check slot
-     * 
+     *
      * @param item The item to check equality with
      * @return
      */
@@ -784,60 +784,60 @@ public class Item implements Cloneable, Metadatable {
     public void setName(String name) {
         itemStack.c(name);
     }
-    
+
     /**
      * Returns the potion effects associated with this item.
      * Returns null if item is not a potion or has no potion effects.
-     * 
+     *
      * @return
      */
     public PotionEffect[] getPotionEffects() {
         if(getType() != Item.Type.Potion) {
             return null;
         }
-        
+
         OItemStack base = getBaseItem();
-        
+
         if(!base.o()) {
             return null;
         }
-        
+
         NBTTagCompound tag = new NBTTagCompound(base.p());
         if(!tag.hasTag("CustomPotionEffects")) {
             return null;
         }
-        
+
         NBTTagList potionEffects = tag.getNBTTagList("CustomPotionEffects");
         PotionEffect[] rt = new PotionEffect[potionEffects.size()];
         if(rt.length <= 0) {return null;}
         for(int i=0; i<rt.length; i++) {
             rt[i] = new PotionEffect(OPotionEffect.b((ONBTTagCompound) potionEffects.get(i).getBaseTag()));
         }
-        
+
         return rt;
     }
-    
+
     /**
      * Adds a potion effect to this item. Only works on potions.
-     * 
+     *
      * @param effect The potion effect to add
      */
     public void addPotionEffect(PotionEffect effect) {
         addPotionEffects(new PotionEffect[] {effect});
     }
-    
+
     /**
      * Adds an array of potion effects to this item. Only works on potions.
-     * 
+     *
      * @param effects The potion effects to add
      */
     public void addPotionEffects(PotionEffect[] effects) {
         if(getType() != Item.Type.Potion) {
             return;
         }
-        
+
         OItemStack base = getBaseItem();
-        
+
         NBTTagList potionEffects = null;
         if(base.o()) {
             NBTTagCompound tag = new NBTTagCompound(base.p());
@@ -853,7 +853,7 @@ public class Item implements Cloneable, Metadatable {
             tag.add("CustomPotionEffects", potionEffects);
             base.d(tag.getBaseTag());
         }
-        
+
         NBTTagCompound[] e = new NBTTagCompound[effects.length];
         for(int i = 0; i < e.length; i++) {
             e[i] = new NBTTagCompound();
@@ -879,11 +879,11 @@ public class Item implements Cloneable, Metadatable {
             throw new InternalError(); // We are Cloneable!?
         }
     }
-    
+
     /**
      * Returns the text that shows up under this item's name in the player's inventory.
      * Returns null if the lore is not set.
-     * 
+     *
      * @return The lore, each string in the array is a new line
      */
     public String[] getLore() { // WWOL: I don't think we need this now with the new NBT API do we?
@@ -899,10 +899,10 @@ public class Item implements Cloneable, Metadatable {
         }
         return rt;
     }
-    
+
     /**
      * Sets the text that shows up under the item's name in the player's inventory
-     * 
+     *
      * @param lore The lore to set, each line should be in a separate string in the array
      */
     public void setLore(String... lore) {
@@ -920,28 +920,28 @@ public class Item implements Cloneable, Metadatable {
         }
         tag.getNBTTagCompound("display").add("Lore", list);
     }
-    
+
     /**
      * Returns the tag containing data for this item.
      * Null if this item has no data tag.
-     * 
+     *
      * @return
      */
     public NBTTagCompound getDataTag() {
         return itemStack.o() ? new NBTTagCompound(itemStack.p()) : null;
     }
-    
+
     /**
-     * Sets the tag containing data for this item. 
+     * Sets the tag containing data for this item.
      * Should be named 'tag'.
      * Setting this to null removes name and lore data.
-     * 
+     *
      * @param tag the data tag
      */
     public void setDataTag(NBTTagCompound tag) {
         itemStack.d = tag == null ? null : tag.getBaseTag();
     }
-    
+
     @Override
     public NBTTagCompound getMetaTag() {
         NBTTagCompound dataTag = getDataTag();
@@ -950,20 +950,20 @@ public class Item implements Cloneable, Metadatable {
         }
         return dataTag.getNBTTagCompound("Canary");
     }
-    
+
     /**
      * Writes this item's data to an NBTTagCompound.
-     * 
+     *
      * @param tag The tag to write to
      * @return NBTTagCompound
      */
     public NBTTagCompound writeToTag(NBTTagCompound tag) {
         return new NBTTagCompound(itemStack.b(tag.getBaseTag()));
     }
-    
+
     /**
      * Sets this item's data to that in an NBTTagCompound.
-     * 
+     *
      * @param tag The tag to read from
      */
     public void readFromTag(NBTTagCompound tag) {

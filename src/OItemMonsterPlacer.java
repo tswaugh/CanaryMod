@@ -62,7 +62,7 @@ public class OItemMonsterPlacer extends OItem {
             return oentity;
         }
     }
-    
+
     public static OEntity a(OWorld oworld, int i, double d0, double d1, double d2) {
         return a(oworld, i, d0, d1, d2, true);
     }

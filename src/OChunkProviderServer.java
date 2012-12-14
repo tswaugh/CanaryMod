@@ -227,10 +227,10 @@ public class OChunkProviderServer implements OIChunkProvider {
 
         return this.d.b();
     }
-    
+
     public OChunk regenerateChunk(int i, int j) {
         Long chunkCoordIntPair = OChunkCoordIntPair.a(i, j);
-        
+
         // Unloading the chunk
         OChunk unloadedChunk = (OChunk) f.a(chunkCoordIntPair.longValue());
 
@@ -242,7 +242,7 @@ public class OChunkProviderServer implements OIChunkProvider {
             f.d(chunkCoordIntPair.longValue()); // id2ChunkMap.remove
             g.remove(unloadedChunk); // loadedChunks
         }
-        
+
         // Generating the new chunk
         OChunk newChunk = d.d(i, j);
 
@@ -253,7 +253,7 @@ public class OChunkProviderServer implements OIChunkProvider {
             newChunk.d(); // onChunkUnload
         }
         newChunk.a(this, this, i, j); //populateChunk
-        
+
         // Save the new chunk, overriding the old one
         a(newChunk);
         b(newChunk);
@@ -261,7 +261,7 @@ public class OChunkProviderServer implements OIChunkProvider {
         if (e != null) {
             e.b(); // saveExtraData
         }
-        
+
         return newChunk;
     }
 

@@ -26,7 +26,7 @@ public class Main {
     public static final long   rules = 0x6c04eaffL;
 
     public static final Logger log = Logger.getLogger("Minecraft");
-    
+
     private static boolean     newIsCrow = false;
 
     public static void main(String[] args) throws IOException {

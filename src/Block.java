@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  * Block.java - Provides some way of making/editing blocks
- * 
+ *
  * @author James
  */
 public class Block {
@@ -222,7 +222,7 @@ public class Block {
 
         /**
          * Returns a Face according to the specified ID
-         * 
+         *
          * @param id
          *            id of face
          * @return face
@@ -250,7 +250,7 @@ public class Block {
 
     /**
      * Creates a block of specified type
-     * 
+     *
      * @param type
      */
     public Block(int type) {
@@ -259,7 +259,7 @@ public class Block {
 
     /**
      * Creates a block of specified type, x, y and z
-     * 
+     *
      * @param type
      *            Type of block
      * @param x
@@ -272,7 +272,7 @@ public class Block {
 
     /**
      * Creates a block of specified world, type, x, y and z
-     * 
+     *
      * @param world
      *            The world the block is in.
      * @param type
@@ -287,7 +287,7 @@ public class Block {
 
     /**
      * Creates a block of specified type, x, y, z and data
-     * 
+     *
      * @param type
      *            Type of block
      * @param x
@@ -301,7 +301,7 @@ public class Block {
 
     /**
      * Creates a block of specified world, type, x, y, z and data
-     * 
+     *
      * @param type
      *            Type of block
      * @param x
@@ -322,7 +322,7 @@ public class Block {
 
     /**
      * Creates a block of specified world, type x, y, z and data
-     * 
+     *
      * @param world
      *            The world the block is in.
      * @param type
@@ -344,7 +344,7 @@ public class Block {
 
     /**
      * Creates a block of specified type, x, y, z and data
-     * 
+     *
      * @param type
      *            Type of block
      * @param x
@@ -358,7 +358,7 @@ public class Block {
 
     /**
      * Creates a block of specified type and data
-     * 
+     *
      * @param type
      *            Type of block
      * @param data
@@ -369,7 +369,7 @@ public class Block {
 
     /**
      * Creates a block of specified type
-     * 
+     *
      * @param type
      *            Type of block
      */
@@ -379,7 +379,7 @@ public class Block {
 
     /**
      * Creates a block of specified type and location
-     * 
+     *
      * @param type
      *            Type of block
      * @param location
@@ -391,7 +391,7 @@ public class Block {
 
     /**
      * Creates a block of specified type, location and data
-     * 
+     *
      * @param type
      *            Type of block
      * @param location
@@ -404,7 +404,7 @@ public class Block {
 
     /**
      * Creates a block of specified type, location and data
-     * 
+     *
      * @param type
      *            Type of block
      * @param location
@@ -417,7 +417,7 @@ public class Block {
 
     /**
      * Creates a block of specified type, location and data
-     * 
+     *
      * @param type
      *            Type of block
      * @param location
@@ -429,7 +429,7 @@ public class Block {
 
     /**
      * Creates a block at the specified location.
-     * 
+     *
      * @param location
      *            Location in the world
      */
@@ -439,7 +439,7 @@ public class Block {
 
     /**
      * Type of block
-     * 
+     *
      * @return type
      */
     public int getType() {
@@ -448,7 +448,7 @@ public class Block {
 
     /**
      * Set type of block
-     * 
+     *
      * @param type
      */
     public void setType(int type) {
@@ -458,7 +458,7 @@ public class Block {
 
     /**
      * Gets X location
-     * 
+     *
      * @return x
      */
     public int getX() {
@@ -467,7 +467,7 @@ public class Block {
 
     /**
      * Sets X location
-     * 
+     *
      * @param x
      */
     public void setX(int x) {
@@ -476,7 +476,7 @@ public class Block {
 
     /**
      * Gets Y location
-     * 
+     *
      * @return y
      */
     public int getY() {
@@ -485,7 +485,7 @@ public class Block {
 
     /**
      * Sets Y location
-     * 
+     *
      * @param y
      */
     public void setY(int y) {
@@ -494,7 +494,7 @@ public class Block {
 
     /**
      * Gets Z location
-     * 
+     *
      * @return z
      */
     public int getZ() {
@@ -503,7 +503,7 @@ public class Block {
 
     /**
      * Sets Z location
-     * 
+     *
      * @param z
      */
     public void setZ(int z) {
@@ -512,7 +512,7 @@ public class Block {
 
     /**
      * Gets Location
-     * 
+     *
      * @return location
      */
     public Location getLocation() {
@@ -521,7 +521,7 @@ public class Block {
 
     /**
      * Sets Location
-     * 
+     *
      * @param location
      */
     public void setLocation(Location location) {
@@ -533,7 +533,7 @@ public class Block {
 
     /**
      * If this block was clicked, this will return the face that was clicked.
-     * 
+     *
      * @return face clicked
      */
     public Face getFaceClicked() {
@@ -542,7 +542,7 @@ public class Block {
 
     /**
      * Sets the face that was clicked
-     * 
+     *
      * @param faceClicked
      *            face clicked
      */
@@ -552,7 +552,7 @@ public class Block {
 
     /**
      * Returns the status of this block.
-     * 
+     *
      * @return The current status of the block, value depends on what hook you
      * called.
      *
@@ -567,7 +567,7 @@ public class Block {
     /**
      * Sets the current destruction status of this block.
      * For CanaryMod internal use only!
-     * 
+     *
      * @param status
      */
     public void setStatus(int status) {
@@ -576,7 +576,7 @@ public class Block {
 
     /**
      * Returns this block's data
-     * 
+     *
      * @return
      */
     public int getData() {
@@ -585,7 +585,7 @@ public class Block {
 
     /**
      * Sets this block's data
-     * 
+     *
      * @param data
      */
     public void setData(int data) {
@@ -617,7 +617,7 @@ public class Block {
 
     /**
      * Returns the block at the given Face
-     * 
+     *
      * @param face
      *            the block face of which to return
      * @return Block at the specified Face
@@ -662,14 +662,14 @@ public class Block {
 
     /**
      * Finds a Block relative to this Block
-     * 
+     *
      * @param x
      *            amount to shift the x coordinate
      * @param y
      *            amount to shift the y coordinate
      * @param z
      *            amount to shift the z coordinate
-     * 
+     *
      * @return Block at the requested location
      */
     public Block getRelative(int x, int y, int z) {
@@ -678,7 +678,7 @@ public class Block {
 
     /**
      * Checks if this block is being powered through redstone
-     * 
+     *
      * @return true if the block is being powered
      */
     public boolean isPowered() {
@@ -687,7 +687,7 @@ public class Block {
 
     /**
      * Checks if this block is being indirectly powered through redstone
-     * 
+     *
      * @return true if the block is being indirectly powered
      */
     public boolean isIndirectlyPowered() {
@@ -696,7 +696,7 @@ public class Block {
 
     /**
      * Returns a String value representing this Block
-     * 
+     *
      * @return String representation of this block
      */
     @Override
@@ -706,7 +706,7 @@ public class Block {
 
     /**
      * Tests the given object to see if it equals this object
-     * 
+     *
      * @param obj
      *            the object to test
      * @return true if the two objects match
@@ -738,7 +738,7 @@ public class Block {
 
     /**
      * Returns a semi-unique hashcode for this block
-     * 
+     *
      * @return hashcode
      */
     @Override
@@ -762,7 +762,7 @@ public class Block {
 
     /**
      * Get this block's {@link Cloth.Color Color} (if it is cloth)
-     * 
+     *
      * @return the {@link Cloth.Color Color}
      */
     public Cloth.Color getColor() {
@@ -775,7 +775,7 @@ public class Block {
 
     /**
      * Returns this block as a complex block. null if this is not a complex block.
-     * 
+     *
      * @return
      */
     public ComplexBlock getComplex() {
