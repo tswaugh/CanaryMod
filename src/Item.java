@@ -1,4 +1,3 @@
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -316,7 +315,8 @@ public class Item implements Cloneable, Metadatable {
         StalRecord(2263), //
         StradRecord(2264), //
         WardRecord(2265), //
-        ElevenRecord(2266); //
+        ElevenRecord(2266), //
+        WaitRecord(2267);
 
         private int id;
         private static Map<Integer, Type> map;
