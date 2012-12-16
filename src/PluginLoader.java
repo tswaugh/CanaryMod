@@ -476,6 +476,16 @@ public class PluginLoader {
         public ODamageSource getDamageSource() {
             return this.source;
         }
+        
+        /**
+        * Returns the message that would be displayed in chat if a player died from this.
+        * 
+        * @param died The player who 'died'.
+        * @return The death message.
+        */
+        public String getDeathMessage(Player died) {
+        	return source.b(died.getEntity());
+        }
 
          public static DamageType fromDamageSource(ODamageSource source) {
              if (source == ODamageSource.a)

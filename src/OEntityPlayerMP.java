@@ -199,7 +199,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(ODamageSource odamagesource) {
         manager.callHook(PluginLoader.Hook.DEATH, this.getEntity());
-        this.b.ad().a((OPacket) (new OPacket3Chat(odamagesource.b(this))));
+        if(etc.getInstance().deathMessages) { //CanaryMod: check if death messages are enabled
+        	this.b.ad().a((OPacket) (new OPacket3Chat(odamagesource.b(this))));
+        }
         if (!this.p.L().b("keepInventory")) {
             this.bI.l();
         }
