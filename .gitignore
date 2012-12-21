@@ -11,4 +11,5 @@ jarjar/*
 nbproject/*
 *.orig
 *.rej
+*.bak
 .DS_Store
