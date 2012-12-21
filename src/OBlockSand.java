@@ -28,7 +28,7 @@ public class OBlockSand extends OBlock {
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             this.l(oworld, i, j, k);
         }
     }
@@ -38,7 +38,7 @@ public class OBlockSand extends OBlock {
             byte b0 = 32;
 
             if (!c && oworld.d(i - b0, j - b0, k - b0, i + b0, j + b0, k + b0)) {
-                if (!oworld.J) {
+                if (!oworld.I) {
                     OEntityFallingSand oentityfallingsand = new OEntityFallingSand(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.cm, oworld.h(i, j, k));
 
                     this.a(oentityfallingsand);

@@ -54,7 +54,7 @@ public class OBlockPressurePlate extends OBlock {
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             if (oworld.h(i, j, k) != 0) {
                 this.l(oworld, i, j, k);
             }
@@ -62,7 +62,7 @@ public class OBlockPressurePlate extends OBlock {
     }
 
     public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             if (oworld.h(i, j, k) != 1) {
                 this.l(oworld, i, j, k);
             }

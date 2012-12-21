@@ -7,8 +7,8 @@ public class OEntityPigZombie extends OEntityZombie {
 
     public OEntityPigZombie(OWorld oworld) {
         super(oworld);
-        this.aF = "/mob/pigzombie.png";
-        this.bG = 0.5F;
+        this.aG = "/mob/pigzombie.png";
+        this.bH = 0.5F;
         this.af = true;
     }
 
@@ -17,7 +17,7 @@ public class OEntityPigZombie extends OEntityZombie {
     }
 
     public void j_() {
-        this.bG = this.a_ != null ? 0.95F : 0.5F;
+        this.bH = this.a_ != null ? 0.95F : 0.5F;
         if (this.e > 0 && --this.e == 0) {
             this.a("mob.zombiepig.zpigangry", this.aX() * 2.0F, ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
@@ -26,7 +26,7 @@ public class OEntityPigZombie extends OEntityZombie {
     }
 
     public boolean bs() {
-        return this.p.t > 0 && this.p.b(this.D) && this.p.a((OEntity) this, this.D).isEmpty() && !this.p.d(this.D);
+        return this.p.s > 0 && this.p.b(this.D) && this.p.a((OEntity) this, this.D).isEmpty() && !this.p.d(this.D);
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
@@ -95,13 +95,13 @@ public class OEntityPigZombie extends OEntityZombie {
         int k;
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.bm.cg, 1);
+            this.b(OItem.bm.cj, 1);
         }
 
         j = this.aa.nextInt(2 + i);
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.bq.cg, 1);
+            this.b(OItem.bq.cj, 1);
         }
     }
 
@@ -110,11 +110,11 @@ public class OEntityPigZombie extends OEntityZombie {
     }
 
     protected void l(int i) {
-        this.b(OItem.p.cg, 1);
+        this.b(OItem.p.cj, 1);
     }
 
     protected int bb() {
-        return OItem.bm.cg;
+        return OItem.bm.cj;
     }
 
     protected void bE() {

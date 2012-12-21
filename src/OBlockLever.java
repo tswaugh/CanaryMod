@@ -35,11 +35,11 @@ public class OBlockLever extends OBlock {
 
         k1 = -1;
         if (l == 0 && oworld.t(i, j + 1, k)) {
-            k1 = oworld.u.nextBoolean() ? 0 : 7;
+            k1 = oworld.t.nextBoolean() ? 0 : 7;
         }
 
         if (l == 1 && oworld.v(i, j - 1, k)) {
-            k1 = 5 + oworld.u.nextInt(2);
+            k1 = 5 + oworld.t.nextInt(2);
         }
 
         if (l == 2 && oworld.t(i, j, k + 1)) {
@@ -61,7 +61,7 @@ public class OBlockLever extends OBlock {
         return k1 + j1;
     }
 
-    public static int d(int i) {
+    public static int e(int i) {
         switch (i) {
             case 0:
                 return 0;
@@ -166,7 +166,7 @@ public class OBlockLever extends OBlock {
     public void a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {}
 
     public boolean a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer, int l, float f, float f1, float f2) {
-        if (oworld.J) {
+        if (oworld.I) {
             return true;
         } else {
             int i1 = oworld.h(i, j, k);

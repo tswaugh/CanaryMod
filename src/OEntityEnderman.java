@@ -11,8 +11,8 @@ public class OEntityEnderman extends OEntityMob {
 
     public OEntityEnderman(OWorld oworld) {
         super(oworld);
-        this.aF = "/mob/enderman.png";
-        this.bG = 0.2F;
+        this.aG = "/mob/enderman.png";
+        this.bH = 0.2F;
         this.a(0.6F, 2.9F);
         this.X = 1.0F;
     }
@@ -64,7 +64,7 @@ public class OEntityEnderman extends OEntityMob {
     }
 
     private boolean d(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.bI.b[3];
+        OItemStack oitemstack = oentityplayer.bJ.b[3];
 
         if (oitemstack != null && oitemstack.c == OBlock.bd.cm) {
             return false;
@@ -85,10 +85,10 @@ public class OEntityEnderman extends OEntityMob {
             this.a(ODamageSource.e, 1);
         }
 
-        this.bG = this.a_ != null ? 6.5F : 0.3F;
+        this.bH = this.a_ != null ? 6.5F : 0.3F;
         int i;
 
-        if (!this.p.J && this.p.L().b("mobGriefing")) {
+        if (!this.p.I && this.p.L().b("mobGriefing")) {
             int j;
             int k;
             int l;
@@ -123,7 +123,7 @@ public class OEntityEnderman extends OEntityMob {
             this.p.a("portal", this.t + (this.aa.nextDouble() - 0.5D) * (double) this.N, this.u + this.aa.nextDouble() * (double) this.O - 0.25D, this.v + (this.aa.nextDouble() - 0.5D) * (double) this.N, (this.aa.nextDouble() - 0.5D) * 2.0D, -this.aa.nextDouble(), (this.aa.nextDouble() - 0.5D) * 2.0D);
         }
 
-        if (this.p.u() && !this.p.J) {
+        if (this.p.u() && !this.p.I) {
             float f = this.c(1.0F);
 
             if (f > 0.5F && this.p.k(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) && this.aa.nextFloat() * 30.0F < (f - 0.4F) * 2.0F) {
@@ -133,22 +133,22 @@ public class OEntityEnderman extends OEntityMob {
             }
         }
 
-        if (this.G()) {
+        if (this.G() || this.af()) {
             this.a_ = null;
             this.f(false);
             this.m();
         }
 
-        this.bE = false;
+        this.bF = false;
         if (this.a_ != null) {
             this.a(this.a_, 100.0F, 100.0F);
         }
 
-        if (!this.p.J && this.S()) {
+        if (!this.p.I && this.S()) {
             if (this.a_ != null) {
                 if (this.a_ instanceof OEntityPlayer && this.d((OEntityPlayer) this.a_)) {
-                    this.bB = this.bC = 0.0F;
-                    this.bG = 0.0F;
+                    this.bC = this.bD = 0.0F;
+                    this.bH = 0.0F;
                     if (this.a_.e((OEntity) this) < 16.0D) {
                         this.m();
                     }
@@ -258,7 +258,7 @@ public class OEntityEnderman extends OEntityMob {
     }
 
     protected int bb() {
-        return OItem.bn.cg;
+        return OItem.bn.cj;
     }
 
     protected void a(boolean flag, int i) {
@@ -292,20 +292,19 @@ public class OEntityEnderman extends OEntityMob {
     public boolean a(ODamageSource odamagesource, int i) {
         if (this.ar()) {
             return false;
-        } else if (odamagesource instanceof OEntityDamageSourceIndirect) {
-            for (int j = 0; j < 64; ++j) {
-                if (this.m()) {
-                    return true;
-                }
-            }
-
-            return false;
         } else {
-            if (odamagesource.g() instanceof OEntityPlayer) {
-                this.f(true);
-            }
+            this.f(true);
+            if (odamagesource instanceof OEntityDamageSourceIndirect) {
+                for (int j = 0; j < 64; ++j) {
+                    if (this.m()) {
+                        return true;
+                    }
+                }
 
-            return super.a(odamagesource, i);
+                return false;
+            } else {
+                return super.a(odamagesource, i);
+            }
         }
     }
 

@@ -5,7 +5,7 @@ public class OItemHoe extends OItem {
     public OItemHoe(int i, OEnumToolMaterial oenumtoolmaterial) {
         super(i);
         this.a = oenumtoolmaterial;
-        this.ch = 1;
+        this.ck = 1;
         this.e(oenumtoolmaterial.a());
         this.a(OCreativeTabs.i);
     }
@@ -36,7 +36,7 @@ public class OItemHoe extends OItem {
                 OBlock oblock = OBlock.aD;
 
                 oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cz.e(), (oblock.cz.c() + 1.0F) / 2.0F, oblock.cz.d() * 0.8F);
-                if (oworld.J) {
+                if (oworld.I) {
                     return true;
                 } else {
                     oworld.e(i, j, k, oblock.cm);

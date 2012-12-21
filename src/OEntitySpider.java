@@ -2,9 +2,9 @@ public class OEntitySpider extends OEntityMob {
 
     public OEntitySpider(OWorld oworld) {
         super(oworld);
-        this.aF = "/mob/spider.png";
+        this.aG = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bG = 0.8F;
+        this.bH = 0.8F;
     }
 
     protected void a() {
@@ -14,7 +14,7 @@ public class OEntitySpider extends OEntityMob {
 
     public void j_() {
         super.j_();
-        if (!this.p.J) {
+        if (!this.p.I) {
             this.f(this.F);
         }
     }
@@ -79,13 +79,13 @@ public class OEntitySpider extends OEntityMob {
     }
 
     protected int bb() {
-        return OItem.K.cg;
+        return OItem.K.cj;
     }
 
     protected void a(boolean flag, int i) {
         super.a(flag, i);
         if (flag && (this.aa.nextInt(3) == 0 || this.aa.nextInt(1 + i) > 0)) {
-            this.b(OItem.bu.cg, 1);
+            this.b(OItem.bu.cj, 1);
         }
     }
 
@@ -120,7 +120,7 @@ public class OEntitySpider extends OEntityMob {
     }
 
     public void bG() {
-        if (this.p.u.nextInt(100) == 0) {
+        if (this.p.t.nextInt(100) == 0) {
             OEntitySkeleton oentityskeleton = new OEntitySkeleton(this.p);
 
             oentityskeleton.b(this.t, this.u, this.v, this.z, 0.0F);

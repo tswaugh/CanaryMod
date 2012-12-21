@@ -52,7 +52,7 @@ public abstract class OEntityAnimal extends OEntityAgeable implements OIAnimals 
 
             OEntityPlayer oentityplayer = (OEntityPlayer) oentity;
 
-            if (oentityplayer.bT() == null || !this.c(oentityplayer.bT())) {
+            if (oentityplayer.bS() == null || !this.c(oentityplayer.bS())) {
                 this.a_ = null;
             }
         } else if (oentity instanceof OEntityAnimal) {
@@ -164,7 +164,7 @@ public abstract class OEntityAnimal extends OEntityAgeable implements OIAnimals 
                 for (i = 0; i < list.size(); ++i) {
                     OEntityPlayer oentityplayer = (OEntityPlayer) list.get(i);
 
-                    if (oentityplayer.bT() != null && this.c(oentityplayer.bT())) {
+                    if (oentityplayer.bS() != null && this.c(oentityplayer.bS())) {
                         return oentityplayer;
                     }
                 }
@@ -200,21 +200,21 @@ public abstract class OEntityAnimal extends OEntityAgeable implements OIAnimals 
     }
 
     protected int c(OEntityPlayer oentityplayer) {
-        return 1 + this.p.u.nextInt(3);
+        return 1 + this.p.t.nextInt(3);
     }
 
     public boolean c(OItemStack oitemstack) {
-        return oitemstack.c == OItem.T.cg;
+        return oitemstack.c == OItem.T.cj;
     }
 
     public boolean a(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.bI.g();
+        OItemStack oitemstack = oentityplayer.bJ.g();
 
         if (oitemstack != null && this.c(oitemstack) && this.b() == 0) {
-            if (!oentityplayer.cc.d) {
+            if (!oentityplayer.cd.d) {
                 --oitemstack.a;
                 if (oitemstack.a <= 0) {
-                    oentityplayer.bI.a(oentityplayer.bI.c, (OItemStack) null);
+                    oentityplayer.bJ.a(oentityplayer.bJ.c, (OItemStack) null);
                 }
             }
 

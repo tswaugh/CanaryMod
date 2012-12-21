@@ -26,7 +26,7 @@ public class OItemInWorldManager {
 
     public void a(OEnumGameType oenumgametype) {
         this.c = oenumgametype;
-        oenumgametype.a(this.b.cc);
+        oenumgametype.a(this.b.cd);
         this.b.o();
     }
 
@@ -231,13 +231,13 @@ public class OItemInWorldManager {
             if (this.d()) {
                 this.b.a.b(new OPacket53BlockChange(i, j, k, this.a));
             } else {
-                OItemStack oitemstack = this.b.bT();
+                OItemStack oitemstack = this.b.bS();
                 boolean flag1 = this.b.b(OBlock.p[l]);
 
                 if (oitemstack != null) {
                     oitemstack.a(this.a, l, i, j, k, this.b);
                     if (oitemstack.a == 0) {
-                        this.b.bU();
+                        this.b.bT();
                     }
                 }
 
@@ -258,7 +258,7 @@ public class OItemInWorldManager {
         if (oitemstack1 == oitemstack && (oitemstack1 == null || oitemstack1.a == i && oitemstack1.m() <= 0 && oitemstack1.j() == j)) {
             return false;
         } else {
-            oentityplayer.bI.a[oentityplayer.bI.c] = oitemstack1;
+            oentityplayer.bJ.a[oentityplayer.bJ.c] = oitemstack1;
             if (this.d()) {
                 oitemstack1.a = i;
                 if (oitemstack1.f()) {
@@ -267,11 +267,11 @@ public class OItemInWorldManager {
             }
 
             if (oitemstack1.a == 0) {
-                oentityplayer.bI.a[oentityplayer.bI.c] = null;
+                oentityplayer.bJ.a[oentityplayer.bJ.c] = null;
             }
 
             if (!oentityplayer.bM()) {
-                ((OEntityPlayerMP) oentityplayer).a(oentityplayer.bJ);
+                ((OEntityPlayerMP) oentityplayer).a(oentityplayer.bK);
             }
 
             return true;
@@ -302,19 +302,24 @@ public class OItemInWorldManager {
     }
 
     public boolean a(OEntityPlayer oentityplayer, OWorld oworld, OItemStack oitemstack, int i, int j, int k, int l, float f, float f1, float f2) {
-        int i1 = oworld.a(i, j, k);
+        int i1;
 
-        if (i1 > 0 && OBlock.p[i1].a(oworld, i, j, k, oentityplayer, l, f, f1, f2)) {
-            return true;
-        } else if (oitemstack == null) {
+        if (!oentityplayer.ah() || oentityplayer.bD() == null) {
+            i1 = oworld.a(i, j, k);
+            if (i1 > 0 && OBlock.p[i1].a(oworld, i, j, k, oentityplayer, l, f, f1, f2)) {
+                return true;
+            }
+        }
+
+        if (oitemstack == null) {
             return false;
         } else if (this.d()) {
-            int j1 = oitemstack.j();
-            int k1 = oitemstack.a;
+            i1 = oitemstack.j();
+            int j1 = oitemstack.a;
             boolean flag = oitemstack.a(oentityplayer, oworld, i, j, k, l, f, f1, f2);
 
-            oitemstack.b(j1);
-            oitemstack.a = k1;
+            oitemstack.b(i1);
+            oitemstack.a = j1;
             return flag;
         } else {
             return oitemstack.a(oentityplayer, oworld, i, j, k, l, f, f1, f2);

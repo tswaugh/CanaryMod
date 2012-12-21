@@ -63,6 +63,8 @@ public class OEntityTracker {
             this.a(oentity, 64, 10, true);
         } else if (oentity instanceof OEntityExpBottle) {
             this.a(oentity, 64, 10, true);
+        } else if (oentity instanceof OEntityFireworkRocket) {
+            this.a(oentity, 64, 10, true);
         } else if (oentity instanceof OEntityItem) {
             this.a(oentity, 64, 20, true);
         } else if (oentity instanceof OEntityMinecart) {

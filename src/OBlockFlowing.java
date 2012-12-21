@@ -29,7 +29,7 @@ public class OBlockFlowing extends OBlockFluid {
        int l = this.f_(oworld, i, j, k);
         byte b0 = 1;
 
-        if (this.cB == OMaterial.i && !oworld.v.e) {
+        if (this.cB == OMaterial.i && !oworld.u.e) {
             b0 = 2;
         }
 

@@ -62,7 +62,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
                 boolean flag = false;
 
                 for (int i = 0; i < 3; ++i) {
-                    if (this.a[i] != null && this.a[i].c == OItem.bs.cg) {
+                    if (this.a[i] != null && this.a[i].c == OItem.bs.cj) {
                         int j = this.a[i].j();
                         int k = this.b(j, oitemstack);
 
@@ -93,7 +93,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
             OItemStack oitemstack = this.a[3];
 
             for (int i = 0; i < 3; ++i) {
-                if (this.a[i] != null && this.a[i].c == OItem.bs.cg) {
+                if (this.a[i] != null && this.a[i].c == OItem.bs.cj) {
                     int j = this.a[i].j();
                     int k = this.b(j, oitemstack);
                     List list = OItem.bs.f(j);

@@ -18,7 +18,7 @@ public class OEntityFallingSand extends OEntity {
         this.d = true;
         this.e = false;
         this.f = false;
-        this.g = 20;
+        this.g = 40;
         this.h = 2.0F;
     }
 
@@ -32,7 +32,7 @@ public class OEntityFallingSand extends OEntity {
         this.d = true;
         this.e = false;
         this.f = false;
-        this.g = 20;
+        this.g = 40;
         this.h = 2.0F;
         this.a = i;
         this.b = j;
@@ -71,17 +71,18 @@ public class OEntityFallingSand extends OEntity {
             this.w *= 0.9800000190734863D;
             this.x *= 0.9800000190734863D;
             this.y *= 0.9800000190734863D;
-            if (!this.p.J) {
+            if (!this.p.I) {
                 int i = OMathHelper.c(this.t);
                 int j = OMathHelper.c(this.u);
                 int k = OMathHelper.c(this.v);
 
                 if (this.c == 1) {
-                    if (this.c == 1 && this.p.a(i, j, k) == this.a) {
-                        this.p.e(i, j, k, 0);
-                    } else {
+                    if (this.c != 1 || this.p.a(i, j, k) != this.a) {
                         this.x();
+                        return;
                     }
+
+                    this.p.e(i, j, k, 0);
                 }
 
                 if (this.E) {
@@ -98,7 +99,7 @@ public class OEntityFallingSand extends OEntity {
                             this.a(new OItemStack(this.a, 1, OBlock.p[this.a].b(this.b)), 0.0F);
                         }
                     }
-                } else if (this.c > 100 && !this.p.J && (j < 1 || j > 256) || this.c > 600) {
+                } else if (this.c > 100 && !this.p.I && (j < 1 || j > 256) || this.c > 600) {
                     if (this.d) {
                         this.a(new OItemStack(this.a, 1, OBlock.p[this.a].b(this.b)), 0.0F);
                     }
@@ -174,5 +175,11 @@ public class OEntityFallingSand extends OEntity {
 
     public void e(boolean flag) {
         this.f = flag;
+    }
+
+    public void a(OCrashReportCategory ocrashreportcategory) {
+        super.a(ocrashreportcategory);
+        ocrashreportcategory.a("Immitating block ID", Integer.valueOf(this.a));
+        ocrashreportcategory.a("Immitating block data", Integer.valueOf(this.b));
     }
 }

@@ -7,7 +7,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
 
     public OEntitySlime(OWorld oworld) {
         super(oworld);
-        this.aF = "/mob/slime.png";
+        this.aG = "/mob/slime.png";
         int i = 1 << this.aa.nextInt(3);
 
         this.M = 0.0F;
@@ -25,7 +25,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         this.a(0.6F * (float) i, 0.6F * (float) i);
         this.b(this.t, this.u, this.v);
         this.j(this.aT());
-        this.bc = i;
+        this.bd = i;
     }
 
     public int aT() {
@@ -56,7 +56,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
     }
 
     public void j_() {
-        if (!this.p.J && this.p.t == 0 && this.p() > 0) {
+        if (!this.p.I && this.p.s == 0 && this.p() > 0) {
             this.L = true;
         }
 
@@ -89,7 +89,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         }
 
         this.k();
-        if (this.p.J) {
+        if (this.p.I) {
             i = this.p();
             this.a(0.6F * (float) i, 0.6F * (float) i);
         }
@@ -109,17 +109,17 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
                 this.e /= 3;
             }
 
-            this.bE = true;
+            this.bF = true;
             if (this.q()) {
                 this.a(this.n(), this.aX(), ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bB = 1.0F - this.aa.nextFloat() * 2.0F;
-            this.bC = (float) (1 * this.p());
+            this.bC = 1.0F - this.aa.nextFloat() * 2.0F;
+            this.bD = (float) (1 * this.p());
         } else {
-            this.bE = false;
+            this.bF = false;
             if (this.E) {
-                this.bB = this.bC = 0.0F;
+                this.bC = this.bD = 0.0F;
             }
         }
     }
@@ -139,7 +139,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
     public void x() {
         int i = this.p();
 
-        if (!this.p.J && i > 1 && this.aU() <= 0) {
+        if (!this.p.I && i > 1 && this.aU() <= 0) {
             int j = 2 + this.aa.nextInt(3);
 
             for (int k = 0; k < j; ++k) {
@@ -183,7 +183,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
     }
 
     protected int bb() {
-        return this.p() == 1 ? OItem.aM.cg : 0;
+        return this.p() == 1 ? OItem.aM.cj : 0;
     }
 
     public boolean bs() {
@@ -192,7 +192,7 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         if (this.p.K().u() == OWorldType.c && this.aa.nextInt(4) != 1) {
             return false;
         } else {
-            if (this.p() == 1 || this.p.t > 0) {
+            if (this.p() == 1 || this.p.s > 0) {
                 if (this.p.a(OMathHelper.c(this.t), OMathHelper.c(this.v)) == OBiomeGenBase.h && this.u > 50.0D && this.u < 70.0D && this.p.m(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) <= this.aa.nextInt(8)) {
                     return super.bs();
                 }

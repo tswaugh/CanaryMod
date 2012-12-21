@@ -59,6 +59,7 @@ public class OContainerRepair extends OContainer {
             OItemStack oitemstack1 = oitemstack.l();
             OItemStack oitemstack2 = this.g.a(1);
             Map map = OEnchantmentHelper.a(oitemstack1);
+            boolean flag = false;
             int k = b0 + oitemstack.A() + (oitemstack2 == null ? 0 : oitemstack2.A());
 
             this.l = 0;
@@ -66,10 +67,12 @@ public class OContainerRepair extends OContainer {
             int i1;
             int j1;
             int k1;
-            OEnchantment oenchantment;
+            int l1;
             Iterator iterator;
+            OEnchantment oenchantment;
 
             if (oitemstack2 != null) {
+                flag = oitemstack2.c == OItem.bW.cj && OItem.bW.g(oitemstack2).c() > 0;
                 if (oitemstack1.f() && OItem.e[oitemstack1.c].a(oitemstack, oitemstack2)) {
                     l = Math.min(oitemstack1.i(), oitemstack1.k() / 4);
                     if (l <= 0) {
@@ -88,20 +91,20 @@ public class OContainerRepair extends OContainer {
 
                     this.l = i1;
                 } else {
-                    if (oitemstack1.c != oitemstack2.c || !oitemstack1.f()) {
+                    if (!flag && (oitemstack1.c != oitemstack2.c || !oitemstack1.f())) {
                         this.f.a(0, (OItemStack) null);
                         this.a = 0;
                         etc.getLoader().callHook(PluginLoader.Hook.ANVIL_USE, new Object[] {new Anvil(this)}); //CanaryMod: call onAnvilUse
                         return;
                     }
 
-                    if (oitemstack1.f()) {
+                    if (oitemstack1.f() && !flag) {
                         l = oitemstack.k() - oitemstack.i();
                         i1 = oitemstack2.k() - oitemstack2.i();
                         j1 = i1 + oitemstack1.k() * 12 / 100;
-                        int l1 = l + j1;
+                        int i2 = l + j1;
 
-                        k1 = oitemstack1.k() - l1;
+                        k1 = oitemstack1.k() - i2;
                         if (k1 < 0) {
                             k1 = 0;
                         }
@@ -120,45 +123,50 @@ public class OContainerRepair extends OContainer {
                         j1 = ((Integer) iterator.next()).intValue();
                         oenchantment = OEnchantment.b[j1];
                         k1 = map.containsKey(Integer.valueOf(j1)) ? ((Integer) map.get(Integer.valueOf(j1))).intValue() : 0;
-                        int i2 = ((Integer) map1.get(Integer.valueOf(j1))).intValue();
+                        l1 = ((Integer) map1.get(Integer.valueOf(j1))).intValue();
                         int j2;
 
-                        if (k1 == i2) {
-                            ++i2;
-                            j2 = i2;
+                        if (k1 == l1) {
+                            ++l1;
+                            j2 = l1;
                         } else {
-                            j2 = Math.max(i2, k1);
+                            j2 = Math.max(l1, k1);
                         }
 
-                        i2 = j2;
-                        int k2 = i2 - k1;
-                        boolean flag = true;
+                        l1 = j2;
+                        int k2 = l1 - k1;
+                        boolean flag1 = oenchantment.a(oitemstack);
+
+                        if (this.n.cd.d) {
+                            flag1 = true;
+                        }
+
                         Iterator iterator1 = map.keySet().iterator();
 
                         while (iterator1.hasNext()) {
                             int l2 = ((Integer) iterator1.next()).intValue();
 
                             if (l2 != j1 && !oenchantment.a(OEnchantment.b[l2])) {
-                                flag = false;
+                                flag1 = false;
                                 i += k2;
                             }
                         }
 
-                        if (flag) {
-                            if (i2 > oenchantment.b()) {
-                                i2 = oenchantment.b();
+                        if (flag1) {
+                            if (l1 > oenchantment.b()) {
+                                l1 = oenchantment.b();
                             }
 
-                            map.put(Integer.valueOf(j1), Integer.valueOf(i2));
-                            byte b1 = 0;
+                            map.put(Integer.valueOf(j1), Integer.valueOf(l1));
+                            int i3 = 0;
 
                             switch (oenchantment.c()) {
                                 case 1:
-                                    b1 = 8;
+                                    i3 = 8;
                                     break;
 
                                 case 2:
-                                    b1 = 4;
+                                    i3 = 4;
 
                                 case 3:
                                 case 4:
@@ -170,14 +178,18 @@ public class OContainerRepair extends OContainer {
                                     break;
 
                                 case 5:
-                                    b1 = 2;
+                                    i3 = 2;
                                     break;
 
                                 case 10:
-                                    b1 = 1;
+                                    i3 = 1;
                             }
 
-                            i += b1 * k2;
+                            if (flag) {
+                                i3 = Math.max(1, i3 / 2);
+                            }
+
+                            i += i3 * k2;
                         }
                     }
                 }
@@ -195,21 +207,19 @@ public class OContainerRepair extends OContainer {
 
             l = 0;
 
-            byte b2;
-
-            for (iterator = map.keySet().iterator(); iterator.hasNext(); k += l + k1 * b2) {
+            for (iterator = map.keySet().iterator(); iterator.hasNext(); k += l + k1 * l1) {
                 j1 = ((Integer) iterator.next()).intValue();
                 oenchantment = OEnchantment.b[j1];
                 k1 = ((Integer) map.get(Integer.valueOf(j1))).intValue();
-                b2 = 0;
+                l1 = 0;
                 ++l;
                 switch (oenchantment.c()) {
                     case 1:
-                        b2 = 8;
+                        l1 = 8;
                         break;
 
                     case 2:
-                        b2 = 4;
+                        l1 = 4;
 
                     case 3:
                     case 4:
@@ -221,12 +231,20 @@ public class OContainerRepair extends OContainer {
                         break;
 
                     case 5:
-                        b2 = 2;
+                        l1 = 2;
                         break;
 
                     case 10:
-                        b2 = 1;
+                        l1 = 1;
                 }
+
+                if (flag) {
+                    l1 = Math.max(1, l1 / 2);
+                }
+            }
+
+            if (flag) {
+                k = Math.max(1, k / 2);
             }
 
             this.a = k + i;
@@ -239,7 +257,7 @@ public class OContainerRepair extends OContainer {
                 this.a = 39;
             }
 
-            if (this.a >= 40 && !this.n.cc.d) {
+            if (this.a >= 40 && !this.n.cd.d) {
                 oitemstack1 = null;
             }
 
@@ -306,7 +324,7 @@ public class OContainerRepair extends OContainer {
 
     public void b(OEntityPlayer oentityplayer) { //called when the anvil gui is closed
         super.b(oentityplayer);
-        if (!this.h.J) {
+        if (!this.h.I) {
             for (int i = 0; i < this.g.k_(); ++i) {
                 OItemStack oitemstack = this.g.a_(i);
 

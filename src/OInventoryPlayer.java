@@ -207,7 +207,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 this.a[i].b = 5;
                 oitemstack.a = 0;
                 return true;
-            } else if (this.d.cc.d) {
+            } else if (this.d.cd.d) {
                 oitemstack.a = 0;
                 return true;
             } else {
@@ -219,7 +219,7 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
                 oitemstack.a = this.e(oitemstack);
             } while (oitemstack.a > 0 && oitemstack.a < i);
 
-            if (oitemstack.a == i && this.d.cc.d) {
+            if (oitemstack.a == i && this.d.cd.d) {
                 oitemstack.a = 0;
                 return true;
             } else {
@@ -480,6 +480,8 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
         for (i = 0; i < this.b.length; ++i) {
             this.b[i] = OItemStack.b(oinventoryplayer.b[i]);
         }
+
+        this.c = oinventoryplayer.c;
     }
 
     @Override

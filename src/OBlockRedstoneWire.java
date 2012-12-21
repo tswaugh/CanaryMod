@@ -110,10 +110,10 @@ public class OBlockRedstoneWire extends OBlock {
         }
 
         if (k1 != l1) {
-            oworld.s = true;
+            oworld.r = true;
             oworld.c(i, j, k, l1);
             oworld.e(i, j, k, i, j, k);
-            oworld.s = false;
+            oworld.r = false;
 
             for (i2 = 0; i2 < 4; ++i2) {
                 j2 = i;
@@ -189,7 +189,7 @@ public class OBlockRedstoneWire extends OBlock {
 
     public void g(OWorld oworld, int i, int j, int k) {
         super.g(oworld, i, j, k);
-        if (!oworld.J) {
+        if (!oworld.I) {
             this.l(oworld, i, j, k);
             oworld.h(i, j + 1, k, this.cm);
             oworld.h(i, j - 1, k, this.cm);
@@ -225,7 +225,7 @@ public class OBlockRedstoneWire extends OBlock {
 
     public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
         super.a(oworld, i, j, k, l, i1);
-        if (!oworld.J) {
+        if (!oworld.I) {
             oworld.h(i, j + 1, k, this.cm);
             oworld.h(i, j - 1, k, this.cm);
             oworld.h(i + 1, j, k, this.cm);
@@ -274,7 +274,7 @@ public class OBlockRedstoneWire extends OBlock {
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             int i1 = oworld.h(i, j, k);
             boolean flag = this.b(oworld, i, j, k);
 
@@ -290,7 +290,7 @@ public class OBlockRedstoneWire extends OBlock {
     }
 
     public int a(int i, Random random, int j) {
-        return OItem.aC.cg;
+        return OItem.aC.cj;
     }
 
     public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {

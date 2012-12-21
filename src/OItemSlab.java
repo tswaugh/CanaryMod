@@ -17,7 +17,7 @@ public class OItemSlab extends OItemBlock {
         return i;
     }
 
-    public String c_(OItemStack oitemstack) {
+    public String d(OItemStack oitemstack) {
         return this.b.d(oitemstack.j());
     }
 

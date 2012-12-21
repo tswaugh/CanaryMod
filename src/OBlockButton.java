@@ -184,7 +184,7 @@ public class OBlockButton extends OBlock {
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             int l = oworld.h(i, j, k);
 
             if ((l & 8) != 0) {
@@ -219,7 +219,7 @@ public class OBlockButton extends OBlock {
     }
 
     public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             if (this.a) {
                 if ((oworld.h(i, j, k) & 8) == 0) {
                     this.o(oworld, i, j, k);

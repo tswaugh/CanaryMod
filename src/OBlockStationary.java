@@ -24,11 +24,11 @@ public class OBlockStationary extends OBlockFluid {
     private void l(OWorld oworld, int i, int j, int k) {
         int l = oworld.h(i, j, k);
 
-        oworld.s = true;
+        oworld.r = true;
         oworld.c(i, j, k, this.cm - 1, l);
         oworld.e(i, j, k, i, j, k);
         oworld.a(i, j, k, this.cm - 1, this.r_());
-        oworld.s = false;
+        oworld.r = false;
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {

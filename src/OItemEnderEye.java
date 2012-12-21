@@ -14,7 +14,7 @@ public class OItemEnderEye extends OItem {
         }
 
         if (oentityplayer.a(i, j, k, l, oitemstack) && i1 == OBlock.bL.cm && !OBlockEndPortalFrame.e(j1)) {
-            if (oworld.J) {
+            if (oworld.I) {
                 return true;
             } else {
                 oworld.c(i, j, k, j1 + 4);
@@ -126,7 +126,7 @@ public class OItemEnderEye extends OItem {
             }
         }
 
-        if (!oworld.J) {
+        if (!oworld.I) {
             OChunkPosition ochunkposition = oworld.b("Stronghold", (int) oentityplayer.t, (int) oentityplayer.u, (int) oentityplayer.v);
 
             if (ochunkposition != null) {
@@ -136,7 +136,7 @@ public class OItemEnderEye extends OItem {
                 oworld.d((OEntity) oentityendereye);
                 oworld.a((OEntity) oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
                 oworld.a((OEntityPlayer) null, 1002, (int) oentityplayer.t, (int) oentityplayer.u, (int) oentityplayer.v, 0);
-                if (!oentityplayer.cc.d) {
+                if (!oentityplayer.cd.d) {
                     --oitemstack.a;
                 }
             }

@@ -5,7 +5,7 @@ public class OItemDoor extends OItem {
     public OItemDoor(int i, OMaterial omaterial) {
         super(i);
         this.a = omaterial;
-        this.ch = 1;
+        this.ck = 1;
         this.a(OCreativeTabs.d);
     }
 
@@ -83,10 +83,10 @@ public class OItemDoor extends OItem {
             flag2 = true;
         }
 
-        oworld.s = true;
+        oworld.r = true;
         oworld.d(i, j, k, oblock.cm, l);
         oworld.d(i, j + 1, k, oblock.cm, 8 | (flag2 ? 1 : 0));
-        oworld.s = false;
+        oworld.r = false;
         oworld.h(i, j, k, oblock.cm);
         oworld.h(i, j + 1, k, oblock.cm);
     }

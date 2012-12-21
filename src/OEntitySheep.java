@@ -11,20 +11,20 @@ public class OEntitySheep extends OEntityAnimal {
 
     public OEntitySheep(OWorld oworld) {
         super(oworld);
-        this.aF = "/mob/sheep.png";
+        this.aG = "/mob/sheep.png";
         this.a(0.9F, 1.3F);
         float f = 0.23F;
 
         this.az().a(true);
-        this.bm.a(0, new OEntityAISwimming(this));
-        this.bm.a(1, new OEntityAIPanic(this, 0.38F));
-        this.bm.a(2, new OEntityAIMate(this, f));
-        this.bm.a(3, new OEntityAITempt(this, 0.25F, OItem.T.cg, false));
-        this.bm.a(4, new OEntityAIFollowParent(this, 0.25F));
-        this.bm.a(5, this.g);
-        this.bm.a(6, new OEntityAIWander(this, f));
-        this.bm.a(7, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
-        this.bm.a(8, new OEntityAILookIdle(this));
+        this.bn.a(0, new OEntityAISwimming(this));
+        this.bn.a(1, new OEntityAIPanic(this, 0.38F));
+        this.bn.a(2, new OEntityAIMate(this, f));
+        this.bn.a(3, new OEntityAITempt(this, 0.25F, OItem.T.cj, false));
+        this.bn.a(4, new OEntityAIFollowParent(this, 0.25F));
+        this.bn.a(5, this.g);
+        this.bn.a(6, new OEntityAIWander(this, f));
+        this.bn.a(7, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
+        this.bn.a(8, new OEntityAILookIdle(this));
         this.e.a(0, new OItemStack(OItem.aW, 1, 0));
         this.e.a(1, new OItemStack(OItem.aW, 1, 0));
     }
@@ -39,7 +39,7 @@ public class OEntitySheep extends OEntityAnimal {
     }
 
     public void c() {
-        if (this.p.J) {
+        if (this.p.I) {
             this.f = Math.max(0, this.f - 1);
         }
 
@@ -66,10 +66,10 @@ public class OEntitySheep extends OEntityAnimal {
     }
 
     public boolean a(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.bI.g();
+        OItemStack oitemstack = oentityplayer.bJ.g();
 
-        if (oitemstack != null && oitemstack.c == OItem.be.cg && !this.n() && !this.h_()) {
-            if (!this.p.J) {
+        if (oitemstack != null && oitemstack.c == OItem.be.cj && !this.n() && !this.h_()) {
+            if (!this.p.I) {
                 this.f(true);
                 int i = 1 + this.aa.nextInt(3);
 
@@ -170,7 +170,7 @@ public class OEntitySheep extends OEntityAnimal {
     }
 
     public void bG() {
-        this.s(a(this.p.u));
+        this.s(a(this.p.t));
     }
 
     private int a(OEntityAnimal oentityanimal, OEntityAnimal oentityanimal1) {
@@ -182,10 +182,10 @@ public class OEntitySheep extends OEntityAnimal {
         OItemStack oitemstack = OCraftingManager.a().a(this.e, ((OEntitySheep) oentityanimal).p);
         int k;
 
-        if (oitemstack != null && oitemstack.b().cg == OItem.aW.cg) {
+        if (oitemstack != null && oitemstack.b().cj == OItem.aW.cj) {
             k = oitemstack.j();
         } else {
-            k = this.p.u.nextBoolean() ? i : j;
+            k = this.p.t.nextBoolean() ? i : j;
         }
 
         return k;

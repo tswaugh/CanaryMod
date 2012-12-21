@@ -89,7 +89,7 @@ public class OItem {
     public static OItem aI = (new OItem(81)).b(9, 3).b("clay").a(OCreativeTabs.l);
     public static OItem aJ = (new OItemReed(82, OBlock.ba)).b(11, 1).b("reeds").a(OCreativeTabs.l);
     public static OItem aK = (new OItem(83)).b(10, 3).b("paper").a(OCreativeTabs.f);
-    public static OItem aL = (new OItem(84)).b(11, 3).b("book").a(OCreativeTabs.f);
+    public static OItem aL = (new OItemBook(84)).b(11, 3).b("book").a(OCreativeTabs.f);
     public static OItem aM = (new OItem(85)).b(14, 1).b("slimeball").a(OCreativeTabs.f);
     public static OItem aN = (new OItemMinecart(86, 1)).b(7, 9).b("minecartChest");
     public static OItem aO = (new OItemMinecart(87, 2)).b(7, 10).b("minecartFurnace");
@@ -150,30 +150,33 @@ public class OItem {
     public static OItem bR = (new OItemCarrotOnAStick(142)).b(6, 6).b("carrotOnAStick");
     public static OItem bS = (new OItemSimpleFoiled(143)).b(9, 11).b("netherStar").a(OCreativeTabs.l);
     public static OItem bT = (new OItemFood(144, 8, 0.3F, false)).b(8, 9).b("pumpkinPie").a(OCreativeTabs.h);
-    public static OItem bU = (new OItemRecord(2000, "13")).b(0, 15).b("record");
-    public static OItem bV = (new OItemRecord(2001, "cat")).b(1, 15).b("record");
-    public static OItem bW = (new OItemRecord(2002, "blocks")).b(2, 15).b("record");
-    public static OItem bX = (new OItemRecord(2003, "chirp")).b(3, 15).b("record");
-    public static OItem bY = (new OItemRecord(2004, "far")).b(4, 15).b("record");
-    public static OItem bZ = (new OItemRecord(2005, "mall")).b(5, 15).b("record");
-    public static OItem ca = (new OItemRecord(2006, "mellohi")).b(6, 15).b("record");
-    public static OItem cb = (new OItemRecord(2007, "stal")).b(7, 15).b("record");
-    public static OItem cc = (new OItemRecord(2008, "strad")).b(8, 15).b("record");
-    public static OItem cd = (new OItemRecord(2009, "ward")).b(9, 15).b("record");
-    public static OItem ce = (new OItemRecord(2010, "11")).b(10, 15).b("record");
-    public static OItem cf = (new OItemRecord(2011, "wait")).b(11, 15).b("record");
-    public final int cg;
-    protected int ch = 64;
+    public static OItem bU = (new OItemFirework(145)).b(9, 12).b("fireworks");
+    public static OItem bV = (new OItemFireworkCharge(146)).b(10, 12).b("fireworksCharge").a(OCreativeTabs.f);
+    public static OItemEnchantedBook bW = (OItemEnchantedBook) (new OItemEnchantedBook(147)).b(15, 12).d(1).b("enchantedBook");
+    public static OItem bX = (new OItemRecord(2000, "13")).b(0, 15).b("record");
+    public static OItem bY = (new OItemRecord(2001, "cat")).b(1, 15).b("record");
+    public static OItem bZ = (new OItemRecord(2002, "blocks")).b(2, 15).b("record");
+    public static OItem ca = (new OItemRecord(2003, "chirp")).b(3, 15).b("record");
+    public static OItem cb = (new OItemRecord(2004, "far")).b(4, 15).b("record");
+    public static OItem cc = (new OItemRecord(2005, "mall")).b(5, 15).b("record");
+    public static OItem cd = (new OItemRecord(2006, "mellohi")).b(6, 15).b("record");
+    public static OItem ce = (new OItemRecord(2007, "stal")).b(7, 15).b("record");
+    public static OItem cf = (new OItemRecord(2008, "strad")).b(8, 15).b("record");
+    public static OItem cg = (new OItemRecord(2009, "ward")).b(9, 15).b("record");
+    public static OItem ch = (new OItemRecord(2010, "11")).b(10, 15).b("record");
+    public static OItem ci = (new OItemRecord(2011, "wait")).b(11, 15).b("record");
+    public final int cj;
+    protected int ck = 64;
     private int b = 0;
-    protected int ci;
-    protected boolean cj = false;
-    protected boolean ck = false;
+    protected int cl;
+    protected boolean cm = false;
+    protected boolean cn = false;
     private OItem c = null;
-    private String cl = null;
-    private String cm;
+    private String co = null;
+    private String cp;
 
     protected OItem(int i) {
-        this.cg = 256 + i;
+        this.cj = 256 + i;
         if (e[256 + i] != null) {
             System.out.println("CONFLICT @ " + i);
         }
@@ -182,17 +185,17 @@ public class OItem {
     }
 
     public OItem c(int i) {
-        this.ci = i;
+        this.cl = i;
         return this;
     }
 
     public OItem d(int i) {
-        this.ch = i;
+        this.ck = i;
         return this;
     }
 
     public OItem b(int i, int j) {
-        this.ci = i + j * 16;
+        this.cl = i + j * 16;
         return this;
     }
 
@@ -216,7 +219,7 @@ public class OItem {
     }
 
     public int k() {
-        return this.ch;
+        return this.ck;
     }
 
     public int a(int i) {
@@ -224,11 +227,11 @@ public class OItem {
     }
 
     public boolean l() {
-        return this.ck;
+        return this.cn;
     }
 
     protected OItem a(boolean flag) {
-        this.ck = flag;
+        this.cn = flag;
         return this;
     }
 
@@ -242,7 +245,7 @@ public class OItem {
     }
 
     public boolean n() {
-        return this.b > 0 && !this.ck;
+        return this.b > 0 && !this.cn;
     }
 
     public boolean a(OItemStack oitemstack, OEntityLiving oentityliving, OEntityLiving oentityliving1) {
@@ -266,27 +269,27 @@ public class OItem {
     }
 
     public OItem o() {
-        this.cj = true;
+        this.cm = true;
         return this;
     }
 
     public OItem b(String s) {
-        this.cm = "item." + s;
+        this.cp = "item." + s;
         return this;
     }
 
-    public String g(OItemStack oitemstack) {
-        String s = this.c_(oitemstack);
+    public String i(OItemStack oitemstack) {
+        String s = this.d(oitemstack);
 
         return s == null ? "" : OStatCollector.a(s);
     }
 
     public String a() {
-        return this.cm;
+        return this.cp;
     }
 
-    public String c_(OItemStack oitemstack) {
-        return this.cm;
+    public String d(OItemStack oitemstack) {
+        return this.cp;
     }
 
     public OItem a(OItem oitem) {
@@ -294,7 +297,7 @@ public class OItem {
         return this;
     }
 
-    public boolean h(OItemStack oitemstack) {
+    public boolean j(OItemStack oitemstack) {
         return true;
     }
 
@@ -314,8 +317,8 @@ public class OItem {
         return OStatCollector.a(this.a() + ".name");
     }
 
-    public String i(OItemStack oitemstack) {
-        return OStatCollector.a(this.c_(oitemstack) + ".name");
+    public String k(OItemStack oitemstack) {
+        return OStatCollector.a(this.d(oitemstack) + ".name");
     }
 
     public void a(OItemStack oitemstack, OWorld oworld, OEntity oentity, int i, boolean flag) {}
@@ -326,34 +329,34 @@ public class OItem {
         return false;
     }
 
-    public OEnumAction d_(OItemStack oitemstack) {
+    public OEnumAction b_(OItemStack oitemstack) {
         return OEnumAction.a;
     }
 
-    public int a(OItemStack oitemstack) {
+    public int c_(OItemStack oitemstack) {
         return 0;
     }
 
     public void a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer, int i) {}
 
     protected OItem c(String s) {
-        this.cl = s;
+        this.co = s;
         return this;
     }
 
     public String u() {
-        return this.cl;
+        return this.co;
     }
 
     public boolean v() {
-        return this.cl != null;
+        return this.co != null;
     }
 
-    public String j(OItemStack oitemstack) {
-        return ("" + OStringTranslate.a().c(this.g(oitemstack))).trim();
+    public String l(OItemStack oitemstack) {
+        return ("" + OStringTranslate.a().c(this.i(oitemstack))).trim();
     }
 
-    public boolean k(OItemStack oitemstack) {
+    public boolean d_(OItemStack oitemstack) {
         return this.k() == 1 && this.n();
     }
 

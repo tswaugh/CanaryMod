@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
+public class OAnvilChunkLoader implements OIChunkLoader, OIThreadedFileIO {
 
     private List a = new ArrayList();
     private Set b = new HashSet();
@@ -150,6 +150,7 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
         onbttagcompound.a("TerrainPopulated", ochunk.k);
         OExtendedBlockStorage[] aoextendedblockstorage = ochunk.i();
         ONBTTagList onbttaglist = new ONBTTagList("Sections");
+        boolean flag = !oworld.u.f;
         OExtendedBlockStorage[] aoextendedblockstorage1 = aoextendedblockstorage;
         int i = aoextendedblockstorage.length;
 
@@ -167,8 +168,13 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
                 }
 
                 onbttagcompound1.a("Data", oextendedblockstorage.j().a);
-                onbttagcompound1.a("SkyLight", oextendedblockstorage.l().a);
                 onbttagcompound1.a("BlockLight", oextendedblockstorage.k().a);
+                if (flag) {
+                    onbttagcompound1.a("SkyLight", oextendedblockstorage.l().a);
+                } else {
+                    onbttagcompound1.a("SkyLight", new byte[oextendedblockstorage.k().a.length]);
+                }
+
                 onbttaglist.a((ONBTBase) onbttagcompound1);
             }
         }
@@ -241,11 +247,12 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
         ONBTTagList onbttaglist = onbttagcompound.m("Sections");
         byte b0 = 16;
         OExtendedBlockStorage[] aoextendedblockstorage = new OExtendedBlockStorage[b0];
+        boolean flag = !oworld.u.f;
 
         for (int k = 0; k < onbttaglist.c(); ++k) {
             ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(k);
             byte b1 = onbttagcompound1.c("Y");
-            OExtendedBlockStorage oextendedblockstorage = new OExtendedBlockStorage(b1 << 4);
+            OExtendedBlockStorage oextendedblockstorage = new OExtendedBlockStorage(b1 << 4, flag);
 
             oextendedblockstorage.a(onbttagcompound1.j("Blocks"));
             if (onbttagcompound1.b("Add")) {
@@ -254,8 +261,11 @@ public class OAnvilChunkLoader implements OIThreadedFileIO, OIChunkLoader {
             }
 
             oextendedblockstorage.b(new ONibbleArray(onbttagcompound1.j("Data"), 4));
-            oextendedblockstorage.d(new ONibbleArray(onbttagcompound1.j("SkyLight"), 4));
             oextendedblockstorage.c(new ONibbleArray(onbttagcompound1.j("BlockLight"), 4));
+            if (flag) {
+                oextendedblockstorage.d(new ONibbleArray(onbttagcompound1.j("SkyLight"), 4));
+            }
+
             oextendedblockstorage.e();
             aoextendedblockstorage[b1] = oextendedblockstorage;
         }

@@ -25,7 +25,7 @@ public class OBlockDispenser extends OBlockContainer {
     }
 
     private void l(OWorld oworld, int i, int j, int k) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             int l = oworld.a(i, j, k - 1);
             int i1 = oworld.a(i, j, k + 1);
             int j1 = oworld.a(i - 1, j, k);
@@ -57,7 +57,7 @@ public class OBlockDispenser extends OBlockContainer {
     }
 
     public boolean a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer, int l, float f, float f1, float f2) {
-        if (oworld.J) {
+        if (oworld.I) {
             return true;
         } else {
             OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oworld.q(i, j, k);
@@ -105,7 +105,7 @@ public class OBlockDispenser extends OBlockContainer {
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (!oworld.J && (oworld.B(i, j, k) || oworld.B(i, j + 1, k))) {
+        if (!oworld.I && (oworld.B(i, j, k) || oworld.B(i, j + 1, k))) {
             this.n(oworld, i, j, k);
         }
     }
@@ -157,7 +157,7 @@ public class OBlockDispenser extends OBlockContainer {
                         OEntityItem oentityitem = new OEntityItem(oworld, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new OItemStack(oitemstack.c, k1, oitemstack.j()));
 
                         if (oitemstack.o()) {
-                            oentityitem.a.d((ONBTTagCompound) oitemstack.p().b());
+                            oentityitem.d().d((ONBTTagCompound) oitemstack.p().b());
                         }
 
                         float f3 = 0.05F;

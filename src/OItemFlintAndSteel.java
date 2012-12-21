@@ -2,7 +2,7 @@ public class OItemFlintAndSteel extends OItem {
 
     public OItemFlintAndSteel(int i) {
         super(i);
-        this.ch = 1;
+        this.ck = 1;
         this.e(64);
         this.a(OCreativeTabs.i);
     }
