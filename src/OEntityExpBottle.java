@@ -26,9 +26,9 @@ public class OEntityExpBottle extends OEntityThrowable {
    }
 
    protected void a(OMovingObjectPosition var1) {
-      if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), var1.g == null ? null : var1.g.getEntity()) && !this.p.J) {
+      if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), var1.g == null ? null : var1.g.getEntity()) && !this.p.I) {
          this.p.f(2002, (int)Math.round(this.t), (int)Math.round(this.u), (int)Math.round(this.v), 0);
-         int var2 = 3 + this.p.u.nextInt(5) + this.p.u.nextInt(5);
+         int var2 = 3 + this.p.t.nextInt(5) + this.p.t.nextInt(5);
 
          while(var2 > 0) {
             int var3 = OEntityXPOrb.a(var2);

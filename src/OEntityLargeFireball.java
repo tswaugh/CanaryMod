@@ -10,7 +10,7 @@ public class OEntityLargeFireball extends OEntityFireball {
    }
 
    protected void a(OMovingObjectPosition var1) {
-      if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), var1.g == null ? null : var1.g.getEntity()) && !this.p.J) {
+      if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), var1.g == null ? null : var1.g.getEntity()) && !this.p.I) {
          if(var1.g != null) {
             var1.g.a(ODamageSource.a((OEntityFireball)this, this.a), 6);
          }

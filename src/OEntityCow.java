@@ -2,17 +2,17 @@ public class OEntityCow extends OEntityAnimal {
 
     public OEntityCow(OWorld oworld) {
         super(oworld);
-        this.aF = "/mob/cow.png";
+        this.aG = "/mob/cow.png";
         this.a(0.9F, 1.3F);
         this.az().a(true);
-        this.bm.a(0, new OEntityAISwimming(this));
-        this.bm.a(1, new OEntityAIPanic(this, 0.38F));
-        this.bm.a(2, new OEntityAIMate(this, 0.2F));
-        this.bm.a(3, new OEntityAITempt(this, 0.25F, OItem.T.cg, false));
-        this.bm.a(4, new OEntityAIFollowParent(this, 0.25F));
-        this.bm.a(5, new OEntityAIWander(this, 0.2F));
-        this.bm.a(6, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
-        this.bm.a(7, new OEntityAILookIdle(this));
+        this.bn.a(0, new OEntityAISwimming(this));
+        this.bn.a(1, new OEntityAIPanic(this, 0.38F));
+        this.bn.a(2, new OEntityAIMate(this, 0.2F));
+        this.bn.a(3, new OEntityAITempt(this, 0.25F, OItem.T.cj, false));
+        this.bn.a(4, new OEntityAIFollowParent(this, 0.25F));
+        this.bn.a(5, new OEntityAIWander(this, 0.2F));
+        this.bn.a(6, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
+        this.bn.a(7, new OEntityAILookIdle(this));
     }
 
     public boolean be() {
@@ -45,7 +45,7 @@ public class OEntityCow extends OEntityAnimal {
     }
 
     protected int bb() {
-        return OItem.aF.cg;
+        return OItem.aF.cj;
     }
 
     protected void a(boolean flag, int i) {
@@ -54,28 +54,28 @@ public class OEntityCow extends OEntityAnimal {
         int k;
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.aF.cg, 1);
+            this.b(OItem.aF.cj, 1);
         }
 
         j = this.aa.nextInt(3) + 1 + this.aa.nextInt(1 + i);
 
         for (k = 0; k < j; ++k) {
             if (this.af()) {
-                this.b(OItem.bj.cg, 1);
+                this.b(OItem.bj.cj, 1);
             } else {
-                this.b(OItem.bi.cg, 1);
+                this.b(OItem.bi.cj, 1);
             }
         }
     }
 
     public boolean a(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.bI.g();
+        OItemStack oitemstack = oentityplayer.bJ.g();
 
-        if (oitemstack != null && oitemstack.c == OItem.aw.cg && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob(this))) {
+        if (oitemstack != null && oitemstack.c == OItem.aw.cj && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob(this))) {
             if (--oitemstack.a <= 0) {
-                oentityplayer.bI.a(oentityplayer.bI.c, new OItemStack(OItem.aG));
-            } else if (!oentityplayer.bI.a(new OItemStack(OItem.aG))) {
-                oentityplayer.c(new OItemStack(OItem.aG.cg, 1, 0));
+                oentityplayer.bJ.a(oentityplayer.bJ.c, new OItemStack(OItem.aG));
+            } else if (!oentityplayer.bJ.a(new OItemStack(OItem.aG))) {
+                oentityplayer.c(new OItemStack(OItem.aG.cj, 1, 0));
             }
 
             return true;
