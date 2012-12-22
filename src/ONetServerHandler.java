@@ -322,7 +322,8 @@ public class ONetServerHandler extends ONetHandler {
             this.d.bO();
         } else {
             int i = this.e.ak();
-            boolean flag = oworldserver.u.h != 0 || this.e.ad().i().isEmpty() || this.e.ad().e(this.d.bR) || i <= 0 || this.e.I()|| this.getPlayer().isAdmin();
+            // CanaryMod: We allow admins and ops to dig!
+            boolean flag = oworldserver.u.h != 0 || this.e.ad().i().isEmpty() || this.e.ad().e(this.d.bR) || i <= 0 || this.e.I() || this.getPlayer().isAdmin();
             boolean flag1 = false;
 
             if (opacket14blockdig.e == 0) {
@@ -378,7 +379,7 @@ public class ONetServerHandler extends ONetHandler {
                     this.d.a.b(new OPacket53BlockChange(j, k, l, oworldserver));
                 } else {
                     // CanaryMod: Dig hooks
-                    Block block = oworldserver.world.getBlockAt(i, j, k);
+                    Block block = oworldserver.world.getBlockAt(j, k, l);
 
                     block.setStatus(0); // Started digging
                     x = block.getX();
@@ -398,34 +399,19 @@ public class ONetServerHandler extends ONetHandler {
                 block.setStatus(2); // Block broken
                 OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
 
-                this.d.c.a(i, j, k);
-                if (oworldserver.a(i, j, k) != 0) {
+                this.d.c.a(j, k, l);
+                if (oworldserver.a(j, k, l) != 0) {
                     this.d.a.b(new OPacket53BlockChange(j, k, l, oworldserver));
-               }
+                }
             } else if (opacket14blockdig.e == 1) {
                 // CanaryMod: Stop digging
-                Block block = oworldserver.world.getBlockAt(i, j, k);
+                Block block = oworldserver.world.getBlockAt(j, k, l);
 
                 block.setStatus(1); // Stopped digging
                 OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
 
-                this.d.c.c(i, j, k);
+                this.d.c.c(j, k, l);
                 if (oworldserver.a(j, k, l) != 0) {
-                    this.d.a.b(new OPacket53BlockChange(j, k, l, oworldserver));
-                }
-            } else if (opacket14blockdig.e == 3) {
-                // CanaryMod: Send block update
-                Block block = new Block(oworldserver.world, type, x, y, z);
-
-                block.setStatus(3); // Send update for block
-                OEntity.manager.callHook(PluginLoader.Hook.BLOCK_DESTROYED, player, block);
-
-                double d4 = this.d.t - ((double) j + 0.5D);
-                double d5 = this.d.u - ((double) k + 0.5D);
-                double d6 = this.d.v - ((double) l + 0.5D);
-                double d7 = d4 * d4 + d5 * d5 + d6 * d6;
-
-                if (d7 < 256.0D) {
                     this.d.a.b(new OPacket53BlockChange(j, k, l, oworldserver));
                 }
             }
@@ -439,7 +425,6 @@ public class ONetServerHandler extends ONetHandler {
         OWorldServer oworldserver = this.e.getWorld(this.d.p.name, this.d.aq);
         OItemStack oitemstack = this.d.bJ.g();
 
-
         // CanaryMod: Store block data to call hooks
         // CanaryMod START
         Block blockClicked;
@@ -450,8 +435,8 @@ public class ONetServerHandler extends ONetHandler {
         int j = opacket15place.f();
         int k = opacket15place.g();
         int l = opacket15place.h();
-        // We allow admins and ops to build!
         int i1 = this.e.ak();
+        // We allow admins and ops to build!
         boolean flag1 = oworldserver.u.h != 0 || this.e.ad().i().isEmpty() || this.e.ad().e(this.d.bR) || i1 <= 0 || this.e.I() || this.getPlayer().isAdmin();
 
         if (opacket15place.h() == 255) {
@@ -512,7 +497,7 @@ public class ONetServerHandler extends ONetHandler {
             OEntity.manager.callHook(PluginLoader.Hook.BLOCK_CREATED, player, blockPlaced, blockClicked, item.getItemId());
             // CanaryMod: If we were building inside spawn, bail! (unless ops/admin)
 
-           if (this.r && this.d.e((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D) < 64.0D && (k1 > i1 || flag1) && player.canBuild() && !cancelled) {
+            if (this.r && this.d.e((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D) < 64.0D && (k1 > i1 || flag1) && player.canBuild() && !cancelled) {
                 this.d.c.a(this.d, oworldserver, oitemstack, i, j, k, l, opacket15place.j(), opacket15place.l(), opacket15place.m());
             } else {
                 // CanaryMod: No point sending the client to update the blocks, you weren't allowed to place!

@@ -9,7 +9,7 @@ public class OBlockPortal extends OBlockBreakable {
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
         super.b(oworld, i, j, k, random);
-        if (oworld.v.d() && random.nextInt(2000) < oworld.t) {
+        if (oworld.u.d() && random.nextInt(2000) < oworld.s) {
             int l;
 
             for (l = j; !oworld.v(i, l, k) && l > 0; --l) {
@@ -103,7 +103,7 @@ public class OBlockPortal extends OBlockBreakable {
                 }
             }
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_CREATE, (Object) portalBlocks)) { // Cast to make single argument
-                oworld.s = true;
+                oworld.r = true;
 
                 for (l = 0; l < 2; ++l) {
                     for (i1 = 0; i1 < 3; ++i1) {
@@ -111,7 +111,7 @@ public class OBlockPortal extends OBlockBreakable {
                     }
                 }
 
-                oworld.s = false;
+                oworld.r = false;
                 return true;
             }
             return false;

@@ -11,24 +11,24 @@ public class OEntityWolf extends OEntityTameable {
 
     public OEntityWolf(OWorld oworld) {
         super(oworld);
-        this.aF = "/mob/wolf.png";
+        this.aG = "/mob/wolf.png";
         this.a(0.6F, 0.8F);
-        this.bG = 0.3F;
+        this.bH = 0.3F;
         this.az().a(true);
-        this.bm.a(1, new OEntityAISwimming(this));
-        this.bm.a(2, this.d);
-        this.bm.a(3, new OEntityAILeapAtTarget(this, 0.4F));
-        this.bm.a(4, new OEntityAIAttackOnCollide(this, this.bG, true));
-        this.bm.a(5, new OEntityAIFollowOwner(this, this.bG, 10.0F, 2.0F));
-        this.bm.a(6, new OEntityAIMate(this, this.bG));
-        this.bm.a(7, new OEntityAIWander(this, this.bG));
-        this.bm.a(8, new OEntityAIBeg(this, 8.0F));
-        this.bm.a(9, new OEntityAIWatchClosest(this, OEntityPlayer.class, 8.0F));
-        this.bm.a(9, new OEntityAILookIdle(this));
-        this.bn.a(1, new OEntityAIOwnerHurtByTarget(this));
-        this.bn.a(2, new OEntityAIOwnerHurtTarget(this));
-        this.bn.a(3, new OEntityAIHurtByTarget(this, true));
-        this.bn.a(4, new OEntityAITargetNonTamed(this, OEntitySheep.class, 16.0F, 200, false));
+        this.bn.a(1, new OEntityAISwimming(this));
+        this.bn.a(2, this.d);
+        this.bn.a(3, new OEntityAILeapAtTarget(this, 0.4F));
+        this.bn.a(4, new OEntityAIAttackOnCollide(this, this.bH, true));
+        this.bn.a(5, new OEntityAIFollowOwner(this, this.bH, 10.0F, 2.0F));
+        this.bn.a(6, new OEntityAIMate(this, this.bH));
+        this.bn.a(7, new OEntityAIWander(this, this.bH));
+        this.bn.a(8, new OEntityAIBeg(this, 8.0F));
+        this.bn.a(9, new OEntityAIWatchClosest(this, OEntityPlayer.class, 8.0F));
+        this.bn.a(9, new OEntityAILookIdle(this));
+        this.bo.a(1, new OEntityAIOwnerHurtByTarget(this));
+        this.bo.a(2, new OEntityAIOwnerHurtTarget(this));
+        this.bo.a(3, new OEntityAIHurtByTarget(this, true));
+        this.bo.a(4, new OEntityAITargetNonTamed(this, OEntitySheep.class, 16.0F, 200, false));
     }
 
     public boolean be() {
@@ -102,7 +102,7 @@ public class OEntityWolf extends OEntityTameable {
 
     public void c() {
         super.c();
-        if (!this.p.J && this.g && !this.h && !this.k() && this.E) {
+        if (!this.p.I && this.g && !this.h && !this.k() && this.E) {
             this.h = true;
             this.i = 0.0F;
             this.j = 0.0F;
@@ -120,7 +120,7 @@ public class OEntityWolf extends OEntityTameable {
         }
 
         if (this.bM()) {
-            this.bH = 10;
+            this.bI = 10;
         }
 
         if (this.G()) {
@@ -186,7 +186,7 @@ public class OEntityWolf extends OEntityTameable {
     }
 
     public boolean a(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.bI.g();
+        OItemStack oitemstack = oentityplayer.bJ.g();
 
         if (this.m()) {
             if (oitemstack != null) {
@@ -194,24 +194,24 @@ public class OEntityWolf extends OEntityTameable {
                     OItemFood oitemfood = (OItemFood) OItem.e[oitemstack.c];
 
                     if (oitemfood.i() && this.ag.c(18) < 20) {
-                        if (!oentityplayer.cc.d) {
+                        if (!oentityplayer.cd.d) {
                             --oitemstack.a;
                         }
 
                         this.i(oitemfood.g());
                         if (oitemstack.a <= 0) {
-                            oentityplayer.bI.a(oentityplayer.bI.c, (OItemStack) null);
+                            oentityplayer.bJ.a(oentityplayer.bJ.c, (OItemStack) null);
                         }
 
                         return true;
                     }
-                } else if (oitemstack.c == OItem.aW.cg) {
+                } else if (oitemstack.c == OItem.aW.cj) {
                     int i = OBlockCloth.e_(oitemstack.j());
 
                     if (i != this.bL()) {
                         this.s(i);
-                        if (!oentityplayer.cc.d && --oitemstack.a <= 0) {
-                            oentityplayer.bI.a(oentityplayer.bI.c, (OItemStack) null);
+                        if (!oentityplayer.cd.d && --oitemstack.a <= 0) {
+                            oentityplayer.bJ.a(oentityplayer.bJ.c, (OItemStack) null);
                         }
 
                         return true;
@@ -219,21 +219,21 @@ public class OEntityWolf extends OEntityTameable {
                 }
             }
 
-            if (oentityplayer.bQ.equalsIgnoreCase(this.o()) && !this.p.J && !this.c(oitemstack)) {
+            if (oentityplayer.bR.equalsIgnoreCase(this.o()) && !this.p.I && !this.c(oitemstack)) {
                 this.d.a(!this.n());
-                this.bE = false;
+                this.bF = false;
                 this.a((OPathEntity) null);
             }
-        } else if (oitemstack != null && oitemstack.c == OItem.aX.cg && !this.bK()) {
-            if (!oentityplayer.cc.d) {
+        } else if (oitemstack != null && oitemstack.c == OItem.aX.cj && !this.bK()) {
+            if (!oentityplayer.cd.d) {
                 --oitemstack.a;
             }
 
             if (oitemstack.a <= 0) {
-                oentityplayer.bI.a(oentityplayer.bI.c, (OItemStack) null);
+                oentityplayer.bJ.a(oentityplayer.bJ.c, (OItemStack) null);
             }
 
-            if (!this.p.J) {
+            if (!this.p.I) {
                 // CanaryMod hook: onTame
                 // randomize the tame result. if its 0 - tame success.
                 int tameResult = this.aa.nextInt(3);
@@ -247,7 +247,7 @@ public class OEntityWolf extends OEntityTameable {
                     this.b((OEntityLiving) null);
                     this.d.a(true);
                     this.j(20);
-                    this.a(oentityplayer.bQ);
+                    this.a(oentityplayer.bR);
                     this.f(true);
                     this.p.a(this, (byte) 7);
                 } else {

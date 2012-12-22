@@ -50,11 +50,11 @@ public class OItemBucket extends OItem {
                         }
 
                         if (--oitemstack.a <= 0) {
-                            return new OItemStack(OItem.ay);
+                            return new OItemStack(OItem.ax);
                         }
 
-                        if (!oentityplayer.bJ.a(new OItemStack(OItem.ay))) {
-                            oentityplayer.c(new OItemStack(OItem.ay.cj, 1, 0));
+                        if (!oentityplayer.bJ.a(new OItemStack(OItem.ax))) {
+                            oentityplayer.c(new OItemStack(OItem.ax.cj, 1, 0));
                         }
 
                         return oitemstack;

@@ -7,7 +7,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     private OInventoryEnderChest a = new OInventoryEnderChest();
     public OContainer bK;
     public OContainer bL;
-    protected OFoodStats bM = new OFoodStats(this); // CanaryMod: pass this instance
+    protected OFoodStats bM = new OFoodStats(this); // CanaryMod: pass 'this'
     protected int bN = 0;
     public byte bO = 0;
     public float bP;
@@ -1187,15 +1187,15 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
 
     // CanaryMod start - custom XP methods
     public void removeXP(int i) {
-        if (i > this.ce) { // Don't go below 0
-            i = this.ce;
+        if (i > this.cf) { // Don't go below 0
+            i = this.cf;
         }
 
         this.cf -= (float) i / (float) this.cb();
 
         // Inverse of for loop in this.t(int)
         for (this.cf -= i; this.cg < 0.0F; this.cg = this.cg / this.cb() + 1.0F) {
-            this.cf *= this.cb();
+            this.cg *= this.cb();
             this.a(-1);
         }
     }
@@ -1228,6 +1228,8 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         this.ce += i;
         if (this.ce < 0) {
             this.ce = 0;
+            this.cg = 0.0F;
+            this.cf = 0;
         }
 
         if (i > 0 && this.ce % 5 == 0 && (float) this.h < (float) this.ab - 100.0F) {

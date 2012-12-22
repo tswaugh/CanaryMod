@@ -87,7 +87,7 @@ public abstract class OContainer {
 
     public OItemStack a(int i, int j, int k, OEntityPlayer oentityplayer) {
         OItemStack oitemstack = null;
-        OInventoryPlayer oinventoryplayer = oentityplayer.bI;
+        OInventoryPlayer oinventoryplayer = oentityplayer.bJ;
         OSlot oslot;
         OItemStack oitemstack1;
         int l;
@@ -158,7 +158,7 @@ public abstract class OContainer {
 
                             oslot.a(oentityplayer, oinventoryplayer.n());
                         } else if (oslot.a(oitemstack3)) {
-                            if (oitemstack1.c == oitemstack3.c && (!oitemstack1.g() || oitemstack1.j() == oitemstack3.j()) && OItemStack.a(oitemstack1, oitemstack3)) {
+                            if (oitemstack1.c == oitemstack3.c && oitemstack1.j() == oitemstack3.j() && OItemStack.a(oitemstack1, oitemstack3)) {
                                 l = j == 0 ? oitemstack3.a : 1;
                                 if (l > oslot.a() - oitemstack1.a) {
                                     l = oslot.a() - oitemstack1.a;
@@ -213,10 +213,12 @@ public abstract class OContainer {
                     if ((oslot.f != oinventoryplayer || !oslot.a(oitemstack1)) && oitemstack1 != null) {
                         if (l > -1) {
                             oinventoryplayer.a(oitemstack1);
+                            oslot.a(oitemstack2.a);
                             oslot.c((OItemStack) null);
                             oslot.a(oentityplayer, oitemstack2);
                         }
                     } else {
+                        oslot.a(oitemstack2.a);
                         oslot.c(oitemstack1);
                         oslot.a(oentityplayer, oitemstack2);
                     }
@@ -225,7 +227,7 @@ public abstract class OContainer {
                     oslot.c(oitemstack1);
                 }
             }
-        } else if (k == 3 && oentityplayer.cc.d && oinventoryplayer.n() == null && i >= 0) {
+        } else if (k == 3 && oentityplayer.cd.d && oinventoryplayer.n() == null && i >= 0) {
             oslot = (OSlot) this.c.get(i);
             if (oslot != null && oslot.d()) {
                 oitemstack1 = oslot.c().l();
@@ -249,7 +251,7 @@ public abstract class OContainer {
             etc.getLoader().callHook(PluginLoader.Hook.CLOSE_INVENTORY, closeInventoryParameters);
         }
 
-        OInventoryPlayer oinventoryplayer = oentityplayer.bI;
+        OInventoryPlayer oinventoryplayer = oentityplayer.bJ;
 
         if (oinventoryplayer.n() != null) {
             oentityplayer.c(oinventoryplayer.n());

@@ -862,14 +862,14 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
                     OWorldServer oworldserver = level[j];
                     OWorldInfo oworldinfo = oworldserver.K();
 
-                oplayerusagesnooper.a("world[" + i + "][dimension]", Integer.valueOf(oworldserver.u.h));
-                    oplayerusagesnooper.a("world[" + i + "][mode]", oworldinfo.r());
-                    oplayerusagesnooper.a("world[" + i + "][difficulty]", Integer.valueOf(oworldserver.s));
-                    oplayerusagesnooper.a("world[" + i + "][hardcore]", Boolean.valueOf(oworldinfo.t()));
-                    oplayerusagesnooper.a("world[" + i + "][generator_name]", oworldinfo.u().a());
-                    oplayerusagesnooper.a("world[" + i + "][generator_version]", Integer.valueOf(oworldinfo.u().c()));
-                    oplayerusagesnooper.a("world[" + i + "][height]", Integer.valueOf(this.D));
-                    oplayerusagesnooper.a("world[" + i + "][chunks_loaded]", Integer.valueOf(oworldserver.I().e()));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][dimension]", Integer.valueOf(oworldserver.u.h));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][mode]", oworldinfo.r());
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][difficulty]", Integer.valueOf(oworldserver.s));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][hardcore]", Boolean.valueOf(oworldinfo.t()));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][generator_name]", oworldinfo.u().a());
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][generator_version]", Integer.valueOf(oworldinfo.u().c()));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][height]", Integer.valueOf(this.D));
+                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][chunks_loaded]", Integer.valueOf(oworldserver.I().e()));
                     ++i;
                 }
             }

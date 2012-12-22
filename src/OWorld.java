@@ -51,6 +51,7 @@ public abstract class OWorld implements OIBlockAccess {
     int[] H;
     // private List O; // CanaryMod: Fix ConcurrentModificationException
     public boolean I;
+
     // CanaryMod
     public final World world = new World((OWorldServer) this);
     boolean loadedpreload = false;
@@ -73,9 +74,9 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public OWorld(OISaveHandler oisavehandler, String s, OWorldSettings oworldsettings, OWorldProvider oworldprovider, OProfiler oprofiler) {
-    this.N = this.t.nextInt(12000);
+        this.N = this.t.nextInt(12000);
         this.H = new int['\u8000'];
-//        this.O = new ArrayList(); // CanaryMod: Fix ConcurrentModificationException
+        //this.O = new ArrayList(); // CanaryMod: Fix ConcurrentModificationException
         this.I = false;
         this.x = oisavehandler;
         this.D = oprofiler;

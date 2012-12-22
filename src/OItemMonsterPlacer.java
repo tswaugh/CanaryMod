@@ -20,7 +20,7 @@ public class OItemMonsterPlacer extends OItem {
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         // CanaryMod: call onItemUse
         if (oworld.I || (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), this.getBlockInfo(oworld, i, j, k, l), null, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
-           return true;
+            return true;
         } else {
             int i1 = oworld.a(i, j, k);
 
@@ -56,7 +56,7 @@ public class OItemMonsterPlacer extends OItem {
                     oentityliving.az = oentityliving.z;
                     oentityliving.ax = oentityliving.z;
                     oentityliving.bG();
-                    if(spawn) {
+                    if (spawn) {
                         oworld.d(oentity);
                     }
                     oentityliving.aO();

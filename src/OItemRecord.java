@@ -21,7 +21,6 @@ public class OItemRecord extends OItem {
 
         if (oworld.a(i, j, k) == OBlock.bb.cm && oworld.h(i, j, k) == 0) {
             if (oworld.I) {
-
                 return true;
             } else {
                 ((OBlockJukeBox) OBlock.bb).a(oworld, i, j, k, oitemstack);

@@ -215,7 +215,7 @@ public class OEntityGhast extends OEntityFlying implements OIMob {
         }
     }
 
-public void setTarget(OEntity oentity) {
+    public void setTarget(OEntity oentity) {
         this.h = oentity;
     }
 

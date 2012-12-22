@@ -152,7 +152,7 @@ public abstract class OServerConfigurationManager {
 
         this.a((OPacket) (new OPacket201PlayerInfo(entry.getName(), entry.isShow(), 1000)));
         this.b.add(oentityplayermp);
-        OWorldServer oworldserver = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.ap);
+        OWorldServer oworldserver = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.aq);
 
         oworldserver.d(oentityplayermp);
         this.a(oentityplayermp, (OWorldServer) null);
@@ -352,7 +352,7 @@ public abstract class OServerConfigurationManager {
             oentityplayermp1.b(oentityplayermp1.t, oentityplayermp1.u + 1.0D, oentityplayermp1.v);
         }
 
-       // Force chunk cache reload on the client
+        // Force chunk cache reload on the client
         oentityplayermp1.a.b(new OPacket9Respawn(oentityplayermp1.aq >= 0 ? -1 : 0, (byte) oworldserver.s, oworldserver.K().u(), oworldserver.O(), oentityplayermp1.c.b()));
         oentityplayermp1.a.b(new OPacket9Respawn(oentityplayermp1.aq, (byte) oworldserver.s, oworldserver.K().u(), oworldserver.O(), oentityplayermp1.c.b()));
         oentityplayermp1.a(oworldserver);
@@ -490,9 +490,8 @@ public abstract class OServerConfigurationManager {
         for (int j = 0; j < this.b.size(); ++j) {
             OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.b.get(j);
 
-            if (world.equals(oentityplayermp.p.name) && oentityplayermp.aq == i) {}
+            if (world.equals(oentityplayermp.p.name) && oentityplayermp.aq == i) {
                 // TODO check: CanaryMod re-route time updates to world-specific entity trackers
-            if (oentityplayermp.aq == i) {
                 oentityplayermp.a.b(opacket);
             }
         }
@@ -736,6 +735,12 @@ public abstract class OServerConfigurationManager {
     }
     
     public void k(String s) {
+        this.f.f(s);
+        this.a((OPacket) (new OPacket3Chat(s)));
+    }
+
+    public void k(String s) {
+        // TODO check: move showDeathMessages here?
         this.f.f(s);
         this.a((OPacket) (new OPacket3Chat(s)));
     }

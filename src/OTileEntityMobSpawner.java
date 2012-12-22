@@ -1,21 +1,30 @@
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public class OTileEntityMobSpawner extends OTileEntity {
 
     public int a = -1;
     protected String d = "Pig"; // CanaryMod: private -> protected
-    protected ONBTTagCompound e = null; //CanaryMod: private -> protected
+    private List e = null;
+    protected OTileEntityMobSpawnerSpawnData f = null; // CanaryMod: private -> protected
     public double b;
     public double c = 0.0D;
-    protected int f = 200; // CanaryMod: private -> protected
-    protected int g = 800; //CanaryMod: private -> protected
-    protected int h = 4; //CanaryMod: private -> protected
-    protected int j = 6; //CanaryMod: private -> protected
-    protected int r = 16; //CanaryMod: private -> protected
-    protected int s = 4; //CanaryMod: private -> protected
+    protected int g = 200; // CanaryMod: private -> protected
+    protected int h = 800; //CanaryMod: private -> protected
+    protected int i = 4; //CanaryMod: private -> protected
+    private OEntity j;
+    protected int r = 6; //CanaryMod: private -> protected
+    protected int s = 16; //CanaryMod: private -> protected
+    protected int t = 4; //CanaryMod: private -> protected
 
     public OTileEntityMobSpawner() {
         this.a = 20;
+    }
+
+    public String a() {
+        return this.f == null ? this.d : this.f.c;
     }
 
     public void a(String s) {
@@ -23,18 +32,20 @@ public class OTileEntityMobSpawner extends OTileEntity {
     }
 
     public boolean b() {
-        return this.k.a((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D, (double) this.r) != null;
+        return this.k.a((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D, (double) this.s) != null;
     }
 
     public void g() {
         if (this.b()) {
-            if (this.k.J) {
-                double d0 = (double) ((float) this.l + this.k.u.nextFloat());
-                double d1 = (double) ((float) this.m + this.k.u.nextFloat());
-                double d2 = (double) ((float) this.n + this.k.u.nextFloat());
+            double d0;
 
-                this.k.a("smoke", d0, d1, d2, 0.0D, 0.0D, 0.0D);
-                this.k.a("flame", d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            if (this.k.I) {
+                double d1 = (double) ((float) this.l + this.k.t.nextFloat());
+                double d2 = (double) ((float) this.m + this.k.t.nextFloat());
+
+                d0 = (double) ((float) this.n + this.k.t.nextFloat());
+                this.k.a("smoke", d1, d2, d0, 0.0D, 0.0D, 0.0D);
+                this.k.a("flame", d1, d2, d0, 0.0D, 0.0D, 0.0D);
                 if (this.a > 0) {
                     --this.a;
                 }
@@ -51,27 +62,29 @@ public class OTileEntityMobSpawner extends OTileEntity {
                     return;
                 }
 
-                for (int i = 0; i < this.h; ++i) {
-                    OEntity oentity = OEntityList.a(this.d, this.k);
+                boolean flag = false;
+
+                for (int i = 0; i < this.i; ++i) {
+                    OEntity oentity = OEntityList.a(this.a(), this.k);
 
                     if (oentity == null) {
                         return;
                     }
 
-                    int j = this.k.a(oentity.getClass(), OAxisAlignedBB.a().a((double) this.l, (double) this.m, (double) this.n, (double) (this.l + 1), (double) (this.m + 1), (double) (this.n + 1)).b((double) (this.s * 2), 4.0D, (double) (this.s * 2))).size();
+                    int j = this.k.a(oentity.getClass(), OAxisAlignedBB.a().a((double) this.l, (double) this.m, (double) this.n, (double) (this.l + 1), (double) (this.m + 1), (double) (this.n + 1)).b((double) (this.t * 2), 4.0D, (double) (this.t * 2))).size();
 
-                    if (j >= this.j) {
+                    if (j >= this.r) {
                         this.e();
                         return;
                     }
 
                     if (oentity != null) {
-                        double d3 = (double) this.l + (this.k.u.nextDouble() - this.k.u.nextDouble()) * (double) this.s;
-                        double d4 = (double) (this.m + this.k.u.nextInt(3) - 1);
-                        double d5 = (double) this.n + (this.k.u.nextDouble() - this.k.u.nextDouble()) * (double) this.s;
+                        d0 = (double) this.l + (this.k.t.nextDouble() - this.k.t.nextDouble()) * (double) this.t;
+                        double d3 = (double) (this.m + this.k.t.nextInt(3) - 1);
+                        double d4 = (double) this.n + (this.k.t.nextDouble() - this.k.t.nextDouble()) * (double) this.t;
                         OEntityLiving oentityliving = oentity instanceof OEntityLiving ? (OEntityLiving) oentity : null;
 
-                        oentity.b(d3, d4, d5, this.k.u.nextFloat() * 360.0F, 0.0F);
+                        oentity.b(d0, d3, d4, this.k.t.nextFloat() * 360.0F, 0.0F);
                         if (oentityliving == null || oentityliving.bs()) {
                             this.a(oentity);
                             this.k.d(oentity);
@@ -82,9 +95,13 @@ public class OTileEntityMobSpawner extends OTileEntity {
                                 oentityliving.aR();
                             }
 
-                            this.e();
+                            flag = true;
                         }
                     }
+                }
+
+                if (flag) {
+                    this.e();
                 }
             }
 
@@ -93,11 +110,11 @@ public class OTileEntityMobSpawner extends OTileEntity {
     }
 
     public void a(OEntity oentity) {
-        if (this.e != null) {
+        if (this.f != null) {
             ONBTTagCompound onbttagcompound = new ONBTTagCompound();
 
             oentity.c(onbttagcompound);
-            Iterator iterator = this.e.c().iterator();
+            Iterator iterator = this.f.b.c().iterator();
 
             while (iterator.hasNext()) {
                 ONBTBase onbtbase = (ONBTBase) iterator.next();
@@ -112,10 +129,15 @@ public class OTileEntityMobSpawner extends OTileEntity {
     }
 
     private void e() {
-        if (this.g <= this.f) {
-            this.a = this.f;
+        if (this.h <= this.g) {
+            this.a = this.g;
         } else {
-            this.a = this.f + this.k.u.nextInt(this.g - this.f);
+            this.a = this.g + this.k.t.nextInt(this.h - this.g);
+        }
+
+        if (this.e != null && this.e.size() > 0) {
+            this.f = (OTileEntityMobSpawnerSpawnData) OWeightedRandom.a(this.k.t, (Collection) this.e);
+            this.k.i(this.l, this.m, this.n);
         }
 
         this.k.c(this.l, this.m, this.n, this.q().cm, 1, 0);
@@ -125,40 +147,73 @@ public class OTileEntityMobSpawner extends OTileEntity {
         super.a(onbttagcompound);
         this.d = onbttagcompound.i("EntityId");
         this.a = onbttagcompound.d("Delay");
-        if (onbttagcompound.b("SpawnData")) {
-            this.e = onbttagcompound.l("SpawnData");
+        if (onbttagcompound.b("SpawnPotentials")) {
+            this.e = new ArrayList();
+            ONBTTagList onbttaglist = onbttagcompound.m("SpawnPotentials");
+
+            for (int i = 0; i < onbttaglist.c(); ++i) {
+                this.e.add(new OTileEntityMobSpawnerSpawnData(this, (ONBTTagCompound) onbttaglist.b(i)));
+            }
         } else {
             this.e = null;
         }
 
+        if (onbttagcompound.b("SpawnData")) {
+            this.f = new OTileEntityMobSpawnerSpawnData(this, onbttagcompound.l("SpawnData"), this.d);
+        } else {
+            this.f = null;
+        }
+
         if (onbttagcompound.b("MinSpawnDelay")) {
-            this.f = onbttagcompound.d("MinSpawnDelay");
-            this.g = onbttagcompound.d("MaxSpawnDelay");
-            this.h = onbttagcompound.d("SpawnCount");
+            this.g = onbttagcompound.d("MinSpawnDelay");
+            this.h = onbttagcompound.d("MaxSpawnDelay");
+            this.i = onbttagcompound.d("SpawnCount");
         }
 
         if (onbttagcompound.b("MaxNearbyEntities")) {
-            this.j = onbttagcompound.d("MaxNearbyEntities");
-            this.r = onbttagcompound.d("RequiredPlayerRange");
+            this.r = onbttagcompound.d("MaxNearbyEntities");
+            this.s = onbttagcompound.d("RequiredPlayerRange");
         }
 
         if (onbttagcompound.b("SpawnRange")) {
-            this.s = onbttagcompound.d("SpawnRange");
+            this.t = onbttagcompound.d("SpawnRange");
+        }
+
+        if (this.k != null && this.k.I) {
+            this.j = null;
         }
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
         super.b(onbttagcompound);
-        onbttagcompound.a("EntityId", this.d);
+        onbttagcompound.a("EntityId", this.a());
         onbttagcompound.a("Delay", (short) this.a);
-        onbttagcompound.a("MinSpawnDelay", (short) this.f);
-        onbttagcompound.a("MaxSpawnDelay", (short) this.g);
-        onbttagcompound.a("SpawnCount", (short) this.h);
-        onbttagcompound.a("MaxNearbyEntities", (short) this.j);
-        onbttagcompound.a("RequiredPlayerRange", (short) this.r);
-        onbttagcompound.a("SpawnRange", (short) this.s);
-        if (this.e != null) {
-            onbttagcompound.a("SpawnData", this.e);
+        onbttagcompound.a("MinSpawnDelay", (short) this.g);
+        onbttagcompound.a("MaxSpawnDelay", (short) this.h);
+        onbttagcompound.a("SpawnCount", (short) this.i);
+        onbttagcompound.a("MaxNearbyEntities", (short) this.r);
+        onbttagcompound.a("RequiredPlayerRange", (short) this.s);
+        onbttagcompound.a("SpawnRange", (short) this.t);
+        if (this.f != null) {
+            onbttagcompound.a("SpawnData", (ONBTTagCompound) this.f.b.b());
+        }
+
+        if (this.f != null || this.e != null && this.e.size() > 0) {
+            ONBTTagList onbttaglist = new ONBTTagList();
+
+            if (this.e != null && this.e.size() > 0) {
+                Iterator iterator = this.e.iterator();
+
+                while (iterator.hasNext()) {
+                    OTileEntityMobSpawnerSpawnData otileentitymobspawnerspawndata = (OTileEntityMobSpawnerSpawnData) iterator.next();
+
+                    onbttaglist.a((ONBTBase) otileentitymobspawnerspawndata.a());
+                }
+            } else {
+                onbttaglist.a((ONBTBase) this.f.a());
+            }
+
+            onbttagcompound.a("SpawnPotentials", (ONBTBase) onbttaglist);
         }
     }
 
@@ -166,12 +221,13 @@ public class OTileEntityMobSpawner extends OTileEntity {
         ONBTTagCompound onbttagcompound = new ONBTTagCompound();
 
         this.b(onbttagcompound);
+        onbttagcompound.o("SpawnPotentials");
         return new OPacket132TileEntityData(this.l, this.m, this.n, 1, onbttagcompound);
     }
 
     public void b(int i, int j) {
-        if (i == 1 && this.k.J) {
-            this.a = this.f;
+        if (i == 1 && this.k.I) {
+            this.a = this.g;
         }
     }
 }

@@ -170,12 +170,11 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             }
         }
 
-
-       if (this.aU() != this.cl || this.cm != this.bM.a() || this.bM.e() == 0.0F != this.cn) {
+        if (this.aU() != this.cl || this.cm != this.bM.a() || this.bM.e() == 0.0F != this.cn) {
             //CanaryMod: convert health for values above 20
             int health = (int)(this.aU() / (this.aT() / 20));
             health = (this.aU() > 0 && health == 0) ? 1 : health;
-            this.a.b(new OPacket8UpdateHealth(this.aU(), this.bM.a(), this.bM.e()));
+            this.a.b(new OPacket8UpdateHealth(health, this.bM.a(), this.bM.e()));
             this.cl = this.aU();
             this.cm = this.bM.a();
             this.cn = this.bM.e() == 0.0F;
@@ -200,8 +199,8 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(ODamageSource odamagesource) {
         manager.callHook(PluginLoader.Hook.DEATH, this.getEntity());
-        if(etc.getInstance().deathMessages) { //CanaryMod: check if death messages are enabled
-        	this.b.ad().k(odamagesource.b(this));
+        if (etc.getInstance().deathMessages) { //CanaryMod: check if death messages are enabled
+            this.b.ad().k(odamagesource.b(this));
         }
         if (!this.p.L().b("keepInventory")) {
             this.bJ.l();
@@ -506,7 +505,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(OTileEntityBeacon otileentitybeacon) {
-        // TODO add this stuff to Canary --somners
+        // TODO add this stuff to Canary
         this.cg();
         this.a.b(new OPacket100OpenWindow(this.ct, 7, otileentitybeacon.b(), otileentitybeacon.k_()));
         this.bL = new OContainerBeacon(this.bJ, otileentitybeacon);

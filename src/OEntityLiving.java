@@ -1556,7 +1556,7 @@ public abstract class OEntityLiving extends OEntity {
 
             if (!opotioneffect.a(this)) {
                 if (!this.p.I) {
-                    this.bm.remove(integer); //CanaryMod: changed from interator.remove() to coincide with cloning
+                    this.bm.remove(integer); //CanaryMod: changed from iterator.remove() to coincide with cloning
                     this.c(opotioneffect);
                 }
             } else if (opotioneffect.b() % 600 == 0) {
