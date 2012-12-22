@@ -80,6 +80,7 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
         OBlockDispenser.a.a(OItem.bD, new OBehaviorExpBottleDispense(this));
         OBlockDispenser.a.a(OItem.bs, new OBehaviorPotionDispense(this));
         OBlockDispenser.a.a(OItem.bC, new OBehaviorMobEggDispense(this));
+        OBlockDispenser.a.a(OItem.bU, new OBehaviorDispenseFirework(this));
         OBlockDispenser.a.a(OItem.bE, new OBehaviorDispenseFireball(this));
         OBehaviorDispenseMinecart obehaviordispenseminecart = new OBehaviorDispenseMinecart(this);
 
@@ -222,7 +223,7 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
 
                     if (oworldserver != null) {
                         if (!flag) {
-                            a.info("Saving chunks for level \'" + oworldserver.K().k() + "\'/" + oworldserver.v.l());
+                            a.info("Saving chunks for level \'" + oworldserver.K().k() + "\'/" + oworldserver.u.l());
                         }
 
                         oworldserver.a(true, (OIProgressUpdate) null);
@@ -433,7 +434,8 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
                     this.b.b();
                     if (this.w % 20 == 0) {
                         this.b.a("timeSync");
-                        this.t.sendPacketToDimension((OPacket) (new OPacket4UpdateTime(oworldserver.F(), oworldserver.G())), worldName, oworldserver.v.h);
+                        //CanaryMod: send packet for multiworld
+                        this.t.sendPacketToDimension((OPacket) (new OPacket4UpdateTime(oworldserver.F(), oworldserver.G())), worldName, oworldserver.u.h);
                         this.b.b();
                     }
 
@@ -612,7 +614,7 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
     }
 
     public String x() {
-        return "1.4.5";
+        return "1.4.6";
     }
 
     public int y() {
@@ -776,13 +778,13 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
 
                 if (oworldserver != null) {
                     if (oworldserver.K().t()) {
-                        oworldserver.t = 3;
+                        oworldserver.s = 3;
                         oworldserver.a(true, true);
                     } else if (this.I()) {
-                        oworldserver.t = i;
-                        oworldserver.a(oworldserver.t > 0, true);
+                        oworldserver.s = i;
+                        oworldserver.a(oworldserver.s > 0, true);
                     } else {
-                        oworldserver.t = i;
+                        oworldserver.s = i;
                         oworldserver.a(this.L(), this.y);
                     }
                 }
@@ -860,14 +862,14 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
                     OWorldServer oworldserver = level[j];
                     OWorldInfo oworldinfo = oworldserver.K();
 
-                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][dimension]", Integer.valueOf(oworldserver.v.h));
-                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][mode]", oworldinfo.r());
-                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][difficulty]", Integer.valueOf(oworldserver.t));
-                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][hardcore]", Boolean.valueOf(oworldinfo.t()));
-                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][generator_name]", oworldinfo.u().a());
-                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][generator_version]", Integer.valueOf(oworldinfo.u().c()));
-                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][height]", Integer.valueOf(this.D));
-                    oplayerusagesnooper.a("world[" + levelName + "][" + i + "][chunks_loaded]", Integer.valueOf(oworldserver.I().e()));
+                oplayerusagesnooper.a("world[" + i + "][dimension]", Integer.valueOf(oworldserver.u.h));
+                    oplayerusagesnooper.a("world[" + i + "][mode]", oworldinfo.r());
+                    oplayerusagesnooper.a("world[" + i + "][difficulty]", Integer.valueOf(oworldserver.s));
+                    oplayerusagesnooper.a("world[" + i + "][hardcore]", Boolean.valueOf(oworldinfo.t()));
+                    oplayerusagesnooper.a("world[" + i + "][generator_name]", oworldinfo.u().a());
+                    oplayerusagesnooper.a("world[" + i + "][generator_version]", Integer.valueOf(oworldinfo.u().c()));
+                    oplayerusagesnooper.a("world[" + i + "][height]", Integer.valueOf(this.D));
+                    oplayerusagesnooper.a("world[" + i + "][chunks_loaded]", Integer.valueOf(oworldserver.I().e()));
                     ++i;
                 }
             }
