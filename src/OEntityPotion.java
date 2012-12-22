@@ -3,117 +3,119 @@ import java.util.List;
 
 public class OEntityPotion extends OEntityThrowable {
 
-   private OItemStack c;
+    private OItemStack c;
 
+    public OEntityPotion(OWorld oworld) {
+        super(oworld);
+    }
 
-   public OEntityPotion(OWorld var1) {
-      super(var1);
-   }
+    public OEntityPotion(OWorld oworld, OEntityLiving oentityliving, int i) {
+        this(oworld, oentityliving, new OItemStack(OItem.bs, 1, i));
+    }
 
-   public OEntityPotion(OWorld var1, OEntityLiving var2, int var3) {
-      this(var1, var2, new OItemStack(OItem.bs, 1, var3));
-   }
+    public OEntityPotion(OWorld oworld, OEntityLiving oentityliving, OItemStack oitemstack) {
+        super(oworld, oentityliving);
+        this.c = oitemstack;
+    }
 
-   public OEntityPotion(OWorld var1, OEntityLiving var2, OItemStack var3) {
-      super(var1, var2);
-      this.c = var3;
-   }
+    public OEntityPotion(OWorld oworld, double d0, double d1, double d2, OItemStack oitemstack) {
+        super(oworld, d0, d1, d2);
+        this.c = oitemstack;
+    }
 
-   public OEntityPotion(OWorld var1, double var2, double var4, double var6, OItemStack var8) {
-      super(var1, var2, var4, var6);
-      this.c = var8;
-   }
+    protected float g() {
+        return 0.05F;
+    }
 
-   protected float g() {
-      return 0.05F;
-   }
+    protected float c() {
+        return 0.5F;
+    }
 
-   protected float c() {
-      return 0.5F;
-   }
+    protected float d() {
+        return -20.0F;
+    }
 
-   protected float d() {
-      return -20.0F;
-   }
+    public void a(int i) {
+        if (this.c == null) {
+            this.c = new OItemStack(OItem.bs, 1, 0);
+        }
 
-   public void a(int var1) {
-      if(this.c == null) {
-         this.c = new OItemStack(OItem.bs, 1, 0);
-      }
+        this.c.b(i);
+    }
 
-      this.c.b(var1);
-   }
+    public int i() {
+        if (this.c == null) {
+            this.c = new OItemStack(OItem.bs, 1, 0);
+        }
 
-   public int i() {
-      if(this.c == null) {
-         this.c = new OItemStack(OItem.bs, 1, 0);
-      }
+        return this.c.j();
+    }
 
-      return this.c.j();
-   }
+    protected void a(OMovingObjectPosition omovingobjectposition) {
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.p.J) {
+            List list = OItem.bs.l(this.c);
 
-   protected void a(OMovingObjectPosition var1) {
-      if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), var1.g == null ? null : var1.g.getEntity()) && !this.p.J) {
-         List var2 = OItem.bs.l(this.c);
-         if(var2 != null && !var2.isEmpty()) {
-            OAxisAlignedBB var3 = this.D.b(4.0D, 2.0D, 4.0D);
-            List var4 = this.p.a(OEntityLiving.class, var3);
-            if(var4 != null && !var4.isEmpty()) {
-               Iterator var5 = var4.iterator();
+            if (list != null && !list.isEmpty()) {
+                OAxisAlignedBB oaxisalignedbb = this.D.b(4.0D, 2.0D, 4.0D);
+                List list1 = this.p.a(OEntityLiving.class, oaxisalignedbb);
 
-               while(var5.hasNext()) {
-                  OEntityLiving var6 = (OEntityLiving)var5.next();
-                  double var7 = this.e(var6);
-                  if(var7 < 16.0D) {
-                     double var9 = 1.0D - Math.sqrt(var7) / 4.0D;
-                     if(var6 == var1.g) {
-                        var9 = 1.0D;
-                     }
+                if (list1 != null && !list1.isEmpty()) {
+                    Iterator iterator = list1.iterator();
 
-                     Iterator var11 = var2.iterator();
+                    while (iterator.hasNext()) {
+                        OEntityLiving oentityliving = (OEntityLiving) iterator.next();
+                        double d0 = this.e(oentityliving);
 
-                     while(var11.hasNext()) {
-                        OPotionEffect var12 = (OPotionEffect)var11.next();
-                        int var13 = var12.a();
-                        if(OPotion.a[var13].b()) {
-                           OPotion.a[var13].a(this.h(), var6, var12.c(), var9);
-                        } else {
-                           int var14 = (int)(var9 * (double)var12.b() + 0.5D);
-                           if(var14 > 20) {
-                              var6.d(new OPotionEffect(var13, var14, var12.c()));
-                           }
+                        if (d0 < 16.0D) {
+                            double d1 = 1.0D - Math.sqrt(d0) / 4.0D;
+
+                            if (oentityliving == omovingobjectposition.g) {
+                                d1 = 1.0D;
+                            }
+
+                            Iterator iterator1 = list.iterator();
+
+                            while (iterator1.hasNext()) {
+                                OPotionEffect opotioneffect = (OPotionEffect) iterator1.next();
+                                int i = opotioneffect.a();
+
+                                if (OPotion.a[i].b()) {
+                                    OPotion.a[i].a(this.h(), oentityliving, opotioneffect.c(), d1);
+                                } else {
+                                    int j = (int) (d1 * (double) opotioneffect.b() + 0.5D);
+
+                                    if (j > 20) {
+                                        oentityliving.d(new OPotionEffect(i, j, opotioneffect.c()));
+                                    }
+                                }
+                            }
                         }
-                     }
-                  }
-               }
+                    }
+                }
             }
-         }
 
-         this.p.f(2002, (int)Math.round(this.t), (int)Math.round(this.u), (int)Math.round(this.v), this.i());
-         this.x();
-      }
+            this.p.f(2002, (int) Math.round(this.t), (int) Math.round(this.u), (int) Math.round(this.v), this.i());
+            this.x();
+        }
+    }
 
-   }
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
+        if (onbttagcompound.b("Potion")) {
+            this.c = OItemStack.a(onbttagcompound.l("Potion"));
+        } else {
+            this.a(onbttagcompound.e("potionValue"));
+        }
 
-   public void a(ONBTTagCompound var1) {
-      super.a(var1);
-      if(var1.b("Potion")) {
-         this.c = OItemStack.a(var1.l("Potion"));
-      } else {
-         this.a(var1.e("potionValue"));
-      }
+        if (this.c == null) {
+            this.x();
+        }
+    }
 
-      if(this.c == null) {
-         this.x();
-      }
-
-   }
-
-   public void b(ONBTTagCompound var1) {
-      super.b(var1);
-      if(this.c != null) {
-         var1.a("Potion", this.c.b(new ONBTTagCompound()));
-      }
-
-   }
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        if (this.c != null) {
+            onbttagcompound.a("Potion", this.c.b(new ONBTTagCompound()));
+        }
+    }
 }

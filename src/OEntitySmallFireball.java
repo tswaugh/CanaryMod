@@ -1,66 +1,70 @@
-
 public class OEntitySmallFireball extends OEntityFireball {
 
-   public OEntitySmallFireball(OWorld var1) {
-      super(var1);
-      this.a(0.3125F, 0.3125F);
-   }
+    public OEntitySmallFireball(OWorld oworld) {
+        super(oworld);
+        this.a(0.3125F, 0.3125F);
+    }
 
-   public OEntitySmallFireball(OWorld var1, OEntityLiving var2, double var3, double var5, double var7) {
-      super(var1, var2, var3, var5, var7);
-      this.a(0.3125F, 0.3125F);
-   }
+    public OEntitySmallFireball(OWorld oworld, OEntityLiving oentityliving, double d0, double d1, double d2) {
+        super(oworld, oentityliving, d0, d1, d2);
+        this.a(0.3125F, 0.3125F);
+    }
 
-   public OEntitySmallFireball(OWorld var1, double var2, double var4, double var6, double var8, double var10, double var12) {
-      super(var1, var2, var4, var6, var8, var10, var12);
-      this.a(0.3125F, 0.3125F);
-   }
+    public OEntitySmallFireball(OWorld oworld, double d0, double d1, double d2, double d3, double d4, double d5) {
+        super(oworld, d0, d1, d2, d3, d4, d5);
+        this.a(0.3125F, 0.3125F);
+    }
 
-   protected void a(OMovingObjectPosition var1) {
-      if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), var1.g == null ? null : var1.g.getEntity()) && !this.p.J) {
-         if(var1.g != null) {
-            if(!var1.g.F() && var1.g.a(ODamageSource.a((OEntityFireball)this, this.a), 5)) {
-               var1.g.c(5);
+    protected void a(OMovingObjectPosition omovingobjectposition) {
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.p.J) {
+            if (omovingobjectposition.g != null) {
+                if (!omovingobjectposition.g.F() && omovingobjectposition.g.a(ODamageSource.a((OEntityFireball) this, this.a), 5)) {
+                    omovingobjectposition.g.c(5);
+                }
+            } else {
+                int i = omovingobjectposition.b;
+                int j = omovingobjectposition.c;
+                int k = omovingobjectposition.d;
+
+                switch (omovingobjectposition.e) {
+                    case 0:
+                        --j;
+                        break;
+
+                    case 1:
+                        ++j;
+                        break;
+
+                    case 2:
+                        --k;
+                        break;
+
+                    case 3:
+                        ++k;
+                        break;
+
+                    case 4:
+                        --i;
+                        break;
+
+                    case 5:
+                        ++i;
+                }
+
+                if (this.p.c(i, j, k)) {
+                    this.p.e(i, j, k, OBlock.au.cm);
+                }
             }
-         } else {
-            int var2 = var1.b;
-            int var3 = var1.c;
-            int var4 = var1.d;
-            switch(var1.e) {
-            case 0:
-               --var3;
-               break;
-            case 1:
-               ++var3;
-               break;
-            case 2:
-               --var4;
-               break;
-            case 3:
-               ++var4;
-               break;
-            case 4:
-               --var2;
-               break;
-            case 5:
-               ++var2;
-            }
 
-            if(this.p.c(var2, var3, var4)) {
-               this.p.e(var2, var3, var4, OBlock.au.cm);
-            }
-         }
+            this.x();
+        }
+    }
 
-         this.x();
-      }
+    public boolean L() {
+        return false;
+    }
 
-   }
-
-   public boolean L() {
-      return false;
-   }
-
-   public boolean a(ODamageSource var1, int var2) {
-      return false;
-   }
+    public boolean a(ODamageSource odamagesource, int i) {
+        return false;
+    }
 }

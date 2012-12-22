@@ -1,45 +1,46 @@
-
 public class OEntityEgg extends OEntityThrowable {
 
-   public OEntityEgg(OWorld var1) {
-      super(var1);
-   }
+    public OEntityEgg(OWorld oworld) {
+        super(oworld);
+    }
 
-   public OEntityEgg(OWorld var1, OEntityLiving var2) {
-      super(var1, var2);
-   }
+    public OEntityEgg(OWorld oworld, OEntityLiving oentityliving) {
+        super(oworld, oentityliving);
+    }
 
-   public OEntityEgg(OWorld var1, double var2, double var4, double var6) {
-      super(var1, var2, var4, var6);
-   }
+    public OEntityEgg(OWorld oworld, double d0, double d1, double d2) {
+        super(oworld, d0, d1, d2);
+    }
 
-   protected void a(OMovingObjectPosition var1) {
-      if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Egg(this), var1.g == null ? null : var1.g.getEntity())) {
-          if(var1.g != null) {
-             var1.g.a(ODamageSource.a((OEntity)this, this.h()), 0);
-          }
+    protected void a(OMovingObjectPosition omovingobjectposition) {
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Egg(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity())) {
+            if (omovingobjectposition.g != null) {
+                omovingobjectposition.g.a(ODamageSource.a((OEntity) this, this.h()), 0);
+            }
 
-          if(!this.p.J && this.aa.nextInt(8) == 0) {
-             byte var2 = 1;
-             if(this.aa.nextInt(32) == 0) {
-                var2 = 4;
-             }
+            if (!this.p.J && this.aa.nextInt(8) == 0) {
+                byte b0 = 1;
 
-             for(int var3 = 0; var3 < var2; ++var3) {
-                OEntityChicken var4 = new OEntityChicken(this.p);
-                var4.a(-24000);
-                var4.b(this.t, this.u, this.v, this.z, 0.0F);
-                this.p.d((OEntity)var4);
-             }
-          }
+                if (this.aa.nextInt(32) == 0) {
+                    b0 = 4;
+                }
 
-          for(int var5 = 0; var5 < 8; ++var5) {
-             this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
-          }
+                for (int i = 0; i < b0; ++i) {
+                    OEntityChicken oentitychicken = new OEntityChicken(this.p);
 
-          if(!this.p.J) {
-             this.x();
-          }
-      }
-   }
+                    oentitychicken.a(-24000);
+                    oentitychicken.b(this.t, this.u, this.v, this.z, 0.0F);
+                    this.p.d((OEntity) oentitychicken);
+                }
+            }
+
+            for (int j = 0; j < 8; ++j) {
+                this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
+            }
+
+            if (!this.p.J) {
+                this.x();
+            }
+        }
+    }
 }

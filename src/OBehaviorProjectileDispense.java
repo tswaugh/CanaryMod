@@ -1,30 +1,30 @@
-
 public abstract class OBehaviorProjectileDispense extends OBehaviorDefaultDispenseItem {
 
-   public OItemStack b(OIBlockSource var1, OItemStack var2) {
-      OWorld var3 = var1.k();
-      OIPosition var4 = OBlockDispenser.a(var1);
-      OEnumFacing var5 = OEnumFacing.a(var1.h());
-      OIProjectile var6 = this.a(var3, var4);
-      if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) var1.j()), new BaseEntity((OEntity) var6))) {
-          var6.c((double)var5.c(), 0.10000000149011612D, (double)var5.e(), this.b(), this.a());
-          var3.d((OEntity)var6);
-          var2.a(1);
-      }
-      return var2;
-   }
+    public OBehaviorProjectileDispense() {}
 
-   protected void a(OIBlockSource var1) {
-       var1.k().f(1002, var1.d(), var1.e(), var1.f(), 0);
-   }
+    public OItemStack b(OIBlockSource oiblocksource, OItemStack oitemstack) {
+        OWorld oworld = oiblocksource.k();
+        OIPosition oiposition = OBlockDispenser.a(oiblocksource);
+        OEnumFacing oenumfacing = OEnumFacing.a(oiblocksource.h());
+        OIProjectile oiprojectile = this.a(oworld, oiposition);
 
-   protected abstract OIProjectile a(OWorld var1, OIPosition var2);
+        oiprojectile.c((double) oenumfacing.c(), 0.10000000149011612D, (double) oenumfacing.e(), this.b(), this.a());
+        oworld.d((OEntity) oiprojectile);
+        oitemstack.a(1);
+        return oitemstack;
+    }
 
-   protected float a() {
-      return 6.0F;
-   }
+    protected void a(OIBlockSource oiblocksource) {
+        oiblocksource.k().f(1002, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), 0);
+    }
 
-   protected float b() {
-      return 1.1F;
-   }
+    protected abstract OIProjectile a(OWorld oworld, OIPosition oiposition);
+
+    protected float a() {
+        return 6.0F;
+    }
+
+    protected float b() {
+        return 1.1F;
+    }
 }
