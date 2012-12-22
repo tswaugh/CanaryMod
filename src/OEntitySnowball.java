@@ -1,36 +1,36 @@
-
 public class OEntitySnowball extends OEntityThrowable {
 
-   public OEntitySnowball(OWorld var1) {
-      super(var1);
-   }
+    public OEntitySnowball(OWorld oworld) {
+        super(oworld);
+    }
 
-   public OEntitySnowball(OWorld var1, OEntityLiving var2) {
-      super(var1, var2);
-   }
+    public OEntitySnowball(OWorld oworld, OEntityLiving oentityliving) {
+        super(oworld, oentityliving);
+    }
 
-   public OEntitySnowball(OWorld var1, double var2, double var4, double var6) {
-      super(var1, var2, var4, var6);
-   }
+    public OEntitySnowball(OWorld oworld, double d0, double d1, double d2) {
+        super(oworld, d0, d1, d2);
+    }
 
-   protected void a(OMovingObjectPosition var1) {
-      if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Snowball(this), var1.g == null ? null : var1.g.getEntity())) {
-          if(var1.g != null) {
-             byte var2 = 0;
-             if(var1.g instanceof OEntityBlaze) {
-                var2 = 3;
-             }
+    protected void a(OMovingObjectPosition omovingobjectposition) {
+        if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Snowball(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity())){
+            if (omovingobjectposition.g != null) {
+                byte b0 = 0;
 
-             var1.g.a(ODamageSource.a((OEntity)this, this.h()), var2);
-          }
+                if (omovingobjectposition.g instanceof OEntityBlaze) {
+                    b0 = 3;
+                }
 
-          for(int var3 = 0; var3 < 8; ++var3) {
-             this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
-          }
+                omovingobjectposition.g.a(ODamageSource.a((OEntity) this, this.h()), b0);
+            }
 
-          if(!this.p.J) {
-             this.x();
-          }
-      }
-   }
+            for (int i = 0; i < 8; ++i) {
+                this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
+            }
+
+            if (!this.p.I) {
+                this.x();
+            }
+        }
+    }
 }
