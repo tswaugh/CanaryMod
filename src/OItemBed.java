@@ -9,7 +9,7 @@ public class OItemBed extends OItem {
         // CanaryMod: store the block that was clicked
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
 
-        if (oworld.J) {
+        if (oworld.I) {
             return true;
         } else if (l != 1) {
             return false;
