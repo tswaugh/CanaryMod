@@ -13,7 +13,7 @@ public class OEntitySnowball extends OEntityThrowable {
     }
 
     protected void a(OMovingObjectPosition omovingobjectposition) {
-        if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Snowball(this), var1.g == null ? null : var1.g.getEntity())) {
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Snowball(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity())) {
             if (omovingobjectposition.g != null) {
                 byte b0 = 0;
 

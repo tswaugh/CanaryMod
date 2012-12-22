@@ -407,7 +407,11 @@ public class OEntityVillager extends OEntityAgeable implements OINpc, OIMerchant
         }
 
         for (int j1 = 0; j1 < i && j1 < omerchantrecipelist.size(); ++j1) {
-            this.i.a((OMerchantRecipe) omerchantrecipelist.get(j1));
+            //CanaryMod
+            OMerchantRecipe recipe = (OMerchantRecipe) omerchantrecipelist.get(j1);
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.VILLAGER_TRADE_UNLOCK, new Villager(this), new VillagerTrade(recipe))) {
+                this.i.a((OMerchantRecipe) omerchantrecipelist.get(j1));
+            }
         }
     }
 
