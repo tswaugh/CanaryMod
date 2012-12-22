@@ -21,10 +21,10 @@ public class OBehaviorDispenseMinecart extends OBehaviorDefaultDispenseItem {
         int l = oworld.a(i, j, k);
         double d3;
 
-        if (OBlockRail.d(l)) {
+        if (OBlockRail.e(l)) {
             d3 = 0.0D;
         } else {
-            if (l != 0 || !OBlockRail.d(oworld.a(i, j - 1, k))) {
+            if (l != 0 || !OBlockRail.e(oworld.a(i, j - 1, k))) {
                 return this.c.a(oiblocksource, oitemstack);
             }
 

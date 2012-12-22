@@ -36,7 +36,7 @@ public class OFoodStats {
     }
 
     public void a(OEntityPlayer oentityplayer) {
-        int i = oentityplayer.p.t;
+        int i = oentityplayer.p.s;
 
         this.e = this.a;
         if (this.c > 4.0F) {
@@ -60,7 +60,7 @@ public class OFoodStats {
             }
         }
 
-        if (this.a >= 18 && oentityplayer.ce()) {
+        if (this.a >= 18 && oentityplayer.cd()) {
             ++this.d;
             if (this.d >= 80) {
                 oentityplayer.i(1);

@@ -35,19 +35,19 @@ public class OBlockPistonBase extends OBlock {
         int l = b(oworld, i, j, k, (OEntityPlayer) oentityliving);
 
         oworld.c(i, j, k, l);
-        if (!oworld.J) {
+        if (!oworld.I) {
             this.l(oworld, i, j, k);
         }
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             this.l(oworld, i, j, k);
         }
     }
 
     public void g(OWorld oworld, int i, int j, int k) {
-        if (!oworld.J && oworld.q(i, j, k) == null) {
+        if (!oworld.I && oworld.q(i, j, k) == null) {
             this.l(oworld, i, j, k);
         }
     }
@@ -92,7 +92,7 @@ public class OBlockPistonBase extends OBlock {
         if (l == 0) {
             if (this.j(oworld, i, j, k, i1)) {
                 oworld.c(i, j, k, i1 | 8);
-                oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.out", 0.5F, oworld.u.nextFloat() * 0.25F + 0.6F);
+                oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.out", 0.5F, oworld.t.nextFloat() * 0.25F + 0.6F);
             } else {
                 oworld.d(i, j, k, i1);
             }
@@ -142,7 +142,7 @@ public class OBlockPistonBase extends OBlock {
                 oworld.e(i + OFacing.b[i1], j + OFacing.c[i1], k + OFacing.d[i1], 0);
             }
 
-            oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.in", 0.5F, oworld.u.nextFloat() * 0.15F + 0.6F);
+            oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.in", 0.5F, oworld.t.nextFloat() * 0.15F + 0.6F);
         }
     }
 

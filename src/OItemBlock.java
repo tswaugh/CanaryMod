@@ -83,7 +83,7 @@ public class OItemBlock extends OItem {
         }
     }
 
-    public String c_(OItemStack oitemstack) {
+    public String d(OItemStack oitemstack) {
         return OBlock.p[this.a].a();
     }
 

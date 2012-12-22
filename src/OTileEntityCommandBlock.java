@@ -11,7 +11,7 @@ public class OTileEntityCommandBlock extends OTileEntity implements OICommandSen
     }
 
     public void a(OWorld oworld) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             OMinecraftServer ominecraftserver = OMinecraftServer.D();
 
             if (ominecraftserver != null && ominecraftserver.Z()) {

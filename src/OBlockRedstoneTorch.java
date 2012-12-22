@@ -107,7 +107,7 @@ public class OBlockRedstoneTorch extends OBlockTorch {
                 if ((Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), 1, 0) == 0) {
                     oworld.d(i, j, k, OBlock.aS.cm, oworld.h(i, j, k));
                     if (this.a(oworld, i, j, k, true)) {
-                        oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (oworld.u.nextFloat() - oworld.u.nextFloat()) * 0.8F);
+                    oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), "random.fizz", 0.5F, 2.6F + (oworld.t.nextFloat() - oworld.t.nextFloat()) * 0.8F);
 
                         for (int l = 0; l < 5; ++l) {
                             double d0 = (double) i + random.nextDouble() * 0.6D + 0.2D;

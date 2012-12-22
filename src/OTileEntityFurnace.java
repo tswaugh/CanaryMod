@@ -117,7 +117,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
             --this.a;
         }
 
-        if (!this.k.J) {
+        if (!this.k.I) {
             if (this.a == 0 && this.u()) {
                 this.b = this.a = a(this.d[1]);
                 if (this.a > 0) {
@@ -160,7 +160,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (this.d[0] == null) {
             return false;
         } else {
-            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cg);
+            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cj);
 
             return oitemstack == null ? false : (this.d[2] == null ? true : (!this.d[2].a(oitemstack) ? false : (this.d[2].a < this.c() && this.d[2].a < this.d[2].d() ? true : this.d[2].a < oitemstack.d())));
         }
@@ -168,7 +168,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     public void k() {
         if (this.u()) {
-            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cg);
+            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cj);
 
             if (this.d[2] == null) {
                 this.d[2] = oitemstack.l();
@@ -188,7 +188,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (oitemstack == null) {
             return 0;
         } else {
-            int i = oitemstack.b().cg;
+            int i = oitemstack.b().cj;
             OItem oitem = oitemstack.b();
 
             if (i < 256 && OBlock.p[i] != null) {
@@ -203,7 +203,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
                 }
             }
 
-            return oitem instanceof OItemTool && ((OItemTool) oitem).g().equals("WOOD") ? 200 : (oitem instanceof OItemSword && ((OItemSword) oitem).h().equals("WOOD") ? 200 : (oitem instanceof OItemHoe && ((OItemHoe) oitem).g().equals("WOOD") ? 200 : (i == OItem.D.cg ? 100 : (i == OItem.m.cg ? 1600 : (i == OItem.ay.cg ? 20000 : (i == OBlock.B.cm ? 100 : (i == OItem.bo.cg ? 2400 : 0)))))));
+            return oitem instanceof OItemTool && ((OItemTool) oitem).g().equals("WOOD") ? 200 : (oitem instanceof OItemSword && ((OItemSword) oitem).h().equals("WOOD") ? 200 : (oitem instanceof OItemHoe && ((OItemHoe) oitem).g().equals("WOOD") ? 200 : (i == OItem.D.cj ? 100 : (i == OItem.m.cj ? 1600 : (i == OItem.ay.cj ? 20000 : (i == OBlock.B.cm ? 100 : (i == OItem.bo.cj ? 2400 : 0)))))));
         }
     }
 

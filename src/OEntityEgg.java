@@ -18,7 +18,7 @@ public class OEntityEgg extends OEntityThrowable {
                 omovingobjectposition.g.a(ODamageSource.a((OEntity) this, this.h()), 0);
             }
 
-            if (!this.p.J && this.aa.nextInt(8) == 0) {
+        if (!this.p.I && this.aa.nextInt(8) == 0) {
                 byte b0 = 1;
 
                 if (this.aa.nextInt(32) == 0) {
@@ -38,7 +38,7 @@ public class OEntityEgg extends OEntityThrowable {
                 this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
             }
 
-            if (!this.p.J) {
+        if (!this.p.I) {
                 this.x();
             }
         }

@@ -30,7 +30,7 @@ public class OChunkProviderServer implements OIChunkProvider {
     }
 
     public void b(int i, int j) {
-        if (this.h.v.e()) {
+        if (this.h.u.e()) {
             OChunkCoordinates ochunkcoordinates = this.h.H();
             int k = i * 16 + 8 - ochunkcoordinates.a;
             int l = j * 16 + 8 - ochunkcoordinates.c;
@@ -117,7 +117,7 @@ public class OChunkProviderServer implements OIChunkProvider {
     public OChunk d(int i, int j) {
         OChunk ochunk = (OChunk) this.f.a(OChunkCoordIntPair.a(i, j));
 
-        return ochunk == null ? (!this.h.A && !this.a ? this.c : this.c(i, j)) : ochunk;
+        return ochunk == null ? (!this.h.z && !this.a ? this.c : this.c(i, j)) : ochunk;
     }
 
     private OChunk f(int i, int j) {

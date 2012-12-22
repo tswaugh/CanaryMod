@@ -61,7 +61,7 @@ public class OBlockFire extends OBlock {
         if (oworld.L().b("doFireTick")) {
             boolean flag = oworld.a(i, j - 1, k) == OBlock.be.cm;
 
-            if (oworld.v instanceof OWorldProviderEnd && oworld.a(i, j - 1, k) == OBlock.C.cm) {
+            if (oworld.u instanceof OWorldProviderEnd && oworld.a(i, j - 1, k) == OBlock.C.cm) {
                 flag = true;
             }
 
@@ -113,7 +113,7 @@ public class OBlockFire extends OBlock {
                                     int i2 = this.n(oworld, i1, k1, j1);
 
                                     if (i2 > 0) {
-                                        int j2 = (i2 + 40 + oworld.t * 7) / (l + 30);
+                                        int j2 = (i2 + 40 + oworld.s * 7) / (l + 30);
 
                                         if (flag1) {
                                             j2 /= 2;
@@ -230,11 +230,11 @@ public class OBlockFire extends OBlock {
     }
 
     public void g(OWorld oworld, int i, int j, int k) {
-        if (oworld.v.h > 0 || oworld.a(i, j - 1, k) != OBlock.as.cm || !OBlock.bh.i_(oworld, i, j, k)) {
+        if (oworld.u.h > 0 || oworld.a(i, j - 1, k) != OBlock.as.cm || !OBlock.bh.i_(oworld, i, j, k)) {
             if (!oworld.v(i, j - 1, k) && !this.l(oworld, i, j, k)) {
                 oworld.e(i, j, k, 0);
             } else {
-                oworld.a(i, j, k, this.cm, this.r_() + oworld.u.nextInt(10));
+                oworld.a(i, j, k, this.cm, this.r_() + oworld.t.nextInt(10));
             }
         }
     }

@@ -14,7 +14,7 @@ public abstract class OEntityCreature extends OEntityLiving {
     }
 
     protected void bn() {
-        this.p.E.a("ai");
+        this.p.D.a("ai");
         if (this.c > 0) {
             --this.c;
         }
@@ -40,10 +40,10 @@ public abstract class OEntityCreature extends OEntityLiving {
             this.a_ = null;
         }
 
-        this.p.E.b();
+        this.p.D.b();
         if (!this.b && this.a_ != null && (this.d == null || this.aa.nextInt(20) == 0)) {
             this.d = this.p.a(this, this.a_, f, true, false, false, true);
-        } else if (!this.b && (this.d == null && this.aa.nextInt(180) == 0 || this.aa.nextInt(120) == 0 || this.c > 0) && this.bA < 100) {
+        } else if (!this.b && (this.d == null && this.aa.nextInt(180) == 0 || this.aa.nextInt(120) == 0 || this.c > 0) && this.bB < 100) {
             this.i();
         }
 
@@ -53,7 +53,7 @@ public abstract class OEntityCreature extends OEntityLiving {
 
         this.A = 0.0F;
         if (this.d != null && this.aa.nextInt(100) != 0) {
-            this.p.E.a("followpath");
+            this.p.D.a("followpath");
             OVec3 ovec3 = this.d.a((OEntity) this);
             double d0 = (double) (this.N * 2.0F);
 
@@ -67,7 +67,7 @@ public abstract class OEntityCreature extends OEntityLiving {
                 }
             }
 
-            this.bE = false;
+            this.bF = false;
             if (ovec3 != null) {
                 double d1 = ovec3.c - this.t;
                 double d2 = ovec3.e - this.v;
@@ -75,7 +75,7 @@ public abstract class OEntityCreature extends OEntityLiving {
                 float f2 = (float) (Math.atan2(d2, d1) * 180.0D / 3.1415927410125732D) - 90.0F;
                 float f3 = OMathHelper.g(f2 - this.z);
 
-                this.bC = this.bG;
+                this.bD = this.bH;
                 if (f3 > 30.0F) {
                     f3 = 30.0F;
                 }
@@ -92,12 +92,12 @@ public abstract class OEntityCreature extends OEntityLiving {
 
                     this.z = (float) (Math.atan2(d5, d4) * 180.0D / 3.1415927410125732D) - 90.0F;
                     f3 = (f4 - this.z + 90.0F) * 3.1415927F / 180.0F;
-                    this.bB = -OMathHelper.a(f3) * this.bC * 1.0F;
-                    this.bC = OMathHelper.b(f3) * this.bC * 1.0F;
+                    this.bC = -OMathHelper.a(f3) * this.bD * 1.0F;
+                    this.bD = OMathHelper.b(f3) * this.bD * 1.0F;
                 }
 
                 if (d3 > 0.0D) {
-                    this.bE = true;
+                    this.bF = true;
                 }
             }
 
@@ -106,14 +106,14 @@ public abstract class OEntityCreature extends OEntityLiving {
             }
 
             if (this.F && !this.k()) {
-                this.bE = true;
+                this.bF = true;
             }
 
             if (this.aa.nextFloat() < 0.8F && (flag || flag1)) {
-                this.bE = true;
+                this.bF = true;
             }
 
-            this.p.E.b();
+            this.p.D.b();
         } else {
             super.bn();
             this.d = null;
@@ -121,7 +121,7 @@ public abstract class OEntityCreature extends OEntityLiving {
     }
 
     protected void i() {
-        this.p.E.a("stroll");
+        this.p.D.a("stroll");
         boolean flag = false;
         int i = -1;
         int j = -1;
@@ -147,7 +147,7 @@ public abstract class OEntityCreature extends OEntityLiving {
             this.d = this.p.a(this, i, j, k, 10.0F, true, false, false, true);
         }
 
-        this.p.E.b();
+        this.p.D.b();
     }
 
     protected void a(OEntity oentity, float f) {}

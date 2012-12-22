@@ -7,7 +7,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
     public OEntityMob(OWorld oworld) {
         super(oworld);
-        this.bc = 5;
+        this.bd = 5;
     }
 
     public void c() {
@@ -15,7 +15,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
         float f = this.c(1.0F);
 
         if (f > 0.5F) {
-            this.bA += 2;
+            this.bB += 2;
         }
 
         super.c();
@@ -23,7 +23,7 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
     public void j_() {
         super.j_();
-        if (!this.p.J && this.p.t == 0) {
+        if (!this.p.I && this.p.s == 0) {
             this.x();
         }
     }
@@ -89,14 +89,18 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
             if (k > 0) {
                 oentity.c(k * 4);
             }
+
+            if (oentity instanceof OEntityLiving) {
+                OEnchantmentThorns.a(this, (OEntityLiving) oentity, this.aa);
+            }
         }
 
         return flag;
     }
 
     protected void a(OEntity oentity, float f) {
-        if (this.aY <= 0 && f < 2.0F && oentity.D.e > this.D.b && oentity.D.b < this.D.e) {
-            this.aY = 20;
+        if (this.aZ <= 0 && f < 2.0F && oentity.D.e > this.D.b && oentity.D.b < this.D.e) {
+            this.aZ = 20;
             this.m(oentity);
         }
     }

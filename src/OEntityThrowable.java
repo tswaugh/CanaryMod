@@ -117,7 +117,7 @@ public abstract class OEntityThrowable extends OEntity implements OIProjectile {
             ovec31 = this.p.S().a(omovingobjectposition.f.c, omovingobjectposition.f.d, omovingobjectposition.f.e);
         }
 
-        if (!this.p.J) {
+        if (!this.p.I) {
             OEntity oentity = null;
             List list = this.p.b((OEntity) this, this.D.a(this.w, this.x, this.y).b(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;

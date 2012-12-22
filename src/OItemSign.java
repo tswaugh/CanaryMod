@@ -2,7 +2,7 @@ public class OItemSign extends OItem {
 
     public OItemSign(int i) {
         super(i);
-        this.ch = 16;
+        this.ck = 16;
         this.a(OCreativeTabs.c);
     }
 

@@ -26,32 +26,31 @@ public abstract class OWorld implements OIBlockAccess {
     protected float n;
     protected float o;
     protected float p;
-    protected int q = 0;
-    public int r = 0;
-    public boolean s = false;
-    public int t;
-    public Random u = new Random();
-    public final OWorldProvider v;
-    protected List w = new ArrayList();
-    protected OIChunkProvider x;
-    protected final OISaveHandler y;
-    protected OWorldInfo z;
-    public boolean A;
-    public OMapStorage B;
-    public final OVillageCollection C;
-    protected final OVillageSiege D = new OVillageSiege(this);
-    public final OProfiler E;
-    private final OVec3Pool K = new OVec3Pool(300, 2000);
-    private final Calendar L = Calendar.getInstance();
-    private ArrayList M = new ArrayList();
-    private boolean N;
+    public int q = 0;
+    public boolean r = false;
+    public int s;
+    public Random t = new Random();
+    public final OWorldProvider u;
+    protected List v = new ArrayList();
+    protected OIChunkProvider w;
+    protected final OISaveHandler x;
+    protected OWorldInfo y;
+    public boolean z;
+    public OMapStorage A;
+    public final OVillageCollection B;
+    protected final OVillageSiege C = new OVillageSiege(this);
+    public final OProfiler D;
+    private final OVec3Pool J = new OVec3Pool(300, 2000);
+    private final Calendar K = Calendar.getInstance();
+    private ArrayList L = new ArrayList();
+    private boolean M;
+    protected boolean E = true;
     protected boolean F = true;
-    protected boolean G = true;
-    protected Set H = new HashSet();
-    private int O;
-    int[] I;
-    // private List P; // CanaryMod: Fix ConcurrentModificationException
-    public boolean J;
+    protected Set G = new HashSet();
+    private int N;
+    int[] H;
+    // private List O; // CanaryMod: Fix ConcurrentModificationException
+    public boolean I;
 
     // CanaryMod
     public final World world = new World((OWorldServer) this);
@@ -63,43 +62,43 @@ public abstract class OWorld implements OIBlockAccess {
             OChunk ochunk = this.d(i, j);
 
             if (ochunk != null) {
-                return ochunk.a(i & 15, j & 15, this.v.d);
+                return ochunk.a(i & 15, j & 15, this.u.d);
             }
         }
 
-        return this.v.d.a(i, j);
+        return this.u.d.a(i, j);
     }
 
     public OWorldChunkManager t() {
-        return this.v.d;
+        return this.u.d;
     }
 
     public OWorld(OISaveHandler oisavehandler, String s, OWorldSettings oworldsettings, OWorldProvider oworldprovider, OProfiler oprofiler) {
-        this.O = this.u.nextInt(12000);
-        this.I = new int['\u8000'];
-        //this.P = new ArrayList(); // CanaryMod: Fix ConcurrentModificationException
-        this.J = false;
-        this.y = oisavehandler;
-        this.E = oprofiler;
-        this.B = new OMapStorage(oisavehandler);
-        this.z = oisavehandler.d();
+        this.N = this.t.nextInt(12000);
+        this.H = new int['\u8000'];
+        //this.O = new ArrayList(); // CanaryMod: Fix ConcurrentModificationException
+        this.I = false;
+        this.x = oisavehandler;
+        this.D = oprofiler;
+        this.A = new OMapStorage(oisavehandler);
+        this.y = oisavehandler.d();
         if (oworldprovider != null) {
-            this.v = oworldprovider;
-        } else if (this.z != null && this.z.j() != 0) {
-            this.v = OWorldProvider.a(this.z.j());
+            this.u = oworldprovider;
+        } else if (this.y != null && this.y.j() != 0) {
+            this.u = OWorldProvider.a(this.y.j());
         } else {
-            this.v = OWorldProvider.a(0);
+            this.u = OWorldProvider.a(0);
         }
 
-        if (this.z == null) {
-            this.z = new OWorldInfo(oworldsettings, s);
+        if (this.y == null) {
+            this.y = new OWorldInfo(oworldsettings, s);
         } else {
-            this.z.a(s);
+            this.y.a(s);
         }
 
-        this.v.a(this);
-        this.x = this.j();
-        if (!this.z.w()) {
+        this.u.a(this);
+        this.w = this.j();
+        if (!this.y.w()) {
             try {
                 this.a(oworldsettings);
             } catch (Throwable throwable) {
@@ -114,17 +113,17 @@ public abstract class OWorld implements OIBlockAccess {
                 throw new OReportedException(ocrashreport);
             }
 
-            this.z.d(true);
+            this.y.d(true);
         }
 
-        OVillageCollection ovillagecollection = (OVillageCollection) this.B.a(OVillageCollection.class, "villages");
+        OVillageCollection ovillagecollection = (OVillageCollection) this.A.a(OVillageCollection.class, "villages");
 
         if (ovillagecollection == null) {
-            this.C = new OVillageCollection(this);
-            this.B.a("villages", (OWorldSavedData) this.C);
+            this.B = new OVillageCollection(this);
+            this.A.a("villages", (OWorldSavedData) this.B);
         } else {
-            this.C = ovillagecollection;
-            this.C.a(this);
+            this.B = ovillagecollection;
+            this.B.a(this);
         }
 
         this.x();
@@ -136,7 +135,7 @@ public abstract class OWorld implements OIBlockAccess {
     protected abstract OIChunkProvider j();
 
     protected void a(OWorldSettings oworldsettings) {
-        this.z.d(true);
+        this.y.d(true);
     }
 
     public int b(int i, int j) {
@@ -225,7 +224,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     protected boolean c(int i, int j) {
-        return (this.x != null ? this.x.a(i, j) : false); // CanaryMod: fix NPE
+        return (this.w != null ? this.w.a(i, j) : false); // CanaryMod: fix NPE
     }
 
     public OChunk d(int i, int j) {
@@ -233,7 +232,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public OChunk e(int i, int j) {
-        return this.x.d(i, j);
+        return this.w.d(i, j);
     }
 
     public boolean c(int i, int j, int k, int l, int i1) {
@@ -255,10 +254,10 @@ public abstract class OWorld implements OIBlockAccess {
                 if (l == 0 || !(Boolean) OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block, l)) {
                     flag1 = ochunk.a(i & 15, j, k & 15, l, i1);
                 }
-                this.E.a("checkLight");
+                this.D.a("checkLight");
                 this.z(i, j, k);
-                this.E.b();
-                if (flag && flag1 && (this.J || ochunk.o)) {
+                this.D.b();
+                if (flag && flag1 && (this.I || ochunk.o)) {
                     this.i(i, j, k);
                 }
 
@@ -286,10 +285,10 @@ public abstract class OWorld implements OIBlockAccess {
                 if (l == 0 || !(Boolean) OEntity.manager.callHook(PluginLoader.Hook.BLOCK_UPDATE, block, l)) {
                     flag = ochunk.a(i & 15, j, k & 15, l);
                 }
-                this.E.a("checkLight");
+                this.D.a("checkLight");
                 this.z(i, j, k);
-                this.E.b();
-                if (flag && (this.J || ochunk.o)) {
+                this.D.b();
+                if (flag && (this.I || ochunk.o)) {
                     this.i(i, j, k);
                 }
 
@@ -342,7 +341,7 @@ public abstract class OWorld implements OIBlockAccess {
                 int j1 = k & 15;
                 boolean flag = ochunk.b(i1, j, j1, l);
 
-                if (flag && (this.J || ochunk.o && OBlock.u[ochunk.a(i1, j, j1) & 4095])) {
+                if (flag && (this.I || ochunk.o && OBlock.u[ochunk.a(i1, j, j1) & 4095])) {
                     this.i(i, j, k);
                 }
 
@@ -372,8 +371,8 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void i(int i, int j, int k) {
-        for (int l = 0; l < this.w.size(); ++l) {
-            ((OIWorldAccess) this.w.get(l)).a(i, j, k);
+        for (int l = 0; l < this.v.size(); ++l) {
+            ((OIWorldAccess) this.v.get(l)).a(i, j, k);
         }
     }
 
@@ -390,7 +389,7 @@ public abstract class OWorld implements OIBlockAccess {
             k = i1;
         }
 
-        if (!this.v.f) {
+        if (!this.u.f) {
             for (i1 = k; i1 <= l; ++i1) {
                 this.c(OEnumSkyBlock.a, i, i1, j);
             }
@@ -400,14 +399,14 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void j(int i, int j, int k) {
-        for (int l = 0; l < this.w.size(); ++l) {
-            ((OIWorldAccess) this.w.get(l)).a(i, j, k, i, j, k);
+        for (int l = 0; l < this.v.size(); ++l) {
+            ((OIWorldAccess) this.v.get(l)).a(i, j, k, i, j, k);
         }
     }
 
     public void e(int i, int j, int k, int l, int i1, int j1) {
-        for (int k1 = 0; k1 < this.w.size(); ++k1) {
-            ((OIWorldAccess) this.w.get(k1)).a(i, j, k, l, i1, j1);
+        for (int k1 = 0; k1 < this.v.size(); ++k1) {
+            ((OIWorldAccess) this.v.get(k1)).a(i, j, k, l, i1, j1);
         }
     }
 
@@ -421,7 +420,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     private void m(int i, int j, int k, int l) {
-        if (!this.s && !this.J) {
+        if (!this.r && !this.I) {
             int i1 = this.a(i, j, k);
             OBlock oblock = OBlock.p[i1];
 
@@ -581,8 +580,8 @@ public abstract class OWorld implements OIBlockAccess {
                         ochunk.a(oenumskyblock, i & 15, j, k & 15, l);
                         etc.getLoader().callHook(PluginLoader.Hook.LIGHT_CHANGE, i, j, k, l); //CanaryMod: fire light change hook
 
-                        for (int i1 = 0; i1 < this.w.size(); ++i1) {
-                            ((OIWorldAccess) this.w.get(i1)).b(i, j, k);
+                        for (int i1 = 0; i1 < this.v.size(); ++i1) {
+                            ((OIWorldAccess) this.v.get(i1)).b(i, j, k);
                         }
                     }
                 }
@@ -591,13 +590,13 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void o(int i, int j, int k) {
-        for (int l = 0; l < this.w.size(); ++l) {
-            ((OIWorldAccess) this.w.get(l)).b(i, j, k);
+        for (int l = 0; l < this.v.size(); ++l) {
+            ((OIWorldAccess) this.v.get(l)).b(i, j, k);
         }
     }
 
     public float p(int i, int j, int k) {
-        return this.v.g[this.m(i, j, k)];
+        return this.u.g[this.m(i, j, k)];
     }
 
     public boolean u() {
@@ -773,39 +772,39 @@ public abstract class OWorld implements OIBlockAccess {
 
     public void a(OEntity oentity, String s, float f, float f1) {
         if (oentity != null && s != null) {
-            for (int i = 0; i < this.w.size(); ++i) {
-                ((OIWorldAccess) this.w.get(i)).a(s, oentity.t, oentity.u - (double) oentity.M, oentity.v, f, f1);
+            for (int i = 0; i < this.v.size(); ++i) {
+                ((OIWorldAccess) this.v.get(i)).a(s, oentity.t, oentity.u - (double) oentity.M, oentity.v, f, f1);
             }
         }
     }
 
     public void a(OEntityPlayer oentityplayer, String s, float f, float f1) {
         if (oentityplayer != null && s != null) {
-            for (int i = 0; i < this.w.size(); ++i) {
-                ((OIWorldAccess) this.w.get(i)).a(oentityplayer, s, oentityplayer.t, oentityplayer.u - (double) oentityplayer.M, oentityplayer.v, f, f1);
+            for (int i = 0; i < this.v.size(); ++i) {
+                ((OIWorldAccess) this.v.get(i)).a(oentityplayer, s, oentityplayer.t, oentityplayer.u - (double) oentityplayer.M, oentityplayer.v, f, f1);
             }
         }
     }
 
     public void a(double d0, double d1, double d2, String s, float f, float f1) {
         if (s != null) {
-            for (int i = 0; i < this.w.size(); ++i) {
-                ((OIWorldAccess) this.w.get(i)).a(s, d0, d1, d2, f, f1);
+            for (int i = 0; i < this.v.size(); ++i) {
+                ((OIWorldAccess) this.v.get(i)).a(s, d0, d1, d2, f, f1);
             }
         }
     }
 
-    public void b(double d0, double d1, double d2, String s, float f, float f1) {}
+    public void a(double d0, double d1, double d2, String s, float f, float f1, boolean flag) {}
 
     public void a(String s, int i, int j, int k) {
-        for (int l = 0; l < this.w.size(); ++l) {
-            ((OIWorldAccess) this.w.get(l)).a(s, i, j, k);
+        for (int l = 0; l < this.v.size(); ++l) {
+            ((OIWorldAccess) this.v.get(l)).a(s, i, j, k);
         }
     }
 
     public void a(String s, double d0, double d1, double d2, double d3, double d4, double d5) {
-        for (int i = 0; i < this.w.size(); ++i) {
-            ((OIWorldAccess) this.w.get(i)).a(s, d0, d1, d2, d3, d4, d5);
+        for (int i = 0; i < this.v.size(); ++i) {
+            ((OIWorldAccess) this.v.get(i)).a(s, d0, d1, d2, d3, d4, d5);
         }
     }
 
@@ -848,14 +847,14 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     protected void a(OEntity oentity) {
-        for (int i = 0; i < this.w.size(); ++i) {
-            ((OIWorldAccess) this.w.get(i)).a(oentity);
+        for (int i = 0; i < this.v.size(); ++i) {
+            ((OIWorldAccess) this.v.get(i)).a(oentity);
         }
     }
 
     protected void b(OEntity oentity) {
-        for (int i = 0; i < this.w.size(); ++i) {
-            ((OIWorldAccess) this.w.get(i)).b(oentity);
+        for (int i = 0; i < this.v.size(); ++i) {
+            ((OIWorldAccess) this.v.get(i)).b(oentity);
         }
     }
 
@@ -894,11 +893,11 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void a(OIWorldAccess oiworldaccess) {
-        this.w.add(oiworldaccess);
+        this.v.add(oiworldaccess);
     }
 
     public List a(OEntity oentity, OAxisAlignedBB oaxisalignedbb) {
-        this.M.clear();
+        this.L.clear();
         int i = OMathHelper.c(oaxisalignedbb.a);
         int j = OMathHelper.c(oaxisalignedbb.d + 1.0D);
         int k = OMathHelper.c(oaxisalignedbb.b);
@@ -913,7 +912,7 @@ public abstract class OWorld implements OIBlockAccess {
                         OBlock oblock = OBlock.p[this.a(k1, i2, l1)];
 
                         if (oblock != null) {
-                            oblock.a(this, k1, i2, l1, oaxisalignedbb, this.M, oentity);
+                            oblock.a(this, k1, i2, l1, oaxisalignedbb, this.L, oentity);
                         }
                     }
                 }
@@ -942,7 +941,7 @@ public abstract class OWorld implements OIBlockAccess {
                     continue;
                 }
                 // CanaryMod: End
-                this.M.add(oaxisalignedbb1);
+                this.L.add(oaxisalignedbb1);
             }
 
             oaxisalignedbb1 = oentity.g((OEntity) list.get(j2));
@@ -952,15 +951,15 @@ public abstract class OWorld implements OIBlockAccess {
                     continue;
                 }
                 // CanaryMod: End
-                this.M.add(oaxisalignedbb1);
+                this.L.add(oaxisalignedbb1);
             }
         }
 
-        return this.M;
+        return this.L;
     }
 
     public List a(OAxisAlignedBB oaxisalignedbb) {
-        this.M.clear();
+        this.L.clear();
         int i = OMathHelper.c(oaxisalignedbb.a);
         int j = OMathHelper.c(oaxisalignedbb.d + 1.0D);
         int k = OMathHelper.c(oaxisalignedbb.b);
@@ -975,14 +974,14 @@ public abstract class OWorld implements OIBlockAccess {
                         OBlock oblock = OBlock.p[this.a(k1, i2, l1)];
 
                         if (oblock != null) {
-                            oblock.a(this, k1, i2, l1, oaxisalignedbb, this.M, (OEntity) null);
+                            oblock.a(this, k1, i2, l1, oaxisalignedbb, this.L, (OEntity) null);
                         }
                     }
                 }
             }
         }
 
-        return this.M;
+        return this.L;
     }
 
     public int a(float f) {
@@ -1005,7 +1004,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public float c(float f) {
-        return this.v.a(this.z.g(), f);
+        return this.u.a(this.y.g(), f);
     }
 
     public int h(int i, int j) {
@@ -1036,8 +1035,8 @@ public abstract class OWorld implements OIBlockAccess {
     public void b(int i, int j, int k, int l, int i1) {}
 
     public void h() {
-        this.E.a("entities");
-        this.E.a("global");
+        this.D.a("entities");
+        this.D.a("global");
 
         int i;
         OEntity oentity;
@@ -1048,6 +1047,7 @@ public abstract class OWorld implements OIBlockAccess {
             oentity = (OEntity) this.i.get(i);
 
             try {
+                ++oentity.ab;
                 oentity.j_();
             } catch (Throwable throwable) {
                 ocrashreport = OCrashReport.a(throwable, "Ticking entity");
@@ -1066,7 +1066,7 @@ public abstract class OWorld implements OIBlockAccess {
             }
         }
 
-        this.E.c("remove");
+        this.D.c("remove");
         this.e.removeAll(this.f);
 
         int j;
@@ -1086,7 +1086,7 @@ public abstract class OWorld implements OIBlockAccess {
         }
 
         this.f.clear();
-        this.E.c("regular");
+        this.D.c("regular");
 
         for (i = 0; i < this.e.size(); ++i) {
             oentity = (OEntity) this.e.get(i);
@@ -1099,7 +1099,7 @@ public abstract class OWorld implements OIBlockAccess {
                 oentity.o = null;
             }
 
-            this.E.a("tick");
+            this.D.a("tick");
             if (!oentity.L) {
                 try {
                     this.g(oentity);
@@ -1116,8 +1116,8 @@ public abstract class OWorld implements OIBlockAccess {
                 }
             }
 
-            this.E.b();
-            this.E.a("remove");
+            this.D.b();
+            this.D.a("remove");
             if (oentity.L) {
                 j = oentity.ai;
                 k = oentity.ak;
@@ -1129,11 +1129,11 @@ public abstract class OWorld implements OIBlockAccess {
                 this.b(oentity);
             }
 
-            this.E.b();
+            this.D.b();
         }
 
-        this.E.c("tileEntities");
-        this.N = true;
+        this.D.c("tileEntities");
+        this.M = true;
         Iterator iterator = this.g.iterator();
 
         while (iterator.hasNext()) {
@@ -1167,13 +1167,13 @@ public abstract class OWorld implements OIBlockAccess {
             }
         }
 
-        this.N = false;
+        this.M = false;
         if (!this.b.isEmpty()) {
             this.g.removeAll(this.b);
             this.b.clear();
         }
 
-        this.E.c("pendingTileEntities");
+        this.D.c("pendingTileEntities");
         if (!this.a.isEmpty()) {
             for (int l = 0; l < this.a.size(); ++l) {
                 OTileEntity otileentity1 = (OTileEntity) this.a.get(l);
@@ -1198,12 +1198,12 @@ public abstract class OWorld implements OIBlockAccess {
             this.a.clear();
         }
 
-        this.E.b();
-        this.E.b();
+        this.D.b();
+        this.D.b();
     }
 
     public void a(Collection collection) {
-        if (this.N) {
+        if (this.M) {
             this.a.addAll(collection);
         } else {
             this.g.addAll(collection);
@@ -1229,11 +1229,12 @@ public abstract class OWorld implements OIBlockAccess {
                 if (oentity.o != null) {
                     oentity.U();
                 } else {
+                    ++oentity.ab;
                     oentity.j_();
                 }
             }
 
-            this.E.a("chunkCheck");
+            this.D.a("chunkCheck");
             if (Double.isNaN(oentity.t) || Double.isInfinite(oentity.t)) {
                 oentity.t = oentity.T;
             }
@@ -1271,7 +1272,7 @@ public abstract class OWorld implements OIBlockAccess {
                 }
             }
 
-            this.E.b();
+            this.D.b();
             if (flag && oentity.ah && oentity.n != null) {
                 if (!oentity.n.L && oentity.n.o == oentity) {
                     this.g(oentity.n);
@@ -1416,7 +1417,7 @@ public abstract class OWorld implements OIBlockAccess {
                         OBlock oblock = OBlock.p[this.a(k1, l1, i2)];
 
                         if (oblock != null && oblock.cB == omaterial) {
-                            double d0 = (double) ((float) (l1 + 1) - OBlockFluid.d(this.h(k1, l1, i2)));
+                            double d0 = (double) ((float) (l1 + 1) - OBlockFluid.e(this.h(k1, l1, i2)));
 
                             if ((double) l >= d0) {
                                 flag = true;
@@ -1598,7 +1599,7 @@ public abstract class OWorld implements OIBlockAccess {
 
     public void a(int i, int j, int k, OTileEntity otileentity) {
         if (otileentity != null && !otileentity.r()) {
-            if (this.N) {
+            if (this.M) {
                 otileentity.l = i;
                 otileentity.m = j;
                 otileentity.n = k;
@@ -1617,7 +1618,7 @@ public abstract class OWorld implements OIBlockAccess {
     public void r(int i, int j, int k) {
         OTileEntity otileentity = this.q(i, j, k);
 
-        if (otileentity != null && this.N) {
+        if (otileentity != null && this.M) {
             otileentity.w_();
             this.a.remove(otileentity);
         } else {
@@ -1668,7 +1669,7 @@ public abstract class OWorld implements OIBlockAccess {
 
     public boolean b(int i, int j, int k, boolean flag) {
         if (i >= -30000000 && k >= -30000000 && i < 30000000 && k < 30000000) {
-            OChunk ochunk = this.x.d(i >> 4, k >> 4);
+            OChunk ochunk = this.w.d(i >> 4, k >> 4);
 
             if (ochunk != null && !ochunk.g()) {
                 OBlock oblock = OBlock.p[this.a(i, j, k)];
@@ -1691,8 +1692,8 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void a(boolean flag, boolean flag1) {
-        this.F = flag;
-        this.G = flag1;
+        this.E = flag;
+        this.F = flag1;
     }
 
     public void b() {
@@ -1700,60 +1701,56 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     private void a() {
-        if (this.z.p()) {
+        if (this.y.p()) {
             this.n = 1.0F;
-            if (this.z.n()) {
+            if (this.y.n()) {
                 this.p = 1.0F;
             }
         }
     }
 
     protected void n() {
-        if (!this.v.f) {
-            if (this.q > 0) {
-                --this.q;
-            }
-
-            int i = this.z.o();
+        if (!this.u.f) {
+            int i = this.y.o();
 
             if (i <= 0) {
-                if (this.z.n()) {
-                    this.z.f(this.u.nextInt(12000) + 3600);
+                if (this.y.n()) {
+                    this.y.f(this.t.nextInt(12000) + 3600);
                 } else {
-                    this.z.f(this.u.nextInt(168000) + 12000);
+                    this.y.f(this.t.nextInt(168000) + 12000);
                 }
             } else {
                 --i;
-                this.z.f(i);
+                this.y.f(i);
                 if (i <= 0) {
                     // CanaryMod: Thunder hook
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, this.world, !this.z.n())) {
-                        this.z.a(!this.z.n());
+                        this.y.a(!this.y.n());
                     } // CanaryMod: diff visibility
                 }
             }
 
-            int j = this.z.q();
+            int j = this.y.q();
 
             if (j <= 0) {
-                if (this.z.p()) {
-                    this.z.g(this.u.nextInt(12000) + 12000);
+                if (this.y.p()) {
+                    this.y.g(this.t.nextInt(12000) + 12000);
                 } else {
-                    this.z.g(this.u.nextInt(168000) + 12000);
+                    this.y.g(this.t.nextInt(168000) + 12000);
                 }
             } else {
                 --j;
-                this.z.g(j);
+                this.y.g(j);
                 if (j <= 0) {
                     // CanaryMod: Weather hook
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, this.world, !this.z.p())) {
-                        this.z.b(!this.z.p());
+                        this.y.b(!this.y.p());
                     } // CanaryMod: diff visibility
                 }
             }
 
             this.m = this.n;
-            if (this.z.p()) {
+            if (this.y.p()) {
                 this.n = (float) ((double) this.n + 0.01D);
             } else {
                 this.n = (float) ((double) this.n - 0.01D);
@@ -1768,7 +1765,7 @@ public abstract class OWorld implements OIBlockAccess {
             }
 
             this.o = this.p;
-            if (this.z.n()) {
+            if (this.y.n()) {
                 this.p = (float) ((double) this.p + 0.01D);
             } else {
                 this.p = (float) ((double) this.p - 0.01D);
@@ -1785,12 +1782,12 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void y() {
-        this.z.g(1);
+        this.y.g(1);
     }
 
     protected void z() {
-        this.H.clear();
-        this.E.a("buildList");
+        this.G.clear();
+        this.D.a("buildList");
 
         int i;
         OEntityPlayer oentityplayer;
@@ -1805,33 +1802,33 @@ public abstract class OWorld implements OIBlockAccess {
 
             for (int l = -b0; l <= b0; ++l) {
                 for (int i1 = -b0; i1 <= b0; ++i1) {
-                    this.H.add(new OChunkCoordIntPair(l + j, i1 + k));
+                    this.G.add(new OChunkCoordIntPair(l + j, i1 + k));
                 }
             }
         }
 
-        this.E.b();
-        if (this.O > 0) {
-            --this.O;
+        this.D.b();
+        if (this.N > 0) {
+            --this.N;
         }
 
-        this.E.a("playerCheckLight");
+        this.D.a("playerCheckLight");
         if (!this.h.isEmpty()) {
-            i = this.u.nextInt(this.h.size());
+            i = this.t.nextInt(this.h.size());
             oentityplayer = (OEntityPlayer) this.h.get(i);
-            j = OMathHelper.c(oentityplayer.t) + this.u.nextInt(11) - 5;
-            k = OMathHelper.c(oentityplayer.u) + this.u.nextInt(11) - 5;
-            int j1 = OMathHelper.c(oentityplayer.v) + this.u.nextInt(11) - 5;
+            j = OMathHelper.c(oentityplayer.t) + this.t.nextInt(11) - 5;
+            k = OMathHelper.c(oentityplayer.u) + this.t.nextInt(11) - 5;
+            int j1 = OMathHelper.c(oentityplayer.v) + this.t.nextInt(11) - 5;
 
             this.z(j, k, j1);
         }
 
-        this.E.b();
+        this.D.b();
     }
 
     protected void a(int i, int j, OChunk ochunk) {
-        this.E.c("moodSound");
-        if (this.O == 0 && !this.J) {
+        this.D.c("moodSound");
+        if (this.N == 0 && !this.I) {
             this.k = this.k * 3 + 1013904223;
             int k = this.k >> 2;
             int l = k & 15;
@@ -1841,17 +1838,17 @@ public abstract class OWorld implements OIBlockAccess {
 
             l += i;
             i1 += j;
-            if (k1 == 0 && this.l(l, j1, i1) <= this.u.nextInt(8) && this.b(OEnumSkyBlock.a, l, j1, i1) <= 0) {
+            if (k1 == 0 && this.l(l, j1, i1) <= this.t.nextInt(8) && this.b(OEnumSkyBlock.a, l, j1, i1) <= 0) {
                 OEntityPlayer oentityplayer = this.a((double) l + 0.5D, (double) j1 + 0.5D, (double) i1 + 0.5D, 8.0D);
 
                 if (oentityplayer != null && oentityplayer.e((double) l + 0.5D, (double) j1 + 0.5D, (double) i1 + 0.5D) > 4.0D) {
-                    this.a((double) l + 0.5D, (double) j1 + 0.5D, (double) i1 + 0.5D, "ambient.cave.cave", 0.7F, 0.8F + this.u.nextFloat() * 0.2F);
-                    this.O = this.u.nextInt(12000) + 6000;
+                    this.a((double) l + 0.5D, (double) j1 + 0.5D, (double) i1 + 0.5D, "ambient.cave.cave", 0.7F, 0.8F + this.t.nextFloat() * 0.2F);
+                    this.N = this.t.nextInt(12000) + 6000;
                 }
             }
         }
 
-        this.E.c("checkLight");
+        this.D.c("checkLight");
         ochunk.o();
     }
 
@@ -1931,7 +1928,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void z(int i, int j, int k) {
-        if (!this.v.f) {
+        if (!this.u.f) {
             this.c(OEnumSkyBlock.a, i, j, k);
         }
 
@@ -2024,7 +2021,7 @@ public abstract class OWorld implements OIBlockAccess {
             int l = 0;
             int i1 = 0;
 
-            this.E.a("getBrightness");
+            this.D.a("getBrightness");
             int j1 = this.b(oenumskyblock, i, j, k);
             boolean flag = false;
             int k1 = this.a(i, j, k);
@@ -2053,16 +2050,16 @@ public abstract class OWorld implements OIBlockAccess {
             int i4;
 
             if (i2 > j1) {
-                this.I[i1++] = 133152;
+                this.H[i1++] = 133152;
             } else if (i2 < j1) {
                 if (oenumskyblock != OEnumSkyBlock.b) {
                     ;
                 }
 
-                this.I[i1++] = 133152 + (j1 << 18);
+                this.H[i1++] = 133152 + (j1 << 18);
 
                 while (l < i1) {
-                    k1 = this.I[l++];
+                    k1 = this.H[l++];
                     l1 = (k1 & 63) - 32 + i;
                     i2 = (k1 >> 6 & 63) - 32 + j;
                     j2 = (k1 >> 12 & 63) - 32 + k;
@@ -2100,8 +2097,8 @@ public abstract class OWorld implements OIBlockAccess {
                                         i5 = 1;
                                     }
 
-                                    if (l2 == k2 - i5 && i1 < this.I.length) {
-                                        this.I[i1++] = j4 - i + 32 + (k4 - j + 32 << 6) + (l4 - k + 32 << 12) + (k2 - i5 << 18);
+                                    if (l2 == k2 - i5 && i1 < this.H.length) {
+                                        this.H[i1++] = j4 - i + 32 + (k4 - j + 32 << 6) + (l4 - k + 32 << 12) + (k2 - i5 << 18);
                                     }
                                 }
                             }
@@ -2112,11 +2109,11 @@ public abstract class OWorld implements OIBlockAccess {
                 l = 0;
             }
 
-            this.E.b();
-            this.E.a("checkedPosition < toCheckCount");
+            this.D.b();
+            this.D.a("checkedPosition < toCheckCount");
 
             while (l < i1) {
-                k1 = this.I[l++];
+                k1 = this.H[l++];
                 l1 = (k1 & 63) - 32 + i;
                 i2 = (k1 >> 6 & 63) - 32 + j;
                 j2 = (k1 >> 12 & 63) - 32 + k;
@@ -2153,36 +2150,36 @@ public abstract class OWorld implements OIBlockAccess {
                             l3 = -l3;
                         }
 
-                        if (j3 + i4 + l3 < 17 && i1 < this.I.length - 6) {
+                        if (j3 + i4 + l3 < 17 && i1 < this.H.length - 6) {
                             if (this.b(oenumskyblock, l1 - 1, i2, j2) < k3) {
-                                this.I[i1++] = l1 - 1 - i + 32 + (i2 - j + 32 << 6) + (j2 - k + 32 << 12);
+                                this.H[i1++] = l1 - 1 - i + 32 + (i2 - j + 32 << 6) + (j2 - k + 32 << 12);
                             }
 
                             if (this.b(oenumskyblock, l1 + 1, i2, j2) < k3) {
-                                this.I[i1++] = l1 + 1 - i + 32 + (i2 - j + 32 << 6) + (j2 - k + 32 << 12);
+                                this.H[i1++] = l1 + 1 - i + 32 + (i2 - j + 32 << 6) + (j2 - k + 32 << 12);
                             }
 
                             if (this.b(oenumskyblock, l1, i2 - 1, j2) < k3) {
-                                this.I[i1++] = l1 - i + 32 + (i2 - 1 - j + 32 << 6) + (j2 - k + 32 << 12);
+                                this.H[i1++] = l1 - i + 32 + (i2 - 1 - j + 32 << 6) + (j2 - k + 32 << 12);
                             }
 
                             if (this.b(oenumskyblock, l1, i2 + 1, j2) < k3) {
-                                this.I[i1++] = l1 - i + 32 + (i2 + 1 - j + 32 << 6) + (j2 - k + 32 << 12);
+                                this.H[i1++] = l1 - i + 32 + (i2 + 1 - j + 32 << 6) + (j2 - k + 32 << 12);
                             }
 
                             if (this.b(oenumskyblock, l1, i2, j2 - 1) < k3) {
-                                this.I[i1++] = l1 - i + 32 + (i2 - j + 32 << 6) + (j2 - 1 - k + 32 << 12);
+                                this.H[i1++] = l1 - i + 32 + (i2 - j + 32 << 6) + (j2 - 1 - k + 32 << 12);
                             }
 
                             if (this.b(oenumskyblock, l1, i2, j2 + 1) < k3) {
-                                this.I[i1++] = l1 - i + 32 + (i2 - j + 32 << 6) + (j2 + 1 - k + 32 << 12);
+                                this.H[i1++] = l1 - i + 32 + (i2 - j + 32 << 6) + (j2 + 1 - k + 32 << 12);
                             }
                         }
                     }
                 }
             }
 
-            this.E.b();
+            this.D.b();
         }
     }
 
@@ -2311,7 +2308,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public OPathEntity a(OEntity oentity, OEntity oentity1, float f, boolean flag, boolean flag1, boolean flag2, boolean flag3) {
-        this.E.a("pathfind");
+        this.D.a("pathfind");
         int i = OMathHelper.c(oentity.t);
         int j = OMathHelper.c(oentity.u + 1.0D);
         int k = OMathHelper.c(oentity.v);
@@ -2325,12 +2322,12 @@ public abstract class OWorld implements OIBlockAccess {
         OChunkCache ochunkcache = new OChunkCache(this, i1, j1, k1, l1, i2, j2);
         OPathEntity opathentity = (new OPathFinder(ochunkcache, flag, flag1, flag2, flag3)).a(oentity, oentity1, f);
 
-        this.E.b();
+        this.D.b();
         return opathentity;
     }
 
     public OPathEntity a(OEntity oentity, int i, int j, int k, float f, boolean flag, boolean flag1, boolean flag2, boolean flag3) {
-        this.E.a("pathfind");
+        this.D.a("pathfind");
         int l = OMathHelper.c(oentity.t);
         int i1 = OMathHelper.c(oentity.u);
         int j1 = OMathHelper.c(oentity.v);
@@ -2344,7 +2341,7 @@ public abstract class OWorld implements OIBlockAccess {
         OChunkCache ochunkcache = new OChunkCache(this, l1, i2, j2, k2, l2, i3);
         OPathEntity opathentity = (new OPathFinder(ochunkcache, flag, flag1, flag2, flag3)).a(oentity, i, j, k, f);
 
-        this.E.b();
+        this.D.b();
         return opathentity;
     }
 
@@ -2404,7 +2401,7 @@ public abstract class OWorld implements OIBlockAccess {
         for (int i = 0; i < this.h.size(); ++i) {
             OEntityPlayer oentityplayer1 = (OEntityPlayer) this.h.get(i);
 
-            if (!oentityplayer1.cc.a) {
+            if (!oentityplayer1.cd.a && oentityplayer1.S()) {
                 double d5 = oentityplayer1.e(d0, d1, d2);
                 double d6 = d3;
 
@@ -2413,7 +2410,7 @@ public abstract class OWorld implements OIBlockAccess {
                 }
 
                 if (oentityplayer1.aj()) {
-                    float f = oentityplayer1.bS();
+                    float f = oentityplayer1.bR();
 
                     if (f < 0.1F) {
                         f = 0.1F;
@@ -2434,7 +2431,7 @@ public abstract class OWorld implements OIBlockAccess {
 
     public OEntityPlayer a(String s) {
         for (int i = 0; i < this.h.size(); ++i) {
-            if (s.equals(((OEntityPlayer) this.h.get(i)).bQ)) {
+            if (s.equals(((OEntityPlayer) this.h.get(i)).bR)) {
                 return (OEntityPlayer) this.h.get(i);
             }
         }
@@ -2443,29 +2440,29 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void D() {
-        this.y.c();
+        this.x.c();
     }
 
     public long E() {
-        return this.z.b();
+        return this.y.b();
     }
 
     public long F() {
-        return this.z.f();
+        return this.y.f();
     }
 
     public long G() {
-        return this.z.g();
+        return this.y.g();
     }
 
     public void b(long i) {
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.TIME_CHANGE, this.world, i)) {
-            this.z.c(i);
+            this.y.c(i);
         } // CanaryMod: diff visibility
     }
 
     public OChunkCoordinates H() {
-        return new OChunkCoordinates(this.z.c(), this.z.d(), this.z.e());
+        return new OChunkCoordinates(this.y.c(), this.y.d(), this.y.e());
     }
 
     public boolean a(OEntityPlayer oentityplayer, int i, int j, int k) {
@@ -2475,7 +2472,7 @@ public abstract class OWorld implements OIBlockAccess {
     public void a(OEntity oentity, byte b0) {}
 
     public OIChunkProvider I() {
-        return this.x;
+        return this.w;
     }
 
     public void c(int i, int j, int k, int l, int i1, int j1) {
@@ -2485,15 +2482,15 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public OISaveHandler J() {
-        return this.y;
+        return this.x;
     }
 
     public OWorldInfo K() {
-        return this.z;
+        return this.y;
     }
 
     public OGameRules L() {
-        return this.z.x();
+        return this.y.x();
     }
 
     public void c() {}
@@ -2535,20 +2532,20 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void a(String s, OWorldSavedData oworldsaveddata) {
-        this.B.a(s, oworldsaveddata);
+        this.A.a(s, oworldsaveddata);
     }
 
     public OWorldSavedData a(Class oclass, String s) {
-        return this.B.a(oclass, s);
+        return this.A.a(oclass, s);
     }
 
     public int b(String s) {
-        return this.B.a(s);
+        return this.A.a(s);
     }
 
     public void e(int i, int j, int k, int l, int i1) {
-        for (int j1 = 0; j1 < this.w.size(); ++j1) {
-            ((OIWorldAccess) this.w.get(j1)).a(i, j, k, l, i1);
+        for (int j1 = 0; j1 < this.v.size(); ++j1) {
+            ((OIWorldAccess) this.v.get(j1)).a(i, j, k, l, i1);
         }
     }
 
@@ -2557,8 +2554,19 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void a(OEntityPlayer oentityplayer, int i, int j, int k, int l, int i1) {
-        for (int j1 = 0; j1 < this.w.size(); ++j1) {
-            ((OIWorldAccess) this.w.get(j1)).a(oentityplayer, i, j, k, l, i1);
+        try {
+            for (int j1 = 0; j1 < this.v.size(); ++j1) {
+                ((OIWorldAccess) this.v.get(j1)).a(oentityplayer, i, j, k, l, i1);
+            }
+        } catch (Throwable throwable) {
+            OCrashReport ocrashreport = OCrashReport.a(throwable, "Playing level event");
+            OCrashReportCategory ocrashreportcategory = ocrashreport.a("Level event being played");
+
+            ocrashreportcategory.a("Block coordinates", OCrashReportCategory.a(j, k, l));
+            ocrashreportcategory.a("Event source", oentityplayer);
+            ocrashreportcategory.a("Event type", Integer.valueOf(i));
+            ocrashreportcategory.a("Event data", Integer.valueOf(i1));
+            throw new OReportedException(ocrashreport);
         }
     }
 
@@ -2567,7 +2575,7 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public int P() {
-        return this.v.f ? 128 : 256;
+        return this.u.f ? 128 : 256;
     }
 
     public OIUpdatePlayerListBox a(OEntityMinecart oentityminecart) {
@@ -2577,8 +2585,8 @@ public abstract class OWorld implements OIBlockAccess {
     public Random F(int i, int j, int k) {
         long l = (long) i * 341873128712L + (long) j * 132897987541L + this.K().b() + (long) k;
 
-        this.u.setSeed(l);
-        return this.u;
+        this.t.setSeed(l);
+        return this.t;
     }
 
     public OChunkPosition b(String s, int i, int j, int k) {
@@ -2588,12 +2596,12 @@ public abstract class OWorld implements OIBlockAccess {
     public OCrashReportCategory a(OCrashReport ocrashreport) {
         OCrashReportCategory ocrashreportcategory = ocrashreport.a("Affected level", 1);
 
-        ocrashreportcategory.a("Level name", (this.z == null ? "????" : this.z.k()));
+        ocrashreportcategory.a("Level name", (this.y == null ? "????" : this.y.k()));
         ocrashreportcategory.a("All players", (Callable) (new OCallableLvl2(this)));
         ocrashreportcategory.a("Chunk stats", (Callable) (new OCallableLvl3(this)));
 
         try {
-            this.z.a(ocrashreportcategory);
+            this.y.a(ocrashreportcategory);
         } catch (Throwable throwable) {
             ocrashreportcategory.a("Level Data Unobtainable", throwable);
         }
@@ -2602,22 +2610,22 @@ public abstract class OWorld implements OIBlockAccess {
     }
 
     public void g(int i, int j, int k, int l, int i1) {
-        for (int j1 = 0; j1 < this.w.size(); ++j1) {
-            OIWorldAccess oiworldaccess = (OIWorldAccess) this.w.get(j1);
+        for (int j1 = 0; j1 < this.v.size(); ++j1) {
+            OIWorldAccess oiworldaccess = (OIWorldAccess) this.v.get(j1);
 
             oiworldaccess.b(i, j, k, l, i1);
         }
     }
 
     public OVec3Pool S() {
-        return this.K;
+        return this.J;
     }
 
     public Calendar T() {
         if (this.F() % 600L == 0L) {
-            this.L.setTimeInMillis(System.currentTimeMillis());
+            this.K.setTimeInMillis(System.currentTimeMillis());
         }
 
-        return this.L;
+        return this.K;
     }
 }

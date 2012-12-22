@@ -65,7 +65,7 @@ public class OExplosion {
                         d3 /= d6;
                         d4 /= d6;
                         d5 /= d6;
-                        float f1 = this.g * (0.7F + this.k.u.nextFloat() * 0.6F);
+                        float f1 = this.g * (0.7F + this.k.t.nextFloat() * 0.6F);
 
                         d0 = this.c;
                         d1 = this.d;
@@ -155,10 +155,11 @@ public class OExplosion {
                     if (!cancel && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, (this.f != null ? this.f.entity : null), oentity.entity, damage)) {
                         oentity.a(ODamageSource.k, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.g + 1.0D));
                     }
+                    double d11 = OEnchantmentProtection.a(oentity, d10);
 
-                    oentity.w += d0 * d10;
-                    oentity.x += d1 * d10;
-                    oentity.y += d2 * d10;
+                    oentity.w += d0 * d11;
+                    oentity.x += d1 * d11;
+                    oentity.y += d2 * d11;
                     if (oentity instanceof OEntityPlayer) {
                         this.l.put((OEntityPlayer) oentity, this.k.S().a(d0 * d10, d1 * d10, d2 * d10));
                     }
@@ -170,7 +171,7 @@ public class OExplosion {
     }
 
     public void a(boolean flag) {
-        this.k.a(this.c, this.d, this.e, "random.explode", 4.0F, (1.0F + (this.k.u.nextFloat() - this.k.u.nextFloat()) * 0.2F) * 0.7F);
+        this.k.a(this.c, this.d, this.e, "random.explode", 4.0F, (1.0F + (this.k.t.nextFloat() - this.k.t.nextFloat()) * 0.2F) * 0.7F);
         if (this.g >= 2.0F && this.b) {
             this.k.a("hugeexplosion", this.c, this.d, this.e, 1.0D, 0.0D, 0.0D);
         } else {
@@ -194,9 +195,9 @@ public class OExplosion {
                 k = ochunkposition.c;
                 l = this.k.a(i, j, k);
                 if (flag) {
-                    double d0 = (double) ((float) i + this.k.u.nextFloat());
-                    double d1 = (double) ((float) j + this.k.u.nextFloat());
-                    double d2 = (double) ((float) k + this.k.u.nextFloat());
+                    double d0 = (double) ((float) i + this.k.t.nextFloat());
+                    double d1 = (double) ((float) j + this.k.t.nextFloat());
+                    double d2 = (double) ((float) k + this.k.t.nextFloat());
                     double d3 = d0 - this.c;
                     double d4 = d1 - this.d;
                     double d5 = d2 - this.e;
@@ -207,7 +208,7 @@ public class OExplosion {
                     d5 /= d6;
                     double d7 = 0.5D / (d6 / (double) this.g + 0.1D);
 
-                    d7 *= (double) (this.k.u.nextFloat() * this.k.u.nextFloat() + 0.3F);
+                    d7 *= (double) (this.k.t.nextFloat() * this.k.t.nextFloat() + 0.3F);
                     d3 *= d7;
                     d4 *= d7;
                     d5 *= d7;
@@ -222,7 +223,7 @@ public class OExplosion {
                         oblock.a(this.k, i, j, k, this.k.h(i, j, k), 0.3F, 0);
                     }
 
-                    if (this.k.a(i, j, k, 0, 0, this.k.J)) {
+                    if (this.k.a(i, j, k, 0, 0, this.k.I)) {
                         this.k.h(i, j, k, 0);
                     }
 

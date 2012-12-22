@@ -77,12 +77,12 @@ public class OEntityBoat extends OEntity {
 
         if (this.ar()) {
             return false;
-        } else if (!this.p.J && !this.L) {
+        } else if (!this.p.I && !this.L) {
             this.h(-this.h());
             this.g(10);
             this.a(this.d() + i * 10);
             this.K();
-            if (odamagesource.g() instanceof OEntityPlayer && ((OEntityPlayer) odamagesource.g()).cc.d) {
+            if (odamagesource.g() instanceof OEntityPlayer && ((OEntityPlayer) odamagesource.g()).cd.d) {
                 this.a(100);
             }
 
@@ -91,7 +91,7 @@ public class OEntityBoat extends OEntity {
                     this.n.a((OEntity) this);
                 }
 
-                this.a(OItem.aE.cg, 1, 0.0F);
+                this.a(OItem.aE.cj, 1, 0.0F);
                 this.x();
             }
 
@@ -167,7 +167,7 @@ public class OEntityBoat extends OEntity {
         double d10;
         double d11;
 
-        if (this.p.J && this.a) {
+        if (this.p.I && this.a) {
             if (this.c > 0) {
                 d4 = this.t + (this.d - this.t) / (double) this.c;
                 d5 = this.u + (this.e - this.u) / (double) this.c;
@@ -238,7 +238,7 @@ public class OEntityBoat extends OEntity {
 
             this.d(this.w, this.x, this.y);
             if (this.F && d3 > 0.2D) {
-                if (!this.p.J) {
+                if (!this.p.I) {
                     this.x();
 
                     int k;
@@ -248,7 +248,7 @@ public class OEntityBoat extends OEntity {
                     }
 
                     for (k = 0; k < 2; ++k) {
-                        this.a(OItem.D.cg, 1, 0.0F);
+                        this.a(OItem.D.cj, 1, 0.0F);
                     }
                 }
             } else {
@@ -277,7 +277,7 @@ public class OEntityBoat extends OEntity {
 
             this.z = (float) ((double) this.z + d12);
             this.b(this.z, this.A);
-            if (!this.p.J) {
+            if (!this.p.I) {
                 // CanaryMod: Change of the boat
                 if ((int) this.q != (int) prevX || (int) this.r != (int) prevY || (int) this.s != (int) prevZ) {
                     manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, boat, (int) this.q, (int) this.r, (int) this.s);
@@ -341,7 +341,7 @@ public class OEntityBoat extends OEntity {
         if (this.n != null && this.n instanceof OEntityPlayer && this.n != oentityplayer) {
             return true;
         } else {
-            if (!this.p.J) {
+            if (!this.p.I) {
                 oentityplayer.a((OEntity) this);
             }
 

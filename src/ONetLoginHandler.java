@@ -23,8 +23,8 @@ public class ONetLoginHandler extends ONetHandler {
     private String h = null;
     private volatile boolean i = false;
     private String j = "";
-    private SecretKey k = null;
-
+    private boolean k = false;
+    private SecretKey l = null;
     private String worldname; // CanaryMod: store worldname given by plugins
 
     public ONetLoginHandler(OMinecraftServer ominecraftserver, Socket socket, String s) {
@@ -63,8 +63,8 @@ public class ONetLoginHandler extends ONetHandler {
         } else {
             PublicKey publickey = this.f.F().getPublic();
 
-            if (opacket2clientprotocol.d() != 49) {
-                if (opacket2clientprotocol.d() > 49) {
+            if (opacket2clientprotocol.d() != 51) {
+                if (opacket2clientprotocol.d() > 51) {
                     this.a("Outdated server!");
                 } else {
                     this.a("Outdated client!");
@@ -81,7 +81,7 @@ public class ONetLoginHandler extends ONetHandler {
     public void a(OPacket252SharedKey opacket252sharedkey) {
         PrivateKey privatekey = this.f.F().getPrivate();
 
-        this.k = opacket252sharedkey.a(privatekey);
+        this.l = opacket252sharedkey.a(privatekey);
         if (!Arrays.equals(this.d, opacket252sharedkey.b(privatekey))) {
             this.a("Invalid client reply");
         }
@@ -91,6 +91,12 @@ public class ONetLoginHandler extends ONetHandler {
 
     public void a(OPacket205ClientCommand opacket205clientcommand) {
         if (opacket205clientcommand.a == 0) {
+            if (this.k) {
+                this.a("Duplicate login");
+                return;
+            }
+
+            this.k = true;
             if (this.f.U()) {
                 (new OThreadLoginVerifier(this)).start();
             } else {
@@ -131,7 +137,7 @@ public class ONetLoginHandler extends ONetHandler {
             String s = null;
 
             if (opacket254serverping.a == 1) {
-                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(49), this.f.x(), this.f.aa(), Integer.valueOf(oserverconfigurationmanager.k()), Integer.valueOf(oserverconfigurationmanager.l())});
+                List list = Arrays.asList(new Serializable[] { Integer.valueOf(1), Integer.valueOf(51), this.f.x(), this.f.aa(), Integer.valueOf(oserverconfigurationmanager.k()), Integer.valueOf(oserverconfigurationmanager.l())});
 
                 Object object;
 
@@ -186,7 +192,7 @@ public class ONetLoginHandler extends ONetHandler {
     }
 
     static SecretKey c(ONetLoginHandler onetloginhandler) {
-        return onetloginhandler.k;
+        return onetloginhandler.l;
     }
 
     static String d(ONetLoginHandler onetloginhandler) {

@@ -103,7 +103,7 @@ public class OContainerMerchant extends OContainer {
         super.b(oentityplayer);
         this.a.b_((OEntityPlayer) null);
         super.b(oentityplayer);
-        if (!this.g.J) {
+        if (!this.g.I) {
             OItemStack oitemstack = this.f.a_(0);
 
             if (oitemstack != null) {

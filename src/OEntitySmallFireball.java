@@ -16,7 +16,7 @@ public class OEntitySmallFireball extends OEntityFireball {
     }
 
     protected void a(OMovingObjectPosition omovingobjectposition) {
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.p.J) {
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.p.I) {
             if (omovingobjectposition.g != null) {
                 if (!omovingobjectposition.g.F() && omovingobjectposition.g.a(ODamageSource.a((OEntityFireball) this, this.a), 5)) {
                     omovingobjectposition.g.c(5);

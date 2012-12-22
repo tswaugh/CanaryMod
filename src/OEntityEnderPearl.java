@@ -29,7 +29,7 @@ public class OEntityEnderPearl extends OEntityThrowable {
                 this.p.a("portal", this.t, this.u + this.aa.nextDouble() * 2.0D, this.v, this.aa.nextGaussian(), 0.0D, this.aa.nextGaussian());
             }
 
-            if (!this.p.J) {
+        if (!this.p.I) {
                 if (this.h() != null && this.h() instanceof OEntityPlayerMP) {
                     OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.h();
 

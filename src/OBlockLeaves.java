@@ -35,7 +35,7 @@ public class OBlockLeaves extends OBlockLeavesBase {
     }
 
     public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             int l = oworld.h(i, j, k);
 
             if ((l & 8) != 0 && (l & 4) == 0) {
@@ -136,27 +136,27 @@ public class OBlockLeaves extends OBlockLeavesBase {
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l, float f, int i1) {
-        if (!oworld.J) {
+        if (!oworld.I) {
             byte b0 = 20;
 
             if ((l & 3) == 3) {
                 b0 = 40;
             }
 
-            if (oworld.u.nextInt(b0) == 0) {
-                int j1 = this.a(l, oworld.u, i1);
+            if (oworld.t.nextInt(b0) == 0) {
+                int j1 = this.a(l, oworld.t, i1);
 
                 this.b(oworld, i, j, k, new OItemStack(j1, 1, this.b(l)));
             }
 
-            if ((l & 3) == 0 && oworld.u.nextInt(200) == 0) {
+            if ((l & 3) == 0 && oworld.t.nextInt(200) == 0) {
                 this.b(oworld, i, j, k, new OItemStack(OItem.j, 1, 0));
             }
         }
     }
 
     public void a(OWorld oworld, OEntityPlayer oentityplayer, int i, int j, int k, int l) {
-        if (!oworld.J && oentityplayer.bT() != null && oentityplayer.bT().c == OItem.be.cg) {
+        if (!oworld.I && oentityplayer.bS() != null && oentityplayer.bS().c == OItem.be.cj) {
             oentityplayer.a(OStatList.C[this.cm], 1);
             this.b(oworld, i, j, k, new OItemStack(OBlock.N.cm, 1, l & 3));
         } else {
@@ -174,5 +174,9 @@ public class OBlockLeaves extends OBlockLeavesBase {
 
     public int a(int i, int j) {
         return (j & 3) == 1 ? this.cl + 80 : ((j & 3) == 3 ? this.cl + 144 : this.cl);
+    }
+
+    protected OItemStack f_(int i) {
+        return new OItemStack(this.cm, 1, i & 3);
     }
 }

@@ -128,6 +128,7 @@ public class OEntityList {
         a(OEntityWitherSkull.class, "WitherSkull", 19);
         a(OEntityTNTPrimed.class, "PrimedTnt", 20);
         a(OEntityFallingSand.class, "FallingSand", 21);
+        a(OEntityFireworkRocket.class, "FireworksRocketEntity", 22);
         a(OEntityMinecart.class, "Minecart", 40);
         a(OEntityBoat.class, "Boat", 41);
         a(OEntityLiving.class, "Mob", 48);

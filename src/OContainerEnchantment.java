@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -60,7 +59,7 @@ public class OContainerEnchantment extends OContainer {
 
             if (oitemstack != null && oitemstack.v()) {
                 this.f = this.l.nextLong();
-                if (!this.h.J) {
+                if (!this.h.I) {
                     i = 0;
 
                     int j;
@@ -115,8 +114,9 @@ public class OContainerEnchantment extends OContainer {
         OItemStack oitemstack = this.a.a(0);
 
         if (this.g[i] > 0 && oitemstack != null && (oentityplayer.cd >= this.g[i] || oentityplayer.cc.d)) {
-            if (!this.h.J) {
+            if (!this.h.I) {
                 List list = OEnchantmentHelper.b(this.l, oitemstack, this.g[i]);
+                boolean flag = oitemstack.c == OItem.aL.cj;
 
                 if (list != null) {
                     // CanaryMod hook: onEnchant
@@ -131,12 +131,22 @@ public class OContainerEnchantment extends OContainer {
                         }
 
                         oentityplayer.a(-this.g[i]);
-                        Iterator iterator = list.iterator();
+                        if (flag) {
+                            oitemstack.c = OItem.bW.cj;
+                        }
 
-                        while (iterator.hasNext()) {
-                            OEnchantmentData oenchantmentdata = (OEnchantmentData) iterator.next();
+                        int j = flag ? this.l.nextInt(list.size()) : -1;
 
-                            oitemstack.a(oenchantmentdata.b, oenchantmentdata.c);
+                        for (int k = 0; k < list.size(); ++k) {
+                            OEnchantmentData oenchantmentdata = (OEnchantmentData) list.get(k);
+
+                            if (!flag || k == j) {
+                                if (flag) {
+                                    OItem.bW.a(oitemstack, oenchantmentdata);
+                                } else {
+                                    oitemstack.a(oenchantmentdata.b, oenchantmentdata.c);
+                                }
+                            }
                         }
 
                         this.a(this.a);
@@ -152,7 +162,7 @@ public class OContainerEnchantment extends OContainer {
 
     public void b(OEntityPlayer oentityplayer) {
         super.b(oentityplayer);
-        if (!this.h.J) {
+        if (!this.h.I) {
             OItemStack oitemstack = this.a.a_(0);
 
             if (oitemstack != null) {

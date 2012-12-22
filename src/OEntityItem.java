@@ -2,25 +2,31 @@ import java.util.Iterator;
 
 public class OEntityItem extends OEntity {
 
-    public OItemStack a;
-    public int b = 0;
-    public int c;
-    private int e = 5;
-    public float d = (float) (Math.random() * 3.141592653589793D * 2.0D);
+    public int a;
+    public int b;
+    private int d;
+    public float c;
     // CanaryMod Start
     ItemEntity item = new ItemEntity(this);
     // CanaryMod End
 
-    public OEntityItem(OWorld oworld, double d0, double d1, double d2, OItemStack oitemstack) {
+    public OEntityItem(OWorld oworld, double d0, double d1, double d2) {
         super(oworld);
+        this.a = 0;
+        this.d = 5;
+        this.c = (float) (Math.random() * 3.141592653589793D * 2.0D);
         this.a(0.25F, 0.25F);
         this.M = this.O / 2.0F;
         this.b(d0, d1, d2);
-        this.a = oitemstack;
         this.z = (float) (Math.random() * 360.0D);
         this.w = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
         this.x = 0.20000000298023224D;
         this.y = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
+    }
+
+    public OEntityItem(OWorld oworld, double d0, double d1, double d2, OItemStack oitemstack) {
+        this(oworld, d0, d1, d2);
+        this.a(oitemstack);
     }
 
     protected boolean f_() {
@@ -29,16 +35,21 @@ public class OEntityItem extends OEntity {
 
     public OEntityItem(OWorld oworld) {
         super(oworld);
+        this.a = 0;
+        this.d = 5;
+        this.c = (float) (Math.random() * 3.141592653589793D * 2.0D);
         this.a(0.25F, 0.25F);
         this.M = this.O / 2.0F;
     }
 
-    protected void a() {}
+    protected void a() {
+        this.v().a(10, 5);
+    }
 
     public void j_() {
         super.j_();
-        if (this.c > 0) {
-            --this.c;
+        if (this.b > 0) {
+            --this.b;
         }
 
         boolean tmpTouchesGround = this.E; // CanaryMod
@@ -50,7 +61,7 @@ public class OEntityItem extends OEntity {
         this.d(this.w, this.x, this.y);
         boolean flag = (int) this.q != (int) this.t || (int) this.r != (int) this.u || (int) this.s != (int) this.v;
 
-        if (flag) {
+        if (flag || this.ab % 25 == 0) {
             if (this.p.g(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) == OMaterial.i) {
                 this.x = 0.20000000298023224D;
                 this.w = (double) ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F);
@@ -58,8 +69,8 @@ public class OEntityItem extends OEntity {
                 this.a("random.fizz", 0.4F, 2.0F + this.aa.nextFloat() * 0.4F);
             }
 
-            if (!this.p.J) {
-                this.d();
+            if (!this.p.I) {
+                this.g();
             }
         }
 
@@ -89,8 +100,8 @@ public class OEntityItem extends OEntity {
             this.x *= -0.5D;
         }
 
-        ++this.b;
-        if (!this.p.J && this.b >= 6000) {
+        ++this.a;
+        if (!this.p.I && this.a >= 6000) {
             // CanaryMod onEntityDespawn
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ENTITY_DESPAWN, item)) {
                 this.x();
@@ -100,7 +111,7 @@ public class OEntityItem extends OEntity {
         }
     }
 
-    private void d() {
+    private void g() {
         Iterator iterator = this.p.a(OEntityItem.class, this.D.b(0.5D, 0.0D, 0.5D)).iterator();
 
         while (iterator.hasNext()) {
@@ -114,22 +125,26 @@ public class OEntityItem extends OEntity {
         if (oentityitem == this) {
             return false;
         } else if (oentityitem.S() && this.S()) {
-            if (oentityitem.a.b() != this.a.b()) {
+            OItemStack oitemstack = this.d();
+            OItemStack oitemstack1 = oentityitem.d();
+
+            if (oitemstack1.b() != oitemstack.b()) {
                 return false;
-            } else if (oentityitem.a.o() ^ this.a.o()) {
+            } else if (oitemstack1.o() ^ oitemstack.o()) {
                 return false;
-            } else if (oentityitem.a.o() && !oentityitem.a.p().equals(this.a.p())) {
+            } else if (oitemstack1.o() && !oitemstack1.p().equals(oitemstack.p())) {
                 return false;
-            } else if (oentityitem.a.b().l() && oentityitem.a.j() != this.a.j()) {
+            } else if (oitemstack1.b().l() && oitemstack1.j() != oitemstack.j()) {
                 return false;
-            } else if (oentityitem.a.a < this.a.a) {
+            } else if (oitemstack1.a < oitemstack.a) {
                 return oentityitem.a(this);
-            } else if (oentityitem.a.a + this.a.a > oentityitem.a.d()) {
+            } else if (oitemstack1.a + oitemstack.a > oitemstack1.d()) {
                 return false;
             } else {
-                oentityitem.a.a += this.a.a;
-                oentityitem.c = Math.max(oentityitem.c, this.c);
-                oentityitem.b = Math.min(oentityitem.b, this.b);
+                oitemstack1.a += oitemstack.a;
+                oentityitem.b = Math.max(oentityitem.b, this.b);
+                oentityitem.a = Math.min(oentityitem.a, this.a);
+                oentityitem.a(oitemstack1);
                 this.x();
                 return true;
             }
@@ -139,7 +154,7 @@ public class OEntityItem extends OEntity {
     }
 
     public void c() {
-        this.b = 4800;
+        this.a = 4800;
     }
 
     public boolean I() {
@@ -153,10 +168,12 @@ public class OEntityItem extends OEntity {
     public boolean a(ODamageSource odamagesource, int i) {
         if (this.ar()) {
             return false;
+        } else if (this.d() != null && this.d().c == OItem.bS.cj && odamagesource == ODamageSource.k) {
+            return false;
         } else {
             this.K();
-            this.e -= i;
-            if (this.e <= 0) {
+            this.d -= i;
+            if (this.d <= 0) {
                 this.x();
             }
 
@@ -165,50 +182,51 @@ public class OEntityItem extends OEntity {
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
-        onbttagcompound.a("Health", (short) ((byte) this.e));
-        onbttagcompound.a("Age", (short) this.b);
-        if (this.a != null) {
-            onbttagcompound.a("Item", this.a.b(new ONBTTagCompound()));
+        onbttagcompound.a("Health", (short) ((byte) this.d));
+        onbttagcompound.a("Age", (short) this.a);
+        if (this.d() != null) {
+            onbttagcompound.a("Item", this.d().b(new ONBTTagCompound()));
         }
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
-        this.e = onbttagcompound.d("Health") & 255;
-        this.b = onbttagcompound.d("Age");
+        this.d = onbttagcompound.d("Health") & 255;
+        this.a = onbttagcompound.d("Age");
         ONBTTagCompound onbttagcompound1 = onbttagcompound.l("Item");
 
-        this.a = OItemStack.a(onbttagcompound1);
-        if (this.a == null) {
+        this.a(OItemStack.a(onbttagcompound1));
+        if (this.d() == null) {
             this.x();
         }
     }
 
     public void c_(OEntityPlayer oentityplayer) {
-        if (!this.p.J) {
-            int i = this.a.a;
+        if (!this.p.I) {
+            OItemStack oitemstack = this.d();
+            int i = oitemstack.a;
 
             // CanaryMod: First simulate the pickup and call the hooks
-            if (this.c == 0 && oentityplayer.bI.canPickup(this)) {
-                if (oentityplayer.bI.a(this.a)) {
-                    if (this.a.c == OBlock.M.cm) {
+            if (this.b == 0 && oentityplayer.bJ.canPickup(this)) {
+                if (oentityplayer.bJ.a(oitemstack)) {
+                    if (oitemstack.c == OBlock.M.cm) {
                         oentityplayer.a((OStatBase) OAchievementList.g);
                     }
 
-                    if (this.a.c == OItem.aF.cg) {
+                    if (oitemstack.c == OItem.aF.cj) {
                         oentityplayer.a((OStatBase) OAchievementList.t);
                     }
 
-                    if (this.a.c == OItem.n.cg) {
+                    if (oitemstack.c == OItem.n.cj) {
                         oentityplayer.a((OStatBase) OAchievementList.w);
                     }
 
-                    if (this.a.c == OItem.bo.cg) {
+                    if (oitemstack.c == OItem.bo.cj) {
                         oentityplayer.a((OStatBase) OAchievementList.z);
                     }
 
                     this.a("random.pop", 0.2F, ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     oentityplayer.a((OEntity) this, i);
-                    if (this.a.a <= 0) {
+                    if (oitemstack.a <= 0) {
                         this.x();
                     }
                 }
@@ -217,7 +235,7 @@ public class OEntityItem extends OEntity {
     }
 
     public String an() {
-        return OStatCollector.a("item." + this.a.a());
+        return OStatCollector.a("item." + this.d().a());
     }
 
     public boolean aq() {
@@ -226,8 +244,24 @@ public class OEntityItem extends OEntity {
 
     public void b(int i) {
         super.b(i);
-        if (!this.p.J) {
-            this.d();
+        if (!this.p.I) {
+            this.g();
         }
+    }
+
+    public OItemStack d() {
+        OItemStack oitemstack = this.v().f(10);
+
+        if (oitemstack == null) {
+            System.out.println("Item entity " + this.k + " has no item?!");
+            return new OItemStack(OBlock.w);
+        } else {
+            return oitemstack;
+        }
+    }
+
+    public void a(OItemStack oitemstack) {
+        this.v().b(10, oitemstack);
+        this.v().h(10);
     }
 }

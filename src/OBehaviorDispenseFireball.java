@@ -15,7 +15,7 @@ public class OBehaviorDispenseFireball extends OBehaviorDefaultDispenseItem {
         double d1 = oiposition.b();
         double d2 = oiposition.c() + (double) ((float) oenumfacing.e() * 0.3F);
         OWorld oworld = oiblocksource.k();
-        Random random = oworld.u;
+        Random random = oworld.t;
         double d3 = random.nextGaussian() * 0.05D + (double) oenumfacing.c();
         double d4 = random.nextGaussian() * 0.05D;
         double d5 = random.nextGaussian() * 0.05D + (double) oenumfacing.e();

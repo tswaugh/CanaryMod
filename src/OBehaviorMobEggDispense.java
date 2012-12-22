@@ -16,8 +16,4 @@ public class OBehaviorMobEggDispense extends OBehaviorDefaultDispenseItem {
         oitemstack.a(1);
         return oitemstack;
     }
-
-    protected void a(OIBlockSource oiblocksource) {
-        oiblocksource.k().f(1002, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), 0);
-    }
 }

@@ -51,7 +51,7 @@ public class OContainerWorkbench extends OContainer {
 
     public void b(OEntityPlayer oentityplayer) {
         super.b(oentityplayer);
-        if (!this.g.J) {
+        if (!this.g.I) {
             for (int i = 0; i < 9; ++i) {
                 OItemStack oitemstack = this.a.a_(i);
 

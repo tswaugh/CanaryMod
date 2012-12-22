@@ -28,7 +28,7 @@ public class OEntitySnowball extends OEntityThrowable {
                 this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
             }
 
-            if (!this.p.J) {
+        if (!this.p.I) {
                 this.x();
             }
         }

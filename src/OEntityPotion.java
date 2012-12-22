@@ -52,8 +52,8 @@ public class OEntityPotion extends OEntityThrowable {
     }
 
     protected void a(OMovingObjectPosition omovingobjectposition) {
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.p.J) {
-            List list = OItem.bs.l(this.c);
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.p.I) {
+            List list = OItem.bs.g(this.c);
 
             if (list != null && !list.isEmpty()) {
                 OAxisAlignedBB oaxisalignedbb = this.D.b(4.0D, 2.0D, 4.0D);

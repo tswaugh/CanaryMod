@@ -4,7 +4,7 @@ public class OItemBoat extends OItem {
 
     public OItemBoat(int i) {
         super(i);
-        this.ch = 1;
+        this.ck = 1;
         this.a(OCreativeTabs.e);
     }
 
@@ -71,15 +71,16 @@ public class OItemBoat extends OItem {
                     }
                     OEntityBoat oentityboat = new OEntityBoat(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 1.0F), (double) ((float) k + 0.5F));
 
+                    oentityboat.z = (float) (((OMathHelper.c((double) (oentityplayer.z * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90);
                     if (!oworld.a((OEntity) oentityboat, oentityboat.D.b(-0.1D, -0.1D, -0.1D)).isEmpty()) {
                         return oitemstack;
                     }
 
-                    if (!oworld.J) {
+                    if (!oworld.I) {
                         oworld.d((OEntity) oentityboat);
                     }
 
-                    if (!oentityplayer.cc.d) {
+                    if (!oentityplayer.cd.d) {
                         --oitemstack.a;
                     }
                 }

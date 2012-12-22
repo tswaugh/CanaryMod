@@ -197,7 +197,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
         ++this.j;
         float f;
 
-        if (!this.k.J && this.h != 0 && (this.j + this.l + this.m + this.n) % 200 == 0) {
+        if (!this.k.I && this.h != 0 && (this.j + this.l + this.m + this.n) % 200 == 0) {
             this.h = 0;
             f = 5.0F;
             List list = this.k.a(OEntityPlayer.class, OAxisAlignedBB.a().a((double) ((float) this.l - f), (double) ((float) this.m - f), (double) ((float) this.n - f), (double) ((float) (this.l + 1) + f), (double) ((float) (this.m + 1) + f), (double) ((float) (this.n + 1) + f)));
@@ -206,8 +206,8 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
             while (iterator.hasNext()) {
                 OEntityPlayer oentityplayer = (OEntityPlayer) iterator.next();
 
-                if (oentityplayer.bK instanceof OContainerChest) {
-                    OIInventory oiinventory = ((OContainerChest) oentityplayer.bK).d();
+                if (oentityplayer.bL instanceof OContainerChest) {
+                    OIInventory oiinventory = ((OContainerChest) oentityplayer.bL).d();
 
                     if (oiinventory == this || oiinventory instanceof OInventoryLargeChest && ((OInventoryLargeChest) oiinventory).a(this)) {
                         ++this.h;
@@ -232,7 +232,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
                 d1 += 0.5D;
             }
 
-            this.k.a(d1, (double) this.m + 0.5D, d0, "random.chestopen", 0.5F, this.k.u.nextFloat() * 0.1F + 0.9F);
+            this.k.a(d1, (double) this.m + 0.5D, d0, "random.chestopen", 0.5F, this.k.t.nextFloat() * 0.1F + 0.9F);
         }
 
         if (this.h == 0 && this.f > 0.0F || this.h > 0 && this.f < 1.0F) {
@@ -262,7 +262,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
                     d0 += 0.5D;
                 }
 
-                this.k.a(d0, (double) this.m + 0.5D, d2, "random.chestclosed", 0.5F, this.k.u.nextFloat() * 0.1F + 0.9F);
+                this.k.a(d0, (double) this.m + 0.5D, d2, "random.chestclosed", 0.5F, this.k.t.nextFloat() * 0.1F + 0.9F);
             }
 
             if (this.f < 0.0F) {

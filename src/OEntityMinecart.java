@@ -12,11 +12,11 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     private boolean h;
     private static final int[][][] i = new int[][][] { { { 0, 0, -1}, { 0, 0, 1}}, { { -1, 0, 0}, { 1, 0, 0}}, { { -1, -1, 0}, { 1, 0, 0}}, { { -1, 0, 0}, { 1, -1, 0}}, { { 0, 0, -1}, { 0, -1, 1}}, { { 0, -1, -1}, { 0, 0, 1}}, { { 0, 0, 1}, { 1, 0, 0}}, { { 0, 0, 1}, { -1, 0, 0}}, { { 0, 0, -1}, { -1, 0, 0}}, { { 0, 0, -1}, { 1, 0, 0}}};
     private int j;
-    private double as;
     private double at;
     private double au;
     private double av;
     private double aw;
+    private double ax;
 
     // CanaryMod start
     private String name = "container.minecart";
@@ -87,7 +87,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             return true;
         }
 
-        if (!this.p.J && !this.L) {
+        if (!this.p.I && !this.L) {
             if (this.ar()) {
                 return false;
             } else {
@@ -95,7 +95,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 this.h(10);
                 this.K();
                 this.g(this.i() + i * 10);
-                if (odamagesource.g() instanceof OEntityPlayer && ((OEntityPlayer) odamagesource.g()).cc.d) {
+                if (odamagesource.g() instanceof OEntityPlayer && ((OEntityPlayer) odamagesource.g()).cd.d) {
                     this.g(100);
                 }
 
@@ -105,7 +105,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                     }
 
                     this.x();
-                    this.a(OItem.az.cg, 1, 0.0F);
+                    this.a(OItem.az.cj, 1, 0.0F);
                     if (this.a == 1) {
                         OEntityMinecart oentityminecart = this;
 
@@ -176,7 +176,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                         OEntityItem oentityitem = new OEntityItem(this.p, this.t + (double) f, this.u + (double) f1, this.v + (double) f2, new OItemStack(oitemstack.c, j, oitemstack.j()));
 
                         if (oitemstack.o()) {
-                            oentityitem.a.d((ONBTTagCompound) oitemstack.p().b());
+                            oentityitem.d().d((ONBTTagCompound) oitemstack.p().b());
                         }
 
                         float f3 = 0.05F;
@@ -229,15 +229,57 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             this.p.a("largesmoke", this.t, this.u + 0.8D, this.v, 0.0D, 0.0D, 0.0D);
         }
 
-        if (this.p.J) {
+        int i;
+
+        if (!this.p.I && this.p instanceof OWorldServer) {
+            this.p.D.a("portal");
+            OMinecraftServer ominecraftserver = ((OWorldServer) this.p).o();
+
+            i = this.z();
+            if (this.ao) {
+                if (ominecraftserver.s()) {
+                    if (this.o == null && this.ap++ >= i) {
+                        this.ap = i;
+                        this.an = this.ab();
+                        byte b0;
+
+                        if (this.p.u.h == -1) {
+                            b0 = 0;
+                        } else {
+                            b0 = -1;
+                        }
+
+                        this.b(b0);
+                    }
+
+                    this.ao = false;
+                }
+            } else {
+                if (this.ap > 0) {
+                    this.ap -= 4;
+                }
+
+                if (this.ap < 0) {
+                    this.ap = 0;
+                }
+            }
+
+            if (this.an > 0) {
+                --this.an;
+            }
+
+            this.p.D.b();
+        }
+
+        if (this.p.I) {
             if (this.j > 0) {
-                double d0 = this.t + (this.as - this.t) / (double) this.j;
-                double d1 = this.u + (this.at - this.u) / (double) this.j;
-                double d2 = this.v + (this.au - this.v) / (double) this.j;
-                double d3 = OMathHelper.g(this.av - (double) this.z);
+                double d0 = this.t + (this.at - this.t) / (double) this.j;
+                double d1 = this.u + (this.au - this.u) / (double) this.j;
+                double d2 = this.v + (this.av - this.v) / (double) this.j;
+                double d3 = OMathHelper.g(this.aw - (double) this.z);
 
                 this.z = (float) ((double) this.z + d3 / (double) this.j);
-                this.A = (float) ((double) this.A + (this.aw - (double) this.A) / (double) this.j);
+                this.A = (float) ((double) this.A + (this.ax - (double) this.A) / (double) this.j);
                 --this.j;
                 this.b(d0, d1, d2);
                 this.b(this.z, this.A);
@@ -250,8 +292,9 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
             this.r = this.u;
             this.s = this.v;
             this.x -= 0.03999999910593033D;
-            int i = OMathHelper.c(this.t);
-            int j = OMathHelper.c(this.u);
+            int j = OMathHelper.c(this.t);
+
+            i = OMathHelper.c(this.u);
             int k = OMathHelper.c(this.v);
 
             // CanaryMod: Change of the cart
@@ -259,20 +302,20 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 manager.callHook(PluginLoader.Hook.VEHICLE_POSITIONCHANGE, cart, i, j, k);
             }
 
-            if (OBlockRail.e_(this.p, i, j - 1, k)) {
-                --j;
+            if (OBlockRail.e_(this.p, j, i - 1, k)) {
+                --i;
             }
 
             double d4 = 0.4D;
             double d5 = 0.0078125D;
-            int l = this.p.a(i, j, k);
+            int l = this.p.a(j, i, k);
 
-            if (OBlockRail.d(l)) {
+            if (OBlockRail.e(l)) {
                 this.S = 0.0F;
                 OVec3 ovec3 = this.a(this.t, this.u, this.v);
-                int i1 = this.p.h(i, j, k);
+                int i1 = this.p.h(j, i, k);
 
-                this.u = (double) j;
+                this.u = (double) i;
                 boolean flag = false;
                 boolean flag1 = false;
 
@@ -286,7 +329,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 }
 
                 if (i1 >= 2 && i1 <= 5) {
-                    this.u = (double) (j + 1);
+                    this.u = (double) (i + 1);
                 }
 
                 if (i1 == 2) {
@@ -347,9 +390,9 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 }
 
                 d12 = 0.0D;
-                d11 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
+                d11 = (double) j + 0.5D + (double) aint[0][0] * 0.5D;
                 double d13 = (double) k + 0.5D + (double) aint[0][2] * 0.5D;
-                double d14 = (double) i + 0.5D + (double) aint[1][0] * 0.5D;
+                double d14 = (double) j + 0.5D + (double) aint[1][0] * 0.5D;
                 double d15 = (double) k + 0.5D + (double) aint[1][2] * 0.5D;
 
                 d6 = d14 - d11;
@@ -358,11 +401,11 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 double d17;
 
                 if (d6 == 0.0D) {
-                    this.t = (double) i + 0.5D;
+                    this.t = (double) j + 0.5D;
                     d12 = this.v - (double) k;
                 } else if (d7 == 0.0D) {
                     this.v = (double) k + 0.5D;
-                    d12 = this.t - (double) i;
+                    d12 = this.t - (double) j;
                 } else {
                     d16 = this.t - d11;
                     d17 = this.v - d13;
@@ -396,9 +439,9 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 }
 
                 this.d(d16, 0.0D, d17);
-                if (aint[0][1] != 0 && OMathHelper.c(this.t) - i == aint[0][0] && OMathHelper.c(this.v) - k == aint[0][2]) {
+                if (aint[0][1] != 0 && OMathHelper.c(this.t) - j == aint[0][0] && OMathHelper.c(this.v) - k == aint[0][2]) {
                     this.b(this.t, this.u + (double) aint[0][1], this.v);
-                } else if (aint[1][1] != 0 && OMathHelper.c(this.t) - i == aint[1][0] && OMathHelper.c(this.v) - k == aint[1][2]) {
+                } else if (aint[1][1] != 0 && OMathHelper.c(this.t) - j == aint[1][0] && OMathHelper.c(this.v) - k == aint[1][2]) {
                     this.b(this.t, this.u + (double) aint[1][1], this.v);
                 }
 
@@ -450,9 +493,9 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 int j1 = OMathHelper.c(this.t);
                 int k1 = OMathHelper.c(this.v);
 
-                if (j1 != i || k1 != k) {
+                if (j1 != j || k1 != k) {
                     d10 = Math.sqrt(this.w * this.w + this.y * this.y);
-                    this.w = d10 * (double) (j1 - i);
+                    this.w = d10 * (double) (j1 - j);
                     this.y = d10 * (double) (k1 - k);
                 }
 
@@ -482,15 +525,15 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                         this.w += this.w / d21 * d22;
                         this.y += this.y / d21 * d22;
                     } else if (i1 == 1) {
-                        if (this.p.t(i - 1, j, k)) {
+                        if (this.p.t(j - 1, i, k)) {
                             this.w = 0.02D;
-                        } else if (this.p.t(i + 1, j, k)) {
+                        } else if (this.p.t(j + 1, i, k)) {
                             this.w = -0.02D;
                         }
                     } else if (i1 == 0) {
-                        if (this.p.t(i, j, k - 1)) {
+                        if (this.p.t(j, i, k - 1)) {
                             this.y = 0.02D;
-                        } else if (this.p.t(i, j, k + 1)) {
+                        } else if (this.p.t(j, i, k + 1)) {
                             this.y = -0.02D;
                         }
                     }
@@ -602,7 +645,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
 
         int l = this.p.a(i, j, k);
 
-        if (OBlockRail.d(l)) {
+        if (OBlockRail.e(l)) {
             int i1 = this.p.h(i, j, k);
 
             d1 = (double) j;
@@ -702,7 +745,7 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
     }
 
     public void f(OEntity oentity) {
-        if (!this.p.J) {
+        if (!this.p.I) {
             if (oentity != this.n) {
                 // CanaryMod: Collision of a cart
                 if ((Boolean) manager.callHook(PluginLoader.Hook.VEHICLE_COLLISION, cart, oentity.entity)) {
@@ -846,19 +889,19 @@ public class OEntityMinecart extends OEntity implements OIInventory, Container<O
                 return true;
             }
 
-            if (!this.p.J) {
+            if (!this.p.I) {
                 oentityplayer.a((OEntity) this);
             }
         } else if (this.a == 1) {
-            if (!this.p.J) {
+            if (!this.p.I) {
                 oentityplayer.a((OIInventory) this);
             }
         } else if (this.a == 2) {
-            OItemStack oitemstack = oentityplayer.bI.g();
+            OItemStack oitemstack = oentityplayer.bJ.g();
 
-            if (oitemstack != null && oitemstack.c == OItem.m.cg) {
+            if (oitemstack != null && oitemstack.c == OItem.m.cj) {
                 if (--oitemstack.a == 0) {
-                    oentityplayer.bI.a(oentityplayer.bI.c, (OItemStack) null);
+                    oentityplayer.bJ.a(oentityplayer.bJ.c, (OItemStack) null);
                 }
 
                 this.e += 3600;

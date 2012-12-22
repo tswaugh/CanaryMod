@@ -12,17 +12,19 @@ public class OEntityArrow extends OEntity implements OIProjectile {
     public int b = 0;
     public OEntity c;
     private int j;
-    private int as = 0;
-    private double at = 2.0D;
-    private int au;
+    private int at = 0;
+    private double au = 2.0D;
+    private int av;
 
     public OEntityArrow(OWorld oworld) {
         super(oworld);
+        this.l = 10.0D;
         this.a(0.5F, 0.5F);
     }
 
     public OEntityArrow(OWorld oworld, double d0, double d1, double d2) {
         super(oworld);
+        this.l = 10.0D;
         this.a(0.5F, 0.5F);
         this.b(d0, d1, d2);
         this.M = 0.0F;
@@ -30,6 +32,7 @@ public class OEntityArrow extends OEntity implements OIProjectile {
 
     public OEntityArrow(OWorld oworld, OEntityLiving oentityliving, OEntityLiving oentityliving1, float f, float f1) {
         super(oworld);
+        this.l = 10.0D;
         this.c = oentityliving;
         if (oentityliving instanceof OEntityPlayer) {
             this.a = 1;
@@ -57,6 +60,7 @@ public class OEntityArrow extends OEntity implements OIProjectile {
 
     public OEntityArrow(OWorld oworld, OEntityLiving oentityliving, float f) {
         super(oworld);
+        this.l = 10.0D;
         this.c = oentityliving;
         if (oentityliving instanceof OEntityPlayer) {
             this.a = 1;
@@ -140,10 +144,10 @@ public class OEntityArrow extends OEntity implements OIProjectile {
                 this.x *= (double) (this.aa.nextFloat() * 0.2F);
                 this.y *= (double) (this.aa.nextFloat() * 0.2F);
                 this.j = 0;
-                this.as = 0;
+                this.at = 0;
             }
         } else {
-            ++this.as;
+            ++this.at;
             OVec3 ovec3 = this.p.S().a(this.t, this.u, this.v);
             OVec3 ovec31 = this.p.S().a(this.t + this.w, this.u + this.x, this.v + this.y);
             OMovingObjectPosition omovingobjectposition = this.p.a(ovec3, ovec31, false, true);
@@ -164,7 +168,7 @@ public class OEntityArrow extends OEntity implements OIProjectile {
             for (l = 0; l < list.size(); ++l) {
                 OEntity oentity1 = (OEntity) list.get(l);
 
-                if (oentity1.L() && (oentity1 != this.c || this.as >= 5)) {
+                if (oentity1.L() && (oentity1 != this.c || this.at >= 5)) {
                     f1 = 0.3F;
                     OAxisAlignedBB oaxisalignedbb1 = oentity1.D.b((double) f1, (double) f1, (double) f1);
                     OMovingObjectPosition omovingobjectposition1 = oaxisalignedbb1.a(ovec3, ovec31);
@@ -185,13 +189,14 @@ public class OEntityArrow extends OEntity implements OIProjectile {
             }
 
             float f2;
+            float f3;
 
             if (omovingobjectposition != null) {
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Arrow(this),
                            omovingobjectposition == null || omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity())) {
                     if (omovingobjectposition.g != null) {
                         f2 = OMathHelper.a(this.w * this.w + this.x * this.x + this.y * this.y);
-                        int i1 = OMathHelper.f((double) f2 * this.at);
+                    int i1 = OMathHelper.f((double) f2 * this.au);
 
                         if (this.d()) {
                             i1 += this.aa.nextInt(i1 / 2 + 2);
@@ -205,36 +210,42 @@ public class OEntityArrow extends OEntity implements OIProjectile {
                             odamagesource = ODamageSource.a(this, this.c);
                         }
 
-                        if (this.af()) {
+                    if (this.af() && !(omovingobjectposition.g instanceof OEntityEnderman)) {
                             omovingobjectposition.g.c(5);
                         }
 
                         if (omovingobjectposition.g.a(odamagesource, i1)) {
                             if (omovingobjectposition.g instanceof OEntityLiving) {
-                                if (!this.p.J) {
-                                    OEntityLiving oentityliving = (OEntityLiving) omovingobjectposition.g;
+                            OEntityLiving oentityliving = (OEntityLiving) omovingobjectposition.g;
 
+                            if (!this.p.I) {
                                     oentityliving.r(oentityliving.bJ() + 1);
                                 }
 
-                                if (this.au > 0) {
-                                    float f3 = OMathHelper.a(this.w * this.w + this.y * this.y);
-
+                            if (this.av > 0) {
+                                f3 = OMathHelper.a(this.w * this.w + this.y * this.y);
                                     if (f3 > 0.0F) {
-                                        omovingobjectposition.g.g(this.w * (double) this.au * 0.6000000238418579D / (double) f3, 0.1D, this.y * (double) this.au * 0.6000000238418579D / (double) f3);
+                                    omovingobjectposition.g.g(this.w * (double) this.av * 0.6000000238418579D / (double) f3, 0.1D, this.y * (double) this.av * 0.6000000238418579D / (double) f3);
                                     }
                                 }
+
+                            OEnchantmentThorns.a(this.c, oentityliving, this.aa);
+                            if (this.c != null && omovingobjectposition.g != this.c && omovingobjectposition.g instanceof OEntityPlayer && this.c instanceof OEntityPlayerMP) {
+                                ((OEntityPlayerMP) this.c).a.b(new OPacket70GameEvent(6, 0));
+                            }
                             }
 
                             this.a("random.bowhit", 1.0F, 1.2F / (this.aa.nextFloat() * 0.2F + 0.9F));
+                        if (!(omovingobjectposition.g instanceof OEntityEnderman)) {
                             this.x();
+                        }
                         } else {
                             this.w *= -0.10000000149011612D;
                             this.x *= -0.10000000149011612D;
                             this.y *= -0.10000000149011612D;
                             this.z += 180.0F;
                             this.B += 180.0F;
-                            this.as = 0;
+                        this.at = 0;
                         }
                     } else {
                         this.d = omovingobjectposition.b;
@@ -295,9 +306,8 @@ public class OEntityArrow extends OEntity implements OIProjectile {
             f1 = 0.05F;
             if (this.H()) {
                 for (int j1 = 0; j1 < 4; ++j1) {
-                    float f5 = 0.25F;
-
-                    this.p.a("bubble", this.t - this.w * (double) f5, this.u - this.x * (double) f5, this.v - this.y * (double) f5, this.w, this.x, this.y);
+                    f3 = 0.25F;
+                    this.p.a("bubble", this.t - this.w * (double) f3, this.u - this.x * (double) f3, this.v - this.y * (double) f3, this.w, this.x, this.y);
                 }
 
                 f4 = 0.8F;
@@ -321,7 +331,7 @@ public class OEntityArrow extends OEntity implements OIProjectile {
         onbttagcompound.a("shake", (byte) this.b);
         onbttagcompound.a("inGround", (byte) (this.i ? 1 : 0));
         onbttagcompound.a("pickup", (byte) this.a);
-        onbttagcompound.a("damage", this.at);
+        onbttagcompound.a("damage", this.au);
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
@@ -333,7 +343,7 @@ public class OEntityArrow extends OEntity implements OIProjectile {
         this.b = onbttagcompound.c("shake") & 255;
         this.i = onbttagcompound.c("inGround") == 1;
         if (onbttagcompound.b("damage")) {
-            this.at = onbttagcompound.h("damage");
+            this.au = onbttagcompound.h("damage");
         }
 
         if (onbttagcompound.b("pickup")) {
@@ -344,10 +354,10 @@ public class OEntityArrow extends OEntity implements OIProjectile {
     }
 
     public void c_(OEntityPlayer oentityplayer) {
-        if (!this.p.J && this.i && this.b <= 0) {
-            boolean flag = this.a == 1 || this.a == 2 && oentityplayer.cc.d;
+        if (!this.p.I && this.i && this.b <= 0) {
+            boolean flag = this.a == 1 || this.a == 2 && oentityplayer.cd.d;
 
-            if (this.a == 1 && !oentityplayer.bI.a(new OItemStack(OItem.l, 1))) {
+            if (this.a == 1 && !oentityplayer.bJ.a(new OItemStack(OItem.l, 1))) {
                 flag = false;
             }
 
@@ -364,15 +374,15 @@ public class OEntityArrow extends OEntity implements OIProjectile {
     }
 
     public void b(double d0) {
-        this.at = d0;
+        this.au = d0;
     }
 
     public double c() {
-        return this.at;
+        return this.au;
     }
 
     public void a(int i) {
-        this.au = i;
+        this.av = i;
     }
 
     public boolean aq() {

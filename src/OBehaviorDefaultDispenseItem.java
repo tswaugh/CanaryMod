@@ -26,14 +26,14 @@ public class OBehaviorDefaultDispenseItem implements OIBehaviorDispenseItem {
         double d1 = oiposition.b();
         double d2 = oiposition.c();
         OEntityItem oentityitem = new OEntityItem(oworld, d0, d1 - 0.3D, d2, oitemstack);
-        double d3 = oworld.u.nextDouble() * 0.1D + 0.2D;
+        double d3 = oworld.t.nextDouble() * 0.1D + 0.2D;
 
         oentityitem.w = (double) oenumfacing.c() * d3;
         oentityitem.x = 0.20000000298023224D;
         oentityitem.y = (double) oenumfacing.e() * d3;
-        oentityitem.w += oworld.u.nextGaussian() * 0.007499999832361937D * (double) i;
-        oentityitem.x += oworld.u.nextGaussian() * 0.007499999832361937D * (double) i;
-        oentityitem.y += oworld.u.nextGaussian() * 0.007499999832361937D * (double) i;
+        oentityitem.w += oworld.t.nextGaussian() * 0.007499999832361937D * (double) i;
+        oentityitem.x += oworld.t.nextGaussian() * 0.007499999832361937D * (double) i;
+        oentityitem.y += oworld.t.nextGaussian() * 0.007499999832361937D * (double) i;
         oworld.d((OEntity) oentityitem);
     }
 

@@ -32,7 +32,7 @@ public class OBehaviorBucketEmptyDispense extends OBehaviorDefaultDispenseItem {
         oworld.e(i, j, k, 0);
         if (--oitemstack.a == 0) {
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) oiblocksource.j()), null)) {
-                oitemstack.c = oitem.cg;
+                oitemstack.c = oitem.cj;
                 oitemstack.a = 1;
             }
         } else if (((OTileEntityDispenser) oiblocksource.j()).a(new OItemStack(oitem)) < 0) {

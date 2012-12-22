@@ -18,7 +18,7 @@ public class OItemPotion extends OItem {
         this.a(OCreativeTabs.k);
     }
 
-    public List l(OItemStack oitemstack) {
+    public List g(OItemStack oitemstack) {
         if (oitemstack.o() && oitemstack.p().b("CustomPotionEffects")) {
             ArrayList arraylist = new ArrayList();
             ONBTTagList onbttaglist = oitemstack.p().m("CustomPotionEffects");
@@ -54,12 +54,12 @@ public class OItemPotion extends OItem {
     }
 
     public OItemStack b(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
-        if (!oentityplayer.cc.d) {
+        if (!oentityplayer.cd.d) {
             --oitemstack.a;
         }
 
-        if (!oworld.J) {
-            List list = this.l(oitemstack);
+        if (!oworld.I) {
+            List list = this.g(oitemstack);
 
             if (list != null) {
                 Iterator iterator = list.iterator();
@@ -72,39 +72,39 @@ public class OItemPotion extends OItem {
             }
         }
 
-        if (!oentityplayer.cc.d) {
+        if (!oentityplayer.cd.d) {
             if (oitemstack.a <= 0) {
                 return new OItemStack(OItem.bt);
             }
 
-            oentityplayer.bI.a(new OItemStack(OItem.bt));
+            oentityplayer.bJ.a(new OItemStack(OItem.bt));
         }
 
         return oitemstack;
     }
 
-    public int a(OItemStack oitemstack) {
+    public int c_(OItemStack oitemstack) {
         return 32;
     }
 
-    public OEnumAction d_(OItemStack oitemstack) {
+    public OEnumAction b_(OItemStack oitemstack) {
         return OEnumAction.c;
     }
 
     public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
         if (g(oitemstack.j())) {
-            if (!oentityplayer.cc.d) {
+            if (!oentityplayer.cd.d) {
                 --oitemstack.a;
             }
 
             oworld.a((OEntity) oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
-            if (!oworld.J) {
+            if (!oworld.I) {
                 oworld.d((OEntity) (new OEntityPotion(oworld, oentityplayer, oitemstack)));
             }
 
             return oitemstack;
         } else {
-            oentityplayer.a(oitemstack, this.a(oitemstack));
+            oentityplayer.a(oitemstack, this.c_(oitemstack));
             return oitemstack;
         }
     }
@@ -117,7 +117,7 @@ public class OItemPotion extends OItem {
         return (i & 16384) != 0;
     }
 
-    public String j(OItemStack oitemstack) {
+    public String l(OItemStack oitemstack) {
         if (oitemstack.j() == 0) {
             return OStatCollector.a("item.emptyPotion.name").trim();
         } else {
@@ -127,7 +127,7 @@ public class OItemPotion extends OItem {
                 s = OStatCollector.a("potion.prefix.grenade").trim() + " ";
             }
 
-            List list = OItem.bs.l(oitemstack);
+            List list = OItem.bs.g(oitemstack);
             String s1;
 
             if (list != null && !list.isEmpty()) {
@@ -136,7 +136,7 @@ public class OItemPotion extends OItem {
                 return s + OStatCollector.a(s1).trim();
             } else {
                 s1 = OPotionHelper.c(oitemstack.j());
-                return OStatCollector.a(s1).trim() + " " + super.j(oitemstack);
+                return OStatCollector.a(s1).trim() + " " + super.l(oitemstack);
             }
         }
     }

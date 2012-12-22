@@ -18,7 +18,7 @@ public class OBehaviorBucketFullDispense extends OBehaviorDefaultDispenseItem {
 
         if (oitembucket.a(oiblocksource.k(), (double) i, (double) j, (double) k, i + oenumfacing.c(), j, k + oenumfacing.e())) {
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) oiblocksource.j()), null)) {
-                oitemstack.c = OItem.aw.cg;
+                oitemstack.c = OItem.aw.cj;
                 oitemstack.a = 1;
             }
             return oitemstack;
