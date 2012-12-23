@@ -30,7 +30,7 @@ public class HookParametersEnchant extends HookParameters {
         {
            if (enchantObject instanceof OEnchantmentData)
            {
-              this.enchantments.add(new Enchantment(Enchantment.Type.fromId(((OEnchantmentData)enchantObject).b.x), ((OEnchantmentData)enchantObject).c));
+              this.enchantments.add(new Enchantment(Enchantment.Type.fromId(((OEnchantmentData)enchantObject).b.z), ((OEnchantmentData)enchantObject).c));
            }
         }
         this.isCanceled = false;

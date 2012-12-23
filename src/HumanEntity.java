@@ -31,7 +31,7 @@ public class HumanEntity extends LivingEntity {
      */
     @Override
     public String getName() {
-        return getEntity().bQ;
+        return getEntity().bR;
     }
 
     /**

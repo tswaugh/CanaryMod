@@ -547,7 +547,7 @@ public class BaseEntity implements Metadatable {
      * @param isInvulnerable
      */
     public void setInvulnerable(boolean isInvulnerable) {
-        entity.i = isInvulnerable;
+        entity.h = isInvulnerable;
     }
 
     @Override

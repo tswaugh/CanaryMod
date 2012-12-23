@@ -37,7 +37,7 @@ public class LivingEntity extends BaseEntity {
      * @return health
      */
     public int getHealth() {
-        return getEntity().aQ;
+        return getEntity().aR;
     }
 
     /**
@@ -65,7 +65,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public int getDeathTicks() {
-        return getEntity().aX;
+        return getEntity().aY;
     }
 
     /**
@@ -92,7 +92,7 @@ public class LivingEntity extends BaseEntity {
      * @param ticks
      */
     public void setDeathTicks(int ticks) {
-        getEntity().aX = ticks;
+        getEntity().aY = ticks;
     }
 
     /**
@@ -102,7 +102,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public int getBaseNoDamageTicks() {
-        return getEntity().at;
+        return getEntity().au;
     }
 
     /**
@@ -112,7 +112,7 @@ public class LivingEntity extends BaseEntity {
      * @param ticks
      */
     public void setBaseNoDamageTicks(int ticks) {
-        getEntity().at = ticks;
+        getEntity().au = ticks;
     }
 
     /**
@@ -121,7 +121,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public int getLastDamage() {
-        return getEntity().bz;
+        return getEntity().bA;
     }
 
     /**
@@ -131,7 +131,7 @@ public class LivingEntity extends BaseEntity {
      * @param amount
      */
     public void setLastDamage(int amount) {
-        getEntity().bz = amount;
+        getEntity().bA = amount;
     }
 
     /**
@@ -165,9 +165,9 @@ public class LivingEntity extends BaseEntity {
      */
 
     public void removePotionEffect(PotionEffect effect) {
-        OPotionEffect var3 = (OPotionEffect) getEntity().bl.get(effect.getType().getId());
+        OPotionEffect var3 = (OPotionEffect) getEntity().bm.get(effect.getType().getId());
 
-        getEntity().bl.remove(Integer.valueOf(effect.getType().getId()));
+        getEntity().bm.remove(Integer.valueOf(effect.getType().getId()));
         getEntity().c(var3);
     }
 
@@ -241,7 +241,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public boolean isPersistent() {
-        return getEntity().bT;
+        return getEntity().bU;
     }
 
     /**
@@ -250,7 +250,7 @@ public class LivingEntity extends BaseEntity {
      * @param isPersistent
      */
     public void setPersistent(boolean isPersistent) {
-        getEntity().bT = isPersistent;
+        getEntity().bU = isPersistent;
     }
 
     /**
@@ -261,7 +261,7 @@ public class LivingEntity extends BaseEntity {
      */
     public float getDropChance(int slot) {
         if(slot >= 0 && slot <= 4) {
-            return getEntity().bo[slot];
+            return getEntity().bp[slot];
         }
         return 0;
     }
@@ -274,7 +274,7 @@ public class LivingEntity extends BaseEntity {
      */
     public void setDropChance(int slot, float chance) {
         if(slot >= 0 && slot <= 4) {
-            getEntity().bo[slot] = chance;
+            getEntity().bp[slot] = chance;
         }
     }
 
@@ -284,7 +284,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public boolean canPickUpLoot() {
-        return getEntity().br;
+        return getEntity().bs;
     }
 
     /**
@@ -293,7 +293,7 @@ public class LivingEntity extends BaseEntity {
      * @param flag
      */
     public void setCanPickUpLoot(boolean flag) {
-        getEntity().br = flag;
+        getEntity().bs = flag;
     }
 
     /**

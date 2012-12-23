@@ -26,23 +26,23 @@ public class ItemEntity extends BaseEntity {
     }
 
     public void setAge(int age) {
-        getEntity().b = age;
+        getEntity().a = age;
     }
 
     public int getAge() {
-        return getEntity().b;
+        return getEntity().a;
     }
 
     public void setDelayBeforeCanPickUp(int time) {
-        getEntity().c = time;
+        getEntity().b = time;
     }
 
     public int getDelayBeforeCanPickUp() {
-        return getEntity().c;
+        return getEntity().b;
     }
 
     public Item getItem() {
-        return new Item(getEntity().a);
+        return new Item(getEntity().d());
     }
 
     @Override
