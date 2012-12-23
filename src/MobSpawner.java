@@ -85,7 +85,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getMinDelay() {
-        return spawner.f;
+        return spawner.g;
     }
 
     /**
@@ -96,7 +96,7 @@ public class MobSpawner implements ComplexBlock {
      * @param delay
      */
     public void setMinDelay(int delay) {
-        spawner.f = delay;
+        spawner.g = delay;
     }
 
     /**
@@ -106,7 +106,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getMaxDelay() {
-        return spawner.g;
+        return spawner.h;
     }
 
     /**
@@ -117,7 +117,7 @@ public class MobSpawner implements ComplexBlock {
      * @param delay
      */
     public void setMaxDelay(int delay) {
-        spawner.g = delay;
+        spawner.h = delay;
     }
 
     /**
@@ -126,7 +126,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getSpawnCount() {
-        return spawner.h;
+        return spawner.i;
     }
 
     /**
@@ -136,7 +136,7 @@ public class MobSpawner implements ComplexBlock {
      * @param count
      */
     public void setSpawnCount(int count) {
-        spawner.h = count;
+        spawner.i = count;
     }
 
     /**
@@ -146,7 +146,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getMaxNearbyEntities() {
-        return spawner.j;
+        return spawner.r;
     }
 
     /**
@@ -157,7 +157,7 @@ public class MobSpawner implements ComplexBlock {
      * @param entities
      */
     public void setMaxNearbyEntities(int entities) {
-        spawner.j = entities;
+        spawner.r = entities;
     }
 
     /**
@@ -166,7 +166,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getRequiredPlayerRange() {
-        return spawner.r;
+        return spawner.s;
     }
 
     /**
@@ -176,7 +176,7 @@ public class MobSpawner implements ComplexBlock {
      * @param range
      */
     public void setRequiredPlayerRange(int range) {
-        spawner.r = range;
+        spawner.s = range;
     }
 
     /**
@@ -185,7 +185,7 @@ public class MobSpawner implements ComplexBlock {
      * @return
      */
     public int getSpawnRange() {
-        return spawner.s;
+        return spawner.t;
     }
 
     /**
@@ -195,7 +195,7 @@ public class MobSpawner implements ComplexBlock {
      * @param range
      */
     public void setSpawnRange(int range) {
-        spawner.s = range;
+        spawner.t = range;
     }
 
     /**
@@ -229,7 +229,7 @@ public class MobSpawner implements ComplexBlock {
         tag.removeTag("DeathTime");
         tag.removeTag("AttackTime");
         tag.removeTag("Age");
-        spawner.e = tag.getBaseTag();
+        spawner.f.b = tag.getBaseTag();
         setSpawn(entity.Q());
     }
 

@@ -1150,9 +1150,9 @@ public class PlayerCommands extends CommandHandler {
                 player.sendMessage("User: " + Colors.Yellow + player.getName() + Colors.White);
                 player.sendMessage("Lvl: " + Colors.Yellow + player.getLevel() + Colors.White);
                 player.sendMessage(String.format("Exp:%s %.0f %s/%s %d %s(%s%.2f%%%s)", // Exp: xx / yy (zz.zz%)
-                        Colors.Yellow, ent.cf * ent.cc(), Colors.White,
-                        Colors.Yellow, ent.cc(), Colors.White,
-                        Colors.Yellow, ent.cf, Colors.White));
+                        Colors.Yellow, ent.cg * ent.cb(), Colors.White,
+                        Colors.Yellow, ent.cb(), Colors.White,
+                        Colors.Yellow, ent.cg, Colors.White));
 
                 if(player.isAdmin()) {
                     player.sendMessage(Colors.Yellow + (etc.getInstance().isOldExperience() ? "Pre-":"Post ") + "1.3.2 Experience System" + Colors.White);

@@ -121,7 +121,7 @@ public class World {
      * @return the dimension type
      */
     public Dimension getType() {
-        return Dimension.fromId(world.v.h);
+        return Dimension.fromId(world.u.h);
     }
 
     /**
@@ -151,7 +151,7 @@ public class World {
         // World info for each world overwrites the other on save,
         // make sure they're the same. (Like you see it in the nether or end)
         for (World w : etc.getServer().getWorld(this.getName()))
-            w.getWorld().z.b(time);
+            w.getWorld().y.b(time);
     }
 
     /**
@@ -163,7 +163,7 @@ public class World {
         // World info for each world overwrites the other on save,
         // make sure they're the same.
         for (World w : etc.getServer().getWorld(this.getName()))
-            w.getWorld().z.c(time);
+            w.getWorld().y.c(time);
     }
 
     /**
@@ -314,7 +314,7 @@ public class World {
      */
     public Location getSpawnLocation() {
         // More structure ftw
-        OWorldInfo info = world.z;
+        OWorldInfo info = world.y;
         Location spawn = new Location();
 
         spawn.x = info.c() + 0.5D;
@@ -640,9 +640,9 @@ public class World {
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(double x, double y, double z, Item item) {
-        double d1 = world.u.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-        double d2 = world.u.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-        double d3 = world.u.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
+        double d1 = world.t.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
+        double d2 = world.t.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
+        double d3 = world.t.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
 
         OEntityItem oei = new OEntityItem(world, x + d1, y + d2, z + d3, item.getBaseItem() != null ? item.getBaseItem() : new OItemStack(item.getItemId(), item.getAmount(), item.getDamage()));
 
@@ -837,13 +837,13 @@ public class World {
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, this, thundering)) {
             return;
         }
-        world.z.a(thundering); //could be wrong, hard to differentiate between booleans
+        world.y.a(thundering); //could be wrong, hard to differentiate between booleans
 
         // Thanks to Bukkit for figuring out these numbers
         if (thundering) {
-            setThunderTime(world.u.nextInt(12000) + 3600);
+            setThunderTime(world.t.nextInt(12000) + 3600);
         } else {
-            setThunderTime(world.u.nextInt(168000) + 12000);
+            setThunderTime(world.t.nextInt(168000) + 12000);
         }
     }
 
@@ -853,7 +853,7 @@ public class World {
      * @param ticks ticks of thunder
      */
     public void setThunderTime(int ticks) {
-        world.z.f(ticks);
+        world.y.f(ticks);
     }
 
     /**
@@ -865,13 +865,13 @@ public class World {
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, this, raining)) {
             return;
         }
-        world.z.b(raining);
+        world.y.b(raining);
 
         // Thanks to Bukkit for figuring out these numbers
         if (raining) {
-            setRainTime(world.u.nextInt(12000) + 3600);
+            setRainTime(world.t.nextInt(12000) + 3600);
         } else {
-            setRainTime(world.u.nextInt(168000) + 12000);
+            setRainTime(world.t.nextInt(168000) + 12000);
         }
     }
 
@@ -881,7 +881,7 @@ public class World {
      * @param ticks ticks of rain
      */
     public void setRainTime(int ticks) {
-        world.z.g(ticks);
+        world.y.g(ticks);
     }
 
     /**
@@ -890,7 +890,7 @@ public class World {
      * @return whether it's thundering
      */
     public boolean isThundering() {
-        return world.z.n();
+        return world.y.n();
     }
 
     /**
@@ -899,7 +899,7 @@ public class World {
      * @return the thunder ticks
      */
     public int getThunderTime() {
-        return world.z.o();
+        return world.y.o();
     }
 
     /**
@@ -908,7 +908,7 @@ public class World {
      * @return whether it's raining
      */
     public boolean isRaining() {
-        return world.z.p();
+        return world.y.p();
     }
 
     /**
@@ -917,7 +917,7 @@ public class World {
      * @return the rain ticks
      */
     public int getRainTime() {
-        return world.z.q();
+        return world.y.q();
     }
 
     @Override
@@ -1054,7 +1054,7 @@ public class World {
      * @return The game mode for this world.
      */
     public int getGameMode() {
-        return world.z.r().e;
+        return world.y.r().e;
     }
 
     /**
