@@ -733,11 +733,6 @@ public abstract class OServerConfigurationManager {
             ((OEntityPlayerMP) this.b.get(0)).a.c("Server closed");
         }
     }
-    
-    public void k(String s) {
-        this.f.f(s);
-        this.a((OPacket) (new OPacket3Chat(s)));
-    }
 
     public void k(String s) {
         // TODO check: move showDeathMessages here?

@@ -38,8 +38,8 @@ public class OTileEntity {
         this.l = onbttagcompound.e("x");
         this.m = onbttagcompound.e("y");
         this.n = onbttagcompound.e("z");
-        if(var1.b("Canary")) {
-            this.metadata = new NBTTagCompound(var1.l("Canary"));
+        if(onbttagcompound.b("Canary")) {
+            this.metadata = new NBTTagCompound(onbttagcompound.l("Canary"));
         }
     }
 

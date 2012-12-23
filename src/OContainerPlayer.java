@@ -46,7 +46,7 @@ public class OContainerPlayer extends OContainer {
         } //
         OEntityPlayerMP player = (OEntityPlayerMP) this.e.get(0);
 
-        player.a.b(new OPacket103SetSlot(player.bJ.d, 0, craftresult));
+        player.a.b(new OPacket103SetSlot(player.bK.d, 0, craftresult));
 
         this.f.a(0, craftresult);
     }

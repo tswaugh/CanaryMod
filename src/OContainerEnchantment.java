@@ -113,7 +113,7 @@ public class OContainerEnchantment extends OContainer {
     public boolean a(OEntityPlayer oentityplayer, int i) {
         OItemStack oitemstack = this.a.a(0);
 
-        if (this.g[i] > 0 && oitemstack != null && (oentityplayer.cd >= this.g[i] || oentityplayer.cc.d)) {
+        if (this.g[i] > 0 && oitemstack != null && (oentityplayer.ce >= this.g[i] || oentityplayer.cd.d)) {
             if (!this.h.I) {
                 List list = OEnchantmentHelper.b(this.l, oitemstack, this.g[i]);
                 boolean flag = oitemstack.c == OItem.aL.cj;

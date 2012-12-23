@@ -38,14 +38,14 @@ public class OSlotMerchantResult extends OSlot {
         this.a(oentityplayer, oitemstack, false);
     }
 
-    public void a(OEntityPlayer oentityplayer, OItemStack oitemstack, boolean heldShift) { // CanaryMod: add heldShift parameter
+    public boolean a(OEntityPlayer oentityplayer, OItemStack oitemstack, boolean heldShift) { // CanaryMod: add heldShift parameter
         OMerchantRecipe omerchantrecipe = this.a.h();
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.VILLAGER_TRADE, ((OEntityPlayerMP) oentityplayer).getPlayer(),
                     new Villager((OEntityVillager) this.d), new VillagerTrade(omerchantrecipe))) {
             if (heldShift) {
                 ((OEntityPlayerMP) oentityplayer).getPlayer().getInventory().removeItemOverStacks(new Item(omerchantrecipe.d()));
             } else {
-                oentityplayer.bI.b((OItemStack) null);
+                oentityplayer.bJ.b((OItemStack) null);
             }
             return true;
         }
@@ -69,6 +69,7 @@ public class OSlotMerchantResult extends OSlot {
                 this.d.a(omerchantrecipe);
             }
         }
+        return false;
     }
 
     private boolean a(OMerchantRecipe omerchantrecipe, OItemStack oitemstack, OItemStack oitemstack1) {
