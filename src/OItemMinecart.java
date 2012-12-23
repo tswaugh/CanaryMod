@@ -4,7 +4,7 @@ public class OItemMinecart extends OItem {
 
     public OItemMinecart(int i, int j) {
         super(i);
-        this.ch = 1;
+        this.ck = 1;
         this.a = j;
         this.a(OCreativeTabs.e);
     }
@@ -12,8 +12,8 @@ public class OItemMinecart extends OItem {
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         int i1 = oworld.a(i, j, k);
 
-        if (OBlockRail.d(i1)) {
-            if (!oworld.J) {
+        if (OBlockRail.e(i1)) {
+            if (!oworld.I) {
                 // CanaryMod: placing of a mine cart
                 Block block = this.getBlockInfo(oworld, i, j, k, l);
                 Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();

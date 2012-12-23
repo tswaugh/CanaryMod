@@ -9,7 +9,7 @@ public class OItemRecord extends OItem {
     protected OItemRecord(int i, String s) {
         super(i);
         this.a = s;
-        this.ch = 1;
+        this.ck = 1;
         this.a(OCreativeTabs.f);
         b.put(s, this);
     }
@@ -20,12 +20,12 @@ public class OItemRecord extends OItem {
         }
 
         if (oworld.a(i, j, k) == OBlock.bb.cm && oworld.h(i, j, k) == 0) {
-            if (oworld.J) {
+            if (oworld.I) {
 
                 return true;
             } else {
                 ((OBlockJukeBox) OBlock.bb).a(oworld, i, j, k, oitemstack);
-                oworld.a((OEntityPlayer) null, 1005, i, j, k, this.cg);
+                oworld.a((OEntityPlayer) null, 1005, i, j, k, this.cj);
                 --oitemstack.a;
                 return true;
             }

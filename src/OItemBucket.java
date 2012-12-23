@@ -4,7 +4,7 @@ public class OItemBucket extends OItem {
 
     public OItemBucket(int i, int j) {
         super(i);
-        this.ch = 1;
+        this.ck = 1;
         this.a = j;
         this.a(OCreativeTabs.f);
     }
@@ -45,16 +45,16 @@ public class OItemBucket extends OItem {
                         }
 
                         oworld.e(i, j, k, 0);
-                        if (oentityplayer.cc.d) {
+                        if (oentityplayer.cd.d) {
                             return oitemstack;
                         }
 
                         if (--oitemstack.a <= 0) {
-                            return new OItemStack(OItem.ax);
+                            return new OItemStack(OItem.ay);
                         }
 
-                        if (!oentityplayer.bI.a(new OItemStack(OItem.ax))) {
-                            oentityplayer.c(new OItemStack(OItem.ax.cg, 1, 0));
+                        if (!oentityplayer.bJ.a(new OItemStack(OItem.ay))) {
+                            oentityplayer.c(new OItemStack(OItem.ay.cj, 1, 0));
                         }
 
                         return oitemstack;
@@ -67,7 +67,7 @@ public class OItemBucket extends OItem {
                         }
 
                         oworld.e(i, j, k, 0);
-                        if (oentityplayer.cc.d) {
+                        if (oentityplayer.cd.d) {
                             return oitemstack;
                         }
 
@@ -75,8 +75,8 @@ public class OItemBucket extends OItem {
                             return new OItemStack(OItem.ay);
                         }
 
-                        if (!oentityplayer.bI.a(new OItemStack(OItem.ay))) {
-                            oentityplayer.c(new OItemStack(OItem.ay.cg, 1, 0));
+                        if (!oentityplayer.bJ.a(new OItemStack(OItem.ay))) {
+                            oentityplayer.c(new OItemStack(OItem.ay.cj, 1, 0));
                         }
 
                         return oitemstack;
@@ -114,7 +114,7 @@ public class OItemBucket extends OItem {
                         return oitemstack;
                     }
 
-                    if (this.a(oworld, d0, d1, d2, i, j, k, oentityplayer) && !oentityplayer.cc.d) { // CanaryMod: pass oentityplayer
+                    if (this.a(oworld, d0, d1, d2, i, j, k, oentityplayer) && !oentityplayer.cd.d) { // CanaryMod: pass oentityplayer
                         return new OItemStack(OItem.aw);
                     }
                 }
@@ -139,8 +139,8 @@ public class OItemBucket extends OItem {
         } else if (!oworld.c(i, j, k) && oworld.g(i, j, k).a()) {
             return false;
         } else {
-            if (oworld.v.e && this.a == OBlock.D.cm) {
-                oworld.a(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D, "random.fizz", 0.5F, 2.6F + (oworld.u.nextFloat() - oworld.u.nextFloat()) * 0.8F);
+            if (oworld.u.e && this.a == OBlock.D.cm) {
+                oworld.a(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D, "random.fizz", 0.5F, 2.6F + (oworld.t.nextFloat() - oworld.t.nextFloat()) * 0.8F);
 
                 for (int l = 0; l < 8; ++l) {
                     oworld.a("largesmoke", (double) i + Math.random(), (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);

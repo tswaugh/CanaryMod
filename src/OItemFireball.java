@@ -9,7 +9,7 @@ public class OItemFireball extends OItem {
         // CanaryMod: Store block data clicked
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
 
-        if (oworld.J) {
+        if (oworld.I) {
             return true;
         } else {
             if (l == 0) {
@@ -59,7 +59,7 @@ public class OItemFireball extends OItem {
                     oworld.e(i, j, k, OBlock.au.cm);
                 }
 
-                if (!oentityplayer.cc.d) {
+                if (!oentityplayer.cd.d) {
                     --oitemstack.a;
                 }
 

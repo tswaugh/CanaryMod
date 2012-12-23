@@ -24,7 +24,7 @@ public class OItemHangingEntity extends OItem {
                 return false;
             } else {
                 if (oentityhanging != null && oentityhanging.c()) {
-                    if (!oworld.J) {
+                    if (!oworld.I) {
                         // CanaryMod: Painting place hook
                         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, blockClicked, ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand())) {
                             return false;
