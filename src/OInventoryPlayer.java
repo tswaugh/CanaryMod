@@ -160,15 +160,16 @@ public class OInventoryPlayer implements OIInventory, Container<OItemStack> {
 
     // CanaryMod: Simulate Pickup (Its the same as a(OItemStack) but without
     // altering the inventory
+    // TODO todo xxx : Might be broken with 1.4.6 --somners
     public boolean canPickup(OEntityItem oentityitem) {
-        OItemStack oitemstack = oentityitem.a;
+        OItemStack oitemstack = oentityitem.d();
         int i;
 
         if (oitemstack.h()) {
             i = this.i();
             if (i >= 0) {
                 return !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_PICK_UP, ((OEntityPlayerMP) this.d).getPlayer(), oentityitem.item);
-            } else if (this.d.cc.d) {
+            } else if (this.d.cd.d) {
                 return true;
             } else {
                 return false;
