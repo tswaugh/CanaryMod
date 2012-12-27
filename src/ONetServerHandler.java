@@ -559,7 +559,7 @@ public class ONetServerHandler extends ONetHandler {
     public void a(String s, Object[] aobject) {
         // CanaryMod: disconnect!
         OEntity.manager.callHook(PluginLoader.Hook.DISCONNECT, this.getPlayer());
-        a.info(this.d.bQ + " lost connection: " + s);
+        a.info(this.d.bR + " lost connection: " + s);
 
         // CanaryMod - onPlayerDisconnect Hook
         HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the server.", this.d.bR), s);
