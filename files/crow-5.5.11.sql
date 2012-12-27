@@ -1,0 +1,1 @@
+VALUES ('firework',  401), ('fireworkstar',  402);
