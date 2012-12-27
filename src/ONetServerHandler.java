@@ -562,7 +562,7 @@ public class ONetServerHandler extends ONetHandler {
         a.info(this.d.bR + " lost connection: " + s);
 
         // CanaryMod - onPlayerDisconnect Hook
-        HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the server.", this.d.bR), s);
+        HookParametersDisconnect hookResult = new HookParametersDisconnect(String.format(Colors.Yellow + "%s left the game.", this.d.bR), s);
 
         hookResult = (HookParametersDisconnect) etc.getLoader().callHook(PluginLoader.Hook.PLAYER_DISCONNECT, this.getPlayer(), hookResult); // XXX
         if (!hookResult.isHidden()) {
