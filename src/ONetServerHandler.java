@@ -569,7 +569,8 @@ public class ONetServerHandler extends ONetHandler {
             this.e.ad().a((OPacket) (new OPacket3Chat(hookResult.getLeaveMessage())));
         }
         a.info(this.d.bR + " lost connection: " + s);
-
+        this.e.ad().a((OPacket) (new OPacket3Chat("\u00A7e" + this.d.bR + " left the game.")));
+        this.e.ad().e(this.d);
         this.c = true;
         if (this.e.I() && this.d.bR.equals(this.e.H())) {
             a.info("Stopping singleplayer server as player logged out");
