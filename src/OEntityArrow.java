@@ -228,7 +228,10 @@ public class OEntityArrow extends OEntity implements OIProjectile {
                                     }
                                 }
 
-                                OEnchantmentThorns.a(this.c, oentityliving, this.aa);
+                                if (this.c != null) {
+                                    OEnchantmentThorns.a(this.c, oentityliving, this.aa);
+                                }
+
                                 if (this.c != null && omovingobjectposition.g != this.c && omovingobjectposition.g instanceof OEntityPlayer && this.c instanceof OEntityPlayerMP) {
                                     ((OEntityPlayerMP) this.c).a.b(new OPacket70GameEvent(6, 0));
                                 }

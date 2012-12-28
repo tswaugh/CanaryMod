@@ -9,7 +9,7 @@ public class OEntityFireworkRocket extends OEntity {
     }
 
     protected void a() {
-        this.ag.a(8, new OItemStack(0, 0, 0));
+        this.ag.a(8, 5);
     }
 
     public OEntityFireworkRocket(OWorld oworld, double d0, double d1, double d2, OItemStack oitemstack) {
