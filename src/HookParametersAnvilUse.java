@@ -14,7 +14,7 @@ public class HookParametersAnvilUse extends HookParameters {
 
     public HookParametersAnvilUse(Anvil anvil, Block block) {
         this.slotOne = anvil.getItemFromSlot(0);
-        this.slotTwo = anvil.getItemFromId(1);
+        this.slotTwo = anvil.getItemFromSlot(1);
         this.result = anvil.getResult();
         this.toolName = anvil.getToolName();
         this.xpLevel = anvil.getXPCost();
