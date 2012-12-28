@@ -305,6 +305,9 @@ public class Item implements Cloneable, Metadatable {
         CarrotOnAStick(398), //
         NetherStar(399), //
         PumpkinPie(400), //
+        FireworkRocket(401), //
+        FireworkStar(402), //
+        EnchantedBook(403), //
         GoldRecord(2256), //
         GreenRecord(2257), //
         BlocksRecord(2258), //

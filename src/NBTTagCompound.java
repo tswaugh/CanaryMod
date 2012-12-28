@@ -317,6 +317,6 @@ public class NBTTagCompound extends NBTBase {
 
     @Override
     public String toString() {
-        return String.format("NBTTag[type=%s, value=%s]", getTagName(getType()), getValues());
+        return String.format("NBTTag[type=%s, name=%s, value=%s]", getTagName(getType()), getName(), getValues());
     }
 }

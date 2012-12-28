@@ -58,6 +58,6 @@ public class NBTTagFloat extends NBTBase {
 
     @Override
     public String toString() {
-        return String.format("NBTTag[type=%s, value=%f]", getTagName(getType()), getValue());
+        return String.format("NBTTag[type=%s, name=%s, value=%f]", getTagName(getType()), getName(), getValue());
     }
 }

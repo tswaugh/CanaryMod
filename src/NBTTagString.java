@@ -67,6 +67,6 @@ public class NBTTagString extends NBTBase {
 
     @Override
     public String toString() {
-        return String.format("NBTTag[type=%s, value=%s]", getTagName(getType()), getValue());
+        return String.format("NBTTag[type=%s, name=%s, value=%s]", getTagName(getType()), getName(), getValue());
     }
 }

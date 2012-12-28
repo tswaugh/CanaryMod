@@ -1,7 +1,7 @@
 public class OEntityFireworkRocket extends OEntity {
 
     private int a;
-    private int b;
+    protected int b; //CanaryMod: private -> protected
 
     public OEntityFireworkRocket(OWorld oworld) {
         super(oworld);

@@ -80,6 +80,15 @@ public class NBTTagList extends NBTBase {
 
     @Override
     public String toString() {
-        return String.format("NBTTag[type=%s, value=%s]", getTagName(getType()), Arrays.toString(getValues()));
+        return String.format("NBTTag[type=%s, name=%s, value=%s]", getTagName(getType()), getName(), Arrays.toString(getValues()));
+    }
+    
+    /**
+     * Removes the NBTTag at the specified index.
+     * 
+     * @param index The index of the tag to remove.
+     */
+    public void remove(int index) {
+    	getBaseTag().a.remove(index);
     }
 }
