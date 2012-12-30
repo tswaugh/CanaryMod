@@ -81,7 +81,7 @@ public class OEntityFireworkRocket extends OEntity {
             this.p.a("fireworksSpark", this.t, this.u - 0.3D, this.v, this.aa.nextGaussian() * 0.05D, -this.x * 0.5D, this.aa.nextGaussian() * 0.05D);
         }
 
-        if (!this.p.I && this.a > this.b) {
+        if (!this.p.I && this.a > this.b && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Firework(this), null)) { //CanaryMod: call onProjectileHit when the rocket explodes
             this.p.a(this, (byte) 17);
             this.x();
         }

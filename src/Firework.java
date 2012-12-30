@@ -6,7 +6,7 @@ import java.awt.Color;
  * @author gregthegeek
  *
  */
-public class Firework extends BaseEntity {
+public class Firework extends Projectile {
 	
 	/**
 	 * Wraps an OEntityFireworkRocket.

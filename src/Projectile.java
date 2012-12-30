@@ -24,6 +24,7 @@ public class Projectile extends BaseEntity {
 
     /**
      * Returns the shooter of this projectile. null if none.
+     * Note: not all projectiles keep track of shooter.
      *
      * @return
      */
@@ -40,7 +41,8 @@ public class Projectile extends BaseEntity {
     }
 
     /**
-     * Sets the shooter of this projectile
+     * Sets the shooter of this projectile.
+     * Note: not all projectiles keep track of shooter.
      *
      * @return whether or not the operation was successful
      */
