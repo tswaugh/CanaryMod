@@ -15,6 +15,7 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
     public int h;
     private int j;
     private String name = "container.chest"; // CanaryMod
+    private final Chest chest = new Chest(this); // CanaryMod
 
     public OTileEntityChest() {}
 
@@ -326,5 +327,10 @@ public class OTileEntityChest extends OTileEntity implements OIInventory, Contai
     @Override
     public void setName(String s) {
         this.name = s;
+    }
+
+    @Override
+    public Chest getComplexBlock() {
+        return chest;
     }
 }

@@ -577,18 +577,23 @@ public class ServerConsoleCommands extends CommandHandler {
         protected void execute(MessageReceiver caller, String[] args) {
             World world;
 
-            if (caller instanceof Player) {
-                world = ((Player) caller).getWorld();
-            } else {
-                if (args.length > 2 && !args[1].equalsIgnoreCase("raw")) {
-                    World[] worlda = etc.getServer().getWorld(args[1]);
-                    if (worlda == null) {
-                        caller.notify(String.format("The world %s doesn't exist.", args[1]));
-                        return;
-                    }
-                    world = worlda[0];
-                    args = (args[0] + " " + etc.combineSplit(2, args, " ")).split(" ");
+            if (args.length > 2 && !args[1].equalsIgnoreCase("raw")) {
+                World[] worlda = etc.getServer().getWorld(args[1]);
+                if (worlda == null) {
+                    caller.notify(String.format("The world %s doesn't exist.", args[1]));
+                    return;
                 }
+                world = worlda[0];
+                // remove world from args
+                String[] tmp = new String[args.length - 1];
+                tmp[0] = args[0];
+                System.arraycopy(args, 2, tmp, 1, args.length - 2);
+                args = tmp;
+            } else if (caller instanceof Player) {
+                world = ((Player) caller).getWorld();
+            } else if (caller instanceof CommandBlock) {
+                world = ((CommandBlock) caller).getWorld();
+            } else {
                 world = etc.getServer().getDefaultWorld();
             }
 
@@ -617,11 +622,27 @@ public class ServerConsoleCommands extends CommandHandler {
 
         @Override
         protected void execute(MessageReceiver caller, String[] args) {
-            if (!(caller instanceof Player)) {
-                return;
+            World world;
+
+            if (args.length > 1 && !args[1].matches("on|off") || args.length > 2) {
+                World[] worlda = etc.getServer().getWorld(args[1]);
+                if (worlda == null) {
+                    caller.notify(String.format("The world %s doesn't exist.", args[1]));
+                    return;
+                }
+                world = worlda[0];
+                // remove world from args
+                String[] tmp = new String[args.length - 1];
+                tmp[0] = args[0];
+                System.arraycopy(args, 2, tmp, 1, args.length - 2);
+                args = tmp;
+            } else if (caller instanceof Player) {
+                world = ((Player) caller).getWorld();
+            } else if (caller instanceof CommandBlock) {
+                world = ((CommandBlock) caller).getWorld();
+            } else {
+                world = etc.getServer().getDefaultWorld();
             }
-            Player player = (Player) caller;
-            World world = player.getWorld();
 
             if (args.length == 1) {
                 world.setRaining(!world.isRaining());
@@ -642,11 +663,27 @@ public class ServerConsoleCommands extends CommandHandler {
 
         @Override
         protected void execute(MessageReceiver caller, String[] args) {
-            if (!(caller instanceof Player)) {
-                return;
+            World world;
+
+            if (args.length > 1 && !args[1].matches("on|off") || args.length > 2) {
+                World[] worlda = etc.getServer().getWorld(args[1]);
+                if (worlda == null) {
+                    caller.notify(String.format("The world %s doesn't exist.", args[1]));
+                    return;
+                }
+                world = worlda[0];
+                // remove world from args
+                String[] tmp = new String[args.length - 1];
+                tmp[0] = args[0];
+                System.arraycopy(args, 2, tmp, 1, args.length - 2);
+                args = tmp;
+            } else if (caller instanceof Player) {
+                world = ((Player) caller).getWorld();
+            } else if (caller instanceof CommandBlock) {
+                world = ((CommandBlock) caller).getWorld();
+            } else {
+                world = etc.getServer().getDefaultWorld();
             }
-            Player player = (Player) caller;
-            World world = player.getWorld();
 
             if (args.length == 1) {
                 world.setThundering(!world.isThundering());

@@ -18,6 +18,7 @@ public class OTileEntityMobSpawner extends OTileEntity {
     protected int r = 6; //CanaryMod: private -> protected
     protected int s = 16; //CanaryMod: private -> protected
     protected int t = 4; //CanaryMod: private -> protected
+    private final MobSpawner spawner = new MobSpawner(this); // CanaryMod
 
     public OTileEntityMobSpawner() {
         this.a = 20;
@@ -229,5 +230,10 @@ public class OTileEntityMobSpawner extends OTileEntity {
         if (i == 1 && this.k.I) {
             this.a = this.g;
         }
+    }
+
+    @Override
+    public MobSpawner getComplexBlock() {
+        return spawner;
     }
 }

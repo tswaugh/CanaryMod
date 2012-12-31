@@ -7,6 +7,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
     public int b = 0;
     public int c = 0;
     private String name = "container.furnace"; // CanaryMod
+    private final Furnace furnace = new Furnace(this); // CanaryMod
 
     public OTileEntityFurnace() {}
 
@@ -252,6 +253,11 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
     @Override
     public void setName(String s) {
         this.name = s;
+    }
+
+    @Override
+    public Furnace getComplexBlock() {
+        return furnace;
     }
 
 }

@@ -1,7 +1,8 @@
 public class OTileEntityCommandBlock extends OTileEntity implements OICommandSender {
 
     private String a = "";
-    protected String prefix = "@"; //CanaryMod: allows us to set this block's text prefix
+    protected String prefix = "@"; // CanaryMod: allows us to set this block's text prefix
+    private final CommandBlock block = new CommandBlock(this); // CanaryMod
 
     public OTileEntityCommandBlock() {}
 
@@ -23,7 +24,7 @@ public class OTileEntityCommandBlock extends OTileEntity implements OICommandSen
     }
 
     public String c_() {
-        return prefix; //CanaryMod: allows us to set this block's text prefix
+        return prefix; // CanaryMod: allows us to set this block's text prefix
     }
 
     public void a(String s) {}
@@ -57,7 +58,12 @@ public class OTileEntityCommandBlock extends OTileEntity implements OICommandSen
         return new OPacket132TileEntityData(this.l, this.m, this.n, 2, onbttagcompound);
     }
  
-    public String getCommand() { //CanaryMod: allows us to access the command stored
+    public String getCommand() { // CanaryMod: allows us to access the command stored
         return this.a;
+    }
+
+    @Override
+    public CommandBlock getComplexBlock() {
+        return block;
     }
 }

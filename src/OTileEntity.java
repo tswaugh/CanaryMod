@@ -136,6 +136,14 @@ public class OTileEntity {
         return b;
     }
 
+    /**
+     * Returns the CanaryMod abstraction of this <tt>TileEntity</tt>.
+     * @return the <tt>ComplexBlock</tt> of this <tt>TileEntity</tt>
+     */
+    public ComplexBlock getComplexBlock() {
+        return null;
+    }
+
     static {
         a(OTileEntityFurnace.class, "Furnace");
         a(OTileEntityChest.class, "Chest");

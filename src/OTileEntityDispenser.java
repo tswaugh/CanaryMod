@@ -6,6 +6,7 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
     private OItemStack[] a = new OItemStack[9];
     private Random b = new Random();
     private String name = "container.dispenser";
+    private final Dispenser dispenser = new Dispenser(this); // CanaryMod
 
     public OTileEntityDispenser() {}
 
@@ -166,6 +167,11 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
     @Override
     public void setName(String s) {
         this.name = s;
+    }
+
+    @Override
+    public Dispenser getComplexBlock() {
+        return dispenser;
     }
 
 }

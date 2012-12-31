@@ -14,13 +14,42 @@ public class OCommandHandler implements OICommandManager {
 
     public OCommandHandler() {}
 
-    public void a(OICommandSender oicommandsender, String s) {
+    public void a(final OICommandSender oicommandsender, String s) { // CanaryMod: add final
         if (s.startsWith("/")) {
             s = s.substring(1);
         }
 
         String[] astring = s.split(" ");
         String s1 = astring[0];
+
+        // CanaryMod start: Do our own parsing
+        if (oicommandsender instanceof OMinecraftServer
+                && etc.getInstance().parseConsoleCommand(s, (OMinecraftServer) oicommandsender)) {
+            return;
+        } else {
+            MessageReceiver m;
+            if (oicommandsender instanceof OEntityPlayerMP) {
+                m = ((OEntityPlayerMP) oicommandsender).getPlayer();
+            } else if (oicommandsender instanceof OTileEntityCommandBlock) {
+                m = ((OTileEntityCommandBlock) oicommandsender).getComplexBlock();
+            } else {
+                m = new MessageReceiver() {
+
+                    @Override
+                    public String getName() {
+                        return oicommandsender.c_();
+                    }
+
+                    @Override
+                    public void notify(String message) {
+                        oicommandsender.a(message);
+                    }
+                };
+            }
+            if (ServerConsoleCommands.parseServerConsoleCommand(m, s1, astring)) {
+                return;
+            }
+        } // CanaryMod end
 
         astring = a(astring);
         OICommand oicommand = (OICommand) this.a.get(s1);

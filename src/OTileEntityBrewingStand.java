@@ -9,6 +9,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
     private int d;
 
     private String name = "container.brewing"; // CanaryMod
+    private final BrewingStand stand = new BrewingStand(this); // CanaryMod
 
     public OTileEntityBrewingStand() {}
 
@@ -249,5 +250,10 @@ public class OTileEntityBrewingStand extends OTileEntity implements OIInventory,
     @Override
     public void setName(String s) {
         this.name = s;
+    }
+
+    @Override
+    public BrewingStand getComplexBlock() {
+        return stand;
     }
 }

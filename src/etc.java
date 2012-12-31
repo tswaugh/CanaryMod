@@ -342,6 +342,9 @@ public class etc {
      * @return
      */
     public static OMinecraftServer getMCServer() {
+        if (server == null) {
+            server = OMinecraftServer.D();
+        }
         return server;
     }
 
@@ -571,9 +574,6 @@ public class etc {
      * @return
      */
     public boolean parseConsoleCommand(String command, OMinecraftServer server) {
-        if (getMCServer() == null) {
-            setServer(server);
-        }
         String[] split = command.split(" ");
 
         if ((Boolean) getLoader().callHook(PluginLoader.Hook.SERVERCOMMAND, new Object[] { split })) {

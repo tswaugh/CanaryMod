@@ -4,7 +4,7 @@
  * @author gregthegeek
  *
  */
-public class CommandBlock implements ComplexBlock {
+public class CommandBlock implements ComplexBlock, MessageReceiver {
     private final OTileEntityCommandBlock base;
 
     public CommandBlock(OTileEntityCommandBlock base) {
@@ -99,5 +99,15 @@ public class CommandBlock implements ComplexBlock {
     @Override
     public void readFromTag(NBTTagCompound tag) {
         base.a(tag.getBaseTag());
+    }
+
+    @Override
+    public String getName() {
+        return base.c_();
+    }
+
+    @Override
+    public void notify(String message) {
+        base.a(message);
     }
 }
