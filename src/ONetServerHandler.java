@@ -711,7 +711,7 @@ public class ONetServerHandler extends ONetHandler {
     public void a(OPacket205ClientCommand opacket205clientcommand) {
         if (opacket205clientcommand.a == 1) {
             // CanaryMod: onPlayerRespawn TODO todo xxx I may have broken this --somners
-            OChunkCoordinates spawnLoc = this.d.b();
+        	OChunkCoordinates spawnLoc = this.d.bZ();
 
             if (spawnLoc == null) {
                 spawnLoc = this.e.getWorld(this.d.p.name, 0).H();
