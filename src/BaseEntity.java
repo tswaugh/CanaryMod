@@ -31,7 +31,7 @@ public class BaseEntity implements Metadatable {
     }
 
     /**
-     * Teleports to the provided location
+     * Teleports to the provided location.
      *
      * @param x
      * @param rotation
@@ -44,7 +44,7 @@ public class BaseEntity implements Metadatable {
     }
 
     /**
-     * Teleports to the other entity
+     * Teleports to the other entity.
      *
      * @param ent
      *            entity to teleport to
@@ -54,7 +54,7 @@ public class BaseEntity implements Metadatable {
     }
 
     /**
-     * Teleports to the provided location
+     * Teleports to the provided location.
      *
      * @param location
      *            location to teleport to
