@@ -43,4 +43,13 @@ public class BaseVehicle extends BaseEntity {
 
         return null;
     }
+    
+    /**
+     * Sets the vehicles rider.
+     * @param entity
+     */
+    public void setPassenger(BaseEntity entity) {
+        entity.entity.a((OEntity) this.entity);
+    }
+    
 }
