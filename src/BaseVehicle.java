@@ -45,11 +45,11 @@ public class BaseVehicle extends BaseEntity {
     }
     
     /**
-     * Sets the vehicles rider.
-     * @param entity
+     * Convenience method for setting a player in a minecart because we have getPassenger()
+     * @param p
      */
-    public void setPassenger(BaseEntity entity) {
-        entity.entity.a((OEntity) this.entity);
+    public void setPassenger(Player p) {
+        setRiddenByEntity(p);
     }
     
 }
