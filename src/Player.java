@@ -1011,7 +1011,7 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     @Override
     public void teleportTo(BaseEntity ent) {
-        if (!(getWorld().hashCode() == ent.getWorld().hashCode())) {
+        if (!getWorld().equals(ent.getWorld())) {
             switchWorlds(ent.getWorld());
         }
         super.teleportTo(ent);
@@ -1020,7 +1020,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     @Override
     public void teleportTo(Location location) {
 
-        if (!(getWorld().hashCode() == location.getWorld().hashCode())) {
+        if (!getWorld().equals(location.getWorld())) {
             switchWorlds(location.getWorld());
         }
         super.teleportTo(location);
