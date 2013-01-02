@@ -1330,4 +1330,14 @@ public class PluginListener {
     public HookParametersAnvilUse onAnvilUse(HookParametersAnvilUse hookParametersAnvilUse) {
         return hookParametersAnvilUse;
     }
+    
+    /**
+     * Called when a firework explodes.
+     * 
+     * @param firework The firework exploding.
+     * @return true to cancel the explosion. It is also recommended to extend the life of the firework to prevent the calling of this hook repeatedly.
+     */
+    public boolean onFireworkExplode(Firework firework) {
+    	return false;
+    }
 }

@@ -31,7 +31,7 @@ public class BaseEntity implements Metadatable {
     }
 
     /**
-     * Teleports to the provided location
+     * Teleports to the provided location.
      *
      * @param x
      * @param rotation
@@ -44,7 +44,7 @@ public class BaseEntity implements Metadatable {
     }
 
     /**
-     * Teleports to the other entity
+     * Teleports to the other entity.
      *
      * @param ent
      *            entity to teleport to
@@ -54,7 +54,7 @@ public class BaseEntity implements Metadatable {
     }
 
     /**
-     * Teleports to the provided location
+     * Teleports to the provided location.
      *
      * @param location
      *            location to teleport to
@@ -562,4 +562,40 @@ public class BaseEntity implements Metadatable {
     public String toString() {
         return String.format("Entity[id=%d, name=%s, location=%s]", getId(), getName(), getLocation());
     }
+    
+    /**
+     * Gets the "passenger" for this entity. Passenger is any entity that is on top of this entity. 
+     * Example player in a minecart, the player is the passenger. 
+     * @return
+     */
+    public BaseEntity getRiddenByEntity() {
+        return this.entity.n.entity;
+    }
+    
+    /**
+     * Sets the entity's rider.
+     * @param entity
+     */
+    public void setRiddenByEntity(BaseEntity entity) {
+        entity.entity.a((OEntity) this.entity);
+    }
+    
+    /**
+     * Get the "vehicle" for this entity. Vehicle is any entity that is underneath this entity.
+     * Example player in a minecart, the minecart is the vehicle. 
+     * @return
+     */
+    public BaseEntity getRidingEntity() {
+        return this.entity.o.entity;
+    }
+    
+    /**
+     * If this entity is marked as "to be removed". This commonly happens next tick,
+     * so something can be destroyed and the next tick can still be detected as being in the world.
+     * @return
+     */
+    public boolean isDead() {
+        return this.entity.L;
+    }
+
 }

@@ -150,9 +150,27 @@ public class Firework extends Projectile {
 	}
 	
 	/**
+	 * Sets the amount of time before this rocket explodes.
+	 * 
+	 * @param life Probably ticks.
+	 */
+	public void setRemainingLife(int life) {
+		getEntity().a = life;
+	}
+	
+	/**
+	 * Returns the amount of time before this rocket explodes.
+	 * 
+	 * @return int
+	 */
+	public int getRemainingLife() {
+		return getEntity().a;
+	}
+	
+	/**
 	 * Returns a firework rocket item without any effects.
 	 * 
-	 * @param power The amount of power the rocket should be created with (usually 1-3)
+	 * @param power The amount of power the rocket should be created with (usually 1-3).
 	 * @return Item
 	 */
 	public static Item getBlankFireworkRocket(byte power) {

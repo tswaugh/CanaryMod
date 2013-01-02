@@ -121,7 +121,7 @@ public abstract class OEntity {
 
         this.ag.a(0, Byte.valueOf((byte) 0));
         this.ag.a(1, Short.valueOf((short) 300));
-        metadata = new NBTTagCompound("Canary"); //CanaryMod
+        metadata = new NBTTagCompound("Canary"); // CanaryMod
         this.a();
     }
 

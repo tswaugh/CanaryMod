@@ -370,6 +370,10 @@ public class PluginLoader {
          */
         ANVIL_USE, //
         /**
+         * Calls{@link PluginListener#onFireworkExplode(Firework) }
+         */
+        FIREWORK_EXPLODE, //
+        /**
          * For internal use only.
          */
         NUM_HOOKS;
@@ -1309,6 +1313,10 @@ public class PluginLoader {
                             toRet = listener.onAnvilUse((HookParametersAnvilUse) parameters[0]);
                             break;
 
+                        case FIREWORK_EXPLODE:
+                        	toRet = listener.onFireworkExplode((Firework) parameters[0]);
+                        	break;
+                        	
                         }
                        } catch (UnsupportedOperationException ex) {}
                 }

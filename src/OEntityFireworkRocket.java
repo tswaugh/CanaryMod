@@ -1,7 +1,7 @@
 public class OEntityFireworkRocket extends OEntity {
 
-    private int a;
-    protected int b; //CanaryMod: private -> protected
+    protected int a; // CanaryMod: private -> protected
+    protected int b; // CanaryMod: private -> protected
 
     public OEntityFireworkRocket(OWorld oworld) {
         super(oworld);
@@ -81,7 +81,7 @@ public class OEntityFireworkRocket extends OEntity {
             this.p.a("fireworksSpark", this.t, this.u - 0.3D, this.v, this.aa.nextGaussian() * 0.05D, -this.x * 0.5D, this.aa.nextGaussian() * 0.05D);
         }
 
-        if (!this.p.I && this.a > this.b && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Firework(this), null)) { //CanaryMod: call onProjectileHit when the rocket explodes
+        if (!this.p.I && this.a > this.b && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.FIREWORK_EXPLODE, new Firework(this))) { // CanaryMod: call onFireworkExplode when the rocket explodes
             this.p.a(this, (byte) 17);
             this.x();
         }

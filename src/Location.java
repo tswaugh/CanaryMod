@@ -175,6 +175,6 @@ public class Location implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return String.format("Location[x=%d, y=%d, z=%d, rotX=%d, rotY=%d, world=%s, dim=%d]", x, y, z, rotX, rotY, world, dimension);
+        return String.format("Location[x=%f, y=%f, z=%f, rotX=%f, rotY=%f, world=%s, dim=%d]", x, y, z, rotX, rotY, world, dimension);
     }
 }
