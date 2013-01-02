@@ -24,6 +24,7 @@ public class Enchantment {
         ProjectileProtection(4), //
         Respiration(5), //
         AquaAffinity(6), //
+        Thorns(7), //
         Sharpness(16), //
         Smite(17), //
         BaneOfArthropods(18), //
