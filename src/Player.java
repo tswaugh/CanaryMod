@@ -1011,13 +1011,8 @@ public class Player extends HumanEntity implements MessageReceiver {
 
     @Override
     public void teleportTo(BaseEntity ent) {
-        log.log(Level.INFO, String.valueOf(ent.getLocation().dimension));
-        log.log(Level.INFO, String.valueOf(this.getLocation().dimension));
         if (!(getWorld().hashCode() == ent.getWorld().hashCode())) {
             switchWorlds(ent.getWorld());
-        }
-        if(ent.getEntity().aq != this.getEntity().aq){
-            etc.getMCServer().ad().sendPlayerToOtherDimension(this.getEntity(), ent.entity.aq, true);
         }
         super.teleportTo(ent);
     }
@@ -1027,9 +1022,6 @@ public class Player extends HumanEntity implements MessageReceiver {
 
         if (!(getWorld().hashCode() == location.getWorld().hashCode())) {
             switchWorlds(location.getWorld());
-        }
-        if(location.dimension != this.getEntity().aq){
-            etc.getMCServer().ad().sendPlayerToOtherDimension(this.getEntity(), location.dimension, true);
         }
         super.teleportTo(location);
     }

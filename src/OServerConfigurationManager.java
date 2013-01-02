@@ -381,7 +381,6 @@ public abstract class OServerConfigurationManager {
         OWorldServer oworldserver = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.aq);
 
         oentityplayermp.aq = i;
-        oentityplayermp.getPlayer().getLocation().dimension = i; //CanaryMod: updates player dimensions.
         OWorldServer oworldserver1 = this.f.getWorld(oentityplayermp.p.name, oentityplayermp.aq);
 
         oentityplayermp.a.b(new OPacket9Respawn(oentityplayermp.aq, (byte) oentityplayermp.p.s, oworldserver1.K().u(), oworldserver1.O(), oentityplayermp.c.b()));
