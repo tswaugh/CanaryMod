@@ -41,6 +41,7 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     // CanaryMod start
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     HumanEntity entity = new HumanEntity(this);
+    private String displayName; // CanaryMod: custom display names
     // CanaryMod end
 
     public OEntityPlayer(OWorld oworld) {
@@ -1391,4 +1392,14 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     public HumanEntity getEntity() {
         return entity;
     } //
+    
+    // CanaryMod start
+    public String getDisplayName() {
+    	return displayName == null ? this.bR : displayName;
+    }
+    
+    public void setDisplayName(String name) {
+    	this.displayName = name;
+    }
+    // CanaryMod end
 }

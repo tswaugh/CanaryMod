@@ -28,8 +28,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public boolean h;
     public int i;
     public boolean j = false;
-    // CanaryMod: Player storage
-    private Player player;
+    private Player player; // CanaryMod: Player storage
 
     public OEntityPlayerMP(OMinecraftServer ominecraftserver, OWorld oworld, String s, OItemInWorldManager oiteminworldmanager) {
         super(oworld);
@@ -754,4 +753,17 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         player = etc.getDataSource().getPlayer(this.bR);
         player.setUser(this);
     }
+    
+    // CanaryMod start
+    @Override
+    public void setDisplayName(String name) {
+    	super.setDisplayName(name);
+    	OPacket20NamedEntitySpawn pkt = new OPacket20NamedEntitySpawn(this);
+    	for(Player p : etc.getServer().getPlayerList()) { // could be improved to only send to nearby players
+    		if(!p.equals(this.player)) {
+    			p.getEntity().a.b(pkt);
+    		}
+    	}
+    }
+    // CanaryMod end
 }
