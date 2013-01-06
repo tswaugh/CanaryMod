@@ -12,8 +12,11 @@ public class OBehaviorMobEggDispense extends OBehaviorDefaultDispenseItem {
         double d1 = (double) ((float) oiblocksource.e() + 0.2F);
         double d2 = oiblocksource.c() + (double) oenumfacing.e();
 
-        OItemMonsterPlacer.a(oiblocksource.k(), oitemstack.j(), d0, d1, d2);
-        oitemstack.a(1);
+        OEntity ent = OItemMonsterPlacer.a(oiblocksource.k(), oitemstack.j(), d0, d1, d2, false); // CanaryMod: don't spawn entity yet
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) oiblocksource.j()), ent.entity)) {
+        	oiblocksource.k().d(ent); // CanaryMod: now we spawn the entity
+        	oitemstack.a(1);
+        }
         return oitemstack;
     }
 }

@@ -9,8 +9,10 @@ public abstract class OBehaviorProjectileDispense extends OBehaviorDefaultDispen
         OIProjectile oiprojectile = this.a(oworld, oiposition);
 
         oiprojectile.c((double) oenumfacing.c(), 0.10000000149011612D, (double) oenumfacing.e(), this.b(), this.a());
-        oworld.d((OEntity) oiprojectile);
-        oitemstack.a(1);
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) oiblocksource.j()), new Projectile((OEntity) oiprojectile))) {
+        	oworld.d((OEntity) oiprojectile);
+        	oitemstack.a(1);
+        }
         return oitemstack;
     }
 

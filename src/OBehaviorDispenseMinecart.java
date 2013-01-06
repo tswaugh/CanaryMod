@@ -33,8 +33,10 @@ public class OBehaviorDispenseMinecart extends OBehaviorDefaultDispenseItem {
 
         OEntityMinecart oentityminecart = new OEntityMinecart(oworld, d0, d1 + d3, d2, ((OItemMinecart) oitemstack.b()).a);
 
-        oworld.d((OEntity) oentityminecart);
-        oitemstack.a(1);
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) oiblocksource.j()), new Minecart(oentityminecart))) {
+        	oworld.d((OEntity) oentityminecart);
+        	oitemstack.a(1);
+        }
         return oitemstack;
     }
 
