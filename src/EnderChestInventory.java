@@ -4,7 +4,7 @@
  * @author gregthegeek
  *
  */
-public class EnderChestInventory extends ItemArray<OInventoryEnderChest> implements Inventory {
+public class EnderChestInventory extends ItemArray<OInventoryEnderChest> {
     private final Player owner;
 
     public EnderChestInventory(OInventoryEnderChest container, Player owner) {

@@ -88,12 +88,13 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Gives an item to the player
+     * Gives an item to the player.
      *
      * @param item
+     * @see PlayerInventory#insertItem(Item)
      */
     public void giveItem(Item item) {
-        inventory.addItem(item);
+        inventory.insertItem(item);
         inventory.update();
     }
 

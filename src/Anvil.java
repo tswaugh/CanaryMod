@@ -2,7 +2,7 @@
  * An interface class to anvils.
  * @author willem
  */
-public class Anvil extends ItemArray<OInventoryRepair> implements Inventory {
+public class Anvil extends ItemArray<OInventoryRepair> {
     private final OContainerRepair anvil;
 
     public Anvil(OContainerRepair container) {

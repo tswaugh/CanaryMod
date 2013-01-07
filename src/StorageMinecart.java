@@ -14,4 +14,18 @@ public class StorageMinecart extends ItemArray<OEntityMinecart> {
         super(cart);
     }
 
+    @Override
+    public void update() {
+        container.d(); // Not that it does anything, but it's the right method.
+    }
+
+    @Override
+    public String getName() {
+        return container.getName();
+    }
+
+    @Override
+    public void setName(String name) {
+        container.setName(name);
+    }
 }

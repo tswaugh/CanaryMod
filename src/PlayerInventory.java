@@ -1,4 +1,4 @@
-public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inventory {
+public class PlayerInventory extends ItemArray<OInventoryPlayer> {
     private final OEntityPlayerMP user;
 
     public PlayerInventory(Player player) {
@@ -6,6 +6,14 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> implements Inve
         user = player.getUser();
     }
 
+    /**
+     * Give an item to this inventory.
+     * The amount that does not fit into the inventory is dropped.
+     * This method takes enchantments into account.
+     * @param itemId The id of the item to give.
+     * @param amount The amount of the item to give.
+     * @see #insertItem(Item)
+     */
     public void giveItem(int itemId, int amount) {
         Item toGive = new Item(itemId, amount);
         if (!this.insertItem(toGive)) {

@@ -1,4 +1,4 @@
-public class Workbench extends ItemArray<OInventoryCraftResult> implements Inventory {
+public class Workbench extends ItemArray<OInventoryCraftResult> {
     private final OContainerWorkbench workbench;
 
     public Workbench(OContainerWorkbench block) {
