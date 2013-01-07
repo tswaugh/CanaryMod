@@ -475,7 +475,8 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
             itemExisting = this.getItemFromId(item.getItemId(), maxAmount-1);
 
             // Add the items to the existing stack of items
-            if (itemExisting != null) {
+            if (itemExisting != null &&
+                    (itemExisting.getEnchantment() == null || etc.getInstance().allowEnchantableItemStacking)) {
                 // Add as much items as possible to the stack
                 int k = Math.min(maxAmount - itemExisting.getAmount(), item.getAmount());
                 this.setSlot(item.getItemId(), itemExisting.getAmount() + k, itemExisting.getSlot());
@@ -483,7 +484,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
                 continue;
             }
             // We still have slots, but no stack, create a new stack.
-            if(this.getEmptySlot() != -1) {
+            if (this.getEmptySlot() != -1) {
                 this.addItem(new Item(item.getItemId(), amount));
                 amount = 0;
                 continue;
@@ -500,7 +501,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof ItemArray) {
+        if (obj instanceof ItemArray) {
             return Arrays.equals(getContents(), ((ItemArray) obj).getContents());
         }
         return false;
