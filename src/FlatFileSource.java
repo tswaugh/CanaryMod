@@ -1108,7 +1108,7 @@ public class FlatFileSource extends DataSource {
 
     @Override
     public Player getPlayer(String name) {
-        Player player = new Player();
+        Player player = null;
         String location = etc.getInstance().getUsersLocation();
 
         try {
@@ -1127,12 +1127,17 @@ public class FlatFileSource extends DataSource {
                 if (!split[0].equalsIgnoreCase(name)) {
                     continue;
                 }
+                
+                player = new Player();
 
                 if (split.length < 2) {
                     log.log(Level.SEVERE, String.format("Problem while reading %s (Line %d violates the syntax)", location, linenum));
                     continue;
                 }
                 player.setGroups(split[1].split(","));
+                if(player.getGroups().length == 0){
+                    player.setGroups(new String[] {etc.getDataSource().getDefaultGroup().Name});
+                }
 
                 if (split.length >= 3 && !split[2].isEmpty()) {
                     if (split[2].matches("-1|[012]")) {
@@ -1181,6 +1186,18 @@ public class FlatFileSource extends DataSource {
         } catch (Exception e) {
             log.log(Level.SEVERE, String.format("Exception while reading %s (Are you sure you formatted it correctly?)", location), e);
         }
+        if(player == null){
+            player = new Player();
+            Group group = etc.getDataSource().getDefaultGroup();
+            player.setGroups(new String[] {group.Name});
+            if (group.Administrator) {
+                player.setRestrictions(2);
+            } else if (group.IgnoreRestrictions) {
+                player.setRestrictions(1);
+            } else if (!group.CanModifyWorld && !player.canIgnoreRestrictions()) {
+                player.setRestrictions(-1);
+            }
+        }    
         return player;
     }
 

@@ -551,4 +551,10 @@ public abstract class DataSource {
      * @param ban The ban to expire.
      */
     abstract public void expireBan(Ban ban);
+    
+    public Player getDefaultGroupPlayer() {
+        Player player = new Player();
+        player.setGroups(new String[]{etc.getDataSource().getDefaultGroup().Name});
+        return player;
+    }
 }

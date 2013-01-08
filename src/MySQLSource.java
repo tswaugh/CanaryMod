@@ -780,6 +780,9 @@ public class MySQLSource extends DataSource {
             if (rs.next()) {
                 player.setSqlId(rs.getInt("id"));
                 player.setGroups(rs.getString("groups").split(","));
+                if(player.getGroups().length == 0){
+                    player.setGroups(new String[] {etc.getDataSource().getDefaultGroup().Name});
+                }
                 player.setCommands(rs.getString("commands").split(","));
                 player.setPrefix(rs.getString("prefix"));
                 player.setRestrictions(rs.getInt("admin/unrestricted"));
@@ -810,6 +813,17 @@ public class MySQLSource extends DataSource {
                     player.setIps(ips.toString().split(","));
                 }
                 player.setIps(null);
+            }
+            else{
+                Group group = etc.getDataSource().getDefaultGroup();
+                player.setGroups(new String[] {group.Name});
+                if (group.Administrator) {
+                    player.setRestrictions(2);
+                } else if (group.IgnoreRestrictions) {
+                    player.setRestrictions(1);
+                } else if (!group.CanModifyWorld && !player.canIgnoreRestrictions()) {
+                    player.setRestrictions(-1);
+            }
             }
         } catch (SQLException ex) {
             log.log(Level.SEVERE, "Unable to retreive users from user table", ex);
