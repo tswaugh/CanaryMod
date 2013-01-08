@@ -1113,4 +1113,18 @@ public class World {
     public void playSound(double x, double y, double z, Sound sound, float volume, float pitch){
         world.a(x, y, z, sound.getSoundString(), volume, pitch);
     }
+
+    /**
+     * Get the chunks that are currently loaded.
+     *
+     * @return The loaded chunks in Canary format.
+     */
+    public List<Chunk> getLoadedChunks() {
+        List<OChunk> nativeLoadedChunks = this.getWorld().b.g;
+        List<Chunk> loadedChunks = new ArrayList<Chunk>(nativeLoadedChunks.size());
+        for (OChunk ochunk : nativeLoadedChunks) {
+            loadedChunks.add(ochunk.chunk);
+        }
+        return loadedChunks;
+    }
 }

@@ -13,7 +13,7 @@ public class OChunkProviderServer implements OIChunkProvider {
     private OIChunkLoader e;
     public boolean a = true;
     private OLongHashMap f = new OLongHashMap();
-    private List g = new ArrayList();
+    List g = new ArrayList(); // CanaryMod: private -> package-private
     private OWorldServer h;
     // CanaryMod: load status
     boolean loadedpreload = false;
