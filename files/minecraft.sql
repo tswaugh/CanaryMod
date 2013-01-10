@@ -171,7 +171,8 @@ INSERT INTO `items` VALUES
 ('bottleoenchanting',384),('firecharge',385),('bookandquill',386),('writtenbook',387),
 ('emerald', 388),('itemframe',  389),('flowerpot',  390),('carrot',  391),('potato',  392),
 ('bakedpotato',  393),('poisonouspotato',  394),('emptymap',  395),('goldencarrot',  396),
-('skull',  397),('head',  397),('carrotonastick',  398),('netherstar',  399),('pumpkinpie',  400)
+('skull',  397),('head',  397),('carrotonastick',  398),('netherstar',  399),('pumpkinpie',  400),
+('firework',  401), ('fireworkstar',  402),
 ('goldrecord',2256),('greenrecord',2257),('blocksrecord',2258),
 ('chirprecord',2259),('farrecord',2260),('mallrecord',2261),('mellohirecord',2262),
 ('stalrecord',2263),('stradrecord',2264),('wardrecord',2265),('11record',2266);
