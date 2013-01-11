@@ -1017,5 +1017,34 @@ public class Server {
     public String getMCVersion() {
         return server.x();
     }
-    
+
+    /**
+     * Returns a <tt>Set&lt;String&gt;</tt> with the names of loaded worlds.
+     * Actually just a shortcut for <tt>etc.getMCServer().worlds.keySet();</tt>
+     *
+     * @return a <tt>Set&lt;String&gt;</tt> with the world names.
+     */
+    public Set<String> getLoadedWorldNames() {
+        return server.worlds.keySet();
+    }
+
+    /**
+     * Returns a <tt>Set&lt;World[]&gt;</tt> with the currently loaded worlds.
+     *
+     * @return a <tt>Set&lt;World[]&gt;</tt> with the loaded worlds.
+     */
+    public Set<World[]> getLoadedWorld() {
+        Set<World[]> loadedWorlds = new HashSet<World[]>(server.worlds.size());
+
+        for (OWorldServer[] aows : server.worlds.values()) {
+            World[] worlds = new World[aows.length];
+            for (int i = 0; i < aows.length; i++) {
+                worlds[i] = aows[i].world;
+            }
+
+            loadedWorlds.add(worlds);
+        }
+
+        return loadedWorlds;
+    }
 }
