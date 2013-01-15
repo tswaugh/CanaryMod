@@ -1275,7 +1275,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         OContainer container = getEntity().bK;
         ArrayList<OItemStack> list = new ArrayList<OItemStack>();
 
-        for (OSlot slot : (List<OSlot>) container.b) {
+        for (OSlot slot : (List<OSlot>) container.c) {
             list.add(slot.c());
         }
 
