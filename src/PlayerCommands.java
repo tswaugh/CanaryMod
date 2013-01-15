@@ -377,37 +377,38 @@ public class PlayerCommands extends CommandHandler {
                             log.info("Giving " + toGive.getName() + " some " + i.toString());
                             // toGive.giveItem(itemId, amount);
                             Inventory inv = toGive.getInventory();
-                            ArrayList<Item> list = new ArrayList<Item>();
+                            inv.insertItem(i);
+//                            ArrayList<Item> list = new ArrayList<Item>();
 
-                            for (Item it : inv.getContents()) {
-                                if (it != null && it.getItemId() == i.getItemId() && it.getDamage() == i.getDamage()) {
-                                    list.add(it);
-                                }
-                            }
-
-                            for (Item it : list) {
-                                if (it.getAmount() < 64) {
-                                    if (amount >= 64 - it.getAmount()) {
-                                        amount -= 64 - it.getAmount();
-                                        it.setAmount(64);
-                                        toGive.giveItem(it);
-                                    } else {
-                                        it.setAmount(it.getAmount() + amount);
-                                        amount = 0;
-                                        toGive.giveItem(it);
-                                    }
-                                }
-                            }
-                            if (amount != 0) {
-                                i.setAmount(64);
-                                while (amount > 64) {
-                                    amount -= 64;
-                                    toGive.giveItem(i);
-                                    i.setSlot(-1);
-                                }
-                                i.setAmount(amount);
-                                toGive.giveItem(i);
-                            }
+//                            for (Item it : inv.getContents()) {
+//                                if (it != null && it.getItemId() == i.getItemId() && it.getDamage() == i.getDamage()) {
+//                                    list.add(it);
+//                                }
+//                            }
+//
+//                            for (Item it : list) {
+//                                if (it.getAmount() < 64) {
+//                                    if (amount >= 64 - it.getAmount()) {
+//                                        amount -= 64 - it.getAmount();
+//                                        it.setAmount(64);
+//                                        toGive.giveItem(it);
+//                                    } else {
+//                                        it.setAmount(it.getAmount() + amount);
+//                                        amount = 0;
+//                                        toGive.giveItem(it);
+//                                    }
+//                                }
+//                            }
+//                            if (amount != 0) {
+//                                i.setAmount(64);
+//                                while (amount > 64) {
+//                                    amount -= 64;
+//                                    toGive.giveItem(i);
+//                                    i.setSlot(-1);
+//                                }
+//                                i.setAmount(amount);
+//                                toGive.giveItem(i);
+//                            }
                             if (toGive.getName().equalsIgnoreCase(caller.getName())) {
                                 caller.notify("There you go " + caller.getName() + ".");
                             } else {
