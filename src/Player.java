@@ -1612,6 +1612,6 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return whether this player wants colors disabled.
      */
     public boolean wantsColorDisabled() {
-        return !this.getEntity().getEnableColor();
+        return !this.getEntity().getColorEnabled();
     }
 }
