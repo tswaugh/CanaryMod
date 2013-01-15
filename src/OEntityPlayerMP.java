@@ -803,5 +803,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     public void updateSlot(int windowId, int slotIndex, OItemStack item) {
         this.a.b(new OPacket103SetSlot(windowId, slotIndex, item));
     }
+
+    public boolean getColorEnabled() {
+        return this.cs;
+    }
+
+    public int getViewDistance() {
+        return this.cq;
+    }
     // CanaryMod end
 }

@@ -85,8 +85,8 @@ public class etc {
     private int                           playerList_ticks = 600;
     private boolean                       playerList_colors = true;
     private boolean                       playerList_enabled = true;
-
-    public boolean                          allowEnchantableItemStacking = false;
+    public boolean                        allowEnchantableItemStacking = false;
+    private boolean                       forceChat, forceColor;
 
     //Connection Manager
     private ConnectionService cs;
@@ -225,8 +225,10 @@ public class etc {
             }
 
             allowEnchantableItemStacking = properties.getBoolean("allow-enchantable-item-stacking", false);
-
             showUnknownCommand = properties.getBoolean("show-unknown-command", true);
+            forceChat = properties.getBoolean("force-chat");
+            forceColor = properties.getBoolean("force-color");
+
             File file = new File("version.txt");
 
             if (file.exists()) {
@@ -1440,5 +1442,21 @@ public class etc {
      */
     public boolean isAltLocLoginAllowed() {
         return AltLocLoginAllowed;
+    }
+
+    /**
+     * Checks whether to force chat.
+     * @return whether to force chat.
+     */
+    public boolean isChatForced() {
+        return forceChat;
+    }
+
+    /**
+     * Checks whether to force color.
+     * @return whether to force color.
+     */
+    public boolean isColorForced() {
+        return forceColor;
     }
 }

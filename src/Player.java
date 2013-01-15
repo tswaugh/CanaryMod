@@ -84,6 +84,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param message
      */
     public void sendMessage(String message) {
+        if (!etc.getInstance().isColorForced() && this.wantsColorDisabled()) {
+            message = Colors.strip(message);
+        }
         getEntity().a.msg(message);
     }
 
@@ -135,9 +138,9 @@ public class Player extends HumanEntity implements MessageReceiver {
                 this.kick("Spamming.");
 
             List<Player> receivers = etc.getServer().getPlayerList();
-            StringBuilder chatPrefix = new StringBuilder("<" + getColor() + getName() + Colors.White + ">");
+            StringBuilder chatPrefix = new StringBuilder("<").append(getColor()).append(getName()).append(Colors.White).append(">");
             StringBuilder sbMessage = new StringBuilder(message);
-            HookParametersChat parametersChat = (HookParametersChat) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new Object[]{new HookParametersChat(this, chatPrefix, sbMessage, receivers)});
+            HookParametersChat parametersChat = (HookParametersChat) etc.getLoader().callHook(PluginLoader.Hook.CHAT, new HookParametersChat(this, chatPrefix, sbMessage, receivers));
 
             if ((parametersChat.isCanceled())) {
                 return;
@@ -153,11 +156,13 @@ public class Player extends HumanEntity implements MessageReceiver {
 
             //etc.getServer().messageAll(chat);
             for (Player player : receivers) {
-                if (chatPrefix.length() + message.length() >= 119) {
-                    player.sendMessage(chatPrefix.toString());
-                    player.sendMessage(sbMessage.toString());
-                } else {
-                    player.sendMessage(chat);
+                if (player.getChatPreference() == 0 || etc.getInstance().isChatForced()) {
+                    if (chatPrefix.length() + message.length() >= 119) {
+                        player.sendMessage(chatPrefix.toString());
+                        player.sendMessage(sbMessage.toString());
+                    } else {
+                        player.sendMessage(chat);
+                    }
                 }
             }
         }
@@ -1549,13 +1554,64 @@ public class Player extends HumanEntity implements MessageReceiver {
         getEntity().a.b(new OPacket62LevelSound(sound.getSoundString(), x, y, z, volume, pitch));
     }
     
+    /**
+     * Gets the item the cursor currently has.
+     * @return The {@link Item} the cursor currently has.
+     */
     public Item getInventoryCursorItem() {
         return inventory.getCursorItem();
     }
     
+    /**
+     * Sets the item the cursor should have.
+     */
     public void setInventoryCursorItem(Item item) {
         inventory.setCursorItem(item);
         // Update client
         getEntity().a.b(new OPacket103SetSlot(-1, -1, item.getBaseItem()));
+    }
+
+    /**
+     * Returns this player's set view distance.
+     * @return the view distance
+     */
+    public int getViewDistance() {
+        return this.getEntity().getViewDistance();
+    }
+
+    /**
+     * Returns the chat preference for this player.
+     * This number denotes whether the player wants command output only (1),
+     * or has disabled messages overall (2)
+     * @return chat preferences
+     * @see #wantsCommandsOnly()
+     * @see #hasChatDisabled()
+     */
+    public int getChatPreference() {
+        return this.getEntity().u();
+    }
+
+    /**
+     * Returns whether this player wants output from commands only.
+     * @return Whether the player set "Chat: Commands Only"
+     */
+    public boolean wantsCommandsOnly() {
+        return this.getChatPreference() == 1;
+    }
+
+    /**
+     * Returns whether this player has chat disabled.
+     * @return Whether the player set "Chat: Hide"
+     */
+    public boolean hasChatDisabled() {
+        return this.getChatPreference() == 2;
+    }
+
+    /**
+     * Returns the state of the client's "Colors" setting.
+     * @return whether this player wants colors disabled.
+     */
+    public boolean wantsColorDisabled() {
+        return !this.getEntity().getEnableColor();
     }
 }
