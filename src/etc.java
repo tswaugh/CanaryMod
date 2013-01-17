@@ -1459,4 +1459,54 @@ public class etc {
     public boolean isColorForced() {
         return forceColor;
     }
+
+    /**
+     * Autocompletes a word with passed options, optionally ignoring case.
+     * @param word The word to be autocompleted
+     * @param caseSensitive Whether the match should be case sensitive.
+     * @param options The options <tt>word</tt> can be completed to
+     * @return A list containing the matching options
+     */
+    public static List<String> autoComplete(String word, boolean caseSensitive, String... options) {
+        List<String> matches = new ArrayList<String>(options.length / 5); // Reasonable default size?
+
+        word = caseSensitive ? word : word.toLowerCase();
+
+        for (String option : options) {
+            if ((caseSensitive ? option : option.toLowerCase()).startsWith(word)) {
+                matches.add(option);
+            }
+        }
+
+        return matches;
+    }
+
+    /**
+     * Autocompletes a word with passed options, ignoring case.
+     * @param word The word to be autocompleted.
+     * @param options The options <tt>word</tt> can be completed to.
+     * @return A list containing the matching options.
+     */
+    public static List<String> autoComplete(String word, String... options) {
+        return etc.autoComplete(word, false, options);
+    }
+
+    /**
+     * Autocompletes a partial player name, optionally ignoring case.
+     * @param partialName The partial player name.
+     * @param caseSensitive Whether the match should be case sensitive.
+     * @return A list containing matching player names.
+     */
+    public static List<String> autoCompleteNames(String partialName, boolean caseSensitive) {
+        return etc.autoComplete(partialName, caseSensitive, etc.getServer().getPlayerNames().split(", "));
+    }
+
+    /**
+     * Autocompletes a partial player name, ignoring case.
+     * @param partialName The partial player name.
+     * @return A list containing matching player names.
+     */
+    public static List<String> autoCompleteNames(String partialName) {
+        return etc.autoCompleteNames(partialName, false);
+    }
 }

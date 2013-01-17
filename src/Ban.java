@@ -108,6 +108,10 @@ public class Ban {
         this.id = id;
     }
 
+    public boolean isIP() {
+        return this.ip.isEmpty();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof Ban))

@@ -114,6 +114,11 @@ public class PlayerCommands extends CommandHandler {
                 }
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
+        }
     };
     @Command
     public static final BaseCommand mute = new BaseCommand("<Player> - Mutes the player", "Correct usage is: /mute <player>", 2, 2) {
@@ -137,6 +142,16 @@ public class PlayerCommands extends CommandHandler {
             } else {
                 caller.notify("Can't find player "+Colors.Yellow+args[1]);
             }
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length != 2) {
+                return null;
+            }
+
+            return etc.autoCompleteNames(split[1]);
         }
     };
     @Command({"tell", "msg", "m"})
@@ -235,6 +250,17 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify("Available kits" + Colors.White + ": " + etc.getDataSource().getKitNames((Player) caller));
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (!(caller instanceof Player)) {
+                return null;
+            }
+            if (currentText.split(" ", -1).length == 2) {
+                return etc.autoComplete(currentText, etc.getDataSource().getKitNames((Player) caller));
+            }
+            return super.autoComplete(caller, currentText);
+        }
     };
     @Command
     public static final BaseCommand tp = new BaseCommand("<Player> - Teleports to player.", "Correct usage is: /tp <player>", 2) {
@@ -262,6 +288,16 @@ public class PlayerCommands extends CommandHandler {
 
             log.info(caller.getName() + " teleported to " + player.getName());
             ((Player) caller).teleportTo(player);
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length != 2) {
+                return null;
+            }
+
+            return etc.autoCompleteNames(split[1]);
         }
     };
     @Command({"tphere", "s"})
@@ -291,6 +327,16 @@ public class PlayerCommands extends CommandHandler {
             log.info(caller.getName() + " teleported " + player.getName() + " to their self.");
             player.teleportTo((Player) caller);
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length != 2) {
+                return null;
+            }
+
+            return etc.autoCompleteNames(split[1]);
+        }
     };
     @Command({"playerlist", "who"})
     public static final BaseCommand playerlist = new BaseCommand("- Shows a list of players") {
@@ -298,6 +344,11 @@ public class PlayerCommands extends CommandHandler {
         @Override
         protected void execute(MessageReceiver caller, String[] args) {
             caller.notify("Player list (" + etc.getServer().getPlayerList().size() + "/" + etc.getInstance().getPlayerLimit() + "): " + Colors.White + etc.getServer().getPlayerNames());
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
         }
     };
     @Command({"item", "i", "give"})
@@ -427,6 +478,21 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify("Can't find user " + args[3]);
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+
+            if (split.length == 2) {
+                return etc.autoComplete(split[1], etc.getDataSource().getItems().keySet().toArray(new String[0]));
+            }
+
+            if (split.length == 5 && !(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions()) {
+                return etc.autoCompleteNames(split[4]);
+            }
+
+            return null;
+        }
     };
     @Command({"cloth", "dye"})
     public static final BaseCommand clothdye = new BaseCommand("<Color> [Amount] - Gives you the specified dye/cloth", "Overridden", 2) {
@@ -543,6 +609,40 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify("Correct usage is: " + args[0] + " <color> [amount] [player]");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+
+            if (split.length == 2) {
+                Cloth.Color[] colors = Cloth.Color.values();
+                String[] colorNames = new String[colors.length];
+                for (int i = 0; i < colors.length; i++) {
+                    colorNames[i] = colors[i].getName().replaceAll("\\s+", "");
+                }
+
+                return etc.autoComplete(split[1], colorNames);
+            }
+
+            if (split.length == 3) {
+                if (split[1].equalsIgnoreCase("light")) {
+                    return etc.autoComplete(split[2], "blue", "green", "gray");
+                } else if (split[1].equalsIgnoreCase("dark")) {
+                    return Arrays.asList("green");
+                }
+            }
+
+            if (!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions()) {
+                if ((split[1].equalsIgnoreCase("light") || split[1].equalsIgnoreCase("dark"))
+                        && split.length == 5) {
+                    return etc.autoCompleteNames(split[4]);
+                } else if (split.length == 4) {
+                    return etc.autoCompleteNames(split[3]);
+                }
+            }
+
+            return null;
+        }
     };
     @Command({"me", "emote"})
     public static final BaseCommand me = new BaseCommand("<Message> - * hey0 says hi!") {
@@ -610,6 +710,14 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify(player.getName() + "'s home has been set.");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (!(caller instanceof Player) || ((Player) caller).isAdmin()) {
+                return super.autoComplete(caller, currentText);
+            }
+            return null;
+        }
     };
     @Command
     public static final BaseCommand spawn = new BaseCommand("- Teleports you to spawn") {
@@ -644,6 +752,14 @@ public class PlayerCommands extends CommandHandler {
 
             toMove.teleportTo(toMove.getWorld().getSpawnLocation());
 
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (!(caller instanceof Player) || ((Player) caller).isAdmin()) {
+                return super.autoComplete(caller, currentText);
+            }
+            return null;
         }
     };
     @Command
@@ -684,6 +800,14 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify("You have set the spawn to" + player.getName() + "'s current position.");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions()) {
+                return super.autoComplete(caller, currentText);
+            }
+            return null;
+        }
     };
     @Command
     public static final BaseCommand home = new BaseCommand("- Teleports you home") {
@@ -721,6 +845,20 @@ public class PlayerCommands extends CommandHandler {
                 player.teleportTo(player.getWorld().getSpawnLocation());
             }
 
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (!(caller instanceof Player) || ((Player) caller).isAdmin()) {
+                List<Warp> homes = etc.getDataSource().homes;
+                String[] names = new String[homes.size()];
+                for (int i = 0; i < names.length; i++) {
+                    names[i] = homes.get(i).Name;
+                }
+
+                return etc.autoComplete(currentText.substring(currentText.lastIndexOf(' ') + 1), names);
+            }
+            return null;
         }
     };
     @Command
@@ -781,6 +919,33 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify("Player not found.");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            boolean callerIsPlayer = caller instanceof Player;
+
+            if (split.length == 2) {
+                if (callerIsPlayer && ((Player) caller).canUseCommand("/listwarps")) {
+                    return etc.autoComplete(split[1],
+                        etc.getDataSource().getWarpNames((Player) caller).split(" "));
+                } else if (!callerIsPlayer) {
+                    List<Warp> warps = etc.getDataSource().warps;
+                    String[] names = new String[warps.size()];
+                    for (int i = 0; i < names.length; i++) {
+                        names[i] = warps.get(i).Name;
+                    }
+
+                    return etc.autoComplete(split[1], names);
+                }
+            }
+
+            if (split.length == 3 && (!callerIsPlayer || ((Player) caller).canIgnoreRestrictions())) {
+                return super.autoComplete(caller, currentText);
+            }
+
+            return null;
+        }
     };
     @Command
     public static final BaseCommand listwarps = new BaseCommand("- Gives a list of available warps") {
@@ -800,6 +965,11 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify("Available warps: " + Colors.White + ds.getWarpNames(player));
             }
 
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
         }
     };
     @Command
@@ -826,11 +996,30 @@ public class PlayerCommands extends CommandHandler {
 
         @Override
         public void onBadSyntax(MessageReceiver caller, String[] args) {
-            if (caller instanceof Player && ((Player) caller).canIgnoreRestrictions()) {
+            if (!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions()) {
                 caller.notify("Correct usage is: /setwarp <warpname> [group]");
             } else {
                 caller.notify("Correct usage is: /setwarp <warpname>");
             }
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (!(caller instanceof Player) || ((Player) caller).canIgnoreRestrictions()) {
+                String[] split = currentText.split(" ", -1);
+                if (split.length == 3) {
+                    List<Group> groupList = etc.getDataSource().getGroupList();
+                    String[] groups = new String[groupList.size()];
+
+                    for (int i = 0; i < groups.length; i++) {
+                        groups[i] = groupList.get(i).Name;
+                    }
+
+                    return etc.autoComplete(split[2], groups);
+                }
+            }
+
+            return null;
         }
     };
     @Command
@@ -846,6 +1035,30 @@ public class PlayerCommands extends CommandHandler {
             } else {
                 caller.notify("That warp does not exist");
             }
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            boolean callerIsPlayer = caller instanceof Player;
+            String[] split = currentText.split("", -1);
+
+            if (split.length == 2) {
+                if (callerIsPlayer && ((Player) caller).canUseCommand("/listwarps")) {
+                    return etc.autoComplete(split[1],
+                            etc.getDataSource().getWarpNames((Player) caller).split(" "));
+                } else if (!callerIsPlayer) {
+                    List<Warp> warpList = etc.getDataSource().warps;
+                    String[] warps = new String[warpList.size()];
+
+                    for (int i = 0; i < warps.length; i++) {
+                        warps[i] = warpList.get(i).Name;
+                    }
+
+                    return etc.autoComplete(split[1], warps);
+                }
+            }
+
+            return null;
         }
     };
     @Command
@@ -904,6 +1117,15 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify("Usage: mode [newmode] <player>");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length == 3 && (!(caller instanceof Player) || ((Player) caller).isAdmin())) {
+                return super.autoComplete(caller, currentText);
+            }
+            return null;
+        }
     };
     @Command
     public static final BaseCommand getpos = new BaseCommand("- Displays your current position.") {
@@ -925,6 +1147,11 @@ public class PlayerCommands extends CommandHandler {
             }
             p.sendMessage("Compass: " + etc.getCompassPointForDirection(degreeRotation) + " (" + (Math.round(degreeRotation * 10) / 10.0) + ")");
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
+        }
     };
     @Command
     public static final BaseCommand compass = new BaseCommand("- Gives you a compass reading.") {
@@ -943,6 +1170,11 @@ public class PlayerCommands extends CommandHandler {
 
             caller.notify("Compass: " + etc.getCompassPointForDirection(degreeRotation));
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
+        }
     };
     @Command
     public static final BaseCommand motd = new BaseCommand("- Displays the MOTD") {
@@ -950,6 +1182,11 @@ public class PlayerCommands extends CommandHandler {
         @Override
         protected void execute(MessageReceiver caller, String[] args) {
             etc.getInstance().getMotd(caller);
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
         }
     };
     @Command
@@ -1019,6 +1256,25 @@ public class PlayerCommands extends CommandHandler {
                 }
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ");
+            if (split.length <= 3) {
+                List<String> mobNames = new ArrayList<String>();
+                // Ugly hack, but it works;
+                // Monsters start at 50, Animals are in the range 90-99
+                for (int i = 50; i < 100; i++) {
+                    Class mobClass = OEntityList.a(i);
+                    if (OIMob.class.isAssignableFrom(mobClass) || OIAnimals.class.isAssignableFrom(mobClass)) {
+                        mobNames.add(OEntityList.b(i));
+                    }
+                }
+
+                return etc.autoComplete(split[split.length - 1], mobNames.toArray(new String[mobNames.size()]));
+            }
+            return null;
+        }
     };
     @Command
     public static final BaseCommand clearinventory = new BaseCommand("- Clears your inventory") {
@@ -1046,6 +1302,15 @@ public class PlayerCommands extends CommandHandler {
                     caller.notify("Cleared " + target.getName() + "'s inventory.");
                 }
             }
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (currentText.indexOf(' ') != currentText.lastIndexOf(' ')
+                    || caller instanceof Player && !((Player) caller).isAdmin()) {
+                return null;
+            }
+            return super.autoComplete(caller, currentText);
         }
     };
     @Command
@@ -1080,6 +1345,14 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify("You are not targeting a mob spawner.");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (currentText.indexOf(' ') == currentText.lastIndexOf(' ')) {
+                return spawnmob.autoComplete(caller, currentText);
+            }
+            return null;
+        }
     };
     @Command
     public static final BaseCommand xp = new BaseCommand("<level|total|add|remove> [Player] [value] - XP status", "Usage: /xp <level|total|add|remove> [Player] <value>", 1, 4) {
@@ -1093,7 +1366,7 @@ public class PlayerCommands extends CommandHandler {
             Player player = (Player) caller;
 
             if (args.length == 3) {
-                if (!args[1].toLowerCase().matches("add|remove")) {
+                if (!args[1].toLowerCase().matches("(?i)add|remove")) {
                     Player p = etc.getServer().matchPlayer(args[2]);
 
                     if (p == null) {
@@ -1160,6 +1433,18 @@ public class PlayerCommands extends CommandHandler {
                 }
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length == 2) {
+                return etc.autoComplete(split[1], "level", "total", "add", "remove");
+            } else if (split.length == 3) {
+                return super.autoComplete(caller, currentText);
+            }
+
+            return null;
+        }
     };
     @Command
     public static final BaseCommand foodlevel = new BaseCommand("<add|remove|set> [Player] [value] - Sets player food level", "Correct usage is: /foodlevel <add|remove|set> [player] <value>", 2, 4) {
@@ -1201,6 +1486,17 @@ public class PlayerCommands extends CommandHandler {
                 caller.notify("Can't find player " + args[1]);
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length == 2) {
+                return etc.autoComplete(tooltip, "add", "remove", "set");
+            } else if (split.length == 3) {
+                return super.autoComplete(caller, currentText);
+            }
+            return null;
+        }
     };
     @Command
     public static final BaseCommand god = new BaseCommand("<Player> - Makes player invulnerable", "Correct usage is: /god <player>", 1, 2) {
@@ -1215,7 +1511,7 @@ public class PlayerCommands extends CommandHandler {
                 info = String.format("%s%s is", Colors.Yellow, subject.getName());
             }
             if (subject != null) {
-                if (subject.getMode()) {
+                if (subject.isCreativeMode()) {
                     caller.notify("Can't apply /god to players in creative mode");
                     return;
                 }
@@ -1228,6 +1524,14 @@ public class PlayerCommands extends CommandHandler {
             } else {
                 caller.notify("Can't find player " + args[1]);
             }
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (currentText.indexOf(' ') == currentText.lastIndexOf(' ')) {
+                return super.autoComplete(caller, currentText);
+            }
+            return null;
         }
     };
     @Command
@@ -1256,6 +1560,11 @@ public class PlayerCommands extends CommandHandler {
                 killer.notify("You suicided.");
             }
 
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return god.autoComplete(caller, currentText);
         }
     };
     @Command
@@ -1307,6 +1616,11 @@ public class PlayerCommands extends CommandHandler {
             } else if (args.length == 2) {
                 caller.notify(Colors.Yellow + "Can't find player " + args[1]);
             }
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return god.autoComplete(caller, currentText);
         }
     };
 

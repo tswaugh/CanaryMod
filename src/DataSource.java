@@ -529,11 +529,14 @@ public abstract class DataSource {
     abstract public boolean isUserOnReserveList(String user);
 
     /**
-     * Returns the group list
-     *
-     * @return group list
+     * Returns a <tt>List</tt> containing {@link Group}s.
+     * Please note: This is a clone of the actual list. To modify groups, use
+     * {@link #modifyGroup(Group)}.
+     * @return a <tt>List&lt;Group&gt;</tt> containing all the groups.
      */
-    abstract public List getGroupList();
+    public List<Group> getGroupList() {
+        return new ArrayList<Group>(this.groups);
+    }
 
     /**
      * Retrieves the list of blocks the anti xray will hide
@@ -551,6 +554,16 @@ public abstract class DataSource {
      * @param ban The ban to expire.
      */
     abstract public void expireBan(Ban ban);
+
+    /**
+     * Returns a <tt>List</tt> containing {@link Ban}s.
+     * Please note: This is a clone of the actual list. To remove/add bans,
+     * use the appropriate methods.
+     * @return a <tt>List&lt;Ban&gt;</tt> containing all the bans.
+     */
+    public List<Ban> getBans() {
+        return new ArrayList<Ban>(this.bans);
+    }
     
     public Player getDefaultGroupPlayer() {
         Player player = new Player();
