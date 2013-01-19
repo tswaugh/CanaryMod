@@ -3,7 +3,7 @@ import java.util.List;
 public class OEntityMinecart extends OEntity implements OIInventory, Container<OItemStack> {
 
     private OItemStack[] d;
-    private int e;
+    protected int e; // CanaryMod: private -> protected
     private boolean f;
     public int a;
     public double b;
