@@ -18,7 +18,9 @@ public class OTileEntityCommandBlock extends OTileEntity implements OICommandSen
             if (ominecraftserver != null && ominecraftserver.Z()) {
                 OICommandManager oicommandmanager = ominecraftserver.E();
 
-                oicommandmanager.a(this, this.a);
+                if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COMMAND_BLOCK_COMMAND, new CommandBlock(this), a.split(" "))) {
+                	oicommandmanager.a(this, this.a);
+                }
             }
         }
     }

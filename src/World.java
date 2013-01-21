@@ -452,6 +452,18 @@ public class World {
     public ComplexBlock getComplexBlock(Block block) {
         return getComplexBlock(block.getX(), block.getY(), block.getZ());
     }
+    
+    /**
+     * Returns the complex block at the specified location. Null if there's no
+     * complex block there. This will also find complex-blocks spanning multiple
+     * spaces, such as double chest.
+     * 
+     * @param location The location of the block. Only x/y/z is used.
+     * @return ComplexBlock
+     */
+    public ComplexBlock getComplexBlock(Location location) {
+    	return getComplexBlock((int) location.x, (int) location.y, (int) location.z);
+    }
 
     /**
      * Returns the complex block at the specified location. Null if there's no

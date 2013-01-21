@@ -14,11 +14,6 @@ public class OEntityFireworkRocket extends OEntity {
 
     public OEntityFireworkRocket(OWorld oworld, double d0, double d1, double d2, OItemStack oitemstack) {
         super(oworld);
-        
-        // CanaryMod: Adding null check to not spawn null firework
-        if(oitemstack.d == null) this.x();
-        // CanaryMod: End
-        
         this.a = 0;
         this.a(0.25F, 0.25F);
         this.b(d0, d1, d2);

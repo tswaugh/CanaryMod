@@ -1275,7 +1275,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         OContainer container = getEntity().bK;
         ArrayList<OItemStack> list = new ArrayList<OItemStack>();
 
-        for (OSlot slot : (List<OSlot>) container.b) {
+        for (OSlot slot : (List<OSlot>) container.c) {
             list.add(slot.c());
         }
 
@@ -1441,10 +1441,10 @@ public class Player extends HumanEntity implements MessageReceiver {
         List<String> options = new ArrayList<String>();
 
         if (currentText.length() == 0 || currentText.charAt(0) != '/' && currentText.indexOf(' ') == -1) {
-            // Start of line, add a colon to completed names
+            // Start of line, add a colon to completed names for convenience
             for (Player p : etc.getServer().getPlayerList()) {
-                if (p.getName().startsWith(currentText)) {
-                    options.add(p.getName() + ":");
+                if (p.getName().toLowerCase().startsWith(currentText.toLowerCase())) {
+                    options.add(p.getName() + ": ");
                 }
             }
         } else if (currentText.charAt(0) == '/') {
@@ -1459,7 +1459,7 @@ public class Player extends HumanEntity implements MessageReceiver {
                     }
                     if (command != null) {
                         // Call command's autoComplete method
-                        List<String> commandOptions = command.autoComplete(currentText);
+                        List<String> commandOptions = command.autoComplete(this, currentText);
                         if (commandOptions != null) {
                             options.addAll(commandOptions);
                         }
@@ -1480,11 +1480,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             String[] splitText = currentText.split("\\s+");
             String toComplete = splitText[splitText.length - 1];
 
-            for (Player p : etc.getServer().getPlayerList()) {
-                if (p.getName().startsWith(toComplete)) {
-                    options.add(p.getName());
-                }
-            }
+            options = etc.autoCompleteNames(toComplete);
         }
 
         return etc.combineSplit(0, options.toArray(new String[options.size()]), "\u0000");

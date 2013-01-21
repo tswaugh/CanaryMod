@@ -1697,12 +1697,6 @@ public class FlatFileSource extends DataSource {
         }
     }
 
-    //Grouplist
-    @Override
-    public List<Group> getGroupList() {
-        return this.groups;
-    }
-
     @Override
     public void loadMutedPlayers() {
         try {

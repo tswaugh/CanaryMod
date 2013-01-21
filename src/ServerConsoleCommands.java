@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.logging.Logger;
 
 @SuppressWarnings("LoggerStringConcat")
@@ -75,6 +78,11 @@ public class ServerConsoleCommands extends CommandHandler {
             }
             log.info("CanaryMod reloaded by " + caller.getName());
             caller.notify("Successfully reloaded config");
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
         }
     };
     public static final BaseCommand modify = new BaseCommand("<player> <key> <value> - Type /modify for more info", "Overriden onBadSyntax", 3) {
@@ -226,6 +234,69 @@ public class ServerConsoleCommands extends CommandHandler {
             caller.notify("admin: true or false");
             caller.notify("modworld: true or false");
         }
+
+        private List<String> realReturn(List<String> list, String[] split, String[] realSplit) {
+            if (split.length == realSplit.length) {
+                return list;
+            }
+
+            List<String> toRet = new ArrayList<String>(list.size());
+            for (String word : list) {
+                toRet.add(split[2] + ":" + word);
+            }
+
+            return toRet;
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split("[ :]", -1);
+            String[] realSplit = currentText.split(" ", -1);
+            if (split.length == 2) {
+                return super.autoComplete(caller, currentText);
+            } else if (split.length == 3) {
+                return etc.autoComplete(split[2], "prefix", "commands", "groups", "ignoresrestrictions", "admin", "modworld");
+            } else if (split.length == 4) {
+                if (split[2].equalsIgnoreCase("prefix")) {
+                    return realReturn(etc.autoComplete(split[3], "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"), split, realSplit);
+                } else if (split[2].equalsIgnoreCase("commands")) {
+                    if (split[3].isEmpty()) {
+                        return realReturn(Arrays.asList(etc.combineSplit(0, etc.getDataSource().getPlayer(split[1]).getCommands(), ",")), split, realSplit);
+                    } else {
+                        return null;
+                    }
+                } else if (split[2].equalsIgnoreCase("groups")) {
+                    List<String> filledGroups = Arrays.asList(split[3].split(",", -1));
+                    List<String> availGroups = new ArrayList<String>();
+                    
+                    for (Group g : etc.getDataSource().getGroupList()) {
+                        if (!filledGroups.contains(g.Name)) {
+                            availGroups.add(g.Name);
+                        }
+                    }
+
+                    List<String> lastCompleted = etc.autoComplete(filledGroups.remove(filledGroups.size() - 1),
+                                                              availGroups.toArray(new String[availGroups.size()]));
+                    List<String> completed = new ArrayList<String>(lastCompleted.size());
+
+                    StringBuilder filledJoinedBuilder = new StringBuilder();
+                    for (String filled : filledGroups) {
+                        filledJoinedBuilder.append(filled).append(",");
+                    }
+
+                    for (String option : lastCompleted) {
+                        completed.add(new StringBuilder(filledJoinedBuilder).append(option).toString());
+                    }
+
+                    return realReturn(completed, split, realSplit);
+                } else if (split[2].equalsIgnoreCase("ignoresrestrictions")
+                        || split[2].equalsIgnoreCase("admin")
+                        || split[2].equalsIgnoreCase("modworld")) {
+                    return realReturn(etc.autoComplete(split[3], "true", "false"), split, realSplit);
+                }
+            }
+            return null;
+        }
     };
     public final static BaseCommand whitelist = new BaseCommand("<toggle|add|remove> [player]", "whitelist <toggle|add|remove>", 2) {
 
@@ -247,6 +318,18 @@ public class ServerConsoleCommands extends CommandHandler {
                 caller.notify("Invalid operation.");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length == 2) {
+                return etc.autoComplete(split[1], "toggle", "add", "remove");
+            } else if (split.length == 3 && split[1].equalsIgnoreCase("remove")) {
+                return super.autoComplete(caller, currentText);
+            }
+
+            return null;
+        }
     };
     public final static BaseCommand reservelist = new BaseCommand("<add|remove> <player>", "reservelist <add|remove> <player>", 3, 3) {
 
@@ -262,12 +345,29 @@ public class ServerConsoleCommands extends CommandHandler {
                 caller.notify("Invalid operation.");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length == 2) {
+                return etc.autoComplete(split[1], "add", "remove");
+            } else if (split.length == 3) {
+                return super.autoComplete(caller, currentText);
+            }
+
+            return null;
+        }
     };
     public final static BaseCommand listplugins = new BaseCommand("- Lists all plugins") {
 
         @Override
         protected void execute(MessageReceiver caller, String[] parameters) {
             caller.notify("Plugins" + Colors.White + ": " + etc.getLoader().getPluginList());
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
         }
     };
     public final static BaseCommand reloadplugin = new BaseCommand("<plugin> - Reloads plugin", "Correct usage is: /reloadplugin [plugin]", 2) {
@@ -280,6 +380,16 @@ public class ServerConsoleCommands extends CommandHandler {
                 caller.notify("Unable to reload plugin. Check capitalization and/or server logfile.");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] pluginList = etc.getLoader().getPluginList().split(",");
+            for (int i = 0; i < pluginList.length; i++) {
+                pluginList[i] = pluginList[i].substring(0, pluginList[i].length() - 4);
+            }
+
+            return etc.autoComplete(currentText.substring(currentText.indexOf(' ') + 1), pluginList);
+        }
     };
     public final static BaseCommand enableplugin = new BaseCommand("<plugin> - Enables plugin", "Correct usage is: /enableplugin [plugin]", 2) {
 
@@ -291,6 +401,11 @@ public class ServerConsoleCommands extends CommandHandler {
                 caller.notify("Unable to enable plugin. Check capitalization and/or server logfile.");
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
+        }
     };
     public final static BaseCommand disableplugin = new BaseCommand("<plugin> - Disables plugin", "Correct usage is: /disableplugin [plugin]", 2) {
 
@@ -298,6 +413,11 @@ public class ServerConsoleCommands extends CommandHandler {
         protected void execute(MessageReceiver caller, String[] parameters) {
             etc.getLoader().disablePlugin(parameters[1]);
             caller.notify("Plugin disabled.");
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return reloadplugin.autoComplete(caller, currentText);
         }
     };
     public final static BaseCommand version = new BaseCommand("- Displays the server version") {
@@ -314,22 +434,32 @@ public class ServerConsoleCommands extends CommandHandler {
                 caller.notify(Colors.Gold + "Tainted Build Information: " + etc.getInstance().getVersionStr());
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return null;
+        }
     };
     public static final BaseCommand banlist = new BaseCommand("['IPs'] - Gives a list of (IP) bans") {
 
         @Override
         protected void execute(MessageReceiver caller, String[] split) {
-            boolean ips = false;
-
-            if (split.length == 2 && split[1].equalsIgnoreCase("ips")) {
-                ips = true;
-            }
+            boolean ips = split.length == 2 && split[1].equalsIgnoreCase("ips");
 
             if (!ips) {
                 caller.notify(Colors.Blue + "Ban list:" + Colors.White + " " + etc.getMCServer().ad().getBans());
             } else {
                 caller.notify(Colors.Blue + "IP Ban list:" + Colors.White + " " + etc.getMCServer().ad().getIpBans());
             }
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (currentText.indexOf(' ') != currentText.length() - 1) {
+                return Arrays.asList("IPs");
+            }
+
+            return null;
         }
     };
     public static final BaseCommand banip = new BaseCommand("<Player> [Reason] - Bans the player's IP", "Correct usage is: /banip [player] <reason> (optional) NOTE: this permabans IPs.", 2) {
@@ -405,12 +535,31 @@ public class ServerConsoleCommands extends CommandHandler {
             }
         }
     };
-    public static final BaseCommand unban = new BaseCommand("<Player> - Unbans the player", "Correct usage is: /unban [player]", 2, 2) {
+    public static final BaseCommand unban = new BaseCommand("<Player> - Unbans the player or IP", "Correct usage is: /unban [player or ip]", 2, 2) {
 
         @Override
         protected void execute(MessageReceiver caller, String[] split) {
             etc.getServer().unban(split[1]);
             caller.notify("Unbanned " + split[1]);
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length == 2) {
+                List<Ban> banList = etc.getDataSource().getBans();
+                List<String> bannedPlayerNames = new ArrayList<String>(banList.size());
+                for (Ban b : banList) {
+                    if (!b.isIP()) {
+                        bannedPlayerNames.add(b.getName());
+                    }
+                }
+
+                bannedPlayerNames.addAll(Arrays.asList(etc.getMCServer().ad().getBans().split(" ,")));
+
+                return etc.autoComplete(split[1], bannedPlayerNames.toArray(new String[bannedPlayerNames.size()]));
+            }
+            return null;
         }
     };
     public static final BaseCommand unbanip = new BaseCommand("<IP> - Unbans the IP", "Correct usage is: /unbanip [ip]", 2, 2) {
@@ -418,13 +567,22 @@ public class ServerConsoleCommands extends CommandHandler {
         @Override
         protected void execute(MessageReceiver caller, String[] parameters) {
             caller.notify("This command is going to be phased out.");
-            caller.notify("For new bans, you can just use /unban to unban IPs.");
+            caller.notify("For new bans, you must use /unban to unban IPs.");
             etc.getDataSource().expireBan(new Ban(parameters[1]));
             etc.getMCServer().ad().f().b(parameters[1]);
             caller.notify("Unbanned " + parameters[1]);
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            String[] split = currentText.split(" ", -1);
+            if (split.length == 2) {
+                return etc.autoComplete(split[1], etc.getMCServer().ad().getIpBans().split(" ,"));
+            }
+            return null;
+        }
     };
-    // TODO: add a way to ban by IP, either a new command or an option for /tempban
+
     public static final BaseCommand tempban = new BaseCommand("['ip'] <player> <time> [reason] - Bans the player for the specified time", "Overridden because multiline", 3) {
 
         @Override
@@ -523,6 +681,23 @@ public class ServerConsoleCommands extends CommandHandler {
             caller.notify("The characters m, h, d, w, y stand for minutes, hours, days, weeks");
             caller.notify("  and years, respectively");
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            List<String> split = Arrays.asList(currentText.split(" ", -1));
+
+            // Pop off "ip", if present
+            if (split.size() > 1 && split.get(1).equalsIgnoreCase("ip")) {
+                split.remove(1);
+            }
+
+            // Don't autocomplete time
+            if (split.size() == 3) {
+                return null;
+            }
+
+            return super.autoComplete(caller, currentText);
+        }
     };
     public static final BaseCommand kick = new BaseCommand("<Player> [Reason] - Kicks player", "Correct usage is: /kick [player] <reason> (optional)", 2) {
 
@@ -571,7 +746,7 @@ public class ServerConsoleCommands extends CommandHandler {
             log.info("Kicked all players.");
         }
     };
-    public static final BaseCommand time = new BaseCommand("[world] <time|'day'|'night'|'check'|'raw'rawtime> - Changes or checks the time", "Correct usage is: /time <day|night|check|raw> (rawtime)", 2, 3) {
+    public static final BaseCommand time = new BaseCommand("[world] <time|'day'|'night'|'check'|'raw' rawtime> - Changes or checks the time", "Correct usage is: /time <day|night|check|raw> (rawtime)", 2, 3) {
 
         @Override
         protected void execute(MessageReceiver caller, String[] args) {
@@ -617,6 +792,28 @@ public class ServerConsoleCommands extends CommandHandler {
                 }
             }
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            List<String> split = Arrays.asList(currentText.split(" "));
+            String world = null;
+
+            if (split.size() > 2 && !split.get(1).matches("(?i)day|night|check|raw|\\d+")) {
+                world = split.remove(1);
+            }
+
+            if (split.size() == 2) {
+                List<String> complete = Arrays.asList("day", "night", "check", "raw");
+
+                if (world == null) {
+                    complete.addAll(etc.getServer().getLoadedWorldNames());
+                }
+
+                return etc.autoComplete(split.get(1), complete.toArray(new String[complete.size()]));
+            }
+
+            return null;
+        }
     };
     public static final BaseCommand weather = new BaseCommand("[on|off] (optional) - Set weather to the specified value (default: toggle)", "Usage: /weather [on|off]", 1, 2) {
 
@@ -658,6 +855,15 @@ public class ServerConsoleCommands extends CommandHandler {
             }
 
         }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            if (currentText.indexOf(' ') != currentText.lastIndexOf(' ')) {
+                return null;
+            }
+
+            return etc.autoComplete(currentText.substring(currentText.indexOf(' ') + 1), "on", "off");
+        }
     };
     public static final BaseCommand thunder = new BaseCommand("[on|off] (optional) - Set thunder to the specified value (default: toggle)", "Usage: /thunder [on|off]", 1, 2) {
 
@@ -697,6 +903,11 @@ public class ServerConsoleCommands extends CommandHandler {
             } else {
                 onBadSyntax(caller, args);
             }
+        }
+
+        @Override
+        public List<String> autoComplete(MessageReceiver caller, String currentText) {
+            return weather.autoComplete(caller, currentText);
         }
     };
 

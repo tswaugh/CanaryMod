@@ -1350,4 +1350,15 @@ public class PluginListener {
     public HookParametersSlotClick onSlotClick(HookParametersSlotClick hookParametersSlotClick) {
         return hookParametersSlotClick;
     }
+    
+    /**
+     * Called when a CommandBlock executes a command.
+     * 
+     * @param block The block executing the command.
+     * @param split Parts of the command split by spaces.
+     * @return true to cancel execution, false to allow it.
+     */
+    public boolean onCommandBlockCommand(CommandBlock block, String[] split) {
+    	return false;
+    }
 }

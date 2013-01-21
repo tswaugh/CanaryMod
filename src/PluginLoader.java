@@ -378,6 +378,10 @@ public class PluginLoader {
          */
         SLOT_CLICK, //
         /**
+         * Calls{@link PluginListener#onCommandBlockCommand(CommandBlock, String[]) }
+         */
+        COMMAND_BLOCK_COMMAND, //
+        /**
          * For internal use only.
          */
         NUM_HOOKS;
@@ -1325,6 +1329,10 @@ public class PluginLoader {
                         case SLOT_CLICK:
                             toRet = listener.onSlotClick((HookParametersSlotClick) parameters[0]);
                             break;
+                            
+                        case COMMAND_BLOCK_COMMAND:
+                        	toRet = listener.onCommandBlockCommand((CommandBlock) parameters[0], (String[]) parameters[1]);
+                        	break;
                         	
                         }
                        } catch (UnsupportedOperationException ex) {}

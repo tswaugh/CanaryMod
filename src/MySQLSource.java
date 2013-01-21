@@ -1067,12 +1067,6 @@ public class MySQLSource extends DataSource {
         }
     }
 
-    //Grouplist
-    @Override
-    public List getGroupList(){
-        return this.groups;
-    }
-
     @Override
     public void loadMutedPlayers() {
         CanaryConnection conn = null;

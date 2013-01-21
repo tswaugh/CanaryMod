@@ -13,6 +13,7 @@ public class StorageMinecart extends ItemArray<OEntityMinecart> {
     public StorageMinecart(OEntityMinecart cart) {
         this(null, cart);
     }
+    
     public StorageMinecart(OContainer oContainer, OEntityMinecart cart) {
         super(oContainer, cart);
     }
@@ -30,5 +31,25 @@ public class StorageMinecart extends ItemArray<OEntityMinecart> {
     @Override
     public void setName(String name) {
         container.setName(name);
+    }
+    
+    /**
+     * Returns the amount of fuel this minecart has.
+     * Only useful if this is a powered minecart.
+     * 
+     * @return int
+     */
+    public int getFuel() {
+    	return container.e;
+    }
+    
+    /**
+     * Returns the amount of fuel this minecart has.
+     * Only useful if this is a powered minecart.
+     * 
+     * @param fuel
+     */
+    public void setFuel(int fuel) {
+    	container.e = fuel;
     }
 }

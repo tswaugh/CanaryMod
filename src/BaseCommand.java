@@ -54,10 +54,14 @@ public abstract class BaseCommand {
 
     /**
      * Called by the server to autocomplete this command's options.
+     * Completes player names by default.
+     *
+     * @param caller The {@link MessageReceiver} requesting autocompetion.
      * @param currentText The text behind the client's cursor.
-     * @return A list containing all options for the last word.
+     * @return A list containing all options for the last word or <tt>null</tt>
+     * for no options.
      */
-    public List<String> autoComplete(String currentText) {
-        return null;
+    public List<String> autoComplete(MessageReceiver caller, String currentText) {
+        return etc.autoCompleteNames(currentText.substring(currentText.lastIndexOf(' ') + 1));
     }
 }
