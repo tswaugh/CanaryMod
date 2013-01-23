@@ -287,7 +287,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             z *= adjust;
         } else {
             OChunkCoordinates ochunkcoordinates;
-            if (i == 1) {
+            if (dimensionTo == 1) {
                 ochunkcoordinates = oworldserverTo.H();
             } else {
                 ochunkcoordinates = oworldserverTo.l();
@@ -298,7 +298,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             rotX = 90.0F;
             rotY = 0.0F;
         }
-        if (i != 1) {
+        if (dimensionTo != 1) {
             x = (double) OMathHelper.a((int) x, -29999872, 29999872);
             z = (double) OMathHelper.a((int) z, -29999872, 29999872);
         }
