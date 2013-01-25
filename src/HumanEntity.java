@@ -51,4 +51,106 @@ public class HumanEntity extends LivingEntity {
     public void setDisplayName(String name) {
     	getEntity().setDisplayName(name);
     }
+
+    /**
+     * Returns whether this player can receive damage.
+     * @return the disableDamage state
+     */
+    public boolean isDamageDisabled() {
+        return getEntity().cd.a;
+    }
+
+    /**
+     * Sets whether this player can receive damage.
+     * @param disabled the new value.
+     */
+    public void setDamageDisabled(boolean disabled) {
+        getEntity().cd.a = disabled;
+    }
+
+    /**
+     * Returns whether the player is flying.
+     * @return the flying state
+     */
+    public boolean isFlying() {
+        return getEntity().cd.b;
+    }
+
+    /**
+     * Sets whether the player is flying.
+     * @param flying the flying state.
+     */
+    public void setFlying(boolean flying) {
+        getEntity().cd.b = flying;
+    }
+
+    /**
+     * Returns whether this player is allowed to fly.
+     * @return the canFly state
+     */
+    public boolean canFly() {
+        return getEntity().cd.c;
+    }
+
+    /**
+     * Sets whether this player is allowed to fly.
+     * @param allow <tt>true</tt> to allow flying, <tt>false</tt> to deny it.
+     */
+    public void setCanFly(boolean allow) {
+        getEntity().cd.c = allow;
+    }
+
+    /**
+     * Returns whether the player has a creative perks.
+     * When set, enables stuff like items not depleting on use, buckets not
+     * emptying, anvils and enchantments always working, etc.
+     * @return whether player has a creative inventory.
+     */
+    public boolean hasCreativePerks() {
+        return getEntity().cd.d;
+    }
+
+    /**
+     * Sets whether the player has a creative inventory.
+     * When set, enables stuff like items not depleting on use, buckets not
+     * emptying, anvils and enchantments always working, etc.
+     * @param creativePerks the new state
+     */
+    public void setCreativePerks(boolean creativePerks) {
+        getEntity().cd.d = creativePerks;
+    }
+
+    /**
+     * Returns whether the player has build restrictions like in Adventure.
+     * @return whether the player has build restrictions.
+     */
+    public boolean hasAdventureRestrictions() {
+        return !getEntity().cd.e;
+    }
+
+    /**
+     * Sets whether the player has build restrictions like in Adventure.
+     * @param restrict The new value for the flag.
+     */
+    public void setAdventureRestrictions(boolean restrict) {
+        getEntity().cd.e = !restrict;
+    }
+
+    /**
+     * Returns the current flying speed of the player.
+     * Default seems to be <tt>0.05</tt>.
+     * @return The current flying speed
+     */
+    public float getFlyingSpeed() {
+        return getEntity().cd.a();
+    }
+
+    /**
+     * Returns the current walking speed of the player.
+     * Default seems to be <tt>0.1</tt>.
+     * @return The current walking speed
+     */
+    public float getWalkingSpeed() {
+        return getEntity().cd.b();
+    }
 }
