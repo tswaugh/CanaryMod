@@ -63,6 +63,7 @@ public class HumanEntity extends LivingEntity {
     /**
      * Sets whether this player can receive damage.
      * @param disabled the new value.
+     * @see #updateCapabilities()
      */
     public void setDamageDisabled(boolean disabled) {
         getEntity().cd.a = disabled;
@@ -79,6 +80,7 @@ public class HumanEntity extends LivingEntity {
     /**
      * Sets whether the player is flying.
      * @param flying the flying state.
+     * @see #updateCapabilities()
      */
     public void setFlying(boolean flying) {
         getEntity().cd.b = flying;
@@ -95,6 +97,7 @@ public class HumanEntity extends LivingEntity {
     /**
      * Sets whether this player is allowed to fly.
      * @param allow <tt>true</tt> to allow flying, <tt>false</tt> to deny it.
+     * @see #updateCapabilities()
      */
     public void setCanFly(boolean allow) {
         getEntity().cd.c = allow;
@@ -115,6 +118,7 @@ public class HumanEntity extends LivingEntity {
      * When set, enables stuff like items not depleting on use, buckets not
      * emptying, anvils and enchantments always working, etc.
      * @param creativePerks the new state
+     * @see #updateCapabilities()
      */
     public void setCreativePerks(boolean creativePerks) {
         getEntity().cd.d = creativePerks;
@@ -131,6 +135,7 @@ public class HumanEntity extends LivingEntity {
     /**
      * Sets whether the player has build restrictions like in Adventure.
      * @param restrict The new value for the flag.
+     * @see #updateCapabilities()
      */
     public void setAdventureRestrictions(boolean restrict) {
         getEntity().cd.e = !restrict;
@@ -152,5 +157,13 @@ public class HumanEntity extends LivingEntity {
      */
     public float getWalkingSpeed() {
         return getEntity().cd.b();
+    }
+
+    /**
+     * Updates the human's capabilities to the client.
+     * The client won't be affected unless you call this.
+     */
+    public void updateCapabilities() {
+        getEntity().o();
     }
 }
