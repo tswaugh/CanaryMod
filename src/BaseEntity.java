@@ -621,4 +621,12 @@ public class BaseEntity implements Metadatable {
         return this.entity.L;
     }
 
+    /**
+     * If this entity is touching the ground.
+     * 
+     * @return boolean True if on ground, false if in midair.
+     */
+    public boolean isOnGround() {
+    	return this.entity.E;
+    }
 }
