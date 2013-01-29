@@ -14,7 +14,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
     public ItemArray(C container) {
         this(null, container);
     }
-    
+
     public ItemArray(OContainer oContainer, C container) {
         this.container = container;
         this.oContainer = oContainer;
@@ -354,22 +354,22 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
     public String toString() {
         return String.format("ItemArray[size=%d, contents=%s]", getContentsSize(), Arrays.toString(getContents()));
     }
-    
+
     @Override
     public boolean hasOContainer() {
         return oContainer != null;
     }
-    
+
     @Override
     public OContainer getOContainer() {
         return oContainer;
     }
-    
+
     @Override
     public void setOContainer(OContainer oContainer) {
         this.oContainer  = oContainer;
     }
-    
+
     @Override
     public boolean updateChangedSlots() {
         if(oContainer == null)
@@ -377,7 +377,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
         oContainer.updateChangedSlots();
         return true;
     }
-    
+
     @Override
     public boolean updateSlot(int index) {
         if(oContainer == null)

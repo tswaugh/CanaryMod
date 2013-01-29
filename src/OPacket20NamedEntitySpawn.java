@@ -33,34 +33,34 @@ public class OPacket20NamedEntitySpawn extends OPacket {
    }
 
    public void a(DataInputStream var1) {
-	   try {
-		  this.a = var1.readInt();
-		  this.b = a(var1, 16);
-		  this.c = var1.readInt();
-		  this.d = var1.readInt();
-		  this.e = var1.readInt();
-		  this.f = var1.readByte();
-		  this.g = var1.readByte();
-		  this.h = var1.readShort();
-	   } catch (IOException e) {
-		   //CanaryMod: had to add try/catch
-	   }
+       try {
+          this.a = var1.readInt();
+          this.b = a(var1, 16);
+          this.c = var1.readInt();
+          this.d = var1.readInt();
+          this.e = var1.readInt();
+          this.f = var1.readByte();
+          this.g = var1.readByte();
+          this.h = var1.readShort();
+       } catch (IOException e) {
+           //CanaryMod: had to add try/catch
+       }
       this.j = ODataWatcher.a(var1);
    }
 
    public void a(DataOutputStream var1) {
-	   try {
-	      var1.writeInt(this.a);
-	      a(this.b, var1);
-	      var1.writeInt(this.c);
-	      var1.writeInt(this.d);
-	      var1.writeInt(this.e);
-	      var1.writeByte(this.f);
-	      var1.writeByte(this.g);
-	      var1.writeShort(this.h);
-	   } catch (IOException e) {
-		   //CanaryMod: had to add try/catch
-	   }
+       try {
+          var1.writeInt(this.a);
+          a(this.b, var1);
+          var1.writeInt(this.c);
+          var1.writeInt(this.d);
+          var1.writeInt(this.e);
+          var1.writeByte(this.f);
+          var1.writeByte(this.g);
+          var1.writeShort(this.h);
+       } catch (IOException e) {
+           //CanaryMod: had to add try/catch
+       }
       this.i.a(var1);
    }
 

@@ -3,16 +3,16 @@ public class OContainerBrewingStand extends OContainer
     private OTileEntityBrewingStand a;
     private final OSlot f;
     private int g = 0;
-    
+
     public OContainerBrewingStand(OInventoryPlayer paramOInventoryPlayer, OTileEntityBrewingStand paramOTileEntityBrewingStand)
     {
         this.a = paramOTileEntityBrewingStand;
-        
+
         a(new OSlotBrewingStandPotion(paramOInventoryPlayer.d, paramOTileEntityBrewingStand, 0, 56, 46));
         a(new OSlotBrewingStandPotion(paramOInventoryPlayer.d, paramOTileEntityBrewingStand, 1, 79, 53));
         a(new OSlotBrewingStandPotion(paramOInventoryPlayer.d, paramOTileEntityBrewingStand, 2, 102, 46));
         this.f = a(new OSlotBrewingStandIngredient(this, paramOTileEntityBrewingStand, 3, 79, 17));
-        
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 a(new OSlot(paramOInventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -21,17 +21,17 @@ public class OContainerBrewingStand extends OContainer
         for (int i = 0; i < 9; i++)
             a(new OSlot(paramOInventoryPlayer, i, 8 + i * 18, 142));
     }
-    
+
     public void a(OICrafting paramOICrafting)
     {
         super.a(paramOICrafting);
         paramOICrafting.a(this, 0, this.a.x_());
     }
-    
+
     public void b()
     {
         super.b();
-        
+
         for (int i = 0; i < this.e.size(); i++) {
             OICrafting localOICrafting = (OICrafting)this.e.get(i);
             if (this.g != this.a.x_()) {
@@ -40,12 +40,12 @@ public class OContainerBrewingStand extends OContainer
         }
         this.g = this.a.x_();
     }
-    
+
     public boolean a(OEntityPlayer paramOEntityPlayer)
     {
         return this.a.a_(paramOEntityPlayer);
     }
-    
+
     public OItemStack b(OEntityPlayer paramOEntityPlayer, int paramInt)
     {
         OItemStack localOItemStack1 = null;
@@ -53,7 +53,7 @@ public class OContainerBrewingStand extends OContainer
         if ((localOSlot != null) && (localOSlot.d())) {
             OItemStack localOItemStack2 = localOSlot.c();
             localOItemStack1 = localOItemStack2.l();
-            
+
             if (((paramInt >= 0) && (paramInt <= 2)) || (paramInt == 3)) {
                 if (!a(localOItemStack2, 4, 40, true)) {
                     return null;
@@ -79,7 +79,7 @@ public class OContainerBrewingStand extends OContainer
             else if (!a(localOItemStack2, 4, 40, false)) {
                 return null;
             }
-            
+
             if (localOItemStack2.a == 0)
                 localOSlot.c(null);
             else {
@@ -90,10 +90,10 @@ public class OContainerBrewingStand extends OContainer
             }
             localOSlot.a(paramOEntityPlayer, localOItemStack2);
         }
-        
+
         return localOItemStack1;
     }
-    
+
     // CanaryMod
     @Override
     public BrewingStand getInventory() {
@@ -103,7 +103,7 @@ public class OContainerBrewingStand extends OContainer
                 inventory.setOContainer(this);
             return (BrewingStand)super.getInventory();
         }
-        
+
         BrewingStand inv = new BrewingStand(this, this.a);
         setInventory(inv);
         return inv;

@@ -6,7 +6,7 @@
  */
 public class SlotType {
     public static final int OUTSIDE = -999;
-    
+
     public enum Type {
         DEFAULT,
         UNKNOWN_UPDATE_NEEDED,
@@ -22,7 +22,7 @@ public class SlotType {
         MERCHANT_RESULT,
         REPAIR,
     };
-    
+
     public enum SpecificType {
         NULL,
         OUTSIDE,
@@ -38,19 +38,19 @@ public class SlotType {
         QUICKBAR,
         TRADE,
     };
-    
+
     /**
      * A more reliable slot type. If a new slot type is introduced, it will return that this needs to be updated.
-     * 
+     *
      * @return SlotType
      */
     public static Type getSlotType(OContainer container, int slotIndex) {
         if(container == null)
             return Type.NULL;
-        
+
         if(slotIndex == OUTSIDE)
             return Type.OUTSIDE;
-        
+
         OSlot slot = container.a(slotIndex);
         if(slot instanceof OSlotArmor) {
             return Type.ARMOR;
@@ -76,23 +76,23 @@ public class SlotType {
             return Type.DEFAULT;
         }
     }
-    
+
     /**
      * Attempts to define slots. Minecraft updates can break the definitions if slots are added/removed/modified.
-     * 
+     *
      * @return
      */
     public static SpecificType getSpecificSlotType(OContainer container, int slotIndex) {
         if(container == null)
             return SpecificType.NULL;
-        
+
         if(slotIndex == OUTSIDE)
             return SpecificType.OUTSIDE;
-        
+
         Inventory inv = container.getInventory();
         if(inv == null)
             return SpecificType.NULL;
-        
+
         if(slotIndex < inv.getContentsSize()) {
             if(container instanceof OContainerBeacon) {
                 switch(slotIndex) {
@@ -158,20 +158,20 @@ public class SlotType {
                     return SpecificType.CRAFT;
             }
         }
-        
+
         int localSlot = slotIndex - inv.getContentsSize();
-        
+
         if(container instanceof OContainerPlayer) {
             if(localSlot < 4)
                 return SpecificType.ARMOR;
-            
+
             localSlot -= 4; //remove armor index
         }
-        
+
         if(localSlot >= 27 && localSlot < 36) {
             return SpecificType.QUICKBAR;
         }
-        
+
         return SpecificType.INVENTORY;
     }
 }

@@ -7,14 +7,14 @@ public class InventoryMerchant extends ItemArray<OInventoryMerchant> {
 
     @Override
     public void update() {
-        // TODO 
+        // TODO
     }
-    
+
     @Override
     public String getName() {
         return container.getName();
     }
-    
+
     @Override
     public void setName(String value) {
         container.setName(value);

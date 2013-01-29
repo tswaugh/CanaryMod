@@ -96,10 +96,10 @@ public enum Sound {
     }
 
     public enum Instrument {
-    	HARP,
-    	BASS_DRUM,
-    	SNARE,
-    	CLICK,
-    	BASS_GUITAR;
+        HARP,
+        BASS_DRUM,
+        SNARE,
+        CLICK,
+        BASS_GUITAR;
     }
 }

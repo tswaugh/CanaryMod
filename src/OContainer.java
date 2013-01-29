@@ -357,7 +357,7 @@ public abstract class OContainer {
     public Inventory getInventory() {
         return this.inventory;
     }
-    
+
     /**
      * Mostly a copy of updateCraftingResults()
      * The only change is to bypass a check that prevents crafting-result slot updates.
@@ -376,7 +376,7 @@ public abstract class OContainer {
                  * for (int j = 0; j < this.e.size(); ++j) {
                  *     ((OICrafting) this.e.get(j)).a(this, i, oitemstack1);
                  * }
-                 * 
+                 *
                  * Now:
                  */
                 sendUpdateToCrafters(i, oitemstack);
@@ -384,7 +384,7 @@ public abstract class OContainer {
             }
         }
     }
-    
+
     private void sendUpdateToCrafters(int slotIndex, OItemStack oitemstack) {
         for (int j = 0; j < this.e.size(); ++j) {
             if(this.e.get(j) instanceof OEntityPlayerMP) {
@@ -392,19 +392,19 @@ public abstract class OContainer {
             }
         }
     }
-    
+
     public void updateSlot(int index) {
         OSlot slot = getSlot(index);
         if(slot == null)
             return;
-        
+
         OItemStack oitemstack = slot.c();
         if(oitemstack != null)
             oitemstack = oitemstack.l();
-        
+
         sendUpdateToCrafters(index, oitemstack);
     }
-    
+
     public OSlot getSlot(int index) {
         if(index < 0 || index >= this.c.size())
             return null;

@@ -19,7 +19,7 @@ public class OTileEntityCommandBlock extends OTileEntity implements OICommandSen
                 OICommandManager oicommandmanager = ominecraftserver.E();
 
                 if(!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COMMAND_BLOCK_COMMAND, new CommandBlock(this), a.split(" "))) {
-                	oicommandmanager.a(this, this.a);
+                    oicommandmanager.a(this, this.a);
                 }
             }
         }
@@ -59,7 +59,7 @@ public class OTileEntityCommandBlock extends OTileEntity implements OICommandSen
         this.b(onbttagcompound);
         return new OPacket132TileEntityData(this.l, this.m, this.n, 2, onbttagcompound);
     }
- 
+
     public String getCommand() { // CanaryMod: allows us to access the command stored
         return this.a;
     }

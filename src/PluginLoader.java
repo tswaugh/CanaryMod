@@ -488,15 +488,15 @@ public class PluginLoader {
         public ODamageSource getDamageSource() {
             return this.source;
         }
-        
+
         /**
         * Returns the message that would be displayed in chat if a player died from this.
-        * 
+        *
         * @param died The player who 'died'.
         * @return The death message.
         */
         public String getDeathMessage(Player died) {
-        	return source.b(died.getEntity());
+            return source.b(died.getEntity());
         }
 
          public static DamageType fromDamageSource(ODamageSource source) {
@@ -1323,17 +1323,17 @@ public class PluginLoader {
                             break;
 
                         case FIREWORK_EXPLODE:
-                        	toRet = listener.onFireworkExplode((Firework) parameters[0]);
-                        	break;
+                            toRet = listener.onFireworkExplode((Firework) parameters[0]);
+                            break;
 
                         case SLOT_CLICK:
                             toRet = listener.onSlotClick((HookParametersSlotClick) parameters[0]);
                             break;
-                            
+
                         case COMMAND_BLOCK_COMMAND:
-                        	toRet = listener.onCommandBlockCommand((CommandBlock) parameters[0], (String[]) parameters[1]);
-                        	break;
-                        	
+                            toRet = listener.onCommandBlockCommand((CommandBlock) parameters[0], (String[]) parameters[1]);
+                            break;
+
                         }
                        } catch (UnsupportedOperationException ex) {}
                 }

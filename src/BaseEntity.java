@@ -562,10 +562,10 @@ public class BaseEntity implements Metadatable {
     public String toString() {
         return String.format("Entity[id=%d, name=%s, location=%s]", getId(), getName(), getLocation());
     }
-    
+
     /**
-     * Gets the "passenger" for this entity. Passenger is any entity that is on top of this entity. 
-     * Example player in a minecart, the player is the passenger. 
+     * Gets the "passenger" for this entity. Passenger is any entity that is on top of this entity.
+     * Example player in a minecart, the player is the passenger.
      * @return
      */
     public BaseEntity getRiddenByEntity() {
@@ -573,7 +573,7 @@ public class BaseEntity implements Metadatable {
             return null;
         return this.entity.n.getEntity();
     }
-    
+
     /**
      * Sets the entity's rider.
      * @param entity
@@ -581,10 +581,10 @@ public class BaseEntity implements Metadatable {
     public void setRiddenByEntity(BaseEntity entity) {
         entity.getEntity().a(this.getEntity());
     }
-    
+
     /**
      * Get the "vehicle" for this entity. Vehicle is any entity that is underneath this entity.
-     * Example player in a minecart, the minecart is the vehicle. 
+     * Example player in a minecart, the minecart is the vehicle.
      * @return
      */
     public BaseEntity getRidingEntity() {
@@ -592,7 +592,7 @@ public class BaseEntity implements Metadatable {
             return null;
         return this.entity.o.getEntity();
     }
-    
+
     /**
      * Sets the entity's "vehicle".
      * Can also be used to dismount vehicle.
@@ -604,14 +604,14 @@ public class BaseEntity implements Metadatable {
         else
             this.entity.a(entity.getEntity());
     }
-    
+
     /**
      * Dismounts entity from vehicle
      */
     public void dismount() {
         setRidingEntity(null);
     }
-    
+
     /**
      * If this entity is marked as "to be removed". This commonly happens next tick,
      * so something can be destroyed and the next tick can still be detected as being in the world.
@@ -623,10 +623,10 @@ public class BaseEntity implements Metadatable {
 
     /**
      * If this entity is touching the ground.
-     * 
+     *
      * @return boolean True if on ground, false if in midair.
      */
     public boolean isOnGround() {
-    	return this.entity.E;
+        return this.entity.E;
     }
 }

@@ -268,7 +268,7 @@ public class ServerConsoleCommands extends CommandHandler {
                 } else if (split[2].equalsIgnoreCase("groups")) {
                     List<String> filledGroups = Arrays.asList(split[3].split(",", -1));
                     List<String> availGroups = new ArrayList<String>();
-                    
+
                     for (Group g : etc.getDataSource().getGroupList()) {
                         if (!filledGroups.contains(g.Name)) {
                             availGroups.add(g.Name);

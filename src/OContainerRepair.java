@@ -13,7 +13,7 @@ public class OContainerRepair extends OContainer {
     private int l = 0;
     private String m;
     private final OEntityPlayer n;
-    
+
     private final int RESULT_START_INDEX = 2; // CanaryMod. Should always remain 2 unless OSlotRepair is moved (from new/removed/edited slots)
 
     public OContainerRepair(OInventoryPlayer oinventoryplayer, OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {
@@ -307,7 +307,7 @@ public class OContainerRepair extends OContainer {
 
         //update the tool name
         if (!this.m.equals(hook.toolName) && this.a(2).d()) {
-        	this.m = hook.toolName;
+            this.m = hook.toolName;
             this.a(2).c().c(this.m);
         }
 
@@ -421,12 +421,12 @@ public class OContainerRepair extends OContainer {
             }
         }
     }
-    
+
     @Override
     public Anvil getInventory() {
         if(super.getInventory() instanceof Anvil)
             return (Anvil)super.getInventory();
-        
+
         Anvil inv = new Anvil(this, this.f, RESULT_START_INDEX);
         setInventory(inv);
         return inv;

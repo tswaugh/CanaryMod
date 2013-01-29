@@ -107,7 +107,7 @@ public class OContainerWorkbench extends OContainer {
 
         return oitemstack;
     }
-    
+
     // CanaryMod
     @Override
     public InventoryCrafting getInventory() {

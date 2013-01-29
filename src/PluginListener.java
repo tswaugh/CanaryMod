@@ -866,10 +866,10 @@ public class PluginListener {
     public boolean onPortalUse(Player player, World from) {
         return false;
     }
-    
+
     /**
      * Called when a player uses a portal
-     * 
+     *
      * @param player
      *            the player using the portal
      * @param to
@@ -1345,35 +1345,35 @@ public class PluginListener {
     public HookParametersAnvilUse onAnvilUse(HookParametersAnvilUse hookParametersAnvilUse) {
         return hookParametersAnvilUse;
     }
-    
+
     /**
      * Called when a firework explodes.
-     * 
+     *
      * @param firework The firework exploding.
      * @return true to cancel the explosion. It is also recommended to extend the life of the firework to prevent the calling of this hook repeatedly.
      */
     public boolean onFireworkExplode(Firework firework) {
-    	return false;
+        return false;
     }
-    
+
     /**
      * Called when an inventory slot is clicked by a player.
-     * 
+     *
      * @param hookParametersSlotClick Object containing information about this hook
      * @return modified HookParametersSlotClick
      */
     public HookParametersSlotClick onSlotClick(HookParametersSlotClick hookParametersSlotClick) {
         return hookParametersSlotClick;
     }
-    
+
     /**
      * Called when a CommandBlock executes a command.
-     * 
+     *
      * @param block The block executing the command.
      * @param split Parts of the command split by spaces.
      * @return true to cancel execution, false to allow it.
      */
     public boolean onCommandBlockCommand(CommandBlock block, String[] split) {
-    	return false;
+        return false;
     }
 }

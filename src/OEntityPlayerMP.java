@@ -562,7 +562,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         // CanaryMod: Check if we can open this
         Inventory inv = new Beacon(otileentitybeacon);
         String name = otileentitybeacon.getName();
-        
+
         if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
@@ -570,7 +570,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         if (inv != null) {
             name = inv.getName();
         }
-        
+
         this.cg();
         this.a.b(new OPacket100OpenWindow(this.ct, 7, name, otileentitybeacon.k_()));
         this.bL = new OContainerBeacon(this.bJ, otileentitybeacon);
@@ -826,19 +826,19 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         player = etc.getDataSource().getPlayer(this.bR);
         player.setUser(this);
     }
-    
+
     // CanaryMod start
     @Override
     public void setDisplayName(String name) {
-    	super.setDisplayName(name);
-    	OPacket20NamedEntitySpawn pkt = new OPacket20NamedEntitySpawn(this);
-    	for(Player p : etc.getServer().getPlayerList()) { // could be improved to only send to nearby players
-    		if(!p.equals(this.player)) {
-    			p.getEntity().a.b(pkt);
-    		}
-    	}
+        super.setDisplayName(name);
+        OPacket20NamedEntitySpawn pkt = new OPacket20NamedEntitySpawn(this);
+        for(Player p : etc.getServer().getPlayerList()) { // could be improved to only send to nearby players
+            if(!p.equals(this.player)) {
+                p.getEntity().a.b(pkt);
+            }
+        }
     }
-    
+
     public void updateSlot(int windowId, int slotIndex, OItemStack item) {
         this.a.b(new OPacket103SetSlot(windowId, slotIndex, item));
     }

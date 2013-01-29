@@ -4,110 +4,108 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ONBTTagList extends ONBTBase {
 
-   protected List a = new ArrayList(); //CanaryMod: private -> protected
-   private byte c;
+    List a = new ArrayList();
+    private byte c;
 
+    public ONBTTagList() {
+        super("");
+    }
 
-   public ONBTTagList() {
-      super("");
-   }
+    public ONBTTagList(String s) {
+        super(s);
+    }
 
-   public ONBTTagList(String var1) {
-      super(var1);
-   }
+    void a(DataOutput dataoutput) {
+        if (!this.a.isEmpty()) {
+            this.c = ((ONBTBase) this.a.get(0)).a();
+        } else {
+            this.c = 1;
+        }
 
-   void a(DataOutput var1) {
-      if(!this.a.isEmpty()) {
-         this.c = ((ONBTBase)this.a.get(0)).a();
-      } else {
-         this.c = 1;
-      }
+        try { // CanaryMod: surround with try-catch
+            dataoutput.writeByte(this.c);
+            dataoutput.writeInt(this.a.size());
 
-      //CanaryMod: I had to add this try/catch block in
-    try {
-      var1.writeByte(this.c);
-		var1.writeInt(this.a.size());
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-    //CanaryMod end
+            for (int i = 0; i < this.a.size(); ++i) {
+                ((ONBTBase) this.a.get(i)).a(dataoutput);
+            }
+        } catch (IOException e) {
+            ONetServerHandler.a.log(Level.SEVERE, null, e);
+        }
+    }
 
-      for(int var2 = 0; var2 < this.a.size(); ++var2) {
-         ((ONBTBase)this.a.get(var2)).a(var1);
-      }
+    void a(DataInput datainput) {
+        try { // CanaryMod: surround with try-catch
+            this.c = datainput.readByte();
+            int i = datainput.readInt();
 
-   }
+            this.a = new ArrayList();
 
-   void a(DataInput var1) {
-	   //CanaryMod: I had to add this try/catch block in
-	   int var2 = 0;
-	 try {
-      this.c = var1.readByte();
-		var2 = var1.readInt();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-	 //CanaryMod end
-      this.a = new ArrayList();
+            for (int j = 0; j < i; ++j) {
+                ONBTBase onbtbase = ONBTBase.a(this.c, (String) null);
 
-      for(int var3 = 0; var3 < var2; ++var3) {
-         ONBTBase var4 = ONBTBase.a(this.c, (String)null);
-         var4.a(var1);
-         this.a.add(var4);
-      }
+                onbtbase.a(datainput);
+                this.a.add(onbtbase);
+            }
+        } catch (IOException e) {
+            ONetServerHandler.a.log(Level.SEVERE, null, e);
+        }
+    }
 
-   }
+    public byte a() {
+        return (byte) 9;
+    }
 
-   public byte a() {
-      return (byte)9;
-   }
+    public String toString() {
+        return "" + this.a.size() + " entries of type " + ONBTBase.a(this.c);
+    }
 
-   public String toString() {
-      return "" + this.a.size() + " entries of type " + ONBTBase.a(this.c);
-   }
+    public void a(ONBTBase onbtbase) {
+        this.c = onbtbase.a();
+        this.a.add(onbtbase);
+    }
 
-   public void a(ONBTBase var1) {
-      this.c = var1.a();
-      this.a.add(var1);
-   }
+    public ONBTBase b(int i) {
+        return (ONBTBase) this.a.get(i);
+    }
 
-   public ONBTBase b(int var1) {
-      return (ONBTBase)this.a.get(var1);
-   }
+    public int c() {
+        return this.a.size();
+    }
 
-   public int c() {
-      return this.a.size();
-   }
+    public ONBTBase b() {
+        ONBTTagList onbttaglist = new ONBTTagList(this.e());
 
-   public ONBTBase b() {
-      ONBTTagList var1 = new ONBTTagList(this.e());
-      var1.c = this.c;
-      Iterator var2 = this.a.iterator();
+        onbttaglist.c = this.c;
+        Iterator iterator = this.a.iterator();
 
-      while(var2.hasNext()) {
-         ONBTBase var3 = (ONBTBase)var2.next();
-         ONBTBase var4 = var3.b();
-         var1.a.add(var4);
-      }
+        while (iterator.hasNext()) {
+            ONBTBase onbtbase = (ONBTBase) iterator.next();
+            ONBTBase onbtbase1 = onbtbase.b();
 
-      return var1;
-   }
+            onbttaglist.a.add(onbtbase1);
+        }
 
-   public boolean equals(Object var1) {
-      if(super.equals(var1)) {
-         ONBTTagList var2 = (ONBTTagList)var1;
-         if(this.c == var2.c) {
-            return this.a.equals(var2.a);
-         }
-      }
+        return onbttaglist;
+    }
 
-      return false;
-   }
+    public boolean equals(Object object) {
+        if (super.equals(object)) {
+            ONBTTagList onbttaglist = (ONBTTagList) object;
 
-   public int hashCode() {
-      return super.hashCode() ^ this.a.hashCode();
-   }
+            if (this.c == onbttaglist.c) {
+                return this.a.equals(onbttaglist.a);
+            }
+        }
+
+        return false;
+    }
+
+    public int hashCode() {
+        return super.hashCode() ^ this.a.hashCode();
+    }
 }

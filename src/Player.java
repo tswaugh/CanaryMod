@@ -1513,7 +1513,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void playSound(double x, double y, double z, Sound sound, float volume, float pitch){
         getEntity().a.b(new OPacket62LevelSound(sound.getSoundString(), x, y, z, volume, pitch));
     }
-    
+
     /**
      * Gets the item the cursor currently has.
      * @return The {@link Item} the cursor currently has.
@@ -1521,7 +1521,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public Item getInventoryCursorItem() {
         return inventory.getCursorItem();
     }
-    
+
     /**
      * Sets the item the cursor should have.
      */

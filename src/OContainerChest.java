@@ -75,13 +75,13 @@ public class OContainerChest extends OContainer {
     public OIInventory d() {
         return this.a;
     }
-    
+
     // CanaryMod
     @Override
     public Inventory getInventory() {
-        
+
         OIInventory inv = this.a;
-        
+
         if(inv instanceof OInventoryLargeChest)
         {
             if(super.getInventory() instanceof DoubleChest) {
@@ -90,7 +90,7 @@ public class OContainerChest extends OContainer {
                     inventory.setOContainer(this);
                 return super.getInventory();
             }
-            
+
             DoubleChest chest = new DoubleChest(this, (OInventoryLargeChest)inv);
             setInventory(chest);
             return chest;
@@ -103,7 +103,7 @@ public class OContainerChest extends OContainer {
                     inventory.setOContainer(this);
                 return super.getInventory();
             }
-            
+
             EnderChestInventory chest = new EnderChestInventory(this, (OInventoryEnderChest)inv, null);
             setInventory(chest);
             return chest;
@@ -116,7 +116,7 @@ public class OContainerChest extends OContainer {
                     inventory.setOContainer(this);
                 return super.getInventory();
             }
-            
+
             Chest chest = new Chest(this, (OTileEntityChest)inv);
             setInventory(chest);
             return chest;
@@ -129,7 +129,7 @@ public class OContainerChest extends OContainer {
                     inventory.setOContainer(this);
                 return super.getInventory();
             }
-            
+
             StorageMinecart chest = new StorageMinecart(this, (OEntityMinecart)inv);
             setInventory(chest);
             return chest;
