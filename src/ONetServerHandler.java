@@ -263,7 +263,7 @@ public class ONetServerHandler extends ONetHandler {
 
                 OAxisAlignedBB oaxisalignedbb = this.d.D.c().b((double) f4, (double) f4, (double) f4).a(0.0D, -0.55D, 0.0D);
 
-                if (!this.e.Y() && !this.d.c.d() && !oworldserver.c(oaxisalignedbb)) {
+                if (!this.e.Y() && !this.d.cd.c && !oworldserver.c(oaxisalignedbb)) {
                     if (d12 >= -0.03125D) {
                         ++this.g;
                         if (this.g > 80) {

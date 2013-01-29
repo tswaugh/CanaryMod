@@ -571,7 +571,7 @@ public class BaseEntity implements Metadatable {
     public BaseEntity getRiddenByEntity() {
         if(this.entity.n == null)
             return null;
-        return this.entity.n.entity;
+        return this.entity.n.getEntity();
     }
     
     /**
@@ -579,7 +579,7 @@ public class BaseEntity implements Metadatable {
      * @param entity
      */
     public void setRiddenByEntity(BaseEntity entity) {
-        entity.entity.a((OEntity) this.entity);
+        entity.getEntity().a(this.getEntity());
     }
     
     /**
@@ -590,7 +590,7 @@ public class BaseEntity implements Metadatable {
     public BaseEntity getRidingEntity() {
         if(this.entity.o == null)
             return null;
-        return this.entity.o.entity;
+        return this.entity.o.getEntity();
     }
     
     /**
@@ -602,7 +602,7 @@ public class BaseEntity implements Metadatable {
         if(entity == null)
             this.entity.a((OEntity)null);
         else
-            this.entity.a(entity.entity);
+            this.entity.a(entity.getEntity());
     }
     
     /**

@@ -757,7 +757,11 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public boolean a(int i, String s) {
-        return "seed".equals(s) && !this.b.T() ? true : (!"tell".equals(s) && !"help".equals(s) && !"me".equals(s) ? this.b.ad().e(this.bR) : true);
+        // CanaryMod: use our own permission system
+        if (s.charAt(0) != '/') {
+            s = "/" + s;
+        }
+        return player.canUseCommand(s);
     }
 
     public String q() {
