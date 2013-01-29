@@ -38,17 +38,11 @@ public class WrittenBook {
      * item is not a book)
      */
     public String getTitle() {
-        if (nbtTag.getString("title") == null) {
-            return null;
-        } else {
-            return nbtTag.getString("title");
-        }
+        return nbtTag.getString("title");
     }
 
     public void setTitle(String title) {
-        if (nbtTag.getString("title") != null) {
-            nbtTag.removeTag("title");
-        }
+        nbtTag.removeTag("title");
         nbtTag.add("title", title);
     }
 
@@ -59,11 +53,7 @@ public class WrittenBook {
      * item is not a book)
      */
     public String getAuthor() {
-        if (nbtTag.getString("author") == null) {
-            return null;
-        } else {
-            return nbtTag.getString("author");
-        }
+        return nbtTag.getString("author");
     }
 
     /**
@@ -71,9 +61,7 @@ public class WrittenBook {
      * @param author The new author
      */
     public void setAuthor(String author) {
-        if (nbtTag.getString("author") != null) {
-            nbtTag.removeTag("author");
-        }
+        nbtTag.removeTag("author");
         nbtTag.add("author", author);
     }
 
@@ -83,9 +71,6 @@ public class WrittenBook {
      * item.
      */
     public List<String> getPages() {
-        if (nbtTag.getNBTTagList("pages") == null) {
-            return null;
-        }
         List<String> pages = new ArrayList<String>();
         NBTTagList nbtPages = nbtTag.getNBTTagList("pages");
         for (int i = 0; i < nbtPages.size(); i++) {
@@ -107,9 +92,7 @@ public class WrittenBook {
         for (String page : pages) {
             nbtPages.add(new NBTTagString("", page));
         }
-        if (nbtTag.getNBTTagList("pages") != null) {
-            nbtTag.removeTag("pages");
-        }
+        nbtTag.removeTag("pages");
         nbtTag.add("pages", nbtPages);
     }
 
@@ -126,7 +109,7 @@ public class WrittenBook {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof WrittenBook) {
+        if(obj instanceof WrittenBook) {
             WrittenBook other = (WrittenBook) obj;
             return getTitle().equals(other.getTitle()) && getAuthor().equals(other.getAuthor()) && getPages().equals(other.getPages());
         }
