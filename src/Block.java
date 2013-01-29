@@ -790,7 +790,7 @@ public class Block {
      * @return Whether or not the block responded.
      */
     public boolean rightClick(Player clicker) {
-        return OBlock.p[getType()].a(getWorld().getWorld(), getX(), getY(), getZ(), clicker.getEntity(), 0, 0, 0, 0); // last four parameters aren't even used by lever or button
+        return OBlock.p[getType()].a(getWorld().getWorld(), getX(), getY(), getZ(), clicker != null ? clicker.getEntity() : null, 0, 0, 0, 0); // last four parameters aren't even used by lever or button
     }
 
     /**

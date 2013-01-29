@@ -1,3 +1,8 @@
+!jarjar/rules.rules
+*.bak
+*.orig
+*.rej
+.DS_Store
 .classpath
 .externalToolBuilders/*
 .project
@@ -5,11 +10,7 @@
 bin/*
 build/*
 dist/*
+docs/
 files/*
 jarjar/*
-!jarjar/rules.rules
 nbproject/*
-*.orig
-*.rej
-*.bak
-.DS_Store
