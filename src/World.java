@@ -1127,6 +1127,43 @@ public class World {
     public void playSound(double x, double y, double z, Sound sound, float volume, float pitch){
         world.a(x, y, z, sound.getSoundString(), volume, pitch);
     }
+    
+    /**
+     * Plays a note at a given location.
+     * 
+     * @param location The location to play the note at.
+     * @param instrument The instrument to play the note with.
+     * @param pitch The pitch of the note (0-24?).
+     */
+    public void playNote(Location location, Sound.Instrument instrument, int pitch) {
+    	playNote(location.x, location.y, location.z, instrument, pitch);
+    }
+    
+    /**
+     * Plays a note at a given location.
+     * 
+     * @param x The x coordinate to play the note at.
+     * @param y The y coordinate to play the note at.
+     * @param z The z coordinate to play the note at.
+     * @param instrument The instrument to play the note with.
+     * @param pitch The pitch of the note (0-24?).
+     */
+    public void playNote(double x, double y, double z, Sound.Instrument instrument, int pitch) {
+    	playNote((int) x, (int) y, (int) z, instrument, pitch);
+    }
+    
+    /**
+     * Plays a note at a given location.
+     * 
+     * @param x The x coordinate to play the note at.
+     * @param y The y coordinate to play the note at.
+     * @param z The z coordinate to play the note at.
+     * @param instrument The instrument to play the note with.
+     * @param pitch The pitch of the note (0-24?).
+     */
+    public void playNote(int x, int y, int z, Sound.Instrument instrument, int pitch) {
+    	((OBlockNote) OBlock.p[25]).b(getWorld(), x, y, z, instrument.ordinal(), pitch);
+    }
 
     /**
      * Get the chunks that are currently loaded.
