@@ -1408,7 +1408,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             // Start of line, add a colon to completed names for convenience
             for (Player p : etc.getServer().getPlayerList()) {
                 if (p.getName().toLowerCase().startsWith(currentText.toLowerCase())) {
-                    options.add(p.getName() + ": ");
+                    options.add(p.getName() + ":"); // Note: no space here, because client splits on space.
                 }
             }
         } else if (currentText.charAt(0) == '/') {
@@ -1421,12 +1421,12 @@ public class Player extends HumanEntity implements MessageReceiver {
                     if (command == null) { // Not a server command? Try player commands.
                         command = PlayerCommands.getInstance().getCommand(commandName);
                     }
-                    if (command != null) {
-                        // Call command's autoComplete method
-                        List<String> commandOptions = command.autoComplete(this, currentText);
-                        if (commandOptions != null) {
-                            options.addAll(commandOptions);
-                        }
+                    // Call command's autoComplete method
+                    List<String> commandOptions = command == null
+                            ? etc.autoCompleteNames(currentText.substring(currentText.lastIndexOf(' ') + 1))
+                            : command.autoComplete(this, currentText);
+                    if (commandOptions != null) {
+                        options.addAll(commandOptions);
                     }
                 }
             } else {
