@@ -67,6 +67,16 @@ public interface Inventory {
      * @return item
      */
     public Item getItemFromId(int id, int maxAmount);
+    
+    /**
+     * Retrieves from the slot
+     * 
+     * @param id
+     * @param maxAmount
+     * @param dmg
+     * @return
+     */
+    public Item getItemFromId(int id, int maxAmount, int dmg);
 
     /**
      * Gets the nearest empty slot. -1 if there's no empty slots
