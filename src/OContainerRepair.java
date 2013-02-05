@@ -306,7 +306,7 @@ public class OContainerRepair extends OContainer {
         }
 
         //update the tool name
-        if (!this.m.equals(hook.toolName) && this.a(2).d()) {
+        if (this.m != null && !this.m.equals(hook.toolName) && this.a(2).d()) {
             this.m = hook.toolName;
             this.a(2).c().c(this.m);
         }
