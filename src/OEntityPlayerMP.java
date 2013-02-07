@@ -758,7 +758,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public boolean a(int i, String s) {
         // CanaryMod: use our own permission system
-        if (s.charAt(0) != '/') {
+        if (s.isEmpty()) {
+            return false;
+        } else if (s.charAt(0) != '/') {
             s = "/" + s;
         }
         return player.canUseCommand(s);
