@@ -93,24 +93,25 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
         Item[] items = getContents();
 
         for (Item item : items) {
-            if ((item != null) && (item.getItemId() == id) && (item.getAmount() <= maxAmount)) {
+            if (item != null && item.getItemId() == id && item.getAmount() <= maxAmount) {
                 return item;
             }
         }
 
         return null;
     }
-    
+
+    @Override
     public Item getItemFromId(int id, int maxAmount, int dmg) {
-    	Item[] items = getContents();
-    	
-    	for(Item item : items) {
-    		if(item != null && item.getItemId() == id && item.getAmount() <= maxAmount && item.getDamage() == dmg) {
-    			return item;
-    		}
-    	}
-    	
-    	return null;
+        Item[] items = getContents();
+
+        for (Item item : items) {
+            if (item != null && item.getItemId() == id && item.getAmount() <= maxAmount && item.getDamage() == dmg) {
+                return item;
+            }
+        }
+
+        return null;
     }
 
     @Override
