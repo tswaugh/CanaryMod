@@ -58,7 +58,7 @@ public class ONetLoginHandler extends ONetHandler {
 
     public void a(OPacket2ClientProtocol opacket2clientprotocol) {
         this.h = opacket2clientprotocol.f();
-        if (!this.h.toLowerCase().matches("[a-z9-0_]+")) {
+        if (!this.h.toLowerCase().matches("[a-z0-9_]+")) {
             this.a("Invalid username!");
         } else {
             PublicKey publickey = this.f.F().getPublic();
