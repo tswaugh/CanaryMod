@@ -426,11 +426,11 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
                 }
                 this.a(oentityitem);
                 this.a(OStatList.v, 1);
-                // return the item to the inventory.
-            } else {
+
                 return oentityitem;
+            } else { // return the item to the inventory.
+                return null;
             }
-            return null;
         }
     }
 
