@@ -166,4 +166,12 @@ public class HumanEntity extends LivingEntity {
     public void updateCapabilities() {
         getEntity().o();
     }
+    
+    /**
+     * Whether or not the player is in a bed.
+     * @return Sleeping or not.
+     */
+    public boolean isSleeping() {
+    	return getEntity().bZ;
+    }
 }
