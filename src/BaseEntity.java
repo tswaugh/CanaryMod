@@ -629,4 +629,13 @@ public class BaseEntity implements Metadatable {
     public boolean isOnGround() {
         return this.entity.E;
     }
+    
+    /**
+     * Gets the height of this entity's eyes above its feet.
+     * Will return 0 if this entity has no eyes.
+     * @return
+     */
+    public float getEyeHeight() {
+    	return getEntity().e();
+    }
 }
