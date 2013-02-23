@@ -263,7 +263,7 @@ public class ONetServerHandler extends ONetHandler {
 
                 OAxisAlignedBB oaxisalignedbb = this.d.D.c().b((double) f4, (double) f4, (double) f4).a(0.0D, -0.55D, 0.0D);
 
-                if (!this.e.Y() && !this.d.c.d() && !oworldserver.c(oaxisalignedbb)) {
+                if (!this.e.Y() && !this.d.cd.c && !oworldserver.c(oaxisalignedbb)) {
                     if (d12 >= -0.03125D) {
                         ++this.g;
                         if (this.g > 80) {
@@ -711,7 +711,7 @@ public class ONetServerHandler extends ONetHandler {
     public void a(OPacket205ClientCommand opacket205clientcommand) {
         if (opacket205clientcommand.a == 1) {
             // CanaryMod: onPlayerRespawn TODO todo xxx I may have broken this --somners
-        	OChunkCoordinates spawnLoc = this.d.bZ();
+            OChunkCoordinates spawnLoc = this.d.bZ();
 
             if (spawnLoc == null) {
                 spawnLoc = this.e.getWorld(this.d.p.name, 0).H();
@@ -756,7 +756,7 @@ public class ONetServerHandler extends ONetHandler {
 
     public void a(OPacket102WindowClick opacket102windowclick) {
         if (this.d.bL.d == opacket102windowclick.a && this.d.bL.c(this.d)) {
-            
+
             // CanaryMod: onSlotClick
             HookParametersSlotClick hookParametersSlotClick = new HookParametersSlotClick(this.d.bL, opacket102windowclick.b, opacket102windowclick.c, opacket102windowclick.f, this.d);
             hookParametersSlotClick = (HookParametersSlotClick)etc.getLoader().callHook(PluginLoader.Hook.SLOT_CLICK, new Object[]{hookParametersSlotClick});
@@ -779,7 +779,7 @@ public class ONetServerHandler extends ONetHandler {
                 return;
             }
             // end CanaryMod
-            
+
             OItemStack oitemstack = this.d.bL.a(opacket102windowclick.b, opacket102windowclick.c, opacket102windowclick.f, this.d);
 
             if (OItemStack.b(opacket102windowclick.e, oitemstack)) {

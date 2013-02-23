@@ -261,13 +261,48 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             }
 
             // CanaryMod onPortalUse
-            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_USE, player, player.getWorld())) {
+            Location goingTo = simulatePortalUse(i, OMinecraftServer.D().getWorld(p.name, i));
+            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_USE, player, goingTo)) {
                 this.b.ad().a(this, i);
                 this.co = -1;
                 this.cl = -1;
                 this.cm = -1;
             } //
         }
+    }
+
+    //Simulates the use of a Portal by the Player to determin the location going to
+    private final Location simulatePortalUse(int dimensionTo, OWorldServer oworldserverTo) {
+        double y = this.u;
+        float rotX = this.z;
+        float rotY = this.A;
+        double x = this.t;
+        double z = this.v;
+        double adjust = 8.0D;
+        if (dimensionTo == -1) {
+            x /= adjust;
+            z /= adjust;
+        } else if (dimensionTo == 0) {
+            x *= adjust;
+            z *= adjust;
+        } else {
+            OChunkCoordinates ochunkcoordinates;
+            if (dimensionTo == 1) {
+                ochunkcoordinates = oworldserverTo.H();
+            } else {
+                ochunkcoordinates = oworldserverTo.l();
+            }
+            x = (double) ochunkcoordinates.a;
+            y = (double) ochunkcoordinates.b;
+            z = (double) ochunkcoordinates.c;
+            rotX = 90.0F;
+            rotY = 0.0F;
+        }
+        if (dimensionTo != 1) {
+            x = (double) OMathHelper.a((int) x, -29999872, 29999872);
+            z = (double) OMathHelper.a((int) z, -29999872, 29999872);
+        }
+        return new Location(oworldserverTo.world, x, y, z, rotX, rotY);
     }
 
     private void b(OTileEntity otileentity) {
@@ -527,7 +562,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         // CanaryMod: Check if we can open this
         Inventory inv = new Beacon(otileentitybeacon);
         String name = otileentitybeacon.getName();
-        
+
         if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         }
@@ -535,7 +570,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         if (inv != null) {
             name = inv.getName();
         }
-        
+
         this.cg();
         this.a.b(new OPacket100OpenWindow(this.ct, 7, name, otileentitybeacon.k_()));
         this.bL = new OContainerBeacon(this.bJ, otileentitybeacon);
@@ -722,7 +757,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public boolean a(int i, String s) {
-        return "seed".equals(s) && !this.b.T() ? true : (!"tell".equals(s) && !"help".equals(s) && !"me".equals(s) ? this.b.ad().e(this.bR) : true);
+        // CanaryMod: use our own permission system
+        if (s.isEmpty()) {
+            return false;
+        } else if (s.charAt(0) != '/') {
+            s = "/" + s;
+        }
+        return player.canUseCommand(s);
     }
 
     public String q() {
@@ -787,19 +828,19 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         player = etc.getDataSource().getPlayer(this.bR);
         player.setUser(this);
     }
-    
+
     // CanaryMod start
     @Override
     public void setDisplayName(String name) {
-    	super.setDisplayName(name);
-    	OPacket20NamedEntitySpawn pkt = new OPacket20NamedEntitySpawn(this);
-    	for(Player p : etc.getServer().getPlayerList()) { // could be improved to only send to nearby players
-    		if(!p.equals(this.player)) {
-    			p.getEntity().a.b(pkt);
-    		}
-    	}
+        super.setDisplayName(name);
+        OPacket20NamedEntitySpawn pkt = new OPacket20NamedEntitySpawn(this);
+        for(Player p : etc.getServer().getPlayerList()) { // could be improved to only send to nearby players
+            if(!p.equals(this.player)) {
+                p.getEntity().a.b(pkt);
+            }
+        }
     }
-    
+
     public void updateSlot(int windowId, int slotIndex, OItemStack item) {
         this.a.b(new OPacket103SetSlot(windowId, slotIndex, item));
     }

@@ -58,17 +58,17 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> {
     public void setName(String value) {
         container.setName(value);
     }
-    
+
     /**
      * Returns Item held in player's mouse cursor. Ex: When moving items within an inventory.
-     * 
+     *
      * @return Item
      */
     public Item getCursorItem() {
         OItemStack itemstack = container.n();
         return itemstack == null ? null : new Item(itemstack);
     }
-    
+
     public void setCursorItem(Item item) {
         container.b(item.getBaseItem());
     }

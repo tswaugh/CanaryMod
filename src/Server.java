@@ -1010,7 +1010,7 @@ public class Server {
     public PlayerManager getPlayerManager(World world) {
         return world.getPlayerManager();
     }
-    
+
     /**
      * Get the version of Minecarft this CanaryMod is for.
      * @return String of the version in the format major.minor[.build]

@@ -1127,7 +1127,7 @@ public class FlatFileSource extends DataSource {
                 if (!split[0].equalsIgnoreCase(name)) {
                     continue;
                 }
-                
+
                 player = new Player();
 
                 if (split.length < 2) {
@@ -1197,7 +1197,7 @@ public class FlatFileSource extends DataSource {
             } else if (!group.CanModifyWorld && !player.canIgnoreRestrictions()) {
                 player.setRestrictions(-1);
             }
-        }    
+        }
         return player;
     }
 

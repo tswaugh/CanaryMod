@@ -67,7 +67,7 @@ public class Motd {
     }
 
     public static String replace(String text, Player p) {
-        text = text.replaceAll("&[^&]", Colors.Marker);
+        text = text.replaceAll("&(?!=&)", Colors.Marker);
         if (text.contains("&&")) {
             text = text.replaceAll("&&", "&");
         }

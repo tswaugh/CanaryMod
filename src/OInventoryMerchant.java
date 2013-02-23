@@ -5,24 +5,24 @@ public class OInventoryMerchant implements OIInventory, Container<OItemStack>
     private final OEntityPlayer c;
     private OMerchantRecipe d;
     private int e;
-    
+
     // CanaryMod
     private String name = "mob.villager";
-    
+
     public OInventoryMerchant(OEntityPlayer paramOEntityPlayer, OIMerchant paramOIMerchant)
     {
         this.c = paramOEntityPlayer;
         this.a = paramOIMerchant;
     }
-    
+
     public int k_() {
         return this.b.length;
     }
-    
+
     public OItemStack a(int paramInt) {
         return this.b[paramInt];
     }
-    
+
     public OItemStack a(int paramInt1, int paramInt2) {
         if (this.b[paramInt1] != null) {
             OItemStack localOItemStack;
@@ -46,14 +46,14 @@ public class OInventoryMerchant implements OIInventory, Container<OItemStack>
             }
             return localOItemStack;
         }
-        
+
         return null;
     }
-    
+
     private boolean d(int paramInt) {
         return (paramInt == 0) || (paramInt == 1);
     }
-    
+
     public OItemStack a_(int paramInt) {
         if (this.b[paramInt] != null) {
             OItemStack localOItemStack = this.b[paramInt];
@@ -62,48 +62,48 @@ public class OInventoryMerchant implements OIInventory, Container<OItemStack>
         }
         return null;
     }
-    
+
     public void a(int paramInt, OItemStack paramOItemStack) {
         this.b[paramInt] = paramOItemStack;
         if ((paramOItemStack != null) && (paramOItemStack.a > c())) paramOItemStack.a = c();
         if (d(paramInt))
             g();
     }
-    
+
     public String b()
     {
         return name;
     }
-    
+
     public int c() {
         return 64;
     }
-    
+
     public boolean a_(OEntityPlayer paramOEntityPlayer) {
         return this.a.m_() == paramOEntityPlayer;
     }
-    
+
     public void l_() {
     }
-    
+
     public void f() {
     }
-    
+
     public void d() {
         g();
     }
-    
+
     public void g() {
         this.d = null;
-        
+
         Object localObject = this.b[0];
         OItemStack localOItemStack = this.b[1];
-        
+
         if (localObject == null) {
             localObject = localOItemStack;
             localOItemStack = null;
         }
-        
+
         if (localObject == null) {
             a(2, null);
         } else {
@@ -129,11 +129,11 @@ public class OInventoryMerchant implements OIInventory, Container<OItemStack>
             }
         }
     }
-    
+
     public OMerchantRecipe h() {
         return this.d;
     }
-    
+
     public void c(int paramInt) {
         this.e = paramInt;
         g();

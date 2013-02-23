@@ -192,7 +192,7 @@ public class OEntityArrow extends OEntity implements OIProjectile {
             float f3;
 
             if (omovingobjectposition != null) {
-            	if (omovingobjectposition.g != null && (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Arrow(this), omovingobjectposition == null || omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()))) {
+                if (omovingobjectposition.g != null && (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Arrow(this), omovingobjectposition == null || omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()))) {
                         f2 = OMathHelper.a(this.w * this.w + this.x * this.x + this.y * this.y);
                         int i1 = OMathHelper.f((double) f2 * this.au);
 

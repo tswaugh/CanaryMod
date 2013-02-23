@@ -43,7 +43,7 @@ public class BaseVehicle extends BaseEntity {
 
         return null;
     }
-    
+
     /**
      * Convenience method for setting a player in a minecart because we have getPassenger()
      * @param p
@@ -51,5 +51,5 @@ public class BaseVehicle extends BaseEntity {
     public void setPassenger(Player p) {
         setRiddenByEntity(p);
     }
-    
+
 }

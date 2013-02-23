@@ -268,7 +268,7 @@ public class ServerConsoleCommands extends CommandHandler {
                 } else if (split[2].equalsIgnoreCase("groups")) {
                     List<String> filledGroups = Arrays.asList(split[3].split(",", -1));
                     List<String> availGroups = new ArrayList<String>();
-                    
+
                     for (Group g : etc.getDataSource().getGroupList()) {
                         if (!filledGroups.contains(g.Name)) {
                             availGroups.add(g.Name);
@@ -593,47 +593,53 @@ public class ServerConsoleCommands extends CommandHandler {
             }
 
             Player player = etc.getServer().matchPlayer(split[1]);
+            try {
+                if (player != null) {
+                    if (caller instanceof Player && !((Player) caller).hasControlOver(player)) {
+                        caller.notify("You can't ban that user.");
+                        return;
+                    }
 
-            if (player != null) {
-                if (caller instanceof Player && !((Player) caller).hasControlOver(player)) {
-                    caller.notify("You can't ban that user.");
-                    return;
-                }
+                    if (split.length > 3) {
+                        BanSystem.fileBan(player, etc.combineSplit(3, split, " "),
+                                (int) (matchFutureDate(split[2]) / 1000), byIp);
+                    } else {
+                        BanSystem.fileBan(player, etc.getInstance().getDefaultBanMessage(),
+                                (int) (matchFutureDate(split[2]) / 1000), byIp);
+                    }
 
-                if (split.length > 3) {
-                    BanSystem.fileBan(player, etc.combineSplit(3, split, " "),
-                            (int) (matchFutureDate(split[2]) / 1000), byIp);
+                    etc.getLoader().callHook(PluginLoader.Hook.BAN, caller instanceof Player ? caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : "");
+
+                    if (split.length > 3) {
+                        player.kick("Banned by " + caller.getName() + ": " + etc.combineSplit(3, split, " "));
+                    } else {
+                        player.kick("Banned by " + caller.getName() + ".");
+                    }
+                    log.info(caller.getName() + ": banning " + player.getName());
+                    caller.notify("Banning " + player.getName());
+                } else if (byIp) {
+                    if (!etc.getDataSource().isOnBanList(null, split[1])) {
+                        Ban b = new Ban();
+                        b.setIp(split[1]);
+                        b.setTimestamp((int) (matchFutureDate(split[2]) / 1000));
+                        etc.getDataSource().addBan(b);
+                        log.info(caller.getName() + ": banning " + split[1]);
+                        caller.notify("Banning " + split[1]);
+                    }
                 } else {
-                    BanSystem.fileBan(player, etc.getInstance().getDefaultBanMessage(),
-                            (int) (matchFutureDate(split[2]) / 1000), byIp);
+                    if (!etc.getDataSource().isOnBanList(split[1], null)) {
+                        Ban b = new Ban(split[1]);
+                        b.setTimestamp((int) (matchFutureDate(split[2]) / 1000));
+                        etc.getDataSource().addBan(b);
+                        log.info(caller.getName() + ": banning " + split[1]);
+                        caller.notify("Banning " + split[1]);
+                    } else {
+                        caller.notify(String.format("%s is already banned from this server", split[1]));
+                    }
                 }
-
-                etc.getLoader().callHook(PluginLoader.Hook.BAN, new Object[]{(caller instanceof Player) ? (Player) caller : null, player, split.length >= 3 ? etc.combineSplit(2, split, " ") : ""});
-
-                if (split.length > 3) {
-                    player.kick("Banned by " + caller.getName() + ": " + etc.combineSplit(3, split, " "));
-                } else {
-                    player.kick("Banned by " + caller.getName() + ".");
-                }
-                log.info(caller.getName() + ": banning " + player.getName());
-                caller.notify("Banning " + player.getName());
-            } else if (byIp) {
-                if (!etc.getDataSource().isOnBanList(null, split[1])) {
-                    Ban b = new Ban();
-                    b.setIp(split[1]);
-                    b.setTimestamp((int) (matchFutureDate(split[2]) / 1000));
-                    etc.getDataSource().addBan(b);
-                    log.info(caller.getName() + ": banning " + split[1]);
-                    caller.notify("Banning " + split[1]);
-                }
-            } else {
-                if (!etc.getDataSource().isOnBanList(split[1], null)) {
-                    etc.getDataSource().addBan(new Ban(split[1]));
-                    log.info(caller.getName() + ": banning " + split[1]);
-                    caller.notify("Banning " + split[1]);
-                } else {
-                    caller.notify(String.format("%s is already banned from this server", split[1]));
-                }
+            } catch (IllegalArgumentException e) {
+                caller.notify("Error while trying to ban: " + e.getMessage());
+                this.onBadSyntax(caller, split);
             }
         }
 

@@ -452,17 +452,17 @@ public class World {
     public ComplexBlock getComplexBlock(Block block) {
         return getComplexBlock(block.getX(), block.getY(), block.getZ());
     }
-    
+
     /**
      * Returns the complex block at the specified location. Null if there's no
      * complex block there. This will also find complex-blocks spanning multiple
      * spaces, such as double chest.
-     * 
+     *
      * @param location The location of the block. Only x/y/z is used.
      * @return ComplexBlock
      */
     public ComplexBlock getComplexBlock(Location location) {
-    	return getComplexBlock((int) location.x, (int) location.y, (int) location.z);
+        return getComplexBlock((int) location.x, (int) location.y, (int) location.z);
     }
 
     /**
@@ -1126,6 +1126,43 @@ public class World {
      */
     public void playSound(double x, double y, double z, Sound sound, float volume, float pitch){
         world.a(x, y, z, sound.getSoundString(), volume, pitch);
+    }
+
+    /**
+     * Plays a note at a given location.
+     *
+     * @param location The location to play the note at.
+     * @param instrument The instrument to play the note with.
+     * @param pitch The pitch of the note (0-24?).
+     */
+    public void playNote(Location location, Sound.Instrument instrument, int pitch) {
+        playNote(location.x, location.y, location.z, instrument, pitch);
+    }
+
+    /**
+     * Plays a note at a given location.
+     *
+     * @param x The x coordinate to play the note at.
+     * @param y The y coordinate to play the note at.
+     * @param z The z coordinate to play the note at.
+     * @param instrument The instrument to play the note with.
+     * @param pitch The pitch of the note (0-24?).
+     */
+    public void playNote(double x, double y, double z, Sound.Instrument instrument, int pitch) {
+        playNote((int) x, (int) y, (int) z, instrument, pitch);
+    }
+
+    /**
+     * Plays a note at a given location.
+     *
+     * @param x The x coordinate to play the note at.
+     * @param y The y coordinate to play the note at.
+     * @param z The z coordinate to play the note at.
+     * @param instrument The instrument to play the note with.
+     * @param pitch The pitch of the note (0-24?).
+     */
+    public void playNote(int x, int y, int z, Sound.Instrument instrument, int pitch) {
+        ((OBlockNote) OBlock.p[25]).b(getWorld(), x, y, z, instrument.ordinal(), pitch);
     }
 
     /**

@@ -14,7 +14,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
     public ItemArray(C container) {
         this(null, container);
     }
-    
+
     public ItemArray(OContainer oContainer, C container) {
         this.container = container;
         this.oContainer = oContainer;
@@ -93,7 +93,20 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
         Item[] items = getContents();
 
         for (Item item : items) {
-            if ((item != null) && (item.getItemId() == id) && (item.getAmount() <= maxAmount)) {
+            if (item != null && item.getItemId() == id && item.getAmount() <= maxAmount) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public Item getItemFromId(int id, int maxAmount, int dmg) {
+        Item[] items = getContents();
+
+        for (Item item : items) {
+            if (item != null && item.getItemId() == id && item.getAmount() <= maxAmount && item.getDamage() == dmg) {
                 return item;
             }
         }
@@ -315,20 +328,20 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
 
         while (amount > 0) {
             // Get an existing item with at least 1 spot free
-            itemExisting = this.getItemFromId(item.getItemId(), maxAmount-1);
+            itemExisting = this.getItemFromId(item.getItemId(), maxAmount-1, item.getDamage());
 
             // Add the items to the existing stack of items
             if (itemExisting != null &&
                     (itemExisting.getEnchantment() == null || etc.getInstance().allowEnchantableItemStacking)) {
                 // Add as much items as possible to the stack
                 int k = Math.min(maxAmount - itemExisting.getAmount(), item.getAmount());
-                this.setSlot(item.getItemId(), itemExisting.getAmount() + k, itemExisting.getSlot());
+                this.setSlot(item.getItemId(), itemExisting.getAmount() + k, item.getDamage(), itemExisting.getSlot());
                 amount -= k;
                 continue;
             }
             // We still have slots, but no stack, create a new stack.
             if (this.getEmptySlot() != -1) {
-                this.addItem(new Item(item.getItemId(), amount));
+                this.addItem(new Item(item.getItemId(), amount, -1, item.getDamage()));
                 amount = 0;
                 continue;
             }
@@ -354,22 +367,22 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
     public String toString() {
         return String.format("ItemArray[size=%d, contents=%s]", getContentsSize(), Arrays.toString(getContents()));
     }
-    
+
     @Override
     public boolean hasOContainer() {
         return oContainer != null;
     }
-    
+
     @Override
     public OContainer getOContainer() {
         return oContainer;
     }
-    
+
     @Override
     public void setOContainer(OContainer oContainer) {
         this.oContainer  = oContainer;
     }
-    
+
     @Override
     public boolean updateChangedSlots() {
         if(oContainer == null)
@@ -377,7 +390,7 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
         oContainer.updateChangedSlots();
         return true;
     }
-    
+
     @Override
     public boolean updateSlot(int index) {
         if(oContainer == null)

@@ -1726,7 +1726,7 @@ public abstract class OWorld implements OIBlockAccess {
                     // CanaryMod: Thunder hook
                     if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, this.world, !this.y.n())) {
                         this.y.a(!this.y.n());
-                    } // CanaryMod: diff visibility      
+                    } // CanaryMod: diff visibility
                 }
             }
 

@@ -116,13 +116,13 @@ public class OContainerMerchant extends OContainer {
             }
         }
     }
-    
+
     // CanaryMod
     @Override
     public InventoryMerchant getInventory() {
         if(super.getInventory() instanceof InventoryMerchant)
             return (InventoryMerchant)super.getInventory();
-        
+
         InventoryMerchant inv = new InventoryMerchant(this, this.f);
         setInventory(inv);
         return inv;

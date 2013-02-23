@@ -28,6 +28,9 @@ public class WrittenBook {
      */
     public WrittenBook(OItemStack book) {
         this.book = book;
+        if (book.d == null) {
+            book.d(new ONBTTagCompound());
+        }
         this.nbtTag = new NBTTagCompound(book.d);
     }
 

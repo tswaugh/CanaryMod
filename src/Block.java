@@ -781,15 +781,43 @@ public class Block {
     public ComplexBlock getComplex() {
         return getWorld().getComplexBlock(this);
     }
-    
+
     /**
      * Simulate a right click on the block.
      * Toggles levers, pushes buttons, opens doors, etc.
-     * 
+     *
      * @param clicker The player that clicked the block (can be null for things like levers, buttons, etc, but should be set for things like chests.
      * @return Whether or not the block responded.
      */
     public boolean rightClick(Player clicker) {
-    	return OBlock.p[getType()].a(getWorld().getWorld(), getX(), getY(), getZ(), clicker.getEntity(), 0, 0, 0, 0); // last four parameters aren't even used by lever or button
+        return OBlock.p[getType()].a(getWorld().getWorld(), getX(), getY(), getZ(), clicker != null ? clicker.getEntity() : null, 0, 0, 0, 0); // last four parameters aren't even used by lever or button
+    }
+
+    /**
+     * Gets the block that this block is attached to.
+     * Useful for levers, buttons, torches, etc.
+     * Can have unexpected results on blocks that don't attach to other blocks (eg. dirt, stone).
+     *
+     * @return Block
+     */
+    public Block getAttachedBlock() {
+        switch(data % 8) {
+            case 0: // usually above
+            case 7:
+                return getRelative(0, 1, 0);
+            case 1: // west
+                return getRelative(-1, 0, 0);
+            case 2: // east
+                return getRelative(1, 0, 0);
+            case 3: // north
+                return getRelative(0, 0, -1);
+            case 4: // south
+                return getRelative(0, 0, 1);
+            case 5: // usually below
+            case 6:
+                return getRelative(0, -1, 0);
+            default: // should never occur
+                return null;
+        }
     }
 }

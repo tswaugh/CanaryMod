@@ -1292,79 +1292,43 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Returns whether this player can receive damage.
-     * @return the disableDamage state
-     */
-    public boolean isDamageDisabled() {
-        return getEntity().cd.a;
-    }
-
-    /**
-     * Sets whether this player can receive damage.
-     * @param disabled the new value.
-     */
-    public void setDamageDisabled(boolean disabled) {
-        getEntity().cd.a = disabled;
-    }
-
-    @Override
-    public boolean isInvulnerable() {
-        return isDamageDisabled();
-    }
-
-    @Override
-    public void setInvulnerable(boolean isInvulnerable) {
-        setDamageDisabled(isInvulnerable);
-    }
-
-    /**
-     * Returns whether the player is flying.
-     * @return the flying state
-     */
-    public boolean isFlying() {
-        return getEntity().cd.b;
-    }
-
-    /**
-     * Sets whether the player is flying.
-     * @param flying the flying state.
-     */
-    public void setFlying(boolean flying) {
-        getEntity().cd.b = flying;
-    }
-
-    /**
      * Returns whether falling is disabled.
      * @return the disableFalling state
+     * @deprecated Misleading name. See {@link #canFly()}
      */
+    @Deprecated
     public boolean isFallingDisabled() {
-        return getEntity().cd.c;
+        return canFly();
     }
 
     /**
      * Sets whether falling is disabled.
      * @param disabled the new value
+     * @deprecated Misleading name. See {@link #setCanFly(boolean)}
      */
+    @Deprecated
     public void setFallingDisabled(boolean disabled) {
-        getEntity().cd.c = disabled;
+        setCanFly(disabled);
     }
 
     /**
      * Returns whether buckets are always full.
      * When set, every bucket that the player holds stays full after emptying.
      * @return whether buckets are always full.
+     * @deprecated Misleading name. See {@link #hasCreativePerks()}
      */
     public boolean isBucketAlwaysFull() {
-        return getEntity().cd.d;
+        return hasCreativePerks();
     }
 
     /**
      * Sets whether buckets are always full.
      * When set, every bucket that the player holds stays full after emptying.
      * @param alwaysFull the new state
+     * @deprecated Misleading name. See {@link #setCreativePerks(boolean)}
      */
     public void setBucketAlwaysFull(boolean alwaysFull) {
-        getEntity().cd.d = alwaysFull;
+        setCreativePerks(alwaysFull);
     }
 
     /**
@@ -1453,7 +1417,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             // Start of line, add a colon to completed names for convenience
             for (Player p : etc.getServer().getPlayerList()) {
                 if (p.getName().toLowerCase().startsWith(currentText.toLowerCase())) {
-                    options.add(p.getName() + ": ");
+                    options.add(p.getName() + ":"); // Note: no space here, because client splits on space.
                 }
             }
         } else if (currentText.charAt(0) == '/') {
@@ -1466,12 +1430,12 @@ public class Player extends HumanEntity implements MessageReceiver {
                     if (command == null) { // Not a server command? Try player commands.
                         command = PlayerCommands.getInstance().getCommand(commandName);
                     }
-                    if (command != null) {
-                        // Call command's autoComplete method
-                        List<String> commandOptions = command.autoComplete(this, currentText);
-                        if (commandOptions != null) {
-                            options.addAll(commandOptions);
-                        }
+                    // Call command's autoComplete method
+                    List<String> commandOptions = command == null
+                            ? etc.autoCompleteNames(currentText.substring(currentText.lastIndexOf(' ') + 1))
+                            : command.autoComplete(this, currentText);
+                    if (commandOptions != null) {
+                        options.addAll(commandOptions);
                     }
                 }
             } else {
@@ -1558,7 +1522,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public void playSound(double x, double y, double z, Sound sound, float volume, float pitch){
         getEntity().a.b(new OPacket62LevelSound(sound.getSoundString(), x, y, z, volume, pitch));
     }
-    
+
     /**
      * Gets the item the cursor currently has.
      * @return The {@link Item} the cursor currently has.
@@ -1566,7 +1530,7 @@ public class Player extends HumanEntity implements MessageReceiver {
     public Item getInventoryCursorItem() {
         return inventory.getCursorItem();
     }
-    
+
     /**
      * Sets the item the cursor should have.
      */

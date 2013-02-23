@@ -426,11 +426,11 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
                 }
                 this.a(oentityitem);
                 this.a(OStatList.v, 1);
-                // return the item to the inventory.
-            } else {
+
                 return oentityitem;
+            } else { // return the item to the inventory.
+                return null;
             }
-            return null;
         }
     }
 
@@ -1392,14 +1392,14 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
     public HumanEntity getEntity() {
         return entity;
     } //
-    
+
     // CanaryMod start
     public String getDisplayName() {
-    	return displayName == null ? this.bR : displayName;
+        return displayName == null ? this.bR : displayName;
     }
-    
+
     public void setDisplayName(String name) {
-    	this.displayName = name;
+        this.displayName = name;
     }
     // CanaryMod end
 }

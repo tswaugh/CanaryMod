@@ -564,7 +564,7 @@ public abstract class DataSource {
     public List<Ban> getBans() {
         return new ArrayList<Ban>(this.bans);
     }
-    
+
     public Player getDefaultGroupPlayer() {
         Player player = new Player();
         player.setGroups(new String[]{etc.getDataSource().getDefaultGroup().Name});
