@@ -284,7 +284,8 @@ public class PluginListener {
     }
 
     /**
-     * Called when a player drops an item.
+     * Called when a player drops an item or when a player is given an item via 
+     * native Minecraft methods, such as the "give" command.
      *
      * @param player
      *            player who dropped the item

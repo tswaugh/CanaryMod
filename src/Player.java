@@ -230,30 +230,39 @@ public class Player extends HumanEntity implements MessageReceiver {
     }
 
     /**
-     * Gives the player this item by dropping it in front of them
+     * Gives the player this item by dropping it in front of them<br>
+     * NOTE:  using this method calls Hook PluginLoader.Hook.ITEM_DROP
      *
      * @param item
+     * @see PluginLoader.Hook.ITEM_DROP
+     * @see PluginListener.onItemDrop(Player player, ItemEntity item)
      */
     public void giveItemDrop(Item item) {
         giveItemDrop(item.getItemId(), item.getAmount(), item.getDamage());
     }
 
     /**
-     * Gives the player this item by dropping it in front of them
+     * Gives the player this item by dropping it in front of them<br>
+     * NOTE:  using this method calls Hook PluginLoader.Hook.ITEM_DROP
      *
      * @param itemId
      * @param amount
+     * @see PluginLoader.Hook.ITEM_DROP
+     * @see PluginListener.onItemDrop(Player player, ItemEntity item)
      */
     public void giveItemDrop(int itemId, int amount) {
         giveItemDrop(itemId, amount, 0);
     }
 
     /**
-     * Gives the player this item by dropping it in front of them
+     * Gives the player this item by dropping it in front of them<br>
+     * NOTE:  using this method calls Hook PluginLoader.Hook.ITEM_DROP
      *
      * @param itemId
      * @param amount
      * @param damage
+     * @see PluginLoader.Hook.ITEM_DROP
+     * @see PluginListener.onItemDrop(Player player, ItemEntity item)
      */
     public void giveItemDrop(int itemId, int amount, int damage) {
         OEntityPlayerMP player = getEntity();
