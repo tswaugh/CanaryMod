@@ -1377,4 +1377,13 @@ public class PluginListener {
     public boolean onCommandBlockCommand(CommandBlock block, String[] split) {
         return false;
     }
+    
+    /**
+     * 
+     * @param player Player that gained the stat.
+     * @param stat The stat gained.
+     */
+    public boolean onStatGained(Player player, Stat stat) {
+        return false;
+    }
 }

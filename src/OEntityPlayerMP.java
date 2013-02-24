@@ -643,6 +643,9 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public void a(OStatBase ostatbase, int i) {
+        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.STAT_GAINED, getPlayer(), new Stat(ostatbase))) {
+            return;
+        }
         if (ostatbase != null) {
             if (!ostatbase.f) {
                 while (i > 100) {

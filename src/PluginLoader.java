@@ -382,6 +382,10 @@ public class PluginLoader {
          */
         COMMAND_BLOCK_COMMAND, //
         /**
+         * Calls{@link PluginListener#onStatGained(Player, Stat) }
+         */
+        STAT_GAINED, //
+        /**
          * For internal use only.
          */
         NUM_HOOKS;
@@ -1332,6 +1336,10 @@ public class PluginLoader {
 
                         case COMMAND_BLOCK_COMMAND:
                             toRet = listener.onCommandBlockCommand((CommandBlock) parameters[0], (String[]) parameters[1]);
+                            break;
+
+                        case STAT_GAINED:
+                            toRet = listener.onStatGained((Player) parameters[0], (Stat) parameters[1]);
                             break;
 
                         }
