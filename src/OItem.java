@@ -201,7 +201,7 @@ public class OItem {
 
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
         if ((oitemstack.c != 325) && (oitemstack.c != 326) && (oitemstack.c != 327)) {
-            return ((Boolean)etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, new Object[] { ((OEntityPlayerMP)oentityplayer).getPlayer(), null, getBlockInfo(oworld, i, j, k, l), new Item(oitemstack) })).booleanValue();
+            return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, getBlockInfo(oworld, i, j, k, l), new Item(oitemstack));
         }
         return false;
     }

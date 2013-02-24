@@ -11,6 +11,10 @@ public class OItemSkull extends OItem {
     }
 
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
+        if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, getBlockInfo(oworld, i, j, k, l), new Item(oitemstack))) {
+            return true;
+        }
+
         if (l == 0) {
             return false;
         } else if (!oworld.g(i, j, k).a()) {
