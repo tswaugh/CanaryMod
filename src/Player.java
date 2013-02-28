@@ -818,7 +818,7 @@ public class Player extends HumanEntity implements MessageReceiver {
         String name;
 
         if (etc.getInstance().isPlayerList_colors()) {
-            name = this.getFullName() + Colors.LightGreen;
+            name = this.getFullName();
         } else {
             name = this.getName();
         }
