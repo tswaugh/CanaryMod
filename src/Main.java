@@ -114,10 +114,11 @@ public class Main {
             return;
         }
 
+        long checksum;
         boolean match = false;
-
         for (long crc : crcs) {
-            match = crc == getCRC32(fileName);
+            checksum = getCRC32(fileName);
+            match = checksum == crc;
             if (match) break;
         }
 
