@@ -19,7 +19,7 @@ public class Main {
 
     public static final long   minecraft_server = 0x4d4e926fL;
 
-    public static final long   minecraft_servero = 0x2f984118L;
+    public static final long[] minecraft_servero = {0x2f984118L, 0xdbbd61dL};
 
     public static final long   mysql = 0xb2e59524L;
     public static final long   jarjar = 0x4e724d4dL;
@@ -100,6 +100,28 @@ public class Main {
         long checksum = getCRC32(fileName);
 
         if (checksum != crc) {
+            log("-----------------------------");
+            log(fileName + " does not match checksum! Checksum found: " + Long.toHexString(checksum) + ", required checksum: " + Long.toHexString(crc) + ".");
+            log("This means some of your files are either corrupted, outdated or too new. (minecraft got updated?)");
+            log("If you still want to run the server, delete version.txt to run the server in tainted mode.");
+            log("-----------------------------");
+            System.exit(0);
+        }
+    }
+
+    public static void checkCRC32(String fileName, long[] crcs) throws IOException {
+        if (etc.getInstance().getTainted()) {
+            return;
+        }
+
+        boolean match = false;
+
+        for (long crc : crcs) {
+            match = crc == getCRC32(fileName);
+            if (match) break;
+        }
+
+        if (!match) {
             log("-----------------------------");
             log(fileName + " does not match checksum! Checksum found: " + Long.toHexString(checksum) + ", required checksum: " + Long.toHexString(crc) + ".");
             log("This means some of your files are either corrupted, outdated or too new. (minecraft got updated?)");
