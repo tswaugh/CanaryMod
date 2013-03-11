@@ -53,7 +53,7 @@ public class OContainerWorkbench extends OContainer {
         super.b(oentityplayer);
         if (!this.g.I) {
             for (int i = 0; i < 9; ++i) {
-                OItemStack oitemstack = this.a.a_(i);
+                OItemStack oitemstack = this.a.b(i);
 
                 if (oitemstack != null) {
                     oentityplayer.c(oitemstack);
@@ -63,7 +63,7 @@ public class OContainerWorkbench extends OContainer {
     }
 
     public boolean a(OEntityPlayer oentityplayer) {
-        return this.g.a(this.h, this.i, this.j) != OBlock.aB.cm ? false : oentityplayer.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
+        return this.g.a(this.h, this.i, this.j) != OBlock.aC.cz ? false : oentityplayer.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 
     public OItemStack b(OEntityPlayer oentityplayer, int i) {
@@ -73,7 +73,7 @@ public class OContainerWorkbench extends OContainer {
         if (oslot != null && oslot.d()) {
             OItemStack oitemstack1 = oslot.c();
 
-            oitemstack = oitemstack1.l();
+            oitemstack = oitemstack1.m();
             if (i == 0) {
                 if (!this.a(oitemstack1, 10, 46, true)) {
                     return null;
@@ -108,10 +108,26 @@ public class OContainerWorkbench extends OContainer {
         return oitemstack;
     }
 
+    public boolean a(OItemStack oitemstack, OSlot oslot) {
+        return oslot.f != this.f && super.a(oitemstack, oslot);
+    }
+
     // CanaryMod
     @Override
-    public InventoryCrafting getInventory() {
-        // Not using Workbench because it uses an older form that might not be safe to update
-        return new InventoryCrafting(this, this.a, this.f);
+    public InventoryCrafting<?> getInventory() {
+        InventoryCrafting<?> ic;
+
+        if (super.getInventory() instanceof InventoryCrafting) {
+            ic = (InventoryCrafting<?>) super.getInventory();
+            if (ic.getOContainer() == null) {
+                ic.setOContainer(this);
+            }
+        } else {
+            // Not using Workbench because it uses an older form that might not be safe to update
+            ic = new InventoryCrafting<OInventoryCrafting>(this, this.a, this.f);
+            super.setInventory(ic);
+        }
+
+        return ic;
     }
 }

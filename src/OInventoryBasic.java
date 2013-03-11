@@ -7,9 +7,11 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
     private int b;
     protected OItemStack[] c; //CanaryMod: private -> protected
     private List d;
+    private boolean e;
 
-    public OInventoryBasic(String s, int i) {
+    public OInventoryBasic(String s, boolean flag, int i) {
         this.a = s;
+        this.e = flag;
         this.b = i;
         this.c = new OItemStack[i];
     }
@@ -25,7 +27,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
             if (this.c[i].a <= j) {
                 oitemstack = this.c[i];
                 this.c[i] = null;
-                this.d();
+                this.k_();
                 return oitemstack;
             } else {
                 oitemstack = this.c[i].a(j);
@@ -33,7 +35,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
                     this.c[i] = null;
                 }
 
-                this.d();
+                this.k_();
                 return oitemstack;
             }
         } else {
@@ -41,7 +43,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         }
     }
 
-    public OItemStack a_(int i) {
+    public OItemStack b(int i) {
         if (this.c[i] != null) {
             OItemStack oitemstack = this.c[i];
 
@@ -54,14 +56,14 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
 
     public void a(int i, OItemStack oitemstack) {
         this.c[i] = oitemstack;
-        if (oitemstack != null && oitemstack.a > this.c()) {
-            oitemstack.a = this.c();
+        if (oitemstack != null && oitemstack.a > this.d()) {
+            oitemstack.a = this.d();
         }
 
-        this.d();
+        this.k_();
     }
 
-    public int k_() {
+    public int j_() {
         return this.b;
     }
 
@@ -69,11 +71,15 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         return this.a;
     }
 
-    public int c() {
+    public boolean c() {
+        return this.e;
+    }
+
+    public int d() {
         return 64;
     }
 
-    public void d() {
+    public void k_() {
         if (this.d != null) {
             for (int i = 0; i < this.d.size(); ++i) {
                 ((OIInvBasic) this.d.get(i)).a(this);
@@ -81,13 +87,18 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
         }
     }
 
-    public boolean a_(OEntityPlayer oentityplayer) {
+    public boolean a(OEntityPlayer oentityplayer) {
         return true;
     }
 
-    public void l_() {}
+    public void g() {}
 
     public void f() {}
+
+    public boolean b(int i, OItemStack oitemstack) {
+        return true;
+    }
+
 
     @Override
     public OItemStack[] getContents() {
@@ -111,7 +122,7 @@ public class OInventoryBasic implements OIInventory, Container<OItemStack> {
 
     @Override
     public int getContentsSize() {
-        return this.k_();
+        return this.j_();
     }
 
     @Override

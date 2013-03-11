@@ -5,7 +5,7 @@ public class OItemHoe extends OItem {
     public OItemHoe(int i, OEnumToolMaterial oenumtoolmaterial) {
         super(i);
         this.a = oenumtoolmaterial;
-        this.ck = 1;
+        this.cq = 1;
         this.e(oenumtoolmaterial.a());
         this.a(OCreativeTabs.i);
     }
@@ -17,7 +17,7 @@ public class OItemHoe extends OItem {
             int i1 = oworld.a(i, j, k);
             int j1 = oworld.a(i, j + 1, k);
 
-            if ((l == 0 || j1 != 0 || i1 != OBlock.x.cm) && i1 != OBlock.y.cm) {
+            if ((l == 0 || j1 != 0 || i1 != OBlock.y.cz) && i1 != OBlock.z.cz) {
                 return false;
             } else {
                 // CanaryMod: Hoes
@@ -33,14 +33,14 @@ public class OItemHoe extends OItem {
                     }
                 }
 
-                OBlock oblock = OBlock.aD;
+                OBlock oblock = OBlock.aE;
 
-                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cz.e(), (oblock.cz.c() + 1.0F) / 2.0F, oblock.cz.d() * 0.8F);
+                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), oblock.cM.e(), (oblock.cM.c() + 1.0F) / 2.0F, oblock.cM.d() * 0.8F);
                 if (oworld.I) {
                     return true;
                 } else {
-                    oworld.e(i, j, k, oblock.cm);
-                    oitemstack.a(1, oentityplayer);
+                    oworld.c(i, j, k, oblock.cz);
+                    oitemstack.a(1, (OEntityLiving) oentityplayer);
                     return true;
                 }
             }

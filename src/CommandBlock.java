@@ -28,7 +28,7 @@ public class CommandBlock implements ComplexBlock, MessageReceiver {
 
     @Override
     public void update() {
-        base.g();
+        base.k_();
     }
 
     @Override
@@ -73,7 +73,7 @@ public class CommandBlock implements ComplexBlock, MessageReceiver {
      * @param prefix
      */
     public void setPrefix(String prefix) {
-        base.prefix = prefix;
+        base.c(prefix);
     }
 
     /**
@@ -83,7 +83,7 @@ public class CommandBlock implements ComplexBlock, MessageReceiver {
      * @return
      */
     public String getPrefix() {
-        return base.prefix;
+        return base.c_();
     }
 
     @Override

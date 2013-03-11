@@ -5,27 +5,27 @@ public class OBlockFire extends OBlock {
     private int[] a = new int[256];
     private int[] b = new int[256];
 
-    protected OBlockFire(int i, int j) {
-        super(i, j, OMaterial.o);
+    protected OBlockFire(int i) {
+        super(i, OMaterial.o);
         this.b(true);
     }
 
-    public void t_() {
-        this.a(OBlock.A.cm, 5, 20);
-        this.a(OBlock.bQ.cm, 5, 20);
-        this.a(OBlock.bR.cm, 5, 20);
-        this.a(OBlock.bc.cm, 5, 20);
-        this.a(OBlock.aw.cm, 5, 20);
-        this.a(OBlock.ca.cm, 5, 20);
-        this.a(OBlock.bZ.cm, 5, 20);
-        this.a(OBlock.cb.cm, 5, 20);
-        this.a(OBlock.M.cm, 5, 5);
-        this.a(OBlock.N.cm, 30, 60);
-        this.a(OBlock.aq.cm, 30, 20);
-        this.a(OBlock.ap.cm, 15, 100);
-        this.a(OBlock.aa.cm, 60, 100);
-        this.a(OBlock.ae.cm, 30, 60);
-        this.a(OBlock.bx.cm, 15, 100);
+    public void s_() {
+        this.a(OBlock.B.cz, 5, 20);
+        this.a(OBlock.bR.cz, 5, 20);
+        this.a(OBlock.bS.cz, 5, 20);
+        this.a(OBlock.bd.cz, 5, 20);
+        this.a(OBlock.ax.cz, 5, 20);
+        this.a(OBlock.cb.cz, 5, 20);
+        this.a(OBlock.ca.cz, 5, 20);
+        this.a(OBlock.cc.cz, 5, 20);
+        this.a(OBlock.N.cz, 5, 5);
+        this.a(OBlock.O.cz, 30, 60);
+        this.a(OBlock.ar.cz, 30, 20);
+        this.a(OBlock.aq.cz, 15, 100);
+        this.a(OBlock.ab.cz, 60, 100);
+        this.a(OBlock.af.cz, 30, 60);
+        this.a(OBlock.by.cz, 15, 100);
     }
 
     private void a(int i, int j, int k) {
@@ -33,7 +33,7 @@ public class OBlockFire extends OBlock {
         this.b[i] = k;
     }
 
-    public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
+    public OAxisAlignedBB b(OWorld oworld, int i, int j, int k) {
         return null;
     }
 
@@ -53,40 +53,40 @@ public class OBlockFire extends OBlock {
         return 0;
     }
 
-    public int r_() {
+    public int a(OWorld oworld) {
         return 30;
     }
 
-    public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (oworld.L().b("doFireTick")) {
-            boolean flag = oworld.a(i, j - 1, k) == OBlock.be.cm;
+    public void a(OWorld oworld, int i, int j, int k, Random random) {
+        if (oworld.M().b("doFireTick")) {
+            boolean flag = oworld.a(i, j - 1, k) == OBlock.bf.cz;
 
-            if (oworld.u instanceof OWorldProviderEnd && oworld.a(i, j - 1, k) == OBlock.C.cm) {
+            if (oworld.t instanceof OWorldProviderEnd && oworld.a(i, j - 1, k) == OBlock.D.cz) {
                 flag = true;
             }
 
-            if (!this.b(oworld, i, j, k)) {
-                oworld.e(i, j, k, 0);
+            if (!this.c(oworld, i, j, k)) {
+                oworld.i(i, j, k);
             }
 
-            if (!flag && oworld.N() && (oworld.D(i, j, k) || oworld.D(i - 1, j, k) || oworld.D(i + 1, j, k) || oworld.D(i, j, k - 1) || oworld.D(i, j, k + 1))) {
-                oworld.e(i, j, k, 0);
+            if (!flag && oworld.O() && (oworld.F(i, j, k) || oworld.F(i - 1, j, k) || oworld.F(i + 1, j, k) || oworld.F(i, j, k - 1) || oworld.F(i, j, k + 1))) {
+                oworld.i(i, j, k);
             } else {
                 int l = oworld.h(i, j, k);
 
                 if (l < 15) {
-                    oworld.d(i, j, k, l + random.nextInt(3) / 2);
+                    oworld.b(i, j, k, l + random.nextInt(3) / 2, 4);
                 }
 
-                oworld.a(i, j, k, this.cm, this.r_() + random.nextInt(10));
-                if (!flag && !this.l(oworld, i, j, k)) {
-                    if (!oworld.v(i, j - 1, k) || l > 3) {
-                        oworld.e(i, j, k, 0);
+                oworld.a(i, j, k, this.cz, this.a(oworld) + random.nextInt(10));
+                if (!flag && !this.k(oworld, i, j, k)) {
+                    if (!oworld.w(i, j - 1, k) || l > 3) {
+                        oworld.i(i, j, k);
                     }
                 } else if (!flag && !this.d(oworld, i, j - 1, k) && l == 15 && random.nextInt(4) == 0) {
-                    oworld.e(i, j, k, 0);
+                    oworld.i(i, j, k);
                 } else {
-                    boolean flag1 = oworld.E(i, j, k);
+                    boolean flag1 = oworld.G(i, j, k);
                     byte b0 = 0;
 
                     if (flag1) {
@@ -110,16 +110,16 @@ public class OBlockFire extends OBlock {
                                         l1 += (k1 - (j + 1)) * 100;
                                     }
 
-                                    int i2 = this.n(oworld, i1, k1, j1);
+                                    int i2 = this.m(oworld, i1, k1, j1);
 
                                     if (i2 > 0) {
-                                        int j2 = (i2 + 40 + oworld.s * 7) / (l + 30);
+                                        int j2 = (i2 + 40 + oworld.r * 7) / (l + 30);
 
                                         if (flag1) {
                                             j2 /= 2;
                                         }
 
-                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!oworld.N() || !oworld.D(i1, k1, j1)) && !oworld.D(i1 - 1, k1, k) && !oworld.D(i1 + 1, k1, j1) && !oworld.D(i1, k1, j1 - 1) && !oworld.D(i1, k1, j1 + 1)) {
+                                        if (j2 > 0 && random.nextInt(l1) <= j2 && (!oworld.O() || !oworld.F(i1, k1, j1)) && !oworld.F(i1 - 1, k1, k) && !oworld.F(i1 + 1, k1, j1) && !oworld.F(i1, k1, j1 - 1) && !oworld.F(i1, k1, j1 + 1)) {
                                             int k2 = l + random.nextInt(5) / 4;
 
                                             if (k2 > 15) {
@@ -132,7 +132,7 @@ public class OBlockFire extends OBlock {
 
                                             block.setStatus(3);
                                             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                                                oworld.d(i1, k1, j1, this.cm, k2);
+                                                oworld.f(i1, k1, j1, this.cz, k2, 3);
                                             }
                                         }
                                     }
@@ -153,9 +153,9 @@ public class OBlockFire extends OBlock {
         int j1 = this.b[oworld.a(i, j, k)];
 
         if (random.nextInt(l) < j1) {
-            boolean flag = oworld.a(i, j, k) == OBlock.ap.cm;
+            boolean flag = oworld.a(i, j, k) == OBlock.aq.cz;
 
-            if (random.nextInt(i1 + 10) < 5 && !oworld.D(i, j, k)) {
+            if (random.nextInt(i1 + 10) < 5 && !oworld.F(i, j, k)) {
                 int k1 = i1 + random.nextInt(5) / 4;
 
                 if (k1 > 15) {
@@ -167,28 +167,28 @@ public class OBlockFire extends OBlock {
 
                 block.setStatus(3);
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                    oworld.d(i, j, k, this.cm, k1);
+                    oworld.f(i, j, k, this.cz, k1, 3);
                 }
             } else {
                 // CanaryMod: fire destroying a block.
                 Block block = new Block(oworld.world, oworld.a(i, j, k), i, j, k);
                 block.setStatus(4);
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.IGNITE, block, null)) {
-                    oworld.e(i, j, k, 0);
+                    oworld.i(i, j, k);
                 }
             }
 
             if (flag) {
-                OBlock.ap.c(oworld, i, j, k, 1);
+                OBlock.aq.g(oworld, i, j, k, 1);
             }
         }
     }
 
-    private boolean l(OWorld oworld, int i, int j, int k) {
+    private boolean k(OWorld oworld, int i, int j, int k) {
         return this.d((OIBlockAccess) oworld, i + 1, j, k) ? true : (this.d((OIBlockAccess) oworld, i - 1, j, k) ? true : (this.d((OIBlockAccess) oworld, i, j - 1, k) ? true : (this.d((OIBlockAccess) oworld, i, j + 1, k) ? true : (this.d((OIBlockAccess) oworld, i, j, k - 1) ? true : this.d((OIBlockAccess) oworld, i, j, k + 1)))));
     }
 
-    private int n(OWorld oworld, int i, int j, int k) {
+    private int m(OWorld oworld, int i, int j, int k) {
         byte b0 = 0;
 
         if (!oworld.c(i, j, k)) {
@@ -219,22 +219,22 @@ public class OBlockFire extends OBlock {
         return i1 > l ? i1 : l;
     }
 
-    public boolean b(OWorld oworld, int i, int j, int k) {
-        return oworld.v(i, j - 1, k) || this.l(oworld, i, j, k);
+    public boolean c(OWorld oworld, int i, int j, int k) {
+        return oworld.w(i, j - 1, k) || this.k(oworld, i, j, k);
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
-        if (!oworld.v(i, j - 1, k) && !this.l(oworld, i, j, k)) {
-            oworld.e(i, j, k, 0);
+        if (!oworld.w(i, j - 1, k) && !this.k(oworld, i, j, k)) {
+            oworld.i(i, j, k);
         }
     }
 
-    public void g(OWorld oworld, int i, int j, int k) {
-        if (oworld.u.h > 0 || oworld.a(i, j - 1, k) != OBlock.as.cm || !OBlock.bh.i_(oworld, i, j, k)) {
-            if (!oworld.v(i, j - 1, k) && !this.l(oworld, i, j, k)) {
-                oworld.e(i, j, k, 0);
+    public void a(OWorld oworld, int i, int j, int k) {
+        if (oworld.t.h > 0 || oworld.a(i, j - 1, k) != OBlock.at.cz || !OBlock.bi.n_(oworld, i, j, k)) {
+            if (!oworld.w(i, j - 1, k) && !this.k(oworld, i, j, k)) {
+                oworld.i(i, j, k);
             } else {
-                oworld.a(i, j, k, this.cm, this.r_() + oworld.t.nextInt(10));
+                oworld.a(i, j, k, this.cz, this.a(oworld) + oworld.s.nextInt(10));
             }
         }
     }

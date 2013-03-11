@@ -4,7 +4,7 @@ class OServerBlockEventList extends ArrayList {
 
     private OServerBlockEventList() {}
 
-    OServerBlockEventList(OServerBlockEvent oserverblockevent) {
+    OServerBlockEventList(OServerBlockEvent oserverblockevent) { // CanaryMod: synthetic constructor
         this();
     }
 }

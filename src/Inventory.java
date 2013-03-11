@@ -67,10 +67,10 @@ public interface Inventory {
      * @return item
      */
     public Item getItemFromId(int id, int maxAmount);
-    
+
     /**
      * Retrieves from the slot
-     * 
+     *
      * @param id
      * @param maxAmount
      * @param dmg

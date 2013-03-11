@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -44,6 +45,30 @@ public class OLogAgent implements OILogAgent {
         } catch (Exception exception) {
             this.a.log(Level.WARNING, "Failed to log " + this.c + " to " + this.b, exception);
         }
+
+        // CanaryMod start - keep logs in separate folder as well
+
+        File log = new File("logs");
+        String filePath = "<uninitialized>";
+        try {
+            if (!log.exists()) {
+                log.mkdir();
+            }
+
+            String temp = new File(this.b).getName();
+            int dotIndex = temp.lastIndexOf('.');
+            String fileName = temp.substring(0, dotIndex);
+            String fileExt  = temp.substring(dotIndex);
+            filePath = new File(log, fileName + "_"
+                            + ((int) (System.currentTimeMillis() / 1000L))
+                            + fileExt).getAbsolutePath();
+            FileHandler filehandler = new FileHandler(filePath, true);
+
+            filehandler.setFormatter(ologformatter);
+            this.a.addHandler(filehandler);
+        } catch (Exception exception) {
+            this.a.log(Level.WARNING, "Failed to log " + this.c + " to " + filePath, exception);
+        } // CanaryMod end
     }
 
     public Logger a() {

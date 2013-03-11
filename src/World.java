@@ -121,7 +121,7 @@ public class World {
      * @return the dimension type
      */
     public Dimension getType() {
-        return Dimension.fromId(world.u.h);
+        return Dimension.fromId(world.t.h);
     }
 
     /**
@@ -151,7 +151,7 @@ public class World {
         // World info for each world overwrites the other on save,
         // make sure they're the same. (Like you see it in the nether or end)
         for (World w : etc.getServer().getWorld(this.getName()))
-            w.getWorld().y.b(time);
+            w.getWorld().x.b(time);
     }
 
     /**
@@ -163,7 +163,7 @@ public class World {
         // World info for each world overwrites the other on save,
         // make sure they're the same.
         for (World w : etc.getServer().getWorld(this.getName()))
-            w.getWorld().y.c(time);
+            w.getWorld().x.c(time);
     }
 
     /**
@@ -314,7 +314,7 @@ public class World {
      */
     public Location getSpawnLocation() {
         // More structure ftw
-        OWorldInfo info = world.y;
+        OWorldInfo info = world.x;
         Location spawn = new Location();
 
         spawn.x = info.c() + 0.5D;
@@ -339,7 +339,7 @@ public class World {
      * @param z The spawn's new z location
      */
     public void setSpawnLocation(int x, int y, int z) {
-        this.getWorld().K().a(x, y, z);
+        this.getWorld().L().a(x, y, z);
     }
 
     /**
@@ -394,15 +394,7 @@ public class World {
      * @return true if it was successful
      */
     public boolean setBlockData(int x, int y, int z, int data) {
-        boolean toRet = world.d(x, y, z, data);
-
-        etc.getMCServer().ad().sendPacketToDimension(new OPacket53BlockChange(x, y, z, world), getName(), getType().getId());
-        ComplexBlock block = getComplexBlock(x, y, z);
-
-        if (block != null) {
-            block.update();
-        }
-        return toRet;
+        return world.b(x, y, z, data, 2);
     }
 
     /**
@@ -415,7 +407,7 @@ public class World {
      * @return true if successful
      */
     public boolean setBlockAt(int blockType, int x, int y, int z) {
-        return world.e(x, y, z, blockType);
+        return world.f(x, y, z, blockType, 0, 2);
     }
 
     /**
@@ -516,7 +508,7 @@ public class World {
      * @return complex block
      */
     public ComplexBlock getOnlyComplexBlock(int x, int y, int z) {
-        OTileEntity localav = world.q(x, y, z);
+        OTileEntity localav = world.r(x, y, z);
 
         if (localav != null) {
             if (localav instanceof OTileEntityChest) {
@@ -654,9 +646,9 @@ public class World {
      * @return returns the ItemEntity that was dropped
      */
     public ItemEntity dropItem(double x, double y, double z, Item item) {
-        double d1 = world.t.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-        double d2 = world.t.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
-        double d3 = world.t.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
+        double d1 = world.s.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
+        double d2 = world.s.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
+        double d3 = world.s.nextFloat() * 0.7F + (1.0F - 0.7F) * 0.5D;
 
         OEntityItem oei = new OEntityItem(world, x + d1, y + d2, z + d3, item.getBaseItem() != null ? item.getBaseItem() : new OItemStack(item.getItemId(), item.getAmount(), item.getDamage()));
 
@@ -817,7 +809,7 @@ public class World {
      * @return true if the block is being powered
      */
     public boolean isBlockPowered(int x, int y, int z) {
-        return world.A(x, y, z);
+        return world.B(x, y, z) > 0;
     }
 
     /**
@@ -839,7 +831,7 @@ public class World {
      * @return true if the block is being indirectly powered
      */
     public boolean isBlockIndirectlyPowered(int x, int y, int z) {
-        return world.B(x, y, z);
+        return world.C(x, y, z);
     }
 
     /**
@@ -851,13 +843,13 @@ public class World {
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.THUNDER_CHANGE, this, thundering)) {
             return;
         }
-        world.y.a(thundering); //could be wrong, hard to differentiate between booleans
+        world.x.a(thundering); //could be wrong, hard to differentiate between booleans
 
         // Thanks to Bukkit for figuring out these numbers
         if (thundering) {
-            setThunderTime(world.t.nextInt(12000) + 3600);
+            setThunderTime(world.s.nextInt(12000) + 3600);
         } else {
-            setThunderTime(world.t.nextInt(168000) + 12000);
+            setThunderTime(world.s.nextInt(168000) + 12000);
         }
     }
 
@@ -867,7 +859,7 @@ public class World {
      * @param ticks ticks of thunder
      */
     public void setThunderTime(int ticks) {
-        world.y.f(ticks);
+        world.x.f(ticks);
     }
 
     /**
@@ -879,13 +871,13 @@ public class World {
         if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.WEATHER_CHANGE, this, raining)) {
             return;
         }
-        world.y.b(raining);
+        world.x.b(raining);
 
         // Thanks to Bukkit for figuring out these numbers
         if (raining) {
-            setRainTime(world.t.nextInt(12000) + 3600);
+            setRainTime(world.s.nextInt(12000) + 3600);
         } else {
-            setRainTime(world.t.nextInt(168000) + 12000);
+            setRainTime(world.s.nextInt(168000) + 12000);
         }
     }
 
@@ -895,7 +887,7 @@ public class World {
      * @param ticks ticks of rain
      */
     public void setRainTime(int ticks) {
-        world.y.g(ticks);
+        world.x.g(ticks);
     }
 
     /**
@@ -904,7 +896,7 @@ public class World {
      * @return whether it's thundering
      */
     public boolean isThundering() {
-        return world.y.n();
+        return world.x.n();
     }
 
     /**
@@ -913,7 +905,7 @@ public class World {
      * @return the thunder ticks
      */
     public int getThunderTime() {
-        return world.y.o();
+        return world.x.o();
     }
 
     /**
@@ -922,7 +914,7 @@ public class World {
      * @return whether it's raining
      */
     public boolean isRaining() {
-        return world.y.p();
+        return world.x.p();
     }
 
     /**
@@ -931,7 +923,7 @@ public class World {
      * @return the rain ticks
      */
     public int getRainTime() {
-        return world.y.q();
+        return world.x.q();
     }
 
     @Override
@@ -995,7 +987,7 @@ public class World {
      * @return seed of the world
      */
     public long getRandomSeed() {
-        return world.E();
+        return world.F();
     }
 
     /**
@@ -1019,7 +1011,7 @@ public class World {
      * @return Light level of the location.
      */
     public float getLightLevel(int x, int y, int z) {
-        return this.getWorld().l(x, y, z);
+        return this.getWorld().m(x, y, z);
     }
 
     /**
@@ -1033,7 +1025,7 @@ public class World {
         for (int x2 = x - 2; x2 <= x + 2; x2++) {
             for (int y2 = y - 2; y2 <= y + 2; y2++) {
                 for (int z2 = z - 2; z2 <= z + 2; z2++) {
-                    this.getWorld().z(x2, y2, z2);
+                    this.getWorld().A(x2, y2, z2);
                 }
             }
         }
@@ -1068,7 +1060,7 @@ public class World {
      * @return The game mode for this world.
      */
     public int getGameMode() {
-        return world.y.r().e;
+        return world.x.r().e;
     }
 
     /**
@@ -1162,7 +1154,7 @@ public class World {
      * @param pitch The pitch of the note (0-24?).
      */
     public void playNote(int x, int y, int z, Sound.Instrument instrument, int pitch) {
-        ((OBlockNote) OBlock.p[25]).b(getWorld(), x, y, z, instrument.ordinal(), pitch);
+        ((OBlockNote) OBlock.r[25]).b(getWorld(), x, y, z, instrument.ordinal(), pitch);
     }
 
     /**

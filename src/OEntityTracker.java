@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.DelayQueue;
-import java.util.logging.Level;
+import java.util.concurrent.Callable;
 
 public class OEntityTracker {
 
@@ -105,14 +105,24 @@ public class OEntityTracker {
             i = this.d;
         }
 
-        if (this.c.b(oentity.k)) {
-            throw new IllegalStateException("Entity is already tracked!");
-        } else {
-            OEntityTrackerEntry oentitytrackerentry = new OEntityTrackerEntry(oentity, i, j, flag);
+        try {
+            if (this.c.b(oentity.k)) {
+                throw new IllegalStateException("Entity is already tracked!");
+            } else {
+                OEntityTrackerEntry oentitytrackerentry = new OEntityTrackerEntry(oentity, i, j, flag);
 
-            this.b.add(oentitytrackerentry);
-            this.c.a(oentity.k, oentitytrackerentry);
-            oentitytrackerentry.b(this.a.h);
+                this.b.add(oentitytrackerentry);
+                this.c.a(oentity.k, oentitytrackerentry);
+                oentitytrackerentry.b(this.a.h);
+            }
+        } catch (Throwable throwable) {
+            OCrashReport ocrashreport = OCrashReport.a(throwable, "Adding entity to track");
+            OCrashReportCategory ocrashreportcategory = ocrashreport.a("Entity To Track");
+
+            ocrashreportcategory.a("Tracking range", (i + " blocks"));
+            ocrashreportcategory.a("Update interval", (Callable) (new OCallableEntityTracker(this, j)));
+            oentity.a(ocrashreportcategory);
+            throw new OReportedException(ocrashreport);
         }
     }
 
@@ -164,7 +174,7 @@ public class OEntityTracker {
             }
         } catch (ConcurrentModificationException concurrentmodificationexception) {
             // people seem to get this concurrentmodificationexceptionception often, lets just catch so it doesn't crash the server.
-            OMinecraftServer.a.log(Level.WARNING, "CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", concurrentmodificationexception);
+            this.a.W().b("CanaryMod WARNING: ConcurrentModificationException in OEntityTracker:", concurrentmodificationexception);
         }
         // CanaryMod: Execute runnables contained in eventQueue.
         for (DelayedTask task = delayQueue.poll(); task != null; task = delayQueue.poll()) {
@@ -218,7 +228,7 @@ public class OEntityTracker {
         while (iterator.hasNext()) {
             OEntityTrackerEntry oentitytrackerentry = (OEntityTrackerEntry) iterator.next();
 
-            if (oentitytrackerentry.a != oentityplayermp && oentitytrackerentry.a.ai == ochunk.g && oentitytrackerentry.a.ak == ochunk.h) {
+            if (oentitytrackerentry.a != oentityplayermp && oentitytrackerentry.a.aj == ochunk.g && oentitytrackerentry.a.al == ochunk.h) {
                 oentitytrackerentry.b(oentityplayermp);
             }
         }

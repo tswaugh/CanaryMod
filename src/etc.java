@@ -112,6 +112,8 @@ public class etc {
      * Loads or reloads the mod
      */
     public final void load() {
+        log.setParent(Logger.getLogger("Minecraft-Server"));
+
         if (configDir == null) {
             configDir = "config/";
         }

@@ -84,7 +84,7 @@ public class Minecart extends BaseVehicle {
      *
      */
     public Minecart(World world, double x, double y, double z, Type type) {
-        super(new OEntityMinecart(world.getWorld(), x, y, z, type.getType()));
+        super(OEntityMinecart.a(world.getWorld(), x, y, z, type.getType()));
         world.getWorld().d(entity);
     }
 
@@ -123,7 +123,7 @@ public class Minecart extends BaseVehicle {
      * @return type
      */
     public Type getType() {
-        return Type.fromId(getEntity().a);
+        return Type.fromId(getEntity().l());
     }
 
     /**
@@ -131,6 +131,8 @@ public class Minecart extends BaseVehicle {
      * storage or powered minecart.
      *
      * @return storage
+     * @deprecated The minecart system has had an overhaul. Use an appropriate
+     * subclass.
      */
     public StorageMinecart getStorage() {
         if (getType() == Type.StorageCart || getType() == Type.PoweredMinecart) {

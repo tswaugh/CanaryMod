@@ -55,11 +55,12 @@ public class OItemFireball extends OItem {
                         return false;
                     }
 
-                    oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, d.nextFloat() * 0.4F + 0.8F);
-                    oworld.e(i, j, k, OBlock.au.cm);
+
+                    oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "fire.ignite", 1.0F, e.nextFloat() * 0.4F + 0.8F);
+                    oworld.c(i, j, k, OBlock.av.cz);
                 }
 
-                if (!oentityplayer.cd.d) {
+                if (!oentityplayer.ce.d) {
                     --oitemstack.a;
                 }
 

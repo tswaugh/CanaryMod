@@ -1,9 +1,8 @@
 public class OPotionEffect {
 
-    // CanaryMod: private -> package-private
-    int a;
-    int b;
-    int c;
+    int a; // CanaryMod: private -> package-private
+    int b; // CanaryMod: private -> package-private
+    int c; // CanaryMod: private -> package-private
     private boolean d;
     private boolean e;
     public boolean permanent = false;
@@ -71,14 +70,14 @@ public class OPotionEffect {
                 this.b(oentityliving);
             }
 
-            this.g();
+            this.h();
         }
 
         return this.b > 0;
     }
 
-    private int g() {
-        return this.permanent ? this.b : --this.b;
+    private int h() {
+        return this.permanent ? this.b : --this.b; // CanaryMod
     }
 
     public void b(OEntityLiving oentityliving) {

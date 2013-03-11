@@ -3,28 +3,23 @@ import java.util.Random;
 public class OBlockDispenser extends OBlockContainer {
 
     public static final OIRegistry a = new ORegistryDefaulted(new OBehaviorDefaultDispenseItem());
-    private Random b = new Random();
+    protected Random b = new Random();
 
     protected OBlockDispenser(int i) {
         super(i, OMaterial.e);
-        this.cl = 45;
         this.a(OCreativeTabs.d);
     }
 
-    public int r_() {
+    public int a(OWorld oworld) {
         return 4;
     }
 
-    public int a(int i, Random random, int j) {
-        return OBlock.S.cm;
+    public void a(OWorld oworld, int i, int j, int k) {
+        super.a(oworld, i, j, k);
+        this.k(oworld, i, j, k);
     }
 
-    public void g(OWorld oworld, int i, int j, int k) {
-        super.g(oworld, i, j, k);
-        this.l(oworld, i, j, k);
-    }
-
-    private void l(OWorld oworld, int i, int j, int k) {
+    private void k(OWorld oworld, int i, int j, int k) {
         if (!oworld.I) {
             int l = oworld.a(i, j, k - 1);
             int i1 = oworld.a(i, j, k + 1);
@@ -32,35 +27,31 @@ public class OBlockDispenser extends OBlockContainer {
             int k1 = oworld.a(i + 1, j, k);
             byte b0 = 3;
 
-            if (OBlock.q[l] && !OBlock.q[i1]) {
+            if (OBlock.s[l] && !OBlock.s[i1]) {
                 b0 = 3;
             }
 
-            if (OBlock.q[i1] && !OBlock.q[l]) {
+            if (OBlock.s[i1] && !OBlock.s[l]) {
                 b0 = 2;
             }
 
-            if (OBlock.q[j1] && !OBlock.q[k1]) {
+            if (OBlock.s[j1] && !OBlock.s[k1]) {
                 b0 = 5;
             }
 
-            if (OBlock.q[k1] && !OBlock.q[j1]) {
+            if (OBlock.s[k1] && !OBlock.s[j1]) {
                 b0 = 4;
             }
 
-            oworld.c(i, j, k, b0);
+            oworld.b(i, j, k, b0, 2);
         }
-    }
-
-    public int a(int i) {
-        return i == 1 ? this.cl + 17 : (i == 0 ? this.cl + 17 : (i == 3 ? this.cl + 1 : this.cl));
     }
 
     public boolean a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer, int l, float f, float f1, float f2) {
         if (oworld.I) {
             return true;
         } else {
-            OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oworld.q(i, j, k);
+            OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oworld.r(i, j, k);
 
             if (otileentitydispenser != null) {
                 oentityplayer.a(otileentitydispenser);
@@ -70,20 +61,20 @@ public class OBlockDispenser extends OBlockContainer {
         }
     }
 
-    void n(OWorld oworld, int i, int j, int k) { // CanaryMod: private -> package-private
+    protected void j_(OWorld oworld, int i, int j, int k) {
         OBlockSourceImpl oblocksourceimpl = new OBlockSourceImpl(oworld, i, j, k);
         OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oblocksourceimpl.j();
 
         if (otileentitydispenser != null) {
-            int l = otileentitydispenser.i();
+            int l = otileentitydispenser.j();
 
             if (l < 0) {
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser(otileentitydispenser), null)) {
-                    oworld.f(1001, i, j, k, 0);
+                    oworld.e(1001, i, j, k, 0);
                 }
             } else {
                 OItemStack oitemstack = otileentitydispenser.a(l);
-                OIBehaviorDispenseItem oibehaviordispenseitem = (OIBehaviorDispenseItem) a.a(oitemstack.b());
+                OIBehaviorDispenseItem oibehaviordispenseitem = this.a(oitemstack);
 
                 if (oibehaviordispenseitem != OIBehaviorDispenseItem.a) {
                     OItemStack oitemstack1 = oibehaviordispenseitem.a(oblocksourceimpl, oitemstack);
@@ -94,51 +85,47 @@ public class OBlockDispenser extends OBlockContainer {
         }
     }
 
+    protected OIBehaviorDispenseItem a(OItemStack oitemstack) {
+        return (OIBehaviorDispenseItem) a.a(oitemstack.b());
+    }
+
     public void a(OWorld oworld, int i, int j, int k, int l) {
-        if (l > 0 && OBlock.p[l].i()) {
-            boolean flag = oworld.B(i, j, k) || oworld.B(i, j + 1, k);
+        boolean flag = oworld.C(i, j, k) || oworld.C(i, j + 1, k);
+        int i1 = oworld.h(i, j, k);
+        boolean flag1 = (i1 & 8) != 0;
 
-            if (flag) {
-                oworld.a(i, j, k, this.cm, this.r_());
-            }
+        if (flag && !flag1) {
+            oworld.a(i, j, k, this.cz, this.a(oworld));
+            oworld.b(i, j, k, i1 | 8, 4);
+        } else if (!flag && flag1) {
+            oworld.b(i, j, k, i1 & -9, 4);
         }
     }
 
-    public void b(OWorld oworld, int i, int j, int k, Random random) {
-        if (!oworld.I && (oworld.B(i, j, k) || oworld.B(i, j + 1, k))) {
-            this.n(oworld, i, j, k);
+    public void a(OWorld oworld, int i, int j, int k, Random random) {
+        if (!oworld.I) {
+            this.j_(oworld, i, j, k);
         }
     }
 
-    public OTileEntity a(OWorld oworld) {
+    public OTileEntity b(OWorld oworld) {
         return new OTileEntityDispenser();
     }
 
-    public void a(OWorld oworld, int i, int j, int k, OEntityLiving oentityliving) {
-        int l = OMathHelper.c((double) (oentityliving.z * 4.0F / 360.0F) + 0.5D) & 3;
+    public void a(OWorld oworld, int i, int j, int k, OEntityLiving oentityliving, OItemStack oitemstack) {
+        int l = OBlockPistonBase.a(oworld, i, j, k, oentityliving);
 
-        if (l == 0) {
-            oworld.c(i, j, k, 2);
-        }
-
-        if (l == 1) {
-            oworld.c(i, j, k, 5);
-        }
-
-        if (l == 2) {
-            oworld.c(i, j, k, 3);
-        }
-
-        if (l == 3) {
-            oworld.c(i, j, k, 4);
+        oworld.b(i, j, k, l, 2);
+        if (oitemstack.t()) {
+            ((OTileEntityDispenser) oworld.r(i, j, k)).a(oitemstack.s());
         }
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
-        OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oworld.q(i, j, k);
+        OTileEntityDispenser otileentitydispenser = (OTileEntityDispenser) oworld.r(i, j, k);
 
         if (otileentitydispenser != null) {
-            for (int j1 = 0; j1 < otileentitydispenser.k_(); ++j1) {
+            for (int j1 = 0; j1 < otileentitydispenser.j_(); ++j1) {
                 OItemStack oitemstack = otileentitydispenser.a(j1);
 
                 if (oitemstack != null) {
@@ -154,17 +141,17 @@ public class OBlockDispenser extends OBlockContainer {
                         }
 
                         oitemstack.a -= k1;
-                        OEntityItem oentityitem = new OEntityItem(oworld, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new OItemStack(oitemstack.c, k1, oitemstack.j()));
+                        OEntityItem oentityitem = new OEntityItem(oworld, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), new OItemStack(oitemstack.c, k1, oitemstack.k()));
 
-                        if (oitemstack.o()) {
-                            oentityitem.d().d((ONBTTagCompound) oitemstack.p().b());
+                        if (oitemstack.p()) {
+                            oentityitem.d().d((ONBTTagCompound) oitemstack.q().b());
                         }
 
                         float f3 = 0.05F;
 
-                        oentityitem.w = (double) ((float) this.b.nextGaussian() * f3);
-                        oentityitem.x = (double) ((float) this.b.nextGaussian() * f3 + 0.2F);
-                        oentityitem.y = (double) ((float) this.b.nextGaussian() * f3);
+                        oentityitem.x = (double) ((float) this.b.nextGaussian() * f3);
+                        oentityitem.y = (double) ((float) this.b.nextGaussian() * f3 + 0.2F);
+                        oentityitem.z = (double) ((float) this.b.nextGaussian() * f3);
                         oworld.d((OEntity) oentityitem);
                     }
                 }
@@ -175,11 +162,23 @@ public class OBlockDispenser extends OBlockContainer {
     }
 
     public static OIPosition a(OIBlockSource oiblocksource) {
-        OEnumFacing oenumfacing = OEnumFacing.a(oiblocksource.h());
+        OEnumFacing oenumfacing = j_(oiblocksource.h());
         double d0 = oiblocksource.a() + 0.7D * (double) oenumfacing.c();
-        double d1 = oiblocksource.b();
+        double d1 = oiblocksource.b() + 0.7D * (double) oenumfacing.d();
         double d2 = oiblocksource.c() + 0.7D * (double) oenumfacing.e();
 
         return new OPositionImpl(d0, d1, d2);
+    }
+
+    public static OEnumFacing j_(int i) {
+        return OEnumFacing.a(i & 7);
+    }
+
+    public boolean q_() {
+        return true;
+    }
+
+    public int b_(OWorld oworld, int i, int j, int k, int l) {
+        return OContainer.b((OIInventory) oworld.r(i, j, k));
     }
 }

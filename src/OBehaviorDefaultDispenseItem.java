@@ -6,13 +6,13 @@ public class OBehaviorDefaultDispenseItem implements OIBehaviorDispenseItem {
         OItemStack oitemstack1 = this.b(oiblocksource, oitemstack);
 
         this.a(oiblocksource);
-        this.a(oiblocksource, OEnumFacing.a(oiblocksource.h()));
+        this.a(oiblocksource, OBlockDispenser.j_(oiblocksource.h()));
         return oitemstack1;
     }
 
     protected OItemStack b(OIBlockSource oiblocksource, OItemStack oitemstack) {
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DISPENSE, new Dispenser((OTileEntityDispenser) oiblocksource.j()), null)) {
-            OEnumFacing oenumfacing = OEnumFacing.a(oiblocksource.h());
+            OEnumFacing oenumfacing = OBlockDispenser.j_(oiblocksource.h());
             OIPosition oiposition = OBlockDispenser.a(oiblocksource);
             OItemStack oitemstack1 = oitemstack.a(1);
 
@@ -26,23 +26,23 @@ public class OBehaviorDefaultDispenseItem implements OIBehaviorDispenseItem {
         double d1 = oiposition.b();
         double d2 = oiposition.c();
         OEntityItem oentityitem = new OEntityItem(oworld, d0, d1 - 0.3D, d2, oitemstack);
-        double d3 = oworld.t.nextDouble() * 0.1D + 0.2D;
+        double d3 = oworld.s.nextDouble() * 0.1D + 0.2D;
 
-        oentityitem.w = (double) oenumfacing.c() * d3;
-        oentityitem.x = 0.20000000298023224D;
-        oentityitem.y = (double) oenumfacing.e() * d3;
-        oentityitem.w += oworld.t.nextGaussian() * 0.007499999832361937D * (double) i;
-        oentityitem.x += oworld.t.nextGaussian() * 0.007499999832361937D * (double) i;
-        oentityitem.y += oworld.t.nextGaussian() * 0.007499999832361937D * (double) i;
+        oentityitem.x = (double) oenumfacing.c() * d3;
+        oentityitem.y = 0.20000000298023224D;
+        oentityitem.z = (double) oenumfacing.e() * d3;
+        oentityitem.x += oworld.s.nextGaussian() * 0.007499999832361937D * (double) i;
+        oentityitem.y += oworld.s.nextGaussian() * 0.007499999832361937D * (double) i;
+        oentityitem.z += oworld.s.nextGaussian() * 0.007499999832361937D * (double) i;
         oworld.d((OEntity) oentityitem);
     }
 
     protected void a(OIBlockSource oiblocksource) {
-        oiblocksource.k().f(1000, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), 0);
+        oiblocksource.k().e(1000, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), 0);
     }
 
     protected void a(OIBlockSource oiblocksource, OEnumFacing oenumfacing) {
-        oiblocksource.k().f(2000, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), this.a(oenumfacing));
+        oiblocksource.k().e(2000, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), this.a(oenumfacing));
     }
 
     private int a(OEnumFacing oenumfacing) {

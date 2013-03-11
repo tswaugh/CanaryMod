@@ -1,110 +1,107 @@
-public class OContainerBeacon extends OContainer
-{
+public class OContainerBeacon extends OContainer {
+
     private OTileEntityBeacon a;
     private final OSlotBeacon f;
     private int g;
     private int h;
     private int i;
 
-    public OContainerBeacon(OInventoryPlayer paramOInventoryPlayer, OTileEntityBeacon paramOTileEntityBeacon)
-    {
-        this.a = paramOTileEntityBeacon;
+    public OContainerBeacon(OInventoryPlayer oinventoryplayer, OTileEntityBeacon otileentitybeacon) {
+        this.a = otileentitybeacon;
+        this.a((OSlot) (this.f = new OSlotBeacon(this, otileentitybeacon, 0, 136, 110)));
+        byte b0 = 36;
+        short short1 = 137;
 
-        a(this.f = new OSlotBeacon(this, paramOTileEntityBeacon, 0, 136, 110));
+        int i;
 
-        int j = 36;
-        int k = 137;
-
-        for (int m = 0; m < 3; m++) {
-            for (int n = 0; n < 9; n++) {
-                a(new OSlot(paramOInventoryPlayer, n + m * 9 + 9, j + n * 18, k + m * 18));
+        for (i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                this.a(new OSlot(oinventoryplayer, j + i * 9 + 9, b0 + j * 18, short1 + i * 18));
             }
         }
-        for (int m = 0; m < 9; m++) {
-            a(new OSlot(paramOInventoryPlayer, m, j + m * 18, 58 + k));
+
+        for (i = 0; i < 9; ++i) {
+            this.a(new OSlot(oinventoryplayer, i, b0 + i * 18, 58 + short1));
         }
 
-        this.g = paramOTileEntityBeacon.k();
-        this.h = paramOTileEntityBeacon.i();
-        this.i = paramOTileEntityBeacon.j();
+        this.g = otileentitybeacon.l();
+        this.h = otileentitybeacon.j();
+        this.i = otileentitybeacon.k();
     }
 
-    public void a(OICrafting paramOICrafting)
-    {
-        super.a(paramOICrafting);
-
-        paramOICrafting.a(this, 0, this.g);
-        paramOICrafting.a(this, 1, this.h);
-        paramOICrafting.a(this, 2, this.i);
+    public void a(OICrafting oicrafting) {
+        super.a(oicrafting);
+        oicrafting.a(this, 0, this.g);
+        oicrafting.a(this, 1, this.h);
+        oicrafting.a(this, 2, this.i);
     }
 
-    public void b()
-    {
+    public void b() {
         super.b();
     }
 
-    public OTileEntityBeacon d()
-    {
+    public OTileEntityBeacon e() {
         return this.a;
     }
 
-    public boolean a(OEntityPlayer paramOEntityPlayer)
-    {
-        return this.a.a_(paramOEntityPlayer);
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.a.a(oentityplayer);
     }
 
-    public OItemStack b(OEntityPlayer paramOEntityPlayer, int paramInt)
-    {
-        OItemStack localOItemStack1 = null;
-        OSlot localOSlot = (OSlot)this.c.get(paramInt);
-        if ((localOSlot != null) && (localOSlot.d())) {
-            OItemStack localOItemStack2 = localOSlot.c();
-            localOItemStack1 = localOItemStack2.l();
+    public OItemStack b(OEntityPlayer oentityplayer, int i) {
+        OItemStack oitemstack = null;
+        OSlot oslot = (OSlot) this.c.get(i);
 
-            if (paramInt == 0) {
-                if (!a(localOItemStack2, 1, 37, true)) {
+        if (oslot != null && oslot.d()) {
+            OItemStack oitemstack1 = oslot.c();
+
+            oitemstack = oitemstack1.m();
+            if (i == 0) {
+                if (!this.a(oitemstack1, 1, 37, true)) {
                     return null;
                 }
-                localOSlot.a(localOItemStack2, localOItemStack1);
-            } else if ((!this.f.d()) && (this.f.a(localOItemStack2)) && (localOItemStack2.a == 1)) {
-                if (!a(localOItemStack2, 0, 1, false))
+
+                oslot.a(oitemstack1, oitemstack);
+            } else if (!this.f.d() && this.f.a(oitemstack1) && oitemstack1.a == 1) {
+                if (!this.a(oitemstack1, 0, 1, false)) {
                     return null;
-            }
-            else if ((paramInt >= 1) && (paramInt < 28)) {
-                if (!a(localOItemStack2, 28, 37, false))
+                }
+            } else if (i >= 1 && i < 28) {
+                if (!this.a(oitemstack1, 28, 37, false)) {
                     return null;
-            }
-            else if ((paramInt >= 28) && (paramInt < 37)) {
-                if (!a(localOItemStack2, 1, 28, false)) {
+                }
+            } else if (i >= 28 && i < 37) {
+                if (!this.a(oitemstack1, 1, 28, false)) {
                     return null;
-            }
-            }
-            else if (!a(localOItemStack2, 1, 37, false)) {
+                }
+            } else if (!this.a(oitemstack1, 1, 37, false)) {
                 return null;
             }
 
-            if (localOItemStack2.a == 0)
-                localOSlot.c(null);
-            else {
-                localOSlot.e();
+            if (oitemstack1.a == 0) {
+                oslot.c((OItemStack) null);
+            } else {
+                oslot.e();
             }
-            if (localOItemStack2.a == localOItemStack1.a) {
+
+            if (oitemstack1.a == oitemstack.a) {
                 return null;
             }
-            localOSlot.a(paramOEntityPlayer, localOItemStack2);
+
+            oslot.a(oentityplayer, oitemstack1);
         }
 
-        return localOItemStack1;
+        return oitemstack;
     }
 
-    // CanaryMod
     @Override
     public Beacon getInventory() {
-        if(super.getInventory() instanceof Beacon)
-            return (Beacon)super.getInventory();
+        if (super.getInventory() instanceof Beacon) {
+            return (Beacon) super.getInventory();
+        }
 
         Beacon inv = new Beacon(this, this.a);
-        setInventory(inv);
+        super.setInventory(inv);
         return inv;
     }
 }

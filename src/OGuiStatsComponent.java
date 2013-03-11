@@ -29,9 +29,9 @@ public class OGuiStatsComponent extends JComponent {
         System.gc();
         this.d[0] = "Memory use: " + i / 1024L / 1024L + " mb (" + Runtime.getRuntime().freeMemory() * 100L / Runtime.getRuntime().maxMemory() + "% free)";
         this.d[1] = "Threads: " + OTcpConnection.a.get() + " + " + OTcpConnection.b.get();
-        this.d[2] = "Avg tick: " + a.format(this.a(this.e.j) * 1.0E-6D) + " ms";
-        this.d[3] = "Avg sent: " + (int) this.a(this.e.f) + ", Avg size: " + (int) this.a(this.e.g);
-        this.d[4] = "Avg rec: " + (int) this.a(this.e.h) + ", Avg size: " + (int) this.a(this.e.i);
+        this.d[2] = "Avg tick: " + a.format(this.a(this.e.i) * 1.0E-6D) + " ms";
+        this.d[3] = "Avg sent: " + (int) this.a(this.e.e) + ", Avg size: " + (int) this.a(this.e.f);
+        this.d[4] = "Avg rec: " + (int) this.a(this.e.g) + ", Avg size: " + (int) this.a(this.e.h);
         if (this.e.worlds != null) {
             // CanaryMod start: Multiworld
             for (Map.Entry<String, OWorldServer[]> entry : this.e.worlds.entrySet()) {
@@ -42,13 +42,13 @@ public class OGuiStatsComponent extends JComponent {
                     this.d[5 + j] = "Lvl " + j + " tick: " + a.format(this.a(this.e.worldTickNanos.get(worldName)[j]) * 1.0E-6D) + " ms";
                     if (level[j] != null && level[j].b != null) {
                         this.d[5 + j] = this.d[5 + j] + ", " + level[j].b.d();
-                        this.d[5 + j] = this.d[5 + j] + ", Vec3: " + level[j].S().d() + " / " + level[j].S().c();
+                        this.d[5 + j] = this.d[5 + j] + ", Vec3: " + level[j].T().d() + " / " + level[j].T().c();
                     }
                 }
             } // CanaryMod end
         }
 
-        this.b[this.c++ & 255] = (int) (this.a(this.e.g) * 100.0D / 12500.0D);
+        this.b[this.c++ & 255] = (int) (this.a(this.e.f) * 100.0D / 12500.0D);
         this.repaint();
     }
 

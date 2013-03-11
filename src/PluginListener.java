@@ -284,7 +284,7 @@ public class PluginListener {
     }
 
     /**
-     * Called when a player drops an item or when a player is given an item via 
+     * Called when a player drops an item or when a player is given an item via
      * native Minecraft methods, such as the "give" command.
      *
      * @param player
@@ -483,9 +483,12 @@ public class PluginListener {
     /**
      * Called whenever a redstone source (wire, switch, torch) changes its current.
      *
-     * Standard values for wires are 0 for no current, and 14 for a strong current. Default behaviour for redstone wire is to lower the current by one every block.
+     * Standard values for wires are 0 for no current, and 15 for a strong current.
+     * Default behaviour for redstone wire is to lower the current by one every block.
      *
-     * For other blocks which provide a source of redstone current, the current value will be 1 or 0 for on and off respectively.
+     * For other blocks which provide a source of redstone current, the current
+     * value will be 1 or 0 for on and off respectively, except for weighted
+     * pressure plates. Those still range from 0 to 15 for no to strong current.
      *
      * @param block
      * @param oldLevel
@@ -1377,9 +1380,9 @@ public class PluginListener {
     public boolean onCommandBlockCommand(CommandBlock block, String[] split) {
         return false;
     }
-    
+
     /**
-     * 
+     *
      * @param player Player that gained the stat.
      * @param stat The stat gained.
      */

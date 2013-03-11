@@ -10,7 +10,7 @@ public class OEntityPotion extends OEntityThrowable {
     }
 
     public OEntityPotion(OWorld oworld, OEntityLiving oentityliving, int i) {
-        this(oworld, oentityliving, new OItemStack(OItem.bs, 1, i));
+        this(oworld, oentityliving, new OItemStack(OItem.bt, 1, i));
     }
 
     public OEntityPotion(OWorld oworld, OEntityLiving oentityliving, OItemStack oitemstack) {
@@ -37,7 +37,7 @@ public class OEntityPotion extends OEntityThrowable {
 
     public void a(int i) {
         if (this.c == null) {
-            this.c = new OItemStack(OItem.bs, 1, 0);
+            this.c = new OItemStack(OItem.bt, 1, 0);
         }
 
         this.c.b(i);
@@ -45,19 +45,19 @@ public class OEntityPotion extends OEntityThrowable {
 
     public int i() {
         if (this.c == null) {
-            this.c = new OItemStack(OItem.bs, 1, 0);
+            this.c = new OItemStack(OItem.bt, 1, 0);
         }
 
-        return this.c.j();
+        return this.c.k();
     }
 
     protected void a(OMovingObjectPosition omovingobjectposition) {
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.p.I) {
-            List list = OItem.bs.g(this.c);
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.q.I) {
+            List list = OItem.bt.g(this.c);
 
             if (list != null && !list.isEmpty()) {
-                OAxisAlignedBB oaxisalignedbb = this.D.b(4.0D, 2.0D, 4.0D);
-                List list1 = this.p.a(OEntityLiving.class, oaxisalignedbb);
+                OAxisAlignedBB oaxisalignedbb = this.E.b(4.0D, 2.0D, 4.0D);
+                List list1 = this.q.a(OEntityLiving.class, oaxisalignedbb);
 
                 if (list1 != null && !list1.isEmpty()) {
                     Iterator iterator = list1.iterator();
@@ -94,8 +94,8 @@ public class OEntityPotion extends OEntityThrowable {
                 }
             }
 
-            this.p.f(2002, (int) Math.round(this.t), (int) Math.round(this.u), (int) Math.round(this.v), this.i());
-            this.x();
+            this.q.e(2002, (int) Math.round(this.u), (int) Math.round(this.v), (int) Math.round(this.w), this.i());
+            this.w();
         }
     }
 
@@ -108,7 +108,7 @@ public class OEntityPotion extends OEntityThrowable {
         }
 
         if (this.c == null) {
-            this.x();
+            this.w();
         }
     }
 

@@ -425,7 +425,7 @@ public class PluginLoader {
         /**
          * Damage caused by explosion
          */
-        EXPLOSION(ODamageSource.l), //
+        EXPLOSION((new ODamageSource("explosion")).o().d()), //
         /**
          * Damage caused from falling (fall distance - 3.0)
          */
@@ -477,11 +477,11 @@ public class PluginLoader {
          /**
           * Damage caused by falling anvil
           */
-         ANVIL(ODamageSource.o), //
+         ANVIL(ODamageSource.m), //
          /**
           * Damage caused by falling block
           */
-         FALLING_BLOCK(ODamageSource.p);
+         FALLING_BLOCK(ODamageSource.n);
 
         private final ODamageSource source;
 
@@ -500,7 +500,7 @@ public class PluginLoader {
         * @return The death message.
         */
         public String getDeathMessage(Player died) {
-            return source.b(died.getEntity());
+            return source.b(OEntityLiving.class.cast(died.getEntity().getClass()));
         }
 
          public static DamageType fromDamageSource(ODamageSource source) {
@@ -524,17 +524,15 @@ public class PluginLoader {
                  return FALL; // Out of world
              else if (source == ODamageSource.j)
                  return null; // Vanilla's /kill, we don't have this.
+             else if (source.c() && source.p())
+                 return EXPLOSION; // Can also be a creeper.  TODO : make sure this works
              else if (source == ODamageSource.k)
-                 return EXPLOSION; // Can also be a creeper.
-             else if (source == ODamageSource.l)
-                 return EXPLOSION; // ??? (unused)
-             else if (source == ODamageSource.m)
                  return POTION;
-             else if (source == ODamageSource.n)
+             else if (source == ODamageSource.l)
                  return WITHER;
-             else if (source == ODamageSource.o)
+             else if (source == ODamageSource.m)
                  return ANVIL;
-             else if (source == ODamageSource.p)
+             else if (source == ODamageSource.n)
                  return FALLING_BLOCK;
              else if (source instanceof OEntityDamageSource)
                  return ENTITY;

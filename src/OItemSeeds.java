@@ -29,7 +29,7 @@ public class OItemSeeds extends OItem {
                     return false;
                 }
 
-                oworld.e(i, j + 1, k, this.a);
+                oworld.c(i, j + 1, k, this.a);
                 --oitemstack.a;
                 return true;
             } else {

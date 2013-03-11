@@ -69,7 +69,7 @@ public class BaseEntity implements Metadatable {
      * @return x
      */
     public double getX() {
-        return this.entity.t;
+        return this.entity.u;
     }
 
     /**
@@ -88,7 +88,7 @@ public class BaseEntity implements Metadatable {
      * @return y
      */
     public double getY() {
-        return this.entity.u;
+        return this.entity.v;
     }
 
     /**
@@ -107,7 +107,7 @@ public class BaseEntity implements Metadatable {
      * @return z
      */
     public double getZ() {
-        return this.entity.v;
+        return this.entity.w;
     }
 
     /**
@@ -126,7 +126,7 @@ public class BaseEntity implements Metadatable {
      * @return pitch
      */
     public float getPitch() {
-        return this.entity.A;
+        return this.entity.B;
     }
 
     /**
@@ -145,7 +145,7 @@ public class BaseEntity implements Metadatable {
      * @return rotation
      */
     public float getRotation() {
-        return this.entity.z;
+        return this.entity.A;
     }
 
     /**
@@ -280,7 +280,7 @@ public class BaseEntity implements Metadatable {
      * @return
      */
     public int getNoDamageTicks() {
-        return this.getEntity().ae;
+        return this.getEntity().af;
     }
 
     /**
@@ -293,7 +293,7 @@ public class BaseEntity implements Metadatable {
      * @param ticks
      */
     public void setNoDamageTicks(int ticks) {
-        this.getEntity().ae = ticks;
+        this.getEntity().af = ticks;
     }
 
     /**
@@ -305,7 +305,7 @@ public class BaseEntity implements Metadatable {
      * @return
      */
     public int getAirTicks() {
-        return this.getEntity().al();
+        return this.getEntity().ak();
     }
 
     /**
@@ -317,7 +317,7 @@ public class BaseEntity implements Metadatable {
      * @param ticks the number of ticks you have air
      */
     public void setAirTicks(int ticks) {
-        this.getEntity().f(ticks);
+        this.getEntity().g(ticks);
     }
 
     /**
@@ -349,7 +349,7 @@ public class BaseEntity implements Metadatable {
      * @return the World this entity is in
      */
     public World getWorld() {
-        return this.getEntity().p.world;
+        return this.getEntity().q.world;
     }
 
     /**
@@ -358,7 +358,7 @@ public class BaseEntity implements Metadatable {
      * @return x-motion
      */
     public double getMotionX() {
-        return this.entity.w;
+        return this.entity.x;
     }
 
     /**
@@ -367,7 +367,7 @@ public class BaseEntity implements Metadatable {
      * @return y-motion
      */
     public double getMotionY() {
-        return this.entity.x;
+        return this.entity.y;
     }
 
     /**
@@ -376,7 +376,7 @@ public class BaseEntity implements Metadatable {
      * @return z-motion
      */
     public double getMotionZ() {
-        return this.entity.y;
+        return this.entity.z;
     }
 
     /**
@@ -399,8 +399,8 @@ public class BaseEntity implements Metadatable {
      * motion to set
      */
     public void setMotionX(double motion) {
-        this.entity.w = motion;
-        this.entity.I = true;
+        this.entity.x = motion;
+        this.entity.J = true;
     }
 
     /**
@@ -410,8 +410,8 @@ public class BaseEntity implements Metadatable {
      * motion to set
      */
     public void setMotionY(double motion) {
-        this.entity.x = motion;
-        this.entity.I = true;
+        this.entity.y = motion;
+        this.entity.J = true;
     }
 
     /**
@@ -421,15 +421,15 @@ public class BaseEntity implements Metadatable {
      * motion to set
      */
     public void setMotionZ(double motion) {
-        this.entity.y = motion;
-        this.entity.I = true;
+        this.entity.z = motion;
+        this.entity.J = true;
     }
 
     /**
      * Destroys this entity
      */
     public void destroy() {
-        this.entity.x();
+        this.entity.w();
     }
 
     /**
@@ -446,7 +446,7 @@ public class BaseEntity implements Metadatable {
      * @return the sprinting state
      */
     public boolean getSprinting() {
-        return this.entity.ai();
+        return this.entity.ah();
     }
 
     /**
@@ -455,7 +455,7 @@ public class BaseEntity implements Metadatable {
      * @param sprinting
      */
     public void setSprinting(boolean sprinting) {
-        this.entity.b(sprinting);
+        this.entity.c(sprinting);
     }
 
     /**
@@ -466,10 +466,10 @@ public class BaseEntity implements Metadatable {
      * @return whether or not the write was successful
      */
     public boolean writeToTag(NBTTagCompound tag, boolean includeId) {
-        if(includeId) {
+        if (includeId) {
             return getEntity().c(tag.getBaseTag());
         }
-        getEntity().d(tag.getBaseTag());
+        getEntity().e(tag.getBaseTag());
         return true;
     }
 
@@ -479,7 +479,7 @@ public class BaseEntity implements Metadatable {
      * @param tag the tag to read the data from
      */
     public void readFromTag(NBTTagCompound tag) {
-        getEntity().e(tag.getBaseTag());
+        getEntity().f(tag.getBaseTag());
     }
 
     @Override
@@ -518,7 +518,7 @@ public class BaseEntity implements Metadatable {
      * @param rider
      */
     public void spawn(LivingEntity rider) {
-        OWorld world = entity.p;
+        OWorld world = entity.q;
 
         entity.b(getX() + 0.5d, getY(), getZ() + 0.5d, getRotation(), 0f);
         world.d(entity);
@@ -538,7 +538,7 @@ public class BaseEntity implements Metadatable {
      * @return
      */
     public boolean isInvulnerable() {
-        return getEntity().ar();
+        return getEntity().aq();
     }
 
     /**
@@ -618,7 +618,7 @@ public class BaseEntity implements Metadatable {
      * @return
      */
     public boolean isDead() {
-        return this.entity.L;
+        return this.entity.M;
     }
 
     /**
@@ -627,15 +627,34 @@ public class BaseEntity implements Metadatable {
      * @return boolean True if on ground, false if in midair.
      */
     public boolean isOnGround() {
-        return this.entity.E;
+        return this.entity.F;
     }
-    
+
     /**
      * Gets the height of this entity's eyes above its feet.
      * Will return 0 if this entity has no eyes.
      * @return
      */
     public float getEyeHeight() {
-    	return getEntity().e();
+        return getEntity().e();
+    }
+
+    /**
+     * Returns whether or not this entity is currently sneaking (crouching).
+     *
+     * @return true if sneaking
+     */
+    public boolean getSneaking() {
+        return getEntity().ag();
+    }
+
+    /**
+     * Force this entity to be sneaking or not
+     *
+     * @param sneaking
+     *            true if sneaking
+     */
+    public void setSneaking(boolean sneaking) {
+        getEntity().b(sneaking);
     }
 }

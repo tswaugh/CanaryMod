@@ -28,7 +28,7 @@ public class Skull implements ComplexBlock {
 
     @Override
     public void update() {
-        skullBase.g();
+        skullBase.k_();
     }
 
     @Override

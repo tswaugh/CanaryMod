@@ -54,7 +54,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public boolean isConnected() {
-        return !getEntity().a.c;
+        return !getEntity().a.b;
     }
 
     /**
@@ -535,7 +535,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @return
      */
     public String getIP() {
-        String ip = getEntity().a.b.c().toString();
+        String ip = getEntity().a.a.c().toString();
         return ip.substring(1,ip.lastIndexOf(":"));
     }
 
@@ -915,10 +915,10 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     @Override
     public Item getItemStackInHand() {
-        OItemStack result = getEntity().bJ.g();
+        OItemStack result = getEntity().bK.h();
 
         if (result != null) {
-            return new Item(result, getEntity().bJ.c);
+            return new Item(result, getEntity().bK.c);
         }
         return null;
     }
@@ -1008,7 +1008,7 @@ public class Player extends HumanEntity implements MessageReceiver {
             ent.a(ent.o);
         }
 
-        //Collect world switch achievement ?
+        // Collect world switch achievement ?
         if (world.getType() != World.Dimension.NORMAL) {
             ent.a((OStatBase) (world.getType() == World.Dimension.END ? OAchievementList.B : OAchievementList.x));
         }
@@ -1135,7 +1135,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     @Deprecated
     public void refreshCreativeMode() {
-        this.getEntity().c.a(this.getWorld().getWorld().y.r());
+        this.getEntity().c.a(this.getWorld().getWorld().x.r());
     }
 
     /**
@@ -1143,8 +1143,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @return
      */
+    // TODO pull up
     public int getXP() {
-        return getEntity().ce;
+        return getEntity().cg;
     }
 
     /**
@@ -1152,16 +1153,18 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @return
      */
+    // TODO pull up
     public int getLevel() {
-        return getEntity().ce;
+        return getEntity().cf;
     }
 
     /**
      * Returns the score for this Player.
      * @return the score for this Player.
      */
+    // TODO pull up
     public int getScore() {
-        return getEntity().bQ();
+        return getEntity().bZ();
     }
 
     /**
@@ -1170,6 +1173,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @param amount the amount of experience points to add.
      */
+    // TODO pull up
     public void addXP(int amount) {
         this.getEntity().w(amount);
         this.updateXP();
@@ -1181,6 +1185,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @param amount the amount of experience points to remove.
      */
+    // TODO pull up
     public void removeXP(int amount) {
         this.getEntity().removeXP(amount);
         this.updateXP();
@@ -1193,6 +1198,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @param amount the new amount of experience points.
      */
+    // TODO pull up
     public void setXP(int amount) {
         if (amount < this.getXP()) {
             this.removeXP(this.getXP() - amount);
@@ -1205,14 +1211,16 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Send player the updated experience packet.
      *
      */
+    // TODO pull up
     public void updateXP() {
-        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().cg, getEntity().cf, getEntity().ce)));
+        getEntity().a.b((OPacket) (new OPacket43Experience(getEntity().ch, getEntity().cg, getEntity().cf)));
     }
 
     /**
      * Send update food and health to client
      *
      */
+    // TODO pull up
     public void updateLevels() {
         OEntityPlayerMP entityMP = getEntity();
 
@@ -1224,8 +1232,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @return player food level
      */
+    // TODO pull up
     public int getFoodLevel() {
-        return getEntity().bM.a;
+        return getEntity().bN.a;
     }
 
     /**
@@ -1234,8 +1243,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param foodLevel
      *         new food level, between 1 and 20
      */
+    // TODO pull up
     public void setFoodLevel(int foodLevel) {
-        getEntity().bM.a = Math.min(foodLevel, 20);
+        getEntity().bN.a = Math.min(foodLevel, 20);
         updateLevels();
     }
 
@@ -1243,8 +1253,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Get Players food ExhaustionLevel
      * @return
      */
+    // TODO pull up
     public float getFoodExhaustionLevel() {
-        return getEntity().bM.c;
+        return getEntity().bN.c;
     }
 
     /**
@@ -1252,8 +1263,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @param foodExhaustionLevel
      */
+    // TODO pull up
     public void setFoodExhaustionLevel(float foodExhaustionLevel) {
-        getEntity().bM.c = Math.min(foodExhaustionLevel, 40F);
+        getEntity().bN.c = Math.min(foodExhaustionLevel, 40F);
         updateLevels();
     }
 
@@ -1261,8 +1273,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      * Get Players food saturationLevel
      * @return
      */
+    // TODO pull up
     public float getFoodSaturationLevel() {
-        return getEntity().bM.b;
+        return getEntity().bN.b;
     }
 
     /**
@@ -1270,8 +1283,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @param foodSaturationLevel
      */
+    // TODO pull up
     public void setFoodSaturationLevel(float foodSaturationLevel) {
-        getEntity().bM.b = Math.min(foodSaturationLevel, getFoodLevel());
+        getEntity().bN.b = Math.min(foodSaturationLevel, getFoodLevel());
         updateLevels();
     }
 
@@ -1281,7 +1295,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      */
     @SuppressWarnings("unchecked")
     public void updateInventory() {
-        OContainer container = getEntity().bK;
+        OContainer container = getEntity().bL;
         ArrayList<OItemStack> list = new ArrayList<OItemStack>();
 
         for (OSlot slot : (List<OSlot>) container.c) {
@@ -1336,9 +1350,10 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @return spawn location
      */
+    // TODO pull up
     public Location getRespawnLocation() {
         Location spawn = etc.getServer().getDefaultWorld().getSpawnLocation();
-        OChunkCoordinates loc = getEntity().bZ();
+        OChunkCoordinates loc = getEntity().ci();
 
         if (loc != null) {
             spawn = new Location(etc.getServer().getDefaultWorld(), loc.a, loc.b, loc.c);
@@ -1353,6 +1368,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @param y
      * @param z
      */
+    // TODO pull up
     public void setRespawnLocation(int x, int y, int z) {
         OChunkCoordinates loc = new OChunkCoordinates(x, y, z);
         getEntity().a(loc, true);
@@ -1363,6 +1379,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @param location
      */
+    // TODO pull up
     public void setRespawnLocation(Location location) {
         OChunkCoordinates loc = new OChunkCoordinates((int) Math.floor(location.x), (int) Math.floor(location.y), (int) Math.floor(location.z));
         getEntity().a(loc, true);
@@ -1491,8 +1508,9 @@ public class Player extends HumanEntity implements MessageReceiver {
      *
      * @return
      */
+    // TODO pull up
     public EnderChestInventory getEnderChest() {
-        return new EnderChestInventory(getEntity().ce(), this);
+        return new EnderChestInventory(getEntity().cn(), this);
     }
 
     /**
@@ -1557,7 +1575,7 @@ public class Player extends HumanEntity implements MessageReceiver {
      * @see #hasChatDisabled()
      */
     public int getChatPreference() {
-        return this.getEntity().u();
+        return this.getEntity().t();
     }
 
     /**

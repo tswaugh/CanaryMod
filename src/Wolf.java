@@ -21,7 +21,7 @@ public class Wolf extends TamableEntity{
      * @return Boolean of if this wolf is angry.
      */
     public boolean isAngry(){
-        return getEntity().bK();
+        return getEntity().bU();
     }
 
     /**
@@ -30,7 +30,7 @@ public class Wolf extends TamableEntity{
      * @param angry New angry state of the wolf.
      */
     public void setAngry(boolean angry){
-        getEntity().i(angry);
+        getEntity().l(angry);
     }
 
     public OEntityWolf getEntity() {

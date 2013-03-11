@@ -1,7 +1,7 @@
 public class OItemSkull extends OItem {
 
-    private static final String[] a = new String[] { "skeleton", "wither", "zombie", "char", "creeper"};
-    private static final int[] b = new int[] { 224, 225, 226, 227, 228};
+    private static final String[] b = new String[] { "skeleton", "wither", "zombie", "char", "creeper"};
+    public static final String[] a = new String[] { "skull_skeleton", "skull_wither", "skull_zombie", "skull_char", "skull_creeper"};
 
     public OItemSkull(int i) {
         super(i);
@@ -42,28 +42,28 @@ public class OItemSkull extends OItem {
 
             if (!oentityplayer.a(i, j, k, l, oitemstack)) {
                 return false;
-            } else if (!OBlock.cj.b(oworld, i, j, k)) {
+            } else if (!OBlock.ck.c(oworld, i, j, k)) {
                 return false;
             } else {
-                oworld.d(i, j, k, OBlock.cj.cm, l);
+                oworld.f(i, j, k, OBlock.ck.cz, l, 2);
                 int i1 = 0;
 
                 if (l == 1) {
-                    i1 = OMathHelper.c((double) (oentityplayer.z * 16.0F / 360.0F) + 0.5D) & 15;
+                    i1 = OMathHelper.c((double) (oentityplayer.A * 16.0F / 360.0F) + 0.5D) & 15;
                 }
 
-                OTileEntity otileentity = oworld.q(i, j, k);
+                OTileEntity otileentity = oworld.r(i, j, k);
 
                 if (otileentity != null && otileentity instanceof OTileEntitySkull) {
                     String s = "";
 
-                    if (oitemstack.o() && oitemstack.p().b("SkullOwner")) {
-                        s = oitemstack.p().i("SkullOwner");
+                    if (oitemstack.p() && oitemstack.q().b("SkullOwner")) {
+                        s = oitemstack.q().i("SkullOwner");
                     }
 
-                    ((OTileEntitySkull) otileentity).a(oitemstack.j(), s);
+                    ((OTileEntitySkull) otileentity).a(oitemstack.k(), s);
                     ((OTileEntitySkull) otileentity).a(i1);
-                    ((OBlockSkull) OBlock.cj).a(oworld, i, j, k, (OTileEntitySkull) otileentity);
+                    ((OBlockSkull) OBlock.ck).a(oworld, i, j, k, (OTileEntitySkull) otileentity);
                 }
 
                 --oitemstack.a;
@@ -77,16 +77,16 @@ public class OItemSkull extends OItem {
     }
 
     public String d(OItemStack oitemstack) {
-        int i = oitemstack.j();
+        int i = oitemstack.k();
 
-        if (i < 0 || i >= a.length) {
+        if (i < 0 || i >= b.length) {
             i = 0;
         }
 
-        return super.a() + "." + a[i];
+        return super.a() + "." + b[i];
     }
 
     public String l(OItemStack oitemstack) {
-        return oitemstack.j() == 3 && oitemstack.o() && oitemstack.p().b("SkullOwner") ? OStatCollector.a("item.skull.player.name", new Object[] { oitemstack.p().i("SkullOwner")}) : super.l(oitemstack);
+        return oitemstack.k() == 3 && oitemstack.p() && oitemstack.q().b("SkullOwner") ? OStatCollector.a("item.skull.player.name", new Object[] { oitemstack.q().i("SkullOwner")}) : super.l(oitemstack);
     }
 }

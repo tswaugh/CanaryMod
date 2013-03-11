@@ -15,8 +15,8 @@ public class OItemBed extends OItem {
             return false;
         } else {
             ++j;
-            OBlockBed oblockbed = (OBlockBed) OBlock.V;
-            int i1 = OMathHelper.c((double) (oentityplayer.z * 4.0F / 360.0F) + 0.5D) & 3;
+            OBlockBed oblockbed = (OBlockBed) OBlock.W;
+            int i1 = OMathHelper.c((double) (oentityplayer.A * 4.0F / 360.0F) + 0.5D) & 3;
             byte b0 = 0;
             byte b1 = 0;
 
@@ -42,10 +42,10 @@ public class OItemBed extends OItem {
             }
 
             if (oentityplayer.a(i, j, k, l, oitemstack) && oentityplayer.a(i + b0, j, k + b1, l, oitemstack)) {
-                if (oworld.c(i, j, k) && oworld.c(i + b0, j, k + b1) && oworld.v(i, j - 1, k) && oworld.v(i + b0, j - 1, k + b1)) {
-                    oworld.d(i, j, k, oblockbed.cm, i1);
-                    if (oworld.a(i, j, k) == oblockbed.cm) {
-                        oworld.d(i + b0, j, k + b1, oblockbed.cm, i1 + 8);
+                if (oworld.c(i, j, k) && oworld.c(i + b0, j, k + b1) && oworld.w(i, j - 1, k) && oworld.w(i + b0, j - 1, k + b1)) {
+                    oworld.f(i, j, k, oblockbed.cz, i1, 3);
+                    if (oworld.a(i, j, k) == oblockbed.cz) {
+                        oworld.f(i + b0, j, k + b1, oblockbed.cz, i1 + 8, 3);
                     }
 
                     --oitemstack.a;

@@ -37,7 +37,7 @@ public class LivingEntity extends BaseEntity {
      * @return health
      */
     public int getHealth() {
-        return getEntity().aR;
+        return getEntity().aS;
     }
 
     /**
@@ -47,7 +47,7 @@ public class LivingEntity extends BaseEntity {
      *            amount of health to increase the players health with.
      */
     public void increaseHealth(int health) {
-        getEntity().i(health);
+        getEntity().j(health);
     }
 
     /**
@@ -56,7 +56,7 @@ public class LivingEntity extends BaseEntity {
      * @param health
      */
     public void setHealth(int health) {
-        getEntity().j(health);
+        getEntity().b(health);
     }
 
     /**
@@ -65,7 +65,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public int getDeathTicks() {
-        return getEntity().aY;
+        return getEntity().aZ;
     }
 
     /**
@@ -73,7 +73,7 @@ public class LivingEntity extends BaseEntity {
      * @return max health
      */
     public int getMaxHealth(){
-        return getEntity().aT();
+        return getEntity().aW();
     }
 
     /**
@@ -92,7 +92,7 @@ public class LivingEntity extends BaseEntity {
      * @param ticks
      */
     public void setDeathTicks(int ticks) {
-        getEntity().aY = ticks;
+        getEntity().aZ = ticks;
     }
 
     /**
@@ -102,7 +102,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public int getBaseNoDamageTicks() {
-        return getEntity().au;
+        return getEntity().av;
     }
 
     /**
@@ -112,7 +112,7 @@ public class LivingEntity extends BaseEntity {
      * @param ticks
      */
     public void setBaseNoDamageTicks(int ticks) {
-        getEntity().au = ticks;
+        getEntity().av = ticks;
     }
 
     /**
@@ -121,7 +121,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public int getLastDamage() {
-        return getEntity().bA;
+        return getEntity().bB;
     }
 
     /**
@@ -131,7 +131,7 @@ public class LivingEntity extends BaseEntity {
      * @param amount
      */
     public void setLastDamage(int amount) {
-        getEntity().bA = amount;
+        getEntity().bB = amount;
     }
 
     /**
@@ -146,7 +146,8 @@ public class LivingEntity extends BaseEntity {
      * @return MobSpawner of the entity, or null if it wasn't spawned with a mob spawner.
      */
     public MobSpawner getSpawner() {
-        return getEntity().spawner;
+        MobSpawnerLogic spawner = this.getEntity().spawner;
+        return spawner instanceof MobSpawner ? (MobSpawner) spawner : null;
     }
 
     /**
@@ -165,9 +166,9 @@ public class LivingEntity extends BaseEntity {
      */
 
     public void removePotionEffect(PotionEffect effect) {
-        OPotionEffect var3 = (OPotionEffect) getEntity().bm.get(effect.getType().getId());
+        OPotionEffect var3 = (OPotionEffect) getEntity().bn.get(effect.getType().getId());
 
-        getEntity().bm.remove(Integer.valueOf(effect.getType().getId()));
+        getEntity().bn.remove(Integer.valueOf(effect.getType().getId()));
         getEntity().c(var3);
     }
 
@@ -178,7 +179,7 @@ public class LivingEntity extends BaseEntity {
      */
     @SuppressWarnings("unchecked")
     public List<PotionEffect> getPotionEffects() {
-        Collection<OPotionEffect> potionEffects = getEntity().bz();
+        Collection<OPotionEffect> potionEffects = getEntity().bC();
         ArrayList<PotionEffect> list = new ArrayList<PotionEffect>();
 
         for (OPotionEffect potionEffect : potionEffects) {
@@ -193,7 +194,7 @@ public class LivingEntity extends BaseEntity {
      * @param item
      */
     public void setItemInHand(Item item) {
-        getEntity().b(0, item.getBaseItem());
+        getEntity().c(0, item.getBaseItem());
     }
 
     /**
@@ -202,7 +203,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public Item getItemStackInHand() {
-        OItemStack stack = getEntity().bD();
+        OItemStack stack = getEntity().bG();
         return stack == null ? null : new Item(stack);
     }
 
@@ -216,7 +217,7 @@ public class LivingEntity extends BaseEntity {
      */
     public void setArmorSlot(int slot, Item armor) {
         if(slot >= 0 && slot <= 3) {
-            getEntity().b(slot + 1, armor.getBaseItem());
+            getEntity().c(slot + 1, armor.getBaseItem());
         }
     }
 
@@ -241,7 +242,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public boolean isPersistent() {
-        return getEntity().bU;
+        return getEntity().bW;
     }
 
     /**
@@ -250,7 +251,7 @@ public class LivingEntity extends BaseEntity {
      * @param isPersistent
      */
     public void setPersistent(boolean isPersistent) {
-        getEntity().bU = isPersistent;
+        getEntity().bW = isPersistent;
     }
 
     /**
@@ -261,7 +262,7 @@ public class LivingEntity extends BaseEntity {
      */
     public float getDropChance(int slot) {
         if(slot >= 0 && slot <= 4) {
-            return getEntity().bp[slot];
+            return getEntity().bq[slot];
         }
         return 0;
     }
@@ -274,7 +275,7 @@ public class LivingEntity extends BaseEntity {
      */
     public void setDropChance(int slot, float chance) {
         if(slot >= 0 && slot <= 4) {
-            getEntity().bp[slot] = chance;
+            getEntity().bq[slot] = chance;
         }
     }
 
@@ -284,7 +285,7 @@ public class LivingEntity extends BaseEntity {
      * @return
      */
     public boolean canPickUpLoot() {
-        return getEntity().bs;
+        return getEntity().bV;
     }
 
     /**
@@ -293,26 +294,7 @@ public class LivingEntity extends BaseEntity {
      * @param flag
      */
     public void setCanPickUpLoot(boolean flag) {
-        getEntity().bs = flag;
-    }
-
-    /**
-     * Returns whether or not this entity is currently sneaking (crouching).
-     *
-     * @return true if sneaking
-     */
-    public boolean getSneaking() {
-        return getEntity().ah();
-    }
-
-    /**
-     * Force this entity to be sneaking or not
-     *
-     * @param sneaking
-     *            true if sneaking
-     */
-    public void setSneaking(boolean sneaking) {
-        getEntity().a(sneaking);
+        getEntity().bV = flag;
     }
 
     /**

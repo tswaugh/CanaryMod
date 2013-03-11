@@ -185,7 +185,7 @@ public class Server {
     public List<Player> getPlayerList() {
         List<Player> toRet = new ArrayList<Player>();
 
-        for (OEntityPlayerMP oepmp : (List<OEntityPlayerMP>) server.ad().b) {
+        for (OEntityPlayerMP oepmp : (List<OEntityPlayerMP>) server.ad().a) {
             toRet.add(oepmp.getPlayer());
         }
         return toRet;
@@ -832,9 +832,9 @@ public class Server {
     public void addRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
             if (recipe[i] instanceof Block.Type) {
-                recipe[i] = OBlock.p[((Block.Type) recipe[i]).getType()];
+                recipe[i] = OBlock.r[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
-                recipe[i] = OItem.e[((Item.Type) recipe[i]).getId()];
+                recipe[i] = OItem.f[((Item.Type) recipe[i]).getId()];
             } else if (recipe[i] instanceof Item) {
                 recipe[i] = ((Item) recipe[i]).getBaseItem();
             }
@@ -859,9 +859,9 @@ public class Server {
     public void addShapelessRecipe(Item item, Object... recipe) {
         for (int i = 0; i < recipe.length; i++) {
             if (recipe[i] instanceof Block.Type) {
-                recipe[i] = OBlock.p[((Block.Type) recipe[i]).getType()];
+                recipe[i] = OBlock.r[((Block.Type) recipe[i]).getType()];
             } else if (recipe[i] instanceof Item.Type) {
-                recipe[i] = OItem.e[((Item.Type) recipe[i]).getId()];
+                recipe[i] = OItem.f[((Item.Type) recipe[i]).getId()];
             } else if (recipe[i] instanceof Item) {
                 recipe[i] = ((Item) recipe[i]).getBaseItem();
             }

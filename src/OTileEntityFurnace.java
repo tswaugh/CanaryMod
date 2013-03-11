@@ -1,17 +1,18 @@
 import java.util.Arrays;
 
-public class OTileEntityFurnace extends OTileEntity implements OIInventory, Container<OItemStack> {
+public class OTileEntityFurnace extends OTileEntity implements OISidedInventory, Container<OItemStack> {
 
     private OItemStack[] d = new OItemStack[3];
     public int a = 0;
     public int b = 0;
     public int c = 0;
-    private String name = "container.furnace"; // CanaryMod
+    private String e;
+
     private final Furnace furnace = new Furnace(this); // CanaryMod
 
     public OTileEntityFurnace() {}
 
-    public int k_() {
+    public int j_() {
         return this.d.length;
     }
 
@@ -40,7 +41,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
     }
 
-    public OItemStack a_(int i) {
+    public OItemStack b(int i) {
         if (this.d[i] != null) {
             OItemStack oitemstack = this.d[i];
 
@@ -53,21 +54,29 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     public void a(int i, OItemStack oitemstack) {
         this.d[i] = oitemstack;
-        if (oitemstack != null && oitemstack.a > this.c()) {
-            oitemstack.a = this.c();
+        if (oitemstack != null && oitemstack.a > this.d()) {
+            oitemstack.a = this.d();
         }
 
     }
 
     public String b() {
-        return name;
+        return this.c() ? this.e : "container.furnace";
+    }
+
+    public boolean c() {
+        return this.e != null && this.e.length() > 0;
+    }
+
+    public void a(String s) {
+        this.e = s;
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
         super.a(onbttagcompound);
         ONBTTagList onbttaglist = onbttagcompound.m("Items");
 
-        this.d = new OItemStack[this.k_()];
+        this.d = new OItemStack[this.j_()];
 
         for (int i = 0; i < onbttaglist.c(); ++i) {
             ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(i);
@@ -81,6 +90,9 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         this.a = onbttagcompound.d("BurnTime");
         this.c = onbttagcompound.d("CookTime");
         this.b = a(this.d[1]);
+        if (onbttagcompound.b("CustomName")) {
+            this.e = onbttagcompound.i("CustomName");
+        }
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
@@ -100,17 +112,20 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
 
         onbttagcompound.a("Items", (ONBTBase) onbttaglist);
+        if (this.c()) {
+            onbttagcompound.a("CustomName", this.e);
+        }
     }
 
-    public int c() {
+    public int d() {
         return 64;
     }
 
-    public boolean i() {
+    public boolean j() {
         return this.a > 0;
     }
 
-    public void g() {
+    public void h() {
         boolean flag = this.a > 0;
         boolean flag1 = false;
 
@@ -126,7 +141,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
                     if (this.d[1] != null) {
                         --this.d[1].a;
                         if (this.d[1].a == 0) {
-                            OItem oitem = this.d[1].b().r();
+                            OItem oitem = this.d[1].b().s();
 
                             this.d[1] = oitem != null ? new OItemStack(oitem) : null;
                         }
@@ -134,11 +149,11 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
                 }
             }
 
-            if (this.i() && this.u()) {
+            if (this.j() && this.u()) {
                 ++this.c;
                 if (this.c == 200) {
                     this.c = 0;
-                    this.k();
+                    this.l();
                     flag1 = true;
                 }
             } else {
@@ -152,7 +167,7 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         }
 
         if (flag1) {
-            this.d();
+            this.k_();
         }
 
     }
@@ -161,18 +176,18 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (this.d[0] == null) {
             return false;
         } else {
-            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cj);
+            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cp);
 
-            return oitemstack == null ? false : (this.d[2] == null ? true : (!this.d[2].a(oitemstack) ? false : (this.d[2].a < this.c() && this.d[2].a < this.d[2].d() ? true : this.d[2].a < oitemstack.d())));
+            return oitemstack == null ? false : (this.d[2] == null ? true : (!this.d[2].a(oitemstack) ? false : (this.d[2].a < this.d() && this.d[2].a < this.d[2].e() ? true : this.d[2].a < oitemstack.e())));
         }
     }
 
-    public void k() {
+    public void l() {
         if (this.u()) {
-            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cj);
+            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cp);
 
             if (this.d[2] == null) {
-                this.d[2] = oitemstack.l();
+                this.d[2] = oitemstack.m();
             } else if (this.d[2].c == oitemstack.c) {
                 ++this.d[2].a;
             }
@@ -189,22 +204,22 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         if (oitemstack == null) {
             return 0;
         } else {
-            int i = oitemstack.b().cj;
+            int i = oitemstack.b().cp;
             OItem oitem = oitemstack.b();
 
-            if (i < 256 && OBlock.p[i] != null) {
-                OBlock oblock = OBlock.p[i];
+            if (i < 256 && OBlock.r[i] != null) {
+                OBlock oblock = OBlock.r[i];
 
-                if (oblock == OBlock.bR) {
+                if (oblock == OBlock.bS) {
                     return 150;
                 }
 
-                if (oblock.cB == OMaterial.d) {
+                if (oblock.cO == OMaterial.d) {
                     return 300;
                 }
             }
 
-            return oitem instanceof OItemTool && ((OItemTool) oitem).g().equals("WOOD") ? 200 : (oitem instanceof OItemSword && ((OItemSword) oitem).h().equals("WOOD") ? 200 : (oitem instanceof OItemHoe && ((OItemHoe) oitem).g().equals("WOOD") ? 200 : (i == OItem.D.cj ? 100 : (i == OItem.m.cj ? 1600 : (i == OItem.ay.cj ? 20000 : (i == OBlock.B.cm ? 100 : (i == OItem.bo.cj ? 2400 : 0)))))));
+            return oitem instanceof OItemTool && ((OItemTool) oitem).g().equals("WOOD") ? 200 : (oitem instanceof OItemSword && ((OItemSword) oitem).h().equals("WOOD") ? 200 : (oitem instanceof OItemHoe && ((OItemHoe) oitem).g().equals("WOOD") ? 200 : (i == OItem.E.cp ? 100 : (i == OItem.n.cp ? 1600 : (i == OItem.az.cp ? 20000 : (i == OBlock.C.cz ? 100 : (i == OItem.bp.cp ? 2400 : 0)))))));
         }
     }
 
@@ -212,13 +227,25 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
         return a(oitemstack) > 0;
     }
 
-    public boolean a_(OEntityPlayer oentityplayer) {
-        return this.k.q(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.k.r(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
 
-    public void l_() {}
-
     public void f() {}
+
+    public void g() {}
+
+    public boolean b(int i, OItemStack oitemstack) {
+        return i == 2 ? false : (i == 1 ? b(oitemstack) : true);
+    }
+
+    public int c(int i) {
+        return i == 0 ? 2 : (i == 1 ? 0 : 1);
+    }
+
+    public int d(int i) {
+        return 1;
+    }
 
     @Override
     public OItemStack[] getContents() {
@@ -242,17 +269,17 @@ public class OTileEntityFurnace extends OTileEntity implements OIInventory, Cont
 
     @Override
     public int getContentsSize() {
-        return this.k_();
+        return this.j_();
     }
 
     @Override
     public String getName() {
-        return this.name;
+        return this.b();
     }
 
     @Override
     public void setName(String s) {
-        this.name = s;
+        this.a(s);
     }
 
     @Override

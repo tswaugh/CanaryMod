@@ -13,6 +13,7 @@ public class OServerCommandManager extends OCommandHandler implements OIAdminCom
         this.a(new OCommandXP());
         this.a(new OCommandServerTp());
         this.a(new OCommandGive());
+        this.a(new OCommandEffect());
         this.a(new OCommandEnchant());
         this.a(new OCommandServerEmote());
         this.a(new OCommandShowSeed());
@@ -23,6 +24,8 @@ public class OServerCommandManager extends OCommandHandler implements OIAdminCom
         this.a(new OCommandSetSpawnpoint());
         this.a(new OCommandGameRule());
         this.a(new OCommandClearInventory());
+        this.a(new OServerCommandTestFor());
+        this.a(new OServerCommandScoreboard());
         if (OMinecraftServer.D().T()) {
             this.a(new OCommandServerOp());
             this.a(new OCommandServerDeop());
@@ -48,24 +51,24 @@ public class OServerCommandManager extends OCommandHandler implements OIAdminCom
     public void a(OICommandSender oicommandsender, int i, String s, Object... aobject) {
         boolean flag = true;
 
-        if (oicommandsender instanceof OTileEntityCommandBlock && !OMinecraftServer.D().worlds.get(etc.getServer().getDefaultWorld().getName())[0].L().b("commandBlockOutput")) { // CanaryMod - multiworld fix
+        if (oicommandsender instanceof OTileEntityCommandBlock && !OMinecraftServer.D().worlds.get(etc.getServer().getDefaultWorld().getName())[0].M().b("commandBlockOutput")) { // CanaryMod - multiworld fix
             flag = false;
         }
 
         if (flag) {
-            Iterator iterator = OMinecraftServer.D().ad().b.iterator();
+            Iterator iterator = OMinecraftServer.D().ad().a.iterator();
 
             while (iterator.hasNext()) {
                 OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) iterator.next();
 
-                if (oentityplayermp != oicommandsender && OMinecraftServer.D().ad().e(oentityplayermp.bR)) {
-                    oentityplayermp.a("\u00A77\u00A7o[" + oicommandsender.c_() + ": " + oentityplayermp.a(s, aobject) + "]");
+                if (oentityplayermp != oicommandsender && OMinecraftServer.D().ad().e(oentityplayermp.bS)) {
+                    oentityplayermp.a("" + OEnumChatFormatting.h + "" + OEnumChatFormatting.u + "[" + oicommandsender.c_() + ": " + oentityplayermp.a(s, aobject) + "]");
                 }
             }
         }
 
         if (oicommandsender != OMinecraftServer.D()) {
-            OMinecraftServer.a.info("[" + oicommandsender.c_() + ": " + OMinecraftServer.D().a(s, aobject) + "]");
+            OMinecraftServer.D().al().a("[" + oicommandsender.c_() + ": " + OMinecraftServer.D().a(s, aobject) + "]");
         }
 
         if ((i & 1) != 1) {

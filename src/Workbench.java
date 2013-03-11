@@ -11,6 +11,7 @@ public class Workbench extends ItemArray<OInventoryCraftResult> {
         workbench.b();
     }
 
+    @Deprecated
     public void update(Player player) {
         this.update(); // We have an update method now!
     }

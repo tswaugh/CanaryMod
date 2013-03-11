@@ -1,40 +1,41 @@
 public class OEntitySlime extends OEntityLiving implements OIMob {
 
+    private static final float[] e = new float[] { 1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F};
     public float b;
     public float c;
     public float d;
-    private int e = 0;
+    private int f = 0;
 
     public OEntitySlime(OWorld oworld) {
         super(oworld);
-        this.aG = "/mob/slime.png";
-        int i = 1 << this.aa.nextInt(3);
+        this.aH = "/mob/slime.png";
+        int i = 1 << this.ab.nextInt(3);
 
-        this.M = 0.0F;
-        this.e = this.aa.nextInt(20) + 10;
+        this.N = 0.0F;
+        this.f = this.ab.nextInt(20) + 10;
         this.a(i);
     }
 
     protected void a() {
         super.a();
-        this.ag.a(16, new Byte((byte) 1));
+        this.ah.a(16, new Byte((byte) 1));
     }
 
     protected void a(int i) {
-        this.ag.b(16, new Byte((byte) i));
+        this.ah.b(16, new Byte((byte) i));
         this.a(0.6F * (float) i, 0.6F * (float) i);
-        this.b(this.t, this.u, this.v);
-        this.j(this.aT());
-        this.bd = i;
+        this.b(this.u, this.v, this.w);
+        this.b(this.aW());
+        this.be = i;
     }
 
-    public int aT() {
+    public int aW() {
         int i = this.p();
         return this.maxHealth == 0 ? (i * i) : this.maxHealth;
     }
 
     public int p() {
-        return this.ag.a(16);
+        return this.ah.a(16);
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
@@ -55,71 +56,71 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         return "mob.slime." + (this.p() > 1 ? "big" : "small");
     }
 
-    public void j_() {
-        if (!this.p.I && this.p.s == 0 && this.p() > 0) {
-            this.L = true;
+    public void l_() {
+        if (!this.q.I && this.q.r == 0 && this.p() > 0) {
+            this.M = true;
         }
 
         this.c += (this.b - this.c) * 0.5F;
         this.d = this.c;
-        boolean flag = this.E;
+        boolean flag = this.F;
 
-        super.j_();
+        super.l_();
         int i;
 
-        if (this.E && !flag) {
+        if (this.F && !flag) {
             i = this.p();
 
             for (int j = 0; j < i * 8; ++j) {
-                float f = this.aa.nextFloat() * 3.1415927F * 2.0F;
-                float f1 = this.aa.nextFloat() * 0.5F + 0.5F;
+                float f = this.ab.nextFloat() * 3.1415927F * 2.0F;
+                float f1 = this.ab.nextFloat() * 0.5F + 0.5F;
                 float f2 = OMathHelper.a(f) * (float) i * 0.5F * f1;
                 float f3 = OMathHelper.b(f) * (float) i * 0.5F * f1;
 
-                this.p.a(this.h(), this.t + (double) f2, this.D.b, this.v + (double) f3, 0.0D, 0.0D, 0.0D);
+                this.q.a(this.h(), this.u + (double) f2, this.E.b, this.w + (double) f3, 0.0D, 0.0D, 0.0D);
             }
 
             if (this.o()) {
-                this.a(this.n(), this.aX(), ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+                this.a(this.n(), this.ba(), ((this.ab.nextFloat() - this.ab.nextFloat()) * 0.2F + 1.0F) / 0.8F);
             }
 
             this.b = -0.5F;
-        } else if (!this.E && flag) {
+        } else if (!this.F && flag) {
             this.b = 1.0F;
         }
 
         this.k();
-        if (this.p.I) {
+        if (this.q.I) {
             i = this.p();
             this.a(0.6F * (float) i, 0.6F * (float) i);
         }
     }
 
-    protected void bn() {
-        this.bk();
-        OEntityPlayer oentityplayer = this.p.b(this, 16.0D);
+    protected void bq() {
+        this.bn();
+        OEntityPlayer oentityplayer = this.q.b(this, 16.0D);
 
         if (oentityplayer != null && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentityplayer.getEntity(), this.getEntity())) { // CanaryMod - MOB_TARGET
             this.a(oentityplayer, 10.0F, 20.0F);
         }
 
-        if (this.E && this.e-- <= 0) {
-            this.e = this.j();
+        if (this.F && this.f-- <= 0) {
+            this.f = this.j();
             if (oentityplayer != null) {
-                this.e /= 3;
+                this.f /= 3;
             }
 
-            this.bF = true;
+            this.bG = true;
             if (this.q()) {
-                this.a(this.n(), this.aX(), ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                this.a(this.n(), this.ba(), ((this.ab.nextFloat() - this.ab.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
-            this.bC = 1.0F - this.aa.nextFloat() * 2.0F;
-            this.bD = (float) (1 * this.p());
+            this.bD = 1.0F - this.ab.nextFloat() * 2.0F;
+            this.bE = (float) (1 * this.p());
         } else {
-            this.bF = false;
-            if (this.E) {
-                this.bC = this.bD = 0.0F;
+            this.bG = false;
+            if (this.F) {
+                this.bD = this.bE = 0.0F;
             }
         }
     }
@@ -129,18 +130,18 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
     }
 
     protected int j() {
-        return this.aa.nextInt(20) + 10;
+        return this.ab.nextInt(20) + 10;
     }
 
     protected OEntitySlime i() {
-        return new OEntitySlime(this.p);
+        return new OEntitySlime(this.q);
     }
 
-    public void x() {
+    public void w() {
         int i = this.p();
 
-        if (!this.p.I && i > 1 && this.aU() <= 0) {
-            int j = 2 + this.aa.nextInt(3);
+        if (!this.q.I && i > 1 && this.aX() <= 0) {
+            int j = 2 + this.ab.nextInt(3);
 
             for (int k = 0; k < j; ++k) {
                 float f = ((float) (k % 2) - 0.5F) * (float) i / 4.0F;
@@ -148,20 +149,20 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
                 OEntitySlime oentityslime = this.i();
 
                 oentityslime.a(i / 2);
-                oentityslime.b(this.t + (double) f, this.u + 0.5D, this.v + (double) f1, this.aa.nextFloat() * 360.0F, 0.0F);
-                this.p.d((OEntity) oentityslime);
+                oentityslime.b(this.u + (double) f, this.v + 0.5D, this.w + (double) f1, this.ab.nextFloat() * 360.0F, 0.0F);
+                this.q.d((OEntity) oentityslime);
             }
         }
 
-        super.x();
+        super.w();
     }
 
-    public void c_(OEntityPlayer oentityplayer) {
+    public void b_(OEntityPlayer oentityplayer) {
         if (this.l()) {
             int i = this.p();
 
             if (this.n(oentityplayer) && this.e(oentityplayer) < 0.6D * (double) i * 0.6D * (double) i && oentityplayer.a(ODamageSource.a((OEntityLiving) this), this.m())) {
-                this.a("mob.attack", 1.0F, (this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F);
+                this.a("mob.attack", 1.0F, (this.ab.nextFloat() - this.ab.nextFloat()) * 0.2F + 1.0F);
             }
         }
     }
@@ -174,31 +175,33 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         return this.p();
     }
 
-    protected String aZ() {
+    protected String bc() {
         return "mob.slime." + (this.p() > 1 ? "big" : "small");
     }
 
-    protected String ba() {
+    protected String bd() {
         return "mob.slime." + (this.p() > 1 ? "big" : "small");
     }
 
-    protected int bb() {
-        return this.p() == 1 ? OItem.aM.cj : 0;
+    protected int be() {
+        return this.p() == 1 ? OItem.aN.cp : 0;
     }
 
-    public boolean bs() {
-        OChunk ochunk = this.p.d(OMathHelper.c(this.t), OMathHelper.c(this.v));
+    public boolean bv() {
+        OChunk ochunk = this.q.d(OMathHelper.c(this.u), OMathHelper.c(this.w));
 
-        if (this.p.K().u() == OWorldType.c && this.aa.nextInt(4) != 1) {
+        if (this.q.L().u() == OWorldType.c && this.ab.nextInt(4) != 1) {
             return false;
         } else {
-            if (this.p() == 1 || this.p.s > 0) {
-                if (this.p.a(OMathHelper.c(this.t), OMathHelper.c(this.v)) == OBiomeGenBase.h && this.u > 50.0D && this.u < 70.0D && this.p.m(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) <= this.aa.nextInt(8)) {
-                    return super.bs();
+            if (this.p() == 1 || this.q.r > 0) {
+                OBiomeGenBase obiomegenbase = this.q.a(OMathHelper.c(this.u), OMathHelper.c(this.w));
+
+                if (obiomegenbase == OBiomeGenBase.h && this.v > 50.0D && this.v < 70.0D && this.ab.nextFloat() < 0.5F && this.ab.nextFloat() < e[this.q.v()] && this.q.n(OMathHelper.c(this.u), OMathHelper.c(this.v), OMathHelper.c(this.w)) <= this.ab.nextInt(8)) {
+                    return super.bv();
                 }
 
-                if (this.aa.nextInt(10) == 0 && ochunk.a(987234911L).nextInt(10) == 0 && this.u < 40.0D) {
-                    return super.bs();
+                if (this.ab.nextInt(10) == 0 && ochunk.a(987234911L).nextInt(10) == 0 && this.v < 40.0D) {
+                    return super.bv();
                 }
             }
 
@@ -206,11 +209,11 @@ public class OEntitySlime extends OEntityLiving implements OIMob {
         }
     }
 
-    protected float aX() {
+    protected float ba() {
         return 0.4F * (float) this.p();
     }
 
-    public int bp() {
+    public int bs() {
         return 0;
     }
 

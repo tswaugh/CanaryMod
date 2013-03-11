@@ -686,9 +686,7 @@ public class PlayerCommands extends CommandHandler {
             }
             World world = player.getWorld();
             if (world.getType() != World.Dimension.NORMAL) {
-                if (!callerIsPlayer || ((Player) caller).canIgnoreRestrictions()) {
-                    player.switchWorlds(world);
-                } else {
+                if (callerIsPlayer && !((Player) caller).canIgnoreRestrictions()) {
                     caller.notify("You cannot set a home in the " + world.getType().name() + ", mortal.");
                     return;
                 }
@@ -741,9 +739,10 @@ public class PlayerCommands extends CommandHandler {
                 return;
             }
             World world = toMove.getWorld();
-            if (world.getType() != World.Dimension.NORMAL) {
+            World overWorld = etc.getMCServer().getWorld(world.getName(), 0).world;
+            if (!world.equals(overWorld)) {
                 if (toMove != caller || toMove.canIgnoreRestrictions()) {
-                    toMove.switchWorlds(world);
+                    toMove.switchWorlds(overWorld);
                 } else {
                     toMove.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + world.getType().name() + "...");
                     return;
@@ -827,17 +826,17 @@ public class PlayerCommands extends CommandHandler {
                 home = etc.getDataSource().getHome(caller.getName());
             }
 
-            World world = player.getWorld();
-            if (world.getType() != World.Dimension.NORMAL) {
-                if (player != caller || player.canIgnoreRestrictions()) {
-                    player.switchWorlds(world);
-                } else {
-                    player.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + world.getType().name() + "...");
-                    return;
-                }
-            }
 
             if (home != null) {
+                if (!player.getWorld().equals(home.Location.getWorld())) {
+                    if (player != caller || player.canIgnoreRestrictions()) {
+                        player.switchWorlds(home.Location.getWorld());
+                    } else {
+                        player.sendMessage(Colors.Red + "The veil between the worlds keeps you bound to the " + player.getWorld().getType().name() + "...");
+                        return;
+                    }
+                }
+
                 player.teleportTo(home.Location);
             } else if (args.length > 1 && player.isAdmin()) {
                 caller.notify("That player home does not exist");
@@ -1326,7 +1325,7 @@ public class PlayerCommands extends CommandHandler {
             Block block = hb.getTargetBlock();
 
             if (block != null && block.getType() == 52) { // mob spawner
-                MobSpawner ms = (MobSpawner) ((Player) caller).getWorld().getComplexBlock(block.getX(), block.getY(), block.getZ());
+                MobSpawnerLogic ms = (MobSpawnerLogic) ((Player) caller).getWorld().getComplexBlock(block.getX(), block.getY(), block.getZ());
 
                 if (ms != null) {
                     if (args.length == 1) {
@@ -1424,9 +1423,9 @@ public class PlayerCommands extends CommandHandler {
                 player.sendMessage("User: " + Colors.Yellow + player.getName() + Colors.White);
                 player.sendMessage("Lvl: " + Colors.Yellow + player.getLevel() + Colors.White);
                 player.sendMessage(String.format("Exp:%s %.0f %s/%s %d %s(%s%.2f%%%s)", // Exp: xx / yy (zz.zz%)
-                        Colors.Yellow, ent.cg * ent.cb(), Colors.White,
-                        Colors.Yellow, ent.cb(), Colors.White,
-                        Colors.Yellow, ent.cg, Colors.White));
+                        Colors.Yellow, ent.ch * ent.ck(), Colors.White,
+                        Colors.Yellow, ent.ck(), Colors.White,
+                        Colors.Yellow, ent.ch, Colors.White));
 
                 if(player.isAdmin()) {
                     player.sendMessage(Colors.Yellow + (etc.getInstance().isOldExperience() ? "Pre-":"Post ") + "1.3.2 Experience System" + Colors.White);

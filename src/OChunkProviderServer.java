@@ -30,8 +30,8 @@ public class OChunkProviderServer implements OIChunkProvider {
     }
 
     public void b(int i, int j) {
-        if (this.h.u.e()) {
-            OChunkCoordinates ochunkcoordinates = this.h.H();
+        if (this.h.t.e()) {
+            OChunkCoordinates ochunkcoordinates = this.h.I();
             int k = i * 16 + 8 - ochunkcoordinates.a;
             int l = j * 16 + 8 - ochunkcoordinates.c;
             short short1 = 128;
@@ -117,7 +117,7 @@ public class OChunkProviderServer implements OIChunkProvider {
     public OChunk d(int i, int j) {
         OChunk ochunk = (OChunk) this.f.a(OChunkCoordIntPair.a(i, j));
 
-        return ochunk == null ? (!this.h.z && !this.a ? this.c : this.c(i, j)) : ochunk;
+        return ochunk == null ? (!this.h.y && !this.a ? this.c : this.c(i, j)) : ochunk;
     }
 
     private OChunk f(int i, int j) {
@@ -128,7 +128,7 @@ public class OChunkProviderServer implements OIChunkProvider {
                 OChunk ochunk = this.e.a(this.h, i, j);
 
                 if (ochunk != null) {
-                    ochunk.n = this.h.F();
+                    ochunk.n = this.h.G();
                     if (this.d != null) {
                         this.d.e(i, j);
                     }
@@ -154,8 +154,14 @@ public class OChunkProviderServer implements OIChunkProvider {
 
     private void b(OChunk ochunk) {
         if (this.e != null) {
-            ochunk.n = this.h.F();
-            this.e.a(this.h, ochunk);
+            try {
+                ochunk.n = this.h.G();
+                this.e.a(this.h, ochunk);
+            } catch (IOException ioexception) {
+                ioexception.printStackTrace();
+            } catch (OMinecraftException ominecraftexception) {
+                ominecraftexception.printStackTrace();
+            }
         }
     }
 

@@ -160,6 +160,17 @@ public class Item implements Cloneable, Metadatable {
         WoodenButton(143), //
         SkullBlock(144), //
         Anvil(145), //
+        TrappedChest(146),//
+        WeightedPressurePlateLight(147),//
+        WeightedPressurePlateHeavy(148),//
+        DaylightSensor(151),//
+        RedstoneBlock(152),//
+        NetherQuartzOre(153),//
+        Hopper(154),//
+        QuartzBlock(155),//
+        QuartzStairs(156),//
+        ActivatorRail(157),//
+        Dropper(158),//
         IronSpade(256), //
         IronPickaxe(257), //
         IronAxe(258), //
@@ -308,6 +319,11 @@ public class Item implements Cloneable, Metadatable {
         FireworkRocket(401), //
         FireworkStar(402), //
         EnchantedBook(403), //
+        RedstoneComparator(404),//
+        NetherBricks(405),//
+        NetherQuartz(406),//
+        MinecartTNT(407),//
+        MinecartHopper(408),//
         GoldRecord(2256), //
         GreenRecord(2257), //
         BlocksRecord(2258), //
@@ -361,7 +377,7 @@ public class Item implements Cloneable, Metadatable {
      * @param toClone the <tt>Item</tt> to clone
      */
     public Item(Item toClone) {
-        this(toClone.itemStack.l());
+        this(toClone.itemStack.m());
     }
 
     /**
@@ -512,7 +528,7 @@ public class Item implements Cloneable, Metadatable {
      * @return amount
      */
     public int getMaxAmount() {
-        return this.itemStack.d();
+        return this.itemStack.e();
     }
 
     /**
@@ -531,8 +547,8 @@ public class Item implements Cloneable, Metadatable {
      * @return
      */
     public static boolean isValidItem(int itemId) {
-        if (itemId < OItem.e.length) {
-            return OItem.e[itemId] != null;
+        if (itemId < OItem.f.length) {
+            return OItem.f[itemId] != null;
         }
         return false;
     }
@@ -732,9 +748,9 @@ public class Item implements Cloneable, Metadatable {
     public Enchantment[] getEnchantments() {
         Enchantment[] enchantments = null;
         if (itemStack != null && itemStack.w()) {
-            int size = itemStack.q().c();
+            int size = itemStack.r().c();
             enchantments = new Enchantment[size];
-            NBTTagList nbtTagList = new NBTTagList(itemStack.q());
+            NBTTagList nbtTagList = new NBTTagList(itemStack.r());
             for (int i = 0; i < size; i++) {
                 NBTTagCompound tag = (NBTTagCompound) nbtTagList.get(i);
                 enchantments[i] = new Enchantment(Enchantment.Type.fromId(tag.getShort("id")), tag.getShort("lvl"));
@@ -751,11 +767,11 @@ public class Item implements Cloneable, Metadatable {
      */
     public Enchantment getEnchantment(int index) {
         if (itemStack != null && itemStack.w()) {
-            int size = itemStack.q().c();
+            int size = itemStack.r().c();
             if (index >= size) {
                 index = 0;
             }
-            NBTTagCompound tag = (NBTTagCompound) new NBTTagList(itemStack.q()).get(index);
+            NBTTagCompound tag = (NBTTagCompound) new NBTTagList(itemStack.r()).get(index);
             return new Enchantment(Enchantment.Type.fromId(tag.getShort("id")), tag.getShort("lvl"));
         }
         return null;
@@ -776,7 +792,7 @@ public class Item implements Cloneable, Metadatable {
      * @return The item name
      */
     public String getName() {
-        return itemStack.r();
+        return itemStack.s();
     }
 
     /**
@@ -801,11 +817,11 @@ public class Item implements Cloneable, Metadatable {
 
         OItemStack base = getBaseItem();
 
-        if(!base.o()) {
+        if(!base.p()) {
             return null;
         }
 
-        NBTTagCompound tag = new NBTTagCompound(base.p());
+        NBTTagCompound tag = new NBTTagCompound(base.q());
         if(!tag.hasTag("CustomPotionEffects")) {
             return null;
         }
@@ -842,8 +858,8 @@ public class Item implements Cloneable, Metadatable {
         OItemStack base = getBaseItem();
 
         NBTTagList potionEffects = null;
-        if(base.o()) {
-            NBTTagCompound tag = new NBTTagCompound(base.p());
+        if(base.p()) {
+            NBTTagCompound tag = new NBTTagCompound(base.q());
             if(tag.hasTag("CustomPotionEffects")) {
                 potionEffects = tag.getNBTTagList("CustomPotionEffects");
             } else {
@@ -876,7 +892,7 @@ public class Item implements Cloneable, Metadatable {
     public Item clone() {
         try {
             Item clone = (Item) super.clone();
-            clone.itemStack = itemStack == null ? null : itemStack.l();
+            clone.itemStack = itemStack == null ? null : itemStack.m();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new InternalError(); // We are Cloneable!?
@@ -931,7 +947,7 @@ public class Item implements Cloneable, Metadatable {
      * @return
      */
     public NBTTagCompound getDataTag() {
-        return itemStack.o() ? new NBTTagCompound(itemStack.p()) : null;
+        return itemStack.p() ? new NBTTagCompound(itemStack.q()) : null;
     }
 
     /**

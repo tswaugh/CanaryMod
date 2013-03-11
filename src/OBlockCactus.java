@@ -2,17 +2,17 @@ import java.util.Random;
 
 public class OBlockCactus extends OBlock {
 
-    protected OBlockCactus(int i, int j) {
-        super(i, j, OMaterial.y);
+    protected OBlockCactus(int i) {
+        super(i, OMaterial.y);
         this.b(true);
         this.a(OCreativeTabs.c);
     }
 
-    public void b(OWorld oworld, int i, int j, int k, Random random) {
+    public void a(OWorld oworld, int i, int j, int k, Random random) {
         if (oworld.c(i, j + 1, k)) {
             int l;
 
-            for (l = 1; oworld.a(i, j - l, k) == this.cm; ++l) {
+            for (l = 1; oworld.a(i, j - l, k) == this.cz; ++l) {
                 ;
             }
 
@@ -20,23 +20,20 @@ public class OBlockCactus extends OBlock {
                 int i1 = oworld.h(i, j, k);
 
                 if (i1 == 15) {
-                    oworld.e(i, j + 1, k, this.cm);
-                    oworld.c(i, j, k, 0);
+                    oworld.c(i, j + 1, k, this.cz);
+                    oworld.b(i, j, k, 0, 4);
+                    this.a(oworld, i, j + 1, k, this.cz);
                 } else {
-                    oworld.c(i, j, k, i1 + 1);
+                    oworld.b(i, j, k, i1 + 1, 4);
                 }
             }
         }
     }
 
-    public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
+    public OAxisAlignedBB b(OWorld oworld, int i, int j, int k) {
         float f = 0.0625F;
 
         return OAxisAlignedBB.a().a((double) ((float) i + f), (double) j, (double) ((float) k + f), (double) ((float) (i + 1) - f), (double) ((float) (j + 1) - f), (double) ((float) (k + 1) - f));
-    }
-
-    public int a(int i) {
-        return i == 1 ? this.cl - 1 : (i == 0 ? this.cl + 1 : this.cl);
     }
 
     public boolean b() {
@@ -51,18 +48,17 @@ public class OBlockCactus extends OBlock {
         return 13;
     }
 
-    public boolean b(OWorld oworld, int i, int j, int k) {
-        return !super.b(oworld, i, j, k) ? false : this.d(oworld, i, j, k);
+    public boolean c(OWorld oworld, int i, int j, int k) {
+        return !super.c(oworld, i, j, k) ? false : this.f(oworld, i, j, k);
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
-        if (!this.d(oworld, i, j, k)) {
-            this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
-            oworld.e(i, j, k, 0);
+        if (!this.f(oworld, i, j, k)) {
+            oworld.a(i, j, k, true);
         }
     }
 
-    public boolean d(OWorld oworld, int i, int j, int k) {
+    public boolean f(OWorld oworld, int i, int j, int k) {
         if (oworld.g(i - 1, j, k).a()) {
             return false;
         } else if (oworld.g(i + 1, j, k).a()) {
@@ -74,7 +70,7 @@ public class OBlockCactus extends OBlock {
         } else {
             int l = oworld.a(i, j - 1, k);
 
-            return l == OBlock.aY.cm || l == OBlock.H.cm;
+            return l == OBlock.aZ.cz || l == OBlock.I.cz;
         }
     }
 

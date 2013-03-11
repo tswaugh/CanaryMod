@@ -31,7 +31,7 @@ public class HumanEntity extends LivingEntity {
      */
     @Override
     public String getName() {
-        return getEntity().bR;
+        return getEntity().bS;
     }
 
     /**
@@ -57,7 +57,7 @@ public class HumanEntity extends LivingEntity {
      * @return the disableDamage state
      */
     public boolean isDamageDisabled() {
-        return getEntity().cd.a;
+        return getEntity().ce.a;
     }
 
     /**
@@ -66,7 +66,7 @@ public class HumanEntity extends LivingEntity {
      * @see #updateCapabilities()
      */
     public void setDamageDisabled(boolean disabled) {
-        getEntity().cd.a = disabled;
+        getEntity().ce.a = disabled;
     }
 
     /**
@@ -74,7 +74,7 @@ public class HumanEntity extends LivingEntity {
      * @return the flying state
      */
     public boolean isFlying() {
-        return getEntity().cd.b;
+        return getEntity().ce.b;
     }
 
     /**
@@ -83,7 +83,7 @@ public class HumanEntity extends LivingEntity {
      * @see #updateCapabilities()
      */
     public void setFlying(boolean flying) {
-        getEntity().cd.b = flying;
+        getEntity().ce.b = flying;
     }
 
     /**
@@ -91,7 +91,7 @@ public class HumanEntity extends LivingEntity {
      * @return the canFly state
      */
     public boolean canFly() {
-        return getEntity().cd.c;
+        return getEntity().ce.c;
     }
 
     /**
@@ -100,7 +100,7 @@ public class HumanEntity extends LivingEntity {
      * @see #updateCapabilities()
      */
     public void setCanFly(boolean allow) {
-        getEntity().cd.c = allow;
+        getEntity().ce.c = allow;
     }
 
     /**
@@ -110,7 +110,7 @@ public class HumanEntity extends LivingEntity {
      * @return whether player has a creative inventory.
      */
     public boolean hasCreativePerks() {
-        return getEntity().cd.d;
+        return getEntity().ce.d;
     }
 
     /**
@@ -121,7 +121,7 @@ public class HumanEntity extends LivingEntity {
      * @see #updateCapabilities()
      */
     public void setCreativePerks(boolean creativePerks) {
-        getEntity().cd.d = creativePerks;
+        getEntity().ce.d = creativePerks;
     }
 
     /**
@@ -129,7 +129,7 @@ public class HumanEntity extends LivingEntity {
      * @return whether the player has build restrictions.
      */
     public boolean hasAdventureRestrictions() {
-        return !getEntity().cd.e;
+        return !getEntity().ce.e;
     }
 
     /**
@@ -138,7 +138,7 @@ public class HumanEntity extends LivingEntity {
      * @see #updateCapabilities()
      */
     public void setAdventureRestrictions(boolean restrict) {
-        getEntity().cd.e = !restrict;
+        getEntity().ce.e = !restrict;
     }
 
     /**
@@ -147,7 +147,7 @@ public class HumanEntity extends LivingEntity {
      * @return The current flying speed
      */
     public float getFlyingSpeed() {
-        return getEntity().cd.a();
+        return getEntity().ce.a();
     }
 
     /**
@@ -156,7 +156,7 @@ public class HumanEntity extends LivingEntity {
      * @return The current walking speed
      */
     public float getWalkingSpeed() {
-        return getEntity().cd.b();
+        return getEntity().ce.b();
     }
 
     /**
@@ -164,14 +164,14 @@ public class HumanEntity extends LivingEntity {
      * The client won't be affected unless you call this.
      */
     public void updateCapabilities() {
-        getEntity().o();
+        getEntity().n();
     }
-    
+
     /**
      * Whether or not the player is in a bed.
      * @return Sleeping or not.
      */
     public boolean isSleeping() {
-    	return getEntity().bZ;
+        return getEntity().ca;
     }
 }

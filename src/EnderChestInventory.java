@@ -21,7 +21,7 @@ public class EnderChestInventory extends ItemArray<OInventoryEnderChest> {
      * @return
      */
     public NBTTagList writeToTag() {
-        return new NBTTagList(container.g());
+        return new NBTTagList(container.h());
     }
 
     /**
@@ -35,7 +35,7 @@ public class EnderChestInventory extends ItemArray<OInventoryEnderChest> {
 
     @Override
     public void update() {
-        owner.getEntity().j_();
+        owner.getEntity().l_();
     }
 
     @Override

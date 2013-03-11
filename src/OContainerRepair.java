@@ -4,7 +4,7 @@ import java.util.Map;
 public class OContainerRepair extends OContainer {
 
     private OIInventory f = new OInventoryCraftResult();
-    private OIInventory g = new OInventoryRepair(this, "Repair", 2);
+    private OIInventory g = new OInventoryRepair(this, "Repair", true, 2);
     private OWorld h;
     private int i;
     private int j;
@@ -42,11 +42,11 @@ public class OContainerRepair extends OContainer {
     public void a(OIInventory oiinventory) {
         super.a(oiinventory);
         if (oiinventory == this.g) {
-            this.d();
+            this.e();
         }
     }
 
-    public void d() {
+    public void e() {
         OItemStack oitemstack = this.g.a(0);
 
         this.a = 0;
@@ -58,11 +58,11 @@ public class OContainerRepair extends OContainer {
             this.f.a(0, (OItemStack) null);
             this.a = 0;
         } else {
-            OItemStack oitemstack1 = oitemstack.l();
+            OItemStack oitemstack1 = oitemstack.m();
             OItemStack oitemstack2 = this.g.a(1);
             Map map = OEnchantmentHelper.a(oitemstack1);
             boolean flag = false;
-            int k = b0 + oitemstack.A() + (oitemstack2 == null ? 0 : oitemstack2.A());
+            int k = b0 + oitemstack.B() + (oitemstack2 == null ? 0 : oitemstack2.B());
 
             this.l = 0;
             int l;
@@ -74,9 +74,9 @@ public class OContainerRepair extends OContainer {
             OEnchantment oenchantment;
 
             if (oitemstack2 != null) {
-                flag = oitemstack2.c == OItem.bW.cj && OItem.bW.g(oitemstack2).c() > 0;
-                if (oitemstack1.f() && OItem.e[oitemstack1.c].a(oitemstack, oitemstack2)) {
-                    l = Math.min(oitemstack1.i(), oitemstack1.k() / 4);
+                flag = oitemstack2.c == OItem.bX.cp && OItem.bX.g(oitemstack2).c() > 0;
+                if (oitemstack1.g() && OItem.f[oitemstack1.c].a(oitemstack, oitemstack2)) {
+                    l = Math.min(oitemstack1.j(), oitemstack1.l() / 4);
                     if (l <= 0) {
                         this.f.a(0, (OItemStack) null);
                         this.a = 0;
@@ -85,33 +85,33 @@ public class OContainerRepair extends OContainer {
                     }
 
                     for (i1 = 0; l > 0 && i1 < oitemstack2.a; ++i1) {
-                        j1 = oitemstack1.i() - l;
+                        j1 = oitemstack1.j() - l;
                         oitemstack1.b(j1);
                         i += Math.max(1, l / 100) + map.size();
-                        l = Math.min(oitemstack1.i(), oitemstack1.k() / 4);
+                        l = Math.min(oitemstack1.j(), oitemstack1.l() / 4);
                     }
 
                     this.l = i1;
                 } else {
-                    if (!flag && (oitemstack1.c != oitemstack2.c || !oitemstack1.f())) {
+                    if (!flag && (oitemstack1.c != oitemstack2.c || !oitemstack1.g())) {
                         this.f.a(0, (OItemStack) null);
                         this.a = 0;
                         etc.getLoader().callHook(PluginLoader.Hook.ANVIL_USE, new Object[] {new Anvil(this, this.f, RESULT_START_INDEX)}); //CanaryMod: call onAnvilUse
                         return;
                     }
 
-                    if (oitemstack1.f() && !flag) {
-                        l = oitemstack.k() - oitemstack.i();
-                        i1 = oitemstack2.k() - oitemstack2.i();
-                        j1 = i1 + oitemstack1.k() * 12 / 100;
+                    if (oitemstack1.g() && !flag) {
+                        l = oitemstack.l() - oitemstack.j();
+                        i1 = oitemstack2.l() - oitemstack2.j();
+                        j1 = i1 + oitemstack1.l() * 12 / 100;
                         int i2 = l + j1;
 
-                        k1 = oitemstack1.k() - i2;
+                        k1 = oitemstack1.l() - i2;
                         if (k1 < 0) {
                             k1 = 0;
                         }
 
-                        if (k1 < oitemstack1.j()) {
+                        if (k1 < oitemstack1.k()) {
                             oitemstack1.b(k1);
                             i += Math.max(1, j1 / 100);
                         }
@@ -139,7 +139,7 @@ public class OContainerRepair extends OContainer {
                         int k2 = l1 - k1;
                         boolean flag1 = oenchantment.a(oitemstack);
 
-                        if (this.n.cd.d) {
+                        if (this.n.ce.d) {
                             flag1 = true;
                         }
 
@@ -197,10 +197,10 @@ public class OContainerRepair extends OContainer {
                 }
             }
 
-            if (this.m != null && !this.m.equalsIgnoreCase(oitemstack.r()) && this.m.length() > 0) {
-                j = oitemstack.f() ? 7 : oitemstack.a * 5;
+            if (this.m != null && !this.m.equalsIgnoreCase(oitemstack.s()) && this.m.length() > 0) {
+                j = oitemstack.g() ? 7 : oitemstack.a * 5;
                 i += j;
-                if (oitemstack.s()) {
+                if (oitemstack.t()) {
                     k += j / 2;
                 }
 
@@ -255,21 +255,21 @@ public class OContainerRepair extends OContainer {
             }
 
             if (j == i && j > 0 && this.a >= 40) {
-                // System.out.println("Naming an item only, cost too high; giving discount to cap cost to 39 levels"); // CanaryMod: disable debug message
+                this.h.W().a("Naming an item only, cost too high; giving discount to cap cost to 39 levels");
                 this.a = 39;
             }
 
-            if (this.a >= 40 && !this.n.cd.d) {
+            if (this.a >= 40 && !this.n.ce.d) {
                 oitemstack1 = null;
             }
 
             if (oitemstack1 != null) {
-                i1 = oitemstack1.A();
-                if (oitemstack2 != null && i1 < oitemstack2.A()) {
-                    i1 = oitemstack2.A();
+                i1 = oitemstack1.B();
+                if (oitemstack2 != null && i1 < oitemstack2.B()) {
+                    i1 = oitemstack2.B();
                 }
 
-                if (oitemstack1.s()) {
+                if (oitemstack1.t()) {
                     i1 -= 9;
                 }
 
@@ -300,8 +300,8 @@ public class OContainerRepair extends OContainer {
         } else {
             OItemStack base = hook.result.getBaseItem();
             inv.a[0] = base;
-            if(base.a > inv.c()) {
-                base.a = inv.c();
+            if(base.a > inv.d()) {
+                base.a = inv.d();
             }
         }
 
@@ -315,7 +315,6 @@ public class OContainerRepair extends OContainer {
         this.a = hook.xpLevel;
 
         this.b(); //updates the client. kinda.
-
         //CanaryMod end
     }
 
@@ -324,11 +323,11 @@ public class OContainerRepair extends OContainer {
         oicrafting.a(this, 0, this.a);
     }
 
-    public void b(OEntityPlayer oentityplayer) { //called when the anvil gui is closed
+    public void b(OEntityPlayer oentityplayer) {
         super.b(oentityplayer);
         if (!this.h.I) {
-            for (int i = 0; i < this.g.k_(); ++i) {
-                OItemStack oitemstack = this.g.a_(i);
+            for (int i = 0; i < this.g.j_(); ++i) {
+                OItemStack oitemstack = this.g.b(i);
 
                 if (oitemstack != null) {
                     oentityplayer.c(oitemstack);
@@ -337,8 +336,8 @@ public class OContainerRepair extends OContainer {
         }
     }
 
-    public boolean a(OEntityPlayer oentityplayer) { //called constantly while the player has the anvil open
-        return this.h.a(this.i, this.j, this.k) != OBlock.ck.cm ? false : oentityplayer.e((double) this.i + 0.5D, (double) this.j + 0.5D, (double) this.k + 0.5D) <= 64.0D;
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.h.a(this.i, this.j, this.k) != OBlock.cl.cz ? false : oentityplayer.e((double) this.i + 0.5D, (double) this.j + 0.5D, (double) this.k + 0.5D) <= 64.0D;
     }
 
     public OItemStack b(OEntityPlayer oentityplayer, int i) {
@@ -348,7 +347,7 @@ public class OContainerRepair extends OContainer {
         if (oslot != null && oslot.d()) {
             OItemStack oitemstack1 = oslot.c();
 
-            oitemstack = oitemstack1.l();
+            oitemstack = oitemstack1.m();
             if (i == 2) {
                 if (!this.a(oitemstack1, 3, 39, true)) {
                     return null;
@@ -379,13 +378,13 @@ public class OContainerRepair extends OContainer {
         return oitemstack;
     }
 
-    public void a(String s) { //called whenever the name slot changes
+    public void a(String s) {
         this.m = s;
         if (this.a(2).d()) {
             this.a(2).c().c(this.m);
         }
 
-        this.d();
+        this.e();
     }
 
     static OIInventory a(OContainerRepair ocontainerrepair) {
@@ -411,21 +410,22 @@ public class OContainerRepair extends OContainer {
 
     private void setSlotWithoutUpdate(Item item, int slot) {
         OInventoryRepair inv = ((OInventoryRepair) OContainerRepair.a(this));
-        if(item == null) {
+        if (item == null) {
             inv.c[slot] = null;
         } else {
             OItemStack base = item.getBaseItem();
             inv.c[slot] = base;
-            if(base.a > inv.c()) {
-                base.a = inv.c();
+            if (base.a > inv.d()) {
+                base.a = inv.d();
             }
         }
     }
 
     @Override
     public Anvil getInventory() {
-        if(super.getInventory() instanceof Anvil)
-            return (Anvil)super.getInventory();
+        if (super.getInventory() instanceof Anvil) {
+            return (Anvil) super.getInventory();
+        }
 
         Anvil inv = new Anvil(this, this.f, RESULT_START_INDEX);
         setInventory(inv);

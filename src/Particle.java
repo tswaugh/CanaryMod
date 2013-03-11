@@ -8,7 +8,7 @@
  * @author Somners
  */
 public enum Particle {
-    
+
     LARGE_SMOKE("largesmoke"),
     PORTAL("portal"),
     RED_DUST("reddust"),
@@ -40,15 +40,15 @@ public enum Particle {
     SLIME("slime"),
     ITEM_BREAK("iconcrack_256"),
     BLOCK_BREAK("tilecrack_1");
-    
+
     private String particle;
-    
+
     Particle(String particle){
         this.particle = particle;
     }
-    
+
     public String getParticleString(){
         return particle;
     }
-    
+
 }
