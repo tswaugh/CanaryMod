@@ -223,6 +223,8 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
                 this.ae().a();
             }
 
+            etc.getLoader().unloadPlugins(); // CanaryMod: unload plugins
+
             if (this.s != null) {
                 this.al().a("Saving players");
                 this.s.g();

@@ -589,6 +589,22 @@ public class PluginLoader {
         loaded = true;
     }
 
+    void unloadPlugins() {
+        log.info("CanaryMod: Unloading all plugins...");
+        synchronized (lock) {
+            Iterator<Plugin> it = this.plugins.iterator();
+            while (it.hasNext()) {
+                Plugin p = it.next();
+                if (p.isEnabled()) {
+                    p.toggleEnabled();
+                    p.disable();
+                }
+                it.remove();
+            }
+        }
+        log.info("Done unloading plugins.");
+    }
+
     /**
      * Loads the plugins that shall be loaded before generating the spawn area.
      */
