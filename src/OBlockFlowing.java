@@ -20,12 +20,12 @@ public class OBlockFlowing extends OBlockFluid {
         return this.cO != OMaterial.i;
     }
 
-    public void b(OWorld oworld, int i, int j, int k, Random random) {
+    public void a(OWorld oworld, int i, int j, int k, Random random) {
         // CanaryMod: Store originating block
         World world = oworld.world;
         Block blockFrom = new Block(world, this.cz, i, j, k);
 
-       int l = this.k_(oworld, i, j, k);
+        int l = this.k_(oworld, i, j, k);
         byte b0 = 1;
 
         if (this.cO == OMaterial.i && !oworld.t.e) {
@@ -101,7 +101,7 @@ public class OBlockFlowing extends OBlockFluid {
 
             if (!((Boolean) etc.getLoader().callHook(PluginLoader.Hook.FLOW, blockFrom, blockTo))) {
                 if (l >= 8) {
-                	this.e(oworld, i, j - 1, k, l);
+                    this.e(oworld, i, j - 1, k, l);
                 } else {
                     this.e(oworld, i, j - 1, k, l + 8);
                 }
