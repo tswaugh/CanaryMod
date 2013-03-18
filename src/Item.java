@@ -747,7 +747,7 @@ public class Item implements Cloneable, Metadatable {
      */
     public Enchantment[] getEnchantments() {
         Enchantment[] enchantments = null;
-        if (itemStack != null && itemStack.w()) {
+        if (itemStack != null && itemStack.x()) {
             int size = itemStack.r().c();
             enchantments = new Enchantment[size];
             NBTTagList nbtTagList = new NBTTagList(itemStack.r());
