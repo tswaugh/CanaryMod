@@ -7,7 +7,7 @@ public class InventoryMerchant extends ItemArray<OInventoryMerchant> {
 
     @Override
     public void update() {
-        // TODO
+        container.k_();
     }
 
     @Override

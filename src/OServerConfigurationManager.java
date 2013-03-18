@@ -391,6 +391,7 @@ public abstract class OServerConfigurationManager {
 
         // CanaryMod set player location and angle if a spawn location is defined
         if (location != null) {
+            oentityplayermp1.a.c = oentityplayermp1; // Set ONetServerHandler.user
             oentityplayermp1.b(location.x, location.y, location.z, location.rotX, location.rotY);
         }
 

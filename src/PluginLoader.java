@@ -524,7 +524,7 @@ public class PluginLoader {
                  return FALL; // Out of world
              else if (source == ODamageSource.j)
                  return null; // Vanilla's /kill, we don't have this.
-             else if (source.c() && source.p())
+             else if (source.c())
                  return EXPLOSION; // Can also be a creeper.  TODO : make sure this works
              else if (source == ODamageSource.k)
                  return POTION;

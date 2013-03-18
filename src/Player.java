@@ -1013,10 +1013,13 @@ public class Player extends HumanEntity implements MessageReceiver {
             ent.a((OStatBase) (world.getType() == World.Dimension.END ? OAchievementList.B : OAchievementList.x));
         }
 
-        //switch world if needed
-        if (!world.getName().equals(this.getWorld().getName())) {
+        if (!world.getName().equals(this.getWorld().getName())
+                // End -> Normal: respawn
+                || world.getType() == World.Dimension.NORMAL
+                && this.getWorld().getType() == World.Dimension.END) {
             Location loc = this.getLocation();
             loc.world = world.getName(); // teleport to new world
+            loc.dimension = world.getType().getId();
 
             mcServer.ad().a(ent, loc.dimension, true, loc); // Respawn with location
         } else {

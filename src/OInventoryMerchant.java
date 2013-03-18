@@ -1,5 +1,5 @@
-public class OInventoryMerchant implements OIInventory, Container<OItemStack>
-{
+public class OInventoryMerchant implements OIInventory, Container<OItemStack> {
+
     private final OIMerchant a;
     private OItemStack[] b = new OItemStack[3];
     private final OEntityPlayer c;
