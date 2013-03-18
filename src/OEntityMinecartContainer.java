@@ -199,4 +199,39 @@ public abstract class OEntityMinecartContainer extends OEntityMinecart implement
         this.y *= 0.0D;
         this.z *= (double) f;
     }
+
+    @Override
+    public OItemStack[] getContents() {
+        return this.a.clone();
+    }
+
+    @Override
+    public void setContents(OItemStack[] values) {
+        System.arraycopy(values, 0, this.a, 0, this.getContentsSize());
+    }
+
+    @Override
+    public OItemStack getContentsAt(int index) {
+        return this.a(index);
+    }
+
+    @Override
+    public void setContentsAt(int index, OItemStack value) {
+        this.a(index, value);
+    }
+
+    @Override
+    public int getContentsSize() {
+        return this.a.length;
+    }
+
+    @Override
+    public String getName() {
+        return this.b();
+    }
+
+    @Override
+    public void setName(String value) {
+        this.a(value);
+    }
 }
