@@ -537,7 +537,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
         } //
-        
+
         this.cr();
         this.a.b(new OPacket100OpenWindow(this.cu, 9, otileentityhopper.b(), otileentityhopper.j_(), otileentityhopper.c()));
         this.bM = new OContainerHopper(this.bK, otileentityhopper);

@@ -7,7 +7,7 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
     private String b;
     private int c = -1;
     private final Hopper hopper = new Hopper(this);
-    
+
     public OTileEntityHopper() {}
 
     public void a(ONBTTagCompound onbttagcompound) {

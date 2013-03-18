@@ -4,18 +4,18 @@
  * @author Somners
  */
 public class Hopper extends BaseContainerBlock<OTileEntityHopper> implements ComplexBlock {
-    
+
     private final OTileEntityHopper hopper;
 
     Hopper(OTileEntityHopper hopper) {
         this(null, hopper);
     }
-    
+
     public Hopper(OContainer oContainer, OTileEntityHopper hopper){
         super(oContainer, hopper, "Hopper");
         this.hopper = hopper;
     }
-    
+
     /**
      * Gets the BaseContainerBlock above the hopper.
      * @return the Block or null if none.
@@ -29,7 +29,7 @@ public class Hopper extends BaseContainerBlock<OTileEntityHopper> implements Com
         }
         return null;
     }
-    
+
     /**
      * Gets the BaseContainerBlock below the hopper.
      * @return the Block or null if none.
@@ -43,7 +43,7 @@ public class Hopper extends BaseContainerBlock<OTileEntityHopper> implements Com
         }
         return null;
     }
-    
+
     /**
      * Check if this hopper is connected to any Container either above or below.
      * @return true - it is connected<br>false - it is not connected
@@ -51,7 +51,7 @@ public class Hopper extends BaseContainerBlock<OTileEntityHopper> implements Com
     public boolean isConnected(){
         return (this.isAboveConnected() && this.isBelowConnected());
     }
-    
+
     /**
      * Check if the block above this hopper is a Container.
      * @return true - it is connected<br>false - it is not connected
@@ -59,7 +59,7 @@ public class Hopper extends BaseContainerBlock<OTileEntityHopper> implements Com
     public boolean isAboveConnected(){
         return this.getAboveContainer() != null;
     }
-    
+
     /**
      * Check if the block below this hopper is a Container.
      * @return true - it is connected<br>false - it is not connected
