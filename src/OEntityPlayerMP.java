@@ -530,11 +530,20 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.bM.a((OICrafting) this);
     }
 
-    // TODO : add inventory hooks
     public void a(OTileEntityHopper otileentityhopper) {
+        // CanaryMod: Check if we can open this
+        Inventory inv = new Hopper(otileentityhopper);
+
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
+            return;
+        } //
+        
         this.cr();
         this.a.b(new OPacket100OpenWindow(this.cu, 9, otileentityhopper.b(), otileentityhopper.j_(), otileentityhopper.c()));
         this.bM = new OContainerHopper(this.bK, otileentityhopper);
+        if (inv != null) {
+            inv.setOContainer(this.bL); // CanaryMod: Set the OContainer for the Hopper Inventory
+        }
         this.bM.d = this.cu;
         this.bM.a((OICrafting) this);
     }
