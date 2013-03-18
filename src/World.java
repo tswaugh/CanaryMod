@@ -130,7 +130,7 @@ public class World {
      * @return time server time
      */
     public long getTime() {
-        return world.F();
+        return world.G();
     }
 
     /**
@@ -139,7 +139,7 @@ public class World {
      * @return time server time
      */
     public long getRelativeTime() {
-        return world.G();
+        return world.H();
     }
 
     /**
