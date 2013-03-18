@@ -533,6 +533,8 @@ public class World {
                 return new CommandBlock((OTileEntityCommandBlock) localav);
             } else if (localav instanceof OTileEntityBeacon) {
                 return new Beacon((OTileEntityBeacon) localav);
+            } else if (localav instanceof OTileEntityHopper) {
+                return new Hopper((OTileEntityHopper) localav);
             }
         }
         return null;
