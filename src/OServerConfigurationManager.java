@@ -287,7 +287,7 @@ public abstract class OServerConfigurationManager {
                 }
 
                 return s3;
-            } else if (this.a.size() >= this.c && !etc.getDataSource().isUserOnReserveList(s)) {
+            } else if (this.a.size() >= this.b && !etc.getDataSource().isUserOnReserveList(s)) {
                 return "The server is full!";
             } else {
                 if (player.getIps() != null && !player.getIps()[0].equals("")) {
