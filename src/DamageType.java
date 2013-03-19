@@ -6,7 +6,7 @@ public enum DamageType {
      * Creeper explosion
      * TODO: Fix this, creeper aint magic
      */
-    CREEPER_EXPLOSION(ODamageSource.k.getDamageSource()), //
+    CREEPER_EXPLOSION(new OEntityDamageSource("explosion.player", new OEntityCreeper(null)).o().d().getDamageSource()), //
     /**
      * Damage dealt by another entity
      */
@@ -54,11 +54,11 @@ public enum DamageType {
     /**
      * Damage caused by poison (1) (Potions, Poison)
      */
-     POTION(ODamageSource.m.getDamageSource()), //
+     POTION(ODamageSource.k.getDamageSource()), //
      /**
       * Damage caused by the "Wither" effect (1)
       */
-     WITHER(ODamageSource.n.getDamageSource()), //
+     WITHER(ODamageSource.l.getDamageSource()), //
      /**
       * Damage caused by throwing an enderpearl (5)
       * TODO: Is that fall damage per definition? Magic damage would suit good here
