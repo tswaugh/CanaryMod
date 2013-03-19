@@ -1,4 +1,4 @@
-public class TamableEntity extends Mob{
+public class TamableEntity extends Mob {
     public TamableEntity(OEntityTameable entity){
         super(entity);
     }
@@ -59,7 +59,7 @@ public class TamableEntity extends Mob{
      * @param tame True if the animal should be tame.
      */
     public void setTame(boolean tame){
-        getEntity().g(tame);
+        getEntity().j(tame);
     }
 
     /**
@@ -68,7 +68,7 @@ public class TamableEntity extends Mob{
      * @param sitting If this animal should be sitting.
      */
     public void setSitting(boolean sitting){
-        getEntity().h(sitting);
+        getEntity().k(sitting);
         getEntity().d.a(sitting);
     }
 
