@@ -386,6 +386,14 @@ public class PluginLoader {
          */
         STAT_GAINED, //
         /**
+         * Calls{@link PluginListener#onEntityDestroyed(BaseEntity) }
+         */
+        ENTITY_DESTROYED,//
+        /**
+         * Calls{@link PluginListener#onHangingEntityDestroyed(HangingEntity) }
+         */
+        HANGING_ENTITY_DESTROYED,//
+        /**
          * For internal use only.
          */
         NUM_HOOKS;
@@ -1359,7 +1367,15 @@ public class PluginLoader {
                         case STAT_GAINED:
                             toRet = listener.onStatGained((Player) parameters[0], (Stat) parameters[1]);
                             break;
-
+                            
+                        case ENTITY_DESTROYED:
+                            listener.onEntityDestroyed((BaseEntity) parameters[0]);
+                            break;
+                            
+                        case HANGING_ENTITY_DESTROYED:
+                            toRet = listener.onHangingEntityDestroyed((HangingEntity) parameters[0]);
+                            break;
+                            
                         }
                        } catch (UnsupportedOperationException ex) {}
                 }

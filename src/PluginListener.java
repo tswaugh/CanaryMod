@@ -1399,4 +1399,22 @@ public class PluginListener {
     public boolean onStatGained(Player player, Stat stat) {
         return false;
     }
+    
+    /**
+     * Called when any entity is destroyed.
+     * @param entity The entity destroyed.
+     */
+    public void onEntityDestroyed(BaseEntity entity){
+        
+    }
+    
+    /**
+     * Called when any hanging entity is destroyed.
+     * @param entity The entity destroyed.
+     * @return true - entity is not destroyed<br>false - entity is destroyed
+     */
+    public boolean onHangingEntityDestroyed(HangingEntity baseEntity) {
+        return false;
+    }
+
 }
