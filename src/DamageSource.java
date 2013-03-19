@@ -16,14 +16,6 @@ public class DamageSource {
     }
     
     /**
-     * Do NOT use this.
-     * @param src
-     */
-    public void setDamageSource(ODamageSource src) {
-        this.osource = src;
-    }
-    
-    /**
      * Get the death message for the player that will be displayed in chat,
      * if the player dies from this {@link DamageSource}
      * @param player

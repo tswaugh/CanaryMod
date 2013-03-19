@@ -73,7 +73,6 @@ public class ODamageSource {
 
     public ODamageSource b() {
         this.t = true;
-        canaryDamageSource.setDamageSource(this);
         return this;
     }
 
@@ -83,7 +82,6 @@ public class ODamageSource {
 
     public ODamageSource d() {
         this.w = true;
-        canaryDamageSource.setDamageSource(this);
         return this;
     }
 
@@ -115,19 +113,16 @@ public class ODamageSource {
     protected ODamageSource j() {
         this.p = true;
         this.r = 0.0F;
-        canaryDamageSource.setDamageSource(this);
         return this;
     }
 
     protected ODamageSource k() {
         this.q = true;
-        canaryDamageSource.setDamageSource(this);
         return this;
     }
 
     protected ODamageSource l() {
         this.s = true;
-        canaryDamageSource.setDamageSource(this);
         return this;
     }
 
@@ -149,7 +144,6 @@ public class ODamageSource {
 
     public ODamageSource o() {
         this.u = true;
-        canaryDamageSource.setDamageSource(this);
         return this;
     }
 
@@ -163,7 +157,6 @@ public class ODamageSource {
 
     public ODamageSource r() {
         this.v = true;
-        canaryDamageSource.setDamageSource(this);
         return this;
     }
 }
