@@ -412,12 +412,17 @@ public class PluginLoader {
     }
 
 
+    /**
+     * @deprecated Use DamageType instead.
+     *
+     */
+    @Deprecated
     public enum DamageType {
 
         /**
          * Creeper explosion
          */
-        CREEPER_EXPLOSION(new OEntityDamageSource("explosion.player", new OEntityCreeper(null)).o().d()), //
+        CREEPER_EXPLOSION(ODamageSource.k), //
         /**
          * Damage dealt by another entity
          */
@@ -425,7 +430,7 @@ public class PluginLoader {
         /**
          * Damage caused by explosion
          */
-        EXPLOSION(new ODamageSource("explosion").o().d()), //
+        EXPLOSION((new ODamageSource("explosion")).o().d()), //
         /**
          * Damage caused from falling (fall distance - 3.0)
          */
@@ -465,11 +470,11 @@ public class PluginLoader {
         /**
          * Damage caused by poison (1) (Potions, Poison)
          */
-         POTION(ODamageSource.k), //
+         POTION(ODamageSource.m), //
          /**
           * Damage caused by the "Wither" effect (1)
           */
-         WITHER(ODamageSource.l), //
+         WITHER(ODamageSource.n), //
          /**
           * Damage caused by throwing an enderpearl (5)
           */
@@ -524,13 +529,9 @@ public class PluginLoader {
                  return FALL; // Out of world
              else if (source == ODamageSource.j)
                  return null; // Vanilla's /kill, we don't have this.
-             else if (source.c()) {
-                 if (source instanceof OEntityDamageSource && source.h() instanceof OEntityCreeper) {
-                     return CREEPER_EXPLOSION;
-                 } else {
-                     return EXPLOSION;
-                 }
-             } else if (source == ODamageSource.k)
+             else if (source.c())
+                 return EXPLOSION; // Can also be a creeper.  TODO : make sure this works
+             else if (source == ODamageSource.k)
                  return POTION;
              else if (source == ODamageSource.l)
                  return WITHER;
@@ -864,6 +865,7 @@ public class PluginLoader {
         case LOGINCHECK:
         case ANVIL_USE:
         case SLOT_CLICK:
+        case DAMAGE:
             toRet = parameters[0];
             break;
 
@@ -1026,9 +1028,7 @@ public class PluginLoader {
                             break;
 
                         case DAMAGE:
-                            if (listener.onDamage((DamageType) parameters[0], (BaseEntity) parameters[1], (BaseEntity) parameters[2], (Integer) parameters[3])) {
-                                toRet = true;
-                            }
+                            toRet = listener.onDamage((HookParametersDamage)parameters[0]);
                             break;
 
                         case HEALTH_CHANGE:
