@@ -145,6 +145,9 @@ public abstract class OEntity {
     }
 
     public void w() {
+        // CanaryMod: ENTITY_DESTROYED hook
+        etc.getLoader().callHook(PluginLoader.Hook.ENTITY_DESTROYED, this.getEntity());
+        // CanaryMod: end
         this.M = true;
     }
 
