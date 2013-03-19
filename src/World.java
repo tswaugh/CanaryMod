@@ -407,7 +407,7 @@ public class World {
      * @return true if successful
      */
     public boolean setBlockAt(int blockType, int x, int y, int z) {
-        return world.f(x, y, z, blockType, 0, 3);
+        return world.c(x, y, z, blockType);
     }
 
     /**
@@ -677,7 +677,7 @@ public class World {
      * @param data the new data for the block
      */
     public void updateBlockPhysics(int x, int y, int z, int data) {
-        world.c(x, y, z, data);
+        world.b(x, y, z, data, 3);
     }
 
     /**
