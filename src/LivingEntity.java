@@ -298,12 +298,24 @@ public class LivingEntity extends BaseEntity {
     }
 
     /**
-     * Damages this player, taking into account armor/enchantments/potions
+     * Damages this entity, taking into account armor/enchantments/potions
      *
      * @param type The type of damage to deal (certain types byass armor or affect potions differently)
      * @param amount The amount of damage to deal (2 = 1 heart)
      */
     public void applyDamage(PluginLoader.DamageType type, int amount) {
         getEntity().d(type.getDamageSource(), amount);
+    }
+
+    public String getCustomName() {
+        return getEntity().bO();
+    }
+
+    public void setCustomName(String name) {
+        getEntity().c(name);
+    }
+
+    public boolean hasCustomName() {
+        return getEntity().bP();
     }
 }
