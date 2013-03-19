@@ -394,7 +394,7 @@ public class World {
      * @return true if it was successful
      */
     public boolean setBlockData(int x, int y, int z, int data) {
-        return world.b(x, y, z, data, 2);
+        return world.b(x, y, z, data, 3);
     }
 
     /**
@@ -407,7 +407,7 @@ public class World {
      * @return true if successful
      */
     public boolean setBlockAt(int blockType, int x, int y, int z) {
-        return world.f(x, y, z, blockType, 0, 2);
+        return world.f(x, y, z, blockType, 0, 3);
     }
 
     /**

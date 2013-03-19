@@ -152,6 +152,9 @@ public abstract class OEntityMinecart extends OEntity {
     }
 
     public void l_() {
+        // CanaryMod: call update hook
+        manager.callHook(PluginLoader.Hook.VEHICLE_UPDATE, this.cart);
+
         if (this.b != null) {
             this.b.a();
         }
