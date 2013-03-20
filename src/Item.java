@@ -766,7 +766,7 @@ public class Item implements Cloneable, Metadatable {
      * @return enchantment
      */
     public Enchantment getEnchantment(int index) {
-        if (itemStack != null && itemStack.w()) {
+        if (itemStack != null && itemStack.x()) {
             int size = itemStack.r().c();
             if (index >= size) {
                 index = 0;
