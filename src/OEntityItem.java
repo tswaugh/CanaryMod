@@ -52,7 +52,7 @@ public class OEntityItem extends OEntity {
             --this.b;
         }
 
-        boolean tmpTouchesGround = this.F; // CanaryMod
+        boolean tmpTouchesGround = this.I; // CanaryMod
         this.r = this.u;
         this.s = this.v;
         this.t = this.w;
@@ -88,7 +88,7 @@ public class OEntityItem extends OEntity {
             // It does touch the ground now, but didn't in last tick
             if (!tmpTouchesGround) {
                 if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_TOUCH_GROUND, item)) {
-                    this.x(); // kill the item
+                    this.w(); // kill the item
                 }
             }// CanaryMod end
         }
