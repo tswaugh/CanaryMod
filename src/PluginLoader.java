@@ -420,6 +420,10 @@ public class PluginLoader {
     }
 
 
+    /**
+     * @deprecated Use {@link DamageType} instead.
+     */
+    @Deprecated
     public enum DamageType {
 
         /**
@@ -441,55 +445,55 @@ public class PluginLoader {
         /**
          * Damage caused by fire (1)
          */
-         FIRE(ODamageSource.a), //
+        FIRE(ODamageSource.a), //
         /**
          * Low periodic damage caused by burning (1)
          */
-         FIRE_TICK(ODamageSource.b), //
+        FIRE_TICK(ODamageSource.b), //
         /**
          * Damage caused from lava (4)
          */
-         LAVA(ODamageSource.c), //
+        LAVA(ODamageSource.c), //
         /**
          * Damage caused from drowning (2)
          */
-         WATER(ODamageSource.e), //
+        WATER(ODamageSource.e), //
         /**
          * Damage caused by cactus (1)
          */
-         CACTUS(ODamageSource.g), //
+        CACTUS(ODamageSource.g), //
         /**
          * Damage caused by suffocating(1)
          */
-         SUFFOCATION(ODamageSource.d), //
+        SUFFOCATION(ODamageSource.d), //
         /**
          * Damage caused by lightning (5)
          */
-         LIGHTNING(ODamageSource.a), //
+        LIGHTNING(ODamageSource.a), //
         /**
          * Damage caused by starvation (1)
          */
-         STARVATION(ODamageSource.f), //
+        STARVATION(ODamageSource.f), //
         /**
          * Damage caused by poison (1) (Potions, Poison)
          */
-         POTION(ODamageSource.k), //
-         /**
-          * Damage caused by the "Wither" effect (1)
-          */
-         WITHER(ODamageSource.l), //
-         /**
-          * Damage caused by throwing an enderpearl (5)
-          */
-         ENDERPEARL(ODamageSource.h), //
-         /**
-          * Damage caused by falling anvil
-          */
-         ANVIL(ODamageSource.m), //
-         /**
-          * Damage caused by falling block
-          */
-         FALLING_BLOCK(ODamageSource.n);
+        POTION(ODamageSource.k), //
+        /**
+         * Damage caused by the "Wither" effect (1)
+         */
+        WITHER(ODamageSource.l), //
+        /**
+         * Damage caused by throwing an enderpearl (5)
+         */
+        ENDERPEARL(ODamageSource.h), //
+        /**
+         * Damage caused by falling anvil
+         */
+        ANVIL(ODamageSource.m), //
+        /**
+         * Damage caused by falling block
+         */
+        FALLING_BLOCK(ODamageSource.n);
 
         private final ODamageSource source;
 
@@ -872,6 +876,7 @@ public class PluginLoader {
         case LOGINCHECK:
         case ANVIL_USE:
         case SLOT_CLICK:
+        case DAMAGE:
             toRet = parameters[0];
             break;
 
@@ -1034,9 +1039,7 @@ public class PluginLoader {
                             break;
 
                         case DAMAGE:
-                            if (listener.onDamage((DamageType) parameters[0], (BaseEntity) parameters[1], (BaseEntity) parameters[2], (Integer) parameters[3])) {
-                                toRet = true;
-                            }
+                            toRet = listener.onDamage((HookParametersDamage)parameters[0]);
                             break;
 
                         case HEALTH_CHANGE:
