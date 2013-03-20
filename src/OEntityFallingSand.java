@@ -146,8 +146,9 @@ public class OEntityFallingSand extends OEntity {
 
                 while (iterator.hasNext()) {
                     OEntity oentity = (OEntity) iterator.next();
-                    if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.fromDamageSource(odamagesource), new BaseEntity(this), oentity.getEntity())) {
-                         oentity.a(odamagesource, Math.min(OMathHelper.d((float) i * this.i), this.h));
+                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(new BaseEntity(this), oentity.getEntity(), odamagesource.damageSource, this.h));
+                    if (!ev.isCanceled()) {
+                         oentity.a(ev.getDamageSource().getDamageSource(), Math.min(OMathHelper.d((float) i * this.i), ev.getDamageAmount()));
                     }
                 }
 
