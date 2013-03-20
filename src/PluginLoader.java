@@ -545,8 +545,7 @@ public class PluginLoader {
                  return ANVIL;
              else if (source == ODamageSource.n)
                  return FALLING_BLOCK;
-             else if (source instanceof OEntityDamageSource)
-                 return ENTITY;
+             
              else if (source instanceof OEntityDamageSourceIndirect)
                  return ENTITY; // Still an entity, albeit indirect.
              else if (source.c()) {
@@ -556,6 +555,8 @@ public class PluginLoader {
                      return EXPLOSION;
                  }
              }
+             else if (source instanceof OEntityDamageSource)
+                 return ENTITY;
              else
                  return null; // Not a valid ODamageSource
          }
