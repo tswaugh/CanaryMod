@@ -555,8 +555,7 @@ public class PluginLoader {
                  } else {
                      return EXPLOSION;
                  }
-             } else if (source == ODamageSource.k)
-                 return POTION;
+             }
              else
                  return null; // Not a valid ODamageSource
          }
