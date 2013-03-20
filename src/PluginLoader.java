@@ -421,8 +421,7 @@ public class PluginLoader {
 
 
     /**
-     * @deprecated Use DamageType instead.
-     *
+     * @deprecated Use {@link DamageType} instead.
      */
     @Deprecated
     public enum DamageType {
@@ -446,55 +445,55 @@ public class PluginLoader {
         /**
          * Damage caused by fire (1)
          */
-         FIRE(ODamageSource.a), //
+        FIRE(ODamageSource.a), //
         /**
          * Low periodic damage caused by burning (1)
          */
-         FIRE_TICK(ODamageSource.b), //
+        FIRE_TICK(ODamageSource.b), //
         /**
          * Damage caused from lava (4)
          */
-         LAVA(ODamageSource.c), //
+        LAVA(ODamageSource.c), //
         /**
          * Damage caused from drowning (2)
          */
-         WATER(ODamageSource.e), //
+        WATER(ODamageSource.e), //
         /**
          * Damage caused by cactus (1)
          */
-         CACTUS(ODamageSource.g), //
+        CACTUS(ODamageSource.g), //
         /**
          * Damage caused by suffocating(1)
          */
-         SUFFOCATION(ODamageSource.d), //
+        SUFFOCATION(ODamageSource.d), //
         /**
          * Damage caused by lightning (5)
          */
-         LIGHTNING(ODamageSource.a), //
+        LIGHTNING(ODamageSource.a), //
         /**
          * Damage caused by starvation (1)
          */
-         STARVATION(ODamageSource.f), //
+        STARVATION(ODamageSource.f), //
         /**
          * Damage caused by poison (1) (Potions, Poison)
          */
-         POTION(ODamageSource.k), //
-         /**
-          * Damage caused by the "Wither" effect (1)
-          */
-         WITHER(ODamageSource.l), //
-         /**
-          * Damage caused by throwing an enderpearl (5)
-          */
-         ENDERPEARL(ODamageSource.h), //
-         /**
-          * Damage caused by falling anvil
-          */
-         ANVIL(ODamageSource.m), //
-         /**
-          * Damage caused by falling block
-          */
-         FALLING_BLOCK(ODamageSource.n);
+        POTION(ODamageSource.k), //
+        /**
+         * Damage caused by the "Wither" effect (1)
+         */
+        WITHER(ODamageSource.l), //
+        /**
+         * Damage caused by throwing an enderpearl (5)
+         */
+        ENDERPEARL(ODamageSource.h), //
+        /**
+         * Damage caused by falling anvil
+         */
+        ANVIL(ODamageSource.m), //
+        /**
+         * Damage caused by falling block
+         */
+        FALLING_BLOCK(ODamageSource.n);
 
         private final ODamageSource source;
 
@@ -537,7 +536,13 @@ public class PluginLoader {
                  return FALL; // Out of world
              else if (source == ODamageSource.j)
                  return null; // Vanilla's /kill, we don't have this.
-             else if (source == ODamageSource.k)
+             else if (source.c()) {
+                 if (source instanceof OEntityDamageSource && source.h() instanceof OEntityCreeper) {
+                     return CREEPER_EXPLOSION;
+                 } else {
+                     return EXPLOSION;
+                 }
+             } else if (source == ODamageSource.k)
                  return POTION;
              else if (source == ODamageSource.l)
                  return WITHER;
@@ -545,18 +550,10 @@ public class PluginLoader {
                  return ANVIL;
              else if (source == ODamageSource.n)
                  return FALLING_BLOCK;
-             
-             else if (source instanceof OEntityDamageSourceIndirect)
-                 return ENTITY; // Still an entity, albeit indirect.
-             else if (source.c()) {
-                 if (source instanceof OEntityDamageSource && source.h() instanceof OEntityCreeper) {
-                      return CREEPER_EXPLOSION;
-                 } else {
-                     return EXPLOSION;
-                 }
-             }
              else if (source instanceof OEntityDamageSource)
                  return ENTITY;
+             else if (source instanceof OEntityDamageSourceIndirect)
+                 return ENTITY; // Still an entity, albeit indirect.
              else
                  return null; // Not a valid ODamageSource
          }

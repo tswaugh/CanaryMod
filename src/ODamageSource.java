@@ -23,48 +23,39 @@ public class ODamageSource {
     private boolean v = false;
     private boolean w = false;
     public String o;
-    //CanaryMod start
-    protected DamageSource canaryDamageSource;
-    
-    /**
-     * Return the damage source handler for this ODamageSource
-     * @return
-     */
-    public DamageSource getDamageSource() {
-        return canaryDamageSource;
-    }
-    //CanaryMod end
 
-    public static ODamageSource a(OEntityLiving var0) {
-        return new OEntityDamageSource("mob", var0);
+    DamageSource damageSource = new DamageSource(this); // CanaryMod: reference to wrapper
+
+    public static ODamageSource a(OEntityLiving oentityliving) {
+        return new OEntityDamageSource("mob", oentityliving);
     }
 
-    public static ODamageSource a(OEntityPlayer var0) {
-        return new OEntityDamageSource("player", var0);
+    public static ODamageSource a(OEntityPlayer oentityplayer) {
+        return new OEntityDamageSource("player", oentityplayer);
     }
 
-    public static ODamageSource a(OEntityArrow var0, OEntity var1) {
-        return (new OEntityDamageSourceIndirect("arrow", var0, var1)).b();
+    public static ODamageSource a(OEntityArrow oentityarrow, OEntity oentity) {
+        return (new OEntityDamageSourceIndirect("arrow", oentityarrow, oentity)).b();
     }
 
-    public static ODamageSource a(OEntityFireball var0, OEntity var1) {
-        return var1 == null ? (new OEntityDamageSourceIndirect("onFire", var0, var0)).l().b() : (new OEntityDamageSourceIndirect("fireball", var0, var1)).l().b();
+    public static ODamageSource a(OEntityFireball oentityfireball, OEntity oentity) {
+        return oentity == null ? (new OEntityDamageSourceIndirect("onFire", oentityfireball, oentityfireball)).l().b() : (new OEntityDamageSourceIndirect("fireball", oentityfireball, oentity)).l().b();
     }
 
-    public static ODamageSource a(OEntity var0, OEntity var1) {
-        return (new OEntityDamageSourceIndirect("thrown", var0, var1)).b();
+    public static ODamageSource a(OEntity oentity, OEntity oentity1) {
+        return (new OEntityDamageSourceIndirect("thrown", oentity, oentity1)).b();
     }
 
-    public static ODamageSource b(OEntity var0, OEntity var1) {
-        return (new OEntityDamageSourceIndirect("indirectMagic", var0, var1)).j().r();
+    public static ODamageSource b(OEntity oentity, OEntity oentity1) {
+        return (new OEntityDamageSourceIndirect("indirectMagic", oentity, oentity1)).j().r();
     }
 
-    public static ODamageSource a(OEntity var0) {
-        return (new OEntityDamageSource("thorns", var0)).r();
+    public static ODamageSource a(OEntity oentity) {
+        return (new OEntityDamageSource("thorns", oentity)).r();
     }
 
-    public static ODamageSource a(OExplosion var0) {
-        return var0 != null && var0.c() != null ? (new OEntityDamageSource("explosion.player", var0.c())).o().d() : (new ODamageSource("explosion")).o().d();
+    public static ODamageSource a(OExplosion oexplosion) {
+        return oexplosion != null && oexplosion.c() != null ? (new OEntityDamageSource("explosion.player", oexplosion.c())).o().d() : (new ODamageSource("explosion")).o().d();
     }
 
     public boolean a() {
@@ -97,9 +88,8 @@ public class ODamageSource {
         return this.q;
     }
 
-    protected ODamageSource(String var1) {
-        this.o = var1;
-        this.canaryDamageSource = new DamageSource(this);
+    protected ODamageSource(String s) {
+        this.o = s;
     }
 
     public OEntity h() {
@@ -126,12 +116,12 @@ public class ODamageSource {
         return this;
     }
 
-    public String b(OEntityLiving var1) {
-        OEntityLiving var2 = var1.bN();
-        String var3 = "death.attack." + this.o;
-        String var4 = var3 + ".player";
+    public String b(OEntityLiving oentityliving) {
+        OEntityLiving oentityliving1 = oentityliving.bN();
+        String s = "death.attack." + this.o;
+        String s1 = s + ".player";
 
-        return var2 != null && OStatCollector.b(var4) ? OStatCollector.a(var4, new Object[] { var1.ax(), var2.ax()}) : OStatCollector.a(var3, new Object[] { var1.ax()});
+        return oentityliving1 != null && OStatCollector.b(s1) ? OStatCollector.a(s1, new Object[] { oentityliving.ax(), oentityliving1.ax()}) : OStatCollector.a(s, new Object[] { oentityliving.ax()});
     }
 
     public boolean m() {

@@ -316,12 +316,12 @@ public abstract class OEntity {
                     return;
                 }
             }
-            if(ev == null) {
+
+            if (ev == null) {
                 //No hook has been fired, continue the standard procedure
                 this.a(ODamageSource.c, 4);
                 this.d(15);
-            }
-            else {
+            } else {
                 //Hook was fired, apply its data
                 this.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
                 this.d(15);

@@ -657,7 +657,7 @@ public abstract class OEntityLiving extends OEntity {
                         return false;
                     }
 
-                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(attacker, this.entity, odamagesource.getDamageSource(), i - this.bB));
+                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(attacker, this.entity, odamagesource.damageSource, i - this.bB));
                     if (attacker != null && ev.isCanceled()) {
                         return false;
                     }
@@ -666,7 +666,7 @@ public abstract class OEntityLiving extends OEntity {
 
                     flag = false;
                 } else {
-                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(attacker, this.entity, odamagesource.getDamageSource(), i));
+                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(attacker, this.entity, odamagesource.damageSource, i));
                     if (attacker != null && ev.isCanceled()) {
                         return false;
                     }

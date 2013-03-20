@@ -169,10 +169,6 @@ public class Block {
         QuartzStairs(156),//
         ActivatorRail(157),//
         Dropper(158), //
-        RedstoneComparator(404),//
-        NetherBricks(405),//
-        NetherQuartz(406),//
-        MinecartTNT(407),//
         MinecartHopper(408);
 
         private int                       id;
