@@ -145,7 +145,7 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
         if (this.k != null && !this.k.I) {
             if (!this.l() && OBlockHopper.d(this.p())) {
                 boolean flag = this.u() | a((OHopper) this);
-
+                
                 if (flag) {
                     this.c(8);
                     this.k_();
@@ -168,8 +168,12 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
 
             if (oiinventory != null) {
                 OItemStack oitemstack = this.a(i).m();
+                // CanaryMod: Hopper Transfer hook
+                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, hopper, new Item(oitemstack))) {
+                    return false;
+                }//
                 OItemStack oitemstack1 = a(oiinventory, this.a(i, 1), OFacing.a[OBlockHopper.c(this.p())]);
-
+                
                 if (oitemstack1 != null && oitemstack1.a != 0) {
                     this.a(i, oitemstack);
                 } else {
@@ -185,7 +189,7 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
     public static boolean a(OHopper ohopper) {
         boolean flag = false;
         OIInventory oiinventory = b(ohopper);
-
+        
         if (oiinventory != null) {
             byte b0 = 0;
             int i = 0;
@@ -203,6 +207,10 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
 
                 if (oitemstack != null) {
                     OItemStack oitemstack1 = oitemstack.m();
+                    // CanaryMod: Hopper Transfer hook
+                    if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, ((OTileEntityHopper)ohopper).hopper, new Item(oitemstack1))) {     
+                        return false;
+                    }//
                     OItemStack oitemstack2 = a(ohopper, oiinventory.a(k, 1), -1);
 
                     if (oitemstack2 != null && oitemstack2.a != 0) {

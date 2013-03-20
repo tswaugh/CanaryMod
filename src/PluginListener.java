@@ -1406,5 +1406,15 @@ public class PluginListener {
     public boolean onHangingEntityDestroyed(HangingEntity baseEntity) {
         return false;
     }
+    
+    /**
+     * Called when a hopper tries to Transfer an item
+     * @param hopper
+     * @param itemTransfered
+     * @return 
+     */
+    public boolean onHopperTransfer(Hopper hopper, Item itemTransfered) {
+        return false;
+    }
 
 }
