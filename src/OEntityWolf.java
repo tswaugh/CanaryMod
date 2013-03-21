@@ -106,7 +106,7 @@ public class OEntityWolf extends OEntityTameable {
             this.h = true;
             this.i = 0.0F;
             this.j = 0.0F;
-            this.q.a(this, (byte) 8);
+            this.q.a((OEntity) this, (byte) 8);
         }
     }
 
@@ -250,10 +250,10 @@ public class OEntityWolf extends OEntityTameable {
                     this.b(20);
                     this.a(oentityplayer.bS);
                     this.i(true);
-                    this.q.a(this, (byte) 7);
+                    this.q.a((OEntity) this, (byte) 7);
                 } else {
                     this.i(false);
-                    this.q.a(this, (byte) 6);
+                    this.q.a((OEntity) this, (byte) 6);
                 }
             }
 

@@ -156,6 +156,8 @@ public class OBlockDispenser extends OBlockContainer {
                     }
                 }
             }
+
+            oworld.m(i, j, k, l);
         }
 
         super.a(oworld, i, j, k, l, i1);

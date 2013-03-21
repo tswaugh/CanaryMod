@@ -139,7 +139,7 @@ public class OContainerRepair extends OContainer {
                         int k2 = l1 - k1;
                         boolean flag1 = oenchantment.a(oitemstack);
 
-                        if (this.n.ce.d) {
+                        if (this.n.ce.d || oitemstack.c == OItemEnchantedBook.bX.cp) {
                             flag1 = true;
                         }
 
