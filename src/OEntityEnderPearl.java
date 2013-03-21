@@ -26,19 +26,18 @@ public class OEntityEnderPearl extends OEntityThrowable {
             // CanaryMod end
 
             for (int i = 0; i < 32; ++i) {
-            this.q.a("portal", this.u, this.v + this.ab.nextDouble() * 2.0D, this.w, this.ab.nextGaussian(), 0.0D, this.ab.nextGaussian());
+                this.q.a("portal", this.u, this.v + this.ab.nextDouble() * 2.0D, this.w, this.ab.nextGaussian(), 0.0D, this.ab.nextGaussian());
             }
 
-        if (!this.q.I) {
+            if (!this.q.I) {
                 if (this.h() != null && this.h() instanceof OEntityPlayerMP) {
                     OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.h();
 
-                if (!oentityplayermp.a.b && oentityplayermp.q == this.q) {
-                    this.h().a(this.u, this.v, this.w);
-                    this.h().T = 0.0F;
-                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(new BaseEntity(this), ((OEntityPlayerMP) h()).getPlayer(), DamageType.ENDERPEARL.getDamageSource(), 5));
-                    if (!ev.isCanceled()) {
-
+                    if (!oentityplayermp.a.b && oentityplayermp.q == this.q) {
+                        this.h().a(this.u, this.v, this.w);
+                        this.h().T = 0.0F;
+                        HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(this.getEntity(), oentityplayermp.getPlayer(), DamageType.ENDERPEARL.getDamageSource(), 5));
+                        if (!ev.isCanceled()) {
                             this.h().a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
                         } //
                     }

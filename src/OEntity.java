@@ -274,7 +274,7 @@ public abstract class OEntity {
             } else {
                 if (this.d % 20 == 0) {
                     // CanaryMod Damage hook: Periodic burn damage
-                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, entity, DamageType.FIRE_TICK.getDamageSource(), 1));
+                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.FIRE_TICK.getDamageSource(), 1));
                     if (!ev.isCanceled()) {
                         this.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
                     }
@@ -311,7 +311,7 @@ public abstract class OEntity {
             // CanaryMod Damage hook: Lava
             HookParametersDamage ev = null;
             if (this instanceof OEntityLiving) {
-                ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, entity, DamageType.LAVA.getDamageSource(), 4));
+                ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.LAVA.getDamageSource(), 4));
                 if (ev.isCanceled()) {
                     return;
                 }
@@ -685,7 +685,7 @@ public abstract class OEntity {
     protected void e(int i) {
         if (!this.ag) {
             // CanaryMod Damage Hook: Fire
-            HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, entity, DamageType.FIRE.getDamageSource(), i));
+            HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.FIRE.getDamageSource(), i));
             if (!ev.isCanceled()) {
                 this.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
             }//
@@ -1351,7 +1351,7 @@ public abstract class OEntity {
 
     public void a(OEntityLightningBolt oentitylightningbolt) {
         //CanaryMod Damage Hook: Lightning
-        HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, entity, DamageType.LIGHTNING.getDamageSource(), 5));
+        HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.LIGHTNING.getDamageSource(), 5));
         if (ev.isCanceled()) {
             return;
         }

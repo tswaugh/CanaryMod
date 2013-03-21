@@ -320,7 +320,7 @@ public abstract class OEntityLiving extends OEntity {
 
         if (this.R() && this.S()) {
             // CanaryMod Damage hook: Suffocation
-            HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.entity, DamageType.SUFFOCATION.getDamageSource(), 1));
+            HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.SUFFOCATION.getDamageSource(), 1));
             if (!ev.isCanceled()) {
                 this.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
             }
@@ -338,7 +338,7 @@ public abstract class OEntityLiving extends OEntity {
                 this.g(0);
 
                 // CanaryMod Damage hook: Drowning
-                HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.entity, DamageType.WATER.getDamageSource(), 2));
+                HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.WATER.getDamageSource(), 2));
                 if (!ev.isCanceled()) {
                     for (int i = 0; i < 8; ++i) {
                     float f = this.ab.nextFloat() - this.ab.nextFloat();
@@ -644,7 +644,7 @@ public abstract class OEntityLiving extends OEntity {
                     OEntityLiving ent = (OEntityLiving) ((OEntityDamageSource)odamagesource).h();
                     attacker = ent.getEntity();
                 }
-                if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.ATTACK, attacker, this.entity, i)) {
+                if (attacker != null && (Boolean) manager.callHook(PluginLoader.Hook.ATTACK, attacker, this.getEntity(), i)) {
                     if (this instanceof OEntityCreature) {
                         ((OEntityCreature) this).c = 0;
                     }
@@ -658,7 +658,7 @@ public abstract class OEntityLiving extends OEntity {
                         return false;
                     }
 
-                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(attacker, this.entity, odamagesource.damageSource, i - this.bB));
+                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(attacker, this.getEntity(), odamagesource.damageSource, i - this.bB));
                     if (attacker != null && ev.isCanceled()) {
                         return false;
                     }
@@ -667,7 +667,7 @@ public abstract class OEntityLiving extends OEntity {
 
                     flag = false;
                 } else {
-                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(attacker, this.entity, odamagesource.damageSource, i));
+                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(attacker, this.getEntity(), odamagesource.damageSource, i));
                     if (attacker != null && ev.isCanceled()) {
                         return false;
                     }
@@ -915,7 +915,7 @@ public abstract class OEntityLiving extends OEntity {
 
         if (i > 0) {
             // CanaryMod Damage hook: Falling
-            HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.entity, DamageType.FALL.getDamageSource(), i));
+            HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.FALL.getDamageSource(), i));
             if (!ev.isCanceled()) {
                 if (i > 4) {
                     this.a("damage.fallbig", 1.0F, 1.0F);
