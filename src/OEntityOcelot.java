@@ -137,10 +137,10 @@ public class OEntityOcelot extends OEntityTameable {
                     this.a(oentityplayer.bS);
                     this.i(true);
                     this.d.a(true);
-                    this.q.a(this, (byte) 7);
+                    this.q.a((OEntity) this, (byte) 7);
                 } else {
                     this.i(false);
-                    this.q.a(this, (byte) 6);
+                    this.q.a((OEntity) this, (byte) 6);
                 }
             }
 

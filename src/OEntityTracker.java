@@ -108,13 +108,13 @@ public class OEntityTracker {
         try {
             if (this.c.b(oentity.k)) {
                 throw new IllegalStateException("Entity is already tracked!");
-            } else {
-                OEntityTrackerEntry oentitytrackerentry = new OEntityTrackerEntry(oentity, i, j, flag);
-
-                this.b.add(oentitytrackerentry);
-                this.c.a(oentity.k, oentitytrackerentry);
-                oentitytrackerentry.b(this.a.h);
             }
+
+            OEntityTrackerEntry oentitytrackerentry = new OEntityTrackerEntry(oentity, i, j, flag);
+
+            this.b.add(oentitytrackerentry);
+            this.c.a(oentity.k, oentitytrackerentry);
+            oentitytrackerentry.b(this.a.h);
         } catch (Throwable throwable) {
             OCrashReport ocrashreport = OCrashReport.a(throwable, "Adding entity to track");
             OCrashReportCategory ocrashreportcategory = ocrashreport.a("Entity To Track");
@@ -122,7 +122,16 @@ public class OEntityTracker {
             ocrashreportcategory.a("Tracking range", (i + " blocks"));
             ocrashreportcategory.a("Update interval", (Callable) (new OCallableEntityTracker(this, j)));
             oentity.a(ocrashreportcategory);
-            throw new OReportedException(ocrashreport);
+            OCrashReportCategory ocrashreportcategory1 = ocrashreport.a("Entity That Is Already Tracked");
+
+            ((OEntityTrackerEntry) this.c.a(oentity.k)).a.a(ocrashreportcategory1);
+
+            try {
+                throw new OReportedException(ocrashreport);
+            } catch (OReportedException oreportedexception) {
+                System.err.println("\"Silently\" catching entity tracking error.");
+                oreportedexception.printStackTrace();
+            }
         }
     }
 

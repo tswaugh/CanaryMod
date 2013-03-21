@@ -56,6 +56,10 @@ public class OPotionEffect {
         return this.c;
     }
 
+    public boolean d() {
+        return this.d;
+    }
+
     public void a(boolean flag) {
         this.d = flag;
     }

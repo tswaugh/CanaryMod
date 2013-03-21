@@ -1703,7 +1703,11 @@ public abstract class OWorld implements OIBlockAccess {
     public boolean w(int i, int j, int k) {
         OBlock oblock = OBlock.r[this.a(i, j, k)];
 
-        return oblock == null ? false : (oblock.cO.k() && oblock.b() ? true : (oblock instanceof OBlockStairs ? (this.h(i, j, k) & 4) == 4 : (oblock instanceof OBlockHalfSlab ? (this.h(i, j, k) & 8) == 8 : (oblock instanceof OBlockHopper ? true : (oblock instanceof OBlockSnow ? (this.h(i, j, k) & 7) == 7 : false)))));
+        return this.a(oblock, this.h(i, j, k));
+    }
+
+    public boolean a(OBlock oblock, int i) {
+        return oblock == null ? false : (oblock.cO.k() && oblock.b() ? true : (oblock instanceof OBlockStairs ? (i & 4) == 4 : (oblock instanceof OBlockHalfSlab ? (i & 8) == 8 : (oblock instanceof OBlockHopper ? true : (oblock instanceof OBlockSnow ? (i & 7) == 7 : false)))));
     }
 
     public boolean c(int i, int j, int k, boolean flag) {
@@ -2262,7 +2266,7 @@ public abstract class OWorld implements OIBlockAccess {
         int l1 = i + l;
         int i2 = j + l;
         int j2 = k + l;
-        OChunkCache ochunkcache = new OChunkCache(this, i1, j1, k1, l1, i2, j2);
+        OChunkCache ochunkcache = new OChunkCache(this, i1, j1, k1, l1, i2, j2, 0);
         OPathEntity opathentity = (new OPathFinder(ochunkcache, flag, flag1, flag2, flag3)).a(oentity, oentity1, f);
 
         this.C.b();
@@ -2281,7 +2285,7 @@ public abstract class OWorld implements OIBlockAccess {
         int k2 = l + k1;
         int l2 = i1 + k1;
         int i3 = j1 + k1;
-        OChunkCache ochunkcache = new OChunkCache(this, l1, i2, j2, k2, l2, i3);
+        OChunkCache ochunkcache = new OChunkCache(this, l1, i2, j2, k2, l2, i3, 0);
         OPathEntity opathentity = (new OPathFinder(ochunkcache, flag, flag1, flag2, flag3)).a(oentity, i, j, k, f);
 
         this.C.b();

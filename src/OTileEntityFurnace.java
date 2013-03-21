@@ -2,36 +2,39 @@ import java.util.Arrays;
 
 public class OTileEntityFurnace extends OTileEntity implements OISidedInventory, Container<OItemStack> {
 
-    private OItemStack[] d = new OItemStack[3];
+    private static final int[] d = new int[] { 0};
+    private static final int[] e = new int[] { 2, 1};
+    private static final int[] f = new int[] { 1};
+    private OItemStack[] g = new OItemStack[3];
     public int a = 0;
     public int b = 0;
     public int c = 0;
-    private String e;
+    private String h;
 
     private final Furnace furnace = new Furnace(this); // CanaryMod
 
     public OTileEntityFurnace() {}
 
     public int j_() {
-        return this.d.length;
+        return this.g.length;
     }
 
     public OItemStack a(int i) {
-        return this.d[i];
+        return this.g[i];
     }
 
     public OItemStack a(int i, int j) {
-        if (this.d[i] != null) {
+        if (this.g[i] != null) {
             OItemStack oitemstack;
 
-            if (this.d[i].a <= j) {
-                oitemstack = this.d[i];
-                this.d[i] = null;
+            if (this.g[i].a <= j) {
+                oitemstack = this.g[i];
+                this.g[i] = null;
                 return oitemstack;
             } else {
-                oitemstack = this.d[i].a(j);
-                if (this.d[i].a == 0) {
-                    this.d[i] = null;
+                oitemstack = this.g[i].a(j);
+                if (this.g[i].a == 0) {
+                    this.g[i] = null;
                 }
 
                 return oitemstack;
@@ -42,10 +45,10 @@ public class OTileEntityFurnace extends OTileEntity implements OISidedInventory,
     }
 
     public OItemStack b(int i) {
-        if (this.d[i] != null) {
-            OItemStack oitemstack = this.d[i];
+        if (this.g[i] != null) {
+            OItemStack oitemstack = this.g[i];
 
-            this.d[i] = null;
+            this.g[i] = null;
             return oitemstack;
         } else {
             return null;
@@ -53,7 +56,7 @@ public class OTileEntityFurnace extends OTileEntity implements OISidedInventory,
     }
 
     public void a(int i, OItemStack oitemstack) {
-        this.d[i] = oitemstack;
+        this.g[i] = oitemstack;
         if (oitemstack != null && oitemstack.a > this.d()) {
             oitemstack.a = this.d();
         }
@@ -61,37 +64,37 @@ public class OTileEntityFurnace extends OTileEntity implements OISidedInventory,
     }
 
     public String b() {
-        return this.c() ? this.e : "container.furnace";
+        return this.c() ? this.h : "container.furnace";
     }
 
     public boolean c() {
-        return this.e != null && this.e.length() > 0;
+        return this.h != null && this.h.length() > 0;
     }
 
     public void a(String s) {
-        this.e = s;
+        this.h = s;
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
         super.a(onbttagcompound);
         ONBTTagList onbttaglist = onbttagcompound.m("Items");
 
-        this.d = new OItemStack[this.j_()];
+        this.g = new OItemStack[this.j_()];
 
         for (int i = 0; i < onbttaglist.c(); ++i) {
             ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(i);
             byte b0 = onbttagcompound1.c("Slot");
 
-            if (b0 >= 0 && b0 < this.d.length) {
-                this.d[b0] = OItemStack.a(onbttagcompound1);
+            if (b0 >= 0 && b0 < this.g.length) {
+                this.g[b0] = OItemStack.a(onbttagcompound1);
             }
         }
 
         this.a = onbttagcompound.d("BurnTime");
         this.c = onbttagcompound.d("CookTime");
-        this.b = a(this.d[1]);
+        this.b = a(this.g[1]);
         if (onbttagcompound.b("CustomName")) {
-            this.e = onbttagcompound.i("CustomName");
+            this.h = onbttagcompound.i("CustomName");
         }
     }
 
@@ -101,19 +104,19 @@ public class OTileEntityFurnace extends OTileEntity implements OISidedInventory,
         onbttagcompound.a("CookTime", (short) this.c);
         ONBTTagList onbttaglist = new ONBTTagList();
 
-        for (int i = 0; i < this.d.length; ++i) {
-            if (this.d[i] != null) {
+        for (int i = 0; i < this.g.length; ++i) {
+            if (this.g[i] != null) {
                 ONBTTagCompound onbttagcompound1 = new ONBTTagCompound();
 
                 onbttagcompound1.a("Slot", (byte) i);
-                this.d[i].b(onbttagcompound1);
+                this.g[i].b(onbttagcompound1);
                 onbttaglist.a((ONBTBase) onbttagcompound1);
             }
         }
 
         onbttagcompound.a("Items", (ONBTBase) onbttaglist);
         if (this.c()) {
-            onbttagcompound.a("CustomName", this.e);
+            onbttagcompound.a("CustomName", this.h);
         }
     }
 
@@ -135,15 +138,15 @@ public class OTileEntityFurnace extends OTileEntity implements OISidedInventory,
 
         if (!this.k.I) {
             if (this.a == 0 && this.u()) {
-                this.b = this.a = a(this.d[1]);
+                this.b = this.a = a(this.g[1]);
                 if (this.a > 0) {
                     flag1 = true;
-                    if (this.d[1] != null) {
-                        --this.d[1].a;
-                        if (this.d[1].a == 0) {
-                            OItem oitem = this.d[1].b().s();
+                    if (this.g[1] != null) {
+                        --this.g[1].a;
+                        if (this.g[1].a == 0) {
+                            OItem oitem = this.g[1].b().s();
 
-                            this.d[1] = oitem != null ? new OItemStack(oitem) : null;
+                            this.g[1] = oitem != null ? new OItemStack(oitem) : null;
                         }
                     }
                 }
@@ -173,28 +176,28 @@ public class OTileEntityFurnace extends OTileEntity implements OISidedInventory,
     }
 
     private boolean u() {
-        if (this.d[0] == null) {
+        if (this.g[0] == null) {
             return false;
         } else {
-            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cp);
+            OItemStack oitemstack = OFurnaceRecipes.a().b(this.g[0].b().cp);
 
-            return oitemstack == null ? false : (this.d[2] == null ? true : (!this.d[2].a(oitemstack) ? false : (this.d[2].a < this.d() && this.d[2].a < this.d[2].e() ? true : this.d[2].a < oitemstack.e())));
+            return oitemstack == null ? false : (this.g[2] == null ? true : (!this.g[2].a(oitemstack) ? false : (this.g[2].a < this.d() && this.g[2].a < this.g[2].e() ? true : this.g[2].a < oitemstack.e())));
         }
     }
 
     public void l() {
         if (this.u()) {
-            OItemStack oitemstack = OFurnaceRecipes.a().b(this.d[0].b().cp);
+            OItemStack oitemstack = OFurnaceRecipes.a().b(this.g[0].b().cp);
 
-            if (this.d[2] == null) {
-                this.d[2] = oitemstack.m();
-            } else if (this.d[2].c == oitemstack.c) {
-                ++this.d[2].a;
+            if (this.g[2] == null) {
+                this.g[2] = oitemstack.m();
+            } else if (this.g[2].c == oitemstack.c) {
+                ++this.g[2].a;
             }
 
-            --this.d[0].a;
-            if (this.d[0].a <= 0) {
-                this.d[0] = null;
+            --this.g[0].a;
+            if (this.g[0].a <= 0) {
+                this.g[0] = null;
             }
 
         }
@@ -239,22 +242,26 @@ public class OTileEntityFurnace extends OTileEntity implements OISidedInventory,
         return i == 2 ? false : (i == 1 ? b(oitemstack) : true);
     }
 
-    public int c(int i) {
-        return i == 0 ? 2 : (i == 1 ? 0 : 1);
+    public int[] c(int i) {
+        return i == 0 ? e : (i == 1 ? d : f);
     }
 
-    public int d(int i) {
-        return 1;
+    public boolean a(int i, OItemStack oitemstack, int j) {
+        return this.b(i, oitemstack);
+    }
+
+    public boolean b(int i, OItemStack oitemstack, int j) {
+        return j != 0 || i != 1 || oitemstack.c == OItem.ax.cp;
     }
 
     @Override
     public OItemStack[] getContents() {
-        return Arrays.copyOf(this.d, this.getContentsSize());
+        return Arrays.copyOf(this.g, this.getContentsSize());
     }
 
     @Override
     public void setContents(OItemStack[] aoitemstack) {
-        this.d = Arrays.copyOf(aoitemstack, this.getContentsSize());
+        this.g = Arrays.copyOf(aoitemstack, this.getContentsSize());
     }
 
     @Override

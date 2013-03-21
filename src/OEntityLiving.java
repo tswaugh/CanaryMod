@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
 
 public abstract class OEntityLiving extends OEntity {
 
@@ -699,7 +700,7 @@ public abstract class OEntityLiving extends OEntity {
                 }
 
                 if (flag) {
-                    this.q.a(this, (byte) 2);
+                    this.q.a((OEntity) this, (byte) 2);
                     if (odamagesource != ODamageSource.e) {
                         this.J();
                     }
@@ -883,7 +884,7 @@ public abstract class OEntityLiving extends OEntity {
             }
         }
 
-        this.q.a(this, (byte) 3);
+        this.q.a((OEntity) this, (byte) 3);
     }
 
     protected void l(int i) {}
@@ -1599,13 +1600,26 @@ public abstract class OEntityLiving extends OEntity {
             Integer integer = (Integer) iterator.next();
             OPotionEffect opotioneffect = (OPotionEffect) this.bn.get(integer);
 
-            if (!opotioneffect.a(this)) {
-                if (!this.q.I) {
-                    this.bn.remove(integer); //CanaryMod: changed from iterator.remove() to coincide with cloning
-                    this.c(opotioneffect);
+            try {
+                if (!opotioneffect.a(this)) {
+                    if (!this.q.I) {
+                        this.bn.remove(integer); //CanaryMod: changed from iterator.remove() to coincide with cloning
+                        this.c(opotioneffect);
+                    }
+                } else if (opotioneffect.b() % 600 == 0) {
+                    this.b(opotioneffect);
                 }
-            } else if (opotioneffect.b() % 600 == 0) {
-                this.b(opotioneffect);
+            } catch (Throwable throwable) {
+                OCrashReport ocrashreport = OCrashReport.a(throwable, "Ticking mob effect instance");
+                OCrashReportCategory ocrashreportcategory = ocrashreport.a("Mob effect being ticked");
+
+                ocrashreportcategory.a("Effect Name", (Callable) (new OCallableEffectName(this, opotioneffect)));
+                ocrashreportcategory.a("Effect ID", (Callable) (new OCallableEffectID(this, opotioneffect)));
+                ocrashreportcategory.a("Effect Duration", (Callable) (new OCallableEffectDuration(this, opotioneffect)));
+                ocrashreportcategory.a("Effect Amplifier", (Callable) (new OCallableEffectAmplifier(this, opotioneffect)));
+                ocrashreportcategory.a("Effect is Splash", (Callable) (new OCallableEffectIsSplash(this, opotioneffect)));
+                ocrashreportcategory.a("Effect is Ambient", (Callable) (new OCallableEffectIsAmbient(this, opotioneffect)));
+                throw new OReportedException(ocrashreport);
             }
         }
 

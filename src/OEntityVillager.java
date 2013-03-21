@@ -95,7 +95,7 @@ public class OEntityVillager extends OEntityAgeable implements OINpc, OIMerchant
                     this.t(1);
                     this.bK = false;
                     if (this.d != null && this.bM != null) {
-                        this.q.a(this, (byte) 14);
+                        this.q.a((OEntity) this, (byte) 14);
                         this.d.a(this.bM, 1);
                     }
                 }
@@ -210,7 +210,7 @@ public class OEntityVillager extends OEntityAgeable implements OINpc, OIMerchant
 
                 this.d.a(((OEntityPlayer) oentityliving).c_(), b0);
                 if (this.R()) {
-                    this.q.a(this, (byte) 13);
+                    this.q.a((OEntity) this, (byte) 13);
                 }
             }
         }

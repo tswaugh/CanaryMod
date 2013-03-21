@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class OTileEntityHopper extends OTileEntity implements OHopper , Container<OItemStack> {
+public class OTileEntityHopper extends OTileEntity implements OHopper, Container<OItemStack> {
 
     private OItemStack[] a = new OItemStack[5];
     private String b;
@@ -145,7 +145,7 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
         if (this.k != null && !this.k.I) {
             if (!this.l() && OBlockHopper.d(this.p())) {
                 boolean flag = this.u() | a((OHopper) this);
-                
+
                 if (flag) {
                     this.c(8);
                     this.k_();
@@ -160,64 +160,54 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
     }
 
     private boolean u() {
-        int i = a(this, -1);
-        boolean flag = false;
+        OIInventory oiinventory = this.v();
 
-        if (i > -1) {
-            OIInventory oiinventory = this.v();
+        if (oiinventory == null) {
+            return false;
+        } else {
+            for (int i = 0; i < this.j_(); ++i) {
+                if (this.a(i) != null) {
+                    OItemStack oitemstack = this.a(i).m();
+                    // CanaryMod: Hopper Transfer hook
+                    if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, hopper, new Item(oitemstack), false)) {
+                        return false;
+                    } //
+                    OItemStack oitemstack1 = a(oiinventory, this.a(i, 1), OFacing.a[OBlockHopper.c(this.p())]);
 
-            if (oiinventory != null) {
-                OItemStack oitemstack = this.a(i).m();
-                // CanaryMod: Hopper Transfer hook
-                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, hopper, new Item(oitemstack), false)) {
-                    return false;
-                }//
-                OItemStack oitemstack1 = a(oiinventory, this.a(i, 1), OFacing.a[OBlockHopper.c(this.p())]);
-                
-                if (oitemstack1 != null && oitemstack1.a != 0) {
+                    if (oitemstack1 == null || oitemstack1.a == 0) {
+                        oiinventory.k_();
+                        return true;
+                    }
+
                     this.a(i, oitemstack);
-                } else {
-                    flag |= true;
-                    oiinventory.k_();
                 }
             }
-        }
 
-        return flag;
+            return false;
+        }
     }
 
     public static boolean a(OHopper ohopper) {
-        boolean flag = false;
         OIInventory oiinventory = b(ohopper);
-        
+
         if (oiinventory != null) {
             byte b0 = 0;
-            int i = 0;
-            int j = oiinventory.j_();
 
             if (oiinventory instanceof OISidedInventory && b0 > -1) {
                 OISidedInventory oisidedinventory = (OISidedInventory) oiinventory;
+                int[] aint = oisidedinventory.c(b0);
 
-                i = oisidedinventory.c(b0);
-                j = Math.min(j, i + oisidedinventory.d(b0));
-            }
+                for (int i = 0; i < aint.length; ++i) {
+                    if (a(ohopper, oiinventory, aint[i], b0)) {
+                        return true;
+                    }
+                }
+            } else {
+                int j = oiinventory.j_();
 
-            for (int k = i; k < j && !flag; ++k) {
-                OItemStack oitemstack = oiinventory.a(k);
-
-                if (oitemstack != null) {
-                    OItemStack oitemstack1 = oitemstack.m();
-                    // CanaryMod: Hopper Transfer hook
-                    if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, ((OTileEntityHopper)ohopper).hopper, new Item(oitemstack1), true)) {     
-                        return false;
-                    }//
-                    OItemStack oitemstack2 = a(ohopper, oiinventory.a(k, 1), -1);
-
-                    if (oitemstack2 != null && oitemstack2.a != 0) {
-                        oiinventory.a(k, oitemstack1);
-                    } else {
-                        flag |= true;
-                        oiinventory.k_();
+                for (int k = 0; k < j; ++k) {
+                    if (a(ohopper, oiinventory, k, b0)) {
+                        return true;
                     }
                 }
             }
@@ -225,11 +215,34 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
             OEntityItem oentityitem = a(ohopper.az(), ohopper.aA(), ohopper.aB() + 1.0D, ohopper.aC());
 
             if (oentityitem != null) {
-                flag |= a((OIInventory) ohopper, oentityitem);
+                return a((OIInventory) ohopper, oentityitem);
             }
         }
 
-        return flag;
+        return false;
+    }
+
+    private static boolean a(OHopper ohopper, OIInventory oiinventory, int i, int j) {
+        OItemStack oitemstack = oiinventory.a(i);
+
+        if (oitemstack != null && b(oiinventory, oitemstack, i, j)) {
+            OItemStack oitemstack1 = oitemstack.m();
+            // CanaryMod: Hopper Transfer hook.
+            // XXX: made an assumption about ohopper being an OTileEntityHopper instance, which is true at the time of writing.
+            if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, ((OTileEntityHopper) ohopper).hopper, new Item(oitemstack), true)) {
+                return false;
+            } //
+            OItemStack oitemstack2 = a(ohopper, oiinventory.a(i, 1), -1);
+
+            if (oitemstack2 == null || oitemstack2.a == 0) {
+                oiinventory.k_();
+                return true;
+            }
+
+            oiinventory.a(i, oitemstack1);
+        }
+
+        return false;
     }
 
     public static boolean a(OIInventory oiinventory, OEntityItem oentityitem) {
@@ -252,68 +265,63 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
         }
     }
 
-    public static int a(OIInventory oiinventory, int i) {
-        int j = 0;
-        int k = oiinventory.j_();
-
-        if (oiinventory instanceof OISidedInventory && i > -1) {
-            OISidedInventory oisidedinventory = (OISidedInventory) oiinventory;
-
-            j = oisidedinventory.c(i);
-            k = Math.min(k, j + oisidedinventory.d(i));
-        }
-
-        for (int l = j; l < k; ++l) {
-            if (oiinventory.a(l) != null) {
-                return l;
-            }
-        }
-
-        return -1;
-    }
-
     public static OItemStack a(OIInventory oiinventory, OItemStack oitemstack, int i) {
-        int j = 0;
-        int k = oiinventory.j_();
-
         if (oiinventory instanceof OISidedInventory && i > -1) {
             OISidedInventory oisidedinventory = (OISidedInventory) oiinventory;
+            int[] aint = oisidedinventory.c(i);
 
-            j = oisidedinventory.c(i);
-            k = Math.min(k, j + oisidedinventory.d(i));
-        }
+            for (int j = 0; j < aint.length && oitemstack != null && oitemstack.a > 0; ++j) {
+                oitemstack = c(oiinventory, oitemstack, aint[j], i);
+            }
+        } else {
+            int k = oiinventory.j_();
 
-        for (int l = j; l < k && oitemstack != null && oitemstack.a > 0; ++l) {
-            OItemStack oitemstack1 = oiinventory.a(l);
-
-            if (oiinventory.b(l, oitemstack)) {
-                boolean flag = false;
-
-                if (oitemstack1 == null) {
-                    oiinventory.a(l, oitemstack);
-                    oitemstack = null;
-                    flag = true;
-                } else if (a(oitemstack1, oitemstack)) {
-                    int i1 = oitemstack.e() - oitemstack1.a;
-                    int j1 = Math.min(oitemstack.a, i1);
-
-                    oitemstack.a -= j1;
-                    oitemstack1.a += j1;
-                    flag = j1 > 0;
-                }
-
-                if (flag) {
-                    if (oiinventory instanceof OTileEntityHopper) {
-                        ((OTileEntityHopper) oiinventory).c(8);
-                    }
-
-                    oiinventory.k_();
-                }
+            for (int l = 0; l < k && oitemstack != null && oitemstack.a > 0; ++l) {
+                oitemstack = c(oiinventory, oitemstack, l, i);
             }
         }
 
         if (oitemstack != null && oitemstack.a == 0) {
             oitemstack = null;
+        }
+
+        return oitemstack;
+    }
+
+    private static boolean a(OIInventory oiinventory, OItemStack oitemstack, int i, int j) {
+        return !oiinventory.b(i, oitemstack) ? false : !(oiinventory instanceof OISidedInventory) || ((OISidedInventory) oiinventory).a(i, oitemstack, j);
+    }
+
+    private static boolean b(OIInventory oiinventory, OItemStack oitemstack, int i, int j) {
+        return !(oiinventory instanceof OISidedInventory) || ((OISidedInventory) oiinventory).b(i, oitemstack, j);
+    }
+
+    private static OItemStack c(OIInventory oiinventory, OItemStack oitemstack, int i, int j) {
+        OItemStack oitemstack1 = oiinventory.a(i);
+
+        if (a(oiinventory, oitemstack, i, j)) {
+            boolean flag = false;
+
+            if (oitemstack1 == null) {
+                oiinventory.a(i, oitemstack);
+                oitemstack = null;
+                flag = true;
+            } else if (a(oitemstack1, oitemstack)) {
+                int k = oitemstack.e() - oitemstack1.a;
+                int l = Math.min(oitemstack.a, k);
+
+                oitemstack.a -= l;
+                oitemstack1.a += l;
+                flag = l > 0;
+            }
+
+            if (flag) {
+                if (oiinventory instanceof OTileEntityHopper) {
+                    ((OTileEntityHopper) oiinventory).c(8);
+                }
+
+                oiinventory.k_();
+            }
         }
 
         return oitemstack;
@@ -340,19 +348,16 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
         int i = OMathHelper.c(d0);
         int j = OMathHelper.c(d1);
         int k = OMathHelper.c(d2);
+        OTileEntity otileentity = oworld.r(i, j, k);
 
-        if (oiinventory == null) {
-            OTileEntity otileentity = oworld.r(i, j, k);
+        if (otileentity != null && otileentity instanceof OIInventory) {
+            oiinventory = (OIInventory) otileentity;
+            if (oiinventory instanceof OTileEntityChest) {
+                int l = oworld.a(i, j, k);
+                OBlock oblock = OBlock.r[l];
 
-            if (otileentity != null && otileentity instanceof OIInventory) {
-                oiinventory = (OIInventory) otileentity;
-                if (oiinventory instanceof OTileEntityChest) {
-                    int l = oworld.a(i, j, k);
-                    OBlock oblock = OBlock.r[l];
-
-                    if (oblock instanceof OBlockChest) {
-                        oiinventory = ((OBlockChest) oblock).g_(oworld, i, j, k);
-                    }
+                if (oblock instanceof OBlockChest) {
+                    oiinventory = ((OBlockChest) oblock).g_(oworld, i, j, k);
                 }
             }
         }

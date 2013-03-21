@@ -17,13 +17,13 @@ import java.util.zip.CRC32;
 
 public class Main {
 
-    public static final long   minecraft_server = 0x3e4fb664L;
+    public static final long   minecraft_server = 0x68e18cf4L;
 
-    public static final long[] minecraft_servero = {0x35693602L, 0xb88d980dL};
+    public static final long[] minecraft_servero = {0xb87fd468L, 0x8eafb753L};
 
     public static final long   mysql = 0xb2e59524L;
     public static final long   jarjar = 0x4e724d4dL;
-    public static final long   rules = 0xd277c57eL;
+    public static final long   rules = 0xd809724dL;
 
     public static final Logger log = Logger.getLogger("Minecraft");
 

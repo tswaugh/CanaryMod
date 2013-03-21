@@ -3,54 +3,56 @@ import java.util.List;
 
 public class OTileEntityBrewingStand extends OTileEntity implements OISidedInventory, Container<OItemStack> {
 
-    private OItemStack[] a = new OItemStack[4];
-    private int b;
-    private int c;
+    private static final int[] a = new int[] { 3};
+    private static final int[] b = new int[] { 0, 1, 2};
+    private OItemStack[] c = new OItemStack[4];
     private int d;
-    private String e;
+    private int e;
+    private int f;
+    private String g;
 
     private final BrewingStand stand = new BrewingStand(this); // CanaryMod
 
     public OTileEntityBrewingStand() {}
 
     public String b() {
-        return this.c() ? this.e : "container.brewing";
+        return this.c() ? this.g : "container.brewing";
     }
 
     public boolean c() {
-        return this.e != null && this.e.length() > 0;
+        return this.g != null && this.g.length() > 0;
     }
 
     public void a(String s) {
-        this.e = s;
+        this.g = s;
     }
 
     public int j_() {
-        return this.a.length;
+        return this.c.length;
     }
 
     public void h() {
-        if (this.b > 0) {
-            --this.b;
-            if (this.b == 0) {
+        if (this.d > 0) {
+            --this.d;
+            if (this.d == 0) {
                 this.u();
                 this.k_();
             } else if (!this.l()) {
-                this.b = 0;
+                this.d = 0;
                 this.k_();
-            } else if (this.d != this.a[3].c) {
-                this.b = 0;
+            } else if (this.f != this.c[3].c) {
+                this.d = 0;
                 this.k_();
             }
         } else if (this.l()) {
-            this.b = 400;
-            this.d = this.a[3].c;
+            this.d = 400;
+            this.f = this.c[3].c;
         }
 
         int i = this.j();
 
-        if (i != this.c) {
-            this.c = i;
+        if (i != this.e) {
+            this.e = i;
             this.k.b(this.l, this.m, this.n, i, 2);
         }
 
@@ -58,12 +60,12 @@ public class OTileEntityBrewingStand extends OTileEntity implements OISidedInven
     }
 
     public int x_() {
-        return this.b;
+        return this.d;
     }
 
     private boolean l() {
-        if (this.a[3] != null && this.a[3].a > 0) {
-            OItemStack oitemstack = this.a[3];
+        if (this.c[3] != null && this.c[3].a > 0) {
+            OItemStack oitemstack = this.c[3];
 
             if (!OItem.f[oitemstack.c].w()) {
                 return false;
@@ -71,8 +73,8 @@ public class OTileEntityBrewingStand extends OTileEntity implements OISidedInven
                 boolean flag = false;
 
                 for (int i = 0; i < 3; ++i) {
-                    if (this.a[i] != null && this.a[i].c == OItem.bt.cp) {
-                        int j = this.a[i].k();
+                    if (this.c[i] != null && this.c[i].c == OItem.bt.cp) {
+                        int j = this.c[i].k();
                         int k = this.c(j, oitemstack);
 
                         if (!OItemPotion.f(j) && OItemPotion.f(k)) {
@@ -99,31 +101,31 @@ public class OTileEntityBrewingStand extends OTileEntity implements OISidedInven
 
     private void u() {
         if (this.l()) {
-            OItemStack oitemstack = this.a[3];
+            OItemStack oitemstack = this.c[3];
 
             for (int i = 0; i < 3; ++i) {
-                if (this.a[i] != null && this.a[i].c == OItem.bt.cp) {
-                    int j = this.a[i].k();
+                if (this.c[i] != null && this.c[i].c == OItem.bt.cp) {
+                    int j = this.c[i].k();
                     int k = this.c(j, oitemstack);
                     List list = OItem.bt.c(j);
                     List list1 = OItem.bt.c(k);
 
                     if ((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null)) {
                         if (j != k) {
-                            this.a[i].b(k);
+                            this.c[i].b(k);
                         }
                     } else if (!OItemPotion.f(j) && OItemPotion.f(k)) {
-                        this.a[i].b(k);
+                        this.c[i].b(k);
                     }
                 }
             }
 
             if (OItem.f[oitemstack.c].t()) {
-                this.a[3] = new OItemStack(OItem.f[oitemstack.c].s());
+                this.c[3] = new OItemStack(OItem.f[oitemstack.c].s());
             } else {
-                --this.a[3].a;
-                if (this.a[3].a <= 0) {
-                    this.a[3] = null;
+                --this.c[3].a;
+                if (this.c[3].a <= 0) {
+                    this.c[3] = null;
                 }
             }
         }
@@ -137,53 +139,53 @@ public class OTileEntityBrewingStand extends OTileEntity implements OISidedInven
         super.a(onbttagcompound);
         ONBTTagList onbttaglist = onbttagcompound.m("Items");
 
-        this.a = new OItemStack[this.j_()];
+        this.c = new OItemStack[this.j_()];
 
         for (int i = 0; i < onbttaglist.c(); ++i) {
             ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(i);
             byte b0 = onbttagcompound1.c("Slot");
 
-            if (b0 >= 0 && b0 < this.a.length) {
-                this.a[b0] = OItemStack.a(onbttagcompound1);
+            if (b0 >= 0 && b0 < this.c.length) {
+                this.c[b0] = OItemStack.a(onbttagcompound1);
             }
         }
 
-        this.b = onbttagcompound.d("BrewTime");
+        this.d = onbttagcompound.d("BrewTime");
         if (onbttagcompound.b("CustomName")) {
-            this.e = onbttagcompound.i("CustomName");
+            this.g = onbttagcompound.i("CustomName");
         }
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
         super.b(onbttagcompound);
-        onbttagcompound.a("BrewTime", (short) this.b);
+        onbttagcompound.a("BrewTime", (short) this.d);
         ONBTTagList onbttaglist = new ONBTTagList();
 
-        for (int i = 0; i < this.a.length; ++i) {
-            if (this.a[i] != null) {
+        for (int i = 0; i < this.c.length; ++i) {
+            if (this.c[i] != null) {
                 ONBTTagCompound onbttagcompound1 = new ONBTTagCompound();
 
                 onbttagcompound1.a("Slot", (byte) i);
-                this.a[i].b(onbttagcompound1);
+                this.c[i].b(onbttagcompound1);
                 onbttaglist.a((ONBTBase) onbttagcompound1);
             }
         }
 
         onbttagcompound.a("Items", (ONBTBase) onbttaglist);
         if (this.c()) {
-            onbttagcompound.a("CustomName", this.e);
+            onbttagcompound.a("CustomName", this.g);
         }
     }
 
     public OItemStack a(int i) {
-        return i >= 0 && i < this.a.length ? this.a[i] : null;
+        return i >= 0 && i < this.c.length ? this.c[i] : null;
     }
 
     public OItemStack a(int i, int j) {
-        if (i >= 0 && i < this.a.length) {
-            OItemStack oitemstack = this.a[i];
+        if (i >= 0 && i < this.c.length) {
+            OItemStack oitemstack = this.c[i];
 
-            this.a[i] = null;
+            this.c[i] = null;
             return oitemstack;
         } else {
             return null;
@@ -191,10 +193,10 @@ public class OTileEntityBrewingStand extends OTileEntity implements OISidedInven
     }
 
     public OItemStack b(int i) {
-        if (i >= 0 && i < this.a.length) {
-            OItemStack oitemstack = this.a[i];
+        if (i >= 0 && i < this.c.length) {
+            OItemStack oitemstack = this.c[i];
 
-            this.a[i] = null;
+            this.c[i] = null;
             return oitemstack;
         } else {
             return null;
@@ -202,8 +204,8 @@ public class OTileEntityBrewingStand extends OTileEntity implements OISidedInven
     }
 
     public void a(int i, OItemStack oitemstack) {
-        if (i >= 0 && i < this.a.length) {
-            this.a[i] = oitemstack;
+        if (i >= 0 && i < this.c.length) {
+            this.c[i] = oitemstack;
         }
     }
 
@@ -227,7 +229,7 @@ public class OTileEntityBrewingStand extends OTileEntity implements OISidedInven
         int i = 0;
 
         for (int j = 0; j < 3; ++j) {
-            if (this.a[j] != null) {
+            if (this.c[j] != null) {
                 i |= 1 << j;
             }
         }
@@ -235,22 +237,26 @@ public class OTileEntityBrewingStand extends OTileEntity implements OISidedInven
         return i;
     }
 
-    public int c(int i) {
-        return i == 1 ? 3 : 0;
+    public int[] c(int i) {
+        return i == 1 ? a : b;
     }
 
-    public int d(int i) {
-        return i == 1 ? 1 : 3;
+    public boolean a(int i, OItemStack oitemstack, int j) {
+        return this.b(i, oitemstack);
+    }
+
+    public boolean b(int i, OItemStack oitemstack, int j) {
+        return true;
     }
 
     @Override
     public OItemStack[] getContents() {
-        return Arrays.copyOf(this.a, this.getContentsSize());
+        return Arrays.copyOf(this.c, this.getContentsSize());
     }
 
     @Override
     public void setContents(OItemStack[] aoitemstack) {
-        this.a = Arrays.copyOf(aoitemstack, this.getContentsSize());
+        this.c = Arrays.copyOf(aoitemstack, this.getContentsSize());
     }
 
     @Override

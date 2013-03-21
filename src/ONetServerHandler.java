@@ -909,7 +909,7 @@ public class ONetServerHandler extends ONetHandler {
         for (Iterator iterator = this.d.a((OICommandSender) this.c, opacket203autocomplete.d()).iterator(); iterator.hasNext(); stringbuilder.append(s)) {
             s = (String) iterator.next();
             if (stringbuilder.length() > 0) {
-                stringbuilder.append(");
+                stringbuilder.append("\u0000");
             }
         }
 

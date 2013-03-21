@@ -143,13 +143,13 @@ public class ONetLoginHandler extends ONetHandler {
                 for (Iterator iterator = list.iterator(); iterator.hasNext(); s = s + object.toString().replaceAll("\u0000", "")) {
                     object = iterator.next();
                     if (s == null) {
-                        s = "\u00A7";
+                        s = "\u00a7";
                     } else {
                         s = s + "\u0000";
                     }
                 }
             } else {
-                s = this.e.aa() + "\u00A7" + oserverconfigurationmanager.k() + "\u00A7" + oserverconfigurationmanager.l();
+                s = this.e.aa() + "\u00a7" + oserverconfigurationmanager.k() + "\u00a7" + oserverconfigurationmanager.l();
             }
 
             InetAddress inetaddress = null;

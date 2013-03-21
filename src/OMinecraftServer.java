@@ -605,7 +605,7 @@ public abstract class OMinecraftServer implements OICommandSender, Runnable, OIP
     }
 
     public String x() {
-        return "1.5";
+        return "1.5.1";
     }
 
     public int y() {
