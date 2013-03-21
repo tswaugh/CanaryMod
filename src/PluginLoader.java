@@ -394,7 +394,7 @@ public class PluginLoader {
          */
         HANGING_ENTITY_DESTROYED,//
         /**
-         * Calls{@link PluginListener#onHopperTransfer(Hopper, Item) }
+         * Calls{@link PluginListener#onHopperTransfer(Hopper, Item, boolean) }
          */
         HOPPER_TRANSFER,//
         /**
@@ -1384,7 +1384,7 @@ public class PluginLoader {
                             break;
 
                         case HOPPER_TRANSFER:
-                            toRet = listener.onHopperTransfer((Hopper) parameters[0], (Item) parameters[1]);
+                            toRet = listener.onHopperTransfer((Hopper) parameters[0], (Item) parameters[1], (Boolean) parameters[2]);
                             break;
                             
                         }

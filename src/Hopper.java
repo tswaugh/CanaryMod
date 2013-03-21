@@ -11,60 +11,75 @@ public class Hopper extends BaseContainerBlock<OTileEntityHopper> implements Com
         this(null, hopper);
     }
 
-    public Hopper(OContainer oContainer, OTileEntityHopper hopper){
+    public Hopper(OContainer oContainer, OTileEntityHopper hopper) {
         super(oContainer, hopper, "Hopper");
         this.hopper = hopper;
     }
 
     /**
-     * Gets the BaseContainerBlock above the hopper.
+     * Gets the BaseContainerBlock inputting to the hopper.
      * @return the Block or null if none.
      */
-    public BaseContainerBlock getAboveContainer(){
-        ComplexBlock cb = hopper.az().world.getOnlyComplexBlock((int)container.aA(), (int)container.aB()+1, (int)container.aC());
-        if(cb != null){
-            if(cb instanceof BaseContainerBlock){
-                return (BaseContainerBlock)cb;
-            }
-        }
-        return null;
+    public BaseContainerBlock getInputContainer() {
+        return this.getBaseContainerBlock(hopper.getInputInventory());
     }
 
     /**
-     * Gets the BaseContainerBlock below the hopper.
+     * Gets the BaseContainerBlock the hopper outputs to.
      * @return the Block or null if none.
      */
-    public BaseContainerBlock getBelowContainer(){
-        ComplexBlock cb = hopper.az().world.getOnlyComplexBlock((int)container.aA(), (int)container.aB()-1, (int)container.aC());
-        if(cb != null){
-            if(cb instanceof BaseContainerBlock){
-                return (BaseContainerBlock)cb;
-            }
+    public BaseContainerBlock getOutputContainer() {
+        return this.getBaseContainerBlock(hopper.getOutputInventory());
+    }
+
+    /**
+     * Check if this hopper is connected to any Container either input or output.
+     * @return true - it is connected<br>false - it is not connected
+     */
+    public boolean isConnected() {
+        return (this.isInputConnected() && this.isOutputConnected());
+    }
+
+    /**
+     * Check if the block this hopper inputs from is a Container.
+     * @return true - it is connected<br>false - it is not connected
+     */
+    public boolean isInputConnected() {
+        return this.getInputContainer() != null;
+    }
+
+    /**
+     * Check if the block this hopper outputs to is a Container.
+     * @return true - it is connected<br>false - it is not connected
+     */
+    public boolean isOutputConnected() {
+        return this.getOutputContainer() != null;
+    }
+    
+    /**
+     * Gets the BaseContainerBlock from the inventory instance.
+     * @param inventory
+     * @return 
+     */
+    private BaseContainerBlock getBaseContainerBlock(OIInventory inventory){
+        if (inventory instanceof OTileEntityBeacon) {
+            return new Beacon((OTileEntityBeacon)inventory);
+        }
+        else if (inventory instanceof OTileEntityBrewingStand) {
+            return new BrewingStand((OTileEntityBrewingStand)inventory);
+        }
+        else if (inventory instanceof OTileEntityChest) {
+            return new Chest((OTileEntityChest)inventory);
+        }
+        else if (inventory instanceof OTileEntityDispenser) {
+            return new Dispenser((OTileEntityDispenser)inventory);
+        }
+        else if (inventory instanceof OTileEntityFurnace) {
+            return new Furnace((OTileEntityFurnace)inventory);
+        }
+        else if (inventory instanceof OTileEntityHopper) {
+            return new Hopper((OTileEntityHopper)inventory);
         }
         return null;
-    }
-
-    /**
-     * Check if this hopper is connected to any Container either above or below.
-     * @return true - it is connected<br>false - it is not connected
-     */
-    public boolean isConnected(){
-        return (this.isAboveConnected() && this.isBelowConnected());
-    }
-
-    /**
-     * Check if the block above this hopper is a Container.
-     * @return true - it is connected<br>false - it is not connected
-     */
-    public boolean isAboveConnected(){
-        return this.getAboveContainer() != null;
-    }
-
-    /**
-     * Check if the block below this hopper is a Container.
-     * @return true - it is connected<br>false - it is not connected
-     */
-    public boolean isBelowConnected(){
-        return this.getBelowContainer() != null;
     }
 }

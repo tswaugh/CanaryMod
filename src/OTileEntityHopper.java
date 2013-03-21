@@ -169,7 +169,7 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
             if (oiinventory != null) {
                 OItemStack oitemstack = this.a(i).m();
                 // CanaryMod: Hopper Transfer hook
-                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, hopper, new Item(oitemstack))) {
+                if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, hopper, new Item(oitemstack), false)) {
                     return false;
                 }//
                 OItemStack oitemstack1 = a(oiinventory, this.a(i, 1), OFacing.a[OBlockHopper.c(this.p())]);
@@ -208,7 +208,7 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
                 if (oitemstack != null) {
                     OItemStack oitemstack1 = oitemstack.m();
                     // CanaryMod: Hopper Transfer hook
-                    if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, ((OTileEntityHopper)ohopper).hopper, new Item(oitemstack1))) {     
+                    if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, ((OTileEntityHopper)ohopper).hopper, new Item(oitemstack1), true)) {     
                         return false;
                     }//
                     OItemStack oitemstack2 = a(ohopper, oiinventory.a(k, 1), -1);
@@ -425,5 +425,13 @@ public class OTileEntityHopper extends OTileEntity implements OHopper , Containe
     @Override
     public void setName(String s) {
         this.a(s);
+    }
+    
+    public OIInventory getInputInventory(){
+        return b(this);
+    }
+    
+    public OIInventory getOutputInventory(){
+        return this.v();
     }
 }

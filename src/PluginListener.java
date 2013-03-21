@@ -1423,11 +1423,13 @@ public class PluginListener {
     
     /**
      * Called when a hopper tries to Transfer an item
-     * @param hopper
-     * @param itemTransfered
+     * @param hopper hopper involved with this trasnfer
+     * @param itemTransfered item being transferred
+     * @param transferIn true - the item is being transferred into the hopper<br>
+     * false - the item is being transferred out of the hopper
      * @return 
      */
-    public boolean onHopperTransfer(Hopper hopper, Item itemTransfered) {
+    public boolean onHopperTransfer(Hopper hopper, Item itemTransfered, boolean transferIn) {
         return false;
     }
 
