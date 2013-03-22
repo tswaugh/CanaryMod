@@ -1,4 +1,3 @@
-
 /**
  * Wrapper class for hoppers.
  * @author Somners
@@ -17,18 +16,18 @@ public class Hopper extends BaseContainerBlock<OTileEntityHopper> implements Com
     }
 
     /**
-     * Gets the BaseContainerBlock inputting to the hopper.
-     * @return the Block or null if none.
+     * Gets the Inventory inputting to the hopper.
+     * @return the Inventory or null if none.
      */
-    public BaseContainerBlock getInputContainer() {
+    public Inventory getInputContainer() {
         return this.getBaseContainerBlock(hopper.getInputInventory());
     }
 
     /**
-     * Gets the BaseContainerBlock the hopper outputs to.
-     * @return the Block or null if none.
+     * Gets the Inventory the hopper outputs to.
+     * @return the Inventory or null if none.
      */
-    public BaseContainerBlock getOutputContainer() {
+    public Inventory getOutputContainer() {
         return this.getBaseContainerBlock(hopper.getOutputInventory());
     }
 
@@ -55,31 +54,20 @@ public class Hopper extends BaseContainerBlock<OTileEntityHopper> implements Com
     public boolean isOutputConnected() {
         return this.getOutputContainer() != null;
     }
-    
+
     /**
-     * Gets the BaseContainerBlock from the inventory instance.
-     * @param inventory
-     * @return 
+     * Gets the Inventory from the inventory instance.
+     * @param oiinventory OIInventory instance to get Inventory wrapper for.
+     * @return The inventory or null if none.
      */
-    private BaseContainerBlock getBaseContainerBlock(OIInventory inventory){
-        if (inventory instanceof OTileEntityBeacon) {
-            return new Beacon((OTileEntityBeacon)inventory);
+    private Inventory getBaseContainerBlock(OIInventory oiinventory){
+        if (oiinventory instanceof OTileEntity) {
+            return (Inventory) ((OTileEntity) oiinventory).getComplexBlock();
+        } else if (oiinventory instanceof OInventoryLargeChest) {
+            return new DoubleChest((OInventoryLargeChest) oiinventory);
         }
-        else if (inventory instanceof OTileEntityBrewingStand) {
-            return new BrewingStand((OTileEntityBrewingStand)inventory);
+        else {
+            return null;
         }
-        else if (inventory instanceof OTileEntityChest) {
-            return new Chest((OTileEntityChest)inventory);
-        }
-        else if (inventory instanceof OTileEntityDispenser) {
-            return new Dispenser((OTileEntityDispenser)inventory);
-        }
-        else if (inventory instanceof OTileEntityFurnace) {
-            return new Furnace((OTileEntityFurnace)inventory);
-        }
-        else if (inventory instanceof OTileEntityHopper) {
-            return new Hopper((OTileEntityHopper)inventory);
-        }
-        return null;
     }
 }
