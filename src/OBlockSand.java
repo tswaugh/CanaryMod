@@ -13,7 +13,7 @@ public class OBlockSand extends OBlock {
         super(i, omaterial);
     }
 
-    public void g(OWorld oworld, int i, int j, int k) {
+    public void a(OWorld oworld, int i, int j, int k) {
         // CanaryMod: Physics
         if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.BLOCK_PHYSICS, oworld.world.getBlockAt(i, j, k), true)) {
             oworld.a(i, j, k, this.cz, this.a(oworld));
