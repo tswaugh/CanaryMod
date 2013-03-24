@@ -341,7 +341,11 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
             }
             // We still have slots, but no stack, create a new stack.
             if (this.getEmptySlot() != -1) {
-                this.addItem(new Item(item.getItemId(), amount, -1, item.getDamage()));
+                NBTTagCompound nbt = new NBTTagCompound();
+                item.getBaseItem().b(nbt.getBaseTag());
+                Item tempItem = new Item(item.getItemId(), amount, -1, item.getDamage());
+                tempItem.getBaseItem().c(nbt.getBaseTag());
+                this.addItem(tempItem);
                 amount = 0;
                 continue;
             }
