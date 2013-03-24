@@ -209,14 +209,21 @@ public abstract class MobSpawnerLogic {
      * @param entity The entity this spawner should spawn
      */
     public void setSpawnedEntity(OEntity entity) {
-        NBTTagCompound tag = new NBTTagCompound();
-        entity.b(tag.getBaseTag());
-        tag.removeTag("Health");
-        tag.removeTag("HurtTime");
-        tag.removeTag("DeathTime");
-        tag.removeTag("AttackTime");
-        tag.removeTag("Age");
-        logic.a(new OWeightedRandomMinecart(logic, tag.getBaseTag()));
+        // gets the tag with the id for this entity
+        NBTTagCompound id = new NBTTagCompound();
+        entity.d(id.getBaseTag());
+
+        //sets the entity and weight for this spawn
+        NBTTagCompound entry = new NBTTagCompound();
+        entry.add("Type", id.getString("id"));
+        entry.add("Weight", 1);
+
+        //sets the properties of this spawn.
+        NBTTagCompound properties= new NBTTagCompound();
+        entity.b(properties.getBaseTag());
+
+        entry.add("Properties", properties);
+        logic.a(new OWeightedRandomMinecart(logic, entry.getBaseTag()));
     }
 
     public OMobSpawnerBaseLogic getLogic() {
