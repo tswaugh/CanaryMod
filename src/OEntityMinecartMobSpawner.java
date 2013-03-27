@@ -2,6 +2,8 @@ public class OEntityMinecartMobSpawner extends OEntityMinecart {
 
     final OMobSpawnerBaseLogic a = new OEntityMinecartMobSpawnerLogic(this); // CanaryMod: private -> package-private
 
+    private MobSpawnerMinecart cart = new MobSpawnerMinecart(this); // CanaryMod: reference to wrapper
+
     public OEntityMinecartMobSpawner(OWorld oworld) {
         super(oworld);
     }
@@ -31,5 +33,10 @@ public class OEntityMinecartMobSpawner extends OEntityMinecart {
     public void l_() {
         super.l_();
         this.a.g();
+    }
+
+    @Override
+    public MobSpawnerMinecart getEntity() {
+        return cart;
     }
 }
