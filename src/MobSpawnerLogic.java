@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class MobSpawnerLogic {
 
     private OMobSpawnerBaseLogic logic;
@@ -224,6 +228,66 @@ public abstract class MobSpawnerLogic {
 
         entry.add("Properties", properties);
         logic.a(new OWeightedRandomMinecart(logic, entry.getBaseTag()));
+    }
+
+    /**
+     * Sets the entities spawned by this spawner.
+     *
+     * @param entity The entity this spawner should spawn
+     */
+    public void setSpawnedEntity(BaseEntity... entity) {
+        List<OEntity> entities = new ArrayList<OEntity>();
+        for (BaseEntity be : entity){
+            entities.add((OEntity)be.getEntity());
+        }
+        setSpawnedEntity(entities.toArray());
+    }
+
+    /**
+     * Sets the entities spawned by this spawner to items.
+     *
+     * @param itemEntity The item this spawner should spawn
+     */
+    public void setSpawnedEntity(Item... itemEntity) {
+        List<OEntity> entities = new ArrayList<OEntity>();
+        for (Item i : itemEntity){
+            entities.add((OEntity)new OEntityItem(null, 0, 0, 0, i.getBaseItem()));
+        }
+        setSpawnedEntity(entities.toArray());
+    }
+
+    /**
+     * Sets the entities spawned by this spawner.
+     *
+     * @param entities The list of entities this spawner should spawn
+     */
+    public void setSpawnedEntity(Object[] entities) {
+        NBTTagCompound toSet = new NBTTagCompound();
+        logic.b(toSet.getBaseTag());
+        NBTTagList list = new NBTTagList();
+        for (Object object : entities) {
+            if (!(object instanceof OEntity)) {
+                continue;
+            }
+            OEntity entity = (OEntity)object;
+            // gets the tag with the id for this entity
+            NBTTagCompound id = new NBTTagCompound();
+            entity.d(id.getBaseTag());
+
+            //sets the entity and weight for this spawn
+            NBTTagCompound entry = new NBTTagCompound();
+            entry.add("Type", id.getString("id"));
+            entry.add("Weight", 1);
+
+            //sets the properties of this spawn.
+            NBTTagCompound properties= new NBTTagCompound();
+            entity.b(properties.getBaseTag());
+
+            entry.add("Properties", properties);
+            list.add(entry);
+        }
+        toSet.add("SpawnPotentials", list);
+        logic.a(toSet.getBaseTag());
     }
 
     public OMobSpawnerBaseLogic getLogic() {
