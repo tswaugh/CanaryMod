@@ -1,73 +1,39 @@
-/**
- * Wrapper class for hoppers.
- * @author Somners
- */
-public class Hopper extends BaseContainerBlock<OTileEntityHopper> implements ComplexBlock {
-
-    private final OTileEntityHopper hopper;
-
-    Hopper(OTileEntityHopper hopper) {
-        this(null, hopper);
-    }
-
-    public Hopper(OContainer oContainer, OTileEntityHopper hopper) {
-        super(oContainer, hopper, "Hopper");
-        this.hopper = hopper;
-    }
+public interface Hopper extends Inventory {
 
     /**
-     * Gets the Inventory inputting to the hopper.
-     * @return the Inventory or null if none.
+     * Get the {@link World} for this <tt>Hopper</tt>.
+     * @return This <tt>Hopper</tt>'s {@link World}
      */
-    public Inventory getInputContainer() {
-        return this.getBaseContainerBlock(hopper.getInputInventory());
-    }
+    public World getWorld();
 
     /**
-     * Gets the Inventory the hopper outputs to.
-     * @return the Inventory or null if none.
+     * Get the X position for this <tt>Hopper</tt>.
+     * @return This <tt>Hopper</tt>'s X position
      */
-    public Inventory getOutputContainer() {
-        return this.getBaseContainerBlock(hopper.getOutputInventory());
-    }
+    public double getPosX();
 
     /**
-     * Check if this hopper is connected to any Container either input or output.
-     * @return true - it is connected<br>false - it is not connected
+     * Get the Y position for this <tt>Hopper</tt>.
+     * @return This <tt>Hopper</tt>'s Y position
      */
-    public boolean isConnected() {
-        return (this.isInputConnected() && this.isOutputConnected());
-    }
+    public double getPosY();
 
     /**
-     * Check if the block this hopper inputs from is a Container.
-     * @return true - it is connected<br>false - it is not connected
+     * Get the Y position for this <tt>Hopper</tt>.
+     * @return This <tt>Hopper</tt>'s Y position
      */
-    public boolean isInputConnected() {
-        return this.getInputContainer() != null;
-    }
+    public double getPosZ();
 
     /**
-     * Check if the block this hopper outputs to is a Container.
-     * @return true - it is connected<br>false - it is not connected
+     * Get the transfer cooldown for this <tt>Hopper</tt>.
+     * @return This <tt>Hopper</tt>'s transfer cooldown in ticks
      */
-    public boolean isOutputConnected() {
-        return this.getOutputContainer() != null;
-    }
+    public int getTranferCooldown();
 
     /**
-     * Gets the Inventory from the inventory instance.
-     * @param oiinventory OIInventory instance to get Inventory wrapper for.
-     * @return The inventory or null if none.
+     * Set the transfer cooldown for this <tt>Hopper</tt>.
+     * @param cooldown This <tt>Hopper</tt>'s new transfer cooldown in ticks
      */
-    private Inventory getBaseContainerBlock(OIInventory oiinventory){
-        if (oiinventory instanceof OTileEntity) {
-            return (Inventory) ((OTileEntity) oiinventory).getComplexBlock();
-        } else if (oiinventory instanceof OInventoryLargeChest) {
-            return new DoubleChest((OInventoryLargeChest) oiinventory);
-        }
-        else {
-            return null;
-        }
-    }
+    public void setTransferCooldown(int cooldown);
+
 }

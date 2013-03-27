@@ -532,7 +532,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
 
     public void a(OTileEntityHopper otileentityhopper) {
         // CanaryMod: Check if we can open this
-        Inventory inv = new Hopper(otileentityhopper);
+        Inventory inv = otileentityhopper.getComplexBlock();
 
         if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
             return;
@@ -542,17 +542,26 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
         this.a.b(new OPacket100OpenWindow(this.cu, 9, otileentityhopper.b(), otileentityhopper.j_(), otileentityhopper.c()));
         this.bM = new OContainerHopper(this.bK, otileentityhopper);
         if (inv != null) {
-            inv.setOContainer(this.bL); // CanaryMod: Set the OContainer for the Hopper Inventory
+            inv.setOContainer(this.bM); // CanaryMod: Set the OContainer for the Hopper Inventory
         }
         this.bM.d = this.cu;
         this.bM.a((OICrafting) this);
     }
 
-    // TODO: add inventory hook
     public void a(OEntityMinecartHopper oentityminecarthopper) {
+        // CanaryMod: Check if we can open this
+        Inventory inv = oentityminecarthopper.getEntity();
+
+        if ((Boolean) manager.callHook(PluginLoader.Hook.OPEN_INVENTORY, new HookParametersOpenInventory(getPlayer(), inv, false))) {
+            return;
+        } //
+
         this.cr();
         this.a.b(new OPacket100OpenWindow(this.cu, 9, oentityminecarthopper.b(), oentityminecarthopper.j_(), oentityminecarthopper.c()));
         this.bM = new OContainerHopper(this.bK, oentityminecarthopper);
+        if (inv != null) {
+            inv.setOContainer(this.bM); // CanaryMod: Set the OContainer for the Hopper Inventory
+        }
         this.bM.d = this.cu;
         this.bM.a((OICrafting) this);
     }

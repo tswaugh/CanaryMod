@@ -263,7 +263,10 @@ public abstract class OEntityMinecart extends OEntity {
 
                 this.a(j, i, k, d4, d5, l, i1);
                 if (l == OBlock.cx.cz) {
-                    this.a(j, i, k, (i1 & 8) != 0);
+                    // CanaryMod: call MINECART_ACTIVATE hook
+                    if (!(Boolean) manager.callHook(PluginLoader.Hook.MINECART_ACTIVATE, this.getEntity(), (i1 & 8) != 0)) {
+                        this.a(j, i, k, (i1 & 8) != 0);
+                    }
                 }
             } else {
                 this.b(d4);
@@ -820,4 +823,8 @@ public abstract class OEntityMinecart extends OEntity {
         return this.c;
     }
 
+    @Override
+    public Minecart getEntity() {
+        return cart;
+    }
 }

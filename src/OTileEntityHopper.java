@@ -5,8 +5,9 @@ public class OTileEntityHopper extends OTileEntity implements OHopper, Container
 
     private OItemStack[] a = new OItemStack[5];
     private String b;
-    private int c = -1;
-    private final Hopper hopper = new Hopper(this);
+    int c = -1; // CanaryMod: private -> package-private
+
+    private final HopperBlock hopper = new HopperBlock(this); // CanaryMod: reference to wrapper
 
     public OTileEntityHopper() {}
 
@@ -228,8 +229,13 @@ public class OTileEntityHopper extends OTileEntity implements OHopper, Container
         if (oitemstack != null && b(oiinventory, oitemstack, i, j)) {
             OItemStack oitemstack1 = oitemstack.m();
             // CanaryMod: Hopper Transfer hook.
-            // XXX: made an assumption about ohopper being an OTileEntityHopper instance, which is true at the time of writing.
-            if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, ((OTileEntityHopper) ohopper).hopper, new Item(oitemstack), true)) {
+            Hopper hopper = null;
+            if (ohopper instanceof OTileEntityHopper) {
+                hopper = ((OTileEntityHopper) ohopper).hopper;
+            } else if (ohopper instanceof OEntityMinecartHopper) {
+                hopper = ((OEntityMinecartHopper) ohopper).hopper;
+            }
+            if ((Boolean) etc.getLoader().callHook(PluginLoader.Hook.HOPPER_TRANSFER, hopper, new Item(oitemstack), true)) {
                 return false;
             } //
             OItemStack oitemstack2 = a(ohopper, oiinventory.a(i, 1), -1);
@@ -431,12 +437,17 @@ public class OTileEntityHopper extends OTileEntity implements OHopper, Container
     public void setName(String s) {
         this.a(s);
     }
-    
+
     public OIInventory getInputInventory(){
         return b(this);
     }
-    
+
     public OIInventory getOutputInventory(){
         return this.v();
+    }
+
+    @Override
+    public HopperBlock getComplexBlock() {
+        return hopper;
     }
 }

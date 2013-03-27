@@ -3,6 +3,10 @@ public abstract class OEntityMinecartContainer extends OEntityMinecart implement
     private OItemStack[] a = new OItemStack[36];
     private boolean b = true;
 
+    private ContainerMinecart container = this instanceof OEntityMinecartChest
+            ? new ChestMinecart((OEntityMinecartChest) this)
+            : new HopperMinecart((OEntityMinecartHopper) this);
+
     public OEntityMinecartContainer(OWorld oworld) {
         super(oworld);
     }
@@ -222,7 +226,7 @@ public abstract class OEntityMinecartContainer extends OEntityMinecart implement
 
     @Override
     public int getContentsSize() {
-        return this.a.length;
+        return this.j_();
     }
 
     @Override
@@ -233,5 +237,10 @@ public abstract class OEntityMinecartContainer extends OEntityMinecart implement
     @Override
     public void setName(String value) {
         this.a(value);
+    }
+
+    @Override
+    public ContainerMinecart getEntity() {
+        return this.container;
     }
 }

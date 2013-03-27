@@ -511,32 +511,19 @@ public class World {
         OTileEntity localav = world.r(x, y, z);
 
         if (localav != null) {
-            if (localav instanceof OTileEntityChest) {
-                return new Chest((OTileEntityChest) localav);
-            } else if (localav instanceof OTileEntitySign) {
+            if (localav instanceof OTileEntitySign) {
                 return new Sign((OTileEntitySign) localav);
-            } else if (localav instanceof OTileEntityFurnace) {
-                return new Furnace((OTileEntityFurnace) localav);
-            } else if (localav instanceof OTileEntityMobSpawner) {
-                return new MobSpawner((OTileEntityMobSpawner) localav);
-            } else if (localav instanceof OTileEntityDispenser) {
-                return new Dispenser((OTileEntityDispenser) localav);
             } else if (localav instanceof OTileEntityNote) {
                 return new NoteBlock((OTileEntityNote) localav);
-            } else if (localav instanceof OTileEntityBrewingStand) {
-                return new BrewingStand((OTileEntityBrewingStand) localav);
             } else if (localav instanceof OTileEntityRecordPlayer) {
                 return new JukeBox((OTileEntityRecordPlayer) localav);
             } else if (localav instanceof OTileEntitySkull) {
                 return new Skull((OTileEntitySkull) localav);
-            } else if (localav instanceof OTileEntityCommandBlock) {
-                return new CommandBlock((OTileEntityCommandBlock) localav);
-            } else if (localav instanceof OTileEntityBeacon) {
-                return new Beacon((OTileEntityBeacon) localav);
-            } else if (localav instanceof OTileEntityHopper) {
-                return new Hopper((OTileEntityHopper) localav);
+            } else {
+                return localav.getComplexBlock();
             }
         }
+
         return null;
     }
 
@@ -1171,5 +1158,14 @@ public class World {
             loadedChunks.add(ochunk.chunk);
         }
         return loadedChunks;
+    }
+
+    /**
+     * Spawn an entity in this world.
+     * @param entity The entity to spawn
+     * @return <tt>true</tt> if the spawn succeeded, <tt>false</tt> otherwise
+     */
+    public boolean spawnEntity(BaseEntity entity) {
+        return this.world.d(entity.getEntity());
     }
 }

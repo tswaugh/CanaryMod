@@ -466,7 +466,7 @@ public class PluginListener {
     public boolean onDamage(PluginLoader.DamageType type, BaseEntity attacker, BaseEntity defender, int amount) {
         return false;
     }
-    
+
     /**
      * Called when an entity is damaged.
      * @param hpDamage The {@link HookParametersDamage}-instance containing the damage data.
@@ -1403,15 +1403,15 @@ public class PluginListener {
     public boolean onStatGained(Player player, Stat stat) {
         return false;
     }
-    
+
     /**
      * Called when any entity is destroyed.
      * @param entity The entity destroyed.
      */
     public void onEntityDestroyed(BaseEntity entity){
-        
+
     }
-    
+
     /**
      * Called when any hanging entity is destroyed.
      * @param entity The entity destroyed.
@@ -1420,17 +1420,28 @@ public class PluginListener {
     public boolean onHangingEntityDestroyed(HangingEntity baseEntity) {
         return false;
     }
-    
+
     /**
      * Called when a hopper tries to Transfer an item
      * @param hopper hopper involved with this trasnfer
      * @param itemTransfered item being transferred
-     * @param transferIn true - the item is being transferred into the hopper<br>
-     * false - the item is being transferred out of the hopper
-     * @return 
+     * @param transferIn <tt>true</tt> if the item is being transferred into
+     * the hopper, <tt>false</tt> if the item is being transferred out of it
+     * @return <tt>true</tt> if the item should not be transferred,
+     * <tt>false</tt> otherwise.
      */
     public boolean onHopperTransfer(Hopper hopper, Item itemTransfered, boolean transferIn) {
         return false;
     }
 
+    /**
+     * Called when a {@link Minecart} passes over an activation rail.
+     * @param cart The cart passing over the rail
+     * @param powered Whether the activation rail is powered
+     * @return <tt>true</tt> if the minecart should not be activated,
+     * <tt>false</tt> otherwise.
+     */
+    public boolean onMinecartActivate(Minecart cart, boolean powered) {
+        return false;
+    }
 }

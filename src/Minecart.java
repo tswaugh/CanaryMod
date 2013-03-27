@@ -25,7 +25,19 @@ public class Minecart extends BaseVehicle {
         /**
          * Powered minecart. Has storage for fuel.
          */
-        PoweredMinecart(2);
+        PoweredMinecart(2), //
+        /**
+         * TNT minecart.
+         */
+        TNTMinecart(3), //
+        /**
+         * Mob spawner minecart.
+         */
+        MobSpawnerCart(4), //
+        /**
+         * Hopper minecart.
+         */
+        HopperMinecart(5);
 
         private final int                       id;
         private static final Map<Integer, Type> lookup = new HashMap<Integer, Type>();
@@ -81,11 +93,27 @@ public class Minecart extends BaseVehicle {
      * @param y The y coordinate for the new minecart
      * @param z The z coordinate for the new minecart
      * @param type The type for the new minecart
+     * @deprecated The minecart system has had an overhaul. Use an appropriate
+     * subclass, or the constructor without type for an empty cart.
      *
      */
+    @Deprecated
     public Minecart(World world, double x, double y, double z, Type type) {
         super(OEntityMinecart.a(world.getWorld(), x, y, z, type.getType()));
-        world.getWorld().d(entity);
+        world.spawnEntity(this);
+    }
+
+    /**
+     * Create a new Minecart at the given position
+     *
+     * @param world The world for the new minecart
+     * @param x The x coordinate for the new minecart
+     * @param y The y coordinate for the new minecart
+     * @param z The z coordinate for the new minecart
+     */
+    public Minecart(World world, double x, double y, double z) {
+        super(new OEntityMinecartEmpty(world.getWorld(), x, y, z));
+        world.spawnEntity(this);
     }
 
     /**
@@ -99,19 +127,20 @@ public class Minecart extends BaseVehicle {
     }
 
     /**
-     * Set damage on Mineentity
+     * Sets the current amount of damage the minecart has taken.
+     * Decreases over time. The cart breaks when this is over 40.
      *
-     * @param damage
-     *            over 40 and you "kill" the mineentity
+     * @param damage This minecart's new damage value
      */
     public void setDamage(int damage) {
-        getEntity().g(damage);
+        getEntity().h(damage);
     }
 
     /**
-     * Returns damage for mineentity
+     * Gets the current amount of damage the minecart has taken.
+     * Decreases over time. The cart breaks when this is over 40.
      *
-     * @return returns current damage
+     * @return This minecart's current damage value
      */
     public int getDamage() {
         return getEntity().i();

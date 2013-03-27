@@ -1,16 +1,9 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MobSpawnerLogic {
+public class MobSpawnerLogic {
 
     private OMobSpawnerBaseLogic logic;
-
-    public abstract NBTTagCompound getMetaTag();
-
-    public abstract void writeToTag(NBTTagCompound tag);
-
-    public abstract void readFromTag(NBTTagCompound tag);
 
     public MobSpawnerLogic(OMobSpawnerBaseLogic logic) {
         this.logic = logic;
