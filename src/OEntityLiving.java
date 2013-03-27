@@ -613,10 +613,10 @@ public abstract class OEntityLiving extends OEntity {
     }
 
     public void b(int i) {
-        this.aS = i;
         if (i > this.aW()) {
             i = this.aW();
         }
+        this.aS = i; // CanaryMod: fix mojang being dumbasses
     }
 
     public boolean a(ODamageSource odamagesource, int i) {

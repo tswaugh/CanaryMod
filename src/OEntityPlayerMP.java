@@ -181,13 +181,13 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
             }
 
             // CanaryMod: Update the health
-            if (this.aX() != this.cm) {
+            if (this.aX() != this.cm && cm != -99999999) {
                 // updates your health when it is changed.
                 if (!etc.getInstance().isHealthEnabled()) {
-                    this.j(this.aW());
-                    this.L = false;
+                    super.b(this.aW());
+                    this.M = false;
                 } else if ((Boolean) manager.callHook(PluginLoader.Hook.HEALTH_CHANGE, getPlayer(), cm, this.aX())) {
-                    this.j(this.cm);
+                    super.b(this.cm);
                 }
             }
 
@@ -901,7 +901,7 @@ public class OEntityPlayerMP extends OEntityPlayer implements OICrafting {
     }
 
     public int getViewDistance() {
-        return this.cq;
+        return this.cr;
     }
     // CanaryMod end
 }
