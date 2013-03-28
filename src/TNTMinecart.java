@@ -5,7 +5,8 @@ public class TNTMinecart extends Minecart {
     }
 
     /**
-     * Create a new Minecart at the given position
+     * Create a new Minecart with the given position.
+     * Call {@link #spawn()} to spawn it in the world.
      *
      * @param world The world for the new minecart
      * @param x The x coordinate for the new minecart
@@ -14,7 +15,6 @@ public class TNTMinecart extends Minecart {
      */
     public TNTMinecart(World world, double x, double y, double z) {
         this(new OEntityMinecartTNT(world.getWorld(), x, y, z));
-        world.spawnEntity(this);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class TNTMinecart extends Minecart {
     }
 
     /**
-     * Activates the cart as if it passed over an activator rail.
+     * Activates the TNT as if the cart passed over an activator rail.
      */
     public void activate() {
         this.getEntity().d();

@@ -520,7 +520,7 @@ public class BaseEntity implements Metadatable {
     public void spawn(LivingEntity rider) {
         OWorld world = entity.q;
 
-        entity.b(getX() + 0.5d, getY(), getZ() + 0.5d, getRotation(), 0f);
+        entity.b(getX(), getY(), getZ(), getRotation(), getPitch());
         world.d(entity);
 
         if (rider != null) {

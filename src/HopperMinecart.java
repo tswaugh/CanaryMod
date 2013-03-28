@@ -5,7 +5,8 @@ public class HopperMinecart extends ContainerMinecart implements Hopper {
     }
 
     /**
-     * Create a new Hopper Minecart at the given position.
+     * Create a new Hopper Minecart with the given position.
+     * Call {@link #spawn()} to spawn it in the world.
      *
      * @param world The world for the new minecart
      * @param x The x coordinate for the new minecart
@@ -14,7 +15,6 @@ public class HopperMinecart extends ContainerMinecart implements Hopper {
      */
     public HopperMinecart(World world, double x, double y, double z) {
         this(new OEntityMinecartHopper(world.getWorld(), x, y, z));
-        world.spawnEntity(this);
     }
 
     @Override

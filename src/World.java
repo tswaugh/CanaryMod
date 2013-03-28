@@ -1159,13 +1159,4 @@ public class World {
         }
         return loadedChunks;
     }
-
-    /**
-     * Spawn an entity in this world.
-     * @param entity The entity to spawn
-     * @return <tt>true</tt> if the spawn succeeded, <tt>false</tt> otherwise
-     */
-    public boolean spawnEntity(BaseEntity entity) {
-        return this.world.d(entity.getEntity());
-    }
 }

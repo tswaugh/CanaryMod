@@ -99,12 +99,13 @@ public class Minecart extends BaseVehicle {
      */
     @Deprecated
     public Minecart(World world, double x, double y, double z, Type type) {
-        super(OEntityMinecart.a(world.getWorld(), x, y, z, type.getType()));
-        world.spawnEntity(this);
+        this(OEntityMinecart.a(world.getWorld(), x, y, z, type.getType()));
+        this.spawn();
     }
 
     /**
-     * Create a new Minecart at the given position
+     * Create a new Minecart with the given position.
+     * Call {@link #spawn()} to spawn it in the world.
      *
      * @param world The world for the new minecart
      * @param x The x coordinate for the new minecart
@@ -112,8 +113,7 @@ public class Minecart extends BaseVehicle {
      * @param z The z coordinate for the new minecart
      */
     public Minecart(World world, double x, double y, double z) {
-        super(new OEntityMinecartEmpty(world.getWorld(), x, y, z));
-        world.spawnEntity(this);
+        this(new OEntityMinecartEmpty(world.getWorld(), x, y, z));
     }
 
     /**
