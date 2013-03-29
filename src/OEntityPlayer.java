@@ -1217,14 +1217,8 @@ public abstract class OEntityPlayer extends OEntityLiving implements OICommandSe
         if (i > this.cg) { // Don't go below 0
             i = this.cg;
         }
-
-        this.cg -= (float) i / (float) this.ck();
-
-        // Inverse of for loop in this.t(int)
-        for (this.cg -= i; this.ch < 0.0F; this.ch = this.ch / this.ck() + 1.0F) {
-            this.ch *= this.ck();
-            this.a(-1);
-        }
+        this.cg -= i;
+        this.recalculateXP();
     }
 
     public void setXP(int i) {
