@@ -40,7 +40,7 @@ public class OPlayerManager {
 
         this.d.clear();
         if (this.b.isEmpty()) {
-            OWorldProvider oworldprovider = this.a.u;
+            OWorldProvider oworldprovider = this.a.t;
 
             if (!oworldprovider.e()) {
                 this.a.b.a();
@@ -71,11 +71,11 @@ public class OPlayerManager {
     }
 
     public void a(OEntityPlayerMP oentityplayermp) {
-        int i = (int) oentityplayermp.t >> 4;
-        int j = (int) oentityplayermp.v >> 4;
+        int i = (int) oentityplayermp.u >> 4;
+        int j = (int) oentityplayermp.w >> 4;
 
-        oentityplayermp.d = oentityplayermp.t;
-        oentityplayermp.e = oentityplayermp.v;
+        oentityplayermp.d = oentityplayermp.u;
+        oentityplayermp.e = oentityplayermp.w;
 
         for (int k = i - this.e; k <= i + this.e; ++k) {
             for (int l = j - this.e; l <= j + this.e; ++l) {
@@ -91,8 +91,8 @@ public class OPlayerManager {
         ArrayList arraylist = new ArrayList(oentityplayermp.f);
         int i = 0;
         int j = this.e;
-        int k = (int) oentityplayermp.t >> 4;
-        int l = (int) oentityplayermp.v >> 4;
+        int k = (int) oentityplayermp.u >> 4;
+        int l = (int) oentityplayermp.w >> 4;
         int i1 = 0;
         int j1 = 0;
         OChunkCoordIntPair ochunkcoordintpair = OPlayerInstance.a(this.a(k, l, true));
@@ -156,10 +156,10 @@ public class OPlayerManager {
     }
 
     public void d(OEntityPlayerMP oentityplayermp) {
-        int i = (int) oentityplayermp.t >> 4;
-        int j = (int) oentityplayermp.v >> 4;
-        double d0 = oentityplayermp.d - oentityplayermp.t;
-        double d1 = oentityplayermp.e - oentityplayermp.v;
+        int i = (int) oentityplayermp.u >> 4;
+        int j = (int) oentityplayermp.w >> 4;
+        double d0 = oentityplayermp.d - oentityplayermp.u;
+        double d1 = oentityplayermp.e - oentityplayermp.w;
         double d2 = d0 * d0 + d1 * d1;
 
         if (d2 >= 64.0D) {
@@ -194,8 +194,8 @@ public class OPlayerManager {
                 }
 
                 this.b(oentityplayermp);
-                oentityplayermp.d = oentityplayermp.t;
-                oentityplayermp.e = oentityplayermp.v;
+                oentityplayermp.d = oentityplayermp.u;
+                oentityplayermp.e = oentityplayermp.w;
             }
         }
     }

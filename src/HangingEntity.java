@@ -56,7 +56,7 @@ public class HangingEntity extends BaseEntity {
      *
      */
     public void place() {
-        getEntity().p.d(getEntity());
+        getEntity().q.d(getEntity());
     }
 
     @Override

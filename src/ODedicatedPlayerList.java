@@ -7,16 +7,16 @@ import java.util.Iterator;
 
 public class ODedicatedPlayerList extends OServerConfigurationManager {
 
+    private File d;
     private File e;
-    private File f;
 
     public ODedicatedPlayerList(ODedicatedServer odedicatedserver) {
         super(odedicatedserver);
-        this.e = odedicatedserver.e("ops.txt");
-        // this.f = odedicatedserver.e("white-list.txt"); // CanaryMod: disable Notchian whitelist
-        this.d = odedicatedserver.a("view-distance", 10);
-        this.c = odedicatedserver.a("max-players", 20);
-        this.a(odedicatedserver.a("white-list", false));
+        this.d = odedicatedserver.e("ops.txt");
+        // this.e = odedicatedserver.e("white-list.txt"); // CanaryMod: disable Notchian whitelist
+        this.c = odedicatedserver.a("view-distance", 10);
+        this.b = odedicatedserver.a("max-players", 20);
+        // this.a(odedicatedserver.a("white-list", false)); // CanaryMod: disable Notchian whitelist
         if (!odedicatedserver.I()) {
             this.e().a(true);
             this.f().a(true);
@@ -29,7 +29,9 @@ public class ODedicatedPlayerList extends OServerConfigurationManager {
         this.t();
         //this.v();
         this.u();
-        //this.w();
+        /* if (!this.e.exists()) {
+            this.w();
+        }*/
     }
 
     public void a(boolean flag) {
@@ -65,7 +67,7 @@ public class ODedicatedPlayerList extends OServerConfigurationManager {
     private void t() {
         try {
             this.i().clear();
-            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.e));
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.d));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -74,13 +76,13 @@ public class ODedicatedPlayerList extends OServerConfigurationManager {
 
             bufferedreader.close();
         } catch (Exception exception) {
-            a.warning("Failed to load operators list: " + exception);
+            this.s().al().b("Failed to load operators list: " + exception);
         }
     }
 
     private void u() {
         try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.e, false));
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.d, false));
             Iterator iterator = this.i().iterator();
 
             while (iterator.hasNext()) {
@@ -91,14 +93,14 @@ public class ODedicatedPlayerList extends OServerConfigurationManager {
 
             printwriter.close();
         } catch (Exception exception) {
-            a.warning("Failed to save operators list: " + exception);
+            this.s().al().b("Failed to save operators list: " + exception);
         }
     }
 
     private void v() {
         try {
             this.h().clear();
-            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.f));
+            BufferedReader bufferedreader = new BufferedReader(new FileReader(this.e));
             String s = "";
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -107,13 +109,13 @@ public class ODedicatedPlayerList extends OServerConfigurationManager {
 
             bufferedreader.close();
         } catch (Exception exception) {
-            a.warning("Failed to load white-list: " + exception);
+            this.s().al().b("Failed to load white-list: " + exception);
         }
     }
 
     private void w() {
         try {
-            PrintWriter printwriter = new PrintWriter(new FileWriter(this.f, false));
+            PrintWriter printwriter = new PrintWriter(new FileWriter(this.e, false));
             Iterator iterator = this.h().iterator();
 
             while (iterator.hasNext()) {
@@ -124,7 +126,7 @@ public class ODedicatedPlayerList extends OServerConfigurationManager {
 
             printwriter.close();
         } catch (Exception exception) {
-            a.warning("Failed to save white-list: " + exception);
+            this.s().al().b("Failed to save white-list: " + exception);
         }
     }
 

@@ -2,31 +2,31 @@ import java.util.Random;
 
 public class OBlockPortal extends OBlockBreakable {
 
-    public OBlockPortal(int i, int j) {
-        super(i, j, OMaterial.C, false);
+    public OBlockPortal(int i) {
+        super(i, "portal", OMaterial.C, false);
         this.b(true);
     }
 
-    public void b(OWorld oworld, int i, int j, int k, Random random) {
-        super.b(oworld, i, j, k, random);
-        if (oworld.u.d() && random.nextInt(2000) < oworld.s) {
+    public void a(OWorld oworld, int i, int j, int k, Random random) {
+        super.a(oworld, i, j, k, random);
+        if (oworld.t.d() && random.nextInt(2000) < oworld.r) {
             int l;
 
-            for (l = j; !oworld.v(i, l, k) && l > 0; --l) {
+            for (l = j; !oworld.w(i, l, k) && l > 0; --l) {
                 ;
             }
 
-            if (l > 0 && !oworld.t(i, l + 1, k)) {
+            if (l > 0 && !oworld.u(i, l + 1, k)) {
                 OEntity oentity = OItemMonsterPlacer.a(oworld, 57, (double) i + 0.5D, (double) l + 1.1D, (double) k + 0.5D);
 
                 if (oentity != null) {
-                    oentity.an = oentity.ab();
+                    oentity.ao = oentity.aa();
                 }
             }
         }
     }
 
-    public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
+    public OAxisAlignedBB b(OWorld oworld, int i, int j, int k) {
         return null;
     }
 
@@ -34,7 +34,7 @@ public class OBlockPortal extends OBlockBreakable {
         float f;
         float f1;
 
-        if (oiblockaccess.a(i - 1, j, k) != this.cm && oiblockaccess.a(i + 1, j, k) != this.cm) {
+        if (oiblockaccess.a(i - 1, j, k) != this.cz && oiblockaccess.a(i + 1, j, k) != this.cz) {
             f = 0.125F;
             f1 = 0.5F;
             this.a(0.5F - f, 0.0F, 0.5F - f1, 0.5F + f, 1.0F, 0.5F + f1);
@@ -53,15 +53,15 @@ public class OBlockPortal extends OBlockBreakable {
         return false;
     }
 
-    public boolean i_(OWorld oworld, int i, int j, int k) {
+    public boolean n_(OWorld oworld, int i, int j, int k) {
         byte b0 = 0;
         byte b1 = 0;
 
-        if (oworld.a(i - 1, j, k) == OBlock.as.cm || oworld.a(i + 1, j, k) == OBlock.as.cm) {
+        if (oworld.a(i - 1, j, k) == OBlock.at.cz || oworld.a(i + 1, j, k) == OBlock.at.cz) {
             b0 = 1;
         }
 
-        if (oworld.a(i, j, k - 1) == OBlock.as.cm || oworld.a(i, j, k + 1) == OBlock.as.cm) {
+        if (oworld.a(i, j, k - 1) == OBlock.at.cz || oworld.a(i, j, k + 1) == OBlock.at.cz) {
             b1 = 1;
         }
 
@@ -84,10 +84,10 @@ public class OBlockPortal extends OBlockBreakable {
                         int j1 = oworld.a(i + b0 * l, j + i1, k + b1 * l);
 
                         if (flag) {
-                            if (j1 != OBlock.as.cm) {
+                            if (j1 != OBlock.at.cz) {
                                 return false;
                             }
-                        } else if (j1 != 0 && j1 != OBlock.au.cm) {
+                        } else if (j1 != 0 && j1 != OBlock.av.cz) {
                             return false;
                         }
                     }
@@ -103,15 +103,12 @@ public class OBlockPortal extends OBlockBreakable {
                 }
             }
             if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PORTAL_CREATE, (Object) portalBlocks)) { // Cast to make single argument
-                oworld.r = true;
-
                 for (l = 0; l < 2; ++l) {
                     for (i1 = 0; i1 < 3; ++i1) {
-                        oworld.e(i + b0 * l, j + i1, k + b1 * l, OBlock.bh.cm);
+                        oworld.f(i + b0 * l, j + i1, k + b1 * l, OBlock.bi.cz, 0, 2);
                     }
                 }
 
-                oworld.r = false;
                 return true;
             }
             return false;
@@ -122,39 +119,39 @@ public class OBlockPortal extends OBlockBreakable {
         byte b0 = 0;
         byte b1 = 1;
 
-        if (oworld.a(i - 1, j, k) == this.cm || oworld.a(i + 1, j, k) == this.cm) {
+        if (oworld.a(i - 1, j, k) == this.cz || oworld.a(i + 1, j, k) == this.cz) {
             b0 = 1;
             b1 = 0;
         }
 
         int i1;
 
-        for (i1 = j; oworld.a(i, i1 - 1, k) == this.cm; --i1) {
+        for (i1 = j; oworld.a(i, i1 - 1, k) == this.cz; --i1) {
             ;
         }
 
-        if (oworld.a(i, i1 - 1, k) != OBlock.as.cm) {
-            oworld.e(i, j, k, 0);
+        if (oworld.a(i, i1 - 1, k) != OBlock.at.cz) {
+            oworld.i(i, j, k);
         } else {
             int j1;
 
-            for (j1 = 1; j1 < 4 && oworld.a(i, i1 + j1, k) == this.cm; ++j1) {
+            for (j1 = 1; j1 < 4 && oworld.a(i, i1 + j1, k) == this.cz; ++j1) {
                 ;
             }
 
-            if (j1 == 3 && oworld.a(i, i1 + j1, k) == OBlock.as.cm) {
-                boolean flag = oworld.a(i - 1, j, k) == this.cm || oworld.a(i + 1, j, k) == this.cm;
-                boolean flag1 = oworld.a(i, j, k - 1) == this.cm || oworld.a(i, j, k + 1) == this.cm;
+            if (j1 == 3 && oworld.a(i, i1 + j1, k) == OBlock.at.cz) {
+                boolean flag = oworld.a(i - 1, j, k) == this.cz || oworld.a(i + 1, j, k) == this.cz;
+                boolean flag1 = oworld.a(i, j, k - 1) == this.cz || oworld.a(i, j, k + 1) == this.cz;
 
                 if (flag && flag1) {
-                    oworld.e(i, j, k, 0);
+                    oworld.i(i, j, k);
                 } else {
-                    if ((oworld.a(i + b0, j, k + b1) != OBlock.as.cm || oworld.a(i - b0, j, k - b1) != this.cm) && (oworld.a(i - b0, j, k - b1) != OBlock.as.cm || oworld.a(i + b0, j, k + b1) != this.cm)) {
-                        oworld.e(i, j, k, 0);
+                    if ((oworld.a(i + b0, j, k + b1) != OBlock.at.cz || oworld.a(i - b0, j, k - b1) != this.cz) && (oworld.a(i - b0, j, k - b1) != OBlock.at.cz || oworld.a(i + b0, j, k + b1) != this.cz)) {
+                        oworld.i(i, j, k);
                     }
                 }
             } else {
-                oworld.e(i, j, k, 0);
+                oworld.i(i, j, k);
             }
         }
     }
@@ -165,7 +162,7 @@ public class OBlockPortal extends OBlockBreakable {
 
     public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
         if (oentity.o == null && oentity.n == null) {
-            oentity.aa();
+            oentity.Z();
         }
     }
 }

@@ -24,18 +24,18 @@ public abstract class OEntityThrowable extends OEntity implements OIProjectile {
         super(oworld);
         this.g = oentityliving;
         this.a(0.25F, 0.25F);
-        this.b(oentityliving.t, oentityliving.u + (double) oentityliving.e(), oentityliving.v, oentityliving.z, oentityliving.A);
-        this.t -= (double) (OMathHelper.b(this.z / 180.0F * 3.1415927F) * 0.16F);
-        this.u -= 0.10000000149011612D;
-        this.v -= (double) (OMathHelper.a(this.z / 180.0F * 3.1415927F) * 0.16F);
-        this.b(this.t, this.u, this.v);
-        this.M = 0.0F;
+        this.b(oentityliving.u, oentityliving.v + (double) oentityliving.e(), oentityliving.w, oentityliving.A, oentityliving.B);
+        this.u -= (double) (OMathHelper.b(this.A / 180.0F * 3.1415927F) * 0.16F);
+        this.v -= 0.10000000149011612D;
+        this.w -= (double) (OMathHelper.a(this.A / 180.0F * 3.1415927F) * 0.16F);
+        this.b(this.u, this.v, this.w);
+        this.N = 0.0F;
         float f = 0.4F;
 
-        this.w = (double) (-OMathHelper.a(this.z / 180.0F * 3.1415927F) * OMathHelper.b(this.A / 180.0F * 3.1415927F) * f);
-        this.y = (double) (OMathHelper.b(this.z / 180.0F * 3.1415927F) * OMathHelper.b(this.A / 180.0F * 3.1415927F) * f);
-        this.x = (double) (-OMathHelper.a((this.A + this.d()) / 180.0F * 3.1415927F) * f);
-        this.c(this.w, this.x, this.y, this.c(), 1.0F);
+        this.x = (double) (-OMathHelper.a(this.A / 180.0F * 3.1415927F) * OMathHelper.b(this.B / 180.0F * 3.1415927F) * f);
+        this.z = (double) (OMathHelper.b(this.A / 180.0F * 3.1415927F) * OMathHelper.b(this.B / 180.0F * 3.1415927F) * f);
+        this.y = (double) (-OMathHelper.a((this.B + this.d()) / 180.0F * 3.1415927F) * f);
+        this.c(this.x, this.y, this.z, this.c(), 1.0F);
     }
 
     public OEntityThrowable(OWorld oworld, double d0, double d1, double d2) {
@@ -43,7 +43,7 @@ public abstract class OEntityThrowable extends OEntity implements OIProjectile {
         this.i = 0;
         this.a(0.25F, 0.25F);
         this.b(d0, d1, d2);
-        this.M = 0.0F;
+        this.N = 0.0F;
     }
 
     protected float c() {
@@ -60,75 +60,75 @@ public abstract class OEntityThrowable extends OEntity implements OIProjectile {
         d0 /= (double) f2;
         d1 /= (double) f2;
         d2 /= (double) f2;
-        d0 += this.aa.nextGaussian() * 0.007499999832361937D * (double) f1;
-        d1 += this.aa.nextGaussian() * 0.007499999832361937D * (double) f1;
-        d2 += this.aa.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d0 += this.ab.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d1 += this.ab.nextGaussian() * 0.007499999832361937D * (double) f1;
+        d2 += this.ab.nextGaussian() * 0.007499999832361937D * (double) f1;
         d0 *= (double) f;
         d1 *= (double) f;
         d2 *= (double) f;
-        this.w = d0;
-        this.x = d1;
-        this.y = d2;
+        this.x = d0;
+        this.y = d1;
+        this.z = d2;
         float f3 = OMathHelper.a(d0 * d0 + d2 * d2);
 
-        this.B = this.z = (float) (Math.atan2(d0, d2) * 180.0D / 3.1415927410125732D);
-        this.C = this.A = (float) (Math.atan2(d1, (double) f3) * 180.0D / 3.1415927410125732D);
+        this.C = this.A = (float) (Math.atan2(d0, d2) * 180.0D / 3.1415927410125732D);
+        this.D = this.B = (float) (Math.atan2(d1, (double) f3) * 180.0D / 3.1415927410125732D);
         this.i = 0;
     }
 
-    public void j_() {
-        this.T = this.t;
+    public void l_() {
         this.U = this.u;
         this.V = this.v;
-        super.j_();
+        this.W = this.w;
+        super.l_();
         if (this.b > 0) {
             --this.b;
         }
 
         if (this.a) {
-            int i = this.p.a(this.c, this.d, this.e);
+            int i = this.q.a(this.c, this.d, this.e);
 
             if (i == this.f) {
                 ++this.i;
                 if (this.i == 1200) {
-                    this.x();
+                    this.w();
                 }
 
                 return;
             }
 
             this.a = false;
-            this.w *= (double) (this.aa.nextFloat() * 0.2F);
-            this.x *= (double) (this.aa.nextFloat() * 0.2F);
-            this.y *= (double) (this.aa.nextFloat() * 0.2F);
+            this.x *= (double) (this.ab.nextFloat() * 0.2F);
+            this.y *= (double) (this.ab.nextFloat() * 0.2F);
+            this.z *= (double) (this.ab.nextFloat() * 0.2F);
             this.i = 0;
             this.j = 0;
         } else {
             ++this.j;
         }
 
-        OVec3 ovec3 = this.p.S().a(this.t, this.u, this.v);
-        OVec3 ovec31 = this.p.S().a(this.t + this.w, this.u + this.x, this.v + this.y);
-        OMovingObjectPosition omovingobjectposition = this.p.a(ovec3, ovec31);
+        OVec3 ovec3 = this.q.T().a(this.u, this.v, this.w);
+        OVec3 ovec31 = this.q.T().a(this.u + this.x, this.v + this.y, this.w + this.z);
+        OMovingObjectPosition omovingobjectposition = this.q.a(ovec3, ovec31);
 
-        ovec3 = this.p.S().a(this.t, this.u, this.v);
-        ovec31 = this.p.S().a(this.t + this.w, this.u + this.x, this.v + this.y);
+        ovec3 = this.q.T().a(this.u, this.v, this.w);
+        ovec31 = this.q.T().a(this.u + this.x, this.v + this.y, this.w + this.z);
         if (omovingobjectposition != null) {
-            ovec31 = this.p.S().a(omovingobjectposition.f.c, omovingobjectposition.f.d, omovingobjectposition.f.e);
+            ovec31 = this.q.T().a(omovingobjectposition.f.c, omovingobjectposition.f.d, omovingobjectposition.f.e);
         }
 
-        if (!this.p.I) {
+        if (!this.q.I) {
             OEntity oentity = null;
-            List list = this.p.b((OEntity) this, this.D.a(this.w, this.x, this.y).b(1.0D, 1.0D, 1.0D));
+            List list = this.q.b((OEntity) this, this.E.a(this.x, this.y, this.z).b(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
             OEntityLiving oentityliving = this.h();
 
             for (int j = 0; j < list.size(); ++j) {
                 OEntity oentity1 = (OEntity) list.get(j);
 
-                if (oentity1.L() && (oentity1 != oentityliving || this.j >= 5)) {
+                if (oentity1.K() && (oentity1 != oentityliving || this.j >= 5)) {
                     float f = 0.3F;
-                    OAxisAlignedBB oaxisalignedbb = oentity1.D.b((double) f, (double) f, (double) f);
+                    OAxisAlignedBB oaxisalignedbb = oentity1.E.b((double) f, (double) f, (double) f);
                     OMovingObjectPosition omovingobjectposition1 = oaxisalignedbb.a(ovec3, ovec31);
 
                     if (omovingobjectposition1 != null) {
@@ -148,56 +148,56 @@ public abstract class OEntityThrowable extends OEntity implements OIProjectile {
         }
 
         if (omovingobjectposition != null) {
-            if (omovingobjectposition.a == OEnumMovingObjectType.a && this.p.a(omovingobjectposition.b, omovingobjectposition.c, omovingobjectposition.d) == OBlock.bh.cm) {
-                this.aa();
+            if (omovingobjectposition.a == OEnumMovingObjectType.a && this.q.a(omovingobjectposition.b, omovingobjectposition.c, omovingobjectposition.d) == OBlock.bi.cz) {
+                this.Z();
             } else {
                 this.a(omovingobjectposition);
             }
         }
 
-        this.t += this.w;
         this.u += this.x;
         this.v += this.y;
-        float f1 = OMathHelper.a(this.w * this.w + this.y * this.y);
+        this.w += this.z;
+        float f1 = OMathHelper.a(this.x * this.x + this.z * this.z);
 
-        this.z = (float) (Math.atan2(this.w, this.y) * 180.0D / 3.1415927410125732D);
+        this.A = (float) (Math.atan2(this.x, this.z) * 180.0D / 3.1415927410125732D);
 
-        for (this.A = (float) (Math.atan2(this.x, (double) f1) * 180.0D / 3.1415927410125732D); this.A - this.C < -180.0F; this.C -= 360.0F) {
+        for (this.B = (float) (Math.atan2(this.y, (double) f1) * 180.0D / 3.1415927410125732D); this.B - this.D < -180.0F; this.D -= 360.0F) {
             ;
+        }
+
+        while (this.B - this.D >= 180.0F) {
+            this.D += 360.0F;
+        }
+
+        while (this.A - this.C < -180.0F) {
+            this.C -= 360.0F;
         }
 
         while (this.A - this.C >= 180.0F) {
             this.C += 360.0F;
         }
 
-        while (this.z - this.B < -180.0F) {
-            this.B -= 360.0F;
-        }
-
-        while (this.z - this.B >= 180.0F) {
-            this.B += 360.0F;
-        }
-
+        this.B = this.D + (this.B - this.D) * 0.2F;
         this.A = this.C + (this.A - this.C) * 0.2F;
-        this.z = this.B + (this.z - this.B) * 0.2F;
         float f2 = 0.99F;
         float f3 = this.g();
 
-        if (this.H()) {
+        if (this.G()) {
             for (int k = 0; k < 4; ++k) {
                 float f4 = 0.25F;
 
-                this.p.a("bubble", this.t - this.w * (double) f4, this.u - this.x * (double) f4, this.v - this.y * (double) f4, this.w, this.x, this.y);
+                this.q.a("bubble", this.u - this.x * (double) f4, this.v - this.y * (double) f4, this.w - this.z * (double) f4, this.x, this.y, this.z);
             }
 
             f2 = 0.8F;
         }
 
-        this.w *= (double) f2;
         this.x *= (double) f2;
         this.y *= (double) f2;
-        this.x -= (double) f3;
-        this.b(this.t, this.u, this.v);
+        this.z *= (double) f2;
+        this.y -= (double) f3;
+        this.b(this.u, this.v, this.w);
     }
 
     protected float g() {
@@ -214,7 +214,7 @@ public abstract class OEntityThrowable extends OEntity implements OIProjectile {
         onbttagcompound.a("shake", (byte) this.b);
         onbttagcompound.a("inGround", (byte) (this.a ? 1 : 0));
         if ((this.h == null || this.h.length() == 0) && this.g != null && this.g instanceof OEntityPlayer) {
-            this.h = this.g.an();
+            this.h = this.g.am();
         }
 
         onbttagcompound.a("ownerName", this.h == null ? "" : this.h);
@@ -235,7 +235,7 @@ public abstract class OEntityThrowable extends OEntity implements OIProjectile {
 
     public OEntityLiving h() {
         if (this.g == null && this.h != null && this.h.length() > 0) {
-            this.g = this.p.a(this.h);
+            this.g = this.q.a(this.h);
         }
 
         return this.g;

@@ -47,8 +47,8 @@ public abstract class BaseContainerBlock<C extends OTileEntity & OIInventory & C
 
     @Override
     public void update() {
-        this.container.g(); // TileEntity.updateEntity
-        this.container.d(); // IInventory.onInventoryChanged
+        this.container.h(); // TileEntity.updateEntity
+        this.container.k_(); // IInventory.onInventoryChanged
     }
 
     @Override

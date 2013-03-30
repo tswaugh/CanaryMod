@@ -25,7 +25,7 @@ public class OContainerMerchant extends OContainer {
         }
     }
 
-    public OInventoryMerchant d() {
+    public OInventoryMerchant e() {
         return this.f;
     }
 
@@ -38,11 +38,11 @@ public class OContainerMerchant extends OContainer {
     }
 
     public void a(OIInventory oiinventory) {
-        this.f.g();
+        this.f.h();
         super.a(oiinventory);
     }
 
-    public void b(int i) {
+    public void e(int i) {
         this.f.c(i);
     }
 
@@ -57,7 +57,7 @@ public class OContainerMerchant extends OContainer {
         if (oslot != null && oslot.d()) {
             OItemStack oitemstack1 = oslot.c();
 
-            oitemstack = oitemstack1.l();
+            oitemstack = oitemstack1.m();
             if (i == 2) {
                 if (!this.a(oitemstack1, 3, 39, true)) {
                     return null;
@@ -101,16 +101,16 @@ public class OContainerMerchant extends OContainer {
 
     public void b(OEntityPlayer oentityplayer) {
         super.b(oentityplayer);
-        this.a.b_((OEntityPlayer) null);
+        this.a.a((OEntityPlayer) null);
         super.b(oentityplayer);
         if (!this.g.I) {
-            OItemStack oitemstack = this.f.a_(0);
+            OItemStack oitemstack = this.f.b(0);
 
             if (oitemstack != null) {
                 oentityplayer.c(oitemstack);
             }
 
-            oitemstack = this.f.a_(1);
+            oitemstack = this.f.b(1);
             if (oitemstack != null) {
                 oentityplayer.c(oitemstack);
             }
@@ -120,8 +120,9 @@ public class OContainerMerchant extends OContainer {
     // CanaryMod
     @Override
     public InventoryMerchant getInventory() {
-        if(super.getInventory() instanceof InventoryMerchant)
+        if(super.getInventory() instanceof InventoryMerchant) {
             return (InventoryMerchant)super.getInventory();
+        }
 
         InventoryMerchant inv = new InventoryMerchant(this, this.f);
         setInventory(inv);

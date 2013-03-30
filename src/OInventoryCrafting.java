@@ -15,78 +15,87 @@ public class OInventoryCrafting implements OIInventory, Container<OItemStack>
         this.b = paramInt1;
     }
 
-    public int k_() {
+    public int j_() {
         return this.a.length;
     }
 
-    public OItemStack a(int paramInt) {
-        if (paramInt >= k_()) {
-            return null;
-        }
-        return this.a[paramInt];
+    public OItemStack a(int i) {
+        return i >= this.j_() ? null : this.a[i];
     }
 
-    public OItemStack b(int paramInt1, int paramInt2) {
-        if ((paramInt1 < 0) || (paramInt1 >= this.b)) {
+    public OItemStack b(int i, int j) {
+        if (i >= 0 && i < this.b) {
+            int k = i + j * this.b;
+
+            return this.a(k);
+        } else {
             return null;
         }
-        int i = paramInt1 + paramInt2 * this.b;
-        return a(i);
     }
 
     public String b() {
         return name; // CanaryMod
     }
 
-    public OItemStack a_(int paramInt) {
-        if (this.a[paramInt] != null) {
-            OItemStack localOItemStack = this.a[paramInt];
-            this.a[paramInt] = null;
-            return localOItemStack;
-        }
-        return null;
+    public boolean c() {
+        return false;
     }
 
-    public OItemStack a(int paramInt1, int paramInt2) {
-        if (this.a[paramInt1] != null) {
-            OItemStack localOItemStack;
-            if (this.a[paramInt1].a <= paramInt2) {
-                localOItemStack = this.a[paramInt1];
-                this.a[paramInt1] = null;
-                this.c.a(this);
-                return localOItemStack;
+    public OItemStack b(int i) {
+        if (this.a[i] != null) {
+            OItemStack oitemstack = this.a[i];
+
+            this.a[i] = null;
+            return oitemstack;
+        } else {
+            return null;
+        }
+    }
+
+    public OItemStack a(int i, int j) {
+        if (this.a[i] != null) {
+            OItemStack oitemstack;
+
+            if (this.a[i].a <= j) {
+                oitemstack = this.a[i];
+                this.a[i] = null;
+                this.c.a((OIInventory) this);
+                return oitemstack;
+            } else {
+                oitemstack = this.a[i].a(j);
+                if (this.a[i].a == 0) {
+                    this.a[i] = null;
+                }
+
+                this.c.a((OIInventory) this);
+                return oitemstack;
             }
-            localOItemStack = this.a[paramInt1].a(paramInt2);
-            if (this.a[paramInt1].a == 0) this.a[paramInt1] = null;
-            this.c.a(this);
-            return localOItemStack;
+        } else {
+            return null;
         }
-
-        return null;
     }
 
-    public void a(int paramInt, OItemStack paramOItemStack) {
-        this.a[paramInt] = paramOItemStack;
-        this.c.a(this);
+    public void a(int i, OItemStack oitemstack) {
+        this.a[i] = oitemstack;
+        this.c.a((OIInventory) this);
     }
 
-    public int c() {
+    public int d() {
         return 64;
     }
 
-    public void d() {
-    }
+    public void k_() {}
 
-    public boolean a_(OEntityPlayer paramOEntityPlayer) {
+    public boolean a(OEntityPlayer oentityplayer) {
         return true;
     }
 
-    public void l_()
-    {
-    }
+    public void f() {}
 
-    public void f()
-    {
+    public void g() {}
+
+    public boolean b(int i, OItemStack oitemstack) {
+        return true;
     }
 
     // CanaryMod
@@ -112,7 +121,7 @@ public class OInventoryCrafting implements OIInventory, Container<OItemStack>
 
     @Override
     public int getContentsSize() {
-        return this.k_();
+        return this.j_();
     }
 
     @Override

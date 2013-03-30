@@ -72,17 +72,17 @@ public class Projectile extends BaseEntity {
      * @param inaccuracy The inaccuracy with which it will be fired.
      */
     public void aimAt(double x, double y, double z, float power, float inaccuracy) { //pretty much copied directly from OEntityArrow.c()
-        double var6 = x - entity.t;
-        double var8 = y + (double)0 - 0.699999988079071D - entity.u;
-        double var10 = z - entity.v;
+        double var6 = x - entity.u;
+        double var8 = y + (double)0 - 0.699999988079071D - entity.v;
+        double var10 = z - entity.w;
         double var12 = (double)OMathHelper.a(var6 * var6 + var10 * var10);
         if(var12 >= 1.0E-7D) {
            float var14 = (float)(Math.atan2(var10, var6) * 180.0D / 3.1415927410125732D) - 90.0F;
            float var15 = (float)(-(Math.atan2(var8, var12) * 180.0D / 3.1415927410125732D));
            double var16 = var6 / var12;
            double var18 = var10 / var12;
-           entity.b(entity.t + var16, entity.u, entity.v + var18, var14, var15);
-           entity.M = 0.0F;
+           entity.b(entity.u + var16, entity.v, entity.w + var18, var14, var15);
+           entity.N = 0.0F;
            if(getEntity() instanceof OIProjectile) {
                float var20 = (float)var12 * 0.2F;
                   ((OIProjectile) getEntity()).c(var6, var8 + (double)var20, var10, power, inaccuracy);

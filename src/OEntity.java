@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 public abstract class OEntity {
@@ -10,8 +11,8 @@ public abstract class OEntity {
     public boolean m;
     public OEntity n;
     public OEntity o;
-    public OWorld p;
-    public double q;
+    public boolean p;
+    public OWorld q;
     public double r;
     public double s;
     public double t;
@@ -20,58 +21,61 @@ public abstract class OEntity {
     public double w;
     public double x;
     public double y;
-    public float z;
+    public double z;
     public float A;
     public float B;
     public float C;
-    public final OAxisAlignedBB D;
-    public boolean E;
+    public float D;
+    public final OAxisAlignedBB E;
     public boolean F;
     public boolean G;
     public boolean H;
     public boolean I;
-    protected boolean J;
-    public boolean K;
-    public boolean L; //CanaryMod: isdead variable
-    public float M;
+    public boolean J;
+    protected boolean K;
+    public boolean L;
+    public boolean M; //CanaryMod: isdead variable
     public float N;
     public float O;
     public float P;
     public float Q;
     public float R;
     public float S;
+    public float T;
     private int c;
-    public double T;
     public double U;
     public double V;
-    public float W;
+    public double W;
     public float X;
-    public boolean Y;
-    public float Z;
-    protected Random aa;
-    public int ab;
+    public float Y;
+    public boolean Z;
+    public float aa;
+    protected Random ab;
     public int ac;
-    protected int d; // CanaryMod: private -> protected
-    protected boolean ad;
-    public int ae;
+    public int ad;
+    protected int d;// CanaryMod: private -> protected
+    protected boolean ae;
+    public int af;
     private boolean e;
-    protected boolean af;
-    protected ODataWatcher ag;
+    protected boolean ag;
+    protected ODataWatcher ah;
     private double f;
     private double g;
-    public boolean ah;
-    public int ai;
+    public boolean ai;
     public int aj;
     public int ak;
-    public boolean al;
+    public int al;
     public boolean am;
-    public int an;
-    protected boolean ao;
-    protected int ap;
-    public int aq;
-    protected int ar;
+    public boolean an;
+    public int ao;
+    protected boolean ap;
+    protected int aq;
+    public int ar;
+    protected int as;
     protected boolean h; // CanaryMod: private -> protected
-    public OEnumEntitySize as;
+    private UUID i;
+    public OEnumEntitySize at;
+
     // CanaryMod Start
     BaseEntity entity = new BaseEntity(this);
     public static PluginLoader manager = etc.getLoader();
@@ -82,53 +86,54 @@ public abstract class OEntity {
         this.k = b++;
         this.l = 1.0D;
         this.m = false;
-        this.D = OAxisAlignedBB.a(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-        this.E = false;
-        this.H = false;
+        this.E = OAxisAlignedBB.a(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+        this.F = false;
         this.I = false;
-        this.K = true;
-        this.L = false;
-        this.M = 0.0F;
-        this.N = 0.6F;
-        this.O = 1.8F;
-        this.P = 0.0F;
+        this.J = false;
+        this.L = true;
+        this.M = false;
+        this.N = 0.0F;
+        this.O = 0.6F;
+        this.P = 1.8F;
         this.Q = 0.0F;
         this.R = 0.0F;
         this.S = 0.0F;
+        this.T = 0.0F;
         this.c = 1;
-        this.W = 0.0F;
         this.X = 0.0F;
-        this.Y = false;
-        this.Z = 0.0F;
-        this.aa = new Random();
-        this.ab = 0;
-        this.ac = 1;
+        this.Y = 0.0F;
+        this.Z = false;
+        this.aa = 0.0F;
+        this.ab = new Random();
+        this.ac = 0;
+        this.ad = 1;
         this.d = 0;
-        this.ad = false;
-        this.ae = 0;
+        this.ae = false;
+        this.af = 0;
         this.e = true;
-        this.af = false;
-        this.ag = new ODataWatcher();
-        this.ah = false;
-        this.ar = 0;
+        this.ag = false;
+        this.ah = new ODataWatcher();
+        this.ai = false;
+        this.as = 0;
         this.h = false;
-        this.as = OEnumEntitySize.b;
-        this.p = oworld;
+        this.i = UUID.randomUUID();
+        this.at = OEnumEntitySize.b;
+        this.q = oworld;
         this.b(0.0D, 0.0D, 0.0D);
         if (oworld != null) {
-            this.aq = oworld.u.h;
+            this.ar = oworld.t.h;
         }
 
-        this.ag.a(0, Byte.valueOf((byte) 0));
-        this.ag.a(1, Short.valueOf((short) 300));
+        this.ah.a(0, Byte.valueOf((byte) 0));
+        this.ah.a(1, Short.valueOf((short) 300));
         metadata = new NBTTagCompound("Canary"); // CanaryMod
         this.a();
     }
 
     protected abstract void a();
 
-    public ODataWatcher v() {
-        return this.ag;
+    public ODataWatcher u() {
+        return this.ah;
     }
 
     public boolean equals(Object object) {
@@ -139,120 +144,129 @@ public abstract class OEntity {
         return this.k;
     }
 
-    public void x() {
-        this.L = true;
+    public void w() {
+        // CanaryMod: ENTITY_DESTROYED hook
+        etc.getLoader().callHook(PluginLoader.Hook.ENTITY_DESTROYED, this.getEntity());
+        // CanaryMod: end
+        this.M = true;
     }
 
     protected void a(float f, float f1) {
-        this.N = f;
-        this.O = f1;
+        if (f != this.O || f1 != this.P) {
+            this.O = f;
+            this.P = f1;
+            this.E.d = this.E.a + (double) this.O;
+            this.E.f = this.E.c + (double) this.O;
+            this.E.e = this.E.b + (double) this.P;
+        }
+
         float f2 = f % 2.0F;
 
         if ((double) f2 < 0.375D) {
-            this.as = OEnumEntitySize.a;
+            this.at = OEnumEntitySize.a;
         } else if ((double) f2 < 0.75D) {
-            this.as = OEnumEntitySize.b;
+            this.at = OEnumEntitySize.b;
         } else if ((double) f2 < 1.0D) {
-            this.as = OEnumEntitySize.c;
+            this.at = OEnumEntitySize.c;
         } else if ((double) f2 < 1.375D) {
-            this.as = OEnumEntitySize.d;
+            this.at = OEnumEntitySize.d;
         } else if ((double) f2 < 1.75D) {
-            this.as = OEnumEntitySize.e;
+            this.at = OEnumEntitySize.e;
         } else {
-            this.as = OEnumEntitySize.f;
+            this.at = OEnumEntitySize.f;
         }
     }
 
     protected void b(float f, float f1) {
-        this.z = f % 360.0F;
-        this.A = f1 % 360.0F;
+        this.A = f % 360.0F;
+        this.B = f1 % 360.0F;
     }
 
     public void b(double d0, double d1, double d2) {
-        this.t = d0;
-        this.u = d1;
-        this.v = d2;
-        float f = this.N / 2.0F;
-        float f1 = this.O;
+        this.u = d0;
+        this.v = d1;
+        this.w = d2;
+        float f = this.O / 2.0F;
+        float f1 = this.P;
 
-        this.D.b(d0 - (double) f, d1 - (double) this.M + (double) this.W, d2 - (double) f, d0 + (double) f, d1 - (double) this.M + (double) this.W + (double) f1, d2 + (double) f);
+        this.E.b(d0 - (double) f, d1 - (double) this.N + (double) this.X, d2 - (double) f, d0 + (double) f, d1 - (double) this.N + (double) this.X + (double) f1, d2 + (double) f);
     }
 
-    public void j_() {
-        this.y();
+    public void l_() {
+        this.x();
     }
 
-    public void y() {
-        this.p.D.a("entityBaseTick");
-        if (this.o != null && this.o.L) {
+    public void x() {
+        this.q.C.a("entityBaseTick");
+        if (this.o != null && this.o.M) {
             this.o = null;
         }
 
-        this.P = this.Q;
-        this.q = this.t;
+        this.Q = this.R;
         this.r = this.u;
         this.s = this.v;
+        this.t = this.w;
+        this.D = this.B;
         this.C = this.A;
-        this.B = this.z;
         int i;
 
-        if (!this.p.I && this.p instanceof OWorldServer) {
-            this.p.D.a("portal");
-            OMinecraftServer ominecraftserver = ((OWorldServer) this.p).o();
+        if (!this.q.I && this.q instanceof OWorldServer) {
+            this.q.C.a("portal");
+            OMinecraftServer ominecraftserver = ((OWorldServer) this.q).o();
 
-            i = this.z();
-            if (this.ao) {
+            i = this.y();
+            if (this.ap) {
                 if (ominecraftserver.s()) {
-                    if (this.o == null && this.ap++ >= i) {
-                        this.ap = i;
-                        this.an = this.ab();
+                    if (this.o == null && this.aq++ >= i) {
+                        this.aq = i;
+                        this.ao = this.aa();
                         byte b0;
 
-                        if (this.p.u.h == -1) {
+                        if (this.q.t.h == -1) {
                             b0 = 0;
                         } else {
                             b0 = -1;
                         }
 
-                        this.b(b0);
+                        this.c(b0);
                     }
 
-                    this.ao = false;
+                    this.ap = false;
                 }
             } else {
-                if (this.ap > 0) {
-                    this.ap -= 4;
+                if (this.aq > 0) {
+                    this.aq -= 4;
                 }
 
-                if (this.ap < 0) {
-                    this.ap = 0;
+                if (this.aq < 0) {
+                    this.aq = 0;
                 }
             }
 
-            if (this.an > 0) {
-                --this.an;
+            if (this.ao > 0) {
+                --this.ao;
             }
 
-            this.p.D.b();
+            this.q.C.b();
         }
 
-        if (this.ai() && !this.H()) {
-            int j = OMathHelper.c(this.t);
+        if (this.ah() && !this.G()) {
+            int j = OMathHelper.c(this.u);
 
-            i = OMathHelper.c(this.u - 0.20000000298023224D - (double) this.M);
-            int k = OMathHelper.c(this.v);
-            int l = this.p.a(j, i, k);
+            i = OMathHelper.c(this.v - 0.20000000298023224D - (double) this.N);
+            int k = OMathHelper.c(this.w);
+            int l = this.q.a(j, i, k);
 
             if (l > 0) {
-                this.p.a("tilecrack_" + l + "_" + this.p.h(j, i, k), this.t + ((double) this.aa.nextFloat() - 0.5D) * (double) this.N, this.D.b + 0.1D, this.v + ((double) this.aa.nextFloat() - 0.5D) * (double) this.N, -this.w * 4.0D, 1.5D, -this.y * 4.0D);
+                this.q.a("tilecrack_" + l + "_" + this.q.h(j, i, k), this.u + ((double) this.ab.nextFloat() - 0.5D) * (double) this.O, this.E.b + 0.1D, this.w + ((double) this.ab.nextFloat() - 0.5D) * (double) this.O, -this.x * 4.0D, 1.5D, -this.z * 4.0D);
             }
         }
 
-        this.I();
-        if (this.p.I) {
+        this.H();
+        if (this.q.I) {
             this.d = 0;
         } else if (this.d > 0) {
-            if (this.af) {
+            if (this.ag) {
                 this.d -= 4;
                 if (this.d < 0) {
                     this.d = 0;
@@ -260,8 +274,9 @@ public abstract class OEntity {
             } else {
                 if (this.d % 20 == 0) {
                     // CanaryMod Damage hook: Periodic burn damage
-                    if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE_TICK, null, entity, 1)) {
-                        this.a(ODamageSource.b, 1);
+                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.FIRE_TICK.getDamageSource(), 1));
+                    if (!ev.isCanceled()) {
+                        this.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
                     }
                 }
 
@@ -269,42 +284,52 @@ public abstract class OEntity {
             }
         }
 
-        if (this.J()) {
-            this.A();
-            this.S *= 0.5F;
+        if (this.I()) {
+            this.z();
+            this.T *= 0.5F;
         }
 
-        if (this.u < -64.0D) {
-            this.C();
+        if (this.v < -64.0D) {
+            this.B();
         }
 
-        if (!this.p.I) {
+        if (!this.q.I) {
             this.a(0, this.d > 0);
             this.a(2, this.o != null);
         }
 
         this.e = false;
-        this.p.D.b();
+        this.q.C.b();
     }
 
-    public int z() {
+    public int y() {
         return 0;
     }
 
-    protected void A() {
-        if (!this.af) {
+    protected void z() {
+        if (!this.ag) {
             // CanaryMod Damage hook: Lava
+            HookParametersDamage ev = null;
             if (this instanceof OEntityLiving) {
-                if ((Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.LAVA, null, entity, 4)) {
+                ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.LAVA.getDamageSource(), 4));
+                if (ev.isCanceled()) {
                     return;
                 }
             }
-            this.a(ODamageSource.c, 4);
-            this.c(15);
+
+            if (ev == null) {
+                //No hook has been fired, continue the standard procedure
+                this.a(ODamageSource.c, 4);
+                this.d(15);
+            } else {
+                //Hook was fired, apply its data
+                this.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
+                this.d(15);
+            }
         }
     }
 
-    public void c(int i) {
+    public void d(int i) {
         int j = i * 20;
 
         j = OEnchantmentProtection.a(this, j);
@@ -313,54 +338,54 @@ public abstract class OEntity {
         }
     }
 
-    public void B() {
+    public void A() {
         this.d = 0;
     }
 
-    protected void C() {
-        this.x();
+    protected void B() {
+        this.w();
     }
 
     public boolean c(double d0, double d1, double d2) {
-        OAxisAlignedBB oaxisalignedbb = this.D.c(d0, d1, d2);
-        List list = this.p.a(this, oaxisalignedbb);
+        OAxisAlignedBB oaxisalignedbb = this.E.c(d0, d1, d2);
+        List list = this.q.a(this, oaxisalignedbb);
 
-        return !list.isEmpty() ? false : !this.p.d(oaxisalignedbb);
+        return !list.isEmpty() ? false : !this.q.d(oaxisalignedbb);
     }
 
     public void d(double d0, double d1, double d2) {
-        if (this.Y) {
-            this.D.d(d0, d1, d2);
-            this.t = (this.D.a + this.D.d) / 2.0D;
-            this.u = this.D.b + (double) this.M - (double) this.W;
-            this.v = (this.D.c + this.D.f) / 2.0D;
+        if (this.Z) {
+            this.E.d(d0, d1, d2);
+            this.u = (this.E.a + this.E.d) / 2.0D;
+            this.v = this.E.b + (double) this.N - (double) this.X;
+            this.w = (this.E.c + this.E.f) / 2.0D;
         } else {
-            this.p.D.a("move");
-            this.W *= 0.4F;
-            double d3 = this.t;
-            double d4 = this.u;
-            double d5 = this.v;
+            this.q.C.a("move");
+            this.X *= 0.4F;
+            double d3 = this.u;
+            double d4 = this.v;
+            double d5 = this.w;
 
-            if (this.J) {
-                this.J = false;
+            if (this.K) {
+                this.K = false;
                 d0 *= 0.25D;
                 d1 *= 0.05000000074505806D;
                 d2 *= 0.25D;
-                this.w = 0.0D;
                 this.x = 0.0D;
                 this.y = 0.0D;
+                this.z = 0.0D;
             }
 
             double d6 = d0;
             double d7 = d1;
             double d8 = d2;
-            OAxisAlignedBB oaxisalignedbb = this.D.c();
-            boolean flag = this.E && this.ah() && this instanceof OEntityPlayer;
+            OAxisAlignedBB oaxisalignedbb = this.E.c();
+            boolean flag = this.F && this.ag() && this instanceof OEntityPlayer;
 
             if (flag) {
                 double d9;
 
-                for (d9 = 0.05D; d0 != 0.0D && this.p.a(this, this.D.c(d0, -1.0D, 0.0D)).isEmpty(); d6 = d0) {
+                for (d9 = 0.05D; d0 != 0.0D && this.q.a(this, this.E.c(d0, -1.0D, 0.0D)).isEmpty(); d6 = d0) {
                     if (d0 < d9 && d0 >= -d9) {
                         d0 = 0.0D;
                     } else if (d0 > 0.0D) {
@@ -370,7 +395,7 @@ public abstract class OEntity {
                     }
                 }
 
-                for (; d2 != 0.0D && this.p.a(this, this.D.c(0.0D, -1.0D, d2)).isEmpty(); d8 = d2) {
+                for (; d2 != 0.0D && this.q.a(this, this.E.c(0.0D, -1.0D, d2)).isEmpty(); d8 = d2) {
                     if (d2 < d9 && d2 >= -d9) {
                         d2 = 0.0D;
                     } else if (d2 > 0.0D) {
@@ -380,7 +405,7 @@ public abstract class OEntity {
                     }
                 }
 
-                while (d0 != 0.0D && d2 != 0.0D && this.p.a(this, this.D.c(d0, -1.0D, d2)).isEmpty()) {
+                while (d0 != 0.0D && d2 != 0.0D && this.q.a(this, this.E.c(d0, -1.0D, d2)).isEmpty()) {
                     if (d0 < d9 && d0 >= -d9) {
                         d0 = 0.0D;
                     } else if (d0 > 0.0D) {
@@ -402,40 +427,40 @@ public abstract class OEntity {
                 }
             }
 
-            List list = this.p.a(this, this.D.a(d0, d1, d2));
+            List list = this.q.a(this, this.E.a(d0, d1, d2));
 
             for (int i = 0; i < list.size(); ++i) {
-                d1 = ((OAxisAlignedBB) list.get(i)).b(this.D, d1);
+                d1 = ((OAxisAlignedBB) list.get(i)).b(this.E, d1);
             }
 
-            this.D.d(0.0D, d1, 0.0D);
-            if (!this.K && d7 != d1) {
+            this.E.d(0.0D, d1, 0.0D);
+            if (!this.L && d7 != d1) {
                 d2 = 0.0D;
                 d1 = 0.0D;
                 d0 = 0.0D;
             }
 
-            boolean flag1 = this.E || d7 != d1 && d7 < 0.0D;
+            boolean flag1 = this.F || d7 != d1 && d7 < 0.0D;
 
             int j;
 
             for (j = 0; j < list.size(); ++j) {
-                d0 = ((OAxisAlignedBB) list.get(j)).a(this.D, d0);
+                d0 = ((OAxisAlignedBB) list.get(j)).a(this.E, d0);
             }
 
-            this.D.d(d0, 0.0D, 0.0D);
-            if (!this.K && d6 != d0) {
+            this.E.d(d0, 0.0D, 0.0D);
+            if (!this.L && d6 != d0) {
                 d2 = 0.0D;
                 d1 = 0.0D;
                 d0 = 0.0D;
             }
 
             for (j = 0; j < list.size(); ++j) {
-                d2 = ((OAxisAlignedBB) list.get(j)).c(this.D, d2);
+                d2 = ((OAxisAlignedBB) list.get(j)).c(this.E, d2);
             }
 
-            this.D.d(0.0D, 0.0D, d2);
-            if (!this.K && d8 != d2) {
+            this.E.d(0.0D, 0.0D, d2);
+            if (!this.L && d8 != d2) {
                 d2 = 0.0D;
                 d1 = 0.0D;
                 d0 = 0.0D;
@@ -446,182 +471,176 @@ public abstract class OEntity {
             double d12;
             int k;
 
-            if (this.X > 0.0F && flag1 && (flag || this.W < 0.05F) && (d6 != d0 || d8 != d2)) {
+            if (this.Y > 0.0F && flag1 && (flag || this.X < 0.05F) && (d6 != d0 || d8 != d2)) {
                 d10 = d0;
                 d11 = d1;
                 d12 = d2;
                 d0 = d6;
-                d1 = (double) this.X;
+                d1 = (double) this.Y;
                 d2 = d8;
-                OAxisAlignedBB oaxisalignedbb1 = this.D.c();
+                OAxisAlignedBB oaxisalignedbb1 = this.E.c();
 
-                this.D.c(oaxisalignedbb);
-                list = this.p.a(this, this.D.a(d6, d1, d8));
+                this.E.c(oaxisalignedbb);
+                list = this.q.a(this, this.E.a(d6, d1, d8));
 
                 for (k = 0; k < list.size(); ++k) {
-                    d1 = ((OAxisAlignedBB) list.get(k)).b(this.D, d1);
+                    d1 = ((OAxisAlignedBB) list.get(k)).b(this.E, d1);
                 }
 
-                this.D.d(0.0D, d1, 0.0D);
-                if (!this.K && d7 != d1) {
+                this.E.d(0.0D, d1, 0.0D);
+                if (!this.L && d7 != d1) {
                     d2 = 0.0D;
                     d1 = 0.0D;
                     d0 = 0.0D;
                 }
 
                 for (k = 0; k < list.size(); ++k) {
-                    d0 = ((OAxisAlignedBB) list.get(k)).a(this.D, d0);
+                    d0 = ((OAxisAlignedBB) list.get(k)).a(this.E, d0);
                 }
 
-                this.D.d(d0, 0.0D, 0.0D);
-                if (!this.K && d6 != d0) {
+                this.E.d(d0, 0.0D, 0.0D);
+                if (!this.L && d6 != d0) {
                     d2 = 0.0D;
                     d1 = 0.0D;
                     d0 = 0.0D;
                 }
 
                 for (k = 0; k < list.size(); ++k) {
-                    d2 = ((OAxisAlignedBB) list.get(k)).c(this.D, d2);
+                    d2 = ((OAxisAlignedBB) list.get(k)).c(this.E, d2);
                 }
 
-                this.D.d(0.0D, 0.0D, d2);
-                if (!this.K && d8 != d2) {
+                this.E.d(0.0D, 0.0D, d2);
+                if (!this.L && d8 != d2) {
                     d2 = 0.0D;
                     d1 = 0.0D;
                     d0 = 0.0D;
                 }
 
-                if (!this.K && d7 != d1) {
+                if (!this.L && d7 != d1) {
                     d2 = 0.0D;
                     d1 = 0.0D;
                     d0 = 0.0D;
                 } else {
-                    d1 = (double) (-this.X);
+                    d1 = (double) (-this.Y);
 
                     for (k = 0; k < list.size(); ++k) {
-                        d1 = ((OAxisAlignedBB) list.get(k)).b(this.D, d1);
+                        d1 = ((OAxisAlignedBB) list.get(k)).b(this.E, d1);
                     }
 
-                    this.D.d(0.0D, d1, 0.0D);
+                    this.E.d(0.0D, d1, 0.0D);
                 }
 
                 if (d10 * d10 + d12 * d12 >= d0 * d0 + d2 * d2) {
                     d0 = d10;
                     d1 = d11;
                     d2 = d12;
-                    this.D.c(oaxisalignedbb1);
-                } else {
-                    double d13 = this.D.b - (double) ((int) this.D.b);
-
-                    if (d13 > 0.0D) {
-                        this.W = (float) ((double) this.W + d13 + 0.01D);
-                    }
+                    this.E.c(oaxisalignedbb1);
                 }
             }
 
-            this.p.D.b();
-            this.p.D.a("rest");
-            this.t = (this.D.a + this.D.d) / 2.0D;
-            this.u = this.D.b + (double) this.M - (double) this.W;
-            this.v = (this.D.c + this.D.f) / 2.0D;
-            this.F = d6 != d0 || d8 != d2;
-            this.G = d7 != d1;
-            this.E = d7 != d1 && d7 < 0.0D;
-            this.H = this.F || this.G;
-            this.a(d1, this.E);
+            this.q.C.b();
+            this.q.C.a("rest");
+            this.u = (this.E.a + this.E.d) / 2.0D;
+            this.v = this.E.b + (double) this.N - (double) this.X;
+            this.w = (this.E.c + this.E.f) / 2.0D;
+            this.G = d6 != d0 || d8 != d2;
+            this.H = d7 != d1;
+            this.F = d7 != d1 && d7 < 0.0D;
+            this.I = this.G || this.H;
+            this.a(d1, this.F);
             if (d6 != d0) {
-                this.w = 0.0D;
-            }
-
-            if (d7 != d1) {
                 this.x = 0.0D;
             }
 
-            if (d8 != d2) {
+            if (d7 != d1) {
                 this.y = 0.0D;
             }
 
-            d10 = this.t - d3;
-            d11 = this.u - d4;
-            d12 = this.v - d5;
-            if (this.f_() && !flag && this.o == null) {
-                int l = OMathHelper.c(this.t);
+            if (d8 != d2) {
+                this.z = 0.0D;
+            }
 
-                k = OMathHelper.c(this.u - 0.20000000298023224D - (double) this.M);
-                int i1 = OMathHelper.c(this.v);
-                int j1 = this.p.a(l, k, i1);
+            d10 = this.u - d3;
+            d11 = this.v - d4;
+            d12 = this.w - d5;
+            if (this.f_() && !flag && this.o == null) {
+                int l = OMathHelper.c(this.u);
+
+                k = OMathHelper.c(this.v - 0.20000000298023224D - (double) this.N);
+                int i1 = OMathHelper.c(this.w);
+                int j1 = this.q.a(l, k, i1);
 
                 if (j1 == 0) {
-                    int k1 = this.p.e(l, k - 1, i1);
+                    int k1 = this.q.e(l, k - 1, i1);
 
                     if (k1 == 11 || k1 == 32 || k1 == 21) {
-                        j1 = this.p.a(l, k - 1, i1);
+                        j1 = this.q.a(l, k - 1, i1);
                     }
                 }
 
-                if (j1 != OBlock.aI.cm) {
+                if (j1 != OBlock.aJ.cz) {
                     d11 = 0.0D;
                 }
 
-                this.Q = (float) ((double) this.Q + (double) OMathHelper.a(d10 * d10 + d12 * d12) * 0.6D);
-                this.R = (float) ((double) this.R + (double) OMathHelper.a(d10 * d10 + d11 * d11 + d12 * d12) * 0.6D);
-                if (this.R > (float) this.c && j1 > 0) {
-                    this.c = (int) this.R + 1;
-                    if (this.H()) {
-                        float f = OMathHelper.a(this.w * this.w * 0.20000000298023224D + this.x * this.x + this.y * this.y * 0.20000000298023224D) * 0.35F;
+                this.R = (float) ((double) this.R + (double) OMathHelper.a(d10 * d10 + d12 * d12) * 0.6D);
+                this.S = (float) ((double) this.S + (double) OMathHelper.a(d10 * d10 + d11 * d11 + d12 * d12) * 0.6D);
+                if (this.S > (float) this.c && j1 > 0) {
+                    this.c = (int) this.S + 1;
+                    if (this.G()) {
+                        float f = OMathHelper.a(this.x * this.x * 0.20000000298023224D + this.y * this.y + this.z * this.z * 0.20000000298023224D) * 0.35F;
 
                         if (f > 1.0F) {
                             f = 1.0F;
                         }
 
-                        this.a("liquid.swim", f, 1.0F + (this.aa.nextFloat() - this.aa.nextFloat()) * 0.4F);
+                        this.a("liquid.swim", f, 1.0F + (this.ab.nextFloat() - this.ab.nextFloat()) * 0.4F);
                     }
 
                     this.a(l, k, i1, j1);
-                    OBlock.p[j1].b(this.p, l, k, i1, this);
+                    OBlock.r[j1].b(this.q, l, k, i1, this);
                 }
             }
 
-            this.D();
-            boolean flag2 = this.G();
+            this.C();
+            boolean flag2 = this.F();
 
-            if (this.p.e(this.D.e(0.001D, 0.001D, 0.001D))) {
-                this.d(1);
+            if (this.q.e(this.E.e(0.001D, 0.001D, 0.001D))) {
+                this.e(1);
                 if (!flag2) {
                     ++this.d;
                     if (this.d == 0) {
-                        this.c(8);
+                        this.d(8);
                     }
                 }
             } else if (this.d <= 0) {
-                this.d = -this.ac;
+                this.d = -this.ad;
             }
 
             if (flag2 && this.d > 0) {
-                this.a("random.fizz", 0.7F, 1.6F + (this.aa.nextFloat() - this.aa.nextFloat()) * 0.4F);
-                this.d = -this.ac;
+                this.a("random.fizz", 0.7F, 1.6F + (this.ab.nextFloat() - this.ab.nextFloat()) * 0.4F);
+                this.d = -this.ad;
             }
 
-            this.p.D.b();
+            this.q.C.b();
         }
     }
 
-    protected void D() {
-        int i = OMathHelper.c(this.D.a + 0.001D);
-        int j = OMathHelper.c(this.D.b + 0.001D);
-        int k = OMathHelper.c(this.D.c + 0.001D);
-        int l = OMathHelper.c(this.D.d - 0.001D);
-        int i1 = OMathHelper.c(this.D.e - 0.001D);
-        int j1 = OMathHelper.c(this.D.f - 0.001D);
+    protected void C() {
+        int i = OMathHelper.c(this.E.a + 0.001D);
+        int j = OMathHelper.c(this.E.b + 0.001D);
+        int k = OMathHelper.c(this.E.c + 0.001D);
+        int l = OMathHelper.c(this.E.d - 0.001D);
+        int i1 = OMathHelper.c(this.E.e - 0.001D);
+        int j1 = OMathHelper.c(this.E.f - 0.001D);
 
-        if (this.p.d(i, j, k, l, i1, j1)) {
+        if (this.q.e(i, j, k, l, i1, j1)) {
             for (int k1 = i; k1 <= l; ++k1) {
                 for (int l1 = j; l1 <= i1; ++l1) {
                     for (int i2 = k; i2 <= j1; ++i2) {
-                        int j2 = this.p.a(k1, l1, i2);
+                        int j2 = this.q.a(k1, l1, i2);
 
                         if (j2 > 0) {
-                            OBlock.p[j2].a(this.p, k1, l1, i2, this);
+                            OBlock.r[j2].a(this.q, k1, l1, i2, this);
                         }
                     }
                 }
@@ -630,18 +649,18 @@ public abstract class OEntity {
     }
 
     protected void a(int i, int j, int k, int l) {
-        OStepSound ostepsound = OBlock.p[l].cz;
+        OStepSound ostepsound = OBlock.r[l].cM;
 
-        if (this.p.a(i, j + 1, k) == OBlock.aV.cm) {
-            ostepsound = OBlock.aV.cz;
+        if (this.q.a(i, j + 1, k) == OBlock.aW.cz) {
+            ostepsound = OBlock.aW.cM;
             this.a(ostepsound.e(), ostepsound.c() * 0.15F, ostepsound.d());
-        } else if (!OBlock.p[l].cB.d()) {
+        } else if (!OBlock.r[l].cO.d()) {
             this.a(ostepsound.e(), ostepsound.c() * 0.15F, ostepsound.d());
         }
     }
 
     public void a(String s, float f, float f1) {
-        this.p.a(this, s, f, f1);
+        this.q.a(this, s, f, f1);
     }
 
     protected boolean f_() {
@@ -650,30 +669,31 @@ public abstract class OEntity {
 
     protected void a(double d0, boolean flag) {
         if (flag) {
-            if (this.S > 0.0F) {
-                this.a(this.S);
-                this.S = 0.0F;
+            if (this.T > 0.0F) {
+                this.a(this.T);
+                this.T = 0.0F;
             }
         } else if (d0 < 0.0D) {
-            this.S = (float) ((double) this.S - d0);
+            this.T = (float) ((double) this.T - d0);
         }
     }
 
-    public OAxisAlignedBB E() {
+    public OAxisAlignedBB D() {
         return null;
     }
 
-    protected void d(int i) {
-        if (!this.af) {
+    protected void e(int i) {
+        if (!this.ag) {
             // CanaryMod Damage Hook: Fire
-            if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.FIRE, null, entity, i)) {
-                this.a(ODamageSource.a, i);
-            }
+            HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.FIRE.getDamageSource(), i));
+            if (!ev.isCanceled()) {
+                this.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
+            }//
         }
     }
 
-    public final boolean F() {
-        return this.af;
+    public final boolean E() {
+        return this.ag;
     }
 
     protected void a(float f) {
@@ -682,62 +702,62 @@ public abstract class OEntity {
         }
     }
 
+    public boolean F() {
+        return this.ae || this.q.F(OMathHelper.c(this.u), OMathHelper.c(this.v), OMathHelper.c(this.w)) || this.q.F(OMathHelper.c(this.u), OMathHelper.c(this.v + (double) this.P), OMathHelper.c(this.w));
+    }
+
     public boolean G() {
-        return this.ad || this.p.D(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)) || this.p.D(OMathHelper.c(this.t), OMathHelper.c(this.u + (double) this.O), OMathHelper.c(this.v));
+        return this.ae;
     }
 
     public boolean H() {
-        return this.ad;
-    }
-
-    public boolean I() {
-        if (this.p.a(this.D.b(0.0D, -0.4000000059604645D, 0.0D).e(0.001D, 0.001D, 0.001D), OMaterial.h, this)) {
-            if (!this.ad && !this.e) {
-                float f = OMathHelper.a(this.w * this.w * 0.20000000298023224D + this.x * this.x + this.y * this.y * 0.20000000298023224D) * 0.2F;
+        if (this.q.a(this.E.b(0.0D, -0.4000000059604645D, 0.0D).e(0.001D, 0.001D, 0.001D), OMaterial.h, this)) {
+            if (!this.ae && !this.e) {
+                float f = OMathHelper.a(this.x * this.x * 0.20000000298023224D + this.y * this.y + this.z * this.z * 0.20000000298023224D) * 0.2F;
 
                 if (f > 1.0F) {
                     f = 1.0F;
                 }
 
-                this.a("liquid.splash", f, 1.0F + (this.aa.nextFloat() - this.aa.nextFloat()) * 0.4F);
-                float f1 = (float) OMathHelper.c(this.D.b);
+                this.a("liquid.splash", f, 1.0F + (this.ab.nextFloat() - this.ab.nextFloat()) * 0.4F);
+                float f1 = (float) OMathHelper.c(this.E.b);
 
                 int i;
                 float f2;
                 float f3;
 
-                for (i = 0; (float) i < 1.0F + this.N * 20.0F; ++i) {
-                    f2 = (this.aa.nextFloat() * 2.0F - 1.0F) * this.N;
-                    f3 = (this.aa.nextFloat() * 2.0F - 1.0F) * this.N;
-                    this.p.a("bubble", this.t + (double) f2, (double) (f1 + 1.0F), this.v + (double) f3, this.w, this.x - (double) (this.aa.nextFloat() * 0.2F), this.y);
+                for (i = 0; (float) i < 1.0F + this.O * 20.0F; ++i) {
+                    f2 = (this.ab.nextFloat() * 2.0F - 1.0F) * this.O;
+                    f3 = (this.ab.nextFloat() * 2.0F - 1.0F) * this.O;
+                    this.q.a("bubble", this.u + (double) f2, (double) (f1 + 1.0F), this.w + (double) f3, this.x, this.y - (double) (this.ab.nextFloat() * 0.2F), this.z);
                 }
 
-                for (i = 0; (float) i < 1.0F + this.N * 20.0F; ++i) {
-                    f2 = (this.aa.nextFloat() * 2.0F - 1.0F) * this.N;
-                    f3 = (this.aa.nextFloat() * 2.0F - 1.0F) * this.N;
-                    this.p.a("splash", this.t + (double) f2, (double) (f1 + 1.0F), this.v + (double) f3, this.w, this.x, this.y);
+                for (i = 0; (float) i < 1.0F + this.O * 20.0F; ++i) {
+                    f2 = (this.ab.nextFloat() * 2.0F - 1.0F) * this.O;
+                    f3 = (this.ab.nextFloat() * 2.0F - 1.0F) * this.O;
+                    this.q.a("splash", this.u + (double) f2, (double) (f1 + 1.0F), this.w + (double) f3, this.x, this.y, this.z);
                 }
             }
 
-            this.S = 0.0F;
-            this.ad = true;
+            this.T = 0.0F;
+            this.ae = true;
             this.d = 0;
         } else {
-            this.ad = false;
+            this.ae = false;
         }
 
-        return this.ad;
+        return this.ae;
     }
 
     public boolean a(OMaterial omaterial) {
-        double d0 = this.u + (double) this.e();
-        int i = OMathHelper.c(this.t);
+        double d0 = this.v + (double) this.e();
+        int i = OMathHelper.c(this.u);
         int j = OMathHelper.d((float) OMathHelper.c(d0));
-        int k = OMathHelper.c(this.v);
-        int l = this.p.a(i, j, k);
+        int k = OMathHelper.c(this.w);
+        int l = this.q.a(i, j, k);
 
-        if (l != 0 && OBlock.p[l].cB == omaterial) {
-            float f = OBlockFluid.e(this.p.h(i, j, k)) - 0.11111111F;
+        if (l != 0 && OBlock.r[l].cO == omaterial) {
+            float f = OBlockFluid.d(this.q.h(i, j, k)) - 0.11111111F;
             float f1 = (float) (j + 1) - f;
 
             return d0 < (double) f1;
@@ -750,8 +770,8 @@ public abstract class OEntity {
         return 0.0F;
     }
 
-    public boolean J() {
-        return this.p.a(this.D.b(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), OMaterial.i);
+    public boolean I() {
+        return this.q.a(this.E.b(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), OMaterial.i);
     }
 
     public void a(float f, float f1, float f2) {
@@ -766,100 +786,100 @@ public abstract class OEntity {
             f3 = f2 / f3;
             f *= f3;
             f1 *= f3;
-            float f4 = OMathHelper.a(this.z * 3.1415927F / 180.0F);
-            float f5 = OMathHelper.b(this.z * 3.1415927F / 180.0F);
+            float f4 = OMathHelper.a(this.A * 3.1415927F / 180.0F);
+            float f5 = OMathHelper.b(this.A * 3.1415927F / 180.0F);
 
-            this.w += (double) (f * f5 - f1 * f4);
-            this.y += (double) (f1 * f5 + f * f4);
+            this.x += (double) (f * f5 - f1 * f4);
+            this.z += (double) (f1 * f5 + f * f4);
         }
     }
 
     public float c(float f) {
-        int i = OMathHelper.c(this.t);
-        int j = OMathHelper.c(this.v);
+        int i = OMathHelper.c(this.u);
+        int j = OMathHelper.c(this.w);
 
-        if (this.p.f(i, 0, j)) {
-            double d0 = (this.D.e - this.D.b) * 0.66D;
-            int k = OMathHelper.c(this.u - (double) this.M + d0);
+        if (this.q.f(i, 0, j)) {
+            double d0 = (this.E.e - this.E.b) * 0.66D;
+            int k = OMathHelper.c(this.v - (double) this.N + d0);
 
-            return this.p.p(i, k, j);
+            return this.q.q(i, k, j);
         } else {
             return 0.0F;
         }
     }
 
     public void a(OWorld oworld) {
-        this.p = oworld;
+        this.q = oworld;
     }
 
     public void a(double d0, double d1, double d2, float f, float f1) {
-        this.q = this.t = d0;
-        this.r = this.u = d1;
-        this.s = this.v = d2;
-        this.B = this.z = f;
-        this.C = this.A = f1;
-        this.W = 0.0F;
-        double d3 = (double) (this.B - f);
+        this.r = this.u = d0;
+        this.s = this.v = d1;
+        this.t = this.w = d2;
+        this.C = this.A = f;
+        this.D = this.B = f1;
+        this.X = 0.0F;
+        double d3 = (double) (this.C - f);
 
         if (d3 < -180.0D) {
-            this.B += 360.0F;
+            this.C += 360.0F;
         }
 
         if (d3 >= 180.0D) {
-            this.B -= 360.0F;
+            this.C -= 360.0F;
         }
 
-        this.b(this.t, this.u, this.v);
+        this.b(this.u, this.v, this.w);
         this.b(f, f1);
     }
 
     public void b(double d0, double d1, double d2, float f, float f1) {
-        this.T = this.q = this.t = d0;
-        this.U = this.r = this.u = d1 + (double) this.M;
-        this.V = this.s = this.v = d2;
-        this.z = f;
-        this.A = f1;
-        this.b(this.t, this.u, this.v);
+        this.U = this.r = this.u = d0;
+        this.V = this.s = this.v = d1 + (double) this.N;
+        this.W = this.t = this.w = d2;
+        this.A = f;
+        this.B = f1;
+        this.b(this.u, this.v, this.w);
     }
 
     public float d(OEntity oentity) {
-        float f = (float) (this.t - oentity.t);
-        float f1 = (float) (this.u - oentity.u);
-        float f2 = (float) (this.v - oentity.v);
+        float f = (float) (this.u - oentity.u);
+        float f1 = (float) (this.v - oentity.v);
+        float f2 = (float) (this.w - oentity.w);
 
         return OMathHelper.c(f * f + f1 * f1 + f2 * f2);
     }
 
     public double e(double d0, double d1, double d2) {
-        double d3 = this.t - d0;
-        double d4 = this.u - d1;
-        double d5 = this.v - d2;
+        double d3 = this.u - d0;
+        double d4 = this.v - d1;
+        double d5 = this.w - d2;
 
         return d3 * d3 + d4 * d4 + d5 * d5;
     }
 
     public double f(double d0, double d1, double d2) {
-        double d3 = this.t - d0;
-        double d4 = this.u - d1;
-        double d5 = this.v - d2;
+        double d3 = this.u - d0;
+        double d4 = this.v - d1;
+        double d5 = this.w - d2;
 
         return (double) OMathHelper.a(d3 * d3 + d4 * d4 + d5 * d5);
     }
 
     public double e(OEntity oentity) {
-        double d0 = this.t - oentity.t;
-        double d1 = this.u - oentity.u;
-        double d2 = this.v - oentity.v;
+        double d0 = this.u - oentity.u;
+        double d1 = this.v - oentity.v;
+        double d2 = this.w - oentity.w;
 
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
-    public void c_(OEntityPlayer oentityplayer) {}
+    public void b_(OEntityPlayer oentityplayer) {}
 
     public void f(OEntity oentity) {
         if (oentity.n != this && oentity.o != this) {
-            double d0 = oentity.t - this.t;
-            double d1 = oentity.v - this.v;
+            double d0 = oentity.u - this.u;
+            double d1 = oentity.w - this.w;
             double d2 = OMathHelper.a(d0, d1);
 
             if (d2 >= 0.009999999776482582D) {
@@ -876,8 +896,8 @@ public abstract class OEntity {
                 d1 *= d3;
                 d0 *= 0.05000000074505806D;
                 d1 *= 0.05000000074505806D;
-                d0 *= (double) (1.0F - this.Z);
-                d1 *= (double) (1.0F - this.Z);
+                d0 *= (double) (1.0F - this.aa);
+                d1 *= (double) (1.0F - this.aa);
                 this.g(-d0, 0.0D, -d1);
                 oentity.g(d0, 0.0D, d1);
             }
@@ -885,61 +905,86 @@ public abstract class OEntity {
     }
 
     public void g(double d0, double d1, double d2) {
-        this.w += d0;
-        this.x += d1;
-        this.y += d2;
-        this.am = true;
+        this.x += d0;
+        this.y += d1;
+        this.z += d2;
+        this.an = true;
     }
 
-    protected void K() {
-        this.I = true;
+    protected void J() {
+        this.J = true;
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
-        if (this.ar()) {
+        if (this.aq()) {
             return false;
         } else {
-            this.K();
+            this.J();
             return false;
         }
+    }
+
+    public boolean K() {
+        return false;
     }
 
     public boolean L() {
         return false;
     }
 
-    public boolean M() {
-        return false;
-    }
-
     public void c(OEntity oentity, int i) {}
 
     public boolean c(ONBTTagCompound onbttagcompound) {
-        String s = this.Q();
+        String s = this.P();
 
-        if (!this.L && s != null) {
+        if (!this.M && s != null) {
             onbttagcompound.a("id", s);
-            this.d(onbttagcompound);
+            this.e(onbttagcompound);
             return true;
         } else {
             return false;
         }
     }
 
-    public void d(ONBTTagCompound onbttagcompound) {
+    public boolean d(ONBTTagCompound onbttagcompound) {
+        String s = this.P();
+
+        if (!this.M && s != null && this.n == null) {
+            onbttagcompound.a("id", s);
+            this.e(onbttagcompound);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void e(ONBTTagCompound onbttagcompound) {
         try {
-            onbttagcompound.a("Pos", (ONBTBase) this.a(new double[] { this.t, this.u + (double) this.W, this.v}));
-            onbttagcompound.a("Motion", (ONBTBase) this.a(new double[] { this.w, this.x, this.y}));
-            onbttagcompound.a("Rotation", (ONBTBase) this.a(new float[] { this.z, this.A}));
-            onbttagcompound.a("FallDistance", this.S);
+            onbttagcompound.a("Pos", (ONBTBase) this.a(new double[] { this.u, this.v + (double) this.X, this.w}));
+            onbttagcompound.a("Motion", (ONBTBase) this.a(new double[] { this.x, this.y, this.z}));
+            onbttagcompound.a("Rotation", (ONBTBase) this.a(new float[] { this.A, this.B}));
+            onbttagcompound.a("FallDistance", this.T);
             onbttagcompound.a("Fire", (short) this.d);
-            onbttagcompound.a("Air", (short) this.al());
-            onbttagcompound.a("OnGround", this.E);
-            onbttagcompound.a("Dimension", this.aq);
+            onbttagcompound.a("Air", (short) this.ak());
+            onbttagcompound.a("OnGround", this.F);
+            onbttagcompound.a("Dimension", this.ar);
             onbttagcompound.a("Invulnerable", this.h);
-            onbttagcompound.a("PortalCooldown", this.an);
-            if(metadata != null) {onbttagcompound.a("Canary", metadata.getBaseTag());} //CanaryMod: allows the saving of persistent metadata
+            onbttagcompound.a("PortalCooldown", this.ao);
+            // CanaryMod: allow the saving of persistent metadata
+            if (metadata != null) {
+                onbttagcompound.a("Canary", metadata.getBaseTag());
+            } // CanaryMod end
+            onbttagcompound.a("UUIDMost", this.i.getMostSignificantBits());
+            onbttagcompound.a("UUIDLeast", this.i.getLeastSignificantBits());
+
             this.b(onbttagcompound);
+            if (this.o != null) {
+                ONBTTagCompound onbttagcompound1 = new ONBTTagCompound("Riding");
+
+                if (this.o.c(onbttagcompound1)) {
+                    onbttagcompound.a("Riding", (ONBTBase) onbttagcompound1);
+                }
+            }
         } catch (Throwable throwable) {
             OCrashReport ocrashreport = OCrashReport.a(throwable, "Saving entity NBT");
             OCrashReportCategory ocrashreportcategory = ocrashreport.a("Entity being saved");
@@ -949,19 +994,15 @@ public abstract class OEntity {
         }
     }
 
-    public void e(ONBTTagCompound onbttagcompound) {
+    public void f(ONBTTagCompound onbttagcompound) {
         try {
             ONBTTagList onbttaglist = onbttagcompound.m("Pos");
             ONBTTagList onbttaglist1 = onbttagcompound.m("Motion");
             ONBTTagList onbttaglist2 = onbttagcompound.m("Rotation");
 
-            this.w = ((ONBTTagDouble) onbttaglist1.b(0)).a;
-            this.x = ((ONBTTagDouble) onbttaglist1.b(1)).a;
-            this.y = ((ONBTTagDouble) onbttaglist1.b(2)).a;
-            if (Math.abs(this.w) > 10.0D) {
-                this.w = 0.0D;
-            }
-
+            this.x = ((ONBTTagDouble) onbttaglist1.b(0)).a;
+            this.y = ((ONBTTagDouble) onbttaglist1.b(1)).a;
+            this.z = ((ONBTTagDouble) onbttaglist1.b(2)).a;
             if (Math.abs(this.x) > 10.0D) {
                 this.x = 0.0D;
             }
@@ -970,21 +1011,29 @@ public abstract class OEntity {
                 this.y = 0.0D;
             }
 
-            this.q = this.T = this.t = ((ONBTTagDouble) onbttaglist.b(0)).a;
-            this.r = this.U = this.u = ((ONBTTagDouble) onbttaglist.b(1)).a;
-            this.s = this.V = this.v = ((ONBTTagDouble) onbttaglist.b(2)).a;
-            this.B = this.z = ((ONBTTagFloat) onbttaglist2.b(0)).a;
-            this.C = this.A = ((ONBTTagFloat) onbttaglist2.b(1)).a;
-            this.S = onbttagcompound.g("FallDistance");
+            if (Math.abs(this.z) > 10.0D) {
+                this.z = 0.0D;
+            }
+
+            this.r = this.U = this.u = ((ONBTTagDouble) onbttaglist.b(0)).a;
+            this.s = this.V = this.v = ((ONBTTagDouble) onbttaglist.b(1)).a;
+            this.t = this.W = this.w = ((ONBTTagDouble) onbttaglist.b(2)).a;
+            this.C = this.A = ((ONBTTagFloat) onbttaglist2.b(0)).a;
+            this.D = this.B = ((ONBTTagFloat) onbttaglist2.b(1)).a;
+            this.T = onbttagcompound.g("FallDistance");
             this.d = onbttagcompound.d("Fire");
-            this.f(onbttagcompound.d("Air"));
-            this.E = onbttagcompound.n("OnGround");
-            this.aq = onbttagcompound.e("Dimension");
+            this.g(onbttagcompound.d("Air"));
+            this.F = onbttagcompound.n("OnGround");
+            this.ar = onbttagcompound.e("Dimension");
             this.h = onbttagcompound.n("Invulnerable");
-            this.an = onbttagcompound.e("PortalCooldown");
-            this.b(this.t, this.u, this.v);
-            this.b(this.z, this.A);
-            this.metadata = onbttagcompound.b("Canary") ? new NBTTagCompound(onbttagcompound.l("Canary")) : new NBTTagCompound("Canary"); //CanaryMod: allows the saving of persistent metadata
+            this.ao = onbttagcompound.e("PortalCooldown");
+            if (onbttagcompound.b("UUIDMost") && onbttagcompound.b("UUIDLeast")) {
+                this.i = new UUID(onbttagcompound.f("UUIDMost"), onbttagcompound.f("UUIDLeast"));
+            }
+
+            this.b(this.u, this.v, this.w);
+            this.b(this.A, this.B);
+            this.metadata = onbttagcompound.b("Canary") ? new NBTTagCompound(onbttagcompound.l("Canary")) : new NBTTagCompound("Canary"); //CanaryMod: allow the saving of persistent metadata
             this.a(onbttagcompound);
         } catch (Throwable throwable) {
             OCrashReport ocrashreport = OCrashReport.a(throwable, "Loading entity NBT");
@@ -995,7 +1044,7 @@ public abstract class OEntity {
         }
     }
 
-    protected final String Q() {
+    protected final String P() {
         return OEntityList.b(this);
     }
 
@@ -1040,27 +1089,27 @@ public abstract class OEntity {
     }
 
     public OEntityItem a(OItemStack oitemstack, float f) {
-        OEntityItem oentityitem = new OEntityItem(this.p, this.t, this.u + (double) f, this.v, oitemstack);
+        OEntityItem oentityitem = new OEntityItem(this.q, this.u, this.v + (double) f, this.w, oitemstack);
 
         oentityitem.b = 10;
-        this.p.d((OEntity) oentityitem);
+        this.q.d((OEntity) oentityitem);
         return oentityitem;
     }
 
-    public boolean S() {
-        return !this.L;
+    public boolean R() {
+        return !this.M;
     }
 
-    public boolean T() {
+    public boolean S() {
         for (int i = 0; i < 8; ++i) {
-            float f = ((float) ((i >> 0) % 2) - 0.5F) * this.N * 0.8F;
+            float f = ((float) ((i >> 0) % 2) - 0.5F) * this.O * 0.8F;
             float f1 = ((float) ((i >> 1) % 2) - 0.5F) * 0.1F;
-            float f2 = ((float) ((i >> 2) % 2) - 0.5F) * this.N * 0.8F;
-            int j = OMathHelper.c(this.t + (double) f);
-            int k = OMathHelper.c(this.u + (double) this.e() + (double) f1);
-            int l = OMathHelper.c(this.v + (double) f2);
+            float f2 = ((float) ((i >> 2) % 2) - 0.5F) * this.O * 0.8F;
+            int j = OMathHelper.c(this.u + (double) f);
+            int k = OMathHelper.c(this.v + (double) this.e() + (double) f1);
+            int l = OMathHelper.c(this.w + (double) f2);
 
-            if (this.p.t(j, k, l)) {
+            if (this.q.u(j, k, l)) {
                 return true;
             }
         }
@@ -1068,7 +1117,7 @@ public abstract class OEntity {
         return false;
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
+    public boolean a_(OEntityPlayer oentityplayer) {
         return false;
     }
 
@@ -1076,19 +1125,19 @@ public abstract class OEntity {
         return null;
     }
 
-    public void U() {
-        if (this.o.L) {
+    public void T() {
+        if (this.o.M) {
             this.o = null;
         } else {
-            this.w = 0.0D;
             this.x = 0.0D;
             this.y = 0.0D;
-            this.j_();
+            this.z = 0.0D;
+            this.l_();
             if (this.o != null) {
-                this.o.V();
-                this.g += (double) (this.o.z - this.o.B);
+                this.o.U();
+                this.g += (double) (this.o.A - this.o.C);
 
-                for (this.f += (double) (this.o.A - this.o.C); this.g >= 180.0D; this.g -= 360.0D) {
+                for (this.f += (double) (this.o.B - this.o.D); this.g >= 180.0D; this.g -= 360.0D) {
                     ;
                 }
 
@@ -1126,28 +1175,30 @@ public abstract class OEntity {
 
                 this.g -= d0;
                 this.f -= d1;
-                this.z = (float) ((double) this.z + d0);
-                this.A = (float) ((double) this.A + d1);
+                this.A = (float) ((double) this.A + d0);
+                this.B = (float) ((double) this.B + d1);
             }
         }
     }
 
-    public void V() {
-        if (!(this.n instanceof OEntityPlayer) || !((OEntityPlayer) this.n).bV()) {
-            this.n.T = this.T;
-            this.n.U = this.U + this.X() + this.n.W();
-            this.n.V = this.V;
-        }
+    public void U() {
+        if (this.n != null) {
+            if (!(this.n instanceof OEntityPlayer) || !((OEntityPlayer) this.n).ce()) {
+                this.n.U = this.U;
+                this.n.V = this.V + this.W() + this.n.V();
+                this.n.W = this.W;
+            }
 
-        this.n.b(this.t, this.u + this.X() + this.n.W(), this.v);
+            this.n.b(this.u, this.v + this.W() + this.n.V(), this.w);
+        }
+    }
+
+    public double V() {
+        return (double) this.N;
     }
 
     public double W() {
-        return (double) this.M;
-    }
-
-    public double X() {
-        return (double) this.O * 0.75D;
+        return (double) this.P * 0.75D;
     }
 
     public void a(OEntity oentity) {
@@ -1155,22 +1206,14 @@ public abstract class OEntity {
         this.g = 0.0D;
         if (oentity == null) {
             if (this.o != null) {
-                this.b(this.o.t, this.o.D.b + (double) this.o.O, this.o.v, this.z, this.A);
+                this.b(this.o.u, this.o.E.b + (double) this.o.P, this.o.w, this.A, this.B);
                 this.o.n = null;
             }
 
-            this.o = null;
-        } else if (this.o == oentity) {
-            this.h(oentity);
-            this.o.n = null;
             this.o = null;
         } else {
             if (this.o != null) {
                 this.o.n = null;
-            }
-
-            if (oentity.n != null) {
-                oentity.n.o = null;
             }
 
             this.o = oentity;
@@ -1179,136 +1222,144 @@ public abstract class OEntity {
     }
 
     public void h(OEntity oentity) {
-        double d0 = oentity.t;
-        double d1 = oentity.D.b + (double) oentity.O;
-        double d2 = oentity.v;
+        double d0 = this.u;
+        double d1 = this.v;
+        double d2 = this.w;
+
+        if (oentity != null) {
+            d0 = oentity.u;
+            d1 = oentity.E.b + (double) oentity.P;
+            d2 = oentity.w;
+        }
 
         for (double d3 = -1.5D; d3 < 2.0D; ++d3) {
             for (double d4 = -1.5D; d4 < 2.0D; ++d4) {
                 if (d3 != 0.0D || d4 != 0.0D) {
-                    int i = (int) (this.t + d3);
-                    int j = (int) (this.v + d4);
-                    OAxisAlignedBB oaxisalignedbb = this.D.c(d3, 1.0D, d4);
+                    int i = (int) (this.u + d3);
+                    int j = (int) (this.w + d4);
+                    OAxisAlignedBB oaxisalignedbb = this.E.c(d3, 1.0D, d4);
 
-                    if (this.p.a(oaxisalignedbb).isEmpty()) {
-                        if (this.p.v(i, (int) this.u, j)) {
-                            this.b(this.t + d3, this.u + 1.0D, this.v + d4, this.z, this.A);
+                    if (this.q.a(oaxisalignedbb).isEmpty()) {
+                        if (this.q.w(i, (int) this.v, j)) {
+                            this.b(this.u + d3, this.v + 1.0D, this.w + d4, this.A, this.B);
                             return;
                         }
 
-                        if (this.p.v(i, (int) this.u - 1, j) || this.p.g(i, (int) this.u - 1, j) == OMaterial.h) {
-                            d0 = this.t + d3;
-                            d1 = this.u + 1.0D;
-                            d2 = this.v + d4;
+                        if (this.q.w(i, (int) this.v - 1, j) || this.q.g(i, (int) this.v - 1, j) == OMaterial.h) {
+                            d0 = this.u + d3;
+                            d1 = this.v + 1.0D;
+                            d2 = this.w + d4;
                         }
                     }
                 }
             }
         }
 
-        this.b(d0, d1, d2, this.z, this.A);
+        this.b(d0, d1, d2, this.A, this.B);
     }
 
-    public float Y() {
+    public float X() {
         return 0.1F;
     }
 
-    public OVec3 Z() {
+    public OVec3 Y() {
         return null;
     }
 
-    public void aa() {
-        if (this.an > 0) {
-            this.an = this.ab();
+    public void Z() {
+        if (this.ao > 0) {
+            this.ao = this.aa();
         } else {
-            double d0 = this.q - this.t;
-            double d1 = this.s - this.v;
+            double d0 = this.r - this.u;
+            double d1 = this.t - this.w;
 
-            if (!this.p.I && !this.ao) {
-                this.ar = ODirection.a(d0, d1);
+            if (!this.q.I && !this.ap) {
+                this.as = ODirection.a(d0, d1);
             }
 
-            this.ao = true;
+            this.ap = true;
         }
     }
 
-    public int ab() {
+    public int aa() {
         return 900;
     }
 
-    public OItemStack[] ae() {
+    public OItemStack[] ad() {
         return null;
     }
 
-    public void b(int i, OItemStack oitemstack) {}
+    public void c(int i, OItemStack oitemstack) {}
+
+    public boolean ae() {
+        return this.d > 0 || this.f(0);
+    }
 
     public boolean af() {
-        return this.d > 0 || this.e(0);
+        return this.o != null || this.f(2);
     }
 
     public boolean ag() {
-        return this.o != null || this.e(2);
-    }
-
-    public boolean ah() {
-        return this.e(1);
-    }
-
-    public void a(boolean flag) {
-        this.a(1, flag);
-    }
-
-    public boolean ai() {
-        return this.e(3);
+        return this.f(1);
     }
 
     public void b(boolean flag) {
-        this.a(3, flag);
+        this.a(1, flag);
     }
 
-    public boolean aj() {
-        return this.e(5);
+    public boolean ah() {
+        return this.f(3);
     }
 
     public void c(boolean flag) {
-        this.a(5, flag);
+        this.a(3, flag);
+    }
+
+    public boolean ai() {
+        return this.f(5);
     }
 
     public void d(boolean flag) {
+        this.a(5, flag);
+    }
+
+    public void e(boolean flag) {
         this.a(4, flag);
     }
 
-    protected boolean e(int i) {
-        return (this.ag.a(0) & 1 << i) != 0;
+    protected boolean f(int i) {
+        return (this.ah.a(0) & 1 << i) != 0;
     }
 
     protected void a(int i, boolean flag) {
-        byte b0 = this.ag.a(0);
+        byte b0 = this.ah.a(0);
 
         if (flag) {
-            this.ag.b(0, Byte.valueOf((byte) (b0 | 1 << i)));
+            this.ah.b(0, Byte.valueOf((byte) (b0 | 1 << i)));
         } else {
-            this.ag.b(0, Byte.valueOf((byte) (b0 & ~(1 << i))));
+            this.ah.b(0, Byte.valueOf((byte) (b0 & ~(1 << i))));
         }
     }
 
-    public int al() {
-        return this.ag.b(1);
+    public int ak() {
+        return this.ah.b(1);
     }
 
-    public void f(int i) {
-        this.ag.b(1, Short.valueOf((short) i));
+    public void g(int i) {
+        this.ah.b(1, Short.valueOf((short) i));
     }
 
     public void a(OEntityLightningBolt oentitylightningbolt) {
-        // CanaryMod Damage Hook: Lightning
-        if ((Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.LIGHTNING, null, entity, 5)) {
+        //CanaryMod Damage Hook: Lightning
+        HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, this.getEntity(), DamageType.LIGHTNING.getDamageSource(), 5));
+        if (ev.isCanceled()) {
             return;
         }
-        this.d(5);
+        //TODO: Apply a changed DamageSource here?
+        this.e(ev.getDamageAmount());
         ++this.d;
         if (this.d == 0) {
-            this.c(8);
+            this.d(8);
         }
     }
 
@@ -1321,17 +1372,17 @@ public abstract class OEntity {
         double d3 = d0 - (double) i;
         double d4 = d1 - (double) j;
         double d5 = d2 - (double) k;
-        List list = this.p.a(this.D);
+        List list = this.q.a(this.E);
 
-        if (list.isEmpty() && !this.p.u(i, j, k)) {
+        if (list.isEmpty() && !this.q.v(i, j, k)) {
             return false;
         } else {
-            boolean flag = !this.p.u(i - 1, j, k);
-            boolean flag1 = !this.p.u(i + 1, j, k);
-            boolean flag2 = !this.p.u(i, j - 1, k);
-            boolean flag3 = !this.p.u(i, j + 1, k);
-            boolean flag4 = !this.p.u(i, j, k - 1);
-            boolean flag5 = !this.p.u(i, j, k + 1);
+            boolean flag = !this.q.v(i - 1, j, k);
+            boolean flag1 = !this.q.v(i + 1, j, k);
+            boolean flag2 = !this.q.v(i, j - 1, k);
+            boolean flag3 = !this.q.v(i, j + 1, k);
+            boolean flag4 = !this.q.v(i, j, k - 1);
+            boolean flag5 = !this.q.v(i, j, k + 1);
             byte b0 = 3;
             double d6 = 9999.0D;
 
@@ -1360,42 +1411,42 @@ public abstract class OEntity {
                 b0 = 5;
             }
 
-            float f = this.aa.nextFloat() * 0.2F + 0.1F;
+            float f = this.ab.nextFloat() * 0.2F + 0.1F;
 
             if (b0 == 0) {
-                this.w = (double) (-f);
-            }
-
-            if (b0 == 1) {
-                this.w = (double) f;
-            }
-
-            if (b0 == 2) {
                 this.x = (double) (-f);
             }
 
-            if (b0 == 3) {
+            if (b0 == 1) {
                 this.x = (double) f;
             }
 
-            if (b0 == 4) {
+            if (b0 == 2) {
                 this.y = (double) (-f);
             }
 
-            if (b0 == 5) {
+            if (b0 == 3) {
                 this.y = (double) f;
+            }
+
+            if (b0 == 4) {
+                this.z = (double) (-f);
+            }
+
+            if (b0 == 5) {
+                this.z = (double) f;
             }
 
             return true;
         }
     }
 
-    public void am() {
-        this.J = true;
-        this.S = 0.0F;
+    public void al() {
+        this.K = true;
+        this.T = 0.0F;
     }
 
-    public String an() {
+    public String am() {
         String s = OEntityList.b(this);
 
         if (s == null) {
@@ -1405,7 +1456,7 @@ public abstract class OEntity {
         return OStatCollector.a("entity." + s + ".name");
     }
 
-    public OEntity[] ao() {
+    public OEntity[] an() {
         return null;
     }
 
@@ -1413,11 +1464,11 @@ public abstract class OEntity {
         return this == oentity;
     }
 
-    public float ap() {
+    public float ao() {
         return 0.0F;
     }
 
-    public boolean aq() {
+    public boolean ap() {
         return true;
     }
 
@@ -1426,40 +1477,40 @@ public abstract class OEntity {
     }
 
     public String toString() {
-        return String.format("%s[\'%s\'/%d, l=\'%s\', x=%.2f, y=%.2f, z=%.2f]", new Object[] { this.getClass().getSimpleName(), this.an(), Integer.valueOf(this.k), this.p == null ? "~NULL~" : this.p.K().k(), Double.valueOf(this.t), Double.valueOf(this.u), Double.valueOf(this.v)});
+        return String.format("%s[\'%s\'/%d, l=\'%s\', x=%.2f, y=%.2f, z=%.2f]", new Object[] { this.getClass().getSimpleName(), this.am(), Integer.valueOf(this.k), this.q == null ? "~NULL~" : this.q.L().k(), Double.valueOf(this.u), Double.valueOf(this.v), Double.valueOf(this.w)});
     }
 
-    public boolean ar() {
+    public boolean aq() {
         return this.h;
     }
 
     public void k(OEntity oentity) {
-        this.b(oentity.t, oentity.u, oentity.v, oentity.z, oentity.A);
+        this.b(oentity.u, oentity.v, oentity.w, oentity.A, oentity.B);
     }
 
     public void a(OEntity oentity, boolean flag) {
         ONBTTagCompound onbttagcompound = new ONBTTagCompound();
 
-        oentity.d(onbttagcompound);
-        this.e(onbttagcompound);
-        this.an = oentity.an;
-        this.ar = oentity.ar;
+        oentity.e(onbttagcompound);
+        this.f(onbttagcompound);
+        this.ao = oentity.ao;
+        this.as = oentity.as;
     }
 
-    public void b(int i) {
-        if (!this.p.I && !this.L) {
-            this.p.D.a("changeDimension");
+    public void c(int i) {
+        if (!this.q.I && !this.M) {
+            this.q.C.a("changeDimension");
             OMinecraftServer ominecraftserver = OMinecraftServer.D();
-            int j = this.aq;
-            OWorldServer oworldserver = ominecraftserver.getWorld(this.p.name, j);
-            OWorldServer oworldserver1 = ominecraftserver.getWorld(this.p.name, i);
+            int j = this.ar;
+            OWorldServer oworldserver = ominecraftserver.getWorld(q.name, j);
+            OWorldServer oworldserver1 = ominecraftserver.getWorld(q.name, i);
 
-            this.aq = i;
-            this.p.e(this);
-            this.L = false;
-            this.p.D.a("reposition");
+            this.ar = i;
+            this.q.e(this);
+            this.M = false;
+            this.q.C.a("reposition");
             ominecraftserver.ad().a(this, j, oworldserver, oworldserver1);
-            this.p.D.c("reloading");
+            this.q.C.c("reloading");
             OEntity oentity = OEntityList.a(OEntityList.b(this), oworldserver1);
 
             if (oentity != null) {
@@ -1467,37 +1518,49 @@ public abstract class OEntity {
                 oworldserver1.d(oentity);
             }
 
-            this.L = true;
-            this.p.D.b();
+            this.M = true;
+            this.q.C.b();
             oworldserver.i();
             oworldserver1.i();
-            this.p.D.b();
+            this.q.C.b();
         }
     }
 
-    public float a(OExplosion oexplosion, OBlock oblock, int i, int j, int k) {
+    public float a(OExplosion oexplosion, OWorld oworld, int i, int j, int k, OBlock oblock) {
         return oblock.a(this);
     }
 
-    public int as() {
+    public boolean a(OExplosion oexplosion, OWorld oworld, int i, int j, int k, int l, float f) {
+        return true;
+    }
+
+    public int ar() {
         return 3;
     }
 
-    public int at() {
-        return this.ar;
+    public int as() {
+        return this.as;
     }
 
-    public boolean au() {
+    public boolean at() {
         return false;
     }
 
     public void a(OCrashReportCategory ocrashreportcategory) {
         ocrashreportcategory.a("Entity Type", (Callable) (new OCallableEntityType(this)));
         ocrashreportcategory.a("Entity ID", Integer.valueOf(this.k));
-        ocrashreportcategory.a("Name", this.an());
-        ocrashreportcategory.a("Exact location", String.format("%.2f, %.2f, %.2f", new Object[] { Double.valueOf(this.t), Double.valueOf(this.u), Double.valueOf(this.v)}));
-        ocrashreportcategory.a("Block location", OCrashReportCategory.a(OMathHelper.c(this.t), OMathHelper.c(this.u), OMathHelper.c(this.v)));
-        ocrashreportcategory.a("Momentum", String.format("%.2f, %.2f, %.2f", new Object[] { Double.valueOf(this.w), Double.valueOf(this.x), Double.valueOf(this.y)}));
+        ocrashreportcategory.a("Entity Name", (Callable) (new OCallableEntityName(this)));
+        ocrashreportcategory.a("Entity\'s Exact location", String.format("%.2f, %.2f, %.2f", new Object[] { Double.valueOf(this.u), Double.valueOf(this.v), Double.valueOf(this.w)}));
+        ocrashreportcategory.a("Entity\'s Block location", OCrashReportCategory.a(OMathHelper.c(this.u), OMathHelper.c(this.v), OMathHelper.c(this.w)));
+        ocrashreportcategory.a("Entity\'s Momentum", String.format("%.2f, %.2f, %.2f", new Object[] { Double.valueOf(this.x), Double.valueOf(this.y), Double.valueOf(this.z)}));
+    }
+
+    public boolean aw() {
+        return true;
+    }
+
+    public String ax() {
+        return this.am();
     }
 
     // CanaryMod start: add getEntity

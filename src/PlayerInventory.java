@@ -5,7 +5,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> {
         this(null, player);
     }
     public PlayerInventory(OContainer oContainer, Player player) {
-        super(oContainer, player.getUser().bJ);
+        super(oContainer, player.getUser().bK);
         user = player.getUser();
     }
 
@@ -27,7 +27,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> {
 
     @Override
     public void update() {
-        user.j_();
+        user.l_();
     }
 
     /**
@@ -65,7 +65,7 @@ public class PlayerInventory extends ItemArray<OInventoryPlayer> {
      * @return Item
      */
     public Item getCursorItem() {
-        OItemStack itemstack = container.n();
+        OItemStack itemstack = container.o();
         return itemstack == null ? null : new Item(itemstack);
     }
 

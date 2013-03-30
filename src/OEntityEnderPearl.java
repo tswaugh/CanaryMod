@@ -20,29 +20,29 @@ public class OEntityEnderPearl extends OEntityThrowable {
                 p = new Player((OEntityPlayerMP) this.h());
             }
             if ((p != null) && !(etc.getServer().getPlayerList().contains(p))) {
-                this.x(); // kill this entity
+                this.w(); // kill this entity
                 return;
             }
             // CanaryMod end
 
             for (int i = 0; i < 32; ++i) {
-                this.p.a("portal", this.t, this.u + this.aa.nextDouble() * 2.0D, this.v, this.aa.nextGaussian(), 0.0D, this.aa.nextGaussian());
+                this.q.a("portal", this.u, this.v + this.ab.nextDouble() * 2.0D, this.w, this.ab.nextGaussian(), 0.0D, this.ab.nextGaussian());
             }
 
-        if (!this.p.I) {
+            if (!this.q.I) {
                 if (this.h() != null && this.h() instanceof OEntityPlayerMP) {
                     OEntityPlayerMP oentityplayermp = (OEntityPlayerMP) this.h();
 
-                    if (!oentityplayermp.a.c && oentityplayermp.p == this.p) {
-                        this.h().a(this.t, this.u, this.v);
-                        this.h().S = 0.0F;
-                        if (!(Boolean) manager.callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.ENDERPEARL, new BaseEntity(this), ((OEntityPlayerMP) h()).getPlayer(), 5)) {
-                            this.h().a(ODamageSource.h, 5);
+                    if (!oentityplayermp.a.b && oentityplayermp.q == this.q) {
+                        this.h().a(this.u, this.v, this.w);
+                        this.h().T = 0.0F;
+                        HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(this.getEntity(), oentityplayermp.getPlayer(), DamageType.ENDERPEARL.getDamageSource(), 5));
+                        if (!ev.isCanceled()) {
+                            this.h().a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
                         } //
                     }
                 }
-
-                this.x();
+                this.w();
             }
         }
     }

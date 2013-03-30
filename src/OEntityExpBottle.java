@@ -25,18 +25,18 @@ public class OEntityExpBottle extends OEntityThrowable {
     }
 
     protected void a(OMovingObjectPosition omovingobjectposition) {
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.p.I) {
-            this.p.f(2002, (int) Math.round(this.t), (int) Math.round(this.u), (int) Math.round(this.v), 0);
-            int i = 3 + this.p.t.nextInt(5) + this.p.t.nextInt(5);
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.q.I) {
+            this.q.e(2002, (int) Math.round(this.u), (int) Math.round(this.v), (int) Math.round(this.w), 0);
+            int i = 3 + this.q.s.nextInt(5) + this.q.s.nextInt(5);
 
             while (i > 0) {
                 int j = OEntityXPOrb.a(i);
 
                 i -= j;
-                this.p.d((OEntity) (new OEntityXPOrb(this.p, this.t, this.u, this.v, j)));
+                this.q.d((OEntity) (new OEntityXPOrb(this.q, this.u, this.v, this.w, j)));
             }
 
-            this.x();
+            this.w();
         }
     }
 }

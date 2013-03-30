@@ -65,50 +65,53 @@ public class OPotion {
 
     public void a(OEntityLiving oentityliving, int i) {
         if (this.H == l.H) {
-            if (oentityliving.aU() < oentityliving.aT()) {
-                oentityliving.i(1);
+            if (oentityliving.aX() < oentityliving.aW()) {
+                oentityliving.j(1);
             }
         } else if (this.H == u.H) {
-            if (oentityliving.aU() > 1) {
+            if (oentityliving.aX() > 1) {
                 // Canarymod: DAMAGE From Poison
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, oentityliving.entity, 1)) {
-                    oentityliving.a(ODamageSource.m, 1);
+                HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, oentityliving.getEntity(), DamageType.POTION.getDamageSource(), 1));
+                if (!ev.isCanceled()) {
+                    oentityliving.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
                 } //
             }
         } else if (this.H == v.H) {
             // CanaryMod: Wither effect damage
-            if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.WITHER, null, oentityliving.entity, 1)) {
-                oentityliving.a(ODamageSource.n, 1);
+            HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, oentityliving.getEntity(), DamageType.WITHER.getDamageSource(), 1));
+            if (!ev.isCanceled()) {
+                oentityliving.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
             } //
         } else if (this.H == s.H && oentityliving instanceof OEntityPlayer) {
             ((OEntityPlayer) oentityliving).j(0.025F * (float) (i + 1));
-        } else if ((this.H != h.H || oentityliving.bA()) && (this.H != OPotion.i.H || !oentityliving.bA())) {
-            if (this.H == OPotion.i.H && !oentityliving.bA() || this.H == h.H && oentityliving.bA()) {
+        } else if ((this.H != h.H || oentityliving.bD()) && (this.H != this.i.H || !oentityliving.bD())) {
+            if (this.H == this.i.H && !oentityliving.bD() || this.H == h.H && oentityliving.bD()) {
                 // Canarymod: harm/heal potion
-                if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.POTION, null, oentityliving.entity, 4 << i)) {
-                    oentityliving.a(ODamageSource.m, 6 << i);
+                HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, oentityliving.getEntity(), DamageType.POTION.getDamageSource(), 6 << i));
+                if (!ev.isCanceled()) {
+                    oentityliving.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
                 } //
             }
         } else {
-            oentityliving.i(6 << i);
+            oentityliving.j(6 << i);
         }
     }
 
     public void a(OEntityLiving oentityliving, OEntityLiving oentityliving1, int i, double d0) {
         int j;
 
-        if ((this.H != h.H || oentityliving1.bA()) && (this.H != OPotion.i.H || !oentityliving1.bA())) {
-            if (this.H == OPotion.i.H && !oentityliving1.bA() || this.H == h.H && oentityliving1.bA()) {
+        if ((this.H != h.H || oentityliving1.bD()) && (this.H != this.i.H || !oentityliving1.bD())) {
+            if (this.H == OPotion.i.H && !oentityliving1.bD() || this.H == h.H && oentityliving1.bD()) {
                 j = (int) (d0 * (double) (6 << i) + 0.5D);
                 if (oentityliving == null) {
-                    oentityliving1.a(ODamageSource.m, j);
+                    oentityliving1.a(ODamageSource.k, j);
                 } else {
                     oentityliving1.a(ODamageSource.b(oentityliving1, oentityliving), j);
                 }
             }
         } else {
             j = (int) (d0 * (double) (6 << i) + 0.5D);
-            oentityliving1.i(j);
+            oentityliving1.j(j);
         }
     }
 

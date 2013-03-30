@@ -49,7 +49,7 @@ public class Creeper extends Mob {
      * @param charged
      */
     public void setCharged(boolean charged) {
-        getEntity().ag.b(17, (byte) (charged ? 1 : 0));
+        getEntity().ah.b(17, (byte) (charged ? 1 : 0));
     }
 
     @Override

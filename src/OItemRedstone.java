@@ -10,7 +10,7 @@ public class OItemRedstone extends OItem {
         // CanaryMod: Store block data clicked
         Block blockClicked = this.getBlockInfo(oworld, i, j, k, l);
 
-        if (oworld.a(i, j, k) != OBlock.aV.cm) {
+        if (oworld.a(i, j, k) != OBlock.aW.cz) {
             if (l == 0) {
                 --j;
             }
@@ -43,7 +43,7 @@ public class OItemRedstone extends OItem {
         if (!oentityplayer.a(i, j, k, l, oitemstack)) {
             return false;
         } else {
-            if (OBlock.ay.b(oworld, i, j, k)) {
+            if (OBlock.az.c(oworld, i, j, k)) {
                 // CanaryMod: Redstone dust hook!
                 Block blockPlaced = new Block(oworld.world, Block.Type.RedstoneWire.getType(), i, j, k);
                 Player player = ((OEntityPlayerMP) oentityplayer).getPlayer();
@@ -53,7 +53,7 @@ public class OItemRedstone extends OItem {
                 }
 
                 --oitemstack.a;
-                oworld.e(i, j, k, OBlock.ay.cm);
+                oworld.c(i, j, k, OBlock.az.cz);
             }
 
             return true;

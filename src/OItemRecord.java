@@ -9,7 +9,7 @@ public class OItemRecord extends OItem {
     protected OItemRecord(int i, String s) {
         super(i);
         this.a = s;
-        this.ck = 1;
+        this.cq = 1;
         this.a(OCreativeTabs.f);
         b.put(s, this);
     }
@@ -19,12 +19,12 @@ public class OItemRecord extends OItem {
             return true;
         }
 
-        if (oworld.a(i, j, k) == OBlock.bb.cm && oworld.h(i, j, k) == 0) {
+        if (oworld.a(i, j, k) == OBlock.bc.cz && oworld.h(i, j, k) == 0) {
             if (oworld.I) {
                 return true;
             } else {
-                ((OBlockJukeBox) OBlock.bb).a(oworld, i, j, k, oitemstack);
-                oworld.a((OEntityPlayer) null, 1005, i, j, k, this.cj);
+                ((OBlockJukeBox) OBlock.bc).a(oworld, i, j, k, oitemstack);
+                oworld.a((OEntityPlayer) null, 1005, i, j, k, this.cp);
                 --oitemstack.a;
                 return true;
             }

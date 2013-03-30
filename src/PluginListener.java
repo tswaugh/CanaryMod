@@ -284,7 +284,8 @@ public class PluginListener {
     }
 
     /**
-     * Called when a player drops an item.
+     * Called when a player drops an item or when a player is given an item via
+     * native Minecraft methods, such as the "give" command.
      *
      * @param player
      *            player who dropped the item
@@ -458,10 +459,24 @@ public class PluginListener {
      * @param amount
      *            amount of damage dealt.
      *
-     * @return
+     * @return true to prevent damage
+     * @deprecated use {@link #onDamage(HookParametersDamage)} instead
      */
+    @Deprecated
     public boolean onDamage(PluginLoader.DamageType type, BaseEntity attacker, BaseEntity defender, int amount) {
         return false;
+    }
+
+    /**
+     * Called when an entity is damaged.
+     * @param hpDamage The {@link HookParametersDamage}-instance containing the damage data.
+     * @return The (un)changed <tt>hpDamage</tt>
+     */
+    public HookParametersDamage onDamage(HookParametersDamage hpDamage) {
+        if (onDamage(PluginLoader.DamageType.fromDamageSource(hpDamage.getDamageSource().getDamageSource()), hpDamage.getAttacker(), hpDamage.getDefender(), hpDamage.getDamageAmount())) {
+            hpDamage.setCanceled();
+        }
+        return hpDamage;
     }
 
     /**
@@ -482,9 +497,12 @@ public class PluginListener {
     /**
      * Called whenever a redstone source (wire, switch, torch) changes its current.
      *
-     * Standard values for wires are 0 for no current, and 14 for a strong current. Default behaviour for redstone wire is to lower the current by one every block.
+     * Standard values for wires are 0 for no current, and 15 for a strong current.
+     * Default behaviour for redstone wire is to lower the current by one every block.
      *
-     * For other blocks which provide a source of redstone current, the current value will be 1 or 0 for on and off respectively.
+     * For other blocks which provide a source of redstone current, the current
+     * value will be 1 or 0 for on and off respectively, except for weighted
+     * pressure plates. Those still range from 0 to 15 for no to strong current.
      *
      * @param block
      * @param oldLevel
@@ -1374,6 +1392,56 @@ public class PluginListener {
      * @return true to cancel execution, false to allow it.
      */
     public boolean onCommandBlockCommand(CommandBlock block, String[] split) {
+        return false;
+    }
+
+    /**
+     *
+     * @param player Player that gained the stat.
+     * @param stat The stat gained.
+     */
+    public boolean onStatGained(Player player, Stat stat) {
+        return false;
+    }
+
+    /**
+     * Called when any entity is destroyed.
+     * @param entity The entity destroyed.
+     */
+    public void onEntityDestroyed(BaseEntity entity){
+
+    }
+
+    /**
+     * Called when any hanging entity is destroyed.
+     * @param entity The entity destroyed.
+     * @return true - entity is not destroyed<br>false - entity is destroyed
+     */
+    public boolean onHangingEntityDestroyed(HangingEntity baseEntity) {
+        return false;
+    }
+
+    /**
+     * Called when a hopper tries to Transfer an item
+     * @param hopper hopper involved with this trasnfer
+     * @param itemTransfered item being transferred
+     * @param transferIn <tt>true</tt> if the item is being transferred into
+     * the hopper, <tt>false</tt> if the item is being transferred out of it
+     * @return <tt>true</tt> if the item should not be transferred,
+     * <tt>false</tt> otherwise.
+     */
+    public boolean onHopperTransfer(Hopper hopper, Item itemTransfered, boolean transferIn) {
+        return false;
+    }
+
+    /**
+     * Called when a {@link Minecart} passes over an activation rail.
+     * @param cart The cart passing over the rail
+     * @param powered Whether the activation rail is powered
+     * @return <tt>true</tt> if the minecart should not be activated,
+     * <tt>false</tt> otherwise.
+     */
+    public boolean onMinecartActivate(Minecart cart, boolean powered) {
         return false;
     }
 }

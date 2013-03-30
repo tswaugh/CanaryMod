@@ -55,7 +55,7 @@ public class Firework extends Projectile {
      * @return The firework item.
      */
     public Item getItem() {
-        return new Item(getEntity().ag.f(8));
+        return new Item(getEntity().ah.f(8));
     }
 
     /**
@@ -64,7 +64,7 @@ public class Firework extends Projectile {
      * @param item The firework item.
      */
     public void setItem(Item item) {
-        getEntity().ag.b(8, item.getBaseItem());
+        getEntity().ah.b(8, item.getBaseItem());
     }
 
     @Override

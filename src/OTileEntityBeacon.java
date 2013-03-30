@@ -1,214 +1,238 @@
 import java.util.Iterator;
 import java.util.List;
 
-public class OTileEntityBeacon extends OTileEntity
-implements OIInventory, Container<OItemStack>
-{
-    public static final OPotion[][] a = { { OPotion.c, OPotion.e }, { OPotion.m, OPotion.j }, { OPotion.g }, { OPotion.l } };
+public class OTileEntityBeacon extends OTileEntity implements OIInventory, Container<OItemStack> {
+
+    public static final OPotion[][] a = new OPotion[][] { { OPotion.c, OPotion.e}, { OPotion.m, OPotion.j}, { OPotion.g}, { OPotion.l}};
     private boolean d;
     private int e = -1;
     private int f;
     private int g;
     private OItemStack h;
+    private String i;
 
-    // CanaryMod
-    private String name = "container.beacon";
-    private final Beacon beacon = new Beacon(this);
+    private final Beacon beacon = new Beacon(this); // CanaryMod: reference to wrapper
 
-    public void g()
-    {
-        if (this.k.F() % 80L == 0L) {
-            v();
-            u();
+    public OTileEntityBeacon() {}
+
+    public void h() {
+        if (this.k.G() % 80L == 0L) {
+            this.v();
+            this.u();
         }
     }
 
-    private void u()
-    {
-        Iterator localIterator;
-        OEntityPlayer localOEntityPlayer;
-        if ((this.d) && (this.e > 0) && (!this.k.I) && (this.f > 0))
-        {
-            double d1 = this.e * 8 + 8;
-            int i = 0;
-            if ((this.e >= 4) && (this.f == this.g)) {
-                i = 1;
+    private void u() {
+        if (this.d && this.e > 0 && !this.k.I && this.f > 0) {
+            double d0 = (double) (this.e * 10 + 10);
+            byte b0 = 0;
+
+            if (this.e >= 4 && this.f == this.g) {
+                b0 = 1;
             }
 
-            OAxisAlignedBB localOAxisAlignedBB = OAxisAlignedBB.a().a(this.l, this.m, this.n, this.l + 1, this.m + 1, this.n + 1).b(d1, d1, d1);
-            List localList = this.k.a(OEntityPlayer.class, localOAxisAlignedBB);
-            for (localIterator = localList.iterator(); localIterator.hasNext(); ) { localOEntityPlayer = (OEntityPlayer)localIterator.next();
-                localOEntityPlayer.d(new OPotionEffect(this.f, 180, i, true));
+            OAxisAlignedBB oaxisalignedbb = OAxisAlignedBB.a().a((double) this.l, (double) this.m, (double) this.n, (double) (this.l + 1), (double) (this.m + 1), (double) (this.n + 1)).b(d0, d0, d0);
+
+            oaxisalignedbb.e = (double) this.k.P();
+            List list = this.k.a(OEntityPlayer.class, oaxisalignedbb);
+            Iterator iterator = list.iterator();
+
+            OEntityPlayer oentityplayer;
+
+            while (iterator.hasNext()) {
+                oentityplayer = (OEntityPlayer) iterator.next();
+                oentityplayer.d(new OPotionEffect(this.f, 180, b0, true));
             }
 
-            if ((this.e >= 4) && (this.f != this.g) && (this.g > 0))
-            for (localIterator = localList.iterator(); localIterator.hasNext(); ) { localOEntityPlayer = (OEntityPlayer)localIterator.next();
-                localOEntityPlayer.d(new OPotionEffect(this.g, 180, 0, true));
+            if (this.e >= 4 && this.f != this.g && this.g > 0) {
+                iterator = list.iterator();
+
+                while (iterator.hasNext()) {
+                    oentityplayer = (OEntityPlayer) iterator.next();
+                    oentityplayer.d(new OPotionEffect(this.g, 180, 0, true));
+                }
             }
         }
     }
 
-    private void v()
-    {
-        if (!this.k.k(this.l, this.m + 1, this.n)) {
+    private void v() {
+        if (!this.k.l(this.l, this.m + 1, this.n)) {
             this.d = false;
             this.e = 0;
         } else {
             this.d = true;
+            this.e = 0;
 
-        this.e = 0;
-        for (int i = 1; i <= 4; i++)
-        {
-            int j = this.m - i;
-            if (j < 0)
-            {
-                break;
-            }
-            int k = 1;
-            for (int m = this.l - i; (m <= this.l + i) && (k != 0); m++) {
-                for (int n = this.n - i; n <= this.n + i; n++) {
-                    int i1 = this.k.a(m, j, n);
-                    if ((i1 != OBlock.bY.cm) && (i1 != OBlock.ak.cm) && (i1 != OBlock.aA.cm) && (i1 != OBlock.al.cm)) {
-                        k = 0;
-                        break;
+            for (int i = 1; i <= 4; this.e = i++) {
+                int j = this.m - i;
+
+                if (j < 0) {
+                    break;
+                }
+
+                boolean flag = true;
+
+                for (int k = this.l - i; k <= this.l + i && flag; ++k) {
+                    for (int l = this.n - i; l <= this.n + i; ++l) {
+                        int i1 = this.k.a(k, j, l);
+
+                        if (i1 != OBlock.bZ.cz && i1 != OBlock.al.cz && i1 != OBlock.aB.cz && i1 != OBlock.am.cz) {
+                            flag = false;
+                            break;
+                        }
                     }
                 }
+
+                if (!flag) {
+                    break;
+                }
             }
-            if (k == 0) break;
-                this.e = i;
-        }
 
-        if (this.e == 0)
-            this.d = false;
+            if (this.e == 0) {
+                this.d = false;
+            }
         }
-    }
-
-    public int i()
-    {
-        return this.f;
     }
 
     public int j() {
-        return this.g;
+        return this.f;
     }
 
     public int k() {
+        return this.g;
+    }
+
+    public int l() {
         return this.e;
     }
 
-    public void d(int paramInt)
-    {
+    public void d(int i) {
         this.f = 0;
 
-        for (int i = 0; (i < this.e) && (i < 3); i++)
-            for (OPotion localOPotion : a[i])
-                if (localOPotion.H == paramInt) {
-                    this.f = paramInt;
+        for (int j = 0; j < this.e && j < 3; ++j) {
+            OPotion[] aopotion = a[j];
+            int k = aopotion.length;
+
+            for (int l = 0; l < k; ++l) {
+                OPotion opotion = aopotion[l];
+
+                if (opotion.H == i) {
+                    this.f = i;
                     return;
                 }
-    }
-
-    public void e(int paramInt)
-    {
-        this.g = 0;
-
-        if (this.e >= 4)
-        for (int i = 0; i < 4; i++)
-            for (OPotion localOPotion : a[i])
-                if (localOPotion.H == paramInt) {
-                    this.g = paramInt;
-                    return;
-                }
-    }
-
-    public OPacket l()
-    {
-        ONBTTagCompound localONBTTagCompound = new ONBTTagCompound();
-        b(localONBTTagCompound);
-        return new OPacket132TileEntityData(this.l, this.m, this.n, 3, localONBTTagCompound);
-    }
-
-    public void a(ONBTTagCompound paramONBTTagCompound)
-    {
-        super.a(paramONBTTagCompound);
-
-        this.f = paramONBTTagCompound.e("Primary");
-        this.g = paramONBTTagCompound.e("Secondary");
-        this.e = paramONBTTagCompound.e("Levels");
-    }
-
-    public void b(ONBTTagCompound paramONBTTagCompound)
-    {
-        super.b(paramONBTTagCompound);
-
-        paramONBTTagCompound.a("Primary", this.f);
-        paramONBTTagCompound.a("Secondary", this.g);
-
-        paramONBTTagCompound.a("Levels", this.e);
-    }
-
-    public int k_() {
-        return 1;
-    }
-
-    public OItemStack a(int paramInt) {
-        if (paramInt == 0) {
-            return this.h;
-        }
-        return null;
-    }
-
-    public OItemStack a(int paramInt1, int paramInt2) {
-        if ((paramInt1 == 0) && (this.h != null)) {
-            if (paramInt2 >= this.h.a) {
-                OItemStack localOItemStack = this.h;
-                this.h = null;
-                return localOItemStack;
             }
-            this.h.a -= paramInt2;
-            return new OItemStack(this.h.c, paramInt2, this.h.j());
         }
-
-        return null;
     }
 
-    public OItemStack a_(int paramInt) {
-        if ((paramInt == 0) && (this.h != null)) {
-            OItemStack localOItemStack = this.h;
-            this.h = null;
-            return localOItemStack;
+    public void e(int i) {
+        this.g = 0;
+        if (this.e >= 4) {
+            for (int j = 0; j < 4; ++j) {
+                OPotion[] aopotion = a[j];
+                int k = aopotion.length;
+
+                for (int l = 0; l < k; ++l) {
+                    OPotion opotion = aopotion[l];
+
+                    if (opotion.H == i) {
+                        this.g = i;
+                        return;
+                    }
+                }
+            }
         }
-        return null;
     }
 
-    public void a(int paramInt, OItemStack paramOItemStack) {
-        if (paramInt == 0)
-        this.h = paramOItemStack;
+    public OPacket m() {
+        ONBTTagCompound onbttagcompound = new ONBTTagCompound();
+
+        this.b(onbttagcompound);
+        return new OPacket132TileEntityData(this.l, this.m, this.n, 3, onbttagcompound);
     }
 
-    public String b()
-    {
-        return name; // CanaryMod
+    public void a(ONBTTagCompound onbttagcompound) {
+        super.a(onbttagcompound);
+        this.f = onbttagcompound.e("Primary");
+        this.g = onbttagcompound.e("Secondary");
+        this.e = onbttagcompound.e("Levels");
     }
 
-    public int c() {
+    public void b(ONBTTagCompound onbttagcompound) {
+        super.b(onbttagcompound);
+        onbttagcompound.a("Primary", this.f);
+        onbttagcompound.a("Secondary", this.g);
+        onbttagcompound.a("Levels", this.e);
+    }
+
+    public int j_() {
         return 1;
     }
 
-    public boolean a_(OEntityPlayer paramOEntityPlayer) {
-        if (this.k.q(this.l, this.m, this.n) != this) return false;
-        return paramOEntityPlayer.e(this.l + 0.5D, this.m + 0.5D, this.n + 0.5D) <= 64.0D;
+    public OItemStack a(int i) {
+        return i == 0 ? this.h : null;
     }
 
-    public void l_()
-    {
+    public OItemStack a(int i, int j) {
+        if (i == 0 && this.h != null) {
+            if (j >= this.h.a) {
+                OItemStack oitemstack = this.h;
+
+                this.h = null;
+                return oitemstack;
+            } else {
+                this.h.a -= j;
+                return new OItemStack(this.h.c, j, this.h.k());
+            }
+        } else {
+            return null;
+        }
     }
 
-    public void f()
-    {
+    public OItemStack b(int i) {
+        if (i == 0 && this.h != null) {
+            OItemStack oitemstack = this.h;
+
+            this.h = null;
+            return oitemstack;
+        } else {
+            return null;
+        }
     }
 
-    // CanaryMod
+    public void a(int i, OItemStack oitemstack) {
+        if (i == 0) {
+            this.h = oitemstack;
+        }
+    }
+
+    public String b() {
+        return this.c() ? this.i : "container.beacon";
+    }
+
+    public boolean c() {
+        return this.i != null && this.i.length() > 0;
+    }
+
+    public void a(String s) {
+        this.i = s;
+    }
+
+    public int d() {
+        return 1;
+    }
+
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.k.r(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
+    }
+
+    public void f() {}
+
+    public void g() {}
+
+    public boolean b(int i, OItemStack oitemstack) {
+        return oitemstack.c == OItem.bI.cp || oitemstack.c == OItem.o.cp || oitemstack.c == OItem.q.cp || oitemstack.c == OItem.p.cp;
+    }
+
     @Override
     public OItemStack[] getContents() {
         return new OItemStack[]{this.h};
@@ -216,25 +240,19 @@ implements OIInventory, Container<OItemStack>
 
     @Override
     public void setContents(OItemStack[] values) {
-        if(values == null || values.length < 1)
-            this.h = null;
-        else
-            this.h = values[0];
+        this.h = values == null || values.length == 0 ? null : values[0];
     }
 
     @Override
     public OItemStack getContentsAt(int index) {
-        if(index != 0)
-            return null;
-        return this.h;
+        return index == 0 ? this.h : null;
     }
 
     @Override
     public void setContentsAt(int index, OItemStack value) {
-        if(index != 0)
-            return;
-
-        this.h = value;
+        if (index == 0) {
+            this.h = value;
+        }
     }
 
     @Override
@@ -244,12 +262,12 @@ implements OIInventory, Container<OItemStack>
 
     @Override
     public String getName() {
-        return name;
+        return this.b();
     }
 
     @Override
     public void setName(String value) {
-        name = value;
+        this.a(value);
     }
 
     @Override

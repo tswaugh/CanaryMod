@@ -25,11 +25,11 @@ public class OEntitySnowball extends OEntityThrowable {
             }
 
             for (int i = 0; i < 8; ++i) {
-                this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
+                this.q.a("snowballpoof", this.u, this.v, this.w, 0.0D, 0.0D, 0.0D);
             }
 
-            if (!this.p.I) {
-                this.x();
+            if (!this.q.I) {
+                this.w();
             }
         }
     }

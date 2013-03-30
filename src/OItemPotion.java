@@ -19,9 +19,9 @@ public class OItemPotion extends OItem {
     }
 
     public List g(OItemStack oitemstack) {
-        if (oitemstack.o() && oitemstack.p().b("CustomPotionEffects")) {
+        if (oitemstack.p() && oitemstack.q().b("CustomPotionEffects")) {
             ArrayList arraylist = new ArrayList();
-            ONBTTagList onbttaglist = oitemstack.p().m("CustomPotionEffects");
+            ONBTTagList onbttaglist = oitemstack.q().m("CustomPotionEffects");
 
             for (int i = 0; i < onbttaglist.c(); ++i) {
                 ONBTTagCompound onbttagcompound = (ONBTTagCompound) onbttaglist.b(i);
@@ -31,18 +31,18 @@ public class OItemPotion extends OItem {
 
             return arraylist;
         } else {
-            List list = (List) this.a.get(Integer.valueOf(oitemstack.j()));
+            List list = (List) this.a.get(Integer.valueOf(oitemstack.k()));
 
             if (list == null) {
-                list = OPotionHelper.b(oitemstack.j(), false);
-                this.a.put(Integer.valueOf(oitemstack.j()), list);
+                list = OPotionHelper.b(oitemstack.k(), false);
+                this.a.put(Integer.valueOf(oitemstack.k()), list);
             }
 
             return list;
         }
     }
 
-    public List f(int i) {
+    public List c(int i) {
         List list = (List) this.a.get(Integer.valueOf(i));
 
         if (list == null) {
@@ -54,7 +54,7 @@ public class OItemPotion extends OItem {
     }
 
     public OItemStack b(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
-        if (!oentityplayer.cd.d) {
+        if (!oentityplayer.ce.d) {
             --oitemstack.a;
         }
 
@@ -72,12 +72,12 @@ public class OItemPotion extends OItem {
             }
         }
 
-        if (!oentityplayer.cd.d) {
+        if (!oentityplayer.ce.d) {
             if (oitemstack.a <= 0) {
-                return new OItemStack(OItem.bt);
+                return new OItemStack(OItem.bu);
             }
 
-            oentityplayer.bJ.a(new OItemStack(OItem.bt));
+            oentityplayer.bK.a(new OItemStack(OItem.bu));
         }
 
         return oitemstack;
@@ -92,12 +92,12 @@ public class OItemPotion extends OItem {
     }
 
     public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
-        if (g(oitemstack.j())) {
-            if (!oentityplayer.cd.d) {
+        if (f(oitemstack.k())) {
+            if (!oentityplayer.ce.d) {
                 --oitemstack.a;
             }
 
-            oworld.a((OEntity) oentityplayer, "random.bow", 0.5F, 0.4F / (d.nextFloat() * 0.4F + 0.8F));
+            oworld.a((OEntity) oentityplayer, "random.bow", 0.5F, 0.4F / (e.nextFloat() * 0.4F + 0.8F));
             if (!oworld.I) {
                 oworld.d((OEntity) (new OEntityPotion(oworld, oentityplayer, oitemstack)));
             }
@@ -113,21 +113,21 @@ public class OItemPotion extends OItem {
         return (Boolean) etc.getLoader().callHook(PluginLoader.Hook.ITEM_USE, ((OEntityPlayerMP) oentityplayer).getPlayer(), null, this.getBlockInfo(oworld, i, j, k, l), ((OEntityPlayerMP) oentityplayer).getPlayer().getItemStackInHand());
     }
 
-    public static boolean g(int i) {
+    public static boolean f(int i) {
         return (i & 16384) != 0;
     }
 
     public String l(OItemStack oitemstack) {
-        if (oitemstack.j() == 0) {
+        if (oitemstack.k() == 0) {
             return OStatCollector.a("item.emptyPotion.name").trim();
         } else {
             String s = "";
 
-            if (g(oitemstack.j())) {
+            if (f(oitemstack.k())) {
                 s = OStatCollector.a("potion.prefix.grenade").trim() + " ";
             }
 
-            List list = OItem.bs.g(oitemstack);
+            List list = OItem.bt.g(oitemstack);
             String s1;
 
             if (list != null && !list.isEmpty()) {
@@ -135,7 +135,7 @@ public class OItemPotion extends OItem {
                 s1 = s1 + ".postfix";
                 return s + OStatCollector.a(s1).trim();
             } else {
-                s1 = OPotionHelper.c(oitemstack.j());
+                s1 = OPotionHelper.c(oitemstack.k());
                 return OStatCollector.a(s1).trim() + " " + super.l(oitemstack);
             }
         }

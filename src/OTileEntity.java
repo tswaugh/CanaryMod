@@ -26,6 +26,10 @@ public class OTileEntity {
         }
     }
 
+    public OWorld az() {
+        return this.k;
+    }
+
     public void b(OWorld oworld) {
         this.k = oworld;
     }
@@ -57,7 +61,7 @@ public class OTileEntity {
         }
     }
 
-    public void g() {}
+    public void h() {}
 
     public static OTileEntity c(ONBTTagCompound onbttagcompound) {
         OTileEntity otileentity = null;
@@ -75,7 +79,7 @@ public class OTileEntity {
         if (otileentity != null) {
             otileentity.a(onbttagcompound);
         } else {
-            System.out.println("Skipping TileEntity with id " + onbttagcompound.i("id"));
+            OMinecraftServer.D().al().b("Skipping TileEntity with id " + onbttagcompound.i("id"));
         }
 
         return otileentity;
@@ -89,22 +93,25 @@ public class OTileEntity {
         return this.p;
     }
 
-    public void d() {
+    public void k_() {
         if (this.k != null) {
             this.p = this.k.h(this.l, this.m, this.n);
             this.k.b(this.l, this.m, this.n, this);
+            if (this.q() != null) {
+                this.k.m(this.l, this.m, this.n, this.q().cz);
+            }
         }
     }
 
     public OBlock q() {
         if (this.q == null) {
-            this.q = OBlock.p[this.k.a(this.l, this.m, this.n)];
+            this.q = OBlock.r[this.k.a(this.l, this.m, this.n)];
         }
 
         return this.q;
     }
 
-    public OPacket l() {
+    public OPacket m() {
         return null;
     }
 
@@ -120,16 +127,20 @@ public class OTileEntity {
         this.o = false;
     }
 
-    public void b(int i, int j) {}
+    public boolean b(int i, int j) {
+        return false;
+    }
 
-    public void h() {
+    public void i() {
         this.q = null;
         this.p = -1;
     }
 
     public void a(OCrashReportCategory ocrashreportcategory) {
         ocrashreportcategory.a("Name", (Callable) (new OCallableTileEntityName(this)));
-        OCrashReportCategory.a(ocrashreportcategory, this.l, this.m, this.n, this.q.cm, this.p);
+        OCrashReportCategory.a(ocrashreportcategory, this.l, this.m, this.n, this.q().cz, this.p());
+        ocrashreportcategory.a("Actual block type", (Callable) (new OCallableTileEntityID(this)));
+        ocrashreportcategory.a("Actual block data value", (Callable) (new OCallableTileEntityData(this)));
     }
 
     static Map t() {
@@ -150,6 +161,7 @@ public class OTileEntity {
         a(OTileEntityEnderChest.class, "EnderChest");
         a(OTileEntityRecordPlayer.class, "RecordPlayer");
         a(OTileEntityDispenser.class, "Trap");
+        a(OTileEntityDropper.class, "Dropper");
         a(OTileEntitySign.class, "Sign");
         a(OTileEntityMobSpawner.class, "MobSpawner");
         a(OTileEntityNote.class, "Music");
@@ -160,5 +172,8 @@ public class OTileEntity {
         a(OTileEntityCommandBlock.class, "Control");
         a(OTileEntityBeacon.class, "Beacon");
         a(OTileEntitySkull.class, "Skull");
+        a(OTileEntityDaylightDetector.class, "DLDetector");
+        a(OTileEntityHopper.class, "Hopper");
+        a(OTileEntityComparator.class, "Comparator");
     }
 }

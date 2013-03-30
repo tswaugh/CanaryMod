@@ -1,22 +1,17 @@
-public class OBehaviorDispenseBoat extends OBehaviorDefaultDispenseItem {
+final class ODispenserBehaviorBoat extends OBehaviorDefaultDispenseItem {
 
-    private final OBehaviorDefaultDispenseItem c;
+    private final OBehaviorDefaultDispenseItem b = new OBehaviorDefaultDispenseItem();
 
-    final OMinecraftServer b;
-
-    public OBehaviorDispenseBoat(OMinecraftServer ominecraftserver) {
-        this.b = ominecraftserver;
-        this.c = new OBehaviorDefaultDispenseItem();
-    }
+    ODispenserBehaviorBoat() {}
 
     public OItemStack b(OIBlockSource oiblocksource, OItemStack oitemstack) {
-        OEnumFacing oenumfacing = OEnumFacing.a(oiblocksource.h());
+        OEnumFacing oenumfacing = OBlockDispenser.j_(oiblocksource.h());
         OWorld oworld = oiblocksource.k();
         double d0 = oiblocksource.a() + (double) ((float) oenumfacing.c() * 1.125F);
-        double d1 = oiblocksource.b();
+        double d1 = oiblocksource.b() + (double) ((float) oenumfacing.d() * 1.125F);
         double d2 = oiblocksource.c() + (double) ((float) oenumfacing.e() * 1.125F);
         int i = oiblocksource.d() + oenumfacing.c();
-        int j = oiblocksource.e();
+        int j = oiblocksource.e() + oenumfacing.d();
         int k = oiblocksource.f() + oenumfacing.e();
         OMaterial omaterial = oworld.g(i, j, k);
         double d3;
@@ -25,7 +20,7 @@ public class OBehaviorDispenseBoat extends OBehaviorDefaultDispenseItem {
             d3 = 1.0D;
         } else {
             if (!OMaterial.a.equals(omaterial) || !OMaterial.h.equals(oworld.g(i, j - 1, k))) {
-                return this.c.a(oiblocksource, oitemstack);
+                return this.b.a(oiblocksource, oitemstack);
             }
 
             d3 = 0.0D;
@@ -41,6 +36,6 @@ public class OBehaviorDispenseBoat extends OBehaviorDefaultDispenseItem {
     }
 
     protected void a(OIBlockSource oiblocksource) {
-        oiblocksource.k().f(1000, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), 0);
+        oiblocksource.k().e(1000, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), 0);
     }
 }

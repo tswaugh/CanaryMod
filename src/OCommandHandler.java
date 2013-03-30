@@ -14,7 +14,8 @@ public class OCommandHandler implements OICommandManager {
 
     public OCommandHandler() {}
 
-    public void a(final OICommandSender oicommandsender, String s) { // CanaryMod: add final
+    public int a(final OICommandSender oicommandsender, String s) { // CanaryMod: add final
+        s = s.trim();
         if (s.startsWith("/")) {
             s = s.substring(1);
         }
@@ -25,7 +26,7 @@ public class OCommandHandler implements OICommandManager {
         // CanaryMod start: Do our own parsing
         if (oicommandsender instanceof OMinecraftServer
                 && etc.getInstance().parseConsoleCommand(s, (OMinecraftServer) oicommandsender)) {
-            return;
+            return 1;
         } else {
             MessageReceiver m;
             if (oicommandsender instanceof OEntityPlayerMP) {
@@ -47,13 +48,14 @@ public class OCommandHandler implements OICommandManager {
                 };
             }
             if (ServerConsoleCommands.parseServerConsoleCommand(m, s1, astring)) {
-                return;
+                return 1;
             }
         } // CanaryMod end
 
         astring = a(astring);
         OICommand oicommand = (OICommand) this.a.get(s1);
         int i = this.a(oicommand, astring);
+        int j = 0;
 
         try {
             if (oicommand == null) {
@@ -65,35 +67,39 @@ public class OCommandHandler implements OICommandManager {
                     OEntityPlayerMP[] aoentityplayermp = OPlayerSelector.c(oicommandsender, astring[i]);
                     String s2 = astring[i];
                     OEntityPlayerMP[] aoentityplayermp1 = aoentityplayermp;
-                    int j = aoentityplayermp.length;
+                    int k = aoentityplayermp.length;
 
-                    for (int k = 0; k < j; ++k) {
-                        OEntityPlayerMP oentityplayermp = aoentityplayermp1[k];
+                    for (int l = 0; l < k; ++l) {
+                        OEntityPlayerMP oentityplayermp = aoentityplayermp1[l];
 
-                        astring[i] = oentityplayermp.an();
+                        astring[i] = oentityplayermp.am();
 
                         try {
                             oicommand.b(oicommandsender, astring);
-                        } catch (OPlayerNotFoundException oplayernotfoundexception) {
-                            oicommandsender.a("\u00A7c" + oicommandsender.a(oplayernotfoundexception.getMessage(), oplayernotfoundexception.a()));
+                            ++j;
+                        } catch (OCommandException ocommandexception) {
+                            oicommandsender.a(OEnumChatFormatting.m + oicommandsender.a(ocommandexception.getMessage(), ocommandexception.a()));
                         }
                     }
 
                     astring[i] = s2;
                 } else {
                     oicommand.b(oicommandsender, astring);
+                    ++j;
                 }
             } else {
-                oicommandsender.a("\u00A7cYou do not have permission to use this command.");
+                oicommandsender.a("" + OEnumChatFormatting.m + "You do not have permission to use this command.");
             }
         } catch (OWrongUsageException owrongusageexception) {
-            oicommandsender.a("\u00A7c" + oicommandsender.a("commands.generic.usage", new Object[] { oicommandsender.a(owrongusageexception.getMessage(), owrongusageexception.a())}));
-        } catch (OCommandException ocommandexception) {
-            oicommandsender.a("\u00A7c" + oicommandsender.a(ocommandexception.getMessage(), ocommandexception.a()));
+            oicommandsender.a(OEnumChatFormatting.m + oicommandsender.a("commands.generic.usage", new Object[] { oicommandsender.a(owrongusageexception.getMessage(), owrongusageexception.a())}));
+        } catch (OCommandException ocommandexception1) {
+            oicommandsender.a(OEnumChatFormatting.m + oicommandsender.a(ocommandexception1.getMessage(), ocommandexception1.a()));
         } catch (Throwable throwable) {
-            oicommandsender.a("\u00A7c" + oicommandsender.a("commands.generic.exception", new Object[0]));
+            oicommandsender.a(OEnumChatFormatting.m + oicommandsender.a("commands.generic.exception", new Object[0]));
             throwable.printStackTrace();
         }
+
+        return j;
     }
 
     public OICommand a(OICommand oicommand) {
@@ -181,7 +187,7 @@ public class OCommandHandler implements OICommandManager {
             return -1;
         } else {
             for (int i = 0; i < astring.length; ++i) {
-                if (oicommand.a(i) && OPlayerSelector.a(astring[i])) {
+                if (oicommand.a(astring, i) && OPlayerSelector.a(astring[i])) {
                     return i;
                 }
             }

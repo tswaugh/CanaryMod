@@ -7,10 +7,10 @@ public class OContainerChest extends OContainer {
 
     public OContainerChest(OIInventory oiinventory, OIInventory oiinventory1, boolean flag) {
         this.a = oiinventory1;
-        this.f = oiinventory1.k_() / 9;
+        this.f = oiinventory1.j_() / 9;
         this.silenced = flag;
         if (!this.silenced) {
-            oiinventory1.l_();
+            oiinventory1.f();
         }
 
         int i = (this.f - 4) * 18;
@@ -35,10 +35,12 @@ public class OContainerChest extends OContainer {
         }
     }
 
+    @Override
     public boolean a(OEntityPlayer oentityplayer) {
-        return this.a.a_(oentityplayer);
+        return this.a.a(oentityplayer);
     }
 
+    @Override
     public OItemStack b(OEntityPlayer oentityplayer, int i) {
         OItemStack oitemstack = null;
         OSlot oslot = (OSlot) this.c.get(i);
@@ -46,7 +48,7 @@ public class OContainerChest extends OContainer {
         if (oslot != null && oslot.d()) {
             OItemStack oitemstack1 = oslot.c();
 
-            oitemstack = oitemstack1.l();
+            oitemstack = oitemstack1.m();
             if (i < this.f * 9) {
                 if (!this.a(oitemstack1, this.f * 9, this.c.size(), true)) {
                     return null;
@@ -65,14 +67,15 @@ public class OContainerChest extends OContainer {
         return oitemstack;
     }
 
+    @Override
     public void b(OEntityPlayer oentityplayer) {
         super.b(oentityplayer);
         if (!this.silenced) {
-            this.a.f();
+            this.a.g();
         }
     }
 
-    public OIInventory d() {
+    public OIInventory e() {
         return this.a;
     }
 

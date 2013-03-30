@@ -6,11 +6,11 @@ public class OBlockEndPortal extends OBlockContainer {
     public static boolean a = false;
 
     protected OBlockEndPortal(int i, OMaterial omaterial) {
-        super(i, 0, omaterial);
+        super(i, omaterial);
         this.a(1.0F);
     }
 
-    public OTileEntity a(OWorld oworld) {
+    public OTileEntity b(OWorld oworld) {
         return new OTileEntityEndPortal();
     }
 
@@ -38,7 +38,7 @@ public class OBlockEndPortal extends OBlockContainer {
         if (oentity.o == null && oentity.n == null && !oworld.I) {
             // CanaryMod: Check if end is enabled
             if (etc.getInstance().isEndEnabled()) {
-                oentity.b(1);
+                oentity.c(1);
             }
         }
     }
@@ -47,10 +47,10 @@ public class OBlockEndPortal extends OBlockContainer {
         return -1;
     }
 
-    public void g(OWorld oworld, int i, int j, int k) {
+    public void a(OWorld oworld, int i, int j, int k) {
         if (!a) {
-            if (oworld.u.h != 0) {
-                oworld.e(i, j, k, 0);
+            if (oworld.t.h != 0) {
+                oworld.i(i, j, k);
             }
         }
     }
