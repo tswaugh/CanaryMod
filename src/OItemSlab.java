@@ -18,7 +18,7 @@ public class OItemSlab extends OItemBlock {
     }
 
     public String d(OItemStack oitemstack) {
-        return this.b.d(oitemstack.j());
+        return this.b.c(oitemstack.k());
     }
 
     public boolean a(OItemStack oitemstack, OEntityPlayer oentityplayer, OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2) {
@@ -39,9 +39,9 @@ public class OItemSlab extends OItemBlock {
             int k1 = j1 & 7;
             boolean flag = (j1 & 8) != 0;
 
-            if ((l == 1 && !flag || l == 0 && flag) && i1 == this.b.cm && k1 == oitemstack.j()) {
-                if (oworld.b(this.c.e(oworld, i, j, k)) && oworld.d(i, j, k, this.c.cm, k1)) {
-                    oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.c.cz.b(), (this.c.cz.c() + 1.0F) / 2.0F, this.c.cz.d() * 0.8F);
+            if ((l == 1 && !flag || l == 0 && flag) && i1 == this.b.cz && k1 == oitemstack.k()) {
+                if (oworld.b(this.c.b(oworld, i, j, k)) && oworld.f(i, j, k, this.c.cz, k1, 3)) {
+                    oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.c.cM.b(), (this.c.cM.c() + 1.0F) / 2.0F, this.c.cM.d() * 0.8F);
                     --oitemstack.a;
                 }
 
@@ -81,9 +81,9 @@ public class OItemSlab extends OItemBlock {
         int j1 = oworld.h(i, j, k);
         int k1 = j1 & 7;
 
-        if (i1 == this.b.cm && k1 == oitemstack.j()) {
-            if (oworld.b(this.c.e(oworld, i, j, k)) && oworld.d(i, j, k, this.c.cm, k1)) {
-                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.c.cz.b(), (this.c.cz.c() + 1.0F) / 2.0F, this.c.cz.d() * 0.8F);
+        if (i1 == this.b.cz && k1 == oitemstack.k()) {
+            if (oworld.b(this.c.b(oworld, i, j, k)) && oworld.f(i, j, k, this.c.cz, k1, 3)) {
+                oworld.a((double) ((float) i + 0.5F), (double) ((float) j + 0.5F), (double) ((float) k + 0.5F), this.c.cM.b(), (this.c.cM.c() + 1.0F) / 2.0F, this.c.cM.d() * 0.8F);
                 --oitemstack.a;
             }
 

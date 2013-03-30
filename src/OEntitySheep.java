@@ -11,82 +11,82 @@ public class OEntitySheep extends OEntityAnimal {
 
     public OEntitySheep(OWorld oworld) {
         super(oworld);
-        this.aG = "/mob/sheep.png";
+        this.aH = "/mob/sheep.png";
         this.a(0.9F, 1.3F);
         float f = 0.23F;
 
-        this.az().a(true);
-        this.bn.a(0, new OEntityAISwimming(this));
-        this.bn.a(1, new OEntityAIPanic(this, 0.38F));
-        this.bn.a(2, new OEntityAIMate(this, f));
-        this.bn.a(3, new OEntityAITempt(this, 0.25F, OItem.T.cj, false));
-        this.bn.a(4, new OEntityAIFollowParent(this, 0.25F));
-        this.bn.a(5, this.g);
-        this.bn.a(6, new OEntityAIWander(this, f));
-        this.bn.a(7, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
-        this.bn.a(8, new OEntityAILookIdle(this));
-        this.e.a(0, new OItemStack(OItem.aW, 1, 0));
-        this.e.a(1, new OItemStack(OItem.aW, 1, 0));
+        this.aC().a(true);
+        this.bo.a(0, new OEntityAISwimming(this));
+        this.bo.a(1, new OEntityAIPanic(this, 0.38F));
+        this.bo.a(2, new OEntityAIMate(this, f));
+        this.bo.a(3, new OEntityAITempt(this, 0.25F, OItem.U.cp, false));
+        this.bo.a(4, new OEntityAIFollowParent(this, 0.25F));
+        this.bo.a(5, this.g);
+        this.bo.a(6, new OEntityAIWander(this, f));
+        this.bo.a(7, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
+        this.bo.a(8, new OEntityAILookIdle(this));
+        this.e.a(0, new OItemStack(OItem.aX, 1, 0));
+        this.e.a(1, new OItemStack(OItem.aX, 1, 0));
     }
 
-    protected boolean be() {
+    protected boolean bh() {
         return true;
     }
 
-    protected void bl() {
+    protected void bo() {
         this.f = this.g.f();
-        super.bl();
+        super.bo();
     }
 
     public void c() {
-        if (this.p.I) {
+        if (this.q.I) {
             this.f = Math.max(0, this.f - 1);
         }
 
         super.c();
     }
 
-    public int aT() {
+    public int aW() {
         return 8;
     }
 
     protected void a() {
         super.a();
-        this.ag.a(16, new Byte((byte) 0));
+        this.ah.a(16, new Byte((byte) 0));
     }
 
     protected void a(boolean flag, int i) {
         if (!this.n()) {
-            this.a(new OItemStack(OBlock.ae.cm, 1, this.m()), 0.0F);
+            this.a(new OItemStack(OBlock.af.cz, 1, this.m()), 0.0F);
         }
     }
 
-    protected int bb() {
-        return OBlock.ae.cm;
+    protected int be() {
+        return OBlock.af.cz;
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.bJ.g();
+    public boolean a_(OEntityPlayer oentityplayer) {
+        OItemStack oitemstack = oentityplayer.bK.h();
 
-        if (oitemstack != null && oitemstack.c == OItem.be.cj && !this.n() && !this.h_()) {
-            if (!this.p.I) {
-                this.f(true);
-                int i = 1 + this.aa.nextInt(3);
+        if (oitemstack != null && oitemstack.c == OItem.bf.cp && !this.n() && !this.h_()) {
+            if (!this.q.I) {
+                this.i(true);
+                int i = 1 + this.ab.nextInt(3);
 
                 for (int j = 0; j < i; ++j) {
-                    OEntityItem oentityitem = this.a(new OItemStack(OBlock.ae.cm, 1, this.m()), 1.0F);
+                    OEntityItem oentityitem = this.a(new OItemStack(OBlock.af.cz, 1, this.m()), 1.0F);
 
-                    oentityitem.x += (double) (this.aa.nextFloat() * 0.05F);
-                    oentityitem.w += (double) ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.1F);
-                    oentityitem.y += (double) ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.1F);
+                    oentityitem.y += (double) (this.ab.nextFloat() * 0.05F);
+                    oentityitem.x += (double) ((this.ab.nextFloat() - this.ab.nextFloat()) * 0.1F);
+                    oentityitem.z += (double) ((this.ab.nextFloat() - this.ab.nextFloat()) * 0.1F);
                 }
             }
 
-            oitemstack.a(1, oentityplayer);
+            oitemstack.a(1, (OEntityLiving) oentityplayer);
             this.a("mob.sheep.shear", 1.0F, 1.0F);
         }
 
-        return super.a(oentityplayer);
+        return super.a_(oentityplayer);
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
@@ -97,19 +97,19 @@ public class OEntitySheep extends OEntityAnimal {
 
     public void a(ONBTTagCompound onbttagcompound) {
         super.a(onbttagcompound);
-        this.f(onbttagcompound.n("Sheared"));
+        this.i(onbttagcompound.n("Sheared"));
         this.s(onbttagcompound.c("Color"));
     }
 
-    protected String aY() {
+    protected String bb() {
         return "mob.sheep.say";
     }
 
-    protected String aZ() {
+    protected String bc() {
         return "mob.sheep.say";
     }
 
-    protected String ba() {
+    protected String bd() {
         return "mob.sheep.say";
     }
 
@@ -118,26 +118,26 @@ public class OEntitySheep extends OEntityAnimal {
     }
 
     public int m() {
-        return this.ag.a(16) & 15;
+        return this.ah.a(16) & 15;
     }
 
     public void s(int i) {
-        byte b0 = this.ag.a(16);
+        byte b0 = this.ah.a(16);
 
-        this.ag.b(16, Byte.valueOf((byte) (b0 & 240 | i & 15)));
+        this.ah.b(16, Byte.valueOf((byte) (b0 & 240 | i & 15)));
     }
 
     public boolean n() {
-        return (this.ag.a(16) & 16) != 0;
+        return (this.ah.a(16) & 16) != 0;
     }
 
-    public void f(boolean flag) {
-        byte b0 = this.ag.a(16);
+    public void i(boolean flag) {
+        byte b0 = this.ah.a(16);
 
         if (flag) {
-            this.ag.b(16, Byte.valueOf((byte) (b0 | 16)));
+            this.ah.b(16, Byte.valueOf((byte) (b0 | 16)));
         } else {
-            this.ag.b(16, Byte.valueOf((byte) (b0 & -17)));
+            this.ah.b(16, Byte.valueOf((byte) (b0 & -17)));
         }
     }
 
@@ -149,15 +149,15 @@ public class OEntitySheep extends OEntityAnimal {
 
     public OEntitySheep b(OEntityAgeable oentityageable) {
         OEntitySheep oentitysheep = (OEntitySheep) oentityageable;
-        OEntitySheep oentitysheep1 = new OEntitySheep(this.p);
+        OEntitySheep oentitysheep1 = new OEntitySheep(this.q);
         int i = this.a(this, oentitysheep);
 
         oentitysheep1.s(15 - i);
         return oentitysheep1;
     }
 
-    public void aH() {
-        this.f(false);
+    public void aK() {
+        this.i(false);
         if (this.h_()) {
             int i = this.b() + 1200;
 
@@ -169,8 +169,8 @@ public class OEntitySheep extends OEntityAnimal {
         }
     }
 
-    public void bG() {
-        this.s(a(this.p.t));
+    public void bJ() {
+        this.s(a(this.q.s));
     }
 
     private int a(OEntityAnimal oentityanimal, OEntityAnimal oentityanimal1) {
@@ -179,13 +179,13 @@ public class OEntitySheep extends OEntityAnimal {
 
         this.e.a(0).b(i);
         this.e.a(1).b(j);
-        OItemStack oitemstack = OCraftingManager.a().a(this.e, ((OEntitySheep) oentityanimal).p);
+        OItemStack oitemstack = OCraftingManager.a().a(this.e, ((OEntitySheep) oentityanimal).q);
         int k;
 
-        if (oitemstack != null && oitemstack.b().cj == OItem.aW.cj) {
-            k = oitemstack.j();
+        if (oitemstack != null && oitemstack.b().cp == OItem.aX.cp) {
+            k = oitemstack.k();
         } else {
-            k = this.p.t.nextBoolean() ? i : j;
+            k = this.q.s.nextBoolean() ? i : j;
         }
 
         return k;

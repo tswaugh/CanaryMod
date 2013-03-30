@@ -7,38 +7,38 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
     public OEntityMob(OWorld oworld) {
         super(oworld);
-        this.bd = 5;
+        this.be = 5;
     }
 
     public void c() {
-        this.bo();
+        this.br();
         float f = this.c(1.0F);
 
         if (f > 0.5F) {
-            this.bB += 2;
+            this.bC += 2;
         }
 
         super.c();
     }
 
-    public void j_() {
-        super.j_();
-        if (!this.p.I && this.p.s == 0) {
-            this.x();
+    public void l_() {
+        super.l_();
+        if (!this.q.I && this.q.r == 0) {
+            this.w();
         }
     }
 
     protected OEntity j() {
-        OEntityPlayer oentityplayer = this.p.b(this, 16.0D);
+        OEntityPlayer oentityplayer = this.q.b(this, 16.0D);
 
         return oentityplayer != null && this.n(oentityplayer) ? oentityplayer : null;
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
-        if (this.ar()) {
+        if (this.aq()) {
             return false;
         } else if (super.a(odamagesource, i)) {
-            OEntity oentity = odamagesource.g();
+            OEntity oentity = odamagesource.i();
 
             if (this.n != oentity && this.o != oentity) {
                 if (oentity != this) {
@@ -79,19 +79,19 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
 
         if (flag) {
             if (j > 0) {
-                oentity.g((double) (-OMathHelper.a(this.z * 3.1415927F / 180.0F) * (float) j * 0.5F), 0.1D, (double) (OMathHelper.b(this.z * 3.1415927F / 180.0F) * (float) j * 0.5F));
-                this.w *= 0.6D;
-                this.y *= 0.6D;
+                oentity.g((double) (-OMathHelper.a(this.A * 3.1415927F / 180.0F) * (float) j * 0.5F), 0.1D, (double) (OMathHelper.b(this.A * 3.1415927F / 180.0F) * (float) j * 0.5F));
+                this.x *= 0.6D;
+                this.z *= 0.6D;
             }
 
             int k = OEnchantmentHelper.a((OEntityLiving) this);
 
             if (k > 0) {
-                oentity.c(k * 4);
+                oentity.d(k * 4);
             }
 
             if (oentity instanceof OEntityLiving) {
-                OEnchantmentThorns.a(this, (OEntityLiving) oentity, this.aa);
+                OEnchantmentThorns.a(this, (OEntityLiving) oentity, this.ab);
             }
         }
 
@@ -99,40 +99,40 @@ public abstract class OEntityMob extends OEntityCreature implements OIMob {
     }
 
     protected void a(OEntity oentity, float f) {
-        if (this.aZ <= 0 && f < 2.0F && oentity.D.e > this.D.b && oentity.D.b < this.D.e) {
-            this.aZ = 20;
+        if (this.ba <= 0 && f < 2.0F && oentity.E.e > this.E.b && oentity.E.b < this.E.e) {
+            this.ba = 20;
             this.m(oentity);
         }
     }
 
     public float a(int i, int j, int k) {
-        return 0.5F - this.p.p(i, j, k);
+        return 0.5F - this.q.q(i, j, k);
     }
 
     protected boolean i_() {
-        int i = OMathHelper.c(this.t);
-        int j = OMathHelper.c(this.D.b);
-        int k = OMathHelper.c(this.v);
+        int i = OMathHelper.c(this.u);
+        int j = OMathHelper.c(this.E.b);
+        int k = OMathHelper.c(this.w);
 
-        if (this.p.b(OEnumSkyBlock.a, i, j, k) > this.aa.nextInt(32)) {
+        if (this.q.b(OEnumSkyBlock.a, i, j, k) > this.ab.nextInt(32)) {
             return false;
         } else {
-            int l = this.p.m(i, j, k);
+            int l = this.q.n(i, j, k);
 
-            if (this.p.M()) {
-                int i1 = this.p.j;
+            if (this.q.N()) {
+                int i1 = this.q.j;
 
-                this.p.j = 10;
-                l = this.p.m(i, j, k);
-                this.p.j = i1;
+                this.q.j = 10;
+                l = this.q.n(i, j, k);
+                this.q.j = i1;
             }
 
-            return l <= this.aa.nextInt(8);
+            return l <= this.ab.nextInt(8);
         }
     }
 
-    public boolean bs() {
-        return this.i_() && super.bs();
+    public boolean bv() {
+        return this.i_() && super.bv();
     }
 
     public int c(OEntity oentity) {

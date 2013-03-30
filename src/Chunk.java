@@ -94,7 +94,7 @@ public class Chunk {
             // handles notification
             return getWorld().setBlockAt(id, (x & 0xF) | (getX() << 4), y, (z & 0xF) | (getZ() << 4));
         } else {
-            return chunk.a(x, y, z, id);
+            return chunk.a(x, y, z, id, 0);
         }
     }
 

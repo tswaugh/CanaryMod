@@ -50,19 +50,19 @@ public class OCommandTime extends OCommandBase {
     }
 
     protected void a(OICommandSender oicommandsender, int i) {
-        for (OWorldServer[] aows : OMinecraftServer.D().worlds.values()) {
-            for (int j = 0; j < aows.length; ++j) {
-                aows[j].b((long) i);
+        for (OWorldServer[] level : OMinecraftServer.D().worlds.values()) {
+            for (int j = 0; j < level.length; ++j) {
+                level[j].b((long) i);
             }
         }
     }
 
     protected void b(OICommandSender oicommandsender, int i) {
-        for (OWorldServer[] aows : OMinecraftServer.D().worlds.values()) {
-            for (int j = 0; j < aows.length; ++j) {
-                OWorldServer oworldserver = aows[j];
+        for (OWorldServer[] level : OMinecraftServer.D().worlds.values()) {
+            for (int j = 0; j < level.length; ++j) {
+                OWorldServer oworldserver = level[j];
 
-                oworldserver.b(oworldserver.G() + (long) i);
+                oworldserver.b(oworldserver.H() + (long) i);
             }
         }
     }

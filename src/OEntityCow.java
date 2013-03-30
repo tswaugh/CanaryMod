@@ -2,37 +2,38 @@ public class OEntityCow extends OEntityAnimal {
 
     public OEntityCow(OWorld oworld) {
         super(oworld);
-        this.aG = "/mob/cow.png";
+        this.aH = "/mob/cow.png";
         this.a(0.9F, 1.3F);
-        this.az().a(true);
-        this.bn.a(0, new OEntityAISwimming(this));
-        this.bn.a(1, new OEntityAIPanic(this, 0.38F));
-        this.bn.a(2, new OEntityAIMate(this, 0.2F));
-        this.bn.a(3, new OEntityAITempt(this, 0.25F, OItem.T.cj, false));
-        this.bn.a(4, new OEntityAIFollowParent(this, 0.25F));
-        this.bn.a(5, new OEntityAIWander(this, 0.2F));
-        this.bn.a(6, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
-        this.bn.a(7, new OEntityAILookIdle(this));
+        this.aC().a(true);
+        this.bo.a(0, new OEntityAISwimming(this));
+        this.bo.a(1, new OEntityAIPanic(this, 0.38F));
+        this.bo.a(2, new OEntityAIMate(this, 0.2F));
+        this.bo.a(3, new OEntityAITempt(this, 0.25F, OItem.U.cp, false));
+        this.bo.a(4, new OEntityAIFollowParent(this, 0.25F));
+        this.bo.a(5, new OEntityAIWander(this, 0.2F));
+        this.bo.a(6, new OEntityAIWatchClosest(this, OEntityPlayer.class, 6.0F));
+        this.bo.a(7, new OEntityAILookIdle(this));
     }
 
-    public boolean be() {
+    public boolean bh() {
         return true;
     }
 
-    public int aT() {
+    public int aW() {
         //CanaryMod: set max health here, but check for uninitialized value.
         return this.maxHealth == 0 ? 10 : this.maxHealth;
+
     }
 
-    protected String aY() {
+    protected String bb() {
         return "mob.cow.say";
     }
 
-    protected String aZ() {
+    protected String bc() {
         return "mob.cow.hurt";
     }
 
-    protected String ba() {
+    protected String bd() {
         return "mob.cow.hurt";
     }
 
@@ -40,52 +41,52 @@ public class OEntityCow extends OEntityAnimal {
         this.a("mob.cow.step", 0.15F, 1.0F);
     }
 
-    protected float aX() {
+    protected float ba() {
         return 0.4F;
     }
 
-    protected int bb() {
-        return OItem.aF.cj;
+    protected int be() {
+        return OItem.aG.cp;
     }
 
     protected void a(boolean flag, int i) {
-        int j = this.aa.nextInt(3) + this.aa.nextInt(1 + i);
+        int j = this.ab.nextInt(3) + this.ab.nextInt(1 + i);
 
         int k;
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.aF.cj, 1);
+            this.b(OItem.aG.cp, 1);
         }
 
-        j = this.aa.nextInt(3) + 1 + this.aa.nextInt(1 + i);
+        j = this.ab.nextInt(3) + 1 + this.ab.nextInt(1 + i);
 
         for (k = 0; k < j; ++k) {
-            if (this.af()) {
-                this.b(OItem.bj.cj, 1);
+            if (this.ae()) {
+                this.b(OItem.bk.cp, 1);
             } else {
-                this.b(OItem.bi.cj, 1);
+                this.b(OItem.bj.cp, 1);
             }
         }
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
-        OItemStack oitemstack = oentityplayer.bJ.g();
+    public boolean a_(OEntityPlayer oentityplayer) {
+        OItemStack oitemstack = oentityplayer.bK.h();
 
-        if (oitemstack != null && oitemstack.c == OItem.aw.cj && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob(this))) {
+        if (oitemstack != null && oitemstack.c == OItem.ax.cp && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob(this))) {
             if (--oitemstack.a <= 0) {
-                oentityplayer.bJ.a(oentityplayer.bJ.c, new OItemStack(OItem.aG));
-            } else if (!oentityplayer.bJ.a(new OItemStack(OItem.aG))) {
-                oentityplayer.c(new OItemStack(OItem.aG.cj, 1, 0));
+                oentityplayer.bK.a(oentityplayer.bK.c, new OItemStack(OItem.aH));
+            } else if (!oentityplayer.bK.a(new OItemStack(OItem.aH))) {
+                oentityplayer.c(new OItemStack(OItem.aH.cp, 1, 0));
             }
 
             return true;
         } else {
-            return super.a(oentityplayer);
+            return super.a_(oentityplayer);
         }
     }
 
     public OEntityCow b(OEntityAgeable oentityageable) {
-        return new OEntityCow(this.p);
+        return new OEntityCow(this.q);
     }
 
     public OEntityAgeable a(OEntityAgeable oentityageable) {

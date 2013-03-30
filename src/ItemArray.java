@@ -93,7 +93,20 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
         Item[] items = getContents();
 
         for (Item item : items) {
-            if ((item != null) && (item.getItemId() == id) && (item.getAmount() <= maxAmount)) {
+            if (item != null && item.getItemId() == id && item.getAmount() <= maxAmount) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public Item getItemFromId(int id, int maxAmount, int dmg) {
+        Item[] items = getContents();
+
+        for (Item item : items) {
+            if (item != null && item.getItemId() == id && item.getAmount() <= maxAmount && item.getDamage() == dmg) {
                 return item;
             }
         }
@@ -315,20 +328,24 @@ public abstract class ItemArray<C extends Container<OItemStack>> implements Inve
 
         while (amount > 0) {
             // Get an existing item with at least 1 spot free
-            itemExisting = this.getItemFromId(item.getItemId(), maxAmount-1);
+            itemExisting = this.getItemFromId(item.getItemId(), maxAmount-1, item.getDamage());
 
             // Add the items to the existing stack of items
             if (itemExisting != null &&
                     (itemExisting.getEnchantment() == null || etc.getInstance().allowEnchantableItemStacking)) {
                 // Add as much items as possible to the stack
                 int k = Math.min(maxAmount - itemExisting.getAmount(), item.getAmount());
-                this.setSlot(item.getItemId(), itemExisting.getAmount() + k, itemExisting.getSlot());
+                this.setSlot(item.getItemId(), itemExisting.getAmount() + k, item.getDamage(), itemExisting.getSlot());
                 amount -= k;
                 continue;
             }
             // We still have slots, but no stack, create a new stack.
             if (this.getEmptySlot() != -1) {
-                this.addItem(new Item(item.getItemId(), amount));
+                NBTTagCompound nbt = new NBTTagCompound();
+                item.getBaseItem().b(nbt.getBaseTag());
+                Item tempItem = new Item(item.getItemId(), amount, -1, item.getDamage());
+                tempItem.getBaseItem().c(nbt.getBaseTag());
+                this.addItem(tempItem);
                 amount = 0;
                 continue;
             }

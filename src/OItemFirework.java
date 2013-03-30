@@ -14,7 +14,7 @@ public class OItemFirework extends OItem {
 
             OEntityFireworkRocket oentityfireworkrocket = new OEntityFireworkRocket(oworld, (double) ((float) i + f), (double) ((float) j + f1), (double) ((float) k + f2), oitemstack);
             oworld.d((OEntity) oentityfireworkrocket);
-            if (!oentityplayer.cd.d) {
+            if (!oentityplayer.ce.d) {
                 --oitemstack.a;
             }
 

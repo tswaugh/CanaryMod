@@ -1,60 +1,66 @@
-public class OContainerDispenser extends OContainer
-{
+public class OContainerDispenser extends OContainer {
+
     private OTileEntityDispenser a;
 
-    public OContainerDispenser(OIInventory paramOIInventory, OTileEntityDispenser paramOTileEntityDispenser)
-    {
-        this.a = paramOTileEntityDispenser;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                a(new OSlot(paramOTileEntityDispenser, j + i * 3, 62 + j * 18, 17 + i * 18));
+    public OContainerDispenser(OIInventory oiinventory, OTileEntityDispenser otileentitydispenser) {
+        this.a = otileentitydispenser;
+
+        int i;
+        int j;
+
+        for (i = 0; i < 3; ++i) {
+            for (j = 0; j < 3; ++j) {
+                this.a(new OSlot(otileentitydispenser, j + i * 3, 62 + j * 18, 17 + i * 18));
             }
         }
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                a(new OSlot(paramOIInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+        for (i = 0; i < 3; ++i) {
+            for (j = 0; j < 9; ++j) {
+                this.a(new OSlot(oiinventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
-        for (int i = 0; i < 9; i++)
-            a(new OSlot(paramOIInventory, i, 8 + i * 18, 142));
+
+        for (i = 0; i < 9; ++i) {
+            this.a(new OSlot(oiinventory, i, 8 + i * 18, 142));
+        }
     }
 
-    public boolean a(OEntityPlayer paramOEntityPlayer)
-    {
-        return this.a.a_(paramOEntityPlayer);
+    @Override
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.a.a(oentityplayer);
     }
 
-    public OItemStack b(OEntityPlayer paramOEntityPlayer, int paramInt)
-    {
-        OItemStack localOItemStack1 = null;
-        OSlot localOSlot = (OSlot)this.c.get(paramInt);
-        if ((localOSlot != null) && (localOSlot.d())) {
-            OItemStack localOItemStack2 = localOSlot.c();
-            localOItemStack1 = localOItemStack2.l();
+    @Override
+    public OItemStack b(OEntityPlayer oentityplayer, int i) {
+        OItemStack oitemstack = null;
+        OSlot oslot = (OSlot) this.c.get(i);
 
-            if (paramInt < 9) {
-                if (!a(localOItemStack2, 9, 45, true)) {
+        if (oslot != null && oslot.d()) {
+            OItemStack oitemstack1 = oslot.c();
+
+            oitemstack = oitemstack1.m();
+            if (i < 9) {
+                if (!this.a(oitemstack1, 9, 45, true)) {
                     return null;
                 }
-            }
-            else if (!a(localOItemStack2, 0, 9, false)) {
+            } else if (!this.a(oitemstack1, 0, 9, false)) {
                 return null;
             }
 
-            if (localOItemStack2.a == 0)
-                localOSlot.c(null);
-            else {
-                localOSlot.e();
+            if (oitemstack1.a == 0) {
+                oslot.c((OItemStack) null);
+            } else {
+                oslot.e();
             }
-            if (localOItemStack2.a == localOItemStack1.a)
-            {
+
+            if (oitemstack1.a == oitemstack.a) {
                 return null;
             }
-            localOSlot.a(paramOEntityPlayer, localOItemStack2);
+
+            oslot.a(oentityplayer, oitemstack1);
         }
 
-        return localOItemStack1;
+        return oitemstack;
     }
 
     // CanaryMod
@@ -64,11 +70,12 @@ public class OContainerDispenser extends OContainer
 
     @Override
     public Dispenser getInventory() {
-        if(super.getInventory() instanceof Dispenser) {
+        if (super.getInventory() instanceof Dispenser) {
             Inventory inventory = super.getInventory();
-            if(!inventory.hasOContainer())
+            if (!inventory.hasOContainer()) {
                 inventory.setOContainer(this);
-            return (Dispenser)super.getInventory();
+            }
+            return (Dispenser) super.getInventory();
         }
 
         Dispenser inv = new Dispenser(this, this.a);

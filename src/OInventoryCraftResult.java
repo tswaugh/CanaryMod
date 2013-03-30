@@ -6,7 +6,7 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
 
     public OInventoryCraftResult() {}
 
-    public int k_() {
+    public int j_() {
         return 1;
     }
 
@@ -16,6 +16,10 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
 
     public String b() {
         return name;
+    }
+
+    public boolean c() {
+        return false;
     }
 
     public OItemStack a(int i, int j) {
@@ -29,7 +33,7 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
         }
     }
 
-    public OItemStack a_(int i) {
+    public OItemStack b(int i) {
         if (this.a[0] != null) {
             OItemStack oitemstack = this.a[0];
 
@@ -44,19 +48,23 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
         this.a[0] = oitemstack;
     }
 
-    public int c() {
+    public int d() {
         return 64;
     }
 
-    public void d() {}
+    public void k_() {}
 
-    public boolean a_(OEntityPlayer oentityplayer) {
+    public boolean a(OEntityPlayer oentityplayer) {
         return true;
     }
 
-    public void l_() {}
-
     public void f() {}
+
+    public void g() {}
+
+    public boolean b(int i, OItemStack oitemstack) {
+        return true;
+    }
 
     @Override
     public OItemStack[] getContents() {
@@ -90,7 +98,7 @@ public class OInventoryCraftResult implements OIInventory, Container<OItemStack>
 
     @Override
     public int getContentsSize() {
-        return this.k_();
+        return this.j_();
     }
 
     @Override

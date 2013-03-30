@@ -16,10 +16,10 @@ public class OEntitySmallFireball extends OEntityFireball {
     }
 
     protected void a(OMovingObjectPosition omovingobjectposition) {
-        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.p.I) {
+        if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.PROJECTILE_HIT, new Projectile(this), omovingobjectposition.g == null ? null : omovingobjectposition.g.getEntity()) && !this.q.I) {
             if (omovingobjectposition.g != null) {
-                if (!omovingobjectposition.g.F() && omovingobjectposition.g.a(ODamageSource.a((OEntityFireball) this, this.a), 5)) {
-                    omovingobjectposition.g.c(5);
+                if (!omovingobjectposition.g.E() && omovingobjectposition.g.a(ODamageSource.a((OEntityFireball) this, this.a), 5)) {
+                    omovingobjectposition.g.d(5);
                 }
             } else {
                 int i = omovingobjectposition.b;
@@ -51,16 +51,16 @@ public class OEntitySmallFireball extends OEntityFireball {
                         ++i;
                 }
 
-                if (this.p.c(i, j, k)) {
-                    this.p.e(i, j, k, OBlock.au.cm);
+                if (this.q.c(i, j, k)) {
+                    this.q.c(i, j, k, OBlock.av.cz);
                 }
             }
 
-            this.x();
+            this.w();
         }
     }
 
-    public boolean L() {
+    public boolean K() {
         return false;
     }
 

@@ -8,7 +8,7 @@ public class OItemMonsterPlacer extends OItem {
 
     public String l(OItemStack oitemstack) {
         String s = ("" + OStatCollector.a(this.a() + ".name")).trim();
-        String s1 = OEntityList.b(oitemstack.j());
+        String s1 = OEntityList.b(oitemstack.k());
 
         if (s1 != null) {
             s = s + " " + OStatCollector.a("entity." + s1 + ".name");
@@ -29,12 +29,20 @@ public class OItemMonsterPlacer extends OItem {
             k += OFacing.d[l];
             double d0 = 0.0D;
 
-            if (l == 1 && OBlock.p[i1] != null && OBlock.p[i1].d() == 11) {
+            if (l == 1 && OBlock.r[i1] != null && OBlock.r[i1].d() == 11) {
                 d0 = 0.5D;
             }
 
-            if (a(oworld, oitemstack.j(), (double) i + 0.5D, (double) j + d0, (double) k + 0.5D) != null && !oentityplayer.cd.d) {
-                --oitemstack.a;
+            OEntity oentity = a(oworld, oitemstack.k(), (double) i + 0.5D, (double) j + d0, (double) k + 0.5D);
+
+            if (oentity != null) {
+                if (oentity instanceof OEntityLiving && oitemstack.t()) {
+                    ((OEntityLiving) oentity).c(oitemstack.s());
+                }
+
+                if (!oentityplayer.ce.d) {
+                    --oitemstack.a;
+                }
             }
 
             return true;
@@ -52,14 +60,14 @@ public class OItemMonsterPlacer extends OItem {
                 if (oentity != null && oentity instanceof OEntityLiving) {
                     OEntityLiving oentityliving = (OEntityLiving) oentity;
 
-                    oentity.b(d0, d1, d2, OMathHelper.g(oworld.t.nextFloat() * 360.0F), 0.0F);
-                    oentityliving.az = oentityliving.z;
-                    oentityliving.ax = oentityliving.z;
-                    oentityliving.bG();
+                    oentity.b(d0, d1, d2, OMathHelper.g(oworld.s.nextFloat() * 360.0F), 0.0F);
+                    oentityliving.aA = oentityliving.A;
+                    oentityliving.ay = oentityliving.A;
+                    oentityliving.bJ();
                     if (spawn) {
                         oworld.d(oentity);
                     }
-                    oentityliving.aO();
+                    oentityliving.aR();
                 }
             }
 

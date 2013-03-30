@@ -10,8 +10,8 @@ public abstract class OEntityTameable extends OEntityAnimal {
 
     protected void a() {
         super.a();
-        this.ag.a(16, Byte.valueOf((byte) 0));
-        this.ag.a(17, "");
+        this.ah.a(16, Byte.valueOf((byte) 0));
+        this.ah.a(17, "");
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
@@ -31,14 +31,14 @@ public abstract class OEntityTameable extends OEntityAnimal {
 
         if (s.length() > 0) {
             this.a(s);
-            this.g(true);
+            this.j(true);
         }
 
         this.d.a(onbttagcompound.n("Sitting"));
-        this.h(onbttagcompound.n("Sitting"));
+        this.k(onbttagcompound.n("Sitting"));
     }
 
-    protected void f(boolean flag) {
+    protected void i(boolean flag) {
         String s = "heart";
 
         if (!flag) {
@@ -46,52 +46,52 @@ public abstract class OEntityTameable extends OEntityAnimal {
         }
 
         for (int i = 0; i < 7; ++i) {
-            double d0 = this.aa.nextGaussian() * 0.02D;
-            double d1 = this.aa.nextGaussian() * 0.02D;
-            double d2 = this.aa.nextGaussian() * 0.02D;
+            double d0 = this.ab.nextGaussian() * 0.02D;
+            double d1 = this.ab.nextGaussian() * 0.02D;
+            double d2 = this.ab.nextGaussian() * 0.02D;
 
-            this.p.a(s, this.t + (double) (this.aa.nextFloat() * this.N * 2.0F) - (double) this.N, this.u + 0.5D + (double) (this.aa.nextFloat() * this.O), this.v + (double) (this.aa.nextFloat() * this.N * 2.0F) - (double) this.N, d0, d1, d2);
+            this.q.a(s, this.u + (double) (this.ab.nextFloat() * this.O * 2.0F) - (double) this.O, this.v + 0.5D + (double) (this.ab.nextFloat() * this.P), this.w + (double) (this.ab.nextFloat() * this.O * 2.0F) - (double) this.O, d0, d1, d2);
         }
     }
 
     public boolean m() {
-        return (this.ag.a(16) & 4) != 0;
+        return (this.ah.a(16) & 4) != 0;
     }
 
-    public void g(boolean flag) {
-        byte b0 = this.ag.a(16);
+    public void j(boolean flag) {
+        byte b0 = this.ah.a(16);
 
         if (flag) {
-            this.ag.b(16, Byte.valueOf((byte) (b0 | 4)));
+            this.ah.b(16, Byte.valueOf((byte) (b0 | 4)));
         } else {
-            this.ag.b(16, Byte.valueOf((byte) (b0 & -5)));
+            this.ah.b(16, Byte.valueOf((byte) (b0 & -5)));
         }
     }
 
     public boolean n() {
-        return (this.ag.a(16) & 1) != 0;
+        return (this.ah.a(16) & 1) != 0;
     }
 
-    public void h(boolean flag) {
-        byte b0 = this.ag.a(16);
+    public void k(boolean flag) {
+        byte b0 = this.ah.a(16);
 
         if (flag) {
-            this.ag.b(16, Byte.valueOf((byte) (b0 | 1)));
+            this.ah.b(16, Byte.valueOf((byte) (b0 | 1)));
         } else {
-            this.ag.b(16, Byte.valueOf((byte) (b0 & -2)));
+            this.ah.b(16, Byte.valueOf((byte) (b0 & -2)));
         }
     }
 
     public String o() {
-        return this.ag.e(17);
+        return this.ah.e(17);
     }
 
     public void a(String s) {
-        this.ag.b(17, s);
+        this.ah.b(17, s);
     }
 
     public OEntityLiving p() {
-        return this.p.a(this.o());
+        return this.q.a(this.o());
     }
 
     public OEntityAISit q() {

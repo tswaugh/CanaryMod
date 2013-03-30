@@ -20,7 +20,7 @@ public class OContainerPlayer extends OContainer {
         }
 
         for (i = 0; i < 4; ++i) {
-            this.a((OSlot) (new OSlotArmor(this, oinventoryplayer, oinventoryplayer.k_() - 1 - i, 8, 8 + i * 18, i)));
+            this.a((OSlot) (new OSlotArmor(this, oinventoryplayer, oinventoryplayer.j_() - 1 - i, 8, 8 + i * 18, i)));
         }
 
         for (i = 0; i < 3; ++i) {
@@ -38,7 +38,7 @@ public class OContainerPlayer extends OContainer {
 
     public void a(OIInventory oiinventory) {
         // Canarymod - send custom recipes result to client
-        OItemStack craftresult = OCraftingManager.a().a(this.a, this.h.p);
+        OItemStack craftresult = OCraftingManager.a().a(this.a, this.h.q);
         this.f.a(0, craftresult);
 
         if (this.e.size() < 1) {
@@ -46,7 +46,7 @@ public class OContainerPlayer extends OContainer {
         } //
         OEntityPlayerMP player = (OEntityPlayerMP) this.e.get(0);
 
-        player.a.b(new OPacket103SetSlot(player.bK.d, 0, craftresult));
+        player.a.b(new OPacket103SetSlot(player.bK.c, 0, craftresult));
 
         this.f.a(0, craftresult);
     }
@@ -55,7 +55,7 @@ public class OContainerPlayer extends OContainer {
         super.b(oentityplayer);
 
         for (int i = 0; i < 4; ++i) {
-            OItemStack oitemstack = this.a.a_(i);
+            OItemStack oitemstack = this.a.b(i);
 
             if (oitemstack != null) {
                 oentityplayer.c(oitemstack);
@@ -76,7 +76,7 @@ public class OContainerPlayer extends OContainer {
         if (oslot != null && oslot.d()) {
             OItemStack oitemstack1 = oslot.c();
 
-            oitemstack = oitemstack1.l();
+            oitemstack = oitemstack1.m();
             if (i == 0) {
                 if (!this.a(oitemstack1, 9, 45, true)) {
                     return null;
@@ -91,8 +91,8 @@ public class OContainerPlayer extends OContainer {
                 if (!this.a(oitemstack1, 9, 45, false)) {
                     return null;
                 }
-            } else if (oitemstack.b() instanceof OItemArmor && !((OSlot) this.c.get(5 + ((OItemArmor) oitemstack.b()).a)).d()) {
-                int j = 5 + ((OItemArmor) oitemstack.b()).a;
+            } else if (oitemstack.b() instanceof OItemArmor && !((OSlot) this.c.get(5 + ((OItemArmor) oitemstack.b()).b)).d()) {
+                int j = 5 + ((OItemArmor) oitemstack.b()).b;
 
                 if (!this.a(oitemstack1, j, j + 1, false)) {
                     return null;
@@ -125,11 +125,16 @@ public class OContainerPlayer extends OContainer {
         return oitemstack;
     }
 
+    public boolean a(OItemStack oitemstack, OSlot oslot) {
+        return oslot.f != this.f && super.a(oitemstack, oslot);
+    }
+
     // CanaryMod
     @Override
     public InventoryCrafting getInventory() {
-        if(super.getInventory() instanceof InventoryCrafting)
-            return (InventoryCrafting)super.getInventory();
+        if (super.getInventory() instanceof InventoryCrafting) {
+            return (InventoryCrafting) super.getInventory();
+        }
 
         InventoryCrafting inv = new InventoryCrafting(this, this.a, this.f);
         setInventory(inv);

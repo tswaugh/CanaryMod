@@ -2,30 +2,30 @@ public class OEntitySpider extends OEntityMob {
 
     public OEntitySpider(OWorld oworld) {
         super(oworld);
-        this.aG = "/mob/spider.png";
+        this.aH = "/mob/spider.png";
         this.a(1.4F, 0.9F);
-        this.bH = 0.8F;
+        this.bI = 0.8F;
     }
 
     protected void a() {
         super.a();
-        this.ag.a(16, new Byte((byte) 0));
+        this.ah.a(16, new Byte((byte) 0));
     }
 
-    public void j_() {
-        super.j_();
-        if (!this.p.I) {
-            this.f(this.F);
+    public void l_() {
+        super.l_();
+        if (!this.q.I) {
+            this.a(this.G);
         }
     }
 
-    public int aT() {
+    public int aW() {
         //CanaryMod: set max health here, but check for uninitialized value.
         return this.maxHealth == 0 ? 16 : this.maxHealth;
     }
 
-    public double X() {
-        return (double) this.O * 0.75D - 0.5D;
+    public double W() {
+        return (double) this.P * 0.75D - 0.5D;
     }
 
     protected OEntity j() {
@@ -34,21 +34,21 @@ public class OEntitySpider extends OEntityMob {
         if (f < 0.5F) {
             double d0 = 16.0D;
 
-            return this.p.b(this, d0);
+            return this.q.b(this, d0);
         } else {
             return null;
         }
     }
 
-    protected String aY() {
+    protected String bb() {
         return "mob.spider.say";
     }
 
-    protected String aZ() {
+    protected String bc() {
         return "mob.spider.say";
     }
 
-    protected String ba() {
+    protected String bd() {
         return "mob.spider.death";
     }
 
@@ -59,18 +59,18 @@ public class OEntitySpider extends OEntityMob {
     protected void a(OEntity oentity, float f) {
         float f1 = this.c(1.0F);
 
-        if (f1 > 0.5F && this.aa.nextInt(100) == 0) {
+        if (f1 > 0.5F && this.ab.nextInt(100) == 0) {
             this.a_ = null;
         } else {
-            if (f > 2.0F && f < 6.0F && this.aa.nextInt(10) == 0) {
-                if (this.E) {
-                    double d0 = oentity.t - this.t;
-                    double d1 = oentity.v - this.v;
+            if (f > 2.0F && f < 6.0F && this.ab.nextInt(10) == 0) {
+                if (this.F) {
+                    double d0 = oentity.u - this.u;
+                    double d1 = oentity.w - this.w;
                     float f2 = OMathHelper.a(d0 * d0 + d1 * d1);
 
-                    this.w = d0 / (double) f2 * 0.5D * 0.800000011920929D + this.w * 0.20000000298023224D;
-                    this.y = d1 / (double) f2 * 0.5D * 0.800000011920929D + this.y * 0.20000000298023224D;
-                    this.x = 0.4000000059604645D;
+                    this.x = d0 / (double) f2 * 0.5D * 0.800000011920929D + this.x * 0.20000000298023224D;
+                    this.z = d1 / (double) f2 * 0.5D * 0.800000011920929D + this.z * 0.20000000298023224D;
+                    this.y = 0.4000000059604645D;
                 }
             } else {
                 super.a(oentity, f);
@@ -78,14 +78,14 @@ public class OEntitySpider extends OEntityMob {
         }
     }
 
-    protected int bb() {
-        return OItem.K.cj;
+    protected int be() {
+        return OItem.L.cp;
     }
 
     protected void a(boolean flag, int i) {
         super.a(flag, i);
-        if (flag && (this.aa.nextInt(3) == 0 || this.aa.nextInt(1 + i) > 0)) {
-            this.b(OItem.bu.cj, 1);
+        if (flag && (this.ab.nextInt(3) == 0 || this.ab.nextInt(1 + i) > 0)) {
+            this.b(OItem.bv.cp, 1);
         }
     }
 
@@ -93,9 +93,9 @@ public class OEntitySpider extends OEntityMob {
         return this.o();
     }
 
-    public void am() {}
+    public void al() {}
 
-    public OEnumCreatureAttribute bC() {
+    public OEnumCreatureAttribute bF() {
         return OEnumCreatureAttribute.c;
     }
 
@@ -104,11 +104,11 @@ public class OEntitySpider extends OEntityMob {
     }
 
     public boolean o() {
-        return (this.ag.a(16) & 1) != 0;
+        return (this.ah.a(16) & 1) != 0;
     }
 
-    public void f(boolean flag) {
-        byte b0 = this.ag.a(16);
+    public void a(boolean flag) {
+        byte b0 = this.ah.a(16);
 
         if (flag) {
             b0 = (byte) (b0 | 1);
@@ -116,16 +116,16 @@ public class OEntitySpider extends OEntityMob {
             b0 &= -2;
         }
 
-        this.ag.b(16, Byte.valueOf(b0));
+        this.ah.b(16, Byte.valueOf(b0));
     }
 
-    public void bG() {
-        if (this.p.t.nextInt(100) == 0) {
-            OEntitySkeleton oentityskeleton = new OEntitySkeleton(this.p);
+    public void bJ() {
+        if (this.q.s.nextInt(100) == 0) {
+            OEntitySkeleton oentityskeleton = new OEntitySkeleton(this.q);
 
-            oentityskeleton.b(this.t, this.u, this.v, this.z, 0.0F);
-            oentityskeleton.bG();
-            this.p.d((OEntity) oentityskeleton);
+            oentityskeleton.b(this.u, this.v, this.w, this.A, 0.0F);
+            oentityskeleton.bJ();
+            this.q.d((OEntity) oentityskeleton);
             oentityskeleton.a((OEntity) this);
         }
     }

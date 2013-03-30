@@ -18,28 +18,28 @@ public class OEntityEgg extends OEntityThrowable {
                 omovingobjectposition.g.a(ODamageSource.a((OEntity) this, this.h()), 0);
             }
 
-            if (!this.p.I && this.aa.nextInt(8) == 0) {
+            if (!this.q.I && this.ab.nextInt(8) == 0) {
                 byte b0 = 1;
 
-                if (this.aa.nextInt(32) == 0) {
+                if (this.ab.nextInt(32) == 0) {
                     b0 = 4;
                 }
 
                 for (int i = 0; i < b0; ++i) {
-                    OEntityChicken oentitychicken = new OEntityChicken(this.p);
+                    OEntityChicken oentitychicken = new OEntityChicken(this.q);
 
                     oentitychicken.a(-24000);
-                    oentitychicken.b(this.t, this.u, this.v, this.z, 0.0F);
-                    this.p.d((OEntity) oentitychicken);
+                    oentitychicken.b(this.u, this.v, this.w, this.A, 0.0F);
+                    this.q.d((OEntity) oentitychicken);
                 }
             }
 
             for (int j = 0; j < 8; ++j) {
-                this.p.a("snowballpoof", this.t, this.u, this.v, 0.0D, 0.0D, 0.0D);
+                this.q.a("snowballpoof", this.u, this.v, this.w, 0.0D, 0.0D, 0.0D);
             }
 
-            if (!this.p.I) {
-                this.x();
+            if (!this.q.I) {
+                this.w();
             }
         }
     }

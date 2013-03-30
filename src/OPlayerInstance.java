@@ -88,7 +88,7 @@ class OPlayerInstance {
                 k = this.c.b * 16 + (this.d[0] >> 8 & 15);
                 this.a((OPacket) (new OPacket53BlockChange(i, j, k, OPlayerManager.a(this.a))));
                 if (OPlayerManager.a(this.a).d(i, j, k)) {
-                    this.a(OPlayerManager.a(this.a).q(i, j, k));
+                    this.a(OPlayerManager.a(this.a).r(i, j, k));
                 }
             } else {
                 int l;
@@ -101,7 +101,7 @@ class OPlayerInstance {
                     for (k = 0; k < 16; ++k) {
                         if ((this.f & 1 << k) != 0) {
                             l = k << 4;
-                            List list = OPlayerManager.a(this.a).b(i, l, j, i + 16, l + 16, j + 16);
+                            List list = OPlayerManager.a(this.a).c(i, l, j, i + 16, l + 16, j + 16);
 
                             for (int i1 = 0; i1 < list.size(); ++i1) {
                                 this.a((OTileEntity) list.get(i1));
@@ -116,7 +116,7 @@ class OPlayerInstance {
                         k = this.d[i] & 255;
                         l = this.c.b * 16 + (this.d[i] >> 8 & 15);
                         if (OPlayerManager.a(this.a).d(j, k, l)) {
-                            this.a(OPlayerManager.a(this.a).q(j, k, l));
+                            this.a(OPlayerManager.a(this.a).r(j, k, l));
                         }
                     }
                 }
@@ -129,7 +129,7 @@ class OPlayerInstance {
 
     private void a(OTileEntity otileentity) {
         if (otileentity != null) {
-            OPacket opacket = otileentity.l();
+            OPacket opacket = otileentity.m();
 
             if (opacket != null) {
                 this.a(opacket);

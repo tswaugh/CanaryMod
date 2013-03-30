@@ -3,37 +3,38 @@ import java.util.Random;
 
 public class OTileEntityDispenser extends OTileEntity implements OIInventory, Container<OItemStack> {
 
-    private OItemStack[] a = new OItemStack[9];
-    private Random b = new Random();
-    private String name = "container.dispenser";
+    private OItemStack[] b = new OItemStack[9];
+    private Random c = new Random();
+    protected String a;
+
     private final Dispenser dispenser = new Dispenser(this); // CanaryMod
 
     public OTileEntityDispenser() {}
 
-    public int k_() {
+    public int j_() {
         return 9;
     }
 
     public OItemStack a(int i) {
-        return this.a[i];
+        return this.b[i];
     }
 
     public OItemStack a(int i, int j) {
-        if (this.a[i] != null) {
+        if (this.b[i] != null) {
             OItemStack oitemstack;
 
-            if (this.a[i].a <= j) {
-                oitemstack = this.a[i];
-                this.a[i] = null;
-                this.d();
+            if (this.b[i].a <= j) {
+                oitemstack = this.b[i];
+                this.b[i] = null;
+                this.k_();
                 return oitemstack;
             } else {
-                oitemstack = this.a[i].a(j);
-                if (this.a[i].a == 0) {
-                    this.a[i] = null;
+                oitemstack = this.b[i].a(j);
+                if (this.b[i].a == 0) {
+                    this.b[i] = null;
                 }
 
-                this.d();
+                this.k_();
                 return oitemstack;
             }
         } else {
@@ -41,23 +42,23 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         }
     }
 
-    public OItemStack a_(int i) {
-        if (this.a[i] != null) {
-            OItemStack oitemstack = this.a[i];
+    public OItemStack b(int i) {
+        if (this.b[i] != null) {
+            OItemStack oitemstack = this.b[i];
 
-            this.a[i] = null;
+            this.b[i] = null;
             return oitemstack;
         } else {
             return null;
         }
     }
 
-    public int i() {
+    public int j() {
         int i = -1;
         int j = 1;
 
-        for (int k = 0; k < this.a.length; ++k) {
-            if (this.a[k] != null && this.b.nextInt(j++) == 0) {
+        for (int k = 0; k < this.b.length; ++k) {
+            if (this.b[k] != null && this.c.nextInt(j++) == 0) {
                 i = k;
             }
         }
@@ -66,18 +67,18 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
     }
 
     public void a(int i, OItemStack oitemstack) {
-        this.a[i] = oitemstack;
-        if (oitemstack != null && oitemstack.a > this.c()) {
-            oitemstack.a = this.c();
+        this.b[i] = oitemstack;
+        if (oitemstack != null && oitemstack.a > this.d()) {
+            oitemstack.a = this.d();
         }
 
-        this.d();
+        this.k_();
     }
 
     public int a(OItemStack oitemstack) {
-        for (int i = 0; i < this.a.length; ++i) {
-            if (this.a[i] == null || this.a[i].c == 0) {
-                this.a[i] = oitemstack;
+        for (int i = 0; i < this.b.length; ++i) {
+            if (this.b[i] == null || this.b[i].c == 0) {
+                this.a(i, oitemstack);
                 return i;
             }
         }
@@ -86,22 +87,34 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
     }
 
     public String b() {
-        return name;
+        return this.c() ? this.a : "container.dispenser";
+    }
+
+    public void a(String s) {
+        this.a = s;
+    }
+
+    public boolean c() {
+        return this.a != null;
     }
 
     public void a(ONBTTagCompound onbttagcompound) {
         super.a(onbttagcompound);
         ONBTTagList onbttaglist = onbttagcompound.m("Items");
 
-        this.a = new OItemStack[this.k_()];
+        this.b = new OItemStack[this.j_()];
 
         for (int i = 0; i < onbttaglist.c(); ++i) {
             ONBTTagCompound onbttagcompound1 = (ONBTTagCompound) onbttaglist.b(i);
             int j = onbttagcompound1.c("Slot") & 255;
 
-            if (j >= 0 && j < this.a.length) {
-                this.a[j] = OItemStack.a(onbttagcompound1);
+            if (j >= 0 && j < this.b.length) {
+                this.b[j] = OItemStack.a(onbttagcompound1);
             }
+        }
+
+        if (onbttagcompound.b("CustomName")) {
+            this.a = onbttagcompound.i("CustomName");
         }
     }
 
@@ -109,39 +122,46 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
         super.b(onbttagcompound);
         ONBTTagList onbttaglist = new ONBTTagList();
 
-        for (int i = 0; i < this.a.length; ++i) {
-            if (this.a[i] != null) {
+        for (int i = 0; i < this.b.length; ++i) {
+            if (this.b[i] != null) {
                 ONBTTagCompound onbttagcompound1 = new ONBTTagCompound();
 
                 onbttagcompound1.a("Slot", (byte) i);
-                this.a[i].b(onbttagcompound1);
+                this.b[i].b(onbttagcompound1);
                 onbttaglist.a((ONBTBase) onbttagcompound1);
             }
         }
 
         onbttagcompound.a("Items", (ONBTBase) onbttaglist);
+        if (this.c()) {
+            onbttagcompound.a("CustomName", this.a);
+        }
     }
 
-    public int c() {
+    public int d() {
         return 64;
     }
 
-    public boolean a_(OEntityPlayer oentityplayer) {
-        return this.k.q(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
+    public boolean a(OEntityPlayer oentityplayer) {
+        return this.k.r(this.l, this.m, this.n) != this ? false : oentityplayer.e((double) this.l + 0.5D, (double) this.m + 0.5D, (double) this.n + 0.5D) <= 64.0D;
     }
-
-    public void l_() {}
 
     public void f() {}
 
+    public void g() {}
+
+    public boolean b(int i, OItemStack oitemstack) {
+        return true;
+    }
+
     @Override
     public OItemStack[] getContents() {
-        return Arrays.copyOf(this.a, this.getContentsSize());
+        return Arrays.copyOf(this.b, this.getContentsSize());
     }
 
     @Override
     public void setContents(OItemStack[] aoitemstack) {
-        this.a = Arrays.copyOf(aoitemstack, this.getContentsSize());
+        this.b = Arrays.copyOf(aoitemstack, this.getContentsSize());
     }
 
     @Override
@@ -156,17 +176,17 @@ public class OTileEntityDispenser extends OTileEntity implements OIInventory, Co
 
     @Override
     public int getContentsSize() {
-        return this.k_();
+        return this.j_();
     }
 
     @Override
     public String getName() {
-        return this.name;
+        return this.b();
     }
 
     @Override
     public void setName(String s) {
-        this.name = s;
+        this.a(s);
     }
 
     @Override

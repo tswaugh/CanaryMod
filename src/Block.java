@@ -157,7 +157,19 @@ public class Block {
         Potatoes(142), //
         WoodenButton(143), //
         Head(144), //
-        Anvil(145);
+        Anvil(145),//
+        TrappedChest(146),//
+        WeightedPressurePlateLight(147),//
+        WeightedPressurePlateHeavy(148),//
+        DaylightSensor(151),//
+        RedstoneBlock(152),//
+        NetherQuartzOre(153),//
+        Hopper(154),//
+        QuartzBlock(155),//
+        QuartzStairs(156),//
+        ActivatorRail(157),//
+        Dropper(158), //
+        MinecartHopper(408);
 
         private int                       id;
         private static Map<Integer, Type> map;
@@ -790,7 +802,7 @@ public class Block {
      * @return Whether or not the block responded.
      */
     public boolean rightClick(Player clicker) {
-        return OBlock.p[getType()].a(getWorld().getWorld(), getX(), getY(), getZ(), clicker != null ? clicker.getEntity() : null, 0, 0, 0, 0); // last four parameters aren't even used by lever or button
+        return OBlock.r[getType()].a(getWorld().getWorld(), getX(), getY(), getZ(), clicker != null ? clicker.getEntity() : null, 0, 0, 0, 0); // last four parameters aren't even used by lever or button
     }
 
     /**

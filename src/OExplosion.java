@@ -65,7 +65,7 @@ public class OExplosion {
                         d3 /= d6;
                         d4 /= d6;
                         d5 /= d6;
-                        float f1 = this.g * (0.7F + this.k.t.nextFloat() * 0.6F);
+                        float f1 = this.g * (0.7F + this.k.s.nextFloat() * 0.6F);
 
                         d0 = this.c;
                         d1 = this.d;
@@ -78,13 +78,13 @@ public class OExplosion {
                             int k1 = this.k.a(l, i1, j1);
 
                             if (k1 > 0) {
-                                OBlock oblock = OBlock.p[k1];
-                                float f3 = this.f != null ? this.f.a(this, oblock, l, i1, j1) : oblock.a(this.f);
+                                OBlock oblock = OBlock.r[k1];
+                                float f3 = this.f != null ? this.f.a(this, this.k, l, i1, j1, oblock) : oblock.a(this.f);
 
                                 f1 -= (f3 + 0.3F) * f2;
                             }
 
-                            if (f1 > 0.0F) {
+                            if (f1 > 0.0F && (this.f == null || this.f.a(this, this.k, l, i1, j1, k1, f1))) {
                                 hashset.add(new OChunkPosition(l, i1, j1));
                             }
 
@@ -128,40 +128,42 @@ public class OExplosion {
         int i2 = OMathHelper.c(this.e - (double) this.g - 1.0D);
         int j2 = OMathHelper.c(this.e + (double) this.g + 1.0D);
         List list = this.k.b(this.f, OAxisAlignedBB.a().a((double) i, (double) k, (double) i2, (double) j, (double) l1, (double) j2));
-        OVec3 ovec3 = this.k.S().a(this.c, this.d, this.e);
+        OVec3 ovec3 = this.k.T().a(this.c, this.d, this.e);
 
         for (int k2 = 0; k2 < list.size(); ++k2) {
             OEntity oentity = (OEntity) list.get(k2);
             double d7 = oentity.f(this.c, this.d, this.e) / (double) this.g;
 
             if (d7 <= 1.0D) {
-                d0 = oentity.t - this.c;
-                d1 = oentity.u + (double) oentity.e() - this.d;
-                d2 = oentity.v - this.e;
+                d0 = oentity.u - this.c;
+                d1 = oentity.v + (double) oentity.e() - this.d;
+                d2 = oentity.w - this.e;
                 double d8 = (double) OMathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
 
                 if (d8 != 0.0D) {
                     d0 /= d8;
                     d1 /= d8;
                     d2 /= d8;
-                    double d9 = (double) this.k.a(ovec3, oentity.D);
+                    double d9 = (double) this.k.a(ovec3, oentity.E);
                     double d10 = (1.0D - d7) * d9;
 
 
                     // CanaryMod Damage hook: Explosions
                     int damage = (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.g + 1.0D);
-                    PluginLoader.DamageType dmgType = (this.f instanceof OEntityCreeper) ? PluginLoader.DamageType.CREEPER_EXPLOSION : PluginLoader.DamageType.EXPLOSION;
+                    DamageSource damageSource = ODamageSource.a(this).damageSource;
 
-                    if (!cancel && !(Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, dmgType, (this.f != null ? this.f.entity : null), oentity.entity, damage)) {
-                        oentity.a(ODamageSource.k, (int) ((d10 * d10 + d10) / 2.0D * 8.0D * (double) this.g + 1.0D));
+                    HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(damageSource.getDamageSourceEntity(), oentity.getEntity(), damageSource, damage));
+                    if (!cancel && !ev.isCanceled()) {
+                        //Cannot add a random damage source here, only damage applies
+                        oentity.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
                     }
                     double d11 = OEnchantmentProtection.a(oentity, d10);
 
-                    oentity.w += d0 * d11;
-                    oentity.x += d1 * d11;
-                    oentity.y += d2 * d11;
+                    oentity.x += d0 * d11;
+                    oentity.y += d1 * d11;
+                    oentity.z += d2 * d11;
                     if (oentity instanceof OEntityPlayer) {
-                        this.l.put((OEntityPlayer) oentity, this.k.S().a(d0 * d10, d1 * d10, d2 * d10));
+                        this.l.put((OEntityPlayer) oentity, this.k.T().a(d0 * d10, d1 * d10, d2 * d10));
                     }
                 }
             }
@@ -171,7 +173,7 @@ public class OExplosion {
     }
 
     public void a(boolean flag) {
-        this.k.a(this.c, this.d, this.e, "random.explode", 4.0F, (1.0F + (this.k.t.nextFloat() - this.k.t.nextFloat()) * 0.2F) * 0.7F);
+        this.k.a(this.c, this.d, this.e, "random.explode", 4.0F, (1.0F + (this.k.s.nextFloat() - this.k.s.nextFloat()) * 0.2F) * 0.7F);
         if (this.g >= 2.0F && this.b) {
             this.k.a("hugeexplosion", this.c, this.d, this.e, 1.0D, 0.0D, 0.0D);
         } else {
@@ -195,9 +197,9 @@ public class OExplosion {
                 k = ochunkposition.c;
                 l = this.k.a(i, j, k);
                 if (flag) {
-                    double d0 = (double) ((float) i + this.k.t.nextFloat());
-                    double d1 = (double) ((float) j + this.k.t.nextFloat());
-                    double d2 = (double) ((float) k + this.k.t.nextFloat());
+                    double d0 = (double) ((float) i + this.k.s.nextFloat());
+                    double d1 = (double) ((float) j + this.k.s.nextFloat());
+                    double d2 = (double) ((float) k + this.k.s.nextFloat());
                     double d3 = d0 - this.c;
                     double d4 = d1 - this.d;
                     double d5 = d2 - this.e;
@@ -208,7 +210,7 @@ public class OExplosion {
                     d5 /= d6;
                     double d7 = 0.5D / (d6 / (double) this.g + 0.1D);
 
-                    d7 *= (double) (this.k.t.nextFloat() * this.k.t.nextFloat() + 0.3F);
+                    d7 *= (double) (this.k.s.nextFloat() * this.k.s.nextFloat() + 0.3F);
                     d3 *= d7;
                     d4 *= d7;
                     d5 *= d7;
@@ -217,17 +219,14 @@ public class OExplosion {
                 }
 
                 if (l > 0) {
-                    OBlock oblock = OBlock.p[l];
+                    OBlock oblock = OBlock.r[l];
 
                     if (oblock.a(this)) {
-                        oblock.a(this.k, i, j, k, this.k.h(i, j, k), 0.3F, 0);
+                        oblock.a(this.k, i, j, k, this.k.h(i, j, k), 1.0F / this.g, 0);
                     }
 
-                    if (this.k.a(i, j, k, 0, 0, this.k.I)) {
-                        this.k.h(i, j, k, 0);
-                    }
-
-                    oblock.k(this.k, i, j, k);
+                    this.k.f(i, j, k, 0, 0, 3);
+                    oblock.a(this.k, i, j, k, this);
                 }
             }
         }
@@ -243,8 +242,8 @@ public class OExplosion {
                 l = this.k.a(i, j, k);
                 int i1 = this.k.a(i, j - 1, k);
 
-                if (l == 0 && OBlock.q[i1] && this.j.nextInt(3) == 0) {
-                    this.k.e(i, j, k, OBlock.au.cm);
+                if (l == 0 && OBlock.s[i1] && this.j.nextInt(3) == 0) {
+                    this.k.c(i, j, k, OBlock.av.cz);
                 }
             }
         }
@@ -252,5 +251,9 @@ public class OExplosion {
 
     public Map b() {
         return this.l;
+    }
+
+    public OEntityLiving c() {
+        return this.f == null ? null : (this.f instanceof OEntityTNTPrimed ? ((OEntityTNTPrimed) this.f).c() : (this.f instanceof OEntityLiving ? (OEntityLiving) this.f : null));
     }
 }

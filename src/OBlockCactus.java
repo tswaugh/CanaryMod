@@ -2,17 +2,18 @@ import java.util.Random;
 
 public class OBlockCactus extends OBlock {
 
-    protected OBlockCactus(int i, int j) {
-        super(i, j, OMaterial.y);
+    protected OBlockCactus(int i) {
+        super(i, OMaterial.y);
         this.b(true);
         this.a(OCreativeTabs.c);
     }
 
-    public void b(OWorld oworld, int i, int j, int k, Random random) {
+    @Override
+    public void a(OWorld oworld, int i, int j, int k, Random random) {
         if (oworld.c(i, j + 1, k)) {
             int l;
 
-            for (l = 1; oworld.a(i, j - l, k) == this.cm; ++l) {
+            for (l = 1; oworld.a(i, j - l, k) == this.cz; ++l) {
                 ;
             }
 
@@ -20,49 +21,52 @@ public class OBlockCactus extends OBlock {
                 int i1 = oworld.h(i, j, k);
 
                 if (i1 == 15) {
-                    oworld.e(i, j + 1, k, this.cm);
-                    oworld.c(i, j, k, 0);
+                    oworld.c(i, j + 1, k, this.cz);
+                    oworld.b(i, j, k, 0, 4);
+                    this.a(oworld, i, j + 1, k, this.cz);
                 } else {
-                    oworld.c(i, j, k, i1 + 1);
+                    oworld.b(i, j, k, i1 + 1, 4);
                 }
             }
         }
     }
 
-    public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
+    @Override
+    public OAxisAlignedBB b(OWorld oworld, int i, int j, int k) {
         float f = 0.0625F;
 
         return OAxisAlignedBB.a().a((double) ((float) i + f), (double) j, (double) ((float) k + f), (double) ((float) (i + 1) - f), (double) ((float) (j + 1) - f), (double) ((float) (k + 1) - f));
     }
 
-    public int a(int i) {
-        return i == 1 ? this.cl - 1 : (i == 0 ? this.cl + 1 : this.cl);
-    }
-
+    @Override
     public boolean b() {
         return false;
     }
 
+    @Override
     public boolean c() {
         return false;
     }
 
+    @Override
     public int d() {
         return 13;
     }
 
-    public boolean b(OWorld oworld, int i, int j, int k) {
-        return !super.b(oworld, i, j, k) ? false : this.d(oworld, i, j, k);
+    @Override
+    public boolean c(OWorld oworld, int i, int j, int k) {
+        return !super.c(oworld, i, j, k) ? false : this.f(oworld, i, j, k);
     }
 
+    @Override
     public void a(OWorld oworld, int i, int j, int k, int l) {
-        if (!this.d(oworld, i, j, k)) {
-            this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
-            oworld.e(i, j, k, 0);
+        if (!this.f(oworld, i, j, k)) {
+            oworld.a(i, j, k, true);
         }
     }
 
-    public boolean d(OWorld oworld, int i, int j, int k) {
+    @Override
+    public boolean f(OWorld oworld, int i, int j, int k) {
         if (oworld.g(i - 1, j, k).a()) {
             return false;
         } else if (oworld.g(i + 1, j, k).a()) {
@@ -74,15 +78,17 @@ public class OBlockCactus extends OBlock {
         } else {
             int l = oworld.a(i, j - 1, k);
 
-            return l == OBlock.aY.cm || l == OBlock.H.cm;
+            return l == OBlock.aZ.cz || l == OBlock.I.cz;
         }
     }
 
+    @Override
     public void a(OWorld oworld, int i, int j, int k, OEntity oentity) {
         // CanaryMod Damage hook: Cactus
-        if (oentity instanceof OEntityLiving && (Boolean) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, PluginLoader.DamageType.CACTUS, null, new LivingEntity((OEntityLiving) oentity), 1)) {
+        HookParametersDamage ev = (HookParametersDamage) etc.getLoader().callHook(PluginLoader.Hook.DAMAGE, new HookParametersDamage(null, oentity.getEntity(), DamageType.CACTUS.getDamageSource(), 1));
+        if (ev.isCanceled()) {
             return;
         }
-        oentity.a(ODamageSource.g, 1);
+        oentity.a(ev.getDamageSource().getDamageSource(), ev.getDamageAmount());
     }
 }

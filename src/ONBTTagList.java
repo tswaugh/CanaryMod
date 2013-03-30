@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
 
 public class ONBTTagList extends ONBTBase {
 
-    List a = new ArrayList();
+    List a = new ArrayList(); // CanaryMod: private -> package-private
     private byte c;
 
     public ONBTTagList() {
@@ -19,40 +18,32 @@ public class ONBTTagList extends ONBTBase {
         super(s);
     }
 
-    void a(DataOutput dataoutput) {
+    void a(DataOutput dataoutput) throws IOException {
         if (!this.a.isEmpty()) {
             this.c = ((ONBTBase) this.a.get(0)).a();
         } else {
             this.c = 1;
         }
 
-        try { // CanaryMod: surround with try-catch
-            dataoutput.writeByte(this.c);
-            dataoutput.writeInt(this.a.size());
+        dataoutput.writeByte(this.c);
+        dataoutput.writeInt(this.a.size());
 
-            for (int i = 0; i < this.a.size(); ++i) {
-                ((ONBTBase) this.a.get(i)).a(dataoutput);
-            }
-        } catch (IOException e) {
-            ONetServerHandler.a.log(Level.SEVERE, null, e);
+        for (int i = 0; i < this.a.size(); ++i) {
+            ((ONBTBase) this.a.get(i)).a(dataoutput);
         }
     }
 
-    void a(DataInput datainput) {
-        try { // CanaryMod: surround with try-catch
-            this.c = datainput.readByte();
-            int i = datainput.readInt();
+    void a(DataInput datainput) throws IOException {
+        this.c = datainput.readByte();
+        int i = datainput.readInt();
 
-            this.a = new ArrayList();
+        this.a = new ArrayList();
 
-            for (int j = 0; j < i; ++j) {
-                ONBTBase onbtbase = ONBTBase.a(this.c, (String) null);
+        for (int j = 0; j < i; ++j) {
+            ONBTBase onbtbase = ONBTBase.a(this.c, (String) null);
 
-                onbtbase.a(datainput);
-                this.a.add(onbtbase);
-            }
-        } catch (IOException e) {
-            ONetServerHandler.a.log(Level.SEVERE, null, e);
+            onbtbase.a(datainput);
+            this.a.add(onbtbase);
         }
     }
 

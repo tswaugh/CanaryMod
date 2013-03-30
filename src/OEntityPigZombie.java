@@ -7,26 +7,26 @@ public class OEntityPigZombie extends OEntityZombie {
 
     public OEntityPigZombie(OWorld oworld) {
         super(oworld);
-        this.aG = "/mob/pigzombie.png";
-        this.bH = 0.5F;
-        this.af = true;
+        this.aH = "/mob/pigzombie.png";
+        this.bI = 0.5F;
+        this.ag = true;
     }
 
-    protected boolean be() {
+    protected boolean bh() {
         return false;
     }
 
-    public void j_() {
-        this.bH = this.a_ != null ? 0.95F : 0.5F;
+    public void l_() {
+        this.bI = this.a_ != null ? 0.95F : 0.5F;
         if (this.e > 0 && --this.e == 0) {
-            this.a("mob.zombiepig.zpigangry", this.aX() * 2.0F, ((this.aa.nextFloat() - this.aa.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+            this.a("mob.zombiepig.zpigangry", this.ba() * 2.0F, ((this.ab.nextFloat() - this.ab.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
-        super.j_();
+        super.l_();
     }
 
-    public boolean bs() {
-        return this.p.s > 0 && this.p.b(this.D) && this.p.a((OEntity) this, this.D).isEmpty() && !this.p.d(this.D);
+    public boolean bv() {
+        return this.q.r > 0 && this.q.b(this.E) && this.q.a((OEntity) this, this.E).isEmpty() && !this.q.d(this.E);
     }
 
     public void b(ONBTTagCompound onbttagcompound) {
@@ -44,14 +44,14 @@ public class OEntityPigZombie extends OEntityZombie {
     }
 
     public boolean a(ODamageSource odamagesource, int i) {
-        if (this.ar()) {
+        if (this.aq()) {
             return false;
         } else {
-            OEntity oentity = odamagesource.g();
+            OEntity oentity = odamagesource.i();
 
             if (oentity instanceof OEntityPlayer) {
                 if (!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.MOB_TARGET, oentity.getEntity(), this.getEntity())) { // CanaryMod: MOB_TARGET
-                    List list = this.p.b((OEntity) this, this.D.b(32.0D, 32.0D, 32.0D));
+                    List list = this.q.b((OEntity) this, this.E.b(32.0D, 32.0D, 32.0D));
 
                     for (int j = 0; j < list.size(); ++j) {
                         OEntity oentity1 = (OEntity) list.get(j);
@@ -73,61 +73,61 @@ public class OEntityPigZombie extends OEntityZombie {
 
     private void p(OEntity oentity) {
         this.a_ = oentity;
-        this.d = 400 + this.aa.nextInt(400);
-        this.e = this.aa.nextInt(40);
+        this.d = 400 + this.ab.nextInt(400);
+        this.e = this.ab.nextInt(40);
     }
 
-    protected String aY() {
+    protected String bb() {
         return "mob.zombiepig.zpig";
     }
 
-    protected String aZ() {
+    protected String bc() {
         return "mob.zombiepig.zpighurt";
     }
 
-    protected String ba() {
+    protected String bd() {
         return "mob.zombiepig.zpigdeath";
     }
 
     protected void a(boolean flag, int i) {
-        int j = this.aa.nextInt(2 + i);
+        int j = this.ab.nextInt(2 + i);
 
         int k;
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.bm.cj, 1);
+            this.b(OItem.bn.cp, 1);
         }
 
-        j = this.aa.nextInt(2 + i);
+        j = this.ab.nextInt(2 + i);
 
         for (k = 0; k < j; ++k) {
-            this.b(OItem.bq.cj, 1);
+            this.b(OItem.br.cp, 1);
         }
     }
 
-    public boolean a(OEntityPlayer oentityplayer) {
+    public boolean a_(OEntityPlayer oentityplayer) {
         return false;
     }
 
     protected void l(int i) {
-        this.b(OItem.p.cj, 1);
+        this.b(OItem.q.cp, 1);
     }
 
-    protected int bb() {
-        return OItem.bm.cj;
+    protected int be() {
+        return OItem.bn.cp;
     }
 
-    protected void bE() {
-        this.b(0, new OItemStack(OItem.G));
+    protected void bH() {
+        this.c(0, new OItemStack(OItem.H));
     }
 
-    public void bG() {
-        super.bG();
-        this.g(false);
+    public void bJ() {
+        super.bJ();
+        this.i(false);
     }
 
     public int c(OEntity oentity) {
-        OItemStack oitemstack = this.bD();
+        OItemStack oitemstack = this.bG();
         int i = 5;
 
         if (oitemstack != null) {

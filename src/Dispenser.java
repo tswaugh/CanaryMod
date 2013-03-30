@@ -15,6 +15,6 @@ public class Dispenser extends BaseContainerBlock<OTileEntityDispenser> implemen
         OWorld oworld = this.getWorld().getWorld();
 
         // OBlock.P = OBlockDispenser, n = dispense
-        ((OBlockDispenser) OBlock.S).n(oworld, this.getX(), this.getY(), this.getZ());
+        ((OBlockDispenser) OBlock.T).j_(oworld, this.getX(), this.getY(), this.getZ());
     }
 }

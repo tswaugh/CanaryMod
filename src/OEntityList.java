@@ -43,6 +43,23 @@ public class OEntityList {
     public static OEntity a(ONBTTagCompound onbttagcompound, OWorld oworld) {
         OEntity oentity = null;
 
+        if ("Minecart".equals(onbttagcompound.i("id"))) {
+            switch (onbttagcompound.e("Type")) {
+                case 0:
+                    onbttagcompound.a("id", "MinecartRideable");
+                    break;
+
+                case 1:
+                    onbttagcompound.a("id", "MinecartChest");
+                    break;
+
+                case 2:
+                    onbttagcompound.a("id", "MinecartFurnace");
+            }
+
+            onbttagcompound.o("Type");
+        }
+
         try {
             Class oclass = (Class) b.get(onbttagcompound.i("id"));
 
@@ -54,9 +71,9 @@ public class OEntityList {
         }
 
         if (oentity != null) {
-            oentity.e(onbttagcompound);
+            oentity.f(onbttagcompound);
         } else {
-            System.out.println("Skipping Entity with id " + onbttagcompound.i("id"));
+            oworld.W().b("Skipping Entity with id " + onbttagcompound.i("id"));
         }
 
         return oentity;
@@ -66,7 +83,7 @@ public class OEntityList {
         OEntity oentity = null;
 
         try {
-            Class oclass = (Class) d.get(Integer.valueOf(i));
+            Class oclass = a(i);
 
             if (oclass != null) {
                 oentity = (OEntity) oclass.getConstructor(new Class[] { OWorld.class}).newInstance(new Object[] { oworld});
@@ -76,7 +93,7 @@ public class OEntityList {
         }
 
         if (oentity == null) {
-            System.out.println("Skipping Entity with id " + i);
+            oworld.W().b("Skipping Entity with id " + i);
         }
 
         return oentity;
@@ -97,7 +114,7 @@ public class OEntityList {
     }
 
     public static String b(int i) {
-        Class oclass = (Class) d.get(Integer.valueOf(i));
+        Class oclass = a(i);
 
         return oclass != null ? (String) c.get(oclass) : null;
     }
@@ -129,8 +146,13 @@ public class OEntityList {
         a(OEntityTNTPrimed.class, "PrimedTnt", 20);
         a(OEntityFallingSand.class, "FallingSand", 21);
         a(OEntityFireworkRocket.class, "FireworksRocketEntity", 22);
-        a(OEntityMinecart.class, "Minecart", 40);
         a(OEntityBoat.class, "Boat", 41);
+        a(OEntityMinecartEmpty.class, "MinecartRideable", 42);
+        a(OEntityMinecartChest.class, "MinecartChest", 43);
+        a(OEntityMinecartFurnace.class, "MinecartFurnace", 44);
+        a(OEntityMinecartTNT.class, "MinecartTNT", 45);
+        a(OEntityMinecartHopper.class, "MinecartHopper", 46);
+        a(OEntityMinecartMobSpawner.class, "MinecartSpawner", 47);
         a(OEntityLiving.class, "Mob", 48);
         a(OEntityMob.class, "Monster", 49);
         a(OEntityCreeper.class, "Creeper", 50, 894731, 0);

@@ -4,18 +4,18 @@ public class OItemBoat extends OItem {
 
     public OItemBoat(int i) {
         super(i);
-        this.ck = 1;
+        this.cq = 1;
         this.a(OCreativeTabs.e);
     }
 
     public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
         float f = 1.0F;
-        float f1 = oentityplayer.C + (oentityplayer.A - oentityplayer.C) * f;
-        float f2 = oentityplayer.B + (oentityplayer.z - oentityplayer.B) * f;
-        double d0 = oentityplayer.q + (oentityplayer.t - oentityplayer.q) * (double) f;
-        double d1 = oentityplayer.r + (oentityplayer.u - oentityplayer.r) * (double) f + 1.62D - (double) oentityplayer.M;
-        double d2 = oentityplayer.s + (oentityplayer.v - oentityplayer.s) * (double) f;
-        OVec3 ovec3 = oworld.S().a(d0, d1, d2);
+        float f1 = oentityplayer.D + (oentityplayer.B - oentityplayer.D) * f;
+        float f2 = oentityplayer.C + (oentityplayer.A - oentityplayer.C) * f;
+        double d0 = oentityplayer.r + (oentityplayer.u - oentityplayer.r) * (double) f;
+        double d1 = oentityplayer.s + (oentityplayer.v - oentityplayer.s) * (double) f + 1.62D - (double) oentityplayer.N;
+        double d2 = oentityplayer.t + (oentityplayer.w - oentityplayer.t) * (double) f;
+        OVec3 ovec3 = oworld.T().a(d0, d1, d2);
         float f3 = OMathHelper.b(-f2 * 0.017453292F - 3.1415927F);
         float f4 = OMathHelper.a(-f2 * 0.017453292F - 3.1415927F);
         float f5 = -OMathHelper.b(-f1 * 0.017453292F);
@@ -32,16 +32,16 @@ public class OItemBoat extends OItem {
             OVec3 ovec32 = oentityplayer.i(f);
             boolean flag = false;
             float f9 = 1.0F;
-            List list = oworld.b((OEntity) oentityplayer, oentityplayer.D.a(ovec32.c * d3, ovec32.d * d3, ovec32.e * d3).b((double) f9, (double) f9, (double) f9));
+            List list = oworld.b((OEntity) oentityplayer, oentityplayer.E.a(ovec32.c * d3, ovec32.d * d3, ovec32.e * d3).b((double) f9, (double) f9, (double) f9));
 
             int i;
 
             for (i = 0; i < list.size(); ++i) {
                 OEntity oentity = (OEntity) list.get(i);
 
-                if (oentity.L()) {
-                    float f10 = oentity.Y();
-                    OAxisAlignedBB oaxisalignedbb = oentity.D.b((double) f10, (double) f10, (double) f10);
+                if (oentity.K()) {
+                    float f10 = oentity.X();
+                    OAxisAlignedBB oaxisalignedbb = oentity.E.b((double) f10, (double) f10, (double) f10);
 
                     if (oaxisalignedbb.a(ovec3)) {
                         flag = true;
@@ -57,7 +57,7 @@ public class OItemBoat extends OItem {
                     int j = omovingobjectposition.c;
                     int k = omovingobjectposition.d;
 
-                    if (oworld.a(i, j, k) == OBlock.aV.cm) {
+                    if (oworld.a(i, j, k) == OBlock.aW.cz) {
                         --j;
                     }
 
@@ -71,8 +71,8 @@ public class OItemBoat extends OItem {
                     }
                     OEntityBoat oentityboat = new OEntityBoat(oworld, (double) ((float) i + 0.5F), (double) ((float) j + 1.0F), (double) ((float) k + 0.5F));
 
-                    oentityboat.z = (float) (((OMathHelper.c((double) (oentityplayer.z * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90);
-                    if (!oworld.a((OEntity) oentityboat, oentityboat.D.b(-0.1D, -0.1D, -0.1D)).isEmpty()) {
+                    oentityboat.A = (float) (((OMathHelper.c((double) (oentityplayer.A * 4.0F / 360.0F) + 0.5D) & 3) - 1) * 90);
+                    if (!oworld.a((OEntity) oentityboat, oentityboat.E.b(-0.1D, -0.1D, -0.1D)).isEmpty()) {
                         return oitemstack;
                     }
 
@@ -80,7 +80,7 @@ public class OItemBoat extends OItem {
                         oworld.d((OEntity) oentityboat);
                     }
 
-                    if (!oentityplayer.cd.d) {
+                    if (!oentityplayer.ce.d) {
                         --oitemstack.a;
                     }
                 }

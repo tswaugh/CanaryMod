@@ -5,9 +5,9 @@
  *
  * @author James
  */
-public class MobSpawner implements ComplexBlock {
+public class MobSpawner extends MobSpawnerLogic implements ComplexBlock {
 
-    OTileEntityMobSpawner spawner;
+    private OTileEntityMobSpawner spawner;
 
     /**
      * Creates an interface for the spawner.
@@ -15,222 +15,13 @@ public class MobSpawner implements ComplexBlock {
      * @param spawner
      */
     public MobSpawner(OTileEntityMobSpawner spawner) {
+        super(spawner.a());
         this.spawner = spawner;
     }
 
     @Override
-    public int getX() {
-        return spawner.l;
-    }
-
-    @Override
-    public int getY() {
-        return spawner.m;
-    }
-
-    @Override
-    public int getZ() {
-        return spawner.n;
-    }
-
-    @Override
     public Block getBlock() {
-        return getWorld().getBlockAt(getX(), getY(), getZ());
-    }
-
-    @Override
-    public World getWorld() {
-        return spawner.k.world;
-    }
-
-    @Override
-    public void update() {
-        etc.getMCServer().ad().a(spawner.l());
-    }
-
-    /**
-     * Allows what to spawn to change on-the-fly
-     *
-     * @param spawn
-     */
-    public void setSpawn(String spawn) {
-        spawner.d = spawn;
-        update();
-    }
-
-    /**
-     * Returns the spawn used.
-     *
-     * @return
-     */
-    public String getSpawn() {
-        return spawner.d;
-    }
-
-    /**
-     * Allows delay of what to spawn to change on-the-fly.
-     * Modification of this is near-useless as delays get randomized after
-     * spawn.
-     *
-     * @param delay
-     */
-    public void setDelay(int delay) {
-        spawner.a = delay;
-    }
-
-    /**
-     * Returns the minimum delay of the spawner.
-     * The delay between spawns is picked randomly between this and the max delay.
-     *
-     * @return
-     */
-    public int getMinDelay() {
-        return spawner.g;
-    }
-
-    /**
-     * Sets the minimum delay of the spawner.
-     * The delay between spawns is picked randomly between this and the max delay.
-     * Default is 200.
-     *
-     * @param delay
-     */
-    public void setMinDelay(int delay) {
-        spawner.g = delay;
-    }
-
-    /**
-     * Returns the maximum delay of the spawner.
-     * The delay between spawns is picked randomly between this and the min delay.
-     *
-     * @return
-     */
-    public int getMaxDelay() {
-        return spawner.h;
-    }
-
-    /**
-     * Sets the maximum delay of the spawner.
-     * The delay between spawns is picked randomly between this and the min delay.
-     * Default is 800.
-     *
-     * @param delay
-     */
-    public void setMaxDelay(int delay) {
-        spawner.h = delay;
-    }
-
-    /**
-     * Returns the amount of mobs this spawner attempts to spawn.
-     *
-     * @return
-     */
-    public int getSpawnCount() {
-        return spawner.i;
-    }
-
-    /**
-     * Sets the amount of mobs this spawner attempts to spawn.
-     * Default is 4.
-     *
-     * @param count
-     */
-    public void setSpawnCount(int count) {
-        spawner.i = count;
-    }
-
-    /**
-     * Returns the maximum number of entities this spawner allows nearby in order to continue spawning.
-     * Any more entities and this spawner won't spawn mobs.
-     *
-     * @return
-     */
-    public int getMaxNearbyEntities() {
-        return spawner.r;
-    }
-
-    /**
-     * Sets the maximum number of entities this spawner allows nearby in order to continue spawning.
-     * Any more entities and this spawner won't spawn mobs.
-     * Default is 6.
-     *
-     * @param entities
-     */
-    public void setMaxNearbyEntities(int entities) {
-        spawner.r = entities;
-    }
-
-    /**
-     * If there are no players within this distance of the spawner, it won't spawn.
-     *
-     * @return
-     */
-    public int getRequiredPlayerRange() {
-        return spawner.s;
-    }
-
-    /**
-     * If there are no players within this distance of the spawner, it won't spawn.
-     * Default is 16.
-     *
-     * @param range
-     */
-    public void setRequiredPlayerRange(int range) {
-        spawner.s = range;
-    }
-
-    /**
-     * Returns the maximum distance that this spawner will spawn mobs at.
-     *
-     * @return
-     */
-    public int getSpawnRange() {
-        return spawner.t;
-    }
-
-    /**
-     * Sets the maximum distance that this spawner will spawn mobs at.
-     * Default is 4.
-     *
-     * @param range
-     */
-    public void setSpawnRange(int range) {
-        spawner.t = range;
-    }
-
-    /**
-     * Sets the entity spawned by this spawner.
-     *
-     * @param entity The entity this spawner should spawn
-     */
-    public void setSpawnedEntity(BaseEntity entity) {
-        setSpawnedEntity(entity.getEntity());
-    }
-
-    /**
-     * Sets the entity spawned by this spawner to an item.
-     *
-     * @param itemEntity The item this spawner should spawn
-     */
-    public void setSpawnedEntity(Item itemEntity) {
-        setSpawnedEntity(new OEntityItem(null, 0, 0, 0, itemEntity.getBaseItem()));
-    }
-
-    /**
-     * Sets the entity spawned by this spawner.
-     *
-     * @param entity The entity this spawner should spawn
-     */
-    public void setSpawnedEntity(OEntity entity) {
-        NBTTagCompound tag = new NBTTagCompound();
-        entity.b(tag.getBaseTag());
-        tag.removeTag("Health");
-        tag.removeTag("HurtTime");
-        tag.removeTag("DeathTime");
-        tag.removeTag("AttackTime");
-        tag.removeTag("Age");
-        spawner.f.b = tag.getBaseTag();
-        setSpawn(entity.Q());
+        return this.getWorld().getBlockAt(this.getX(), this.getY(), this.getZ());
     }
 
     /**
@@ -238,8 +29,9 @@ public class MobSpawner implements ComplexBlock {
      *
      * @param tag the tag to read from
      */
+    @Override
     public void readFromTag(NBTTagCompound tag) {
-        spawner.a(tag.getBaseTag());
+        this.spawner.a(tag.getBaseTag());
     }
 
     /**
@@ -247,12 +39,19 @@ public class MobSpawner implements ComplexBlock {
      *
      * @param tag the tag to write to
      */
+    @Override
     public void writeToTag(NBTTagCompound tag) {
-        spawner.b(tag.getBaseTag());
+        this.spawner.b(tag.getBaseTag());
     }
 
     @Override
     public NBTTagCompound getMetaTag() {
-        return spawner.metadata;
+        return this.spawner.metadata;
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        this.spawner.k_();
     }
 }

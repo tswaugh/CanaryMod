@@ -4,16 +4,16 @@ public class OItemBucket extends OItem {
 
     public OItemBucket(int i, int j) {
         super(i);
-        this.ck = 1;
+        this.cq = 1;
         this.a = j;
         this.a(OCreativeTabs.f);
     }
 
     public OItemStack a(OItemStack oitemstack, OWorld oworld, OEntityPlayer oentityplayer) {
         float f = 1.0F;
-        double d0 = oentityplayer.q + (oentityplayer.t - oentityplayer.q) * (double) f;
-        double d1 = oentityplayer.r + (oentityplayer.u - oentityplayer.r) * (double) f + 1.62D - (double) oentityplayer.M;
-        double d2 = oentityplayer.s + (oentityplayer.v - oentityplayer.s) * (double) f;
+        double d0 = oentityplayer.r + (oentityplayer.u - oentityplayer.r) * (double) f;
+        double d1 = oentityplayer.s + (oentityplayer.v - oentityplayer.s) * (double) f + 1.62D - (double) oentityplayer.N;
+        double d2 = oentityplayer.t + (oentityplayer.w - oentityplayer.t) * (double) f;
         boolean flag = this.a == 0;
         OMovingObjectPosition omovingobjectposition = this.a(oworld, oentityplayer, flag);
 
@@ -44,17 +44,17 @@ public class OItemBucket extends OItem {
                             return oitemstack;
                         }
 
-                        oworld.e(i, j, k, 0);
-                        if (oentityplayer.cd.d) {
+                        oworld.i(i, j, k);
+                        if (oentityplayer.ce.d) {
                             return oitemstack;
                         }
 
                         if (--oitemstack.a <= 0) {
-                            return new OItemStack(OItem.ax);
+                            return new OItemStack(OItem.ay);
                         }
 
-                        if (!oentityplayer.bJ.a(new OItemStack(OItem.ax))) {
-                            oentityplayer.c(new OItemStack(OItem.ax.cj, 1, 0));
+                        if (!oentityplayer.bK.a(new OItemStack(OItem.ay))) {
+                            oentityplayer.c(new OItemStack(OItem.ay.cp, 1, 0));
                         }
 
                         return oitemstack;
@@ -66,24 +66,24 @@ public class OItemBucket extends OItem {
                             return oitemstack;
                         }
 
-                        oworld.e(i, j, k, 0);
-                        if (oentityplayer.cd.d) {
+                        oworld.i(i, j, k);
+                        if (oentityplayer.ce.d) {
                             return oitemstack;
                         }
 
                         if (--oitemstack.a <= 0) {
-                            return new OItemStack(OItem.ay);
+                            return new OItemStack(OItem.az);
                         }
 
-                        if (!oentityplayer.bJ.a(new OItemStack(OItem.ay))) {
-                            oentityplayer.c(new OItemStack(OItem.ay.cj, 1, 0));
+                        if (!oentityplayer.bK.a(new OItemStack(OItem.az))) {
+                            oentityplayer.c(new OItemStack(OItem.az.cp, 1, 0));
                         }
 
                         return oitemstack;
                     }
                 } else {
                     if (this.a < 0) {
-                        return new OItemStack(OItem.aw);
+                        return new OItemStack(OItem.ax);
                     }
 
                     if (omovingobjectposition.e == 0) {
@@ -114,14 +114,14 @@ public class OItemBucket extends OItem {
                         return oitemstack;
                     }
 
-                    if (this.a(oworld, d0, d1, d2, i, j, k, oentityplayer) && !oentityplayer.cd.d) { // CanaryMod: pass oentityplayer
-                        return new OItemStack(OItem.aw);
+                    if (this.a(oworld, d0, d1, d2, i, j, k, oentityplayer) && !oentityplayer.ce.d) { // CanaryMod: pass oentityplayer
+                        return new OItemStack(OItem.ax);
                     }
                 }
             } else if (this.a == 0 && omovingobjectposition.g instanceof OEntityCow) {
                 // CanaryMod hook: onCowMilk
                 if (oentityplayer instanceof OEntityPlayerMP &&!(Boolean) etc.getLoader().callHook(PluginLoader.Hook.COW_MILK, ((OEntityPlayerMP) oentityplayer).getPlayer(), new Mob((OEntityCow) omovingobjectposition.g))) {
-                    return new OItemStack(OItem.aG);
+                    return new OItemStack(OItem.aH);
                 }
             }
 
@@ -139,8 +139,8 @@ public class OItemBucket extends OItem {
         } else if (!oworld.c(i, j, k) && oworld.g(i, j, k).a()) {
             return false;
         } else {
-            if (oworld.u.e && this.a == OBlock.D.cm) {
-                oworld.a(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D, "random.fizz", 0.5F, 2.6F + (oworld.t.nextFloat() - oworld.t.nextFloat()) * 0.8F);
+            if (oworld.t.e && this.a == OBlock.E.cz) {
+                oworld.a(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D, "random.fizz", 0.5F, 2.6F + (oworld.s.nextFloat() - oworld.s.nextFloat()) * 0.8F);
 
                 for (int l = 0; l < 8; ++l) {
                     oworld.a("largesmoke", (double) i + Math.random(), (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);
@@ -155,7 +155,7 @@ public class OItemBucket extends OItem {
                         return false;
                     }
                 }
-                oworld.d(i, j, k, this.a, 0);
+                oworld.f(i, j, k, this.a, 0, 3);
             }
 
             return true;

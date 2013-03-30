@@ -1,11 +1,11 @@
 public class OBlockLever extends OBlock {
 
-    protected OBlockLever(int i, int j) {
-        super(i, j, OMaterial.q);
+    protected OBlockLever(int i) {
+        super(i, OMaterial.q);
         this.a(OCreativeTabs.d);
     }
 
-    public OAxisAlignedBB e(OWorld oworld, int i, int j, int k) {
+    public OAxisAlignedBB b(OWorld oworld, int i, int j, int k) {
         return null;
     }
 
@@ -21,47 +21,67 @@ public class OBlockLever extends OBlock {
         return 12;
     }
 
-    public boolean b_(OWorld oworld, int i, int j, int k, int l) {
-        return l == 0 && oworld.t(i, j + 1, k) ? true : (l == 1 && oworld.v(i, j - 1, k) ? true : (l == 2 && oworld.t(i, j, k + 1) ? true : (l == 3 && oworld.t(i, j, k - 1) ? true : (l == 4 && oworld.t(i + 1, j, k) ? true : l == 5 && oworld.t(i - 1, j, k)))));
+    public boolean c(OWorld oworld, int i, int j, int k, int l) {
+        return l == 0 && oworld.u(i, j + 1, k) ? true : (l == 1 && oworld.w(i, j - 1, k) ? true : (l == 2 && oworld.u(i, j, k + 1) ? true : (l == 3 && oworld.u(i, j, k - 1) ? true : (l == 4 && oworld.u(i + 1, j, k) ? true : l == 5 && oworld.u(i - 1, j, k)))));
     }
 
-    public boolean b(OWorld oworld, int i, int j, int k) {
-        return oworld.t(i - 1, j, k) ? true : (oworld.t(i + 1, j, k) ? true : (oworld.t(i, j, k - 1) ? true : (oworld.t(i, j, k + 1) ? true : (oworld.v(i, j - 1, k) ? true : oworld.t(i, j + 1, k)))));
+    public boolean c(OWorld oworld, int i, int j, int k) {
+        return oworld.u(i - 1, j, k) ? true : (oworld.u(i + 1, j, k) ? true : (oworld.u(i, j, k - 1) ? true : (oworld.u(i, j, k + 1) ? true : (oworld.w(i, j - 1, k) ? true : oworld.u(i, j + 1, k)))));
     }
 
     public int a(OWorld oworld, int i, int j, int k, int l, float f, float f1, float f2, int i1) {
         int j1 = i1 & 8;
         int k1 = i1 & 7;
+        byte b0 = -1;
 
-        k1 = -1;
-        if (l == 0 && oworld.t(i, j + 1, k)) {
-            k1 = oworld.t.nextBoolean() ? 0 : 7;
+        if (l == 0 && oworld.u(i, j + 1, k)) {
+            b0 = 0;
         }
 
-        if (l == 1 && oworld.v(i, j - 1, k)) {
-            k1 = 5 + oworld.t.nextInt(2);
+        if (l == 1 && oworld.w(i, j - 1, k)) {
+            b0 = 5;
         }
 
-        if (l == 2 && oworld.t(i, j, k + 1)) {
-            k1 = 4;
+        if (l == 2 && oworld.u(i, j, k + 1)) {
+            b0 = 4;
         }
 
-        if (l == 3 && oworld.t(i, j, k - 1)) {
-            k1 = 3;
+        if (l == 3 && oworld.u(i, j, k - 1)) {
+            b0 = 3;
         }
 
-        if (l == 4 && oworld.t(i + 1, j, k)) {
-            k1 = 2;
+        if (l == 4 && oworld.u(i + 1, j, k)) {
+            b0 = 2;
         }
 
-        if (l == 5 && oworld.t(i - 1, j, k)) {
-            k1 = 1;
+        if (l == 5 && oworld.u(i - 1, j, k)) {
+            b0 = 1;
         }
 
-        return k1 + j1;
+        return b0 + j1;
     }
 
-    public static int e(int i) {
+    public void a(OWorld oworld, int i, int j, int k, OEntityLiving oentityliving, OItemStack oitemstack) {
+        int l = oworld.h(i, j, k);
+        int i1 = l & 7;
+        int j1 = l & 8;
+
+        if (i1 == d(1)) {
+            if ((OMathHelper.c((double) (oentityliving.A * 4.0F / 360.0F) + 0.5D) & 1) == 0) {
+                oworld.b(i, j, k, 5 | j1, 2);
+            } else {
+                oworld.b(i, j, k, 6 | j1, 2);
+            }
+        } else if (i1 == d(0)) {
+            if ((OMathHelper.c((double) (oentityliving.A * 4.0F / 360.0F) + 0.5D) & 1) == 0) {
+                oworld.b(i, j, k, 7 | j1, 2);
+            } else {
+                oworld.b(i, j, k, 0 | j1, 2);
+            }
+        }
+    }
+
+    public static int d(int i) {
         switch (i) {
             case 0:
                 return 0;
@@ -87,53 +107,53 @@ public class OBlockLever extends OBlock {
     }
 
     public void a(OWorld oworld, int i, int j, int k, int l) {
-        if (this.l(oworld, i, j, k)) {
+        if (this.k(oworld, i, j, k)) {
             int i1 = oworld.h(i, j, k) & 7;
             boolean flag = false;
 
-            if (!oworld.t(i - 1, j, k) && i1 == 1) {
+            if (!oworld.u(i - 1, j, k) && i1 == 1) {
                 flag = true;
             }
 
-            if (!oworld.t(i + 1, j, k) && i1 == 2) {
+            if (!oworld.u(i + 1, j, k) && i1 == 2) {
                 flag = true;
             }
 
-            if (!oworld.t(i, j, k - 1) && i1 == 3) {
+            if (!oworld.u(i, j, k - 1) && i1 == 3) {
                 flag = true;
             }
 
-            if (!oworld.t(i, j, k + 1) && i1 == 4) {
+            if (!oworld.u(i, j, k + 1) && i1 == 4) {
                 flag = true;
             }
 
-            if (!oworld.v(i, j - 1, k) && i1 == 5) {
+            if (!oworld.w(i, j - 1, k) && i1 == 5) {
                 flag = true;
             }
 
-            if (!oworld.v(i, j - 1, k) && i1 == 6) {
+            if (!oworld.w(i, j - 1, k) && i1 == 6) {
                 flag = true;
             }
 
-            if (!oworld.t(i, j + 1, k) && i1 == 0) {
+            if (!oworld.u(i, j + 1, k) && i1 == 0) {
                 flag = true;
             }
 
-            if (!oworld.t(i, j + 1, k) && i1 == 7) {
+            if (!oworld.u(i, j + 1, k) && i1 == 7) {
                 flag = true;
             }
 
             if (flag) {
                 this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
-                oworld.e(i, j, k, 0);
+                oworld.i(i, j, k);
             }
         }
     }
 
-    private boolean l(OWorld oworld, int i, int j, int k) {
-        if (!this.b(oworld, i, j, k)) {
+    private boolean k(OWorld oworld, int i, int j, int k) {
+        if (!this.c(oworld, i, j, k)) {
             this.c(oworld, i, j, k, oworld.h(i, j, k), 0);
-            oworld.e(i, j, k, 0);
+            oworld.i(i, j, k);
             return false;
         } else {
             return true;
@@ -163,8 +183,6 @@ public class OBlockLever extends OBlock {
         }
     }
 
-    public void a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer) {}
-
     public boolean a(OWorld oworld, int i, int j, int k, OEntityPlayer oentityplayer, int l, float f, float f1, float f2) {
         if (oworld.I) {
             return true;
@@ -176,27 +194,26 @@ public class OBlockLever extends OBlock {
             int old = (k1 != 8) ? 1 : 0;
             int current = (k1 == 8) ? 1 : 0;
 
-            current = ((Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cm, i, j, k), old, current)).intValue();
+            current = ((Integer) etc.getLoader().callHook(PluginLoader.Hook.REDSTONE_CHANGE, new Block(oworld.world, this.cz, i, j, k), old, current)).intValue();
             k1 = (current > 0) ? 8 : 0;
 
-            oworld.c(i, j, k, j1 + k1);
-            oworld.e(i, j, k, i, j, k);
+            oworld.b(i, j, k, j1 + k1, 3);
             oworld.a((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "random.click", 0.3F, k1 > 0 ? 0.6F : 0.5F);
-            oworld.h(i, j, k, this.cm);
+            oworld.f(i, j, k, this.cz);
             if (j1 == 1) {
-                oworld.h(i - 1, j, k, this.cm);
+                oworld.f(i - 1, j, k, this.cz);
             } else if (j1 == 2) {
-                oworld.h(i + 1, j, k, this.cm);
+                oworld.f(i + 1, j, k, this.cz);
             } else if (j1 == 3) {
-                oworld.h(i, j, k - 1, this.cm);
+                oworld.f(i, j, k - 1, this.cz);
             } else if (j1 == 4) {
-                oworld.h(i, j, k + 1, this.cm);
+                oworld.f(i, j, k + 1, this.cz);
             } else if (j1 != 5 && j1 != 6) {
                 if (j1 == 0 || j1 == 7) {
-                    oworld.h(i, j + 1, k, this.cm);
+                    oworld.f(i, j + 1, k, this.cz);
                 }
             } else {
-                oworld.h(i, j - 1, k, this.cm);
+                oworld.f(i, j - 1, k, this.cz);
             }
 
             return true;
@@ -205,46 +222,46 @@ public class OBlockLever extends OBlock {
 
     public void a(OWorld oworld, int i, int j, int k, int l, int i1) {
         if ((i1 & 8) > 0) {
-            oworld.h(i, j, k, this.cm);
+            oworld.f(i, j, k, this.cz);
             int j1 = i1 & 7;
 
             if (j1 == 1) {
-                oworld.h(i - 1, j, k, this.cm);
+                oworld.f(i - 1, j, k, this.cz);
             } else if (j1 == 2) {
-                oworld.h(i + 1, j, k, this.cm);
+                oworld.f(i + 1, j, k, this.cz);
             } else if (j1 == 3) {
-                oworld.h(i, j, k - 1, this.cm);
+                oworld.f(i, j, k - 1, this.cz);
             } else if (j1 == 4) {
-                oworld.h(i, j, k + 1, this.cm);
+                oworld.f(i, j, k + 1, this.cz);
             } else if (j1 != 5 && j1 != 6) {
                 if (j1 == 0 || j1 == 7) {
-                    oworld.h(i, j + 1, k, this.cm);
+                    oworld.f(i, j + 1, k, this.cz);
                 }
             } else {
-                oworld.h(i, j - 1, k, this.cm);
+                oworld.f(i, j - 1, k, this.cz);
             }
         }
 
         super.a(oworld, i, j, k, l, i1);
     }
 
-    public boolean b(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
-        return (oiblockaccess.h(i, j, k) & 8) > 0;
+    public int b(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+        return (oiblockaccess.h(i, j, k) & 8) > 0 ? 15 : 0;
     }
 
-    public boolean c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
+    public int c(OIBlockAccess oiblockaccess, int i, int j, int k, int l) {
         int i1 = oiblockaccess.h(i, j, k);
 
         if ((i1 & 8) == 0) {
-            return false;
+            return 0;
         } else {
             int j1 = i1 & 7;
 
-            return j1 == 0 && l == 0 ? true : (j1 == 7 && l == 0 ? true : (j1 == 6 && l == 1 ? true : (j1 == 5 && l == 1 ? true : (j1 == 4 && l == 2 ? true : (j1 == 3 && l == 3 ? true : (j1 == 2 && l == 4 ? true : j1 == 1 && l == 5))))));
+            return j1 == 0 && l == 0 ? 15 : (j1 == 7 && l == 0 ? 15 : (j1 == 6 && l == 1 ? 15 : (j1 == 5 && l == 1 ? 15 : (j1 == 4 && l == 2 ? 15 : (j1 == 3 && l == 3 ? 15 : (j1 == 2 && l == 4 ? 15 : (j1 == 1 && l == 5 ? 15 : 0)))))));
         }
     }
 
-    public boolean i() {
+    public boolean f() {
         return true;
     }
 }

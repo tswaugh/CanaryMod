@@ -1,23 +1,19 @@
 import java.util.Random;
 
-public class OBehaviorDispenseFireball extends OBehaviorDefaultDispenseItem {
+final class ODispenserBehaviorFireball extends OBehaviorDefaultDispenseItem {
 
-    final OMinecraftServer b;
-
-    public OBehaviorDispenseFireball(OMinecraftServer ominecraftserver) {
-        this.b = ominecraftserver;
-    }
+    ODispenserBehaviorFireball() {}
 
     public OItemStack b(OIBlockSource oiblocksource, OItemStack oitemstack) {
-        OEnumFacing oenumfacing = OEnumFacing.a(oiblocksource.h());
+        OEnumFacing oenumfacing = OBlockDispenser.j_(oiblocksource.h());
         OIPosition oiposition = OBlockDispenser.a(oiblocksource);
         double d0 = oiposition.a() + (double) ((float) oenumfacing.c() * 0.3F);
-        double d1 = oiposition.b();
+        double d1 = oiposition.b() + (double) ((float) oenumfacing.c() * 0.3F);
         double d2 = oiposition.c() + (double) ((float) oenumfacing.e() * 0.3F);
         OWorld oworld = oiblocksource.k();
-        Random random = oworld.t;
+        Random random = oworld.s;
         double d3 = random.nextGaussian() * 0.05D + (double) oenumfacing.c();
-        double d4 = random.nextGaussian() * 0.05D;
+        double d4 = random.nextGaussian() * 0.05D + (double) oenumfacing.d();
         double d5 = random.nextGaussian() * 0.05D + (double) oenumfacing.e();
 
         OEntitySmallFireball oentitysmallfireball = new OEntitySmallFireball(oworld, d0, d1, d2, d3, d4, d5);
@@ -29,6 +25,6 @@ public class OBehaviorDispenseFireball extends OBehaviorDefaultDispenseItem {
     }
 
     protected void a(OIBlockSource oiblocksource) {
-        oiblocksource.k().f(1009, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), 0);
+        oiblocksource.k().e(1009, oiblocksource.d(), oiblocksource.e(), oiblocksource.f(), 0);
     }
 }

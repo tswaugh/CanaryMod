@@ -4,14 +4,14 @@
  * @author Brian McCarthy
  *
  */
-public class Wolf extends TamableEntity{
+public class Wolf extends TamableEntity {
 
     /**
      * Basic wolf constructor.
      *
      * @param entity An instance of OEntityWolf to wrap around.
      */
-    public Wolf(OEntityWolf entity){
+    public Wolf(OEntityWolf entity) {
         super(entity);
     }
 
@@ -20,8 +20,8 @@ public class Wolf extends TamableEntity{
      *
      * @return Boolean of if this wolf is angry.
      */
-    public boolean isAngry(){
-        return getEntity().bK();
+    public boolean isAngry() {
+        return getEntity().bU();
     }
 
     /**
@@ -29,8 +29,26 @@ public class Wolf extends TamableEntity{
      *
      * @param angry New angry state of the wolf.
      */
-    public void setAngry(boolean angry){
-        getEntity().i(angry);
+    public void setAngry(boolean angry) {
+        getEntity().l(angry);
+    }
+
+    /**
+     * Gets this wolf's collar colour.
+     *
+     * @return collar colour as an int
+     */
+    public int getCollarColour() {
+        return getEntity().bV();
+    }
+
+    /**
+     * Sets this wolf's collar colour.
+     *
+     * @param colour new collar colour
+     */
+    public void setCollarColour(int colour) {
+        getEntity().s(colour);
     }
 
     public OEntityWolf getEntity() {
